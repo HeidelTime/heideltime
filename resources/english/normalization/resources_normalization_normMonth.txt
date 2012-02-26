@@ -1,0 +1,152 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "month words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "2" is "02"
+// FORMAT: "month-word","normalized-month-word"
+// January
+"jan","01"
+"Jan","01"
+"jan.","01"
+"Jan.","01"
+"JAN","01"
+"JAN.","01"
+"January","01"
+"january","01"
+// February
+"Feb","02"
+"feb","02"
+"Feb.","02"
+"feb.","02"
+"FEB","02"
+"FEB.","02"
+"February","02"
+"february","02"
+// March
+"Mar","03"
+"mar","03"
+"Mar.","03"
+"mar.","03"
+"MAR","03"
+"MAR.","03"
+"March","03"
+"march","03"
+// April
+"Apr","04"
+"apr","04"
+"Apr.","04"
+"apr.","04"
+"APR.","04"
+"APR","04"
+"April","04"
+"april","04"
+// May
+"May","05"
+"may","05" 
+"May.","05"
+"may.","05"
+"MAY","05"
+"MAY.","05"
+// June
+"Jun","06"
+"jun","06"
+"Jun.","06"
+"jun.","06"
+"JUN","06"
+"JUN.","06"
+"June","06"
+"june","06"
+// July
+"Jul","07"
+"jul","07"
+"Jul.","07"
+"jul.","07"
+"JUL","07"
+"JUL.","07"
+"July","07"
+"july","07"
+// August
+"Aug","08"
+"aug","08"
+"Aug.","08"
+"aug.","08"
+"AUG","08"
+"AUG.","08"
+"August","08"
+"august","08"
+// September
+"Sep","09"
+"sep","09"
+"Sep.","09"
+"sep.","09"
+"SEP","09"
+"SEP.","09"
+"Sept","09"
+"sept","09"
+"Sept.","09"
+"sept.","09"
+"SEPT","09"
+"SEPT.","09"
+"September","09"
+"september","09"
+// October
+"Oct","10"
+"oct","10"
+"Oct.","10"
+"oct.","10"
+"OCT","10"
+"OCT.","10"
+"October","10"
+"october","10"
+// November
+"Nov","11"
+"nov","11"
+"Nov.","11"
+"nov.","11"
+"NOV","11"
+"NOV.","11"
+"November","11"
+"november","11"
+// December
+"Dec","12"
+"dec","12"
+"Dec.","12"
+"dec.","12"
+"DEC","12"
+"DEC.","12"
+"December","12"
+"december","12"
+// January
+"1","01"
+"01","01"
+// February
+"2","02"
+"02","02"
+// March
+"3","03"
+"03","03"
+// April
+"4","04"
+"04","04"
+// May
+"5","05"
+"05","05" 
+// June
+"6","06"
+"06","06"
+// July
+"7","07"
+"07","07"
+// August
+"8","08"
+"08","08"
+// September
+"9","09"
+"09","09"
+// October
+"10","10"
+// November
+"11","11"
+// December
+"12","12"

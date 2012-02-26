@@ -1,0 +1,21 @@
+// author: Matje van de Camp
+// email:  m.m.v.d.camp@tilburguniversity.edu
+// date:   2011-09-15
+// This file contains "day words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "maandag" is "1"
+// FORMAT: "day-word","normalized-day-word"
+"maandag","1"
+"dinsdag","2"
+"woensdag","3"
+"donderdag","4"
+"vrijdag","5"
+"zaterdag","6"
+"zondag","7"
+"Maandag","1"
+"Dinsdag","2"
+"Woensdag","3"
+"Donderdag","4"
+"Vrijdag","5"
+"Zaterdag","6"
+"Zondag","7"

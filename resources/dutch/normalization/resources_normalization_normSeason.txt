@@ -1,0 +1,19 @@
+// author: Matje van de Camp
+// email:  m.m.v.d.camp@tilburguniversity.edu
+// date:   2011-09-15
+// This file contains "season words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "zomer" is "SU"
+// FORMAT: "season-word","normalized-season-word"
+// spring
+"lente","SP"
+"Lente","SP"
+//summer
+"zomer","SU"
+"Zomer","SU"
+// fall
+"herfst","FA"
+"Herfst","FA"
+// winter
+"winter","WI"
+"Winter","WI"

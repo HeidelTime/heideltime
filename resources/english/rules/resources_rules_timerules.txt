@@ -1,0 +1,78 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-13
+// This file contains rules for the temporal expressions of the type time: timerules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+/////////////////////
+// TIMESTAMP STYLE //
+/////////////////////
+// time_r1 (Timestamp style)
+// EXAMPLE r1a-1: 2009-12-19T17:00:00
+// EXAMPLE r1a-2: 2009-12-19 17:00:00
+// EXAMPLE r1b-1: 2009-12-19T17:00
+// EXAMPLE r1c-1: 12/29/2000 20:29
+// EXAMPLE r1d-1: 12/29/2000 20:29:29
+// EXAMPLE r1e-1: 12/29/2000 20:29:29.79
+RULENAME="time_r1a",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )%reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7):group(8)"
+RULENAME="time_r1b",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )%reTimeHour:%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7)"
+RULENAME="time_r1c",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6)"
+RULENAME="time_r1d",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6):group(7)"
+RULENAME="time_r1e",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute:%reTimeMinute\.%reYear2Digit",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6):group(7).group(8)"
+
+// time_r2
+// EXAMPLE r2a-1: 09-24-99 1145EST (TimeStamp style with timezone information)
+// EXAMPLE r2b-1: November 24, 2011 1535 GMT
+RULENAME="time_r2a",EXTRACTION="(%reMonthNumber-%reDayNumber-%reYear2Digit)( %reTimeHour(:)?%reTimeMinute)%reTimezone",NORM_VALUE="UNDEF-centurygroup(4)-group(2)-group(3)T%normMinute(group(6)):%normMinute(group(8))%normTimezone(group(9))"
+RULENAME="time_r2b",EXTRACTION="%reMonthLong %reDayNumber, %reYear4Digit %reTimeHour(:)?%reTimeMinute %reTimezone",NORM_VALUE="group(3)-%normMonth(group(1))-%normDay(group(2))T%normMinute(group(4)):%normMinute(group(6))"
+
+
+/////////////////////////////
+// PART-OF-DAY GRANULARITY //
+/////////////////////////////
+// time_r3
+// EXAMPLE r3a-1: midnight Monday
+// EXAMPLE r3b-1: Monday night
+// EXAMPLE r3c-1: midnight today
+// EXAMPLE r3d-1: yesterday morning
+RULENAME="time_r3a",EXTRACTION="%rePartOfDay %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(2))T%normPartOfDay(group(1))"
+RULENAME="time_r3b",EXTRACTION="%reWeekday %rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normPartOfDay(group(2))"
+RULENAME="time_r3c",EXTRACTION="%rePartOfDay %reDateWord",NORM_VALUE="%normDateWord(group(2))T%normPartOfDay(group(1))"
+RULENAME="time_r3d",EXTRACTION="%reDateWord %rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
+
+// time_r4
+// EXAMPLE r4a-1: earlier this afternoon
+// EXAMPLE r4a-2: later last night
+// EXAMPLE r4b-1: tonight
+RULENAME="time_r4a",EXTRACTION="(([Ee]arlier|[Ll]ater|[Ee]arly) )?%reThisNextLast %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(3))-dayT%normPartOfDay(group(4))"
+RULENAME="time_r4b",EXTRACTION="([Tt]onight)",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(1))"
+
+///////////////////////////
+// TIMEPOINT GRANULARITY //
+///////////////////////////
+// time_r5
+// TODO CHANGE THAT AM PM, A.M. P.M. is allowed as well
+// EXAMPLE r5a-1: circa 9 a.m. 
+// EXAMPLE r5b-1: 11 PM
+// EXAMPLE r5c-1: 11:30 a.m.
+// EXAMPLE r5d-1: 9:30 p.m.
+// EXAMPLE r5e-1: 10:30:34 a.m.
+// EXAMPLE r5e-1: 10:30:34 p.m.
+RULENAME="time_r5a",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5b",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5c",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5d",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5e",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5f",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+
+// time_r6
+// TODO CHANGE THAT AM PM, A.M. P.M. is allowed as well
+// EXAMPLE r6a-1: 9 am Wednesday
+// EXAMPLE r6b-1: 9 pm Wednesday
+// EXAMPLE r6c-1: 9:30 a.m. Wednesday
+// EXAMPLE r6d-1: 9:30 p.m. Wednesday
+RULENAME="time_r6a",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*a[\.]?m[\.]? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(4))T%normDay(group(3)):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r6b",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*p[\.]?m[\.]? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(4))T%SUM%(%normDay(group(3)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r6c",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*a[\.]?m[\.]? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(5))T%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r6d",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*p[\.]?m[\.]? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(5))T%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+

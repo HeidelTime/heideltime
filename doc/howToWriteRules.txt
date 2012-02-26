@@ -1,0 +1,254 @@
+###################################
+# DEVELOPING RULES FOR HEIDELTIME #
+###################################
+
+Author: Jannik Strötgen
+Date:   May 23, 2011
+eMail:  stroetgen@uni-hd.de
+
+###################
+# 1. Introduction #
+###################
+The details of HeidelTime are described in the paper "Multilingual and Cross-domain 
+Temporal Tagging", which is currently under review and thus not publicly available yet.
+Therefore, we present a short description here.
+
+HeidelTime is a rule-based system and due to its architectural feature that the source 
+code and the resources (patterns, normalization information, and rules) are strictly 
+separated, one can simply develop resources for additional languages using HeidelTime's 
+well-defined rule syntax. This rule syntax is described in this file.
+
+If you make any changes (e.g., when adding a pattern or normalization resource or an 
+additional language) to the file structure in the resource folder, you have to update
+the file "resources/used_resources.txt". This can be done automatically using the script
+"printResourceInformation.sh".
+
+
+#############################
+# 2. HeidelTime's resources #
+#############################
+HeidelTime contains three different types of resources.
+	* Pattern Resources
+		Pattern Resources are used to create regular expressions, which can be 
+		accessed by every rule. This allows to use category names (e.g., "month") 
+		instead of listing all items every time the category is needed in a rule.
+	* Normalization Resources
+		Normalization resources contain normalized values of expressions included in the
+		pattern resources. They correspond to the ISO format for temporal information.
+	* Rule Resources
+		Rule resources contain rules to identify and normalize temporal expressions.
+In all resource files of all types, you can add comments using "//". All lines 
+starting with "//" are ignored and not interpreted by HeidelTime's resource interpreter.
+
+################################
+# 3. Organization of resources #
+################################
+The resources are organized in a directory structure. For every language, three directories
+are used representing the three resource types. Currently, HeidelTime contains resources 
+for two languages, English and German. Thus, the resources are organized in the following
+directory structure:
+	* heideltime-kit
+	* heideltime-kit/resources
+	* heideltime-kit/resources/english
+	* heideltime-kit/resources/english/normalization
+	* heideltime-kit/resources/english/repattern
+	* heideltime-kit/resources/english/rules
+	* heideltime-kit/resources/german
+	* heideltime-kit/resources/german/normalization
+	* heideltime-kit/resources/german/repattern
+	* heideltime-kit/resources/german/rules
+If you want to develop a resources for an additional language, create the same directory 
+structure for the new language and copy all files of an existing language into the 
+directories of the new language. Then, adapt all the pattern, normalization, and rule
+files.
+
+###########################
+# 4. Details on resources #
+###########################
+
+# 4.1 Details on pattern resources #
+####################################
+The pattern resources contain one expression per line. Assume the resource "reMonthLong"
+contains the following three lines, only:
+January
+February
+March
+HeidelTime's resource interpreter reads the pattern resources and creates a regular 
+expression for every pattern resource file:
+Thus, in this example the expression looks like this:
+reMontLong="(January|February|March)";
+The pattern resources can be accessed in the rules as described below.
+
+# 4.2 Details on normalization resources #
+##########################################
+The normalization resources contain normalized values of expressions included in the
+pattern resources. E.g., for the pattern resource "reMonthLong", there is a normalization
+resource called "normMonth". Note that not all pattern resources need an own normalization
+resource.
+"January","01"
+"February","02"
+"March","03"
+HeidelTime's resource interpreter reads the normalization resources and creates 
+HashMaps for every file:
+normMonth("January")="01"
+The normalization resources can be accessed in the rules as described below.
+
+
+# 4.3 Details on rule resources #
+#################################
+The rule resources contain rules for the extraction and the normalization of temporal
+expressions. There is one file for every type (date, time, duration, and set; see TimeML
+for details [1]).
+Every rule contains at least the following three parts:
+- RULENAME: name of the rule
+- EXTRACTION: regular expression pattern that has to be match
+- NORM_VALUE: definition how to normalize the matched expression
+In the extraction part, one can use the pattern resources described above. in addition,
+one can use parentheses to group parts of the expression. Every reference to a pattern 
+resource counts as one group.
+In the normalization part, one can use the normalization resources described above.
+One can refer to parts of the expression using the groups defined in the extraction part
+of the rule.
+
+In addition to the three parts of the rules just described (rulename, extraction, norm_value),
+for some linguistic phenomena, one needs to specify further constraints to correctly extract a 
+specific temporal expression. For this, the following parts can be added to a rule:
+- POS_CONSTRAINT(group(x):y): part-of-speech of group x is y
+- OFFSET(group(x)-group(y)): offset begins at beginning of group x and ends at the end of
+	group y
+- NORM_MOD: attribute "mod" is set here
+- NORM_QUANT: attribute "quant" is set here
+- NORM_FREQ: attribute "freq" is set here
+
+For the normalization process (i.e., in the NORM_VALUE, NORM_MOD, NORM_QUANT, NORM_FREQ)
+the following functions can be applied:
+- SUBSTRING(x,i,j): returns a substring of the string x starting at position i and having
+	the length j.
+- LOWERCASE(x): converts all characters of the string x into lower case
+- UPPERCASE(x): converts all characters of the string x into upper case
+- SUM(x,y): adds the integer y to the integer x
+To call these functions, they have to be surrounded by "%" signs, e.g., 
+%LOWERCASE%("January")="january" 
+
+We will now use some example rules to explain the single parts, the functions, and the 
+syntax of the rule language:
+
+Simple example rule 1:
+----------------------
+RULENAME="date_simple1",EXTRACTION="%reMonthLong %reDayNumber, %reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(1))-%normDay(group(2))"
+
+Using the "%" sign, one can refer to a pattern resource or a normalization resource in the
+extraction and norm_value parts of a rule, respectively.
+Assuming that "reMonthLong" contains all month names, "reDayNumber" a regular
+expression for the numbers between 1 and 31, and "reYear4Digit" a four digit number, then
+this rule matches expressions such as
+- "January 9, 2011"
+Since every pattern resource counts as one group, the following groups are available for
+the normalization process:
+- group(1)="January"
+- group(2)="9"
+- group(3)="2011"
+As defined by TimeML [1], the standard annotation language for temporal information, 
+this expression has to be normalized to "2011-01-09". 
+The normalized expression consists of the year as it is mentioned in the expression
+(group(3)) followed by a "-". The next part is the month. However, the month name 
+January has to be normalized to "01". Thus, the normalization resource "normMonth" is
+called to normalize the group(1) expression. Finally, the day (9) is normalized to 
+"09" using the "normDay" normalization resource.
+The normalized expression is thus "2011-01-09".
+
+Simple example rule 2:
+----------------------
+RULENAME="date_simple2",EXTRACTION="(%reMonthLong|%reMonthShort) %reDayNumber, %reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(1))-%normDay(group(4))"
+
+Assuming that "reMonthShort" contains abbreviated month names, this rule additionally
+matches expressions such as:
+- "Mar. 11, 1982"
+Note that the group information changed since we added an additional pattern resource and
+a new parentheses pair. This results in the following group information:
+- group(1)="Mar."
+- group(2)=null
+- group(3)="Mar."
+- group(4)="11"
+- group(5)="1982"
+Note that depending on whether "reMonthLong" or "reMonthShort" matches the expression either
+"group(2)" or "group(3)" equals "null". Independent on which resource matches, group(1) 
+contains the expression. Thus in the norm_value part "group(1)" is used with the %normMonth
+resource.
+
+Complex rule 1:
+---------------
+RULENAME="date_complex2",EXTRACTION="%reYear4Digit(-| to )%reYear2Digit",NORM_VALUE="%SUBSTRING%(group(1),0,2)group(3)",OFFSET="group(3)-group(3)"
+
+This rule matches expressions such as "1990-95". We want to use this rule to extract "95"
+as a temporal expression with the normalized value "1995". The following group information
+is available for the normalization process:
+- group(1)="1990"
+- group(2)="-"
+- group(3)="95"
+In the normalization part, the substring function is called to match the century information
+("19") followed by the group(3). Thus, the expression "1990-95", is normalized to "1995".
+Since the correct offset of this expression is just "95", we use the OFFSET part in the rule
+and let the offset begin at the beginning of group(3) and end at the end of group(3).
+
+Complex rule 2:
+---------------
+RULENAME="date complex3",EXTRACTION="%rePartWords([ ]?)%reYear4Digit",NORM_VALUE="group(3)",NORM_MOD="%normPartWords(group(1))"
+
+Assuming "rePartWords" matches expressions such as "the beginning of", this rule matches temporal
+expressions such as "the beginning of 2001". The following group information is available:
+- group(1)="the beginning of"
+- group(2)=" "
+- group(3)="2001"
+This rule sets the value to "2001" and additionally sets the modification attribute "MOD" to
+"START" since the normalization resource normPartWords contains a line 
+"the beginning of","START". 
+ 
+Complex rule 3:
+---------------
+RULENAME="date_complex_negative",EXTRACTION="%reYear4Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NNS:"
+
+This rule is an example for negative rules. Their task is to prevent phrases to be matched as 
+temporal expressions. Assume a rule matching every four digit number as a temporal expression
+of the type year. This results in many false matches since not every four digit number refers
+to a year expression. The task of the negative rule is to block the four digit number to be 
+extracted as a temporal expression if it is unlikely to be a temporal expression.
+This rule matches expressions starting with a four digit number followed by any kind of token.
+Thus, expressions such as "2000 shoes" are matched by this rule and the following group
+information is available:
+- group(1)="2000"
+- group(2)="shoes"
+In this rules, an additional constraint is set, namely that group(2) has the part-of-speech
+NNS (plural noun). This constraint is satisfied in the given example. In the norm value part
+of the rule the value is set to "REMOVE". In HeidelTime's source code, this "REMOVE" is 
+interpreted in such a way that this phrase and all sub-phrases are blocked as temporal 
+expressions.
+
+
+Underspecified and relative expressions:
+----------------------------------------
+For underspecified and implicit expressions, one can set the value in an underspecified way.
+- UNDEF-(this|next|last)-%normUnit(x)
+- UNDEF-this-%normUnit(x)-REST
+- UNDEF-REF-%normUnit(x)-REST
+- UNDEF-REFUNIT-%normUnit(x)-REST
+
+REST may either be a part of the expression, or additionally contain a calculation function.
+
+Relative rule 1:
+----------------
+RULENAME="date_relative_1",EXTRACTION="([\d]+) %reUnit ago",NORM VALUE="UNDEF-this-%normUnit(group(2))-MINUS-group(1)"
+
+This rule matches expressions such as "20 years ago" with the following group information
+being available for the normalization process:
+- group(1)="20"
+- group(2)="years"
+The expression is such normalized to "UNDEF-this-year-MINUS-20". 
+The calculation is performed during HeidelTime's disambiguation phase.
+
+A detailed description on the UNDEF values and the disambiguation phase will follow soon.
+ 
+
+References
+[1] TimeML, http://www.timeml.org/ 
+

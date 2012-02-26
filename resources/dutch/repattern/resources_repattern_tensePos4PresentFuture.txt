@@ -1,0 +1,13 @@
+// author: Jannik StrÃÂÃÂÃÂÃÂ¶tgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for POS tags indicating present or future.
+// FORMAT: one line is one disjunction of the pattern
+VBP
+VBZ
+VHP
+VHZ
+VVP
+VVZ
+VV
+

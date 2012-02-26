@@ -1,0 +1,57 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for parts of year.
+// FORMAT: one line is one disjunction of the pattern
+[Ff]iscal-first quarter
+[Ff]iscal-first half
+[Ff]iscal-first-quarter
+[Ff]iscal-first-half
+[Ff]iscal-second quarter
+[Ff]iscal-second half
+[Ff]iscal-second-quarter
+[Ff]iscal-second-half
+[Ff]iscal-third quarter
+[Ff]iscal-third half
+[Ff]iscal-third-quarter
+[Ff]iscal-third-half
+[Ff]iscal-fourth quarter
+[Ff]iscal-fourth half
+[Ff]iscal-fourth-quarter
+[Ff]iscal-fourth-half
+[Ff]iscal-forth quarter
+[Ff]iscal-forth half
+[Ff]iscal-forth-quarter
+[Ff]iscal-forth-half
+[Ff]iscal first quarter
+[Ff]iscal first half
+[Ff]iscal first-quarter
+[Ff]iscal first-half
+[Ff]iscal second quarter
+[Ff]iscal second half
+[Ff]iscal second-quarter
+[Ff]iscal second-half
+[Ff]iscal third quarter
+[Ff]iscal third-quarter
+[Ff]iscal fourth quarter
+[Ff]iscal fourth-quarter
+[Ff]iscal forth quarter
+[Ff]iscal forth-quarter
+[Ff]irst quarter
+[Ff]irst half
+[Ff]irst-quarter
+[Ff]irst-half
+[Ss]econd quarter
+[Ss]econd half
+[Ss]econd-quarter
+[Ss]econd-half
+[Tt]hird quarter
+[Tt]hird-quarter
+[Ff]ourth quarter
+[Ff]ourth-quarter
+[Ff]orth quarter
+[Ff]orth-quarter
+[Ll]ast quarter
+[Ll]ast half
+[Ll]ast-quarter
+[Ll]ast-half

@@ -1,0 +1,6 @@
+// author: Jannik StrÃÂÃÂÃÂÃÂ¶tgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for time minutes.
+// FORMAT: one line is one disjunction of the pattern
+[0|1|2|3|4|5][0-9]

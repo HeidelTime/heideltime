@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for "part" words.
+// FORMAT: one line is one disjunction of the pattern
+[Tt]he middle of
+[Tt]he end of
+[Tt]he beginning of
+[Tt]he start of
+[Ll]ate
+[Ll]ater
+[Ee]arly
+[Ee]arlier
+[Mm]id-
+[Mm]id
+[Ff]iscal-
+[Ff]iscal

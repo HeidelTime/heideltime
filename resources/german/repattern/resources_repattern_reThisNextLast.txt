@@ -1,0 +1,12 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for this/next/last words.
+// FORMAT: one line is one disjunction of the pattern
+[Ll]etzte[rsn]?
+[Nn]ächste[rsn]?
+[Ff]olgende[rsn]?
+[Dd]iese[rsn]?
+[Vv]orige[rsn]?
+[Ss]elbe[rsn]?
+[Gg]leiche[rsn]?

@@ -1,0 +1,9 @@
+### setting the environment for the HeidelTime kit
+export CLASSPATH=$HEIDELTIME_HOME/class:$CLASSPATH
+export CLASSPATH=$HEIDELTIME_HOME/lib:$CLASSPATH
+### setting the environment for DKPRO (required by HeidelTime)
+export CLASSPATH=$DKPRO_HOME/bin:$CLASSPATH
+export CLASSPATH=$DKPRO_HOME/lib:$CLASSPATH
+
+
+

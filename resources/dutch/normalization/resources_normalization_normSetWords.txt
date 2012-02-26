@@ -1,0 +1,15 @@
+// author: Matje van de Camp
+// email:  m.m.v.d.camp@tilburguniversity.edu
+// date:   2011-09-15
+// This file contains "set words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "dagelijks" is "XXXX-XX-XX"
+// FORMAT: "set-word","normalized-set-word"
+"Jaarlijks","XXXX"
+"jaarlijks","XXXX"
+"Maandelijks","XXXX-XX"
+"maandelijks","XXXX-XX"
+"Dagelijks","XXXX-XX-XX"
+"dagelijks","XXXX-XX-XX"
+"Wekelijks","XXXX-WXX"
+"wekelijks","XXXX-WXX"

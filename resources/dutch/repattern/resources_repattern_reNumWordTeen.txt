@@ -1,0 +1,16 @@
+// author: Matje van de Camp
+// email:  m.m.v.d.camp@tilburguniversity.edu
+// date:   2011-09-15
+// This file contains regular expression patterns for number words 10 to 20.
+// FORMAT: one line is one disjunction of the pattern
+tien
+elf
+twaalf
+dertien
+veertien
+vijftien
+zestien
+zeventien
+achttien
+negentien
+twintig

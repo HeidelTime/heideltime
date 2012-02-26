@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<styleMap>
+<rule>
+<pattern>de.unihd.dbs.uima.types.heideltime.Timex3</pattern>
+<label>Timex3</label>
+<style>color:black; background:lightblue;</style>
+</rule>
+<rule>
+<pattern>de.unihd.dbs.uima.types.heideltime.Sentence</pattern>
+<label>Sentence</label>
+<style>color:black; background:lightgreen;</style>
+</rule>
+<rule>
+<pattern>de.unihd.dbs.uima.types.heideltime.Token</pattern>
+<label>Token</label>
+<style>color:black; background:orange;</style>
+</rule>
+<rule>
+<pattern>de.unihd.dbs.uima.types.heideltime.Dct</pattern>
+<label>Dct</label>
+<style>color:black; background:yellow;</style>
+</rule>
+<rule>
+<pattern>de.unihd.dbs.uima.types.heideltime.SourceDocInfo</pattern>
+<label>SourceDocInfo</label>
+<style>color:black; background:pink;</style>
+</rule>
+</styleMap>
+

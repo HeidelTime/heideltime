@@ -1,0 +1,54 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-13
+// This file contains rules for the temporal expressions of the type duration: durationrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////////
+// POSITIVE RULES //
+////////////////////
+// duration_r1
+// EXAMPLE r1a_1: etwa fünf Tage
+// EXAMPLE r1b_1: etwa 20 Tage
+// EXAMPLE r1c_1: etwa fünf Stunden
+// EXAMPLE r1d_1: etwa 20 Stunden
+RULENAME="duration_r1a",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(6))"
+RULENAME="duration_r1b",EXTRACTION="(%reApproximate )?([\d]+) %reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(4))"
+RULENAME="duration_r1c",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) (Minuten?|Stunden?)",NORM_VALUE="PT%normDurationNumber(group(3))%normUnit4Duration(group(6))"
+RULENAME="duration_r1d",EXTRACTION="(%reApproximate )?([\d]+) (Minuten?|Stunden?)",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(4))"
+
+// duration_r2
+// EXAMPLE r2a_1: die nächsten zwanzig Tage
+// EXAMPLE r2b_1: die nächsten 20 Tage
+// EXAMPLE r2c_1: die nächsten paar Tage
+// EXAMPLE r2d_1: die nächsten zwanzig Minuten
+// EXAMPLE r2e_1: die nächsten 20 Minuten
+// EXAMPLE r2f_1: die nächsten paar Minuten
+RULENAME="duration_r2a",EXTRACTION="(%reApproximate )?die %reThisNextLast (%reNumWord2D|%reNumWord1D)( |-)%reUnit( oder so)?",NORM_VALUE="P%normDurationNumber(group(4))%normUnit4Duration(group(8))"
+RULENAME="duration_r2b",EXTRACTION="(%reApproximate )?die %reThisNextLast ([\d]+)( |-)%reUnit( oder so)?",NORM_VALUE="Pgroup(4)%normUnit4Duration(group(6))"
+RULENAME="duration_r2c",EXTRACTION="(%reApproximate )?die %reThisNextLast (paar|wenigen?|einigen?) %reUnit( oder so)?",NORM_VALUE="PX%normUnit4Duration(group(5))"
+RULENAME="duration_r2d",EXTRACTION="(%reApproximate )?die %reThisNextLast (%reNumWord2D|%reNumWord1D)( |-)(Minuten?|Stunden?)( oder so)?",NORM_VALUE="PT%normDurationNumber(group(4))%normUnit4Duration(group(8))"
+RULENAME="duration_r2e",EXTRACTION="(%reApproximate )?die %reThisNextLast ([\d]+)( |-)(Minuten?|Stunden?)( oder so)?",NORM_VALUE="PTgroup(4)%normUnit4Duration(group(6))"
+RULENAME="duration_r2f",EXTRACTION="(%reApproximate )?die %reThisNextLast (paar|wenigen?|einigen?) (Minuten?|Stunden?)( oder so)?",NORM_VALUE="PTX%normUnit4Duration(group(5))"
+
+// duration_r3
+// EXAMPLE r3a_1: ein Jahr
+// EXAMPLE r3b_1: eine Stunde
+// EXAMPLE r3c_1: 20-tägig
+// EXAMPLE r3d_1: 20-stündig
+RULENAME="duration_r3a",EXTRACTION="(ein|eine)( |-)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(3))"
+RULENAME="duration_r3b",EXTRACTION="(ein|eine)( |-)(Minuten?|Stunden?)",NORM_VALUE="PT1%normUnit4Duration(group(3))"
+RULENAME="duration_r3c",EXTRACTION="([\d]+)( |-)tägige?[ns]?",NORM_VALUE="PTgroup(1)D"
+RULENAME="duration_r3d",EXTRACTION="([\d]+)( |-)stündige?[ns]?",NORM_VALUE="PTgroup(1)D"
+
+////////////////////
+// NEGATIVE RULES //
+////////////////////
+// duration_r1
+// EXAMPLE r1a_negation_1: zwanzig Jahre alt
+// EXAMPLE r1b_negation_1: 20 Jahre alt
+// EXAMPLE r1c_negation_1: einige Jahre alt
+RULENAME="duration_r1a_negation",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) (%reUnit|Minuten?|Stunden?) (älter|jünger|alt|jung)",NORM_VALUE="REMOVE"
+RULENAME="duration_r1b_negation",EXTRACTION="(%reApproximate )?([\d]+) (%reUnit|Minuten?|Stunden?) (älter|jünger|alt|jung)",NORM_VALUE="REMOVE"
+RULENAME="duration_r1c_negation",EXTRACTION="(%reApproximate )?(einige) %reUnit (älter|jünger|alt|jung)",NORM_VALUE="REMOVE"
+

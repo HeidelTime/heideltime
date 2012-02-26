@@ -1,0 +1,22 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for "approximate" words.
+// FORMAT: one line is one disjunction of the pattern
+// about
+[Aa]pproximately
+[Aa]bout
+[Aa]round
+[Cc]irca
+// less
+[Nn]o more than
+[Nn]o longer than
+[Uu]p to
+[Ll]ess than
+[Nn]early
+[Aa]lmost
+//  more
+[Aa]t least
+[Mm]ore than
+[Ll]onger than
+[Oo]ver

@@ -1,0 +1,18 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for day digit th.
+// FORMAT: one line is one disjunction of the pattern
+[123]0th
+[23]?1st
+[2]?2nd
+[2]?3rd
+[12]?4th
+[12]?5th
+[12]?6th
+[12]?7th
+[12]?8th
+[12]?9th
+11th
+12th
+13th
