@@ -133,7 +133,9 @@ public class ACETernReader extends CollectionReader_ImplBase {
 	    String xml = FileUtils.file2String(file);
 	    text = xml;
 
+	    // TODO ATTENTION!!!! (only for ACE 2005 Training????)
 	    // put document into CAS
+	    text = text.replaceAll("(?s)<QUOTE PREVIOUSPOST=.*?/>", "");
 	    jcas.setDocumentText(text);
 
 
@@ -162,6 +164,7 @@ public class ACETernReader extends CollectionReader_ImplBase {
 		// DATE_TIME (Tern 2004) with the following format "10/17/2000 18:46:13.59" "10/17/2000 18:41:01.17" "11/04/2000 9:14:43.41" "2000-10-01 20:56:35"
 		// DATE (Tern 2004) with the following format "07/15/2000" "1996-02-13" "1997-03-09 10:50:59" 
 		// WITHOUT DATE ARE THE ACE TERN 2004 training files: chtb_171.eng.sgm, 172, 174, 179, 183, 
+		// DATETIME (ACE 2005 training) with the following formats additionally: 20041221-20:24:00, 20030422
 
 		String datetimetag = null;
 		// possible date formats
@@ -172,13 +175,17 @@ public class ACETernReader extends CollectionReader_ImplBase {
 		String dateformat5 = "(.*?)(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d)(.*?)"; // 1996-02-13
 		String dateformat6 = "(.*?)(\\d\\d)/(\\d\\d)/(\\d\\d\\d\\d)(.*?)"; // 07/15/2000
 		String dateformat7 = "(.*?)(January|February|March|April|May|June|July|August|September|October|November|December) ([\\d]?[\\d]),? (\\d\\d\\d\\d)(.*?)";
+		String dateformat8 = "(.*?)(\\d\\d\\d\\d)(\\d\\d)(\\d\\d)-(\\d\\d)-(\\d\\d)-(\\d\\d)(.*?)"; // 20041221-20:24:00
+		String dateformat9 = "(.*?)(\\d\\d\\d\\d)(\\d\\d)(\\d\\d)(.*?)"; // 20030422
 		for (MatchResult m : findMatches(Pattern.compile("(<DATETIME>|<DATE_TIME>|<DATE>|<STORY_REF_TIME>)(("+dateformat1+
 																						")|("+dateformat2+
 																						")|("+dateformat3+
 																						")|("+dateformat4+
 																						")|("+dateformat5+
 																						")|("+dateformat6+
-																						")|("+dateformat7+")(</DATETIME>|</DATE_TIME>|</DATE>|</STORY_REF_TIME>))"), xml)){
+																						")|("+dateformat7+
+																						")|("+dateformat8+
+																						")|("+dateformat9+")(</DATETIME>|</DATE_TIME>|</DATE>|</STORY_REF_TIME>))"), xml)){
 			datetimetag = m.group(2);
 		}
 		
@@ -226,6 +233,17 @@ public class ACETernReader extends CollectionReader_ImplBase {
 					String month = normMonth(m.group(2));
 					String day   = normDay(m.group(3));
 					date_value = year+"-"+month+"-"+day;
+				}
+			}
+			else if (datetimetag.matches(dateformat8)){
+				for (MatchResult m : findMatches(Pattern.compile(dateformat8), datetimetag)){
+					date_value = m.group(2)+"-"+m.group(3)+"-"+m.group(4);
+					time_value = m.group(2)+"-"+m.group(3)+"-"+m.group(4)+"T"+m.group(5)+":"+m.group(6)+":"+m.group(7);
+				}
+			}
+			else if (datetimetag.matches(dateformat9)){
+				for (MatchResult m : findMatches(Pattern.compile(dateformat9), datetimetag)){
+					date_value = m.group(2)+"-"+m.group(3)+"-"+m.group(4);
 				}
 			}
 			else{

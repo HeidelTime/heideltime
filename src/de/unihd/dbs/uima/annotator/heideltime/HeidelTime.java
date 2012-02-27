@@ -2341,12 +2341,22 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 */
 	public Boolean checkInfrontBehind(MatchResult r, Sentence s) {
 		Boolean ok = true;
+		
+		// get rid of expressions such as "1999" in 53453.1999
+		if (r.start() > 1) {
+			if ((s.getCoveredText().substring(r.start() - 2, r.start()).matches("\\d\\."))){
+				ok = false;
+			}
+		}
+		
+		// get rid of expressions if there is a character or symbol ($+) directly in front of the expression
 		if (r.start() > 0) {
-			if (((s.getCoveredText().substring(r.start() - 1, r.start()).matches("\\w"))) &&
+			if (((s.getCoveredText().substring(r.start() - 1, r.start()).matches("[\\w\\$\\+\\-]"))) &&
 					(!(s.getCoveredText().substring(r.start() - 1, r.start()).matches("\\(")))){
 				ok = false;
 			}
 		}
+		
 		if (r.end() < s.getCoveredText().length()) {
 			if ((s.getCoveredText().substring(r.end(), r.end() + 1).matches("[°\\w]")) &&
 					(!(s.getCoveredText().substring(r.end(), r.end() + 1).matches("\\)")))){

@@ -19,12 +19,21 @@ RULENAME="time_r1b",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )
 RULENAME="time_r1c",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6)"
 RULENAME="time_r1d",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6):group(7)"
 RULENAME="time_r1e",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute:%reTimeMinute\.%reYear2Digit",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6):group(7).group(8)"
+// NEW for ACE Tern 2005 training
+RULENAME="time_r1f",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber-%reTimeHour-%reTimeMinute-%reTimeMinute",NORM_VALUE="group(1)-group(2)-group(3)Tgroup(4):group(5):group(6)"
 
 // time_r2
 // EXAMPLE r2a-1: 09-24-99 1145EST (TimeStamp style with timezone information)
 // EXAMPLE r2b-1: November 24, 2011 1535 GMT
+// EXAMPLE r2c-1: Wed, 29 Dec 2004 00:28:16 +0000
+// EXAMPLE r2d-1: Sat, 29 Jan 2005 17:21:13 -0600
+// EXAMPLE r2d-2: 1 Feb 2005 16:13:33 +1300
 RULENAME="time_r2a",EXTRACTION="(%reMonthNumber-%reDayNumber-%reYear2Digit)( %reTimeHour(:)?%reTimeMinute)%reTimezone",NORM_VALUE="UNDEF-centurygroup(4)-group(2)-group(3)T%normMinute(group(6)):%normMinute(group(8))%normTimezone(group(9))"
 RULENAME="time_r2b",EXTRACTION="%reMonthLong %reDayNumber, %reYear4Digit %reTimeHour(:)?%reTimeMinute %reTimezone",NORM_VALUE="group(3)-%normMonth(group(1))-%normDay(group(2))T%normMinute(group(4)):%normMinute(group(6))"
+// NEW for ACE Tern 2005 training
+RULENAME="time_r2c",EXTRACTION="((Mon|Tue|Wed|Thu|Fri|Sat|Sun), )?%reDayNumber (%reMonthLong|%reMonthShort) %reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute (\+|-)0000",NORM_VALUE="group(7)-%normMonth(group(4))-%normDay(group(3))Tgroup(8):group(9):group(10)"
+RULENAME="time_r2d",EXTRACTION="((Mon|Tue|Wed|Thu|Fri|Sat|Sun), )?%reDayNumber (%reMonthLong|%reMonthShort) %reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute (\+|-)(\d\d)00",NORM_VALUE="group(7)-%normMonth(group(4))-%normDay(group(3))Tgroup(8):group(9):group(10)group(11)group(12)"
+
 
 
 /////////////////////////////

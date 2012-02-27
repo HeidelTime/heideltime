@@ -22,6 +22,8 @@ RULENAME="date_r0b",EXTRACTION="(%reMonthNumber-%reDayNumber-%reYear2Digit)",NOR
 RULENAME="date_r0c",EXTRACTION="%reMonthNumber/%reDayNumber/%reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(1))-%normDay(group(2))"
 RULENAME="date_r0d",EXTRACTION="%reMonthNumber/%reDayNumber/%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(1))-%normDay(group(2))"
 RULENAME="date_r0e",EXTRACTION="%reMonthNumber-%reDayNumber( \(.*?\))",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(2))",OFFSET="group(1)-group(2)"
+// NEW for ACE Tern 2005 training
+RULENAME="date_r0f",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber",NORM_VALUE="group(1)-group(2)-group(3)"
 
 // date_r1
 // EXAMPLE r1a_1: February 25, 2009
