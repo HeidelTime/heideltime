@@ -2351,7 +2351,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		
 		// get rid of expressions if there is a character or symbol ($+) directly in front of the expression
 		if (r.start() > 0) {
-			if (((s.getCoveredText().substring(r.start() - 1, r.start()).matches("[\\w\\$\\+\\-]"))) &&
+			if (((s.getCoveredText().substring(r.start() - 1, r.start()).matches("[\\w\\$\\+]"))) &&
 					(!(s.getCoveredText().substring(r.start() - 1, r.start()).matches("\\(")))){
 				ok = false;
 			}
