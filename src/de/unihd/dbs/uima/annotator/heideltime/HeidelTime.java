@@ -55,7 +55,7 @@ import de.unihd.dbs.uima.types.heideltime.Token;
 public class HeidelTime extends JCasAnnotator_ImplBase {
 
 	// TOOL NAME (may be used as componentId)
-	private String toolname = "de.unihd.dbs.uima.annoator.heideltime";
+	private String toolname = "de.unihd.dbs.uima.annotator.heideltime";
 	private Boolean printDetails = false;
 
 	// COUNTER (how many timexes added to CAS? (finally)
@@ -617,7 +617,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		/*
 		 * evaluate the holiday calculations
 		 */
-		evaluateCalculationFunctions(jcas);		
+		evaluateCalculationFunctions(jcas);
 		
 		removeInvalids(jcas);
 
