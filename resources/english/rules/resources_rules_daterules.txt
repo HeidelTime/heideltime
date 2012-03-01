@@ -1,6 +1,6 @@
 // author: Jannik Strötgen
 // email:  stroetgen@uni-hd.de
-// date:   2011-10-21
+// date:   2011-06-13
 // This file contains rules for the temporal expressions of the type date: daterules
 // RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
 
@@ -86,7 +86,7 @@ RULENAME="date_r61",EXTRACTION="(the|that) weekend",NORM_VALUE="UNDEF-last-week-
 // EXAMPLE r7a_3: February of 1999
 // EXAMPLE r7b_1: May and June 2011 (find May 2001)
 RULENAME="date_r7a",EXTRACTION="(%reMonthLong|%reMonthShort)( of | )%reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(1))"
-RULENAME="date_r7b",EXTRACTION="(%reMonthLong|%reMonthShort) (and|or|to|until) (%reMonthLong|%reMonthShort) %reYear4Digit",NORM_VALUE="group(8)-%normMonth(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="date_r7b",EXTRACTION="(%reMonthLong|%reMonthShort) (and|or) (%reMonthLong|%reMonthShort) %reYear4Digit",NORM_VALUE="group(8)-%normMonth(group(1))",OFFSET="group(1)-group(1)"
 
 // date_r8
 // EXAMPLE r8a_1: November next year
@@ -255,6 +255,34 @@ RULENAME="date_r22b",EXTRACTION="[Aa] year (later)",NORM_VALUE="UNDEF-REFUNIT-ye
 RULENAME="date_r23a",EXTRACTION="([Tt]he )?(year-earlier|year-ago) %rePartOfYear",NORM_VALUE="UNDEF-REF-year-MINUS-1-%normPartOfYear(group(3))"
 RULENAME="date_r23b",EXTRACTION="([Tt]he|[Tt]hat) (year-earlier|year-ago) quarter",NORM_VALUE="UNDEF-REF-quarter-MINUS-4"
 RULENAME="date_r23c",EXTRACTION="([Tt]he|[Tt]hat) quarter",NORM_VALUE="UNDEF-REF-quarter-PLUS-0"
+
+
+///////////////////
+// HOLIDAY RULES //
+///////////////////
+
+//date_r24
+//EXAMPLE r24a_1: Christmas
+//EXAMPLE r24b_1: Christmas 2010
+//EXAMPLE r24c_1: Christmas 87
+//EXAMPLE r24d_1: Christmas '87
+
+RULENAME="date_r24a",EXTRACTION="%reHolidayFix",NORM_VALUE="UNDEF-year-%normHolidayFix(group(1))"
+RULENAME="date_r24b",EXTRACTION="%reHolidayFix %reYear4Digit",NORM_VALUE="group(2)-%normHolidayFix(group(1))"
+RULENAME="date_r24c",EXTRACTION="%reHolidayFix %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayFix(group(1))"
+RULENAME="date_r24d",EXTRACTION="%reHolidayFix '%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayFix(group(1))"
+
+//date_r25
+//EXAMPLE r25a_1: Eastersunday
+//EXAMPLE r25b_1: Eastersunday 2010
+//EXAMPLE r25c_1: Eastersunday 87
+//EXAMPLE r25d_1: Eastersunday '87
+
+RULENAME="date_r25a",EXTRACTION="%reHolidayVar",NORM_VALUE="UNDEF-year-00-00 %normHolidayVar(group(1))"
+RULENAME="date_r25b",EXTRACTION="%reHolidayVar %reYear4Digit",NORM_VALUE="group(2)-00-00 %normHolidayVar(group(1))"
+RULENAME="date_r25c",EXTRACTION="%reHolidayVar %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-00-00 %normHolidayVar(group(1))"
+RULENAME="date_r25d",EXTRACTION="%reHolidayVar '%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-00-00 %normHolidayVar(group(1))"
+
 
 ////////////////////
 // NEGATIVE RULES //

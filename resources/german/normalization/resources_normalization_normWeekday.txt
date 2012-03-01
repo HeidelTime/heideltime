@@ -2,7 +2,7 @@
 // email:  stroetgen@uni-hd.de
 // date:   2011-06-10
 // This file contains "weekday words" and their normalized expressions.
-// For example, the normalized value of "Monday" is "monday"
+// For example, the normalized value of "Montag" is "monday"
 // FORMAT: "weekday-word","normalized-weekday-word"
 "Montag","monday"
 "Dienstag","tuesday"

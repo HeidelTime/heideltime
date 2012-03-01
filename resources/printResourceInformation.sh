@@ -1,4 +1,9 @@
 #!/bin/bash
 
+echo "Writing used_resources.txt"
 find ./ -name "*.txt"  > used_resources.txt
-cp used_resources.txt ../class/
+
+echo "Copying resources..."
+cp -ur * ../class/ 
+
+echo "done."
