@@ -2383,6 +2383,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				}
 			}
 						
+			t_i.removeFromIndexes();
 			t_i.setTimexValue(valueNew);
 			t_i.addToIndexes();
 			linearDates.set(i, t_i);
