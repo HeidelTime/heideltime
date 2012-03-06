@@ -4,6 +4,6 @@ echo "Writing used_resources.txt"
 find ./ -name "*.txt"  > used_resources.txt
 
 echo "Copying resources..."
-cp -ur * ../class/ 
+cp -r * ../class/ 
 
 echo "done."
