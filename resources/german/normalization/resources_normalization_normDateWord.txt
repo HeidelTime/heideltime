@@ -1,0 +1,28 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "date words" and their normalized expressions.
+// For example, the normalized value of "morgen" is "UNDEF-next-day"
+// FORMAT: "date-word","normalized-date-word"
+"Gestern","UNDEF-last-day"
+"gestern","UNDEF-last-day"
+"Heute","UNDEF-this-day"
+"heute","UNDEF-this-day"
+//"Heute","PRESENT_REF"
+//"heute","PRESENT_REF"
+"Morgen","UNDEF-next-day"
+"morgen","UNDEF-next-day"
+"Jetzt","PRESENT_REF"
+"jetzt","PRESENT_REF"
+"Derzeit","PRESENT_REF"
+"derzeit","PRESENT_REF"
+"Gegenwärtig","PRESENT_REF"
+"gegenwärtig","PRESENT_REF"
+"Heutzutage","PRESENT_REF"
+"heutzutage","PRESENT_REF"
+"So bald wie möglich","FUTURE_REF"
+"so bald wie möglich","FUTURE_REF"
+"Bald","FUTURE_REF"
+"bald","FUTURE_REF"
+"Kürzlich","PAST_REF"
+"kürzlich","PAST_REF"

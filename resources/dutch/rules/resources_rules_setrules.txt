@@ -1,0 +1,60 @@
+// author: Matje van de Camp
+// email:  m.m.v.d.camp@tilburguniversity.edu
+// date:   2011-09-15
+// This file contains rules for the temporal expressions of the type set: setrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////
+// EVERY UNIT //
+////////////////
+// set_r1
+// EXAMPLE r1a-1: elke dag
+// EXAMPLE r1b-1: iedere maandag
+// EXAMPLE r1c-1: iedere september
+// EXAMPLE r1d-1: elke zomer
+RULENAME="set_r1a",EXTRACTION="([Ee]lke?|[Ii]edere?) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_QUANT="%UPPERCASE%(group(1))"
+RULENAME="set_r1b",EXTRACTION="([Ee]lke?|[Ii]edere?) %reWeekday",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1W"
+RULENAME="set_r1c",EXTRACTION="([Ee]lke?|[Ii]edere?) (%reMonthLong|%reMonthShort)",NORM_VALUE="XXXX-%normMonth(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1M"
+RULENAME="set_r1d",EXTRACTION="([Ee]lke?|[Ii]edere?) %reSeason",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1S"
+
+// set_r2
+// EXAMPLE r2a-1: eens in de week
+// EXAMPLE r2b-1: twee keer per maand
+// EXAMPLE r2c-1: driemaal per maand
+// EXAMPLE r2d-1: 40 keer per jaar
+// EXAMPLE r2e-1: een maand
+// EXAMPLE r2f-1: een minuut
+// EXAMPLE r2g-1: 3 uur
+RULENAME="set_r2a",EXTRACTION="[Ee]ens (per|in de|in het) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_FREQ="1"
+RULENAME="set_r2b",EXTRACTION="[Tt]wee( keer|-?maal) (per|in de|in het) %reUnit",NORM_VALUE="P%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_FREQ="2"
+RULENAME="set_r2c",EXTRACTION="(%reNumWord1D|%reNumWord2D)( keer|-?maal) (per|in de|in het) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(6)),0,1))",NORM_FREQ="%normDurationNumber(group(1))"
+RULENAME="set_r2d",EXTRACTION="([\d]+)( keer|-?maal) (per|in de|in het) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(4)),0,1))",NORM_FREQ="group(1)"
+RULENAME="set_r2e",EXTRACTION="(een )?%reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))",NORM_FREQ="1"
+RULENAME="set_r2f",EXTRACTION="(een )?(minuut|uur)",NORM_VALUE="PT1%normUnit4Duration(group(2))",NORM_FREQ="1"
+RULENAME="set_r2g",EXTRACTION="([\d]+) (minuut|minuten|uur)",NORM_VALUE="PT1%normUnit4Duration(group(2))",NORM_FREQ="group(1)"
+
+// set_r3
+// EXAMPLE r3a-1: elke 5 jaar
+// EXAMPLE r3b-1: iedere twee dagen
+RULENAME="set_r3a",EXTRACTION="([Ee]lke? |[Ii]edere? )([\d]+) %reUnit",NORM_VALUE="Pgroup(2)%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_QUANT="%UPPERCASE%(group(2))"
+RULENAME="set_r3b",EXTRACTION="([Ee]lke? |[Ii]edere? )(%reNumWord1D|%reNumWord2D) %reUnit",NORM_VALUE="P%normDurationNumber(group(2))%UPPERCASE%(%SUBSTRING%(%normUnit(group(5)),0,1))",NORM_QUANT="%UPPERCASE%(group(2))"
+
+// set_r4
+// EXAMPLE r4a-1: 2 dagen per week
+RULENAME="set_r4a",EXTRACTION="([\d]+) %reUnit (per|in de|in het) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(4)),0,1))",NORM_QUANT="EACH",NORM_FREQ="group(1)%normUnit(group(2))"
+
+// set_r5 
+// EXAMPLE r5a-1: jaarlijks
+RULENAME="set_r5a",EXTRACTION="%reSetWords",NORM_VALUE="%normSetWords(group(1))"
+
+//////////////////////////////
+// PART-OF-DAYS EXPRESSIONS //
+//////////////////////////////
+// set_r6
+// EXAMPLE r6a-1: maandagmiddagen
+// EXAMPLE r6b-1: elke maandag- en disdagavond (find: maandagavond)
+// EXAMPLE r6c-1: elke maandag- en disdagavond (find: dinsdagavond)
+RULENAME="set_r6a",EXTRACTION="([Ee]lke? |[Ii]edere? )?%reWeekday( |-)?%rePartOfDay(en)?",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(2))T%normPartOfDay(group(4))",NORM_FREQ="1W"
+RULENAME="set_r6b",EXTRACTION="([Ee]lke? |[Ii]edere? )?%reWeekday(-)? (en|of) %reWeekday( |-)?%rePartOfDay(en)?",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(2))T%normPartOfDay(group(7))",NORM_FREQ="1W",OFFSET="group(2)-group(2)"
+RULENAME="set_r6c",EXTRACTION="([Ee]lke? |[Ii]edere? )?%reWeekday(-)? (en|of) %reWeekday( |-)?%rePartOfDay(en)?",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(5))T%normPartOfDay(group(7))",NORM_FREQ="1W",OFFSET="group(5)-group(5)"
+

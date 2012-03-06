@@ -1,0 +1,23 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for date words.
+// FORMAT: one line is one disjunction of the pattern
+// THESE EXPRESSIONS ARE ALL IMPLICITS
+// SHOULD ONLY BE UPPER CASE IF AT THE BEGINNING OF A SENTENCE
+[Tt]he day before yesterday
+[Yy]esterday
+[Tt]oday
+[Tt]omorrow
+[Rr]ight now
+[Nn]ow
+[Aa]s soon as possible
+[Ss]oon
+[Rr]ecently
+[Rr]ecent
+[Cc]urrently
+[Cc]urrent
+// [Pp]reviously
+// [Yy]et
+[Ff]ormerly
+[Ff]ormer

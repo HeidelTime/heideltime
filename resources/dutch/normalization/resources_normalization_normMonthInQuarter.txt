@@ -1,0 +1,19 @@
+// author: Jannik StrÃÂÃÂÃÂÃÂ¶tgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "month numbers" and their normalized quarter expressions
+// according to TIMEX3 format.
+// For example, the normalized value of month "04" is quarter "02"
+// FORMAT: "normalized month","normalized quarter"
+"01","1"
+"02","1"
+"03","1"
+"04","2"
+"05","2"
+"06","2"
+"07","3"
+"08","3"
+"09","3"
+"10","4"
+"11","4"
+"12","4"

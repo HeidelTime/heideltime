@@ -1,0 +1,173 @@
+// author: Hans-Peter Pfeiffer
+// email:  H.Pfeiffer@stud.uni-heidelberg.de
+// date:   2011-12-16
+// This file contains fix holiday and their normalized expressions.
+// For example, the normalized value of "Neujahr" is "01-01"
+// FORMAT: "hoilday_name","month-year"
+// 
+// the reference of the values is given in the repattern file
+//
+"Neujahr","01-01"
+"Neujahrstag","01-01"
+"Neujahrsfest","01-01"
+
+//[Hh]eilig(en?)? [Dd]rei König(en?)?
+"Heilige Drei Könige","01-06"
+"Heiligen Drei Könige","01-06"
+"Heilig Drei Könige","01-06"
+"heilige Drei Könige","01-06"
+"heiligen Drei Könige","01-06"
+"heilig Drei Könige","01-06"
+"Heilige drei Könige","01-06"
+"Heiligen drei Könige","01-06"
+"Heilig drei Könige","01-06"
+"heilige drei Könige","01-06"
+"heiligen drei Könige","01-06"
+"heilig drei Könige","01-06"
+"Heilige Drei König","01-06"
+"Heiligen Drei König","01-06"
+"Heilig Drei König","01-06"
+"heilige Drei König","01-06"
+"heiligen Drei König","01-06"
+"heilig Drei König","01-06"
+"Heilige drei König","01-06"
+"Heiligen drei König","01-06"
+"Heilig drei König","01-06"
+"heilige drei König","01-06"
+"heiligen drei König","01-06"
+"heilig drei König","01-06"
+"Heilige Drei Königen","01-06"
+"Heiligen Drei Königen","01-06"
+"Heilig Drei Königen","01-06"
+"heilige Drei Königen","01-06"
+"heiligen Drei Königen","01-06"
+"heilig Drei Königen","01-06"
+"Heilige drei Königen","01-06"
+"Heiligen drei Königen","01-06"
+"Heilig drei Königen","01-06"
+"heilige drei Königen","01-06"
+"heiligen drei Königen","01-06"
+"heilig drei Königen","01-06"
+
+"Epiphanias","01-06"
+"Epiphanie","01-06"
+"Erscheinung des Herrn","01-06"
+"Dreikönigsfest","01-06"
+"Dreikönigstag","01-06"
+"Theophanie","01-06"
+//
+"Tag der Arbeit","05-01"
+"Maifeiertag","05-01"
+"Kampftag der Arbeiterbewegung","05-01"
+//[Aa]ugsburger Friedensfest
+"Augsburger Friedensfest","08-08"
+"augsburger Friedensfest","08-08"
+
+"Friedensfest","08-08"
+//Augsburger [Hh]ohe Friedensfest
+"Augsburger Hohe Friedensfest","08-08"
+"Augsburger hohe Friedensfest","08-08"
+
+//Mari[aä] Himmelfahrt
+"Maria Himmelfahrt","08-15"
+"Mariä Himmelfahrt","08-15"
+
+//Mari[aä] Aufnahme in den Himmel
+"Maria Aufnahme in den Himmel","08-15"
+"Mariä Aufnahme in den Himmel","08-15"
+
+//Mari[aä] Entschlafung 
+"Maria Entschlafung","08-15"
+"Mariä Entschlafung","08-15"
+
+"Heimgang Mariens","08-15"
+
+//
+"Tag der Deutschen Einheit","10-06" 
+"Tag der Wiedervereinigung","10-06"
+//
+"Reformationstag","10-31"
+"Tag der Reformation","10-31"
+//
+"Allerheiligen","11-01"
+
+"Weihnachten","12-24"
+"Weihnacht","12-24"
+//[Hh]eiliges Christfest
+"heiliges Christfest","12-24"
+"Heiliges Christfest","12-24"
+
+"Christfest","12-24"
+//[Hh]eiliger Christ
+"heiliger Christ","12-24"
+"Heiliger Christ","12-24"
+
+//[Hh]eilig Christ
+"heilig Christ","12-24"
+"Heilig Christ","12-24"
+
+//[Hh]eilige Nacht
+"heilige Nacht","12-24"
+"Heilige Nacht","12-24"
+
+//[Hh]eilig(en)? Abend
+"Heiligen Abend","12-24"
+"heiligen Abend","12-24"
+"Heilig Abend","12-24"
+"heilig Abend","12-24"
+
+"Christnacht","12-24"
+"Weihnachtsabend","12-24"
+"Heiligabend","12-24"
+//
+"1. Weihnachtsfeiertag","12-25"
+"1. Weihnachtstag","12-25"
+"1.Weihnachtsfeiertag","12-25"
+"1.Weihnachtstag","12-25"
+//[Ee]rste[rnm]? Weihnachtsfeiertag
+"erste Weihnachtsfeiertag","12-25"
+"erster Weihnachtsfeiertag","12-25"
+"ersten Weihnachtsfeiertag","12-25"
+"erstem Weihnachtsfeiertag","12-25"
+"Erste Weihnachtsfeiertag","12-25"
+"Erster Weihnachtsfeiertag","12-25"
+"Ersten Weihnachtsfeiertag","12-25"
+"Erstem Weihnachtsfeiertag","12-25"
+
+//[Ee]rste[rnm]? Weihnachtstag
+"erste Weihnachtstag","12-25"
+"erster Weihnachtstag","12-25"
+"ersten Weihnachtstag","12-25"
+"erstem Weihnachtstag","12-25"
+"Erste Weihnachtstag","12-25"
+"Erster Weihnachtstag","12-25"
+"Ersten Weihnachtstag","12-25"
+"Erstem Weihnachtstag","12-25"
+//
+"2. Weihnachtsfeiertag","12-26"
+"2. Weihnachtstag","12-26"
+"2.Weihnachtsfeiertag","12-26"
+"2.Weihnachtstag","12-26"
+
+//[Zz]weite[rnm]? Weihnachtsfeiertag
+"zweite Weihnachtsfeiertag","12-26"
+"zweiter Weihnachtsfeiertag","12-26"
+"zweiten Weihnachtsfeiertag","12-26"
+"zweitem Weihnachtsfeiertag","12-26"
+"Zweite Weihnachtsfeiertag","12-26"
+"Zweiter Weihnachtsfeiertag","12-26"
+"Zweiten Weihnachtsfeiertag","12-26"
+"Zweitem Weihnachtsfeiertag","12-26"
+
+//[Zz]weite[rnm]? Weihnachtstag
+"zweite Weihnachtstag","12-26"
+"zweiter Weihnachtstag","12-26"
+"zweiten Weihnachtstag","12-26"
+"zweitem Weihnachtstag","12-26"
+"Zweite Weihnachtstag","12-26"
+"Zweiter Weihnachtstag","12-26"
+"Zweiten Weihnachtstag","12-26"
+"Zweitem Weihnachtstag","12-26"
+"Stephanitag","12-26"
+//
+"Silvester","12-31"

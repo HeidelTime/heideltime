@@ -1,0 +1,18 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for long months.
+// FORMAT: one line is one disjunction of the pattern
+[Jj]anuar
+[Jj]änner
+[Ff]ebruar
+[Mm]ärz
+[Aa]pril
+[Mm]ai
+[Jj]uni
+[Jj]uli
+[Aa]ugust
+[Ss]eptember
+[Oo]ktober
+[Nn]ovember
+[Dd]ezember

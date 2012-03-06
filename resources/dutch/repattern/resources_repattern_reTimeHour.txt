@@ -1,0 +1,21 @@
+// author: Jannik StrÃÂÃÂÃÂÃÂ¶tgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for time hours.
+// FORMAT: one line is one disjunction of the pattern
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+0?[0-9]

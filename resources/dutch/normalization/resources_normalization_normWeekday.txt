@@ -1,0 +1,21 @@
+// author: Matje van de Camp
+// email:  m.m.v.d.camp@tilburguniversity.edu
+// date:   2011-09-15
+// This file contains "weekday words" and their normalized expressions.
+// For example, the normalized value of "Maandag" is "monday"
+// FORMAT: "weekday-word","normalized-weekday-word"
+"maandag","monday"
+"dinsdag","tuesday"
+"woensdag","wednesday"
+"donderdag","thursday"
+"vrijdag","friday"
+"zaterdag","saturday"
+"zondag","sunday"
+"Maandag","monday"
+"Dinsdag","tuesday"
+"Woensdag","wednesday"
+"Donderdag","thursday"
+"Vrijdag","friday"
+"Zaterdag","saturday"
+"Zondag","sunday"
+

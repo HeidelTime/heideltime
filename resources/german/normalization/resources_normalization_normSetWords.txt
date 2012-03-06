@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "set words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "täglich" is "P1D"
+// FORMAT: "set-word","normalized-set-word"
+"Jährlich","P1Y"
+"jährlich","P1Y"
+"Monatlich","P1M"
+"monatlich","P1M"
+"Täglich","P1D"
+"täglich","P1D"
+"Wöchentlich","P1W"
+"wöchentlich","P1W"

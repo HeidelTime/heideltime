@@ -1,0 +1,36 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for day word th.
+// FORMAT: one line is one disjunction of the pattern
+[Tt]enth
+[Ee]leventh
+[Tt]welfth
+[Tt]hirteenth
+[Ff]ourteenth
+[Ff]ifteenth
+[Ss]ixteenth
+[Ss]eventeenth
+[Ee]ighteenth
+[Nn]ineteenth
+[Tt]wentieth
+[Tt]wenty-first
+[Tt]wenty-second
+[Tt]wenty-third
+[Tt]wenty-fourth
+[Tt]wenty-fifth
+[Tt]wenty-sixth
+[Tt]wenty-seventh
+[Tt]wenty-eighth
+[Tt]wenty-ninth
+[Tt]hirtieth
+[Tt]hirty-first
+[Ff]irst
+[Ss]econd
+[Tt]hird
+[Ff]ourth
+[Ff]ifth
+[Ss]ixth
+[Ss]eventh
+[Ee]ighth
+[Nn]inth
