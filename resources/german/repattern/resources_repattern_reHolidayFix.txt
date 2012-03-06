@@ -10,7 +10,7 @@ Neujahrstag
 Neujahrsfest
 
 // http://de.wikipedia.org/wiki/Heilige_Drei_K%C3%B6nige
-[Hh]eilig(en?)? [Dd]rei König(en?)?
+[Hh]eilig(?:en?)? [Dd]rei König(?:en?)?
 Epiphanias
 Epiphanie
 Erscheinung des Herrn
@@ -49,7 +49,7 @@ Allerheiligen
 Weihnachten
 Weihnachtsabend
 Heiligabend
-[Hh]eilig(en)? Abend
+[Hh]eilig(?:en)? Abend
 Weihnacht
 [Hh]eiliges Christfest
 Christfest
