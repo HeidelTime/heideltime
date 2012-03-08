@@ -214,6 +214,26 @@ RULENAME="date_r26d",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) (
 RULENAME="date_r26e",EXTRACTION="(%reApproximate )?([\d]+) (%reUnit|Minuten|Stunden) (früher|vorher|davor)",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-MINUS-group(3)"
 RULENAME="date_r26f",EXTRACTION="(%reApproximate )?([Ee]inen|[Ee]ine|[Ee]in) (%reUnit) (früher|vorher|davor)",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-MINUS-1"
 
+///////////////////
+// HOLIDAY RULES //
+///////////////////
+
+//date_r27
+//EXAMPLE r27a_1: Neujahr
+//EXAMPLE r27b_1: Neujahr 2010
+//EXAMPLE r27c_1: Neujahr 87
+RULENAME="date_r27a",EXTRACTION="%reHolidayFix",NORM_VALUE="UNDEF-year-%normHolidayFix(group(1))"
+RULENAME="date_r27b",EXTRACTION="%reHolidayFix %reYear4Digit",NORM_VALUE="group(2)-%normHolidayFix(group(1))"
+RULENAME="date_r27c",EXTRACTION="%reHolidayFix %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayFix(group(1))"
+
+//date_r28
+//EXAMPLE r28a_1: Ostermontag
+//EXAMPLE r28b_1: Ostermontag 2010
+//EXAMPLE r28c_1: Ostermontag 87
+RULENAME="date_r28a",EXTRACTION="%reHolidayVar",NORM_VALUE="UNDEF-year-00-00 %normHolidayVar(group(1))"
+RULENAME="date_r28b",EXTRACTION="%reHolidayVar %reYear4Digit",NORM_VALUE="group(2)-00-00 %normHolidayVar(group(1))"
+RULENAME="date_r28c",EXTRACTION="%reHolidayVar %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-00-00 %normHolidayVar(group(1))"
+
 ////////////////////
 // NEGATIVE RULES //
 ////////////////////
