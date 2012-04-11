@@ -24,11 +24,11 @@ public class Logger {
 	 * @param component Component from which the message originates
 	 * @param msg DEBUG-level message
 	 */
-	public static void printDetail(Package component, String msg) {
+	public static void printDetail(Class<?> c, String msg) {
 		if(Logger.printDetails) {
 			String preamble;
-			if(component != null) 
-				preamble = "["+component.getName()+"]";
+			if(c != null)
+				preamble = "["+c.getName()+"]";
 			else
 				preamble = "";
 			System.out.println(preamble+" "+msg);
@@ -48,10 +48,10 @@ public class Logger {
 	 * @param component Component from which the message originates
 	 * @param msg ERROR-Level message
 	 */
-	public static void printError(Package component, String msg) {
+	public static void printError(Class<?> c, String msg) {
 		String preamble;
-		if(component != null) 
-			preamble = "["+component.getName()+"]";
+		if(c != null)
+			preamble = "["+c.getName()+"]";
 		else
 			preamble = "";
 		System.err.println(preamble+" "+msg);

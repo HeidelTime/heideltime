@@ -23,14 +23,14 @@ public class ProcessorManager {
 	// list of processes' package names
 	private ArrayList<String> processors;
 	// self-identifying component for logging purposes
-	private Package component; 
+	private Class<?> component; 
 	
 	/**
 	 * Private constructor, only to be called by the getInstance() method.
 	 */
 	private ProcessorManager() {
 		this.processors = new ArrayList<String>();
-		this.component = this.getClass().getPackage();
+		this.component = this.getClass();
 	}
 	
 	/**

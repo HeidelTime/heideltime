@@ -52,7 +52,7 @@ import de.unihd.dbs.uima.types.heideltime.Token;
 public class HeidelTime extends JCasAnnotator_ImplBase {
 
 	// TOOL NAME (may be used as componentId)
-	private Package component = this.getClass().getPackage();
+	private Class<?> component = this.getClass();
 
 	// COUNTER (how many timexes added to CAS? (finally)
 	public int timex_counter        = 0;

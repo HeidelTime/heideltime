@@ -21,7 +21,7 @@ public abstract class GenericResourceManager {
 	// kind of resource -- e.g. repattern, normalization, rules
 	protected String resourceType;
 	// local package for logging output
-	protected Package component;
+	protected Class component;
 	
 	/**
 	 * Instantiates the Resource Manager with a resource type
@@ -29,7 +29,7 @@ public abstract class GenericResourceManager {
 	 */
 	protected GenericResourceManager(String resourceType) {
 		this.resourceType = resourceType;
-		this.component = this.getClass().getPackage();
+		this.component = this.getClass();
 	}
 
 	/**
