@@ -84,7 +84,7 @@ public class NormalizationManager extends GenericResourceManager {
 	public void readNormalizationResources(HashMap<String, String> hmResourcesNormalization) {
 		try {
 			for (String resource : hmResourcesNormalization.keySet()) {
-				System.err.println("["+component+"] Adding normalization resource: "+resource);
+				Logger.printError(component, "Adding normalization resource: "+resource);
 				// create a buffered reader for every normalization resource file
 				BufferedReader in = new BufferedReader(new InputStreamReader
 						(this.getClass().getClassLoader().getResourceAsStream(hmResourcesNormalization.get(resource)),"UTF-8"));
@@ -102,8 +102,8 @@ public class NormalizationManager extends GenericResourceManager {
 								}
 							}
 							if ((correctLine == false) && (!(line.matches("")))) {
-								System.err.println("["+component+"] Cannot read one of the lines of normalization resource "+resource);
-								System.err.println("["+component+"] Line: "+line);
+								Logger.printError("["+component+"] Cannot read one of the lines of normalization resource "+resource);
+								Logger.printError("["+component+"] Line: "+line);
 							}
 						}
 					}

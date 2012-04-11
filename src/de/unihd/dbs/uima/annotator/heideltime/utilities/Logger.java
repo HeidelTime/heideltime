@@ -13,7 +13,7 @@ public class Logger {
 
 	/**
 	 * Controls whether DEBUG-Level information is printed or not
-	 * @param printDetails
+	 * @param printDetails to print or not to print
 	 */
 	public static void setPrintDetails(Boolean printDetails) {
 		Logger.printDetails = printDetails;
