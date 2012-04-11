@@ -1606,7 +1606,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 								attributes[0], attributes[1], attributes[2], attributes[3],"t" + timexID++, hmPattern.get(p), jcas);
 					}
 					else {
-						Logger.printDetail("SOMETHING REALLY WRONG HERE: "+hmPattern.get(p));
+						Logger.printError("SOMETHING REALLY WRONG HERE: "+hmPattern.get(p));
 					}
 				}
 			}

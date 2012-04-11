@@ -21,7 +21,7 @@ public abstract class GenericResourceManager {
 	// kind of resource -- e.g. repattern, normalization, rules
 	protected String resourceType;
 	// local package for logging output
-	protected Class component;
+	protected Class<?> component;
 	
 	/**
 	 * Instantiates the Resource Manager with a resource type

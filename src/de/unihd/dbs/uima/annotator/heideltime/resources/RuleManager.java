@@ -128,8 +128,8 @@ public class RuleManager extends GenericResourceManager {
 								for (MatchResult mr : Toolbox.findMatches(paVariable,rule_extraction)) {
 									Logger.printDetail("DEBUGGING: replacing patterns..."+ mr.group());
 									if (!(rpm.containsKey(mr.group(1)))) {
-										Logger.printDetail("Error creating rule:"+rule_name);
-										Logger.printDetail("The following pattern used in this rule does not exist, does it? %"+mr.group(1));
+										Logger.printError("Error creating rule:"+rule_name);
+										Logger.printError("The following pattern used in this rule does not exist, does it? %"+mr.group(1));
 										System.exit(-1);
 									}
 									rule_extraction = rule_extraction.replaceAll("%"+mr.group(1), rpm.get(mr.group(1)));

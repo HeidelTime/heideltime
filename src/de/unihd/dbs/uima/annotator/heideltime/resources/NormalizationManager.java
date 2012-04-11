@@ -84,7 +84,7 @@ public class NormalizationManager extends GenericResourceManager {
 	public void readNormalizationResources(HashMap<String, String> hmResourcesNormalization) {
 		try {
 			for (String resource : hmResourcesNormalization.keySet()) {
-				Logger.printError(component, "Adding normalization resource: "+resource);
+				Logger.printDetail(component, "Adding normalization resource: "+resource);
 				// create a buffered reader for every normalization resource file
 				BufferedReader in = new BufferedReader(new InputStreamReader
 						(this.getClass().getClassLoader().getResourceAsStream(hmResourcesNormalization.get(resource)),"UTF-8"));
