@@ -6,6 +6,7 @@ import org.apache.uima.jcas.JCas;
  * Abstract class to for all Processors to inherit from. A processor is a
  * modular, self-sufficient piece of code that was added to HeidelTime to
  * fulfill a specific function.
+ * @author julian zell
  *
  */
 public abstract class GenericProcessor {

@@ -13,8 +13,7 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
  * related functionality should be registered in an instance of this class. HeidelTime's
  * annotator will then execute every registered "Processor"'s process() function.
  * Note that these Processes will be instantiated and processed after the resource
- * collection and before HeidelTime's cleanup methods. 
- * 
+ * collection and before HeidelTime's cleanup methods.
  * @author julian zell
  *
  */

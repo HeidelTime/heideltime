@@ -14,6 +14,7 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
  * This class fills the role of a manager of all the rule resources.
  * It reads the data from a file system and fills up a bunch of HashMaps
  * with their information.
+ * @author jannik stroetgen
  *
  */
 public class RuleManager extends GenericResourceManager {

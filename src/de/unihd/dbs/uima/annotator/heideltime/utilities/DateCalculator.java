@@ -8,6 +8,7 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 /**
  * 
  * This class contains methods that rely on calendar functions to calculate data.
+ * @author jannik stroetgen
  *
  */
 public class DateCalculator {

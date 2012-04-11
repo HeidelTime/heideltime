@@ -10,6 +10,7 @@ import java.util.TreeMap;
  * This class fills the role of a manager of all the RePattern resources.
  * It reads the data from a file system and fills up a bunch of HashMaps
  * with their information.
+ * @author jannik stroetgen
  *
  */
 public class RePatternManager extends GenericResourceManager {

@@ -46,7 +46,7 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  * HeidelTime finds temporal expressions and normalizes them according to the TIMEX3 
  * TimeML annotation standard.
  * 
- * @author Jannik
+ * @author jannik stroetgen
  * 
  */
 public class HeidelTime extends JCasAnnotator_ImplBase {

@@ -12,7 +12,8 @@ import java.util.regex.Pattern;
  * 
  * The Toolbox class contains methods with functionality that you would also
  * find outside the context of HeidelTime's specific skillset; i.e. they do
- * not require the CAS context, but are 'useful code snippets'. 
+ * not require the CAS context, but are 'useful code snippets'.
+ * @author jannik stroetgen
  *
  */
 public class Toolbox {
@@ -42,7 +43,8 @@ public class Toolbox {
         List<Pattern> keys = new ArrayList<Pattern>();
         keys.addAll(m.keySet());
         Collections.sort(keys, new Comparator<Object>() {
-            public int compare(Object o1, Object o2) {
+            @SuppressWarnings({ "unchecked", "rawtypes" })
+			public int compare(Object o1, Object o2) {
                 Object v1 = m.get(o1);
                 Object v2 = m.get(o2);
                 if (v1 == null) {

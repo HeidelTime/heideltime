@@ -17,6 +17,7 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  * 
  * This class contains methods that work with the dependence of a subject with its
  * surrounding data; namely via the jcas element or a subset list.
+ * @author jannik stroetgen
  *
  */
 public class Interdependency {

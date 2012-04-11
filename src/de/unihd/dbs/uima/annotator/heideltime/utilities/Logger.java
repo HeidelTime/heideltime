@@ -5,7 +5,6 @@ package de.unihd.dbs.uima.annotator.heideltime.utilities;
  * output should be done using either the printDetail()-methods for DEBUG-Level,
  * conditional output or the printError()-methods for ERROR-Level, unconditional
  * output.
- * 
  * @author julian zell
  *
  */
