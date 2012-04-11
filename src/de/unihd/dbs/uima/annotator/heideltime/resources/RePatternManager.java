@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.TreeMap;
+
+import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 /**
  * 
  * This class fills the role of a manager of all the RePattern resources.
@@ -63,7 +65,7 @@ public class RePatternManager extends GenericResourceManager {
 		//////////////////////////////////////
 		try {
 			for (String resource : hmResourcesRePattern.keySet()) {
-				System.err.println("["+component+"] Adding pattern resource: "+resource);
+				Logger.printDetail(component, "Adding pattern resource: "+resource);
 				// create a buffered reader for every repattern resource file
 				BufferedReader in = new BufferedReader(new InputStreamReader 
 						(this.getClass().getClassLoader().getResourceAsStream(hmResourcesRePattern.get(resource)),"UTF-8"));
@@ -81,8 +83,8 @@ public class RePatternManager extends GenericResourceManager {
 							}
 						}
 						if ((correctLine == false) && (!(line.matches("")))) {
-							System.err.println("["+component+"] Cannot read one of the lines of pattern resource "+resource);
-							System.err.println("["+component+"] Line: "+line);
+							Logger.printError(component, "Cannot read one of the lines of pattern resource "+resource);
+							Logger.printError(component, "Line: "+line);
 						}
 					}
 				}
@@ -106,9 +108,13 @@ public class RePatternManager extends GenericResourceManager {
 	private void finalizeRePattern(String name, String rePattern) {
 		// create correct regular expression
 		rePattern = rePattern.replaceFirst("\\|", "");
+		/* this was added to reduce the danger of getting unusable groups from user-made repattern
+		 * files with group-producing parentheses (i.e. "(foo|bar)" while matching against the documents. */
+		rePattern = rePattern.replaceAll("\\(([^\\?])", "(?:$1");
 		rePattern = "(" + rePattern + ")";
+		rePattern = rePattern.replaceAll("\\\\", "\\\\\\\\");
 		// add rePattern to hmAllRePattern
-		hmAllRePattern.put(name, rePattern.replaceAll("\\\\", "\\\\\\\\"));
+		hmAllRePattern.put(name, rePattern);
 	}
 	
 	/**
