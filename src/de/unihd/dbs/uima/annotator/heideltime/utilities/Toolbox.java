@@ -58,39 +58,4 @@ public class Toolbox {
         });
         return keys;
     }
-	
-	/**
-	 * Durations of a finer granularity are mapped to a coarser one if possible, e.g., "PT24H" -> "P1D".
-	 * One may add several further corrections.
-	 * @param value 
-     * @return
-     */
-	public static String correctDurationValue(String value) {
-		if (value.matches("PT[0-9]+H")){
-			for (MatchResult mr : findMatches(Pattern.compile("PT([0-9]+)H"), value)){
-				int hours = Integer.parseInt(mr.group(1));
-				if ((hours % 24) == 0){
-					int days = hours / 24;
-					value = "P"+days+"D";
-				}
-			}
-		} else if (value.matches("PT[0-9]+M")){
-			for (MatchResult mr : findMatches(Pattern.compile("PT([0-9]+)M"), value)){
-				int minutes = Integer.parseInt(mr.group(1));
-				if ((minutes % 60) == 0){
-					int hours = minutes / 60;
-					value = "PT"+hours+"H";
-				}
-			}
-		} else if (value.matches("P[0-9]+M")){
-			for (MatchResult mr : findMatches(Pattern.compile("P([0-9]+)M"), value)){
-				int months = Integer.parseInt(mr.group(1));
-				if ((months % 12) == 0){
-					int years = months / 12;
-					value = "P"+years+"Y";
-				}
-			}
-		}
-		return value;
-	}
 }
