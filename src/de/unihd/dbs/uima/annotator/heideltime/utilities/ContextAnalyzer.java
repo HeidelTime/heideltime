@@ -20,7 +20,7 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  * @author jannik stroetgen
  *
  */
-public class Interdependency {
+public class ContextAnalyzer {
 	// local reference to the normalization manager
 	private final static NormalizationManager nm = NormalizationManager.getInstance();
 	
