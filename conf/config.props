@@ -17,7 +17,7 @@ considerTime = true
 # Path to TreeTagger (Uni Stuttgart) home directory
 # Ensure there is no white space in path (try to escape white spaces)
 # (for locale use)
-treeTaggerHome = /home/jstroetgen/projects/heitempl/treetagger2011/
+treeTaggerHome = SET ME IN CONFIG.PROPS!
 # (for web-gui)
 #treeTaggerHome = /usr/share/dbs/tree-tagger-3.2/
 
