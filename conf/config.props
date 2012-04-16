@@ -1,0 +1,52 @@
+################################
+##           MAIN             ##
+################################
+# Consideration of different timex3-types
+# Date
+considerDate = true
+
+# Duration
+considerDuration = true
+
+# Set
+considerSet = true
+
+# Time
+considerTime = true
+
+# Path to TreeTagger (Uni Stuttgart) home directory
+# Ensure there is no white space in path (try to escape white spaces)
+# (for locale use)
+treeTaggerHome = /home/jstroetgen/projects/heitempl/treetagger2011/
+# (for web-gui)
+#treeTaggerHome = /usr/share/dbs/tree-tagger-3.2/
+
+
+
+
+# DO NOT CHANGE THE FOLLOWING
+################################
+# Relative path of type system in HeidelTime home directory
+typeSystemHome = desc/type/HeidelTime_TypeSystem.xml
+
+# Relative path of dkpro type system in HeidelTime home directory
+typeSystemHome_DKPro = desc/type/DKPro_TypeSystem.xml
+
+# Name of uima-context variables...
+# ...for date-consideration
+uimaVarDate = Date
+
+# ...for duration-consideration
+uimaVarDuration = Duration
+
+# ...for language
+uimaVarLanguage = Language_english_german
+
+# ...for set-consideration
+uimaVarSet = Set
+
+# ...for time-consideration
+uimaVarTime = Time
+
+# ...for type to process
+uimaVarTypeToProcess = Type_news_narratives
