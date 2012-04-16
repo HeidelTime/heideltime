@@ -18,16 +18,12 @@ package de.unihd.dbs.uima.annotator.annotationtranslator;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import javax.swing.plaf.basic.BasicScrollPaneUI.HSBChangeListener;
-
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.cas.FSIndex;
 import org.apache.uima.cas.FSIterator;
-import org.apache.uima.cas.FeatureStructure;
 
 import org.apache.uima.jcas.JCas;
-import org.apache.uima.jcas.cas.FSArray;
 import org.apache.uima.resource.ResourceInitializationException;
 
 /**
@@ -36,6 +32,7 @@ import org.apache.uima.resource.ResourceInitializationException;
  *
  */
 public class AnnotationTranslator extends JCasAnnotator_ImplBase {
+	@SuppressWarnings("unused")
 	private String toolname = "de.unihd.dbs.uima.annotator.annotationtranslator";
 	
 		public static final String PARAM_DKPRO_TO_HEIDELTIME = "DkproToHeideltime";

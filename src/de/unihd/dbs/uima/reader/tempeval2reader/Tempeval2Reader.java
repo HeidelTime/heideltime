@@ -180,7 +180,8 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
   }
 
   
-  public void setTimexes(String docname, List<File> inputFiles, JCas jcas) throws IOException{
+  @SuppressWarnings("unused")
+public void setTimexes(String docname, List<File> inputFiles, JCas jcas) throws IOException{
 	  String directory = (String) getConfigParameterValue(PARAM_INPUTDIR);
 	  String filename_extents    = directory+"/"+FILE_TIMEX_EXTENTS;
 	  String filename_attributes = directory+"/"+FILE_TIMEX_ATTRIBUTES;

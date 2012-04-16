@@ -141,7 +141,7 @@ public class ACETernReader extends CollectionReader_ImplBase {
 
 	    // Keep Source document information
 	    SourceDocInfo srcDocInfo = new SourceDocInfo(jcas);
-	    URL url = file.getAbsoluteFile().toURL();
+	    URL url = file.getAbsoluteFile().toURI().toURL();
 		srcDocInfo.setUri(url.toString());
 	    srcDocInfo.addToIndexes();
 	    
@@ -156,6 +156,7 @@ public class ACETernReader extends CollectionReader_ImplBase {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public void setDCT(String xml, JCas jcas, String filename){
 		
 		// TODO SET DOCUMENT CREATION TIME!!!!
