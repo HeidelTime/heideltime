@@ -176,7 +176,7 @@ public class ACETernReader extends CollectionReader_ImplBase {
 		String dateformat5 = "(.*?)(\\d\\d\\d\\d)-(\\d\\d)-(\\d\\d)(.*?)"; // 1996-02-13
 		String dateformat6 = "(.*?)(\\d\\d)/(\\d\\d)/(\\d\\d\\d\\d)(.*?)"; // 07/15/2000
 		String dateformat7 = "(.*?)(January|February|March|April|May|June|July|August|September|October|November|December) ([\\d]?[\\d]),? (\\d\\d\\d\\d)(.*?)";
-		String dateformat8 = "(.*?)(\\d\\d\\d\\d)(\\d\\d)(\\d\\d)-(\\d\\d)-(\\d\\d)-(\\d\\d)(.*?)"; // 20041221-20:24:00
+		String dateformat8 = "(.*?)(\\d\\d\\d\\d)(\\d\\d)(\\d\\d)-(\\d\\d):(\\d\\d):(\\d\\d)(.*?)"; // 20041221-20:24:00
 		String dateformat9 = "(.*?)(\\d\\d\\d\\d)(\\d\\d)(\\d\\d)(.*?)"; // 20030422
 		for (MatchResult m : findMatches(Pattern.compile("(<DATETIME>|<DATE_TIME>|<DATE>|<STORY_REF_TIME>)(("+dateformat1+
 																						")|("+dateformat2+
