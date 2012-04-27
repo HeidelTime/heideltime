@@ -431,7 +431,7 @@ public class HeidelTimeStandalone {
 		for (int i = 0; i < args.length - 1; i++) {
 			if (args[i].equals(name)) {
 				// Parameter found
-				String value = args[i + 1];
+				String value = args[i + 1].toUpperCase();
 
 				if (value.startsWith("-")) {
 					// Invalid value
