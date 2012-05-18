@@ -51,4 +51,14 @@ public enum Language {
 			return "italian";
 		}
 	},
+	ENGLISHCOLL {
+		public String toString() {
+			return "englishcoll";
+		}
+	},
+	ENGLISHSCI {
+		public String toString() {
+			return "englishsci";
+		}
+	}
 }

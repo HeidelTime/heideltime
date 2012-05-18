@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for "this/next/last" words.
+// FORMAT: one line is one disjunction of the pattern
+[Ll]ast
+[Pp]ast
+[Nn]ext
+// SYNONYM
+[Nn]xt
+//[Ff]ollowing -> handled differently using UNDEF-REF
+[Ll]atest
+[Cc]urrent
+[Tt]his
+// SYNONYM
+[Dd]is
+[Pp]revious

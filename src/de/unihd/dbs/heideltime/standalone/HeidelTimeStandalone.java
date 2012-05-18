@@ -173,6 +173,10 @@ public class HeidelTimeStandalone {
 				// But should be provided in case of news-document
 				throw new DocumentCreationTimeMissingException();
 			}
+			if (documentType == DocumentType.COLLOQUIAL) {
+				// But should be provided in case of colloquial-document
+				throw new DocumentCreationTimeMissingException();
+			}
 		} else {
 			// Document creation time provided
 			// Translate it to expected string format
@@ -350,7 +354,8 @@ public class HeidelTimeStandalone {
 			System.err.println(dct.toString());
 		} catch (Exception e) {
 			// Dct not found
-			if (type == DocumentType.NEWS) {
+			if ((type == DocumentType.NEWS) ||
+					(type == DocumentType.COLLOQUIAL)) {
 				// Dct needed
 				dct = new Date();
 				System.out.println("NOT FOUND OR RECOGNIZED; set to today ("

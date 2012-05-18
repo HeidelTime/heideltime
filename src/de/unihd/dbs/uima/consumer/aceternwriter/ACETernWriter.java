@@ -133,8 +133,12 @@ public class ACETernWriter extends CasConsumer_ImplBase {
 				// CHANGES DUE TO TIMEX2 not equal TIMEX3
 				String timexvalue = t.getTimexValue();
 				timexvalue = translatetimex3timex2(timexvalue);
+//				if (t.getTimexType().equals("SET")){
+////					System.err.println("CHANGE SETS");
+//					timexvalue = translatetimex3timex2set(timexvalue); // NOT WITH TIMEBANK!!! Timebank is Timex3 and sets not translated in preparation script yet
+//				}
 				toprint = toprint + doctext.substring(startposition, endposition); // text from begin or last timex to begin of new timex
-				toprint = toprint + "<TIMEX2 val=\"" + timexvalue + "\">";      // timex opening tag
+				toprint = toprint + "<TIMEX2 val=\"" + timexvalue + "\">";         // timex opening tag
 				toprint = toprint + t.getCoveredText();                            // timex text
 				toprint = toprint + "</TIMEX2>";
 				startposition = t.getEnd();
@@ -175,6 +179,47 @@ public class ACETernWriter extends CasConsumer_ImplBase {
 				timexvalue = m.group(1);
 			}
 		}		
+		
+		return timexvalue;
+	}
+	
+	public String translatetimex3timex2set(String timexvalue){
+		
+		// change year
+		String year = "(P(\\d)+Y)";
+		if (timexvalue.matches(year)){
+			for (MatchResult m : findMatches(Pattern.compile(year), timexvalue)){
+				timexvalue = "XXXX";
+			}
+		}
+		// change month
+		String month = "(P(\\d)+M)";
+		if (timexvalue.matches(month)){
+			for (MatchResult m : findMatches(Pattern.compile(month), timexvalue)){
+				timexvalue = "XXXX-XX";
+			}
+		}
+		// change day
+		String day = "(P(\\d)+D)";
+		if (timexvalue.matches(day)){
+			for (MatchResult m : findMatches(Pattern.compile(day), timexvalue)){
+				timexvalue = "XXXX-XX-XX";
+			}
+		}
+		// change hour
+		String hour = "(PT(\\d)+H)";
+		if (timexvalue.matches(hour)){
+			for (MatchResult m : findMatches(Pattern.compile(hour), timexvalue)){
+				timexvalue = "XXXX-XX-XXTXX";
+			}
+		}
+		// change minute
+		String minute = "(PT(\\d)+M)";
+		if (timexvalue.matches(minute)){
+			for (MatchResult m : findMatches(Pattern.compile(minute), timexvalue)){
+				timexvalue = "XXXX-XX-XXTXX:XX";
+			}
+		}
 		
 		return timexvalue;
 	}

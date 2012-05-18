@@ -1,0 +1,61 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-13
+// This file contains rules for the temporal expressions of the type duration: durationrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+/////////////////////
+// POSITIVE RULES //
+/////////////////////
+// duration_r1
+// EXAMPLE r1a-1: less than sixty days
+// EXAMPLE r1b-1: less than 60 days
+// EXAMPLE r1c-1: several days
+// EXAMPLE r1d-1: less than sixty minutes
+// EXAMPLE r1e-1: less than 60 minutes
+// EXAMPLE r1f-1: several minutes
+RULENAME="duration_r1a",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D)( |-)%reUnit",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(7))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r1b",EXTRACTION="(%reApproximate )?([\d]+)( |-)?%reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r1c",EXTRACTION="(%reApproximate )?(several|a couple of|some|several|recent|coming) %reUnit",NORM_VALUE="PX%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r1d",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D)( |-)(minutes?|hours?)",NORM_VALUE="PT%normDurationNumber(group(3))%normUnit4Duration(group(7))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r1e",EXTRACTION="(%reApproximate )?([\d]+)( |-)?(minutes?|hours?)",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r1f",EXTRACTION="(%reApproximate )?(several|a couple of|some|several|recent|coming) (minutes?|hours?)",NORM_VALUE="PTX%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r1g",EXTRACTION="(%reApproximate )(an|a)( )%reUnit",NORM_VALUE="P1%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r1e2",EXTRACTION="(%reApproximate )?([\d]+\.[\d]+)( |-)?(minutes?|hours?)",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r1b2",EXTRACTION="(%reApproximate )?([\d]+\.[\d]+)( |-)?%reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+
+// duration_r2
+// EXAMPLE r2a-1: at least the last twenty years
+// EXAMPLE r2b-1: at least the last 20 years
+// EXAMPLE r2c-1: at least the last several years
+// EXAMPLE r2d-1: at least the last twenty minutes
+// EXAMPLE r2e-1: at least the last 20 minutes
+// EXAMPLE r2f-1: at least the last several minutes
+RULENAME="duration_r2a",EXTRACTION="(%reApproximate )?the %reThisNextLast (%reNumWord2D|%reNumWord1D) %reUnit( or so)?",NORM_VALUE="P%normDurationNumber(group(4))%normUnit4Duration(group(7))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r2b",EXTRACTION="(%reApproximate )?the %reThisNextLast ([\d]+) %reUnit( or so)?",NORM_VALUE="Pgroup(4)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r2c",EXTRACTION="(%reApproximate )?the %reThisNextLast (several|couple of|few) %reUnit( or so)?",NORM_VALUE="PX%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r2d",EXTRACTION="(%reApproximate )?the %reThisNextLast (%reNumWord2D|%reNumWord1D) (minutes?|hours?)( or so)?",NORM_VALUE="PT%normDurationNumber(group(4))%normUnit4Duration(group(7))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r2e",EXTRACTION="(%reApproximate )?the %reThisNextLast ([\d]+) (minutes?|hours?)( or so)?",NORM_VALUE="PTgroup(4)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r2f",EXTRACTION="(%reApproximate )?the %reThisNextLast (several|couple of|few) (minutes?|hours?)( or so)?",NORM_VALUE="PTX%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+
+// duration_r3
+// EXAMPLE r3a-1: a three-year period
+// EXAMPLE r3b-1: a 300 year period
+// EXAMPLE r3c-1: a three-hour period
+// EXAMPLE r3d-1: a 300 hour period
+RULENAME="duration_r3a",EXTRACTION="((a|an|the) )?(%reNumWord2D|%reNumWord1D)( |-)%reUnit (period|term)",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(7))"
+RULENAME="duration_r3b",EXTRACTION="((a|an|the) )?([\d]+)( |-)%reUnit (period|term)",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(5))"
+RULENAME="duration_r3c",EXTRACTION="((a|an|the) )?(%reNumWord2D|%reNumWord1D)( |-)(minutes?|hours?) (period|term)",NORM_VALUE="PT%normDurationNumber(group(3))%normUnit4Duration(group(7))"
+RULENAME="duration_r3d",EXTRACTION="((a|an|the) )?([\d]+)( |-)(minutes?|hours?) (period|term)",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(5))"
+
+
+
+////////////////////
+// NEGATIVE RULES //
+////////////////////
+// duration_r1_negative
+// EXAMPLE r1a_negative-1: about 200 years older
+// EXAMPLE r1b_negative-1: several days old
+RULENAME="duration_r1a_negation",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D|[\d]+) (%reUnit|minutes?|hours?) (older|younger|old|young)",NORM_VALUE="REMOVE"
+RULENAME="duration_r1b_negation",EXTRACTION="(%reApproximate )?(several|a couple of|some|several|recent|coming) (%reUnit|minutes?|hours?) (older|younger|old|young)",NORM_VALUE="REMOVE"
+

@@ -1,0 +1,49 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for "part" words.
+// FORMAT: one line is one disjunction of the pattern
+[Tt]he middle of
+[Tt]he end of
+[Tt]he beginning of
+[Tt]he start of
+[Ll]ater
+// SYNONYM
+[Ll]ates
+// SYNONYM
+[Ll]ates
+// SYNONYM
+[Ll]ata
+// SYNONYM
+[Ll]atr
+[Ll]ate
+// SYNONYM
+[Ll]8ter
+// SYNONYM
+[Ll]8ers
+// SYNONYM
+[Ll]8rs
+// SYNONYM
+[Ll]8rz
+// SYNONYM
+[Ll]8er
+// SYNONYM
+[Ll]8ta
+// SYNONYM
+[Ll]8tr
+// SYNONYM
+[Ll]tr
+// SYNONYM
+[Ll]8t
+// SYNONYM
+[Ll]8s
+// SYNONYM
+[Ll]8a
+// SYNONYM
+[Ll]8
+[Ee]arly
+[Ee]arlier
+[Mm]id-
+[Mm]id
+[Ff]iscal-
+[Ff]iscal

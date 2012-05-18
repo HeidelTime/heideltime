@@ -1,0 +1,91 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains contains "part words" and their normalized expressions
+// according to TIMEX3 format. 
+// For example, the normalized value of "the middle of" is "MID"
+// FORMAT: "part word","normalized-part-word"
+"The middle of","MID"
+"the middle of","MID"
+"The end of","END"
+"the end of","END"
+"The beginning of","START"
+"the beginning of","START"
+"The start of","START"
+"the start of","START"
+"Late","END"
+"late","END"
+// SYNONYM
+"L8","END"
+// SYNONYM
+"l8","END"
+"Later","END"
+"later","END"
+// SYNONYM
+"L8a","END"
+// SYNONYM
+"l8a","END"
+// SYNONYM
+"L8er","END"
+// SYNONYM
+"l8er","END"
+// SYNONYM
+"L8ers","END"
+// SYNONYM
+"l8ers","END"
+// SYNONYM
+"L8rs","END"
+// SYNONYM
+"l8rs","END"
+// SYNONYM
+"L8rz","END"
+// SYNONYM
+"l8rz","END"
+// SYNONYM
+"L8s","END"
+// SYNONYM
+"l8s","END"
+// SYNONYM
+"L8t","END"
+// SYNONYM
+"l8t","END"
+// SYNONYM
+"L8ta","END"
+// SYNONYM
+"l8ta","END"
+// SYNONYM
+"L8ter","END"
+// SYNONYM
+"l8ter","END"
+// SYNONYM
+"L8tr","END"
+// SYNONYM
+"l8tr","END"
+// SYNONYM
+"Lata","END"
+// SYNONYM
+"lata","END"
+// SYNONYM
+"Lates","END"
+// SYNONYM
+"lates","END"
+// SYNONYM
+"Latr","END"
+// SYNONYM
+"latr","END"
+// SYNONYM
+"Ltr","END"
+// SYNONYM
+"ltr","END"
+"Early","START"
+"early","START"
+"Earlier","START"
+"earlier","START"
+"Mid-","MID"
+"mid-","MID"
+"Mid","MID"
+"mid","MID"
+"Fiscal-",""
+"fiscal-",""
+"Fiscal",""
+"fiscal",""

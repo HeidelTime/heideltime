@@ -30,5 +30,15 @@ public enum DocumentType {
 		public String toString() {
 			return "news";
 		}
+	},
+	COLLOQUIAL {
+		public String toString() {
+			return "colloquial";
+		}
+	},
+	SCIENTIFIC {
+		public String toString() {
+			return "scientific";
+		}
 	}
 }

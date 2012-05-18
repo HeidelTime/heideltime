@@ -1,0 +1,110 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for date words.
+// FORMAT: one line is one disjunction of the pattern
+// THESE EXPRESSIONS ARE ALL IMPLICITS
+// SHOULD ONLY BE UPPER CASE IF AT THE BEGINNING OF A SENTENCE
+[Tt]he day before yesterday
+[Yy]esterday
+[Tt]oday
+// SYNONYM
+2dae
+// SYNONYM
+2day
+[Tt]omorrow
+// SYNONYM
+2morrow
+// SYNONYM
+2morow
+// SYNONYM
+2morro
+// SYNONYM
+2mora
+// SYNONYM
+2moro
+// SYNONYM
+tmmrw
+// SYNONYM
+tmoro
+// SYNONYM
+moro
+// SYNONYM
+2maro
+// SYNONYM
+2mmrw
+// SYNONYM
+2mozz
+// SYNONYM
+tmrrw
+// SYNONYM
+[Tt]omrw
+// SYNONYM
+[Tt]0mrw
+// SYNONYM
+tomoz
+// SYNONYM
+tmrw
+// SYNONYM
+tmrz
+// SYNONYM
+2mro
+// SYNONYM
+2mrw
+// SYNONYM
+tmoz
+// SYNONYM
+2moz
+// SYNONYM
+tomm
+// SYNONYM
+2ma
+// SYNONYM
+2mo
+// SYNONYM
+2mw
+// SYNONYM
+2mz
+// SYNONYM
+tmr
+// SYNONYM
+2m
+// SYNONYM
+tmz
+[Rr]ight now
+// SYNONYM
+rite now
+// SYNONYM
+ryt now
+// SYNONYM
+ryte now
+[Nn]ow
+// SYNONYM
+[Nn]w
+// SYNONYM
+[Nn]0w
+[Aa]s soon as possible
+// SYNONYM
+asap
+// SYNONYM
+ASAP
+[Ss]oon
+[Rr]ecently
+[Rr]ecent
+[Cc]urrently
+[Cc]urrent
+// [Pp]reviously
+// [Yy]et
+[Ff]ormerly
+[Ff]ormer
+[Tt]onight
+// SYNONYM
+2night
+// SYNONYM
+2nite
+// SYNONYM
+2nyt
+// SYNONYM
+cu2nit
+//SYNONYM
+[Tt]onite

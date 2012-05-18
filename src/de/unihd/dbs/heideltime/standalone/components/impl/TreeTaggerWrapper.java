@@ -284,7 +284,15 @@ public class TreeTaggerWrapper implements PartOfSpeechTagger {
 
 		case ENGLISH:
 			return "english";
-
+			
+		case
+			ENGLISHCOLL:
+			return "english";
+		
+		case
+			ENGLISHSCI:
+			return "english";
+		
 		case GERMAN:
 			return "german";
 			

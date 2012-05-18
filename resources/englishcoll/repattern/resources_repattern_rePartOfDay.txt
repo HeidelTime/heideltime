@@ -1,0 +1,48 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for parts of days.
+// FORMAT: one line is one disjunction of the pattern
+[Mm]id-afternoon
+// SYNONYM
+[Mm]id-avro
+[Aa]fternoon
+// SYNONYM
+[Aa]vro
+[Nn]oon
+[Mm]idnight
+[Mm]id-day
+[Tt]onight
+//SYNONYM
+[Tt]onite
+// SYNONYM
+2night
+[Nn]ight
+// SYNONYM
+9t
+// SYNONYM
+2nite
+// SYNONYM
+[Nn]ite
+// SYNONYM
+[Nn]it
+// SYNONYM
+2nyt
+// SYNONYM
+cu2nit
+// SYNONYM
+lgot
+// SYNONYM
+rubz2nt
+[Mm]orning
+// SYNONYM
+[Mm]ornin
+// SYNONYM
+[Mm]rning
+// SYNONYM
+[Mm]orn
+// SYNONYM
+[Mm]oning
+[Ee]vening
+// SYNONYM
+[Ee]vng

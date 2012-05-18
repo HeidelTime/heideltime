@@ -44,122 +44,124 @@ public class ContextAnalyzer {
 				if (!(t_i.getBegin() == timex.getBegin())) {
 				
 					String value = timex.getTimexValue();
-					if (x.equals("century")) {
-						if (value.matches("^[0-9][0-9]...*")) {
-							xValue = value.substring(0,2);
-							break;
-						}
-						else {
-							j--;
-						}
-					}
-					else if (x.equals("decade")) {
-						if (value.matches("^[0-9][0-9][0-9]..*")) {
-							xValue = value.substring(0,3);
-							break;
-						}
-						else {
-							j--;
-						}
-					}
-					else if (x.equals("year")) {
-						if (value.matches("^[0-9][0-9][0-9][0-9].*")) {
-							xValue = value.substring(0,4);
-							break;
-						}
-						else {
-							j--;
-						}
-					}
-					else if (x.equals("dateYear")) {
-						if (value.matches("^[0-9][0-9][0-9][0-9].*")) {
-							xValue = value;
-							break;
-						}
-						else {
-							j--;
-						}
-					}
-					else if (x.equals("month")) {
-						if (value.matches("^[0-9][0-9][0-9][0-9]-[0-9][0-9].*")) {
-							xValue = value.substring(0,7);
-							break;
-						}
-						else {
-							j--;
-						}
-					}
-					else if (x.equals("day")) {
-						if (value.matches("^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*")) {
-							xValue = value.substring(0,10);
-							break;
-						}
-						else {
-							j--;
-						}
-					}
-					else if (x.equals("week")) {
-						if (value.matches("^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*")) {
-							for (MatchResult r : Toolbox.findMatches(Pattern.compile("^(([0-9][0-9][0-9][0-9])-[0-9][0-9]-[0-9][0-9]).*"), value)) {
-								xValue = r.group(2)+"-W"+DateCalculator.getWeekOfDate(r.group(1));
+					if (!(value.contains("funcDate"))){
+						if (x.equals("century")) {
+							if (value.matches("^[0-9][0-9]...*")) {
+								xValue = value.substring(0,2);
 								break;
 							}
-							break;
+							else {
+								j--;
+							}
 						}
-						else if (value.matches("^[0-9][0-9][0-9][0-9]-W[0-9][0-9].*")) {
-							for (MatchResult r : Toolbox.findMatches(Pattern.compile("^([0-9][0-9][0-9][0-9]-W[0-9][0-9]).*"), value)) {
-								xValue = r.group(1);
+						else if (x.equals("decade")) {
+							if (value.matches("^[0-9][0-9][0-9]..*")) {
+								xValue = value.substring(0,3);
 								break;
 							}
-							break;
+							else {
+								j--;
+							}
 						}
-						else {
-							j--;
+						else if (x.equals("year")) {
+							if (value.matches("^[0-9][0-9][0-9][0-9].*")) {
+								xValue = value.substring(0,4);
+								break;
+							}
+							else {
+								j--;
+							}
 						}
+						else if (x.equals("dateYear")) {
+							if (value.matches("^[0-9][0-9][0-9][0-9].*")) {
+								xValue = value;
+								break;
+							}
+							else {
+								j--;
+							}
+						}
+						else if (x.equals("month")) {
+							if (value.matches("^[0-9][0-9][0-9][0-9]-[0-9][0-9].*")) {
+								xValue = value.substring(0,7);
+								break;
+							}
+							else {
+								j--;
+							}
+						}
+						else if (x.equals("day")) {
+							if (value.matches("^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*")) {
+								xValue = value.substring(0,10);
+								break;
+							}
+							else {
+								j--;
+							}
+						}
+						else if (x.equals("week")) {
+							if (value.matches("^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*")) {
+								for (MatchResult r : Toolbox.findMatches(Pattern.compile("^(([0-9][0-9][0-9][0-9])-[0-9][0-9]-[0-9][0-9]).*"), value)) {
+									xValue = r.group(2)+"-W"+DateCalculator.getWeekOfDate(r.group(1));
+									break;
+								}
+								break;
+							}
+							else if (value.matches("^[0-9][0-9][0-9][0-9]-W[0-9][0-9].*")) {
+								for (MatchResult r : Toolbox.findMatches(Pattern.compile("^([0-9][0-9][0-9][0-9]-W[0-9][0-9]).*"), value)) {
+									xValue = r.group(1);
+									break;
+								}
+								break;
+							}
+							else {
+								j--;
+							}
+						}
+						else if (x.equals("quarter")) {
+							if (value.matches("^[0-9][0-9][0-9][0-9]-[0-9][0-9].*")) {
+								String month   = value.substring(5,7);
+								String quarter = nm.getFromNormMonthInQuarter(month);
+								xValue = value.substring(0,4)+"-Q"+quarter;
+								break;
+							}
+							else if (value.matches("^[0-9][0-9][0-9][0-9]-Q[1234].*")) {
+								xValue = value.substring(0,7);
+								break;
+							}
+							else {
+								j--;
+							}
+						}
+						else if (x.equals("dateQuarter")) {
+							if (value.matches("^[0-9][0-9][0-9][0-9]-Q[1234].*")) {
+								xValue = value.substring(0,7);
+								break;
+							}
+							else {
+								j--;
+							}
+						}
+						else if (x.equals("season")) {
+							if (value.matches("^[0-9][0-9][0-9][0-9]-[0-9][0-9].*")) {
+								String month   = value.substring(5,7);
+								String season = nm.getFromNormMonthInSeason(month);
+								xValue = value.substring(0,4)+"-"+season;
+								break;
+							}
+							else if (value.matches("^[0-9][0-9][0-9][0-9]-(SP|SU|FA|WI).*")) {
+								xValue = value.substring(0,7);
+								break;
+							}
+							else {
+								j--;
+							}
+						}
+						
 					}
-					else if (x.equals("quarter")) {
-						if (value.matches("^[0-9][0-9][0-9][0-9]-[0-9][0-9].*")) {
-							String month   = value.substring(5,7);
-							String quarter = nm.getFromNormMonthInQuarter(month);
-							xValue = value.substring(0,4)+"-Q"+quarter;
-							break;
-						}
-						else if (value.matches("^[0-9][0-9][0-9][0-9]-Q[1234].*")) {
-							xValue = value.substring(0,7);
-							break;
-						}
-						else {
-							j--;
-						}
+					else {
+						j--;
 					}
-					else if (x.equals("dateQuarter")) {
-						if (value.matches("^[0-9][0-9][0-9][0-9]-Q[1234].*")) {
-							xValue = value.substring(0,7);
-							break;
-						}
-						else {
-							j--;
-						}
-					}
-					else if (x.equals("season")) {
-						if (value.matches("^[0-9][0-9][0-9][0-9]-[0-9][0-9].*")) {
-							String month   = value.substring(5,7);
-							String season = nm.getFromNormMonthInSeason(month);
-							xValue = value.substring(0,4)+"-"+season;
-							break;
-						}
-						else if (value.matches("^[0-9][0-9][0-9][0-9]-(SP|SU|FA|WI).*")) {
-							xValue = value.substring(0,7);
-							break;
-						}
-						else {
-							j--;
-						}
-					}
-					
-				}
-				else {
-					j--;
 				}
 		}
 		return xValue;
