@@ -92,12 +92,12 @@ public class HeidelTimeStandalone {
 
 		// Initialize logger -------------------
 		logger = Logger.getLogger("HeidelTimeStandalone");
-		logger.log(Level.INFO, "HeidelTimeStandalone initialized");
+		logger.log(Level.INFO, "HeidelTimeStandalone initialized with language "+this.language.toString());
 
 		// Initialize config -------------------
 		logger.log(Level.FINE, "Initializing config...");
 		try {
-			if (!Config.isInitialized()) {
+//			if (!Config.isInitialized()) {
 				InputStream configStream = this.getClass().getClassLoader()
 						.getResourceAsStream("config.props");
 
@@ -106,9 +106,9 @@ public class HeidelTimeStandalone {
 
 				Config.setProps(props);
 				logger.log(Level.INFO, "Config initialized");
-			} else {
-				logger.log(Level.INFO, "Config already initialized");
-			}
+//			} else {
+//				logger.log(Level.INFO, "Config already initialized");
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.log(Level.WARNING, "Config could not be initialized");
