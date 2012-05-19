@@ -63,7 +63,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	
 	// INPUT PARAMETER HANDLING WITH UIMA
 	private String PARAM_LANGUAGE         = "Language_english_german";
+	// supported languages (2012-05-19): english, german, dutch, englishcoll, englishsci
 	private String PARAM_TYPE_TO_PROCESS  = "Type_news_narratives";
+	// supported types (2012-05-19): news (english, german, dutch), narrative (english, german, dutch), colloquial
 	private String language       = "english";
 	private String typeToProcess  = "news";
 	
@@ -647,27 +649,27 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							newCenturyValue = dctCentury+"";
 						}
 					}
-					// IF NO TENSE IS FOUND
-					if (last_used_tense.equals("")){
-						if (documentTypeColloquial){
-							// IN COLLOQUIAL: future temporal expressions
-							if (viThisDecade < dctDecade){
-								newCenturyValue = dctCentury + 1+"";
-							}
-							else{
-								newCenturyValue = dctCentury+"";
-							}
-						}
-						else{
-							// IN NEWS: past temporal expressions
-							if (dctDecade <= viThisDecade){
-								newCenturyValue = dctCentury - 1+"";
-							}
-							else{
-								newCenturyValue = dctCentury+"";
-							}
-						}
-					}
+//					// IF NO TENSE IS FOUND
+//					if (last_used_tense.equals("")){
+//						if (documentTypeColloquial){
+//							// IN COLLOQUIAL: future temporal expressions
+//							if (viThisDecade < dctDecade){
+//								newCenturyValue = dctCentury + 1+"";
+//							}
+//							else{
+//								newCenturyValue = dctCentury+"";
+//							}
+//						}
+//						else{
+//							// IN NEWS: past temporal expressions
+//							if (dctDecade <= viThisDecade){
+//								newCenturyValue = dctCentury - 1+"";
+//							}
+//							else{
+//								newCenturyValue = dctCentury+"";
+//							}
+//						}
+//					}
 				}
 				// NARRATIVE DOCUMENTS
 				else {

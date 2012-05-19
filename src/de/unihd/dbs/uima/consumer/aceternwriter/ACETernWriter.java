@@ -135,7 +135,9 @@ public class ACETernWriter extends CasConsumer_ImplBase {
 				timexvalue = translatetimex3timex2(timexvalue);
 //				if (t.getTimexType().equals("SET")){
 ////					System.err.println("CHANGE SETS");
-//					timexvalue = translatetimex3timex2set(timexvalue); // NOT WITH TIMEBANK!!! Timebank is Timex3 and sets not translated in preparation script yet
+//					timexvalue = translatetimex3timex2set(timexvalue); // NOT WITH TIMEBANK!!! 
+																	   // Timebank is Timex3 and sets not translated in preparation script yet
+																	   // But absolutely needed with scientific corpus due to many sets
 //				}
 				toprint = toprint + doctext.substring(startposition, endposition); // text from begin or last timex to begin of new timex
 				toprint = toprint + "<TIMEX2 val=\"" + timexvalue + "\">";         // timex opening tag
