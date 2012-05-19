@@ -58,7 +58,7 @@ RULENAME="time_r4b",EXTRACTION="([Tt]onight)",NORM_VALUE="UNDEF-this-dayT%normPa
 
 // EXAMPLE r4_c-1: good nit
 RULENAME="time_r4c",EXTRACTION="([Aa] |[Tt]he )?(([Gg]ud|[Gg]d|[Gg]ood|[Gg]reat|[Ww]onderful) )?%rePartOfDay",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(4))"
-RULENAME="time_r4d",EXTRACTION="([Aa] |[Tt]he )?(([Gg]ud|[Gg]d|[Gg]ood|[Gg]reat|[Ww]onderful) )?%reDateWord",NORM_VALUE="%normDateWord(group(4))"
+RULENAME="time_r4d",EXTRACTION="([Aa] |[Tt]he )?(([Gg]ud|[Gg]d|[Gg]ood|[Gg]reat|[Ww]onderful) )%reDateWord",NORM_VALUE="%normDateWord(group(4))"
 RULENAME="time_r43",EXTRACTION="([Aa] |[Tt]he )?(([Gg]ud|[Gg]d|[Gg]ood|[Gg]reat|[Ww]onderful) )%reUnit",NORM_VALUE="P1%normUnit4Duration(group(4))"
 
 ///////////////////////////
