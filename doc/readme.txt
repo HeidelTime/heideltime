@@ -3,7 +3,7 @@
 #######################
 
 Author: Jannik Strötgen
-Date:   October 21, 2011
+Date:   May 19, 2012
 eMail:  stroetgen@uni-hd.de
 
 ##################################
@@ -24,10 +24,10 @@ Please cite this paper if you use HeidelTime.
 HeidelTime is a multilingual temporal tagger that extracts temporal expressions from documents
 and normalizes them according to the TIMEX3 annotation standard, which is part of the mark-up
 language TimeML. HeidelTime uses different normalization strategies depending on the domain of 
-the documents that are to be processed (news or narratives). It is a rule-based system and due 
-to its architectural feature that the source code and the resources (patterns, normalization 
-information, and rules) are strictly separated, one can simply develop resources for additional 
-languages using HeidelTime's well-defined rule syntax.
+the documents that are to be processed (news, narratives, scientific or colloquial texts). It 
+is a rule-based system and due  to its architectural feature that the source code and the 
+resources (patterns, normalization information, and rules) are strictly separated, one can 
+simply develop resources for additional languages using HeidelTime's well-defined rule syntax.
 
 HeidelTime was the best system for the extraction and normalization of English temporal 
 expressions from documents in the TempEval-2 challenge in 2010. Furthermore, it is evaluated on 
@@ -37,6 +37,13 @@ Tagging" (currently under review).
 HeidelTime with resources for English and German is one component of our UIMA HeidelTime kit.
 Furthermore, resources for Dutch were developed and kindly provided by Matje van de Camp 
 (Tilburg University, http://www.tilburguniversity.edu/webwijs/show/?uid=m.m.v.d.camp).
+
+Additionally, whilst expanding the set of domains that HeidelTime can recognize temporal 
+expressions in, english resources for colloquial as well as scientific style documents were 
+developed. Colloquial documents are for example SMS or Twitter messages where language is
+abbreviated to fit a length constraint. Scientific documents include for example biomedical
+studies, in which temporal information is often given relative to a document-specific "local"
+time frame.
 
 In addition to HeidelTime with resources for English, German, and Dutch, the UIMA HeidelTime kit
 contains collection readers, cas consumers, and analysis engines to process temporal annotated 
@@ -189,26 +196,26 @@ To analyze the annotations produced by HeidelTime you may use UIMA's annotation 
 ####################################################################
 # 6. What kind of temporal expressions can be found and normalized #
 ####################################################################
-HeidelTime differs between two types of documents: news style and narrative style 
-documents. This file here is a narrative document. This version of HeidelTime was 
-released in 2011. To be more precise using a relative expression it was released
-on May 4. HeidelTime was the best performing system of task A of the TempEval-2
-challenge in 2010 and the system was presented at the TempEval Workshop at the ACL
-conference in Uppsala, Sweden on July 15, 2010 or July 16. In the meanwhile, it is
-May 2011 and HeidelTime is made publicly available and identifies these temporal 
-expressions: January 22, 2001 or twice a week.
+HeidelTime distinguishes between four types of documents: news style, narrative
+style, colloquial style and scientific style documents. This file here is a narrative 
+document. This version of HeidelTime was released in 2011. To be more precise, and using
+a relative expression, it was released on May 4. HeidelTime was the best performing 
+system of task A of the TempEval-2 challenge in 2010 and the system was presented at the 
+TempEval Workshop at the ACL conference in Uppsala, Sweden on July 15, 2010 or July 16. 
+In the meantime, it is May 2011 and HeidelTime is made publicly available and identifies 
+these temporal expressions: January 22, 2001 or twice a week.
 
 #######################################################################
 # 7. Reproducing HeidelTime's evaluation results on different corpora #
 #######################################################################
 To reproduce HeidelTime's evaluation results reported in in our paper "Multilingual 
 Cross-domain Temporal Tagging" (currently under review), follow the instructions on:
-http://dbs.ifi.uni-heidelberg.de/heideltime
+http://code.google.com/p/heideltime/wiki/ReproduceEvaluationResults
 
 ##############
 # 8. License #
 ##############
-Copyright (c) 2011, Database Research Group, Institute of Computer Science, University of Heidelberg. 
+Copyright (c) 2012, Database Research Group, Institute of Computer Science, University of Heidelberg. 
 All rights reserved. This program and the accompanying materials 
 are made available under the terms of the GNU General Public License.
 
@@ -216,4 +223,5 @@ author: Jannik Strötgen
 email:  stroetgen@uni-hd.de
 
 HeidelTime is a multilingual, cross-domain temporal tagger.
-For details, see http://dbs.ifi.uni-heidelberg.de/heideltime
+For details, see http://dbs.ifi.uni-heidelberg.de/heideltime and
+http://code.google.com/p/heideltime
