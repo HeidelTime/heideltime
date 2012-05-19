@@ -6,9 +6,9 @@ Author: Jannik Strötgen
 Date:   May 19, 2012
 eMail:  stroetgen@uni-hd.de
 
-##################################
-# 1. Paper describing HeidelTime #
-##################################
+###################################
+# 1. Papers describing HeidelTime #
+###################################
 HeidelTime was used in the TempEval-2 challenge as described in:
 Jannik Strötgen and Michael Gertz.
 HeidelTime: High Quality Rule-based Extraction and Normalization of Temporal Expressions.
@@ -16,7 +16,21 @@ In: SemEval-2010: Proceedings of the 5th International Workshop on Semantic Eval
 Pages 321-324, Uppsala, Sweden, July 15-16, 2010. ACL.
 http://www.aclweb.org/anthology/S/S10
 
-Please cite this paper if you use HeidelTime. 
+In "Language Resources and Evaluation", we have published a paper on "Multilingual and 
+Cross-domain Temporal Tagging". In addition, we detail the features and architecture of 
+HeidelTime:
+Jannik Strötgen and Michael Gertz.
+Multilingual and Cross-domain Temporal Tagging.
+In: Language Resources and Evaluation, 2012, Springer.
+
+Please cite one of these papers if you use HeidelTime. 
+
+If you use HeidelTime for processing colloquial text such as SMS or tweets or scientific 
+publications (e.g., biomedical studies), you may want to cite the following paper instead:
+Jannik Strötgen and Michael Gertz:
+Temporal Tagging on Different Domains: Challenges, Strategies, and Gold Standards.
+In: LREC 2012: Proceedings of the 8th International Conference on Language Resources 
+and Evaluation. Pages 3746--3753, Istanbul, Turkey, May 21-27, 2012. ELRA.
 
 ###################
 # 2. Introduction #
@@ -32,18 +46,18 @@ simply develop resources for additional languages using HeidelTime's well-define
 HeidelTime was the best system for the extraction and normalization of English temporal 
 expressions from documents in the TempEval-2 challenge in 2010. Furthermore, it is evaluated on 
 several additional corpora, as described in our paper "Multilingual Cross-domain Temporal 
-Tagging" (currently under review).
+Tagging" (http://www.springerlink.com/content/64767752451075k8/).
 
 HeidelTime with resources for English and German is one component of our UIMA HeidelTime kit.
 Furthermore, resources for Dutch were developed and kindly provided by Matje van de Camp 
 (Tilburg University, http://www.tilburguniversity.edu/webwijs/show/?uid=m.m.v.d.camp).
 
 Additionally, whilst expanding the set of domains that HeidelTime can recognize temporal 
-expressions in, english resources for colloquial as well as scientific style documents were 
+expressions in, English resources for colloquial as well as scientific style documents were 
 developed. Colloquial documents are for example SMS or Twitter messages where language is
-abbreviated to fit a length constraint. Scientific documents include for example biomedical
-studies, in which temporal information is often given relative to a document-specific "local"
-time frame.
+abbreviated to fit a length constraint and non-standard language is common. Scientific documents
+include for example biomedical studies, in which temporal information is often given relative 
+to a document-specific "local" time frame.
 
 In addition to HeidelTime with resources for English, German, and Dutch, the UIMA HeidelTime kit
 contains collection readers, cas consumers, and analysis engines to process temporal annotated 
@@ -209,7 +223,7 @@ these temporal expressions: January 22, 2001 or twice a week.
 # 7. Reproducing HeidelTime's evaluation results on different corpora #
 #######################################################################
 To reproduce HeidelTime's evaluation results reported in in our paper "Multilingual 
-Cross-domain Temporal Tagging" (currently under review), follow the instructions on:
+Cross-domain Temporal Tagging", follow the instructions on:
 http://code.google.com/p/heideltime/wiki/ReproduceEvaluationResults
 
 ##############
