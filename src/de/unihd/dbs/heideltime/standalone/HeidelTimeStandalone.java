@@ -22,6 +22,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -93,26 +94,6 @@ public class HeidelTimeStandalone {
 		// Initialize logger -------------------
 		logger = Logger.getLogger("HeidelTimeStandalone");
 		logger.log(Level.INFO, "HeidelTimeStandalone initialized with language "+this.language.toString());
-
-		// Initialize config -------------------
-		logger.log(Level.FINE, "Initializing config...");
-		try {
-//			if (!Config.isInitialized()) {
-				InputStream configStream = this.getClass().getClassLoader()
-						.getResourceAsStream("config.props");
-
-				Properties props = new Properties();
-				props.load(configStream);
-
-				Config.setProps(props);
-				logger.log(Level.INFO, "Config initialized");
-//			} else {
-//				logger.log(Level.INFO, "Config already initialized");
-//			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.log(Level.WARNING, "Config could not be initialized");
-		}
 
 		// Initialize HeidelTime ---------------
 		logger.log(Level.FINE, "Initializing HeidelTime(" + language.toString()
@@ -364,6 +345,30 @@ public class HeidelTimeStandalone {
 				System.err.println("NOT FOUND OR RECOGNIZED; skipped");
 			}
 		}
+		
+		// Read configuration from file
+		System.err.print("Configuration path '-c': ");
+		String configPath = getCommandLineParameter(args, "-c");
+		try {
+			// if no -c parameter is given, try the default filename
+			if(configPath == null)
+				configPath = "config.props";
+			System.err.println(configPath);
+			
+			InputStream configStream = HeidelTimeStandalone.class.getClassLoader().getResourceAsStream(configPath);
+			
+			Properties props = new Properties();
+			props.load(configStream);
+
+			Config.setProps(props);
+			System.err.println("Config initialized");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("Config could not be initialized");
+			System.exit(-1);
+		}
+		
+		
 
 		// Run HeidelTime
 		try {
@@ -436,7 +441,12 @@ public class HeidelTimeStandalone {
 		for (int i = 0; i < args.length - 1; i++) {
 			if (args[i].equals(name)) {
 				// Parameter found
-				String value = args[i + 1].toUpperCase();
+				String value = args[i + 1];
+				/* if either of these three parameters is requested, give the 
+				 * upper case spelling to match the enums */
+				if(Arrays.asList(new String[] {"-o", "-l", "-t"}).contains(name))
+					value = value.toUpperCase();
+					
 
 				if (value.startsWith("-")) {
 					// Invalid value
