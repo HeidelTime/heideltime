@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.uima.UimaContext;
 import org.apache.uima.cas.FSIterator;
 import org.apache.uima.jcas.JCas;
 
@@ -26,6 +27,14 @@ public class HolidayProcessor extends GenericProcessor {
 	 */
 	public HolidayProcessor() {
 		super();
+	}
+	
+
+	/**
+	 * not needed here 
+	 */
+	public void initialize(UimaContext aContext) {
+		return;
 	}
 	
 	/**

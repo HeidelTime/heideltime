@@ -53,6 +53,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 	// TOOL NAME (may be used as componentId)
 	private Class<?> component = this.getClass();
+	
+	// PROCESSOR MANAGER
+	ProcessorManager procMan = ProcessorManager.getInstance();
 
 	// COUNTER (how many timexes added to CAS? (finally)
 	public int timex_counter        = 0;
@@ -126,6 +129,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		///////////////////////////////////////////////////
 		RuleManager rulem = RuleManager.getInstance();
 		
+		/////////////////////////////////////////////////////////////////////////////////
+		// SUBPROCESSOR CONFIGURATION. REGISTER YOUR OWN PROCESSORS HERE FOR EXECUTION //
+		/////////////////////////////////////////////////////////////////////////////////
+		procMan.registerProcessor("de.unihd.dbs.uima.annotator.heideltime.processors.HolidayProcessor");
+		procMan.initializeAllProcessors(aContext);
+		
 		/////////////////////////////
 		// PRINT WHAT WILL BE DONE //
 		/////////////////////////////
@@ -181,9 +190,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		/////////////////////////////////////////////////////////////////////////////////
 		// SUBPROCESSOR CONFIGURATION. REGISTER YOUR OWN PROCESSORS HERE FOR EXECUTION //
 		/////////////////////////////////////////////////////////////////////////////////
-		ProcessorManager pm = ProcessorManager.getInstance();
-		pm.registerProcessor("de.unihd.dbs.uima.annotator.heideltime.processors.HolidayProcessor");
-		pm.executeAllProcessors(jcas);
+		procMan.executeAllProcessors(jcas);
 		
 		// remove invalid timexes
 		removeInvalids(jcas);

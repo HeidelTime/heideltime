@@ -1,5 +1,6 @@
 package de.unihd.dbs.uima.annotator.heideltime.processors;
 
+import org.apache.uima.UimaContext;
 import org.apache.uima.jcas.JCas;
 /**
  * 
@@ -21,8 +22,15 @@ public abstract class GenericProcessor {
 	}
 	
 	/**
-	 * starts the processing of the processor.
+	 * sets up for later work done in process(). This shouldn't change the jcas object.
+	 * @param jcas
+	 * @throws ProcessorInitializationException Exception
+	 */
+	public abstract void initialize(final UimaContext aContext) throws ProcessorInitializationException;
+	
+	/**
+	 * starts the processing of the processor during HeidelTime's process()ing method.
 	 * @param jcas
 	 */
-	public abstract void process(JCas jcas);
+	public abstract void process(JCas jcas) throws ProcessorProcessingException;
 }

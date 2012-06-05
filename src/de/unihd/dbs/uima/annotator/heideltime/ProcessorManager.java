@@ -2,6 +2,7 @@ package de.unihd.dbs.uima.annotator.heideltime;
 
 import java.util.ArrayList;
 
+import org.apache.uima.UimaContext;
 import org.apache.uima.jcas.JCas;
 
 import de.unihd.dbs.uima.annotator.heideltime.processors.GenericProcessor;
@@ -21,7 +22,9 @@ public class ProcessorManager {
 	// singleton instance
 	private static final ProcessorManager INSTANCE = new ProcessorManager();
 	// list of processes' package names
-	private ArrayList<String> processors;
+	private ArrayList<String> processorNames;
+	// array of instantiated processors
+	private ArrayList<GenericProcessor> processors;
 	// self-identifying component for logging purposes
 	private Class<?> component; 
 	
@@ -29,8 +32,9 @@ public class ProcessorManager {
 	 * Private constructor, only to be called by the getInstance() method.
 	 */
 	private ProcessorManager() {
-		this.processors = new ArrayList<String>();
+		this.processorNames = new ArrayList<String>();
 		this.component = this.getClass();
+		this.processors = new ArrayList<GenericProcessor>();
 	}
 	
 	/**
@@ -38,7 +42,27 @@ public class ProcessorManager {
 	 * @param processor processor to be registered in the processormanager's list
 	 */
 	public void registerProcessor(String processor) {
-		this.processors.add(processor);
+		this.processorNames.add(processor);
+	}
+	
+	/**
+	 * Based on reflection, this method instantiates and initializes all of the
+	 * registered Processors.
+	 * @param jcas
+	 */
+	public void initializeAllProcessors(UimaContext aContext) {
+		for(String s : processorNames) {
+			try {
+				Class<?> c = Class.forName(s);
+				GenericProcessor p = (GenericProcessor) c.newInstance();
+				p.initialize(aContext);
+				processors.add(p);
+			} catch (Exception e) {
+				e.printStackTrace();
+				Logger.printError(component, "Unable to initialize registered Processor "+s+", got: "+e.toString());
+				System.exit(-1);
+			}
+		}
 	}
 	
 	/**
@@ -47,14 +71,12 @@ public class ProcessorManager {
 	 * @param jcas
 	 */
 	public void executeAllProcessors(JCas jcas) {
-		for(String s : processors) {
+		for(GenericProcessor p : processors) {
 			try {
-				Class<?> c = Class.forName(s);
-				GenericProcessor p = (GenericProcessor) c.newInstance();
 				p.process(jcas);
 			} catch (Exception e) {
 				e.printStackTrace();
-				Logger.printError(component, "Unable to instantiate registered Processor "+s);
+				Logger.printError(component, "Unable to process registered Processor "+p.getClass().getName()+", got: "+e.toString());
 				System.exit(-1);
 			}
 		}
