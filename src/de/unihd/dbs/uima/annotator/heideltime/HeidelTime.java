@@ -28,6 +28,7 @@ import org.apache.uima.cas.FSIterator;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 
+import de.unihd.dbs.uima.annotator.heideltime.ProcessorManager.Priority;
 import de.unihd.dbs.uima.annotator.heideltime.resources.GenericResourceManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
@@ -150,6 +151,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 * @see JCasAnnotator_ImplBase#process(JCas)
 	 */
 	public void process(JCas jcas) {
+		// run preprocessing processors
+		procMan.executeProcessors(jcas, Priority.PREPROCESSING);
+		
 		RuleManager rulem = RuleManager.getInstance();
 
 		timex_counter = 0;
@@ -186,14 +190,15 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		 * format UNDEF-year-01-01; specific month for values of format UNDEF-last-month
 		 */
 		specifyAmbiguousValues(jcas);
-
-		/////////////////////////////////////////////////////////////////////////////////
-		// SUBPROCESSOR CONFIGURATION. REGISTER YOUR OWN PROCESSORS HERE FOR EXECUTION //
-		/////////////////////////////////////////////////////////////////////////////////
-		procMan.executeAllProcessors(jcas);
+		
+		// run arbitrary processors
+		procMan.executeProcessors(jcas, Priority.ARBITRARY);
 		
 		// remove invalid timexes
 		removeInvalids(jcas);
+		
+		// run postprocessing processors
+		procMan.executeProcessors(jcas, Priority.POSTPROCESSING);
 
 		timex_counter_global = timex_counter_global + timex_counter;
 		Logger.printDetail(component, "Number of Timexes added to CAS: "+timex_counter + "(global: "+timex_counter_global+")");

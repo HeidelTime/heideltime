@@ -1,6 +1,8 @@
 package de.unihd.dbs.uima.annotator.heideltime;
 
-import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.jcas.JCas;
@@ -22,27 +24,38 @@ public class ProcessorManager {
 	// singleton instance
 	private static final ProcessorManager INSTANCE = new ProcessorManager();
 	// list of processes' package names
-	private ArrayList<String> processorNames;
+	private EnumMap<Priority, String> processorNames;
 	// array of instantiated processors
-	private ArrayList<GenericProcessor> processors;
+	private EnumMap<Priority, GenericProcessor> processors;
 	// self-identifying component for logging purposes
 	private Class<?> component; 
+	// flag for whether the processors have been initialized
+	private boolean initialized = false;
 	
 	/**
 	 * Private constructor, only to be called by the getInstance() method.
 	 */
 	private ProcessorManager() {
-		this.processorNames = new ArrayList<String>();
+		this.processorNames = new EnumMap<Priority, String>(Priority.class);
 		this.component = this.getClass();
-		this.processors = new ArrayList<GenericProcessor>();
+		this.processors = new EnumMap<Priority, GenericProcessor>(Priority.class);
 	}
 	
 	/**
 	 * method to register a processor
 	 * @param processor processor to be registered in the processormanager's list
+	 * @param p priority for the process to take
+	 */
+	public void registerProcessor(String processor, Priority prio) {
+		this.processorNames.put(prio, processor);
+	}
+	
+	/**
+	 * method to register a processor without priority
+	 * @param processor processor to be registered in the processormanager's list
 	 */
 	public void registerProcessor(String processor) {
-		this.processorNames.add(processor);
+		registerProcessor(processor, Priority.POSTPROCESSING);
 	}
 	
 	/**
@@ -51,18 +64,24 @@ public class ProcessorManager {
 	 * @param jcas
 	 */
 	public void initializeAllProcessors(UimaContext aContext) {
-		for(String s : processorNames) {
+		Iterator<Entry<Priority, String>> it = processorNames.entrySet().iterator();
+		Entry<Priority, String> e;
+		while(it.hasNext()) {
+			e = it.next();
+			
 			try {
-				Class<?> c = Class.forName(s);
+				Class<?> c = Class.forName(e.getValue());
 				GenericProcessor p = (GenericProcessor) c.newInstance();
 				p.initialize(aContext);
-				processors.add(p);
-			} catch (Exception e) {
-				e.printStackTrace();
-				Logger.printError(component, "Unable to initialize registered Processor "+s+", got: "+e.toString());
+				processors.put(e.getKey(), p);
+			} catch (Exception exception) {
+				exception.printStackTrace();
+				Logger.printError(component, "Unable to initialize registered Processor "+e.getValue()+", got: "+exception.toString());
 				System.exit(-1);
 			}
 		}
+		
+		this.initialized = true;
 	}
 	
 	/**
@@ -70,14 +89,25 @@ public class ProcessorManager {
 	 * registered Processors.
 	 * @param jcas
 	 */
-	public void executeAllProcessors(JCas jcas) {
-		for(GenericProcessor p : processors) {
-			try {
-				p.process(jcas);
-			} catch (Exception e) {
-				e.printStackTrace();
-				Logger.printError(component, "Unable to process registered Processor "+p.getClass().getName()+", got: "+e.toString());
-				System.exit(-1);
+	public void executeProcessors(JCas jcas, ProcessorManager.Priority prio) {
+		if(!this.initialized) {
+			Logger.printError(component, "Unable to execute Processors; initialization was not concluded successfully.");
+			System.exit(-1);
+		}
+		
+		Iterator<Entry<Priority, GenericProcessor>> it = processors.entrySet().iterator();
+		Entry<Priority, GenericProcessor> e;
+		while(it.hasNext()) {
+			e = it.next();
+			
+			if(prio.equals(e.getKey())) {
+				try {
+					e.getValue().process(jcas);
+				} catch (Exception exception) {
+					exception.printStackTrace();
+					Logger.printError(component, "Unable to process registered Processor "+e.getValue().getClass().getName()+", got: "+exception.toString());
+					System.exit(-1);
+				}
 			}
 		}
 	}
@@ -88,5 +118,9 @@ public class ProcessorManager {
 	 */
 	public static ProcessorManager getInstance() {
 		return ProcessorManager.INSTANCE;
+	}
+	
+	public enum Priority {
+		PREPROCESSING, POSTPROCESSING, ARBITRARY
 	}
 }
