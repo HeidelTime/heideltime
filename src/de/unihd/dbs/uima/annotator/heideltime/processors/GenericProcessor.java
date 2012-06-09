@@ -11,7 +11,7 @@ import org.apache.uima.jcas.JCas;
  *
  */
 public abstract class GenericProcessor {
-	private Class<?> component;
+	protected Class<?> component;
 	
 	/**
 	 * Constructor that sets the component for logger use.
