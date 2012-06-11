@@ -19,6 +19,8 @@ import java.util.HashSet;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
+import org.apache.uima.cas.FSIndex;
+import org.apache.uima.cas.FSIterator;
 import org.apache.uima.jcas.JCas;
 
 import de.unihd.dbs.uima.annotator.heideltime.HeidelTimeException;
@@ -33,10 +35,13 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  */
 public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	public static final String PARAM_LANGUAGE = "language";
+	public static final String PARAM_IMPROVE_GERMAN_SENTENCES = "improvegermansentences";
 	
 	private Class<?> component = this.getClass();
 	
 	private Language language;
+	
+	private Boolean improveGerman = false;
 	
 	public void initialize(UimaContext aContext) {
 		try {
@@ -46,6 +51,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			Logger.printError(e.getMessage());
 			System.exit(-1);
 		}
+		improveGerman = (Boolean) aContext.getConfigParameterValue(PARAM_IMPROVE_GERMAN_SENTENCES);
 	}
 
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
@@ -270,6 +276,70 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			}
 		}
 
+		if(improveGerman)
+			improveGermanSentences(jcas);
+	}
+	
+	public void improveGermanSentences(JCas jcas) {
+		// IMPROVE SENTENCE BOUNDARIES (GERMAN SENTENCE SPLITTER)
+		HashSet<String> hsSentenceBeginnings = new HashSet<String>();
+		
+		hsSentenceBeginnings.add("Januar");
+		hsSentenceBeginnings.add("Februar");
+		hsSentenceBeginnings.add("März");
+		hsSentenceBeginnings.add("April");
+		hsSentenceBeginnings.add("Mai");
+		hsSentenceBeginnings.add("Juni");
+		hsSentenceBeginnings.add("Juli");
+		hsSentenceBeginnings.add("August");
+		hsSentenceBeginnings.add("September");
+		hsSentenceBeginnings.add("Oktober");
+		hsSentenceBeginnings.add("November");
+		hsSentenceBeginnings.add("Dezember");
+		hsSentenceBeginnings.add("Jahrhundert");
+		hsSentenceBeginnings.add("Jahr");
+		hsSentenceBeginnings.add("Monat");
+		hsSentenceBeginnings.add("Woche");
+
+		HashSet<Sentence> hsRemoveAnnotations = new HashSet<Sentence>();
+		HashSet<Sentence> hsAddAnnotations    = new HashSet<Sentence>();
+		
+		Boolean changes = true;
+		while (changes){
+			changes = false;
+			FSIndex annoHeidelSentences = jcas.getAnnotationIndex(Sentence.type);
+			FSIterator iterHeidelSent   = annoHeidelSentences.iterator();
+			while (iterHeidelSent.hasNext()){
+				Sentence s1 = (Sentence) iterHeidelSent.next();
+				int substringOffset = java.lang.Math.max(s1.getCoveredText().length()-4,1);
+				if (s1.getCoveredText().substring(substringOffset).matches(".*[\\d]+\\.[\\s\\n]*$")){
+					if (iterHeidelSent.hasNext()){
+						Sentence s2 = (Sentence) iterHeidelSent.next();
+						iterHeidelSent.moveToPrevious();
+						for (String beg : hsSentenceBeginnings){
+							if (s2.getCoveredText().startsWith(beg)){
+								Sentence s3 = new Sentence(jcas);
+								s3.setBegin(s1.getBegin());
+								s3.setEnd(s2.getEnd());
+								hsAddAnnotations.add(s3);
+								hsRemoveAnnotations.add(s1);
+								hsRemoveAnnotations.add(s2);
+								changes = true;
+								break;
+							}
+						}
+					}
+				}
+			}
+			for (Sentence s : hsRemoveAnnotations){
+				s.removeFromIndexes(jcas);
+			}
+			hsRemoveAnnotations.clear();
+			for (Sentence s : hsAddAnnotations){
+				s.addToIndexes(jcas);
+			}
+			hsAddAnnotations.clear();
+		}
 	}
 
 }

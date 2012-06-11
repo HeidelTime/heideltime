@@ -15,12 +15,25 @@
         <multiValued>false</multiValued>
         <mandatory>false</mandatory>
       </configurationParameter>
+      <configurationParameter>
+        <name>improvegermansentences</name>
+        <description>whether or not german sentences are to be improved</description>
+        <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+      </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
         <name>language</name>
         <value>
           <string>english</string>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>improvegermansentences</name>
+        <value>
+          <boolean>false</boolean>
         </value>
       </nameValuePair>
     </configurationParameterSettings>
