@@ -30,6 +30,7 @@ import org.apache.uima.resource.ResourceInitializationException;
 
 import de.unihd.dbs.uima.annotator.heideltime.ProcessorManager.Priority;
 import de.unihd.dbs.uima.annotator.heideltime.resources.GenericResourceManager;
+import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RuleManager;
@@ -70,7 +71,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	// supported languages (2012-05-19): english, german, dutch, englishcoll, englishsci
 	private String PARAM_TYPE_TO_PROCESS  = "Type_news_narratives";
 	// supported types (2012-05-19): news (english, german, dutch), narrative (english, german, dutch), colloquial
-	private String language       = "english";
+	private Language language       = Language.ENGLISH;
 	private String typeToProcess  = "news";
 	
 	// INPUT PARAMETER HANDLING WITH UIMA (which types shall be extracted)
@@ -103,7 +104,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		//////////////////////////////////
 		// GET CONFIGURATION PARAMETERS //
 		//////////////////////////////////
-		language       = (String)  aContext.getConfigParameterValue(PARAM_LANGUAGE);
+		try {
+			language = Language.getLanguageFromString((String) aContext.getConfigParameterValue(PARAM_LANGUAGE));
+		} catch (HeidelTimeException e) {
+			Logger.printError("Supplied language parameter was not recognized.");
+			System.exit(-1);
+		}
 		typeToProcess  = (String)  aContext.getConfigParameterValue(PARAM_TYPE_TO_PROCESS);
 		find_dates     = (Boolean) aContext.getConfigParameterValue(PARAM_DATE);
 		find_times     = (Boolean) aContext.getConfigParameterValue(PARAM_TIME);
@@ -113,7 +119,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		//////////////////////////////////////////
 		// SET LANGUAGE FOR RESOURCE PROCESSING //
 		//////////////////////////////////////////
-		GenericResourceManager.LANGUAGE = language;
+		GenericResourceManager.LANGUAGE = language.getResourceFolder();
 
 		////////////////////////////////////////////////////////////
 		// READ NORMALIZATION RESOURCES FROM FILES AND STORE THEM //
