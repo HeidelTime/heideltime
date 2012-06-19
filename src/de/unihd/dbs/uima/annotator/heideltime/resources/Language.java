@@ -23,9 +23,9 @@ public enum Language {
 	
 	Language(String languageName, String resourceFolder, String treeTaggerLangName, String treeTaggerSwitch) {
 		this.languageName = languageName;
+		this.resourceFolder = resourceFolder;
 		this.treeTaggerLangName = treeTaggerLangName;
 		this.treeTaggerSwitch = treeTaggerSwitch;
-		this.resourceFolder = resourceFolder;
 	}
 	
 	public final static Language getLanguageFromString(String name) throws HeidelTimeException {

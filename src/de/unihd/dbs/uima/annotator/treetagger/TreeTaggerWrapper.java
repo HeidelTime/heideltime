@@ -34,16 +34,61 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  *
  */
 public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
-	public static final String PARAM_LANGUAGE = "language";
-	public static final String PARAM_IMPROVE_GERMAN_SENTENCES = "improvegermansentences";
-	
 	private Class<?> component = this.getClass();
 	
+	// definitions of what names these parameters have in the wrapper's descriptor file
+	public static final String PARAM_LANGUAGE = "language";
+	public static final String PARAM_ANNOTATE_TOKENS = "annotate_tokens";
+	public static final String PARAM_ANNOTATE_SENTENCES = "annotate_sentences";
+	public static final String PARAM_ANNOTATE_PARTOFSPEECH = "annotate_partofspeech";
+	public static final String PARAM_IMPROVE_GERMAN_SENTENCES = "improvegermansentences";
+	
+	// language for this instance of the treetaggerwrapper
 	private Language language;
 	
-	private Boolean improveGerman = false;
+	// switches for annotation parameters
+	private Boolean annotate_tokens = false;
+	private Boolean annotate_sentences = false;
+	private Boolean annotate_partofspeech = false;
+	private Boolean improve_german_sentences = false;
 	
+	// local treetagger properties container, see below
+	private TreeTaggerProperties ttprops = new TreeTaggerProperties();
+	
+	/**
+	 * An embedded class that contains all of the treetagger-related settings.
+	 * @author Julian Zell
+	 *
+	 */
+	private class TreeTaggerProperties {
+		// treetagger language name for par files
+		public String languageName;
+		
+		// absolute path of the treetagger
+		public String rootPath;
+
+		// Files for tokenizer and part of speech tagger (standard values)
+		public String tokScriptName;
+		public String parFileName;
+		public String abbFileName;
+
+		// english, italian, and french tagger models require additional splits (see tagger readme)
+		public String languageSwitch;
+
+		// perl requires(?) special hint for utf-8-encoded input/output (see http://perldoc.perl.org/perlrun.html#Command-Switches -C)
+		// The input text is read in HeidelTimeStandalone.java and always translated into UTF-8,
+		// i.e., switch always "-CSD"
+		public String utf8Switch = "-CSD";
+		
+		// save the System's new line separator(s) so we don't have to call system functions all the time
+		public String newLineSeparator = System.getProperty("line.separator");
+	}
+	
+	/**
+	 * initialization method where we fill configuration values and check some prerequisites
+	 */
 	public void initialize(UimaContext aContext) {
+		// check if the supplied language is one that we can currently handle
 		try {
 			this.language = Language.getLanguageFromString((String) aContext.getConfigParameterValue(PARAM_LANGUAGE));
 		} catch (HeidelTimeException e) {
@@ -51,124 +96,120 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			Logger.printError(e.getMessage());
 			System.exit(-1);
 		}
-		improveGerman = (Boolean) aContext.getConfigParameterValue(PARAM_IMPROVE_GERMAN_SENTENCES);
-	}
-
-	public void process(JCas jcas) throws AnalysisEngineProcessException {
-		// Possible End-of-Sentence Tags
-		HashSet<String> hsEndOfSentenceTag = new HashSet<String>();
-		hsEndOfSentenceTag.add("SENT");   // ENGLISH, FRENCH, GREEK, 
-		hsEndOfSentenceTag.add("$.");     // GERMAN, DUTCH
-		hsEndOfSentenceTag.add("FS");     // SPANISH
-		hsEndOfSentenceTag.add("_Z_Fst"); // ESTONIAN
-		hsEndOfSentenceTag.add("_Z_Int"); // ESTONIAN
-		hsEndOfSentenceTag.add("_Z_Exc"); // ESTONIAN
 		
+		// get configuration from the descriptor
+		annotate_tokens = (Boolean) aContext.getConfigParameterValue(PARAM_ANNOTATE_TOKENS);
+		annotate_sentences = (Boolean) aContext.getConfigParameterValue(PARAM_ANNOTATE_SENTENCES);
+		annotate_partofspeech = (Boolean) aContext.getConfigParameterValue(PARAM_ANNOTATE_PARTOFSPEECH);
+		improve_german_sentences = (Boolean) aContext.getConfigParameterValue(PARAM_IMPROVE_GERMAN_SENTENCES);
+		
+		// set some configuration based upon these values
+		ttprops.languageName = language.getTreeTaggerLangName();
+		ttprops.rootPath = System.getenv("TREETAGGER_HOME");
+		ttprops.tokScriptName = "utf8-tokenize.perl";
+		ttprops.parFileName = ttprops.languageName + ".par";
+		ttprops.abbFileName = ttprops.languageName + "-abbreviations";
+		ttprops.languageSwitch = language.getTreeTaggerSwitch();
+
+		// handle the treetagger path from the environment variables
+		if((ttprops.rootPath = System.getenv("TREETAGGER_HOME")) == null) {
+			Logger.printError("TreeTagger environment variable is not present, aborting.");
+			System.exit(-1);
+		}
+
+		// Check for whether the required treetagger parameter files are present
+		Boolean abbFileFlag   = true;
+		Boolean parFileFlag   = true;
+		Boolean tokScriptFlag = true;
+		File abbFile = new File(ttprops.rootPath+"/lib",ttprops.abbFileName);
+		File parFile = new File(ttprops.rootPath+"/lib",ttprops.parFileName);
+		File tokFile = new File(ttprops.rootPath+"/cmd",ttprops.tokScriptName);
+		if (!(abbFileFlag = abbFile.exists())) {
+			Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.abbFileName);
+		}
+		if (!(parFileFlag = parFile.exists())) {
+			Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.parFileName);
+		}
+		if (!(tokScriptFlag = tokFile.exists())) {
+			Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.tokScriptName);
+		}
+
+		if (!abbFileFlag || !parFileFlag || !tokScriptFlag) {
+			Logger.printError(component, "\nCannot find tree tagger (" + ttprops.rootPath + "/cmd/" + ttprops.tokScriptName + ")." +
+			" Make sure that path to tree tagger is set correctly in config.props!");
+			Logger.printError(component, "\nIf path is set correctly:\n");
+			Logger.printError(component, "Maybe you need to download the TreeTagger tagger-scripts.tar.gz");
+			Logger.printError(component, "from ftp://ftp.ims.uni-stuttgart.de/pub/corpora/tagger-scripts.tar.gz");
+			Logger.printError(component, "Extract this file and copy the missing file into the corresponding TreeTagger directories.");
+			Logger.printError(component, "If missing, copy " + ttprops.abbFileName   + " into " +  ttprops.rootPath+"/lib");
+			Logger.printError(component, "If missing, copy " + ttprops.parFileName   + " into " +  ttprops.rootPath+"/lib");
+			Logger.printError(component, "If missing, copy " + ttprops.tokScriptName + " into " +  ttprops.rootPath+"/cmd");
+			System.exit(-1);
+		}
+
+		// TreeTagger: german abbreviation file for utf-8
+		// and 
+		// TreeTagger: german par file for utf8
+		if ((language.equals(Language.GERMAN)) && (!(ttprops.utf8Switch.equals("")))){
+			ttprops.abbFileName = "german-abbreviations-utf8";
+			ttprops.parFileName = "german-utf8.par";
+		}
+	}
+	
+	/**
+	 * Method that gets called to process the documents' cas objects
+	 */
+	public void process(JCas jcas) throws AnalysisEngineProcessException {
+		// if the annotate_tokens flag is set, annotate the tokens and add them to the jcas
+		if(annotate_tokens)
+			tokenize(jcas);
+
+		/* if the annotate_partofspeech flag is set, annotate partofspeech and,
+		 * if specified, also tag sentences based upon the partofspeech tags. 
+		 */
+		if(annotate_partofspeech) 
+			doTreeTag(jcas);
+		
+		// if the improve_german_sentences flag is set, improve the sentence tokens made by the treetagger
+		if(improve_german_sentences) 
+			improveGermanSentences(jcas);
+	}
+	
+	/**
+	 * tokenizes a given JCas object's document text using the treetagger program
+	 * and adds the recognized tokens to the JCas object. 
+	 * @param jcas JCas object supplied by the pipeline
+	 */
+	private void tokenize(JCas jcas) {
 		BufferedWriter tmpFileWriter = null;
 
 		File tmpDocument = null;
-		File tmpTokens = null;
 
 		BufferedReader in = null;
-		String languageName = language.getTreeTaggerLangName();
 
 		try {
-			// Create temp file containing the document text (necessary for tree tagger)
+			// Create temp file containing the document text
 			tmpDocument = File.createTempFile("pos", null);
-			tmpFileWriter =
-				new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tmpDocument), "UTF-8"));
+			tmpFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tmpDocument), "UTF-8"));
 			tmpFileWriter.write(jcas.getDocumentText());
 			tmpFileWriter.close();
-
-			// Establish preconditions for tree tagger
-			String rootPath = System.getenv("TREETAGGER_HOME");
-			if(rootPath == null) {
-				Logger.printError("TreeTagger environment variable is not present, aborting.");
-				System.exit(-1);
-			}
-
-			// english, italian, and french tagger models require additional splits (see tagger readme)
-			String languageSwitch = language.getTreeTaggerSwitch();
-
-			// perl requires(?) special hint for utf-8-encoded input/output (see http://perldoc.perl.org/perlrun.html#Command-Switches -C)
-			// The input text is read in HeidelTimeStandalone.java and always translated into UTF-8,
-			// i.e., switch always "-CSD "
-			String utf8Switch = "-CSD ";
 			
-			// Files for tokenizer and part of speech tagger (standard values)
-			String abbFileName   = languageName + "-abbreviations";
-			String tokScriptName = "utf8-tokenize.perl";
-			String parFileName   = languageName + ".par";
-
-			// TreeTagger: german abbreviation file for utf-8
-			// and 
-			// TreeTagger: german par file for utf8
-			if ((language.equals(Language.GERMAN)) && (!(utf8Switch.equals("")))){
-				abbFileName = "german-abbreviations-utf8";
-				parFileName = "german-utf8.par";
-			}
-			
-			// Check for needed tree tagger files to be available
-			// if not available, stop processing!
-			Boolean abbFileFlag   = true;
-			Boolean parFileFlag   = true;
-			Boolean tokScriptFlag = true;
-			File abbFile = new File(rootPath+"/lib",abbFileName);
-			File parFile = new File(rootPath+"/lib",parFileName);
-			File tokFile = new File(rootPath+"/cmd",tokScriptName);
-			if (!(abbFile.exists())){
-				abbFileFlag = false;
-				Logger.printError(component, "File missing to use TreeTagger tokenizer: " + abbFileName);
-			}
-			if (!(parFile.exists())){
-				parFileFlag = false;
-				Logger.printError(component, "File missing to use TreeTagger tokenizer: " + parFileName);
-			}
-			if (!(tokFile.exists())){
-				tokScriptFlag = false;
-				Logger.printError(component, "File missing to use TreeTagger tokenizer: " + tokScriptName);
-			}
-
-			if ((!(abbFileFlag)) || (!(parFileFlag)) || (!(tokScriptFlag))){
-				Logger.printError(component, "\nCannot find tree tagger ("+rootPath+"/cmd/" + tokScriptName + ")." +
-				" Make sure that path to tree tagger is set correctly in config.props!");
-				Logger.printError(component, "\nIf path is set correctly:\n");
-				Logger.printError(component, "Maybe you need to download the TreeTagger tagger-scripts.tar.gz");
-				Logger.printError(component, "from ftp://ftp.ims.uni-stuttgart.de/pub/corpora/tagger-scripts.tar.gz");
-				Logger.printError(component, "Extract this file and copy the missing file into the corresponding TreeTagger directories.");
-				Logger.printError(component, "If missing, copy " + abbFileName   + " into " +  rootPath+"/lib");
-				Logger.printError(component, "If missing, copy " + parFileName   + " into " +  rootPath+"/lib");
-				Logger.printError(component, "If missing, copy " + tokScriptName + " into " +  rootPath+"/cmd");
-				System.exit(-1);
-			}
-			
-			// run tokenization
+			// assemble a command line for the tokenization script and execute it
 			Process p = null;
-			String command = "perl " + utf8Switch + rootPath + "/cmd/" + tokScriptName + " " 
-								+ languageSwitch + " -a " 
-								+ rootPath + "/lib/" + abbFileName + " " 
-								+ tmpDocument;
+			String command = "perl " + ttprops.utf8Switch + " "
+						   + ttprops.rootPath + "/cmd/" + ttprops.tokScriptName + " " 
+						   + ttprops.languageSwitch
+						   + " -a " + ttprops.rootPath + "/lib/" + ttprops.abbFileName + " " 
+						   + tmpDocument;
 				
 			p = Runtime.getRuntime().exec(command);
-			Logger.printDetail(component, "TreeTagger (tokenization) with: " + tokScriptName + " and " + abbFileName);
-				
-//			// print error stream (problems, if system encoding not utf-8)
-//			BufferedReader err = new BufferedReader(new InputStreamReader(p.getErrorStream())); 
-//			String e;
-//			while ((e = err.readLine()) != null) {
-//				System.err.println("TreeTagger (tokenization) error stream: "+e);
-//			}
+			Logger.printDetail(component, "TreeTagger (tokenization) with: " + ttprops.tokScriptName + " and " + ttprops.abbFileName);
 			
-			// read tokenized text for pos tagging
+			// read tokenized text to add tokens to the jcas
 			in = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
-
-			// Prepare temp file for tokens and token array
-			tmpTokens = File.createTempFile("postokens", null);
-			tmpFileWriter =
-				new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tmpTokens), "UTF-8"));
 			String s;
-			ArrayList<Token> tokens = new ArrayList<Token>();
 			int tokenOffset = 0;
+			// loop through all the lines in the treetagger output
 			while ((s = in.readLine()) != null) {
 				// charset missmatch fallback: signal (invalid) s
 				if (jcas.getDocumentText().indexOf(s, tokenOffset) < 0)
@@ -179,82 +220,21 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 							" and should always be UTF-8 (use -Dfile.encoding=UTF-8)." +
 							" If input document is not UTF-8 use -e option to set it according to the input, additionally.");
 
-				// Write tokens to temp file
-				tmpFileWriter.write(s + "\n");
-
-				// Collect tokens
+				// create tokens and add them to the jcas's indexes.
 				Token newToken = new Token(jcas);
-				newToken.setBegin(jcas.getDocumentText()
-						.indexOf(s, tokenOffset));
+				newToken.setBegin(jcas.getDocumentText().indexOf(s, tokenOffset));
 				newToken.setEnd(newToken.getBegin() + s.length());
+				newToken.addToIndexes();
 				tokenOffset = newToken.getEnd();
-				tokens.add(newToken);
-				
 			}
+			// clean up
 			in.close();
-			tmpFileWriter.close();
 			p.destroy();
 			tmpDocument.delete();
-
-			// Apply tree tagger
-			try{
-				command = rootPath + "/bin/tree-tagger " 
-							+ rootPath + "/lib/" + parFileName + " "
-							+ tmpTokens	+ " -no-unknown";
-				
-				p = Runtime.getRuntime().exec(command);
-				Logger.printDetail(component, "TreeTagger (pos tagging) with: " + parFileName);
-				
-//				// print error stream (problems, if system encoding not utf-8)
-//				BufferedReader err = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-//				String e;
-//				while ((e = err.readLine()) != null) {
-//					System.err.println("TreeTagger (pos tagging) error stream: "+e);
-//				}
-				
-			}catch (IOException ex){
-				Logger.printError(component, "Cannot find tree tagger. Make sure that path to tree tagger is set correctly in config.props");
-				ex.printStackTrace();
-				System.exit(-1);
-			}
-			
-			in = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
-			int i = 0;
-			Sentence sentence = null;
-			while ((s = in.readLine()) != null) {
-				// Finalize token information by adding POS-information
-				Token token = tokens.get(i++);
-				// modified (Aug 29, 2011): Handle empty tokens (such as empty lines) in input file
-				while (token.getCoveredText().equals("")){
-					token.setPos("");
-					token.addToIndexes();
-					token = tokens.get(i++);
-				}
-				token.setPos(s);
-				token.addToIndexes();
-				
-				// Establish sentence structure
-				if (sentence == null) {
-					sentence = new Sentence(jcas);
-					sentence.setBegin(token.getBegin());
-				}
-
-				// Finish current sentence if end-of-sentence pos was found or document ended
-				if (hsEndOfSentenceTag.contains(s) || i == tokens.size()) {
-					sentence.setEnd(token.getEnd());
-					sentence.addToIndexes();
-					
-					// Make sure current sentence is not active anymore so that a new one might be created
-					sentence = null;
-				}
-			}
-			in.close();
-			p.destroy();
-			tmpTokens.delete();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			// Housekeeping
+			// I/O Housekeeping
 			if (tmpFileWriter != null) {
 				try {
 					tmpFileWriter.close();
@@ -264,7 +244,6 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 
 				// Delete temp files
 				tmpDocument.delete();
-				tmpTokens.delete();
 			}
 
 			if (in != null) {
@@ -276,14 +255,112 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			}
 		}
 
-		if(improveGerman)
-			improveGermanSentences(jcas);
 	}
 	
-	public void improveGermanSentences(JCas jcas) {
-		// IMPROVE SENTENCE BOUNDARIES (GERMAN SENTENCE SPLITTER)
-		HashSet<String> hsSentenceBeginnings = new HashSet<String>();
+	/**
+	 * based on tokens from the jcas object, adds part of speech (POS) and sentence
+	 * tags to the jcas object using the treetagger program.
+	 * @param jcas JCas object supplied by the pipeline
+	 */
+	private void doTreeTag(JCas jcas) {
+		File tmpDocument = null;
+		BufferedWriter tmpFileWriter;
+		ArrayList<Token> tokens = new ArrayList<Token>();
 		
+		try {
+			// create a temporary file and write our pre-existing tokens to it.
+			tmpDocument = File.createTempFile("postokens", null);
+			tmpFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tmpDocument), "UTF-8"));
+
+			// iterate over existing tokens
+			FSIterator ai = jcas.getAnnotationIndex(Token.type).iterator();
+			while(ai.hasNext()) {
+				Token t = (Token) ai.next();
+				
+				tokens.add(t);
+				tmpFileWriter.write(t.getCoveredText() + ttprops.newLineSeparator);
+			}
+			
+			tmpFileWriter.close();
+		} catch(IOException e) {
+			Logger.printError("Something went wrong creating a temporary file for the treetagger to process.");
+			System.exit(-1);
+		}
+
+		// Possible End-of-Sentence Tags
+		HashSet<String> hsEndOfSentenceTag = new HashSet<String>();
+		hsEndOfSentenceTag.add("SENT");   // ENGLISH, FRENCH, GREEK, 
+		hsEndOfSentenceTag.add("$.");     // GERMAN, DUTCH
+		hsEndOfSentenceTag.add("FS");     // SPANISH
+		hsEndOfSentenceTag.add("_Z_Fst"); // ESTONIAN
+		hsEndOfSentenceTag.add("_Z_Int"); // ESTONIAN
+		hsEndOfSentenceTag.add("_Z_Exc"); // ESTONIAN
+		
+		String command, s = null;
+		Process p = null;
+		
+		try {
+			// assemble a command line based on configuration and execute the POS tagging.
+			command = ttprops.rootPath + "/bin/tree-tagger " 
+						+ ttprops.rootPath + "/lib/" + ttprops.parFileName + " "
+						+ tmpDocument	+ " -no-unknown";
+			
+			p = Runtime.getRuntime().exec(command);
+			Logger.printDetail(component, "TreeTagger (pos tagging) with: " + ttprops.parFileName);
+				
+			BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
+			
+			Sentence sentence = null;
+			// iterate over all the output lines and tokens array (which have the same source and are hence symmetric)
+			int i = 0;
+			while ((s = in.readLine()) != null) {
+				// grab a token
+				Token token = tokens.get(i++);
+				// modified (Aug 29, 2011): Handle empty tokens (such as empty lines) in input file
+				while (token.getCoveredText().equals("")){
+					token.setPos("");
+					token.addToIndexes();
+					token = tokens.get(i++);
+				}
+				// set part of speech tag and add to indexes again
+				token.setPos(s);
+				token.addToIndexes();
+				
+				// if part of the configuration, also add sentences to the jcas document
+				if(annotate_sentences) {
+					// Establish sentence structure
+					if (sentence == null) {
+						sentence = new Sentence(jcas);
+						sentence.setBegin(token.getBegin());
+					}
+	
+					// Finish current sentence if end-of-sentence pos was found or document ended
+					if (hsEndOfSentenceTag.contains(s) || i == tokens.size()) {
+						sentence.setEnd(token.getEnd());
+						sentence.addToIndexes();
+						
+						// Make sure current sentence is not active anymore so that a new one might be created
+						sentence = null;
+					}
+				}
+			}
+			in.close();
+			p.destroy();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// Delete temporary files
+			tmpDocument.delete();
+		}
+
+	}
+
+	/**
+	 * improve german sentences; the treetagger splits german sentences incorrectly on some occasions
+	 * @param jcas JCas object supplied by the pipeline
+	 */
+	private void improveGermanSentences(JCas jcas) {
+		HashSet<String> hsSentenceBeginnings = new HashSet<String>();
 		hsSentenceBeginnings.add("Januar");
 		hsSentenceBeginnings.add("Februar");
 		hsSentenceBeginnings.add("März");
@@ -300,25 +377,25 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		hsSentenceBeginnings.add("Jahr");
 		hsSentenceBeginnings.add("Monat");
 		hsSentenceBeginnings.add("Woche");
-
-		HashSet<Sentence> hsRemoveAnnotations = new HashSet<Sentence>();
-		HashSet<Sentence> hsAddAnnotations    = new HashSet<Sentence>();
+		
+		HashSet<de.unihd.dbs.uima.types.heideltime.Sentence> hsRemoveAnnotations = new HashSet<de.unihd.dbs.uima.types.heideltime.Sentence>();
+		HashSet<de.unihd.dbs.uima.types.heideltime.Sentence> hsAddAnnotations    = new HashSet<de.unihd.dbs.uima.types.heideltime.Sentence>();
 		
 		Boolean changes = true;
-		while (changes){
+		while (changes) {
 			changes = false;
-			FSIndex annoHeidelSentences = jcas.getAnnotationIndex(Sentence.type);
+			FSIndex annoHeidelSentences = jcas.getAnnotationIndex(de.unihd.dbs.uima.types.heideltime.Sentence.type);
 			FSIterator iterHeidelSent   = annoHeidelSentences.iterator();
 			while (iterHeidelSent.hasNext()){
-				Sentence s1 = (Sentence) iterHeidelSent.next();
+				de.unihd.dbs.uima.types.heideltime.Sentence s1 = (de.unihd.dbs.uima.types.heideltime.Sentence) iterHeidelSent.next();
 				int substringOffset = java.lang.Math.max(s1.getCoveredText().length()-4,1);
 				if (s1.getCoveredText().substring(substringOffset).matches(".*[\\d]+\\.[\\s\\n]*$")){
 					if (iterHeidelSent.hasNext()){
-						Sentence s2 = (Sentence) iterHeidelSent.next();
+						de.unihd.dbs.uima.types.heideltime.Sentence s2 = (de.unihd.dbs.uima.types.heideltime.Sentence) iterHeidelSent.next();
 						iterHeidelSent.moveToPrevious();
 						for (String beg : hsSentenceBeginnings){
 							if (s2.getCoveredText().startsWith(beg)){
-								Sentence s3 = new Sentence(jcas);
+								de.unihd.dbs.uima.types.heideltime.Sentence s3 = new de.unihd.dbs.uima.types.heideltime.Sentence(jcas);
 								s3.setBegin(s1.getBegin());
 								s3.setEnd(s2.getEnd());
 								hsAddAnnotations.add(s3);
@@ -331,15 +408,14 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 					}
 				}
 			}
-			for (Sentence s : hsRemoveAnnotations){
+			for (de.unihd.dbs.uima.types.heideltime.Sentence s : hsRemoveAnnotations){
 				s.removeFromIndexes(jcas);
 			}
 			hsRemoveAnnotations.clear();
-			for (Sentence s : hsAddAnnotations){
+			for (de.unihd.dbs.uima.types.heideltime.Sentence s : hsAddAnnotations){
 				s.addToIndexes(jcas);
 			}
 			hsAddAnnotations.clear();
 		}
 	}
-
 }

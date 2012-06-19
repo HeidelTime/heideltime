@@ -8,7 +8,7 @@
     <description/>
     <version>1.0</version>
     <vendor>UniHD DBS</vendor>
-    <configurationParameters>
+    <configurationParameters searchStrategy="language_fallback">
       <configurationParameter>
         <name>language</name>
         <type>String</type>
@@ -16,8 +16,25 @@
         <mandatory>false</mandatory>
       </configurationParameter>
       <configurationParameter>
+        <name>annotate_tokens</name>
+        <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+      </configurationParameter>
+      <configurationParameter>
+        <name>annotate_partofspeech</name>
+        <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+      </configurationParameter>
+      <configurationParameter>
+        <name>annotate_sentences</name>
+        <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+      </configurationParameter>
+      <configurationParameter>
         <name>improvegermansentences</name>
-        <description>whether or not german sentences are to be improved</description>
         <type>Boolean</type>
         <multiValued>false</multiValued>
         <mandatory>false</mandatory>
@@ -28,6 +45,24 @@
         <name>language</name>
         <value>
           <string>english</string>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>annotate_partofspeech</name>
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>annotate_tokens</name>
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>annotate_sentences</name>
+        <value>
+          <boolean>false</boolean>
         </value>
       </nameValuePair>
       <nameValuePair>
