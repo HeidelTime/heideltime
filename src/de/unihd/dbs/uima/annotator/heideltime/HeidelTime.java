@@ -91,7 +91,6 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	/**
 	 * @see AnalysisComponent#initialize(UimaContext)
 	 */
-	@SuppressWarnings("unused")
 	public void initialize(UimaContext aContext) throws ResourceInitializationException {
 		super.initialize(aContext);
 
@@ -110,6 +109,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			Logger.printError("Supplied language parameter was not recognized.");
 			System.exit(-1);
 		}
+		
 		typeToProcess  = (String)  aContext.getConfigParameterValue(PARAM_TYPE_TO_PROCESS);
 		find_dates     = (Boolean) aContext.getConfigParameterValue(PARAM_DATE);
 		find_times     = (Boolean) aContext.getConfigParameterValue(PARAM_TIME);
@@ -124,17 +124,17 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		////////////////////////////////////////////////////////////
 		// READ NORMALIZATION RESOURCES FROM FILES AND STORE THEM //
 		////////////////////////////////////////////////////////////
-		NormalizationManager norm = NormalizationManager.getInstance();
+		NormalizationManager.getInstance();
 		
 		//////////////////////////////////////////////////////
 		// READ PATTERN RESOURCES FROM FILES AND STORE THEM //
 		//////////////////////////////////////////////////////
-		RePatternManager repm = RePatternManager.getInstance();
+		RePatternManager.getInstance();
 	
 		///////////////////////////////////////////////////
 		// READ RULE RESOURCES FROM FILES AND STORE THEM //
 		///////////////////////////////////////////////////
-		RuleManager rulem = RuleManager.getInstance();
+		RuleManager.getInstance();
 		
 		/////////////////////////////////////////////////////////////////////////////////
 		// SUBPROCESSOR CONFIGURATION. REGISTER YOUR OWN PROCESSORS HERE FOR EXECUTION //
@@ -149,7 +149,6 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		if (find_times) Logger.printDetail("Getting Times...");	
 		if (find_durations) Logger.printDetail("Getting Durations...");	
 		if (find_sets) Logger.printDetail("Getting Sets...");
-		
 	}
 
 	
