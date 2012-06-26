@@ -24,6 +24,8 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.uima.jcas.JCas;
 
@@ -41,10 +43,12 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  * @version 1.01
  */
 public class TreeTaggerWrapper implements PartOfSpeechTagger {
+	public Logger logger;
+
+	public void setLogger(Logger l) {
+		this.logger = l;
+	}
 	
-
-
-	@Override
 	public void process(JCas jcas, Language language) {
 
 		// Possible End-of-Sentence Tags
@@ -67,8 +71,7 @@ public class TreeTaggerWrapper implements PartOfSpeechTagger {
 		try {
 			// Create temp file containing the document text (necessary for tree tagger)
 			tmpDocument = File.createTempFile("pos", null);
-			tmpFileWriter =
-				new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tmpDocument), "UTF-8"));
+			tmpFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tmpDocument), "UTF-8"));
 			tmpFileWriter.write(jcas.getDocumentText());
 			tmpFileWriter.close();
 
@@ -112,27 +115,27 @@ public class TreeTaggerWrapper implements PartOfSpeechTagger {
 			File tokFile = new File(rootPath+"cmd",tokScriptName);
 			if (!(abbFile.exists())){
 				abbFileFlag = false;
-				System.err.println("File missing to use TreeTagger tokenizer: " + abbFileName);
+				logger.log(Level.WARNING, "File missing to use TreeTagger tokenizer: " + abbFileName);
 			}
 			if (!(parFile.exists())){
 				parFileFlag = false;
-				System.err.println("File missing to use TreeTagger tokenizer: " + parFileName);
+				logger.log(Level.WARNING, "File missing to use TreeTagger tokenizer: " + parFileName);
 			}
 			if (!(tokFile.exists())){
 				tokScriptFlag = false;
-				System.err.println("File missing to use TreeTagger tokenizer: " + tokScriptName);
+				logger.log(Level.WARNING, "File missing to use TreeTagger tokenizer: " + tokScriptName);
 			}
 
 			if ((!(abbFileFlag)) || (!(parFileFlag)) || (!(tokScriptFlag))){
-				System.err.println("\nCannot find tree tagger ("+rootPath+"cmd/" + tokScriptName + ")." +
+				logger.log(Level.WARNING, "\nCannot find tree tagger ("+rootPath+"cmd/" + tokScriptName + ")." +
 				" Make sure that path to tree tagger is set correctly in config.props!");
-				System.err.println("\nIf path is set correctly:\n");
-				System.err.println("Maybe you need to download the TreeTagger tagger-scripts.tar.gz");
-				System.err.println("from ftp://ftp.ims.uni-stuttgart.de/pub/corpora/tagger-scripts.tar.gz");
-				System.err.println("Extract this file and copy the missing file into the corresponding TreeTagger directories.");
-				System.err.println("If missing, copy " + abbFileName   + " into " +  rootPath+"lib");
-				System.err.println("If missing, copy " + parFileName   + " into " +  rootPath+"lib");
-				System.err.println("If missing, copy " + tokScriptName + " into " +  rootPath+"cmd");
+				logger.log(Level.WARNING, "\nIf path is set correctly:\n");
+				logger.log(Level.WARNING, "Maybe you need to download the TreeTagger tagger-scripts.tar.gz");
+				logger.log(Level.WARNING, "from ftp://ftp.ims.uni-stuttgart.de/pub/corpora/tagger-scripts.tar.gz");
+				logger.log(Level.WARNING, "Extract this file and copy the missing file into the corresponding TreeTagger directories.");
+				logger.log(Level.WARNING, "If missing, copy " + abbFileName   + " into " +  rootPath+"lib");
+				logger.log(Level.WARNING, "If missing, copy " + parFileName   + " into " +  rootPath+"lib");
+				logger.log(Level.WARNING, "If missing, copy " + tokScriptName + " into " +  rootPath+"cmd");
 				System.exit(-1);
 			}
 			
@@ -144,7 +147,7 @@ public class TreeTaggerWrapper implements PartOfSpeechTagger {
 								+ tmpDocument;
 				
 			p = Runtime.getRuntime().exec(command);
-			System.err.println("TreeTagger (tokenization) with: " + tokScriptName + " and " + abbFileName);
+			logger.log(Level.INFO, "TreeTagger (tokenization) with: " + tokScriptName + " and " + abbFileName);
 				
 //			// print error stream (problems, if system encoding not utf-8)
 //			BufferedReader err = new BufferedReader(new InputStreamReader(p.getErrorStream())); 
@@ -197,7 +200,7 @@ public class TreeTaggerWrapper implements PartOfSpeechTagger {
 							+ tmpTokens	+ " -no-unknown";
 				
 				p = Runtime.getRuntime().exec(command);
-				System.err.println("TreeTagger (pos tagging) with: " + parFileName);
+				logger.log(Level.INFO, "TreeTagger (pos tagging) with: " + parFileName);
 				
 //				// print error stream (problems, if system encoding not utf-8)
 //				BufferedReader err = new BufferedReader(new InputStreamReader(p.getErrorStream()));
@@ -207,8 +210,8 @@ public class TreeTaggerWrapper implements PartOfSpeechTagger {
 //				}
 				
 			}catch (IOException ex){
-				System.err.println("Cannot find tree tagger. Make sure that path to tree tagger is set correctly in config.props");
 				ex.printStackTrace();
+				logger.log(Level.WARNING, "Cannot find tree tagger. Make sure that path to tree tagger is set correctly in config.props");
 				System.exit(-1);
 			}
 			
@@ -285,12 +288,10 @@ public class TreeTaggerWrapper implements PartOfSpeechTagger {
 		case ENGLISH:
 			return "english";
 			
-		case
-			ENGLISHCOLL:
+		case ENGLISHCOLL:
 			return "english";
 		
-		case
-			ENGLISHSCI:
+		case ENGLISHSCI:
 			return "english";
 		
 		case GERMAN:
