@@ -18,7 +18,8 @@ public enum CLISwitch {
 	LANGUAGE	("Language", "-l", Language.ENGLISH),
 	DOCTYPE		("Document Type", "-t", DocumentType.NARRATIVES),
 	DCT			("Document Creation Time", "-dct", new Date()),
-	CONFIGFILE	("Configuration Path", "-c", "config.props"),
+	CONFIGFILE	("Configuration Path", "-c", "config.props"), 
+	LOCALE		("Locale", "-locale", null),
 	;
 	
 	private boolean hasFollowingValue = false;

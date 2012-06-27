@@ -22,7 +22,9 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,8 +33,6 @@ import org.apache.uima.UIMAFramework;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.apache.uima.util.XMLInputSource;
-
-
 
 import de.unihd.dbs.heideltime.standalone.components.JCasFactory;
 import de.unihd.dbs.heideltime.standalone.components.ResultFormatter;
@@ -267,169 +267,7 @@ public class HeidelTimeStandalone {
 
 		return result;
 	}
-
-	/**
-	 * @param args
-	 *//*
-	public static void mainx(String[] args) {
-		// create instance of the logger
-		logger = Logger.getLogger("HeidelTimeStandalone");
-
-		/////// Parse command line parameters ///////
-		
-		// start off with the verbosity recognition -- lots of the other 
-		// stuff can be skipped if this is set too high
-		if(isCommandLineParameterPresent(args, "-vv")) {
-			logger.setLevel(Level.ALL);
-		} else if(isCommandLineParameterPresent(args, "-v")) {
-			logger.setLevel(Level.INFO);
-		} else {
-			logger.setLevel(Level.WARNING);
-		}
-		logger.log(Level.INFO, "-v/-vv NOT FOUND OR RECOGNIZED; Logging level set to WARNINGs and above.");
-
-		// Check input encoding
-		String encodingType = "UTF-8";
-		try{
-			encodingType = getCommandLineParameter(args, "-e");
-			logger.log(Level.INFO, "Encoding '-e': "+encodingType.toString());
-		} catch (Exception e){
-			// Encoding type not found
-			encodingType = "UTF-8";
-			logger.log(Level.INFO, "Encoding '-e': NOT FOUND OR RECOGNIZED; set to 'UTF-8'");
-		}
-		
-		// Check output format
-		OutputType outputType = null;
-		try{
-			outputType = OutputType.valueOf(getCommandLineParameter(args, "-o"));
-			logger.log(Level.INFO, "Output '-o': "+outputType.toString());
-		} catch (Exception e){
-			// Output type not found
-			outputType = OutputType.TIMEML;
-			logger.log(Level.INFO, "Output '-o': NOT FOUND OR RECOGNIZED; set to 'TIMEML'");
-		}
-		
-		// Check language
-		Language language = null;
-		try {
-			language = Language.valueOf(getCommandLineParameter(args, "-l"));
-			logger.log(Level.INFO, "Language '-l': "+language.toString());
-		} catch (Exception e) {
-			// Language not found
-			language = Language.ENGLISH;
-			logger.log(Level.INFO, "Language '-l': NOT FOUND OR RECOGNIZED; set to 'ENGLISH'");
-		}
-
-		// Check type
-		DocumentType type = null;
-		try {
-			type = DocumentType.valueOf(getCommandLineParameter(args, "-t"));
-			logger.log(Level.INFO, "Type '-t': "+type.toString());
-		} catch (Exception e) {
-			// Type not found
-			type = DocumentType.NARRATIVES;
-			logger.log(Level.INFO, "Type '-t': NOT FOUND OR RECOGNIZED; set to 'NARRATIVES'");
-		}
-
-		// Check document creation time
-		Date dct = null;
-		try {
-			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			dct = formatter.parse(getCommandLineParameter(args, "-dct"));
-			logger.log(Level.INFO, "Document Creation Time '-dct': "+dct.toString());
-		} catch (Exception e) {
-			// Dct not found
-			if ((type == DocumentType.NEWS) || (type == DocumentType.COLLOQUIAL)) {
-				// Dct needed
-				dct = new Date();
-				logger.log(Level.INFO, "Document Creation Time '-dct': NOT FOUND OR RECOGNIZED; set to today ("
-						+ dct.toString() + ")");
-			} else {
-				logger.log(Level.INFO, "Document Creation Time '-dct': NOT FOUND OR RECOGNIZED; skipped");
-			}
-		}
-		
-		// Read configuration from file
-		String configPath = getCommandLineParameter(args, "-c");
-		try {
-			// if no -c parameter is given, try the default filename
-			if(configPath == null)
-				configPath = "config.props";
-			logger.log(Level.INFO, "Configuration path '-c': "+configPath);
-			
-			InputStream configStream = HeidelTimeStandalone.class.getClassLoader().getResourceAsStream(configPath);
-			
-			Properties props = new Properties();
-			props.load(configStream);
-
-			Config.setProps(props);
-			logger.log(Level.FINE, "Config initialized");
-		} catch (Exception e) {
-			logger.log(Level.WARNING, "Config could not be initialized! Please supply the -c switch or put a config.props into this directory.");
-			System.exit(-1);
-		}
-		
-		
-
-		// Run HeidelTime
-		try {
-			// Get document
-			String docPath = null;
-			if (args.length > 0 && args.length % 2 == 1) {
-				if (!args[0].startsWith("-")) {
-					// First parameter considered file
-					docPath = args[0];
-				} else {
-					// Last parameter considered file
-					docPath = args[args.length - 1];
-				}
-			}
-			
-			if (docPath == null) {
-				logger.log(Level.WARNING, "No input file given; aborting.");
-				return;
-			}
-			
-			logger.log(Level.INFO, "Reading document using charset: " + encodingType);
-			
-			BufferedReader fileReader = new BufferedReader(
-					new InputStreamReader(new FileInputStream(docPath), encodingType));
-			
-			StringBuilder sb = new StringBuilder();
-			String line = null;
-			while ((line = fileReader.readLine()) != null) {
-				sb.append("\n"); // ADDED to keep the newlines?
-				sb.append(line);
-			}
-			String input = sb.toString();
-			// should not be necessary, but without this, it's not running on Windows (?)
-			input = new String(input.getBytes("UTF-8"), "UTF-8");
-			
-			HeidelTimeStandalone standalone = new HeidelTimeStandalone(
-					language, type, outputType);
-			String out = "";
-			if (outputType.toString().equals("xmi")){
-				ResultFormatter resultFormatter = new XMIResultFormatter();
-				out = standalone.process(input, dct, resultFormatter);	
-			}
-			else{
-				ResultFormatter resultFormatter = new TimeMLResultFormatter();
-				out = standalone.process(input, dct, resultFormatter);
-			}
-			
-
-			// Print output always as UTF-8
-			PrintWriter pwOut = new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"));
-			pwOut.println(out);
-			pwOut.close();
-			
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-*/
+	
 	/**
 	 * @param args
 	 */
@@ -449,8 +287,7 @@ public class HeidelTimeStandalone {
 				}
 				
 				if(sw.getHasFollowingValue()) { // handle values for switches
-					if(args.length > i+1 && !args[i+1].startsWith("-")) {
-						// we still have an array index after this one and it's not a switch
+					if(args.length > i+1 && !args[i+1].startsWith("-")) { // we still have an array index after this one and it's not a switch
 						sw.setValue(args[++i]);
 					} else { // value is missing or malformed
 						logger.log(Level.WARNING, "Invalid or missing parameter after "+args[i]+". Quitting.");
@@ -543,6 +380,29 @@ public class HeidelTimeStandalone {
 			} else {
 				logger.log(Level.INFO, "Document Creation Time '-dct': NOT FOUND; skipping.");
 			}
+		}
+		
+		// Handle locale switch
+		String locale = (String) CLISwitch.LOCALE.getValue();
+		Locale myLocale = null;
+		if(CLISwitch.LOCALE.getIsActive()) {
+			// check if the requested locale is available
+			for(Locale l : Locale.getAvailableLocales()) {
+				if(l.toString().toLowerCase().equals(locale.toLowerCase()))
+					myLocale = l;
+			}
+			
+			try {
+				Locale.setDefault(myLocale); // try to set the locale
+				logger.log(Level.INFO, "Locale '-locale': "+myLocale.toString());
+			} catch(Exception e) { // if the above fails, spit out error message and available locales
+				logger.log(Level.WARNING, "Supplied locale parameter couldn't be resolved to a working locale. Try one of these:");
+				logger.log(Level.WARNING, Arrays.asList(Locale.getAvailableLocales()).toString()); // list available locales
+				System.exit(-1);
+			}
+		} else {
+			// no -locale parameter supplied: just show default locale
+			logger.log(Level.INFO, "Locale '-locale': NOT FOUND, set to environment locale: "+Locale.getDefault().toString());
 		}
 		
 		// Read configuration from file
