@@ -3,6 +3,7 @@ package de.unihd.dbs.uima.annotator.heideltime.utilities;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 /**
@@ -118,5 +119,19 @@ public class DateCalculator {
 			e.printStackTrace();
 		}
 		return week;
+	}
+	
+	/**
+	 * takes a desired locale input string, iterates through available locales, returns a locale object
+	 * @param locale String to grab a locale for, i.e. en_US, en_GB, de_DE
+	 * @return Locale to represent the input String
+	 */
+	public static Locale getLocaleFromString(String locale) throws LocaleException {
+		for(Locale l : Locale.getAvailableLocales()) {
+			if(locale.toLowerCase().equals(l.toString().toLowerCase())) {
+				return l;
+			}
+		}
+		throw new LocaleException();
 	}
 }

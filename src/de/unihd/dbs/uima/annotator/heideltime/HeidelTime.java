@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
@@ -36,6 +37,7 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RuleManager;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.DateCalculator;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.ContextAnalyzer;
+import de.unihd.dbs.uima.annotator.heideltime.utilities.LocaleException;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
 import de.unihd.dbs.uima.types.heideltime.Dct;
@@ -70,6 +72,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private String PARAM_LANGUAGE         = "Language_english_german";
 	// supported languages (2012-05-19): english, german, dutch, englishcoll, englishsci
 	private String PARAM_TYPE_TO_PROCESS  = "Type_news_narratives";
+	// chosen locale parameter name
+	private String PARAM_LOCALE			   = "locale";
 	// supported types (2012-05-19): news (english, german, dutch), narrative (english, german, dutch), colloquial
 	private Language language       = Language.ENGLISH;
 	private String typeToProcess  = "news";
@@ -99,6 +103,27 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		/////////////////////////////////
 		this.deleteOverlapped = true;
 		Logger.setPrintDetails(false);
+		
+		/////////////////////////////////
+		// HANDLE LOCALE    		   //
+		/////////////////////////////////
+		String requestedLocale = (String) aContext.getConfigParameterValue(PARAM_LOCALE);
+		if(requestedLocale == null || requestedLocale.length() == 0) { // if the PARAM_LOCALE setting was left empty, 
+			Locale.setDefault(Locale.UK); // use a default, the ISO8601-adhering UK locale (equivalent to "en_GB")
+		} else { // otherwise, check if the desired locale exists in the JVM's available locale repertoire
+			try {
+				Locale locale = DateCalculator.getLocaleFromString(requestedLocale);
+				Locale.setDefault(locale); // sets it for the entire JVM session
+			} catch (LocaleException e) {
+				Logger.printError("Supplied locale parameter couldn't be resolved to a working locale. Try one of these:");
+				String localesString = new String();
+				for(Locale l : Locale.getAvailableLocales()) { // list all available locales
+					localesString += l.toString()+" ";
+				}
+				Logger.printError(localesString);
+				System.exit(-1);
+			}
+		}
 		
 		//////////////////////////////////
 		// GET CONFIGURATION PARAMETERS //
