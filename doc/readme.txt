@@ -3,7 +3,7 @@
 #######################
 
 Author: Jannik Strötgen
-Date:   May 19, 2012
+Date:   June 30, 2012
 eMail:  stroetgen@uni-hd.de
 
 ###################################
@@ -71,6 +71,8 @@ contains:
     * TempEval-2 Reader: This Collection Reader reads the TempEval-2 input data of the training 
       and the evaluation sets and annotates the document creation time as well as token and 
       sentence information.
+    * TreeTaggerWrapper: This Analysis Engine produces Token, Sentence and Part-of-Speech annotations
+      required by HeidelTime by using the language independent TreeTagger tool.
     * HeidelTime
     * Annotation Translator: This Analysis Engine translates Sentence, Token, and Part-of-Speech 
       annotations of one type system into HeidelTime's type system.
@@ -85,7 +87,7 @@ contains:
 ######################
 Most of the descriptions are tested and written for Linux, e.g., how to set environment
 variables. If you do not use Linux, make sure that you carry out analogous steps, e.g.,
-set the environment variables. 
+set the environment variables.
 
 1. UIMA (if you already use UIMA, you can skip this step):
    To be able to use HeidelTime, you have to install UIMA:
@@ -105,29 +107,22 @@ set the environment variables.
 	* For further information about UIMA, see http://uima.apache.org/
 
 2. Download and install the UIMA HeidelTime kit
-	* download either heideltime-kit.tar.gz or heideltime-kit.zip from
-	  http://dbs.ifi.uni-heidelberg.de/temporal_tagging
-	* unzip or untar the heideltime kit at HEIDELTIME_HOME
-	* set the environment variable HEIDELTIME_HOME 
-	  (you can set these variables globally, e.g., in your $HOME/.bashrc)
-	  	- export HEIDELTIME_HOME='path to heideltime'
+	* download the latest heideltime-kit from
+	  https://code.google.com/p/heideltime/downloads/list
+	* unzip or untar the heideltime-kit into a path called HEIDELTIME_HOME from hereon out.
+	* set the environment variable HEIDELTIME_HOME (you can set these variables globally, 
+	  e.g., in your $HOME/.bashrc):
+		- export HEIDELTIME_HOME='/path/to/heideltime/'
 
-3. HeidelTime requires sentence, token, and part-of speech annotations. We use the DKPro
-   components of the Technische Universität Darmstadt and the Tree Tagger. This wrapper
-   does only support English and German, so that we are currently working on an own
-   wrapper that can process all languages supported by TreeTagger.
+3. HeidelTime requires sentence, token, and part-of speech annotations. We have developed
+   our own wrapper for the popular TreeTagger tool that will support any language for which
+   there are parameter files available.
    However, you may use other tools (if so, you either have to adjust the analysis engine
    "Annotation Translator", which is part of the UIMA HeidelTime kit or you may adjust the 
-   imports in HeidelTime.java itself. Furthermore, if another tag set is used, all rules
+   imports in HeidelTime.java itself. Furthermore, if a differing tag set is used, all rules
    containing part-of-speech information have to be adapted).
-	* Download DKProCore_10.zip from
-	  http://www.ukp.tu-darmstadt.de/research/current-projects/dkpro/legacy-dkpro/
-	* Unzip DKPro
-		- unzip DKProCore_10.zip -d DKProCore_10
-    * Set environment variables (you can set variables globally, e.g., in your $HOME/.bashrc)
-    	- export DKPRO_HOME='path to DKPro'
     * Download the TreeTagger and its tagging scripts, installation scripts, as well as 
-      English, German, and Dutch parameter files into one directory from:
+      English, German, and Dutch (or any other) parameter files into one directory from:
       http://www.ims.uni-stuttgart.de/projekte/corplex/TreeTagger/
       - mkdir treetagger 
       - cd treetagger
@@ -144,12 +139,7 @@ set the environment variables.
 		- sh install-tagger.sh 
 	* Set environment variables (you can set variables globally, e.g., in your $HOME/.bashrc)
     	- export TREETAGGER_HOME='path to TreeTagger'
-   For further information on DKPro and TreeTagger, see their documentations.
-
-4. Adapt some paths in DKPro Core 1.0: 
-	* run the adaptation script (or make the substitutions manually as described in the script)
-		- sh $HEIDELTIME_HOME/metadata/adaptDKProDescriptors.sh
-		
+   For further information on the TreeTagger, take a look at its documentation.		
 
 
 #########################
@@ -166,22 +156,13 @@ set the environment variables.
 			$UIMA_HOME/examples/descriptors/collection_reader/FileSystemCollectionReader.xml
 			set "Input directory" to $HEIDELTIME_HOME/doc/
 		Analysis Engines
-		- DKPro's Sentence Splitter located at
-			DKPro_HOME/desc/annotator/SentenceSplitter.xml
-			set "Language Code" to "en"
-		- DKPro's Tokenizer located at
-			DKPro_HOME/desc/annotator/Tokenizer.xml
-			set "Language Code" to "en"
-		- DKPro's POS Tagger located at
-			DKPro_HOME/desc/annotator/TreeTagger.xml
-			set "External Process Refresh Rate" to "25"
-			set "Language Code" to "en"
-			set "Create POS" to "true"
-			set "Create Lemma" to "false"
-			keep "Tree Tagger Parameter File" empty
-		- HeidelTime's Annotation Translater located at
-			HEIDELTIME_HOME/desc/annotator/AnnotationTranslater.xml
-			set "Dkpro To Heideltime" to "true"
+		- TreeTaggerWrapper located at
+			HEIDELTIME_HOME/desc/annotator/TreeTaggerWrapper.xml
+			set "Language" to "english"
+			set "Annotate_tokens" to "true"
+			set "Annotate_partofspeech" to "true"
+			set "Annotate_sentences" to "true"
+			set "Improvegermansentences" to "false"
 		- HeidelTime located at
 			HEIDELTIME_HOME/desc/annotator/HeidelTime.xml
 			set "Date" to "true"
@@ -238,4 +219,4 @@ email:  stroetgen@uni-hd.de
 
 HeidelTime is a multilingual, cross-domain temporal tagger.
 For details, see http://dbs.ifi.uni-heidelberg.de/heideltime and
-http://code.google.com/p/heideltime
+http://code.google.com/p/heideltime/
