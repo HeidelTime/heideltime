@@ -23,7 +23,7 @@ public class NormalizationManager extends GenericResourceManager {
 	private Pattern paReadNormalizations = Pattern.compile("\"(.*?)\",\"(.*?)\"");
 
 	// STORE PATTERNS AND NORMALIZATIONS
-	private HashMap<String, HashMap<String,String>> hmAllNormalization;
+	private HashMap<String, RegexHashMap> hmAllNormalization;
 	
 	// ACCESS TO SOME NORMALIZATION MAPPINGS (set internally)
 	private HashMap<String, String> normDayInWeek;
@@ -42,7 +42,7 @@ public class NormalizationManager extends GenericResourceManager {
 		super("normalization");
 		
 		// initialize the data structures
-		hmAllNormalization = new HashMap<String, HashMap<String,String>>();
+		hmAllNormalization = new HashMap<String, RegexHashMap>();
 		
 		normNumber = new HashMap<String, String>();
 		normDayInWeek = new HashMap<String, String>();
@@ -59,7 +59,7 @@ public class NormalizationManager extends GenericResourceManager {
 		HashMap<String, String> hmResourcesNormalization = readResourcesFromDirectory();
 		
 		for (String which : hmResourcesNormalization.keySet()) {
-			hmAllNormalization.put(which, new HashMap<String, String>());
+			hmAllNormalization.put(which, new RegexHashMap());
 		}
 		
 		readNormalizationResources(hmResourcesNormalization);
@@ -89,22 +89,22 @@ public class NormalizationManager extends GenericResourceManager {
 				BufferedReader in = new BufferedReader(new InputStreamReader
 						(this.getClass().getClassLoader().getResourceAsStream(hmResourcesNormalization.get(resource)),"UTF-8"));
 				for ( String line; (line=in.readLine()) != null; ) {
-					if (!(line.startsWith("//"))) {
-						boolean correctLine = false;
-						// check each line for the normalization format (defined in paReadNormalizations)
-						for (MatchResult r : Toolbox.findMatches(paReadNormalizations, line)) {
-							correctLine = true;
-							String resource_word   = r.group(1);
-							String normalized_word = r.group(2);
-							for (String which : hmAllNormalization.keySet()) {
-								if (resource.equals(which)) {
-									hmAllNormalization.get(which).put(resource_word,normalized_word);
-								}
+					if (line.startsWith("//")) continue; // ignore comments
+					
+					// check each line for the normalization format (defined in paReadNormalizations)
+					boolean correctLine = false;
+					for (MatchResult r : Toolbox.findMatches(paReadNormalizations, line)) {
+						correctLine = true;
+						String resource_word   = r.group(1);
+						String normalized_word = r.group(2);
+						for (String which : hmAllNormalization.keySet()) {
+							if (resource.equals(which)) {
+								hmAllNormalization.get(which).put(resource_word,normalized_word);
 							}
-							if ((correctLine == false) && (!(line.matches("")))) {
-								Logger.printError("["+component+"] Cannot read one of the lines of normalization resource "+resource);
-								Logger.printError("["+component+"] Line: "+line);
-							}
+						}
+						if ((correctLine == false) && (!(line.matches("")))) {
+							Logger.printError("["+component+"] Cannot read one of the lines of normalization resource "+resource);
+							Logger.printError("["+component+"] Line: "+line);
 						}
 					}
 				}
@@ -270,7 +270,7 @@ public class NormalizationManager extends GenericResourceManager {
 	/*
 	 * a bunch of getter methods to facilitate access to the data structures
 	 */
-	public final HashMap<String, String> getFromHmAllNormalization(String key) {
+	public final RegexHashMap getFromHmAllNormalization(String key) {
 		return hmAllNormalization.get(key);
 	}
 
