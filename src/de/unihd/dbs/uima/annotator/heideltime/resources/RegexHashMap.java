@@ -86,8 +86,10 @@ public class RegexHashMap implements Map<String, String> {
 	 * key with the regex's value to form a new entry in the cache.
 	 */
 	public String get(Object key) {
+		// output for requested key null is the value null; normal Map behavior
+		if(key == null) return null;
+		
 		String result = null;
- 
 		if((result = cache.get(key)) != null) {
 			// if the requested key maps to a value in the cache
 			return result;
