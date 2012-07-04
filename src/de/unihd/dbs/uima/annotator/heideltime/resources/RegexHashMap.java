@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * Implements a HashMap extended with regular expression keys and caching functionality.
@@ -103,7 +104,7 @@ public class RegexHashMap implements Map<String, String> {
 				// prepare current entry
 				Entry<String, String> entry = regexKeys.next();
 				// check if the key is a regex matching the input key
-				if(entry.getKey().matches((String) key)) {
+				if(Pattern.matches(entry.getKey(), (String) key)) {
 					putCache((String) key, entry.getValue());
 					return entry.getValue();
 				}
