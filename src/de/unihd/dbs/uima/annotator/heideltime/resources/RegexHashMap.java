@@ -14,10 +14,10 @@ import java.util.regex.Pattern;
  * @author Julian Zell
  *
  */
-public class RegexHashMap implements Map<String, String> {
+public class RegexHashMap<T> implements Map<String, T> {
 	
-	private HashMap<String, String> container = new HashMap<String, String>();
-	private HashMap<String, String> cache = new HashMap<String, String>();
+	private HashMap<String, T> container = new HashMap<String, T>();
+	private HashMap<String, T> cache = new HashMap<String, T>();
 	
 	/**
 	 * clears both the container and the cache hashmaps
@@ -68,9 +68,9 @@ public class RegexHashMap implements Map<String, String> {
 	/**
 	 * returns a merged entryset containing within both the container and cache entrysets
 	 */
-	public Set<Entry<String, String>> entrySet() {
+	public Set<Entry<String, T>> entrySet() {
 		// prepare the container
-		HashSet<Entry<String, String>> set = new HashSet<Entry<String, String>>();
+		HashSet<Entry<String, T>> set = new HashSet<Entry<String, T>>();
 		// add the set from our container
 		set.addAll(container.entrySet());
 		// add the set from our cache
@@ -86,11 +86,11 @@ public class RegexHashMap implements Map<String, String> {
 	 * if a value is found doing regex evaluation, use that regex-key's match as a non-regex 
 	 * key with the regex's value to form a new entry in the cache.
 	 */
-	public String get(Object key) {
+	public T get(Object key) {
 		// output for requested key null is the value null; normal Map behavior
 		if(key == null) return null;
 		
-		String result = null;
+		T result = null;
 		if((result = cache.get(key)) != null) {
 			// if the requested key maps to a value in the cache
 			return result;
@@ -99,10 +99,10 @@ public class RegexHashMap implements Map<String, String> {
 			return result;
 		} else {
 			// check if the requested key is a matching string of a regex key from our container
-			Iterator<Entry<String, String>> regexKeys = container.entrySet().iterator();
+			Iterator<Entry<String, T>> regexKeys = container.entrySet().iterator();
 			while(regexKeys.hasNext()) {
 				// prepare current entry
-				Entry<String, String> entry = regexKeys.next();
+				Entry<String, T> entry = regexKeys.next();
 				// check if the key is a regex matching the input key
 				if(Pattern.matches(entry.getKey(), (String) key)) {
 					putCache((String) key, entry.getValue());
@@ -139,7 +139,7 @@ public class RegexHashMap implements Map<String, String> {
 	/**
 	 * associates a key with a value in the container hashmap
 	 */
-	public String put(String key, String value) {
+	public T put(String key, T value) {
 		return container.put(key, value);
 	}
 	
@@ -149,21 +149,21 @@ public class RegexHashMap implements Map<String, String> {
 	 * @param value Value to map to
 	 * @return previous value associated with the key, or null if unassociated before
 	 */
-	public String putCache(String key, String value) {
+	public T putCache(String key, T value) {
 		return cache.put(key, value);
 	}
 
 	/**
 	 * adds a map to the container
 	 */
-	public void putAll(Map<? extends String, ? extends String> m) {
+	public void putAll(Map<? extends String, ? extends T> m) {
 		container.putAll(m);
 	}
 
 	/**
 	 * removes a specific key's association from the container
 	 */
-	public String remove(Object key) {
+	public T remove(Object key) {
 		return container.remove(key);
 	}
 	
@@ -178,9 +178,9 @@ public class RegexHashMap implements Map<String, String> {
 	 * returns the combined collection of both the values of the container as well as
 	 * the cache.
 	 */
-	public Collection<String> values() {
+	public Collection<T> values() {
 		// prepare set
-		HashSet<String> set = new HashSet<String>();
+		HashSet<T> set = new HashSet<T>();
 		// add all container values
 		set.addAll(container.values());
 		// add all cache values

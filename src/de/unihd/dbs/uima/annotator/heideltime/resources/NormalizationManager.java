@@ -23,7 +23,7 @@ public class NormalizationManager extends GenericResourceManager {
 	private Pattern paReadNormalizations = Pattern.compile("\"(.*?)\",\"(.*?)\"");
 
 	// STORE PATTERNS AND NORMALIZATIONS
-	private HashMap<String, RegexHashMap> hmAllNormalization;
+	private HashMap<String, RegexHashMap<String>> hmAllNormalization;
 	
 	// ACCESS TO SOME NORMALIZATION MAPPINGS (set internally)
 	private HashMap<String, String> normDayInWeek;
@@ -42,7 +42,7 @@ public class NormalizationManager extends GenericResourceManager {
 		super("normalization");
 		
 		// initialize the data structures
-		hmAllNormalization = new HashMap<String, RegexHashMap>();
+		hmAllNormalization = new HashMap<String, RegexHashMap<String>>();
 		
 		normNumber = new HashMap<String, String>();
 		normDayInWeek = new HashMap<String, String>();
@@ -59,7 +59,7 @@ public class NormalizationManager extends GenericResourceManager {
 		HashMap<String, String> hmResourcesNormalization = readResourcesFromDirectory();
 		
 		for (String which : hmResourcesNormalization.keySet()) {
-			hmAllNormalization.put(which, new RegexHashMap());
+			hmAllNormalization.put(which, new RegexHashMap<String>());
 		}
 		
 		readNormalizationResources(hmResourcesNormalization);
@@ -270,7 +270,7 @@ public class NormalizationManager extends GenericResourceManager {
 	/*
 	 * a bunch of getter methods to facilitate access to the data structures
 	 */
-	public final RegexHashMap getFromHmAllNormalization(String key) {
+	public final RegexHashMap<String> getFromHmAllNormalization(String key) {
 		return hmAllNormalization.get(key);
 	}
 
