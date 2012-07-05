@@ -244,8 +244,8 @@ RULENAME="date_r1b_negative",EXTRACTION="%reUnit( )?lang",NORM_VALUE="REMOVE"
 // EXAMPLE r2a_negative_1: 2000 soldaten
 // EXAMPLE r2b_negative_1: 2000 dode soldaten
 // EXAMPLE r2c_negative_1: 2000 kilometer
-RULENAME="date_r2a_negative",EXTRACTION="%reYear4Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NNS:"
-RULENAME="date_r2b_negative",EXTRACTION="%reYear4Digit ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):JJ:group(3):NNS:"
+RULENAME="date_r2a_negative",EXTRACTION="%reYear4Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):nounpl:"
+RULENAME="date_r2b_negative",EXTRACTION="%reYear4Digit ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):JJ:group(3):nounpl:"
 RULENAME="date_r2c_negative",EXTRACTION="%reYear4Digit (kilometers?|dollars?|gulden|meters?|kilogram|gram|ons|pond)",NORM_VALUE="REMOVE"
 
 // EXAMPLE r3a_negative: W2000.1920

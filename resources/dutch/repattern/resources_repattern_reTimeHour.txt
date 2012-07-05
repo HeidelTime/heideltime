@@ -1,4 +1,4 @@
-// author: Jannik StrÃÂÃÂÃÂÃÂ¶tgen
+// author: Jannik Strötgen
 // email:  stroetgen@uni-hd.de
 // date:   2011-06-10
 // This file contains regular expression patterns for time hours.
