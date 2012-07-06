@@ -128,12 +128,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		//////////////////////////////////
 		// GET CONFIGURATION PARAMETERS //
 		//////////////////////////////////
-		try {
-			language = Language.getLanguageFromString((String) aContext.getConfigParameterValue(PARAM_LANGUAGE));
-		} catch (HeidelTimeException e) {
-			Logger.printError("Supplied language parameter was not recognized.");
-			System.exit(-1);
-		}
+		language = Language.getLanguageFromString((String) aContext.getConfigParameterValue(PARAM_LANGUAGE));
 		
 		typeToProcess  = (String)  aContext.getConfigParameterValue(PARAM_TYPE_TO_PROCESS);
 		find_dates     = (Boolean) aContext.getConfigParameterValue(PARAM_DATE);

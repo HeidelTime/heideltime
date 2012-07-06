@@ -43,6 +43,7 @@ import de.unihd.dbs.heideltime.standalone.components.impl.UimaContextImpl;
 import de.unihd.dbs.heideltime.standalone.components.impl.XMIResultFormatter;
 import de.unihd.dbs.heideltime.standalone.exceptions.DocumentCreationTimeMissingException;
 import de.unihd.dbs.uima.annotator.heideltime.HeidelTime;
+import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.types.heideltime.Dct;
 
 /**
@@ -91,9 +92,6 @@ public class HeidelTimeStandalone {
 
 		logger.log(Level.INFO, "HeidelTimeStandalone initialized with language "+this.language.toString());
 
-		// Initialize HeidelTime ---------------
-		logger.log(Level.FINE, "Initializing HeidelTime(" + language.toString()
-				+ ")...");
 		try {
 			heidelTime = new HeidelTime();
 			heidelTime.initialize(new UimaContextImpl(language, typeToProcess));
@@ -340,12 +338,18 @@ public class HeidelTimeStandalone {
 		// Check language
 		Language language = null;
 		if(CLISwitch.LANGUAGE.getIsActive()) {
-			language = Language.valueOf(CLISwitch.LANGUAGE.getValue().toString().toUpperCase());
-			logger.log(Level.INFO, "Language '-l': "+language.toString().toUpperCase());
+			language = Language.getLanguageFromString((String) CLISwitch.LANGUAGE.getValue());
+			
+			if(language == Language.WILDCARD) {
+				logger.log(Level.INFO, "Language '-l': "+CLISwitch.LANGUAGE.getValue()+" NOT RECOGNIZED; aborting.");
+				System.exit(-1);
+			} else {
+				logger.log(Level.INFO, "Language '-l': "+language.toString().toUpperCase());	
+			}
 		} else {
 			// Language not found
-			language = (Language) CLISwitch.LANGUAGE.getValue();
-			logger.log(Level.INFO, "Language '-l': NOT FOUND OR RECOGNIZED; set to "+language.toString().toUpperCase());
+			language = Language.getLanguageFromString((String) CLISwitch.LANGUAGE.getValue());
+			logger.log(Level.INFO, "Language '-l': NOT FOUND; set to "+language.toString().toUpperCase());
 		}
 
 		// Check type

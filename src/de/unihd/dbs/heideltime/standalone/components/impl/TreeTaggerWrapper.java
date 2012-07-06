@@ -30,8 +30,8 @@ import java.util.logging.Logger;
 import org.apache.uima.jcas.JCas;
 
 import de.unihd.dbs.heideltime.standalone.Config;
-import de.unihd.dbs.heideltime.standalone.Language;
 import de.unihd.dbs.heideltime.standalone.components.PartOfSpeechTagger;
+import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Token;
 

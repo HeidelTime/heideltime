@@ -23,7 +23,6 @@ import org.apache.uima.cas.FSIndex;
 import org.apache.uima.cas.FSIterator;
 import org.apache.uima.jcas.JCas;
 
-import de.unihd.dbs.uima.annotator.heideltime.HeidelTimeException;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
@@ -89,13 +88,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	 */
 	public void initialize(UimaContext aContext) {
 		// check if the supplied language is one that we can currently handle
-		try {
-			this.language = Language.getLanguageFromString((String) aContext.getConfigParameterValue(PARAM_LANGUAGE));
-		} catch (HeidelTimeException e) {
-			e.printStackTrace();
-			Logger.printError(e.getMessage());
-			System.exit(-1);
-		}
+		this.language = Language.getLanguageFromString((String) aContext.getConfigParameterValue(PARAM_LANGUAGE));
 		
 		// get configuration from the descriptor
 		annotate_tokens = (Boolean) aContext.getConfigParameterValue(PARAM_ANNOTATE_TOKENS);

@@ -6,6 +6,8 @@ package de.unihd.dbs.heideltime.standalone;
 
 import java.util.Date;
 
+import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
+
 /**
  * @author Julian Zell
  *
@@ -15,7 +17,7 @@ public enum CLISwitch {
 	VERBOSITY2	("More Verbosity", "-vv"),
 	ENCODING	("Encoding", "-e", "UTF-8"),
 	OUTPUTTYPE	("Output Type", "-o", OutputType.TIMEML),
-	LANGUAGE	("Language", "-l", Language.ENGLISH),
+	LANGUAGE	("Language", "-l", Language.ENGLISH.toString()),
 	DOCTYPE		("Document Type", "-t", DocumentType.NARRATIVES),
 	DCT			("Document Creation Time", "-dct", new Date()),
 	CONFIGFILE	("Configuration Path", "-c", "config.props"), 
