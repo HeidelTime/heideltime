@@ -21,7 +21,7 @@ import org.apache.uima.resource.impl.ResourceManager_impl;
 
 import de.unihd.dbs.heideltime.standalone.Config;
 import de.unihd.dbs.heideltime.standalone.DocumentType;
-import de.unihd.dbs.heideltime.standalone.Language;
+import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 
 /**
  * Implementation of UimaContext
