@@ -1741,7 +1741,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
             Pattern p = (Pattern) i.next();
 
 			for (MatchResult r : Toolbox.findMatches(p, s.getCoveredText())) {
-				boolean infrontBehindOK = ContextAnalyzer.checkInfrontBehind(r, s);
+				boolean infrontBehindOK = ContextAnalyzer.checkTokenBoundaries(r, s, jcas) // improved token boundary checking
+										&& ContextAnalyzer.checkInfrontBehind(r, s);
 
 				boolean posConstraintOK = true;
 				// CHECK POS CONSTRAINTS
