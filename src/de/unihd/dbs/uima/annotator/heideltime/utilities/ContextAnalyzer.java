@@ -458,4 +458,63 @@ public class ContextAnalyzer {
 		}
 		return ok;
 	}
+	
+	/**
+	* Check token boundaries using token information
+	* @param r MatchResult
+	* @param s respective Sentence
+	* @param jcas current CAS object
+	* @return whether or not the MatchResult is a clean one
+	*/
+	public static Boolean checkTokenBoundaries(MatchResult r, Sentence s, JCas jcas){
+		Boolean beginOK = false;
+		Boolean endOK = false;
+	
+		// Only check Token boundaries if no white-spaces in front of and behind the match-result
+		if ((r.start() > 0) 
+				&& ((s.getCoveredText().subSequence(r.start()-1, r.start()).equals(" ")))
+				&& ((r.end() < s.getCoveredText().length()) && ((s.getCoveredText().subSequence(r.end(), r.end()+1).equals(" "))))) {
+			return true;
+		}
+	
+		// other token boundaries than white-spaces
+		else {
+			FSIterator iterToken = jcas.getAnnotationIndex(Token.type).subiterator(s);
+			while (iterToken.hasNext()) {
+				Token t = (Token) iterToken.next();
+			
+				// Check begin
+				if ((r.start() + s.getBegin()) == t.getBegin()){
+					beginOK = true;
+				}
+				// Tokenizer does not split number from some symbols (".", "/", "-", "–"),
+				// e.g., "...12 August-24 Augsut..."
+				else if ((r.start() > 0)
+						&& ((s.getCoveredText().subSequence(r.start()-1, r.start()).equals("."))
+						|| (s.getCoveredText().subSequence(r.start()-1, r.start()).equals("/")) 
+						|| (s.getCoveredText().subSequence(r.start()-1, r.start()).equals("–"))
+						|| (s.getCoveredText().subSequence(r.start()-1, r.start()).equals("-")))) {
+					beginOK = true;
+				}
+			
+				// Check end
+				if ((r.end() + s.getBegin()) == t.getEnd()) {
+					endOK = true;
+				}
+				// Tokenizer does not split number from some symbols (".", "/", "-", "–"),
+				// e.g., "... in 1990. New Sentence ..."
+				else if ((r.end() < s.getCoveredText().length()) 
+						&& ((s.getCoveredText().subSequence(r.end(), r.end()+1).equals("."))
+								|| (s.getCoveredText().subSequence(r.end(), r.end()+1).equals("/"))
+								|| (s.getCoveredText().subSequence(r.end(), r.end()+1).equals("–")) 
+								|| (s.getCoveredText().subSequence(r.end(), r.end()+1).equals("-")))) {
+					endOK = true;
+				}
+			
+				if (beginOK && endOK)
+					return true;
+			}
+		}
+		return false;
+	} 
 }
