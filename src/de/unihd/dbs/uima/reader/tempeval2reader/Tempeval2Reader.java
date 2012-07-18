@@ -34,7 +34,6 @@ import org.apache.uima.util.Progress;
 import org.apache.uima.util.ProgressImpl;
 
 import de.unihd.dbs.uima.types.heideltime.Dct;
-import de.unihd.dbs.uima.types.heideltime.Timex3;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Token;
 
@@ -56,8 +55,6 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 	 * Parameter for files in the input directory
 	 */
 	public static final String FILE_BASE_SEGMENTATION  = "base-segmentation.tab";
-	public static final String FILE_TIMEX_EXTENTS      = "timex-extents.tab";
-	public static final String FILE_TIMEX_ATTRIBUTES   = "timex-attributes.tab";
 	public static final String FILE_DCT                = "dct.tab";
 	
 	/**
@@ -71,14 +68,8 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 	public HashMap<String, Token> hmToken = new HashMap<String, Token>();
 	
 	/**
-	 * HashMap for all timexes tokens of a document
+	 * HashMap for all document creation times
 	 */
-	public HashMap<String, String> hmTimexToken = new HashMap<String, String>();
-	
-	/**
-	 * HashMap for all timexes and goldTimexes (with <TimexId, Timex>)
-	 */
-	public HashMap<String, Timex3> hmTimex = new HashMap<String, Timex3>();
 	public HashMap<String, Dct> hmDct = new HashMap<String, Dct>();
 	
 	
@@ -104,6 +95,11 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
    */
   
   Boolean resettingParentheses = true;
+  
+  /**
+   * Check the TempEval counting beginning if "0" or "1"
+   */
+	int newTokSentNumber = 0; 
 
   /**
    * 
@@ -136,8 +132,6 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 	  
 	  // clear HashMaps for new document
 	  hmToken.clear();
-	  hmTimexToken.clear();
-	  hmTimex.clear();
 	  hmDct.clear();
 	  
 	  // get current doc name 
@@ -151,12 +145,6 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 	  
 	  // set document creation time (dct)
 	  setDocumentCreationTime(docname, inputFiles, jcas);
-	  
-	  // set timexes
-	  setTimexes(docname, inputFiles, jcas);
-	  
-	  
-
   }
 
   /**
@@ -179,157 +167,6 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
   public void close() throws IOException {
   }
 
-  
-  @SuppressWarnings("unused")
-public void setTimexes(String docname, List<File> inputFiles, JCas jcas) throws IOException{
-	  String directory = (String) getConfigParameterValue(PARAM_INPUTDIR);
-	  String filename_extents    = directory+"/"+FILE_TIMEX_EXTENTS;
-	  String filename_attributes = directory+"/"+FILE_TIMEX_ATTRIBUTES;
-	  
-	  // timex extents
-	  for (File file : inputFiles){
-		  if (file.getAbsolutePath().equals(filename_extents)){
-			  try {
-				  String line;
-				  BufferedReader bf = new BufferedReader (new FileReader(file));
-				  
-				  String fileName = "";
-				  Integer sentId = -1;
-				  Integer tokId  = -1;
-				  String tokIdList = "BEGIN<-->";
-				  String tag     = "";
-				  String timexId = "";
-				  Integer timexInstance = -1;
-				  
-				  while ((line = bf.readLine()) != null){
-					  String[] parts        = line.split("\t");
-					  if (parts[0].equals(docname)){
-						  
-						  // new timex3?
-						  if (!((sentId == Integer.parseInt(parts[1])) &&
-								  ((tokId+1) == Integer.parseInt(parts[2])) &&
-								  (tag.equals(parts[3])) &&
-								  (timexId.equals(parts[4])) &&
-								  (timexInstance == Integer.parseInt(parts[5])))){
-							  if (!(tokIdList.equals("BEGIN<-->"))){
-								  if (!(fileName.equals(""))){
-									  // add timex annotation
-									  addTimex(fileName, sentId, tokIdList, timexId, timexInstance, jcas);
-									  
-									  // reset for next timex
-									  tokIdList = "BEGIN<-->";
-								  }
-							  }
-						  }
-					  
-					  
-						  fileName      = parts[0];
-						  sentId        = Integer.parseInt(parts[1]);
-						  tokId         = Integer.parseInt(parts[2]);
-						  tokIdList     = tokIdList + tokId +"<-->";
-						  tag           = parts[3];
-						  timexId       = parts[4];
-						  timexInstance = Integer.parseInt(parts[5]);
-					  }
-					  
-				  }if (!( sentId == -1)){
-					  // add last timex annotation (if any)
-					  addTimex(fileName, sentId, tokIdList, timexId, timexInstance, jcas);
-				  }
-			  }
-			  catch (Exception e){
-				  System.err.println(e);
-				  throw new IOException(e);
-				  
-			  }
-			  
-						  
-		  }
-	  }
-	  // timex attributes
-	  for (File file : inputFiles){
-		  if (file.getAbsolutePath().equals(filename_attributes)){
-			  try {
-				  String line;
-				  BufferedReader bf = new BufferedReader (new FileReader(file));
-				  
-				  String fileName = "";
-				  Integer sentId = -1;
-				  Integer tokId  = -1;
-				  String tag     = "";
-				  String timexId = "";
-				  Integer timexInstance = -1;
-				  String timexType = "";
-				  String timexValue = "";
-				  
-				  while ((line = bf.readLine()) != null){
-					  String[] parts        = line.split("\t");
-					  if (parts[0].equals(docname)){
-						  
-						  // new timex3?
-						  if (!((sentId == Integer.parseInt(parts[1])) &&
-								  ((tokId) == Integer.parseInt(parts[2])) &&
-								  (tag.equals(parts[3])) &&
-								  (timexId.equals(parts[4])) &&
-								  (timexInstance == Integer.parseInt(parts[5])))){
-							  if (!(fileName.equals(""))){
-								  timexType = "";
-								  timexValue = "";
-							  }
-						  
-						  }
-						  fileName      = parts[0];
-						  sentId        = Integer.parseInt(parts[1]);
-						  tokId         = Integer.parseInt(parts[2]);
-						  tag           = parts[3];
-						  timexId       = parts[4];
-						  timexInstance = Integer.parseInt(parts[5]);
-						  if (parts[6].equals("type")){
-							  timexType     = parts[7];
-						  }else if (parts[6].equals("value")){
-							  timexValue    = parts[7];
-						  }
-						  
-					  }
-				  }
-			  }
-			  catch (IOException e){
-				  throw new IOException(e);
-			  }
-		  }
-	  }
-  }
-  
-  
-  
-   public void addTimex(String fileName, Integer sentId, String tokIdList, String timexId, Integer timexInstance, JCas jcas){
-	  // get first and last token
-	  String[] tokens          = tokIdList.split("<-->");
-
-	  Integer first            = Integer.parseInt(tokens[1]);
-	  Integer last             = Integer.parseInt(tokens[tokens.length-1]);
-	  String complexTokIdFirst = fileName+"_"+sentId+"_"+first;
-	  String complexTokIdLast  = fileName+"_"+sentId+"_"+last;
-	  
-	  Token firstToken = hmToken.get(complexTokIdFirst);
-	  Token lastToken  = hmToken.get(complexTokIdLast);
-	  
-	  Timex3 timex = new Timex3(jcas);
-	  timex.setBegin(firstToken.getBegin());
-	  timex.setEnd(lastToken.getEnd());
-	  timex.setFilename(fileName);
-	  timex.setSentId(sentId);
-	  timex.setFirstTokId(first);
-	  timex.setTimexId(timexId);
-	  timex.setTimexInstance(timexInstance);
-	  
-	  // add first token and tokenIdList to HashMap
-	  hmTimexToken.put(complexTokIdFirst, tokIdList);
-	  
-	  // add to HashMap
-	  hmTimex.put(timexId, timex);
-  }
-  
   
   
   public void setDocumentCreationTime(String docname, List<File> inputFiles, JCas jcas) throws IOException{
@@ -386,7 +223,15 @@ public void setTimexes(String docname, List<File> inputFiles, JCas jcas) throws 
 				Boolean lastSentProcessed  = false;
 				Boolean firstSentProcessed = false;
 				String fileId = "";
+				Boolean veryFirstLine = true;
 				while ((line = bf.readLine()) != null){
+					
+					// Check if TempEval counting starts with "0" or "1"
+					if (veryFirstLine){
+						String[] parts = line.split("\t");
+						newTokSentNumber = Integer.parseInt(parts[1]);
+					}
+					veryFirstLine = false;
 					
 					String[] parts = line.split("\t");
 					fileId  = parts[0];
@@ -401,7 +246,7 @@ public void setTimexes(String docname, List<File> inputFiles, JCas jcas) throws 
 					if (fileId.equals(docname)){
 						
 						// First Sentence, first Token
-						if ((sentId == 0) && (tokId == 0)){
+						if ((sentId == newTokSentNumber) && (tokId == newTokSentNumber)){
 							firstSentProcessed = true;
 							text = tokenString;
 							sentString  = tokenString;
@@ -409,7 +254,7 @@ public void setTimexes(String docname, List<File> inputFiles, JCas jcas) throws 
 						}
 						
 						// new Sentence, first Token
-						else if (tokId == 0){
+						else if (tokId == newTokSentNumber){
 							positionCounter = addSentenceAnnotation(sentString, fileId, sentId-1, positionCounter, jcas);
 							text = text+" "+tokenString;
 							sentString  = tokenString;
@@ -488,7 +333,7 @@ public void setTimexes(String docname, List<File> inputFiles, JCas jcas) throws 
    */
   public Integer addTokenAnnotation(String tokenString, String fileId, Integer sentId, Integer tokId, Integer positionCounter, JCas jcas){
 		Token token = new Token(jcas);
-		if (!((sentId == 0) && (tokId == 0))){
+		if (!((sentId == newTokSentNumber) && (tokId == newTokSentNumber))){
 			positionCounter = positionCounter +1;
 		}
 		token.setBegin(positionCounter);

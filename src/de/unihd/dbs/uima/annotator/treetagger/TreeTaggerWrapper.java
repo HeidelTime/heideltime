@@ -315,6 +315,8 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 					token.addToIndexes();
 					token = tokens.get(i++);
 				}
+				// remove tokens, otherwise they are in the index twice
+				token.removeFromIndexes(); 
 				// set part of speech tag and add to indexes again
 				token.setPos(s);
 				token.addToIndexes();
