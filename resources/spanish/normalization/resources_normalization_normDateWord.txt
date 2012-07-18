@@ -1,0 +1,28 @@
+// author: Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-16
+// This file contains "date words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "tomorrow" is "UNDEF-next-day"
+// FORMAT: "date-word","normalized-date-word"
+"[Aa]ctual(mente)?","PRESENT_REF"
+"[Aa]hora( mismo)?","PRESENT_REF"
+"[Aa]nteayer","UNDEF-this-day-LESS-2"
+"[Aa]ntes de ayer","UNDEF-this-day-LESS-2"
+"[Aa]yer","UNDEF-last-day"
+"[Ee]stos días","PRESENT_REF"
+"[Ee]stos momentos","PRESENT_REF"
+"[Ee]ste momento","PRESENT_REF"
+"[Hh]oy por hoy","PRESENT_REF"
+"[Hh]oy","UNDEF-this-day"
+"[Jj]usto ahora","PRESENT_REF"
+"[Ll]o antes posible","FUTURE_REF"
+"[Pp]asado mañana","UNDEF-next-day"
+"[Mm]añana","UNDEF-next-day"
+"[Pp]osterior(mente)?","FUTURE_REF"
+"[Pp]ronto","FUTURE_REF"
+"[Rr]eciente(mente)?","PAST_REF"
+"[Tt]an pronto como sea posible","FUTURE_REF"
+"[Uu]ltimamente","PAST_REF"
+
+
