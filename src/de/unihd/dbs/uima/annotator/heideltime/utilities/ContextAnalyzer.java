@@ -90,6 +90,15 @@ public class ContextAnalyzer {
 								j--;
 							}
 						}
+						else if (x.equals("month-with-details")) {
+							if (value.matches("^[0-9][0-9][0-9][0-9]-[0-9][0-9].*")) {
+								xValue = value;
+								break;
+							}
+							else {
+								j--;
+							}
+						}
 						else if (x.equals("day")) {
 							if (value.matches("^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*")) {
 								xValue = value.substring(0,10);

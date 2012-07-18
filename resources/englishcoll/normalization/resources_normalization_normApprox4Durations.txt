@@ -57,7 +57,7 @@
 "More than","MORE_THAN"
 "more than","MORE_THAN"
 "Longer than","MORE_THAN"
-"longer than","MOTE_THAN"
+"longer than","MORE_THAN"
 "Over","MORE_THAN"
 "over","MORE_THAN"
 // SYNONYM

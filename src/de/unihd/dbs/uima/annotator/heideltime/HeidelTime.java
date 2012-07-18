@@ -1307,24 +1307,51 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				
 				// MONTH NAMES
 				else if (value_i.matches("UNDEF-(last|this|next)-(january|february|march|april|may|june|july|august|september|october|november|december).*")) {
-					for (MatchResult mr : Toolbox.findMatches(Pattern.compile("(UNDEF-(last|this|next)-(january|february|march|april|may|june|july|august|september|october|november|december)).*"),value_i)) {
+					for (MatchResult mr : Toolbox.findMatches(Pattern.compile("(UNDEF-(last|this|next)-(january|february|march|april|may|june|july|august|september|october|november|december))(.*)"),value_i)) {
+						String rest = mr.group(4);
+						int day = 0;
+						for (MatchResult mr_rest : Toolbox.findMatches(Pattern.compile("-([0-9][0-9])"),rest)){
+							day = Integer.parseInt(mr_rest.group(1));
+						}
 						String checkUndef = mr.group(1);
 						String ltn      = mr.group(2);
 						String newMonth = norm.getFromNormMonthName((mr.group(3)));
 						int newMonthInt = Integer.parseInt(newMonth);
 						if (ltn.equals("last")) {
 							if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-								if (dctMonth <= newMonthInt) {
+								// check day if dct-month and newMonth are equal
+								if ((dctMonth == newMonthInt) && (!(day == 0))){
+									if (dctDay > day){
+										valueNew = valueNew.replace(checkUndef, dctYear+"-"+newMonth);
+									}
+									else{
+										valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newMonth);
+									}
+								}
+								else if (dctMonth <= newMonthInt) {
 									valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newMonth);
 								} else {
 									valueNew = valueNew.replace(checkUndef, dctYear+"-"+newMonth);
 								}
 							} else {
-								String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates, i, "month");
+								String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates, i, "month-with-details");
 								if (lmMonth.equals("")) {
 									valueNew = valueNew.replace(checkUndef, "XXXX-XX");
 								} else {
 									int lmMonthInt = Integer.parseInt(lmMonth.substring(5,7));
+									// 
+									int lmDayInt  = 0;
+									if ((lmMonth.length() > 9) && (lmMonth.subSequence(8,10).toString().matches("\\d\\d"))){
+										lmDayInt = Integer.parseInt(lmMonth.subSequence(8,10)+"");
+									}
+									if ((lmMonthInt == newMonthInt) && (!(lmDayInt == 0)) && (!(day == 0))){
+										if (lmDayInt > day){
+											valueNew = valueNew.replace(checkUndef, lmMonth.substring(0,4)+"-"+newMonth);
+										}
+										else{
+											valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmMonth.substring(0,4))-1+"-"+newMonth);
+										}
+									}
 									if (lmMonthInt <= newMonthInt) {
 										valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmMonth.substring(0,4))-1+"-"+newMonth);
 									} else {
@@ -1336,7 +1363,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
 								valueNew = valueNew.replace(checkUndef, dctYear+"-"+newMonth);
 							} else {
-								String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates, i, "month");
+								String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates, i, "month-with-details");
 								if (lmMonth.equals("")) {
 									valueNew = valueNew.replace(checkUndef, "XXXX-XX");
 								} else {
@@ -1345,13 +1372,22 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							}
 						} else if (ltn.equals("next")) {
 							if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-								if (dctMonth >= newMonthInt) {
+								// check day if dct-month and newMonth are equal								
+								if ((dctMonth == newMonthInt) && (!(day == 0))){
+									if (dctDay < day){
+										valueNew = valueNew.replace(checkUndef, dctYear+"-"+newMonth);
+									}
+									else{
+										valueNew = valueNew.replace(checkUndef, dctYear+1+"-"+newMonth);
+									}
+								}
+								else if (dctMonth >= newMonthInt) {
 									valueNew = valueNew.replace(checkUndef, dctYear+1+"-"+newMonth);
 								} else {
 									valueNew = valueNew.replace(checkUndef, dctYear+"-"+newMonth);
 								}
 							} else {
-								String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates, i, "month");
+								String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates, i, "month-with-details");
 								if (lmMonth.equals("")) {
 									valueNew = valueNew.replace(checkUndef, "XXXX-XX");
 								} else {
