@@ -1,0 +1,19 @@
+// author: Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-16
+// This file contains regular expression patterns for parts of days.
+// FORMAT: one line is one disjunction of the pattern
+//[Ee]sta noche --> not good as "part of day"
+// MORNING
+[Mm]adrugada
+[Mm]edia mañanas?
+[Mm]añanas?
+// MIDDAY
+[Mm]ediodía
+//AFTERNOON
+[Mm]edia tardes?
+[Tt]ardes?
+// NIGHT
+[Mm]edianoche
+[Mm]edias noches
+[Nn]oches?
