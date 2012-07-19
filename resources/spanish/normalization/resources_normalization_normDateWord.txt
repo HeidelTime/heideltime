@@ -17,7 +17,7 @@
 "[Hh]oy","UNDEF-this-day"
 "[Jj]usto ahora","PRESENT_REF"
 "[Ll]o antes posible","FUTURE_REF"
-"[Pp]asado mañana","UNDEF-next-day"
+"[Pp]asado mañana","UNDEF-this-day-PLUS-2"
 "[Mm]añana","UNDEF-next-day"
 "[Pp]osterior(mente)?","FUTURE_REF"
 "[Pp]ronto","FUTURE_REF"
