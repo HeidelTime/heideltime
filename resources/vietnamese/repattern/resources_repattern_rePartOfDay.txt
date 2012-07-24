@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for parts of days.
+// FORMAT: one line is one disjunction of the pattern
+[Ss]áng
+[Ss]sáng sớm
+[Bb]uổi sáng
+[Gg]ữa buổi sáng
+[Tt]rưa
+[Bb]uổi trưa
+[Gg]iữa trưa
+[Nn]ửa ngày
+[Ll]úc 12 giờ trưa
+[Ll]úc 12h trưa
+[Cc]hiều
+[Bb]uổi chiều
+[Gg]iữa chiều
+[Gg]iữa buổi chiều
+[Tt]ối
+[Bb]uổi tối
+[Đđ]êm
+[Bb]uổi đêm
+[Nn]ửa đêm
+[Ll]úc 12h đêm
+[Ll]úc 12 giờ đêm

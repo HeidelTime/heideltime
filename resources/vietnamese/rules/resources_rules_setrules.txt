@@ -1,0 +1,20 @@
+// author: TV Canh
+// email:  canhtv@uni-hd.de
+// date:   2012-07-22
+// This file contains rules for the temporal expressions of the type set: setrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////
+// EVERY UNIT //
+////////////////
+// set_r1
+// EXAMPLE vn_set_r1a-1:	mỗi|hằng  ngày/tuần	 		each/every day
+// EXAMPLE vn_set_r1b-1: 	thứ 2 hàng tuần		 every Monday
+// EXAMPLE vn_set_r1c-1: 	tháng 9 hàng năm 	each September
+// EXAMPLE vn_set_r1d-1: 	mùa hè hàng năm		 every summer
+
+RULENAME="vn_set_r1a",EXTRACTION="([Mm]ỗi|[Hh]ằng) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_QUANT="EVERY"
+RULENAME="vn_set_r1b",EXTRACTION="%reWeekday hàng tuần",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(1))",NORM_QUANT="EVERY",NORM_FREQ="1W"
+RULENAME="vn_set_r1c",EXTRACTION="(tháng |Tháng )%reMonthNumber hàng năm",NORM_VALUE="XXXX-%normMonth(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1M"
+RULENAME="vn_set_r1d",EXTRACTION="(mùa | Mùa ) %reSeason hàng năm",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1S"
+

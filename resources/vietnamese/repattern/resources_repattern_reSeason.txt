@@ -1,0 +1,11 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for seasons.
+// FORMAT: one line is one disjunction of the pattern
+[Mm]ùa xuân
+[Mm]ùa hè
+[Mm]ùa thu
+[Mm]ùa đông
+[Mm]ùa nắng
+[Mm]mùa mưa

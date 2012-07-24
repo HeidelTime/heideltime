@@ -1,0 +1,30 @@
+// author: TV Canh
+// email:  canhtv@uni-hd.de
+// date:   2012-07-22
+// This file contains rules for the temporal expressions of the type duration: durationrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+/////////////////////
+// POSITIVE RULES //
+/////////////////////
+// duration_r1
+// EXAMPLE vn_r1a-1: khoảng/ít hơn... hai mươi ngày/tuần/năm
+// EXAMPLE vn_r1b-1: khoảng/ít hơn... 20 ngày/tuần/năm
+// EXAMPLE vn_r1c-1: nhiều ngày
+
+RULENAME="vn_duration_r1a",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D)( |-)%reUnit",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(7))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="vn_duration_r1b",EXTRACTION="(%reApproximate )?([\d]+)( |-)%reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="vn_duration_r1c",EXTRACTION="(%reApproximate )%reUnit",NORM_VALUE="PX%normUnit4Duration(group(3))",NORM_MOD="%normApprox4Durations(group(2))"
+
+// duration_r2
+// EXAMPLE r2a-1: khoảng sau mười năm tới/sau/...  at least the last twenty years
+// EXAMPLE r2b-1: khoảng sau 10 năm tới/sau/... at least the last 20 years
+
+
+RULENAME="vn_duration_r2a",EXTRACTION="(%reApproximate )?(%reThisNextLast )?(%reNumWord2D|%reNumWord1D) %reUnit %reThisNextLast",NORM_VALUE="P%normDurationNumber(group(5))%normUnit4Duration(group(8))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="vn_duration_r2b",EXTRACTION="(%reApproximate )?(%reThisNextLast )?([\d]+) %reUnit %reThisNextLast",NORM_VALUE="Pgroup(5)%normUnit4Duration(group(6))",NORM_MOD="%normApprox4Durations(group(2))"
+
+
+////////////////////
+// NEGATIVE RULES //
+////////////////////
