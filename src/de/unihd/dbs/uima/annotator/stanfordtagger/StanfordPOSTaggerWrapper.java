@@ -3,7 +3,7 @@
  * functions from the Stanford POS Tagger to tokenize words and sentences
  * and add part of speech tags to the pipeline.
  */
-package de.unihd.dbs.uima.annotator.stanfordtaggerwrapper;
+package de.unihd.dbs.uima.annotator.stanfordtagger;
 
 import java.io.File;
 import java.io.FileInputStream;
