@@ -2,7 +2,7 @@
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>
-  <annotatorImplementationName>de.unihd.dbs.uima.annotator.stanfordtaggerwrapper.StanfordPOSTaggerWrapper</annotatorImplementationName>
+  <annotatorImplementationName>de.unihd.dbs.uima.annotator.stanfordtagger.StanfordPOSTaggerWrapper</annotatorImplementationName>
   <analysisEngineMetaData>
     <name>StanfordPOSTaggerWrapper</name>
     <description/>
