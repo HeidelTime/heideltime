@@ -4,6 +4,7 @@ export CLASSPATH=$HEIDELTIME_HOME/lib:$CLASSPATH
 ### setting the environment for DKPRO (required by HeidelTime)
 export CLASSPATH=$DKPRO_HOME/bin:$CLASSPATH
 export CLASSPATH=$DKPRO_HOME/lib:$CLASSPATH
-
+### setting the environment for jvntextpro (required for the wrapper)
+export CLASSPATH=$JVNTEXTPRO_HOME:$CLASSPATH
 
 

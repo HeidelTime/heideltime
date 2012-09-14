@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>true</primitive>
+  <annotatorImplementationName>de.unihd.dbs.uima.annotator.jvntextprowrapper.JVnTextProWrapper</annotatorImplementationName>
+  <analysisEngineMetaData>
+    <name>JVnTextProWrapper</name>
+    <description/>
+    <version>1.0</version>
+    <vendor>UniHD DBS</vendor>
+    <configurationParameters searchStrategy="language_fallback">
+      <configurationParameter>
+        <name>annotate_tokens</name>
+        <description>Whether or not to annotate tokens</description>
+        <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+      </configurationParameter>
+      <configurationParameter>
+        <name>annotate_sentences</name>
+        <description>Whether or not to annotate sentences.</description>
+        <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+      </configurationParameter>
+      <configurationParameter>
+        <name>annotate_partofspeech</name>
+        <description>Whether or not to annotate part of speech (POS) information</description>
+        <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+      </configurationParameter>
+      <configurationParameter>
+        <name>sent_model_path</name>
+        <description>Path to the sentence segmentation model folder for use with JVnTextPro</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+      <configurationParameter>
+        <name>word_model_path</name>
+        <description>Path to the word segmentation model folder for use with JVnTextPro</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+      <configurationParameter>
+        <name>pos_model_path</name>
+        <description>Path to the pos tagging model folder for use with JVnTextPro</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+      <nameValuePair>
+        <name>annotate_tokens</name>
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>annotate_sentences</name>
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>annotate_partofspeech</name>
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>word_model_path</name>
+        <value>
+          <string>/opt/jvntextpro/models/jvnsegmenter</string>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>sent_model_path</name>
+        <value>
+          <string>/opt/jvntextpro/models/jvnsensegmenter</string>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>pos_model_path</name>
+        <value>
+          <string>/opt/jvntextpro/models/jvnpostag/maxent</string>
+        </value>
+      </nameValuePair>
+    </configurationParameterSettings>
+    <typeSystemDescription>
+      <imports>
+        <import location="../type/HeidelTime_TypeSystem.xml"/>
+      </imports>
+    </typeSystemDescription>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs/>
+        <outputs/>
+        <languagesSupported/>
+      </capability>
+    </capabilities>
+    <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <resourceManagerConfiguration/>
+</analysisEngineDescription>
