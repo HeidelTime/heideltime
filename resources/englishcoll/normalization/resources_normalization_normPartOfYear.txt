@@ -1,0 +1,24 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "parts-of-year words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "first quarter" is "Q1"
+// FORMAT: "parts-of-year-word","normalized-parts-of-year-word"
+// First Quarter
+"([Ff]iscal(-| ))?[Ff]irst(-| )quarter","Q1"
+"([Ff]iscal(-| ))?[Ss]econd(-| )quarter","Q2"
+"([Ff]iscal(-| ))?[Tt]hird(-| )quarter","Q3"
+"([Ff]iscal(-| ))?[Ff]ou?rth(-| )quarter","Q4"
+"last-quarter","Q4"
+"Last-quarter","Q4"
+"last quarter","Q4"
+"Last quarter","Q4"
+// First Half
+"([Ff]iscal(-| ))?[Ff]irst(-| )half","H1"
+"([Ff]iscal(-| ))?[Ss]econd(-| )half","H2"
+// Second Half
+"last-half","H2"
+"Last-half","H2"
+"last half","H2"
+"Last half","H2"
