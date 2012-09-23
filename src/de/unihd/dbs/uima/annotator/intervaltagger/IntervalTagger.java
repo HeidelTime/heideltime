@@ -94,11 +94,6 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 								String rule_name          = r.group(1);
 								String rule_extraction    = r.group(2);
 								String rule_normalization = r.group(3);
-								String rule_offset        = "";
-								String rule_quant         = "";
-								String rule_freq          = "";
-								String rule_mod           = "";
-								String pos_constraint     = "";
 								
 								////////////////////////////////////////////////////////////////////
 								// RULE EXTRACTION PARTS ARE TRANSLATED INTO REGULAR EXPRESSSIONS //
@@ -126,42 +121,6 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 									Logger.printError("Cannot compile pattern: "+rule_extraction);
 									e.printStackTrace();
 									System.exit(-1);
-								}
-																
-								/////////////////////////////////////
-								// CHECK FOR ADDITIONAL CONSTRAINS //
-								/////////////////////////////////////
-								if (!(r.group(4) == null)) {
-									if (r.group(4).contains("OFFSET")) {
-										Pattern paOffset = Pattern.compile("OFFSET=\"(.*?)\"");
-										for (MatchResult ro : Toolbox.findMatches(paOffset, line)) {
-											rule_offset = ro.group(1);
-										}
-									}
-									if (r.group(4).contains("NORM_QUANT")) {
-										Pattern paQuant = Pattern.compile("NORM_QUANT=\"(.*?)\"");
-										for (MatchResult rq : Toolbox.findMatches(paQuant, line)) {
-											rule_quant = rq.group(1);
-										}
-									}
-									if (r.group(4).contains("NORM_FREQ")) {
-										Pattern paFreq = Pattern.compile("NORM_FREQ=\"(.*?)\"");
-										for (MatchResult rf : Toolbox.findMatches(paFreq, line)) {
-											rule_freq = rf.group(1);
-										}
-									}
-									if (r.group(4).contains("NORM_MOD")) {
-										Pattern paMod = Pattern.compile("NORM_MOD=\"(.*?)\"");
-										for (MatchResult rf : Toolbox.findMatches(paMod, line)) {
-											rule_mod = rf.group(1);
-										}
-									}
-									if (r.group(4).contains("POS_CONSTRAINT")) {
-										Pattern paPos = Pattern.compile("POS_CONSTRAINT=\"(.*?)\"");
-										for (MatchResult rp : Toolbox.findMatches(paPos, line)) {
-											pos_constraint = rp.group(1);
-										}
-									}
 								}
 								
 								/////////////////////////////////////////////////
