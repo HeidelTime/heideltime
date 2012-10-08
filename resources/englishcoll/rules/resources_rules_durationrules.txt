@@ -54,6 +54,7 @@ RULENAME="duration_r3d",EXTRACTION="((a|an|the) )?([\d]+)( |-)(minutes?|hours?|m
 // duration_r1_negative
 // EXAMPLE r1a_negative-1: about 200 years older
 // EXAMPLE r1b_negative-1: several days old
-RULENAME="duration_r1a_negation",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D|[\d]+) (%reUnit|minutes?|hours?|min) (older|younger|old|young)",NORM_VALUE="REMOVE"
-RULENAME="duration_r1b_negation",EXTRACTION="(%reApproximate )?(several|a couple of|some|several|recent|coming) (%reUnit|minutes?|hours?|min) (older|younger|old|young)",NORM_VALUE="REMOVE"
-
+// EXAMPLE r1c_negative-1: 59-year-old
+RULENAME="duration_r1a_negation",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D|[\d]+) (%reUnit|minutes?|hours?) (older|younger|old|young)",NORM_VALUE="REMOVE"
+RULENAME="duration_r1b_negation",EXTRACTION="(%reApproximate )?(several|a couple of|some|several|recent|coming) (%reUnit|minutes?|hours?) (older|younger|old|young)",NORM_VALUE="REMOVE"
+RULENAME="duration_r1c_negation",EXTRACTION="(%reNumWord2D|%reNumWord1D|[\d]+)-(%reUnit|minutes?|hours?)-(older|younger|old|young)",NORM_VALUE="REMOVE"
