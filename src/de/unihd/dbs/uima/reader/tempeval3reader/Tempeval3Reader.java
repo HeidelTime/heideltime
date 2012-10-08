@@ -72,8 +72,7 @@ public class Tempeval3Reader extends CollectionReader_ImplBase {
 
 		try {
 			// create xml parsing facilities
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
+			DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			// parse input xml file
 			Document doc = db.parse(f);
 			
@@ -82,7 +81,7 @@ public class Tempeval3Reader extends CollectionReader_ImplBase {
 			// get the <text> tag's content to set the document text
 			NodeList nList = doc.getElementsByTagName("TEXT");
 			Node textNode = nList.item(0);
-			String text = textNode.getTextContent().trim();
+			String text = textNode.getTextContent();
 			
 			jcas.setDocumentText(text);
 			
