@@ -102,7 +102,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// DEBUGGING PARAMETER SETTING //
 		/////////////////////////////////
 		this.deleteOverlapped = true;
-		Logger.setPrintDetails(false);
+		Logger.setPrintDetails(true);
 		
 		/////////////////////////////////
 		// HANDLE LOCALE    		   //
@@ -867,11 +867,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 								}
 							} else if (unit.equals("decade")) {
 								if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
-									int decade = dctDecade;
+									int dctDecadeLong = Integer.parseInt(dctCentury + "" + dctDecade);
+									int decade = dctDecadeLong;
 									if (op.equals("MINUS")) {
-										decade = dctDecade - diff;
+										decade = dctDecadeLong - diff;
 									} else if (op.equals("PLUS")) {
-										decade = dctDecade + diff;
+										decade = dctDecadeLong + diff;
 									}
 									valueNew = valueNew.replace(checkUndef, decade+"X");
 								} else {
