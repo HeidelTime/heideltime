@@ -102,7 +102,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// DEBUGGING PARAMETER SETTING //
 		/////////////////////////////////
 		this.deleteOverlapped = true;
-		Logger.setPrintDetails(true);
+		Logger.setPrintDetails(false);
 		
 		/////////////////////////////////
 		// HANDLE LOCALE    		   //
