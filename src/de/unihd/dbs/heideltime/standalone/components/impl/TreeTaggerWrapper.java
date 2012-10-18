@@ -79,7 +79,13 @@ public class TreeTaggerWrapper implements PartOfSpeechTagger {
 			String rootPath = Config.get(Config.TREETAGGERHOME);
 
 			// english, italian, and french tagger models require additional splits (see tagger readme)
-			String languageSwitch = language.getTreeTaggerSwitch();
+			String languageSwitch;
+			switch (language) {
+				case ENGLISH: languageSwitch = "-e "; break;
+				case ITALIAN: languageSwitch = "-i "; break;
+				case FRENCH:  languageSwitch = "-f "; break;
+				default:      languageSwitch = ""; break;
+			} 
 
 			// perl requires(?) special hint for utf-8-encoded input/output (see http://perldoc.perl.org/perlrun.html#Command-Switches -C)
 			// The input text is read in HeidelTimeStandalone.java and always translated into UTF-8,
