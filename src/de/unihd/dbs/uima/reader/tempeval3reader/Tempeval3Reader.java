@@ -135,7 +135,7 @@ public class Tempeval3Reader extends CollectionReader_ImplBase {
 		// check for existence and readability; add handle to the list
 		for(File f : myFiles) {
 			if(!f.exists() || !f.isFile() || !f.canRead()) {
-				Logger.printError(component, "File \""+f.getAbsolutePath()+"\" was ignored because it either didn't exist, wasn't a file or wasn't readable.");
+				Logger.printDetail(component, "File \""+f.getAbsolutePath()+"\" was ignored because it either didn't exist, wasn't a file or wasn't readable.");
 			} else {
 				files.add(f);
 			}
