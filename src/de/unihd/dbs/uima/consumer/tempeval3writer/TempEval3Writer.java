@@ -52,7 +52,7 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 			throw new ResourceInitializationException();
 		}
 	}
-
+	
 	public void processCas(CAS aCAS) throws ResourceProcessException {
 		JCas jcas;
 		try {
@@ -71,7 +71,12 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 		writeTimeMLDocument(xmlDoc, dct.getFilename());
 	}
 
-	
+	/**
+	 * Creates a DOM Document filled with all of the timex3s that are in the jcas.
+	 * @param jcas
+	 * @param dct the document's DCT
+	 * @return
+	 */
 	private Document buildTimeMLDocument(JCas jcas, Dct dct) {
 		DocumentBuilderFactory dbf = null;
 		DocumentBuilder db = null;
@@ -155,7 +160,7 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 				Timex3 t = (Timex3) it.next();
 				
 				// if this timex was marked to be removed, skip it entirely and go to the next one.
-				if(timexesToSkip.contains(it))
+				if(timexesToSkip.contains(t))
 					continue;
 				
 				if(t.getBegin() > offset) { 
@@ -197,7 +202,11 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 		return doc;
 	}
 
-	
+	/**
+	 * writes a populated DOM xml(timeml) document to a given directory/file 
+	 * @param xmlDoc xml dom object
+	 * @param filename name of the file that gets appended to the set output path
+	 */
 	private void writeTimeMLDocument(Document xmlDoc, String filename) {
 		// create output file handle
 		File outFile = new File(mOutputDir, filename+".tml"); 
