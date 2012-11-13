@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashSet;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -113,18 +114,63 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 		if(!it.hasNext()) {
 			textEl.appendChild(doc.createTextNode(docText));
 		} else {
+			HashSet<Timex3> timexesToSkip = new HashSet<Timex3>();
+			Timex3 prevT = null;
+			Timex3 thisT = null;
+			// iterate over timexes to find overlaps
+			while(it.hasNext()) {
+				thisT = (Timex3) it.next();
+				
+				// check for whether this and the previous timex overlap. ex: [early (friday] morning)
+				if(prevT != null && prevT.getEnd() > thisT.getBegin()) {
+					
+					Timex3 removedT = null; // only for debug message
+					// assuming longer value string means better granularity
+					if(prevT.getTimexValue().length() > thisT.getTimexValue().length()) {
+						timexesToSkip.add(thisT);
+						removedT = thisT;
+						/* prevT stays the same. */
+					} else {
+						timexesToSkip.add(prevT);
+						removedT = prevT;
+						prevT = thisT; // this iteration's prevT was removed; setting for new iteration 
+					}
+					
+					Logger.printError(component, "Two overlapping Timexes have been discovered:" + System.getProperty("line.separator")
+							+ "Timex A: " + prevT.getCoveredText() + " [\"" + prevT.getTimexValue() + "\" / " + prevT.getBegin() + ":" + prevT.getEnd() + "]" 
+							+ System.getProperty("line.separator")
+							+ "Timex B: " + removedT.getCoveredText() + " [\"" + removedT.getTimexValue() + "\" / " + removedT.getBegin() + ":" + removedT.getEnd() + "]" 
+							+ " [removed]" + System.getProperty("line.separator")
+							+ "The writer chose, for granularity: " + prevT.getCoveredText() + System.getProperty("line.separator")
+							+ "This usually happens with an incomplete ruleset. Please consider adding "
+							+ "a new rule that covers the entire expression.");
+				} else { // no overlap found? set current timex as next iteration's previous timex
+					prevT = thisT;
+				}
+			}
+			
+			it.moveToFirst(); // reset iterator for another loop
+			// iterate over timexes to write the DOM tree.
 			while(it.hasNext()) {
 				Timex3 t = (Timex3) it.next();
+				
+				// if this timex was marked to be removed, skip it entirely and go to the next one.
+				if(timexesToSkip.contains(it))
+					continue;
+				
 				if(t.getBegin() > offset) { 
 					// add a textnode that contains the text before the timex
 					textEl.appendChild(doc.createTextNode(docText.substring(offset, t.getBegin())));
 				}
+				
 				// create the TIMEX3 element
 				Element newTimex = doc.createElement("TIMEX3");
+				
 				// set its required attributes
 				newTimex.setAttribute("tid", t.getTimexId());
 				newTimex.setAttribute("type", t.getTimexType());
 				newTimex.setAttribute("value", t.getTimexValue());
+				
 				// set its optional attributes
 				if(!t.getTimexMod().equals(""))
 					newTimex.setAttribute("mod", t.getTimexMod());
