@@ -304,7 +304,7 @@ public class RuleManager extends GenericResourceManager {
 									}
 								}
 								else {
-									Logger.printError(component, "something wrong when reading rule resource: "+resource);
+									Logger.printDetail(component, "Resource not recognized by HeidelTime: "+resource);
 								}
 							}
 						}
