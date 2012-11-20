@@ -187,6 +187,17 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// CHECK SENTENCE BY SENTENCE FOR TIMEXES //
 		////////////////////////////////////////////
 		FSIterator sentIter = jcas.getAnnotationIndex(Sentence.type).iterator();
+		/* 
+		 * check if the pipeline has annotated any sentences. if not, heideltime can't do any work,
+		 * will return from process() with a warning message.
+		 */
+		if(!sentIter.hasNext()) {
+			Logger.printError(component, "HeidelTime has not found any sentence tokens in this document. " +
+					"HeidelTime needs sentence tokens tagged by a preprocessing UIMA analysis engine to " +
+					"do its work. Please check your UIMA workflow and add an analysis engine that creates " +
+					"these sentence tokens.");
+		}
+		
 		while (sentIter.hasNext()) {
 			Sentence s = (Sentence) sentIter.next();
 			if (find_dates) {
