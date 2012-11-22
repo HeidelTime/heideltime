@@ -51,10 +51,10 @@ public class Logger {
 	public static void printError(Class<?> c, String msg) {
 		String preamble;
 		if(c != null)
-			preamble = "["+c.getName()+"]";
+			preamble = "["+c.getName()+"] ";
 		else
 			preamble = "";
-		System.err.println(preamble+" "+msg);
+		System.err.println(preamble+msg);
 	}
 
 	/**

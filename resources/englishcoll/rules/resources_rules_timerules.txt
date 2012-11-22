@@ -42,12 +42,16 @@ RULENAME="time_r2d",EXTRACTION="((Mon|Tue|Wed|Thu|Fri|Sat|Sun), )?%reDayNumber (
 // time_r3
 // EXAMPLE r3a-1: midnight Monday
 // EXAMPLE r3b-1: Monday night
+// EXAMPLE r3b2-1: early Friday morning
 // EXAMPLE r3c-1: midnight today
 // EXAMPLE r3d-1: yesterday morning
+// EXAMPLE r3d2-1: late yesterday evening
 RULENAME="time_r3a",EXTRACTION="%rePartOfDay %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(2))T%normPartOfDay(group(1))"
 RULENAME="time_r3b",EXTRACTION="%reWeekday %rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normPartOfDay(group(2))"
+RULENAME="time_r3b2",EXTRACTION="%rePartWords %reWeekday %rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(2))T%normPartOfDay(group(3))",NORM_MOD="%normPartWords(group(1))"
 RULENAME="time_r3c",EXTRACTION="%rePartOfDay %reDateWord",NORM_VALUE="%normDateWord(group(2))T%normPartOfDay(group(1))"
 RULENAME="time_r3d",EXTRACTION="%reDateWord %rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
+RULENAME="time_r3d2",EXTRACTION="%rePartWords %reDateWord %rePartOfDay",NORM_VALUE="%normDateWord(group(2))T%normPartOfDay(group(3))",NORM_MOD="%normPartWords(group(1))"
 
 // time_r4
 // EXAMPLE r4a-1: earlier this afternoon
