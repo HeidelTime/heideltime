@@ -79,8 +79,9 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		// i.e., switch always "-CSD"
 		public String utf8Switch = "-CSD";
 		
-		// save the System's new line separator(s) so we don't have to call system functions all the time
+		// save System-specific separators for string generation
 		public String newLineSeparator = System.getProperty("line.separator");
+		public String fileSeparator = System.getProperty("file.separator");
 	}
 	
 	/**
@@ -114,9 +115,9 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		Boolean abbFileFlag   = true;
 		Boolean parFileFlag   = true;
 		Boolean tokScriptFlag = true;
-		File abbFile = new File(ttprops.rootPath+"/lib",ttprops.abbFileName);
-		File parFile = new File(ttprops.rootPath+"/lib",ttprops.parFileName);
-		File tokFile = new File(ttprops.rootPath+"/cmd",ttprops.tokScriptName);
+		File abbFile = new File(ttprops.rootPath+ttprops.fileSeparator+"lib",ttprops.abbFileName);
+		File parFile = new File(ttprops.rootPath+ttprops.fileSeparator+"lib",ttprops.parFileName);
+		File tokFile = new File(ttprops.rootPath+ttprops.fileSeparator+"cmd",ttprops.tokScriptName);
 		if (!(abbFileFlag = abbFile.exists())) {
 			Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.abbFileName);
 		}
@@ -128,15 +129,16 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		}
 
 		if (!abbFileFlag || !parFileFlag || !tokScriptFlag) {
-			Logger.printError(component, "\nCannot find tree tagger (" + ttprops.rootPath + "/cmd/" + ttprops.tokScriptName + ")." +
+			Logger.printError(component, "\nCannot find tree tagger (" + ttprops.rootPath + ttprops.fileSeparator 
+					+ "cmd" + ttprops.fileSeparator + ttprops.tokScriptName + ")." +
 			" Make sure that path to tree tagger is set correctly in config.props!");
 			Logger.printError(component, "\nIf path is set correctly:\n");
 			Logger.printError(component, "Maybe you need to download the TreeTagger tagger-scripts.tar.gz");
 			Logger.printError(component, "from ftp://ftp.ims.uni-stuttgart.de/pub/corpora/tagger-scripts.tar.gz");
 			Logger.printError(component, "Extract this file and copy the missing file into the corresponding TreeTagger directories.");
-			Logger.printError(component, "If missing, copy " + ttprops.abbFileName   + " into " +  ttprops.rootPath+"/lib");
-			Logger.printError(component, "If missing, copy " + ttprops.parFileName   + " into " +  ttprops.rootPath+"/lib");
-			Logger.printError(component, "If missing, copy " + ttprops.tokScriptName + " into " +  ttprops.rootPath+"/cmd");
+			Logger.printError(component, "If missing, copy " + ttprops.abbFileName   + " into " +  ttprops.rootPath+ttprops.fileSeparator+"lib");
+			Logger.printError(component, "If missing, copy " + ttprops.parFileName   + " into " +  ttprops.rootPath+ttprops.fileSeparator+"lib");
+			Logger.printError(component, "If missing, copy " + ttprops.tokScriptName + " into " +  ttprops.rootPath+ttprops.fileSeparator+"cmd");
 			System.exit(-1);
 		}
 
@@ -146,6 +148,10 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		if ((language.equals(Language.GERMAN)) && (!(ttprops.utf8Switch.equals("")))){
 			ttprops.abbFileName = "german-abbreviations-utf8";
 			ttprops.parFileName = "german-utf8.par";
+		}
+		if ((language.equals(Language.SPANISH)) && (!(ttprops.utf8Switch.equals("")))){
+			ttprops.abbFileName = "spanish-abbreviations";
+			ttprops.parFileName = "spanish-utf8.par";
 		}
 	}
 	
@@ -188,14 +194,21 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			tmpFileWriter.close();
 			
 			// assemble a command line for the tokenization script and execute it
-			Process p = null;
-			String command = "perl " + ttprops.utf8Switch + " "
-						   + ttprops.rootPath + "/cmd/" + ttprops.tokScriptName + " " 
-						   + ttprops.languageSwitch
-						   + " -a " + ttprops.rootPath + "/lib/" + ttprops.abbFileName + " " 
-						   + tmpDocument;
-				
-			p = Runtime.getRuntime().exec(command);
+			ArrayList<String> command = new ArrayList<String>();
+			command.add("perl");
+			if(ttprops.utf8Switch != "")
+				command.add(ttprops.utf8Switch);
+			command.add(ttprops.rootPath + ttprops.fileSeparator + "cmd" + ttprops.fileSeparator + ttprops.tokScriptName);
+			if(ttprops.languageSwitch != "")
+				command.add(ttprops.languageSwitch);
+			command.add("-a");
+			command.add(ttprops.rootPath + ttprops.fileSeparator + "lib" + ttprops.fileSeparator + ttprops.abbFileName);
+			command.add(tmpDocument.getAbsolutePath());
+			
+			String[] commandStr = new String[command.size()];
+			command.toArray(commandStr);
+			
+			Process p = Runtime.getRuntime().exec(commandStr);
 			Logger.printDetail(component, "TreeTagger (tokenization) with: " + ttprops.tokScriptName + " and " + ttprops.abbFileName);
 			
 			// read tokenized text to add tokens to the jcas
@@ -289,16 +302,18 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		hsEndOfSentenceTag.add("_Z_Int"); // ESTONIAN
 		hsEndOfSentenceTag.add("_Z_Exc"); // ESTONIAN
 		
-		String command, s = null;
-		Process p = null;
-		
 		try {
 			// assemble a command line based on configuration and execute the POS tagging.
-			command = ttprops.rootPath + "/bin/tree-tagger " 
-						+ ttprops.rootPath + "/lib/" + ttprops.parFileName + " "
-						+ tmpDocument	+ " -no-unknown";
+			ArrayList<String> command = new ArrayList<String>();
+			command.add(ttprops.rootPath + ttprops.fileSeparator + "bin" + ttprops.fileSeparator + "tree-tagger");
+			command.add(ttprops.rootPath + ttprops.fileSeparator + "lib" + ttprops.fileSeparator + ttprops.parFileName);
+			command.add(tmpDocument.getAbsolutePath());
+			command.add("-no-unknown");
 			
-			p = Runtime.getRuntime().exec(command);
+			String[] commandStr = new String[command.size()];
+			command.toArray(commandStr);
+			
+			Process p = Runtime.getRuntime().exec(commandStr);
 			Logger.printDetail(component, "TreeTagger (pos tagging) with: " + ttprops.parFileName);
 				
 			BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
@@ -306,6 +321,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			Sentence sentence = null;
 			// iterate over all the output lines and tokens array (which have the same source and are hence symmetric)
 			int i = 0;
+			String s = null;
 			while ((s = in.readLine()) != null) {
 				// grab a token
 				Token token = tokens.get(i++);

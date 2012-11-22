@@ -44,7 +44,7 @@ public abstract class GenericResourceManager {
 		BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("used_resources.txt")));
 		try {
 			for (String line; (line=br.readLine()) != null; ) {
-				Pattern paResource = Pattern.compile("\\./"+LANGUAGE+"/"+resourceType+"/resources_"+resourceType+"_"+"(.*?)\\.txt");
+				Pattern paResource = Pattern.compile("\\./?/"+LANGUAGE+"/"+resourceType+"/resources_"+resourceType+"_"+"(.*?)\\.txt");
 				for (MatchResult ro : Toolbox.findMatches(paResource, line)){
 					String foundResource  = ro.group(1);
 					String pathToResource = LANGUAGE+"/"+resourceType+"/resources_"+resourceType+"_"+foundResource+".txt";

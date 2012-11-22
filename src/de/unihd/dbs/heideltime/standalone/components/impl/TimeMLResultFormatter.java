@@ -15,6 +15,7 @@
 package de.unihd.dbs.heideltime.standalone.components.impl;
 
 import java.io.ByteArrayOutputStream;
+import java.util.HashSet;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,8 +35,6 @@ import de.unihd.dbs.uima.types.heideltime.Timex3;
  * @version 1.01
  */
 public class TimeMLResultFormatter implements ResultFormatter {
-
-	@Override
 	public String format(JCas jcas) throws Exception {
 		ByteArrayOutputStream outStream = null;
 
@@ -47,49 +46,56 @@ public class TimeMLResultFormatter implements ResultFormatter {
 		 * - one containing endposition=>timex tuples for assembly of the XML file
 		 */
 		FSIterator iterTimex = jcas.getAnnotationIndex(Timex3.type).iterator();
-		TreeMap<Integer,Timex3> tmTimexStartTimex = new TreeMap<Integer,Timex3>();
-		
-		while (iterTimex.hasNext()) {
+		TreeMap<Integer, Timex3> forwardTimexes = new TreeMap<Integer, Timex3>(),
+				backwardTimexes = new TreeMap<Integer, Timex3>();
+		while(iterTimex.hasNext()) {
 			Timex3 t = (Timex3) iterTimex.next();
-			tmTimexStartTimex.put(t.getBegin(), t);
+			forwardTimexes.put(t.getBegin(), t);
+			backwardTimexes.put(t.getEnd(), t);
 		}
 		
-		// iterate forwards over Timexes to remove overlapping timexes
-		TreeMap<Integer,Timex3> tmTimexEndTimex = new TreeMap<Integer,Timex3>();
-		for(Integer begin : tmTimexStartTimex.navigableKeySet()) {
-			// grab a timex from the start set
-			Timex3 t = tmTimexStartTimex.get(begin);
+		HashSet<Timex3> timexesToSkip = new HashSet<Timex3>();
+		Timex3 prevT = null;
+		Timex3 thisT = null;
+		// iterate over timexes to find overlaps
+		for(Integer begin : forwardTimexes.navigableKeySet()) {
+			thisT = (Timex3) forwardTimexes.get(begin);
 			
-			/* 
-			 * check if for this timex t there exists a timex tExist in the target set of timexes that 
-			 * overlaps with this one and if so, ignore it. otherwise, add it to the target set.
-			 */
-			Boolean overlap = false;
-			for(Timex3 tExist : tmTimexEndTimex.values()) {
-				// the beginning index of the current timex lies between the beginning and end of a previous one
-				if(t.getBegin() >= tExist.getBegin() && t.getBegin() <= tExist.getEnd()) {
-					overlap = true;
-					
-					// ask user to let us know about possibly incomplete rules
-					Logger l = Logger.getLogger("TimeMLResultFormatter");
-					l.log(Level.WARNING, "Omitting a timex due to overlap: \""+t.getCoveredText()+"\"["+t.getBegin()+","+t.getEnd()+"].");
-					l.log(Level.WARNING, "Please consider opening an issue on http://code.google.com/p/heideltime " +
-							"that includes the relevant part of the document you were tagging when this omission occurred; " +
-							"we're always eager to improve our resources so that these omissions due to overlap no longer occur.");
-					
-					// break out of analysis
-					break;
+			// check for whether this and the previous timex overlap. ex: [early (friday] morning)
+			if(prevT != null && prevT.getEnd() > thisT.getBegin()) {
+				
+				Timex3 removedT = null; // only for debug message
+				// assuming longer value string means better granularity
+				if(prevT.getTimexValue().length() > thisT.getTimexValue().length()) {
+					timexesToSkip.add(thisT);
+					removedT = thisT;
+					/* prevT stays the same. */
+				} else {
+					timexesToSkip.add(prevT);
+					removedT = prevT;
+					prevT = thisT; // this iteration's prevT was removed; setting for new iteration 
 				}
-			}
-			
-			if(!overlap) {
-				tmTimexEndTimex.put(t.getEnd(), t);
+				
+				// ask user to let us know about possibly incomplete rules
+				Logger l = Logger.getLogger("TimeMLResultFormatter");
+				l.log(Level.WARNING, "Two overlapping Timexes have been discovered:" + System.getProperty("line.separator")
+						+ "Timex A: " + prevT.getCoveredText() + " [\"" + prevT.getTimexValue() + "\" / " + prevT.getBegin() + ":" + prevT.getEnd() + "]" 
+						+ System.getProperty("line.separator")
+						+ "Timex B: " + removedT.getCoveredText() + " [\"" + removedT.getTimexValue() + "\" / " + removedT.getBegin() + ":" + removedT.getEnd() + "]" 
+						+ " [removed]" + System.getProperty("line.separator")
+						+ "The writer chose, for granularity: " + prevT.getCoveredText() + System.getProperty("line.separator")
+						+ "This usually happens with an incomplete ruleset. Please consider adding "
+						+ "a new rule that covers the entire expression.");
+			} else { // no overlap found? set current timex as next iteration's previous timex
+				prevT = thisT;
 			}
 		}
 
-		// iterate backwards over Timex3 Annotations and start with the last one in the document		
-		for (Integer end : tmTimexEndTimex.descendingKeySet()){
-			Timex3 t = tmTimexEndTimex.get(end);
+		// iterate backwards over Timex3 Annotations and start with the last one in the document
+		for (Integer end : backwardTimexes.descendingKeySet()){
+			Timex3 t = backwardTimexes.get(end);
+			if(timexesToSkip.contains(t)) continue; // skip this timex
+			
 			String timexStartTag = "<TIMEX3";
 			if (!(t.getTimexId().equals(""))){
 				timexStartTag += " tid=\""+t.getTimexId()+"\"";
@@ -116,10 +122,6 @@ public class TimeMLResultFormatter implements ResultFormatter {
 								"</TIMEX3>" +
 								documentText.substring(t.getEnd());
 		}
-
-		// Output is UTF-8 always.
-		// One could change documentText encoding from UTF-8 to the input encoding if needed
-
 		
 		// Add TimeML start and end tags		
 		documentText = "<?xml version=\"1.0\"?>\n<!DOCTYPE TimeML SYSTEM \"TimeML.dtd\">\n<TimeML>\n" + documentText;

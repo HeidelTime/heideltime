@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-16
+// This file contains regular expression patterns for unit words.
+// FORMAT: one line is one disjunction of the pattern
+[Dd]ías? habíl(es)?
+[Dd]ías? bursátil(es)?
+[Dd]ías?
+[Ff]in(es)? de semana
+[Ss]emanas?
+[Mm]es(es)?
+[Tt]rimestres?
+[Aa]ños?
+[Dd]écadas?
+[Ss]iglos?

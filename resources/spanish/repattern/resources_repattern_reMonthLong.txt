@@ -1,0 +1,17 @@
+// author: Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-16
+// This file contains regular expression patterns for long months.
+// FORMAT: one line is one disjunction of the pattern
+[Ee]nero
+[Ff]ebrero
+[Mm]arzo
+[Aa]bril
+[Mm]ayo
+[Jj]unio
+[Jj]ulio
+[Aa]gosto
+[Ss]eptiembre
+[Oo]ctubre
+[Nn]oviembre
+[Dd]iciembre
