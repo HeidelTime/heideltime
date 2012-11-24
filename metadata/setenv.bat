@@ -1,3 +1,4 @@
+@echo off
 REM setting the environment for the HeidelTime kit
 set CLASSPATH=%HEIDELTIME_HOME%\class;%CLASSPATH%
 set CLASSPATH=%HEIDELTIME_HOME%\lib;%CLASSPATH%
