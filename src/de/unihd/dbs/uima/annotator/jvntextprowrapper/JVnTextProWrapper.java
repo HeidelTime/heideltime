@@ -131,6 +131,23 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 						sentence.setEnd(offset); // sentence gets final value from the last sub-word
 					}
 					
+					/* 
+					 * check for whether the last character in the token is a comma, then remove that comma
+					 * from the token and give it its own token
+					 */
+					if(token.getCoveredText().substring(token.getEnd() - token.getBegin() - 1).equals(",") && !token.getCoveredText().equals(",")) {
+						Integer commaPosition = token.getEnd()-1; // comma position in text
+						token.setEnd(commaPosition); // set corrected token boundary for the word
+						Token commaToken = new Token(jcas); // create a new token for the comma
+						commaToken.setBegin(commaPosition);
+						commaToken.setEnd(commaPosition+1);
+						// check if we want to annotate pos or the token itself
+						if(annotate_partofspeech)
+							commaToken.setPos(",");
+						if(annotate_tokens)
+							commaToken.addToIndexes();
+					}
+					
 					if(annotate_partofspeech) // if flag is true, then add pos info to indexes
 						token.setPos(tag);
 					
