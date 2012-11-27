@@ -1,0 +1,25 @@
+// author: TV Canh
+// email:  canhtv@uni-hd.de
+// date:   2012-06-22
+// This file contains "unit words" and their normalized expressions.
+// For example, the normalized value of "week" is "week"
+// FORMAT: "unit-word","normalized-unit-word"
+"ngày","day"
+"Ngày","day"
+"cuối tuần","week-WE"
+"Cuối tuần","week-WE"
+"tuần","week"
+"Tuần","week"
+"tháng","month"
+"Tháng","month"
+"quý","quarter"
+"Quý","quarter"
+"năm","year"
+"Năm","year"
+"thập niên","decade"
+"Thập niên","decade"
+"thế kỷ","century"
+"Thế kỷ","century"
+// not in reUnit
+"giờ","hour"
+"phút","minute"

@@ -1,0 +1,38 @@
+// author: TV Canh
+// email:  canhtv@uni-hd.de
+// date:   2012-06-26
+// This file contains contains "part words" and their normalized expressions
+// according to TIMEX3 format. 
+// For example, the normalized value of "the middle of" is "MID"
+// FORMAT: "part word","normalized-part-word"
+"đầu","START"
+"Đầu","START"
+"từ","START"
+"Từ","START"
+"bắt đầu","START"
+"Bắt đầu","START"
+"bắt đầu từ","START"
+"Bắt đầu từ","START"
+"bắt đầu lúc","START"
+"Bắt đầu lúc","START"
+"giữa","MID"
+"Giữa","MID"
+"cuối","END"
+"Cuối","END"
+"đến","END"
+"Đến","END"
+"tới","END"
+"Tới","END"
+"kết thúc","END"
+"Kết thúc","END"
+"kết thúc vào","END"
+"Kết thúc vào","END"
+"kết thúc vào lúc","END"
+"Kết thúc vào lúc","END"
+"chấm dứt","END"
+"Chấm dứt","END"
+"chấm dứt vào","END"
+"Chấm dứt vào","END"
+"chấm dứt vào lúc","END"
+"Chấm dứt vào lúc","END"
+

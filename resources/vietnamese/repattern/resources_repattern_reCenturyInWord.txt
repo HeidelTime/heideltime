@@ -1,0 +1,42 @@
+//created by: TVCanh
+//this file contains re-expression for expressing Cenruty in words
+một
+Một
+hai
+Hai
+ba
+Ba
+bốn
+Bốn
+năm
+Năm
+sáu
+Sáu
+bảy
+Bảy
+tám
+Tám
+chín
+Chín
+mười
+Mười
+mười một
+mười hai
+mười ba
+mười bốn
+mười lăm
+mười sáu
+mười bảy
+mười tám
+mười chín
+hai mươi
+hai mốt
+hai hai
+hai ba
+hai tư
+hai lăm
+hai sáu
+hai bảy
+hai tám
+hai chín
+ba mươi

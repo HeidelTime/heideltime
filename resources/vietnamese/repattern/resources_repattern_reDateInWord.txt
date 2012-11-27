@@ -1,0 +1,43 @@
+//created by: TVCanh
+//this file contains re-expression for expressing Date in words
+một
+mùng một
+hai
+mùng hai
+ba
+mùng ba
+bốn
+mùng bốn
+năm
+mùng năm
+sáu
+mùng sáu
+bảy
+mùng bảy
+tám
+mùng tám
+chín
+mùng chín
+mười
+mùng mười
+mười một
+mười hai
+mười ba
+mười bốn
+mười lăm
+mười sáu
+mười bảy
+mười tám
+mười chín
+hai mươi
+hai mốt
+hai hai
+hai ba
+hai tư
+hai lăm
+hai sáu
+hai bảy
+hai tám
+hai chín
+ba mươi
+ba mốt

@@ -1,0 +1,24 @@
+// author: TV Canh
+// email:  canhtv@uni-hd.de
+// date:   2012-07-22
+// This file contains regular expression patterns for 
+// number word 2 digits: reNumWord2D
+// FORMAT: one line is one disjunction of the pattern
+[Mm]ười
+[Mm]ười một
+[Mm]ười hai
+[Mm]ười ba
+[Mm]ười bốn
+[Mm]ười lăm
+[Mm]ười sáu
+[Mm]ười bảy
+[Mm]ười tám
+[Mm]ười chín
+[Hh]ai mươi
+[Bb]a mươi
+[Bb]ốn mươi
+[Nn]ăm mươi
+[Ss]áu mươi
+[Bb]ảy mươi
+[Tt]ám mươi
+[Cc]hín mươi

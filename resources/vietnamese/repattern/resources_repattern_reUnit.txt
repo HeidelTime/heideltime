@@ -1,0 +1,15 @@
+// author: TV Canh
+// email:  canhtv@uni-hd.de
+// date:   2012-06-26
+// This file contains regular expression patterns for unit words.
+// FORMAT: one line is one disjunction of the pattern
+[Nn]gày
+[Cc]uối tuần
+[Tt]uần
+[Tt]háng
+[Qq]úy
+[Nn]ăm
+[Tt]hập niên
+[Tt]hế kỷ
+//[Gg]iờ Hour
+//[Pp]hút Minute

@@ -1,0 +1,18 @@
+// author: TV Canh
+// email:  canhtv@uni-hd.de
+// date:   2012-06-26
+// This file contains regular expression patterns for expressing months in words 
+// FORMAT: one line is one disjunction of the pattern
+giêng
+một
+hai
+ba
+tư
+năm
+sáu
+bảy
+tám
+chín
+mười
+mười một
+mười hai

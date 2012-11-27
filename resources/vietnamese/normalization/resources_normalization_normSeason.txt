@@ -1,0 +1,24 @@
+// author: TV Canh
+// email:  canhtv@uni-hd.de
+// date:   2012-06-26
+// This file contains "season words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "summer" is "SU"
+// FORMAT: "season-word","normalized-season-word"
+// spring
+"mùa xuân","SP"
+"Mùa xuân","SP"
+//summer
+"mùa hè","SU"
+"Mùa hè","SU"
+// fall
+"mùa thu","FA"
+"Mùa thu","FA"
+// winter
+"mùa đông","WI"
+"Mùa đông","WI"
+//
+"mùa nắng","SU"
+"Mùa nắng","SU"
+"mùa mưa","WI"
+"Mùa mưa","WI"
