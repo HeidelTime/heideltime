@@ -4,6 +4,9 @@
  */
 package de.unihd.dbs.uima.annotator.jvntextprowrapper;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import jvntextpro.JVnTextPro;
 
 import org.apache.uima.UimaContext;
@@ -37,6 +40,11 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 	private String sentModelPath = null;
 	private String wordModelPath = null;
 	private String posModelPath = null;
+	
+	// list of punctuation so we can split them off as tokens (correcting JVnTextPro's output)
+	private final HashSet<Character> vietPunctuation = new HashSet<Character>(Arrays.asList(new Character[] {
+		'!', '.', ',', '(', ')', '-', '{', '}', '[', ']', '"', '\''
+	}));
 	
 	// private jvntextpro object
 	private JVnTextPro jvtp = null;
@@ -130,23 +138,12 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 						token.setEnd(offset); // word-token gets final value from the last sub-word
 						sentence.setEnd(offset); // sentence gets final value from the last sub-word
 					}
-					
-					/* 
-					 * check for whether the last character in the token is a comma, then remove that comma
-					 * from the token and give it its own token
+
+					/*
+					 * call our sanitation routine that splits off punctuation marks from the end and
+					 * the beginning of the token and creates new tokens for each of them
 					 */
-					if(token.getCoveredText().substring(token.getEnd() - token.getBegin() - 1).equals(",") && !token.getCoveredText().equals(",")) {
-						Integer commaPosition = token.getEnd()-1; // comma position in text
-						token.setEnd(commaPosition); // set corrected token boundary for the word
-						Token commaToken = new Token(jcas); // create a new token for the comma
-						commaToken.setBegin(commaPosition);
-						commaToken.setEnd(commaPosition+1);
-						// check if we want to annotate pos or the token itself
-						if(annotate_partofspeech)
-							commaToken.setPos(",");
-						if(annotate_tokens)
-							commaToken.addToIndexes();
-					}
+					sanitizeTokens(token, jcas);
 					
 					if(annotate_partofspeech) // if flag is true, then add pos info to indexes
 						token.setPos(tag);
@@ -162,5 +159,48 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 			if(annotate_sentences) // if flag is true, then add sentence token to indexes
 				sentence.addToIndexes();
 		}
+	}
+	
+	private Boolean sanitizeTokens(Token t, JCas jcas) {
+		Boolean workDone = false;
+		
+		// check the beginning of the token for punctuation and split off into a new token
+		if(vietPunctuation.contains(t.getCoveredText().charAt(0)) && t.getCoveredText().length() > 1) {
+			Character thisChar = t.getCoveredText().charAt(0);
+			t.setBegin(t.getBegin() + 1); // set corrected token boundary for the word
+			Token puncToken = new Token(jcas); // create a new token for the punctuation character
+			puncToken.setBegin(t.getBegin() - 1);
+			puncToken.setEnd(t.getBegin());
+			// check if we want to annotate pos or the token itself
+			if(annotate_partofspeech)
+				puncToken.setPos(""+thisChar);
+			if(annotate_tokens)
+				puncToken.addToIndexes();
+			
+			workDone = true;
+		}
+		
+		// check the end of the token for punctuation and split off into a new token
+		if(vietPunctuation.contains(t.getCoveredText().charAt(t.getEnd() - t.getBegin() - 1)) && t.getCoveredText().length() > 1) {
+			Character thisChar = t.getCoveredText().charAt(t.getEnd() - t.getBegin() - 1);
+			t.setEnd(t.getEnd() - 1); // set corrected token boundary for the word
+			Token puncToken = new Token(jcas); // create a new token for the punctuation character
+			puncToken.setBegin(t.getEnd());
+			puncToken.setEnd(t.getEnd() + 1);
+			// check if we want to annotate pos or the token itself
+			if(annotate_partofspeech)
+				puncToken.setPos(""+thisChar);
+			if(annotate_tokens)
+				puncToken.addToIndexes();
+			
+			workDone = true;
+		}
+		
+		// get into a recursion to sanitize tokens as long as there are stray ones
+		if(workDone) {
+			workDone = sanitizeTokens(t, jcas);
+		}
+		
+		return workDone;
 	}
 }
