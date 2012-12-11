@@ -61,6 +61,10 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 		wordModelPath = (String) aContext.getConfigParameterValue(PARAM_WORDSEGMODEL_PATH);
 		posModelPath = (String) aContext.getConfigParameterValue(PARAM_POSMODEL_PATH);
 		
+		createJVnTextProObject();
+	}
+	
+	private void createJVnTextProObject() {
 		jvtp = new JVnTextPro();
 		
 		if(sentModelPath != null)
@@ -81,11 +85,18 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 				System.exit(-1);
 			}
 	}
-	
+
 	/**
 	 * Method that gets called to process the documents' cas objects
 	 */
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
+		/* 
+		 * necessary every time .process() gets called because calling jvntp.process() 
+		 * multiple times will result in a garbage collection OOM exception. wonky 
+		 * implementation of JVnTextPro here.
+		 */
+		createJVnTextProObject();
+		
 		String origText = jcas.getDocumentText();
 		
 		Integer offset = 0;
