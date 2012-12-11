@@ -1,0 +1,32 @@
+// author: Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-16
+// This file contains "decade words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "twenties" is "2X"
+// FORMAT: "decade-word","normalized-decade-word"
+"[Vv]einte","2X"
+"[Tt]reinta","3X"
+"[Cc]uarenta","4X"
+"[Cc]incuenta","5X"
+"[Ss]esenta","6X"
+"[Ss]etenta","7X"
+"[Oo]chenta","8X"
+"[Nn]oventa","9X"
+// expressions with "años"
+"[Aa]ños veinte","2X"
+"[Aa]ños treinta","3X"
+"[Aa]ños cuarenta","4X"
+"[Aa]ños cincuenta","5X"
+"[Aa]ños sesenta","6X"
+"[Aa]ños setenta","7X"
+"[Aa]ños ochenta","8X"
+"[Aa]ños noventa","9X"
+"[Aa]ños 20","2X"
+"[Aa]ños 30","3X"
+"[Aa]ños 40","4X"
+"[Aa]ños 50","5X"
+"[Aa]ños 60","6X"
+"[Aa]ños 70","7X"
+"[Aa]ños 80","8X"
+"[Aa]ños 90","9X"
