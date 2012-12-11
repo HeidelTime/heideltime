@@ -1,0 +1,8 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-24
+// This file contains regular expression patterns for day numbers.
+// FORMAT: one line is one disjunction of the pattern
+[12][0-9]
+3[01]
+0?[1-9]

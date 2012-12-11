@@ -1,0 +1,14 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-19
+// This file contains "weekday words" and their normalized expressions.
+// For example, the normalized value of "Monday" is "monday"
+// FORMAT: "weekday-word","normalized-weekday-word"
+"[Ll]uned(ì|i'|i)","monday"
+"[Mm]arted(ì|i'|i)","tuesday"
+"[Mm]ercoled(ì|i'|i)","wednesday"
+"[Gg]ioved(ì|i'|i)","thursday"
+"[Vv]enerd(ì|i'|i)","friday"
+"[Ss]abato","saturday"
+"[Dd]omenica","sunday"
+

@@ -1,0 +1,31 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-24
+// This file contains regular expression patterns for date words.
+// FORMAT: one line is one disjunction of the pattern
+// THESE EXPRESSIONS ARE ALL IMPLICITS
+\b[Aa] questo punto
+[Aa]ttualmente
+[Aa]desso
+[Aa]vantieri
+[Aa]vant'ieri
+[Ii]eri l'altro
+[Ll]'altro ieri
+[Ii]eri
+[Aa]l giorno d'oggi
+[Oo]ggi come oggi
+[Oo]ggid(ì|i'|i)
+[Oo]ggigiorno
+[Oo]ggi
+[Dd]opodomani
+[Pp]er ora
+[Pp]er il momento
+[Pp]osdomani
+[Dd]omani
+[Rr]ecentemente
+[Dd]i fresco
+[Dd]i recente
+[Uu]ltimamente
+\b[Uu]n domani
+//[Ff]inora
+

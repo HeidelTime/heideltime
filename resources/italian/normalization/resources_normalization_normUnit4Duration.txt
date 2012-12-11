@@ -1,0 +1,23 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-19
+// This file contains "unit words for duration" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "week" is "W"
+// FORMAT: "unit-word","normalized-unit-word"
+"[Gg]iornata lavorativa","D"
+"[Gg]iorn[oi] lavorativ[oi]","D"
+"[Gg]iorn[oi] feriale","D"
+"[Gg]iorn[oi]","D"
+"[Ff]ine settimana","WE"
+"[Ss]ettiman[ae]","W"
+"[Mm]es[ei]","M"
+"[Tt]rimestre","Q"
+"[Aa]nn[oi]","Y"
+"[Dd]ecennio","DE"
+"[Dd]ecade","DE"
+"[Ss]ecolo","CE"
+"[Oo]r[aei]","H"
+"[Mm]inut[aeio]s?","M"
+
+

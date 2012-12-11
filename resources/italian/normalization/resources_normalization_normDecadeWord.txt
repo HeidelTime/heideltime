@@ -1,0 +1,23 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-24
+// This file contains "decade words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "twenties" is "2X"
+// FORMAT: "decade-word","normalized-decade-word"
+"[Aa]nni [Vv]enti","2X"
+"[Aa]nni [Tt]renta","3X"
+"[Aa]nni [Qq]uaranta","4X"
+"[Aa]nni [Cc]inquanta","5X"
+"[Aa]nni [Ss]essanta","6X"
+"[Aa]nni [Ss]ettanta","7X"
+"[Aa]nni [Oo]ttanta","8X"
+"[Aa]nni [Nn]ovanta","9X"
+"[Aa]nni 20","2X"
+"[Aa]nni 30","3X"
+"[Aa]nni 40","4X"
+"[Aa]nni 50","5X"
+"[Aa]nni 60","6X"
+"[Aa]nni 70","7X"
+"[Aa]nni 80","8X"
+"[Aa]nni 90","9X"

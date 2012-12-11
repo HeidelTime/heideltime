@@ -1,0 +1,23 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-24
+// This file contains regular expression patterns for set words.
+// FORMAT: one line is one disjunction of the pattern
+[Aa]ll'( )?anno
+//[Ll]'( )?anno
+[Aa]nnuale
+[Aa]nnualmente
+[Aa]nnu[oa]
+[Pp]er anno
+[Mm]ensile
+[Cc]otidian[oa]
+[Dd]i ogni giorno
+[Dd]i tutti i giorni
+[Gg]iornalier[oa]
+[Gg]iornalmente
+[Qq]uotidianamente
+//[Qq]uotidian[aeo]
+[Aa](lla)? settimana	 
+[Ee]bdomadari[oa]
+[Ss]ettimanale
+[Ss]ettimanalmente

@@ -1,0 +1,33 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-24
+// This file contains regular expression patterns for short months.
+// FORMAT: one line is one disjunction of the pattern
+[Gg]en\.?
+[Ff]ebbr\.?
+[Ff]ebr\.?
+[Ff]eb\.?
+[Mm]ar\.?
+[Aa]pr\.?
+[Mm]ag\.?
+[Gg]iu\.?
+[Ll]ug\.?
+[Aa]go\.?
+[Ss]ett\.?
+[Oo]tt\.?
+[Nn]ov\.?
+[Dd]ic\.?
+GEN\.?
+FEBBR\.?
+FEBR\.?
+FEB\.?
+MAR\.?
+APR\.?
+MAG\.?
+GIU\.?
+LUG\.?
+AGO\.?
+SETT\.?
+OTT\.?
+NOV\.?
+DIC\.?

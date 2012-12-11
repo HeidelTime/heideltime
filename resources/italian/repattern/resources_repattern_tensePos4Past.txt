@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-24
+// This file contains regular expression patterns for POS tags indicating past.
+// FORMAT: one line is one disjunction of the pattern
+// verb conjunctive imperfect
+VER:cimp
+// verb imperative
+VER:impe
+//verb imperfect
+VER:impf
+// verb participle perfect
+VER:pper
+// verb simple past
+VER:remo
+

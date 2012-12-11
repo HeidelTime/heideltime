@@ -1,0 +1,15 @@
+// author: Antonio Cancela Diaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-16
+// This file contains regular expression patterns for parts of year.
+// FORMAT: one line is one disjunction of the pattern
+// ITALIAN
+[Pp]rimo trimestre
+[Ss]econdo trimestre
+[Tt]erzo trimestre
+[Qq]uarto trimestre
+[Pp]rima quadrimestre
+[Ss]econda quadrimestre
+[Tt]erza quadrimestre
+[Pp]rima met(à|a'|a)
+[Ss]econda met(à|a'|a)
