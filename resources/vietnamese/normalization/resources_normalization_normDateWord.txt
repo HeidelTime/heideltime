@@ -1,0 +1,31 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "date words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "tomorrow" is "UNDEF-next-day"
+// FORMAT: "date-word","normalized-date-word"
+"hôm kia","UNDEF-this-day-MINUS-2"
+"Hôm kia","UNDEF-this-day-MINUS-2"
+"hôm qua","UNDEF-last-day"
+"Hôm qua","UNDEF-last-day"
+"nay","UNDEF-this-day"
+"Nay","UNDEF-this-day"
+"hôm nay","UNDEF-this-day"
+"Hôm nay","UNDEF-this-day"
+"ngày mai","UNDEF-next-day"
+"Ngày mai","UNDEF-next-day"
+"bây giờ","PRESENT_REF"
+"Bây giờ","PRESENT_REF"
+"lúc này","PRESENT_REF"
+"Lúc này","PRESENT_REF"
+"hiện tại","PRESENT_REF"
+"Hiện tại","PRESENT_REF"
+//"sớm","FUTURE_REF"
+//"Sớm","FUTURE_REF"
+"gần đây","PAST_REF"
+"Gần đây","PAST_REF"
+"trước đây","PAST_REF"
+"Trước đây","PAST_REF"
+"càng sớm càng tốt","FUTURE_REF"
+"Càng sớm càng tốt","FUTURE_REF"

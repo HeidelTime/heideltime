@@ -1,0 +1,27 @@
+// author: TV Canh
+// email:  canhtv@uni-hd.de
+// date:   2012-07-07
+// This file contains regular expression patterns for "approximate" words.
+// FORMAT: one line is one disjunction of the pattern
+[Ll]úc
+[Kk]hoảng
+[Kk]hoảng chừng
+ước chừng
+// less
+không nhiều hơn
+ít hơn
+dưới
+[Tt]rong khoảng
+[Gg]ần
+[Gg]ần như
+[Tt]ới
+//  more
+ít nhất
+Ít nhất
+[Hh]ơn
+[Tt]rên
+[Nn]hiều
+nhiều hơn
+[Mm]ột vài
+[Mm]ột số
+

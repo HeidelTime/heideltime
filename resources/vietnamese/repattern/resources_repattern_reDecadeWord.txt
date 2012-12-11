@@ -1,0 +1,21 @@
+// author: TV Canh
+// email:  canhtv@uni-hd.de
+// date:   2012-06-26
+// This file contains regular expression patterns for decade words.
+// FORMAT: one line is one disjunction of the pattern
+[Tt]hập niên 20
+[Tt]hập niên 30
+[Tt]hập niên 40
+[Tt]hập niên 50
+[Tt]hập niên 60
+[Tt]hập niên 70
+[Tt]hập niên 80
+[Tt]hập niên 90
+[Nn]hững năm 20
+[Nn]hững năm 30
+[Nn]hững năm 40
+[Nn]hững năm 50
+[Nn]hững năm 60
+[Nn]hững năm 70
+[Nn]hững năm 80
+[Nn]hững năm 90
