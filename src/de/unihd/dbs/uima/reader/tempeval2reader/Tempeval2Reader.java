@@ -237,7 +237,12 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 					fileId  = parts[0];
 					sentId = Integer.parseInt(parts[1]);
 					Integer tokId  = Integer.parseInt(parts[2]);
-					String tokenString = parts[3];
+
+					// Check for "empty tokens" (Italian corpus)
+					String tokenString = "";
+					if (!(parts.length < 4)){
+						tokenString = parts[3];	
+					}
 					
 					if (resettingParentheses == true){
 						tokenString = resetParentheses(tokenString);
@@ -254,7 +259,7 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 						}
 						
 						// new Sentence, first Token
-						else if (tokId == newTokSentNumber){
+						else if ((tokId == newTokSentNumber) || (lastSentId != sentId)){
 							positionCounter = addSentenceAnnotation(sentString, fileId, sentId-1, positionCounter, jcas);
 							text = text+" "+tokenString;
 							sentString  = tokenString;
@@ -305,6 +310,22 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 	  }
 	  else if (tokenString.equals("-RCB-")){
 		  tokenString = tokenString.replace("-RCB-","}");
+	  }
+	  // ITALIAN TEMPEVAL CORPUS PROBLEMS
+	  else if (tokenString.endsWith("a'")){
+		  tokenString = tokenString.replaceFirst("a'", "à");
+	  }
+	  else if (tokenString.endsWith("i'")){
+		  tokenString = tokenString.replaceFirst("i'", "ì");
+	  }
+	  else if (tokenString.endsWith("e'")){
+		  tokenString = tokenString.replaceFirst("e'", "è");
+	  }
+	  else if (tokenString.endsWith("u'")){
+		  tokenString = tokenString.replaceFirst("u'", "ù");
+	  }
+	  else if (tokenString.endsWith("o'")){
+		  tokenString = tokenString.replaceFirst("o'", "ò");
 	  }
 	  return tokenString;
   }
