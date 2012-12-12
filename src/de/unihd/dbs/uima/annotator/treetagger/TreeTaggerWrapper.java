@@ -153,6 +153,10 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			ttprops.abbFileName = "spanish-abbreviations";
 			ttprops.parFileName = "spanish-utf8.par";
 		}
+		if ((language.equals(Language.ITALIAN)) && (!(ttprops.utf8Switch.equals("")))){
+			ttprops.abbFileName = "italian-abbreviations";
+			ttprops.parFileName = "italian-utf8.par";
+		}
 	}
 	
 	/**
