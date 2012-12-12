@@ -346,6 +346,24 @@ public class ACETernReader extends CollectionReader_ImplBase {
 					}
 					
 			}
+			// Document Creation Time style of EVALITA I-CAB corpus (Italian corpus)
+			// example: <DOC ID="adige20040907_id405581" DATE="20040907">
+			if (date_value == null){
+				String dateformatICAB = "(.*?)(\\d\\d\\d\\d)(\\d\\d)(\\d\\d)(.*?)"; // 20030422
+				for (MatchResult m : findMatches(Pattern.compile("(<DOC ID=\".*?\" DATE=\")("+dateformatICAB+
+																								")(\">)"), xml)){
+					datetimetag = m.group(2);
+				}
+				 if (datetimetag.matches(dateformatICAB)){
+						for (MatchResult m : findMatches(Pattern.compile(dateformatICAB), datetimetag)){
+							date_value = m.group(2)+"-"+m.group(3)+"-"+m.group(4);
+						}
+					}
+					else{
+						System.err.println();
+						System.err.println("["+compontent_id+"] cannot set dct with datetimetag: "+datetimetag);
+					}
+			}
 			if (date_value == null){
 				System.err.println();
 				System.err.println("["+compontent_id+"] Cannot set Document Creation Time - no datetimetag found in "+filename+"!");
