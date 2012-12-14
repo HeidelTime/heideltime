@@ -77,29 +77,29 @@ public class Tempeval2Writer extends CasConsumer_ImplBase {
 		while (iterTimex.hasNext()){
 			Timex3 t = (Timex3) iterTimex.next();
 			if (!((t.getType().toString().equals("de.unihd.dbs.uima.heidopp.types.tempeval2.GoldTimex3")))){
-				String toPrintExtents    = "";
-				String toPrintAttributes = "";
 				
+				// output extents
+				String toPrintExtents    = "";
 				String[] allTokList = t.getAllTokIds().split("<-->");
 				for (int i=1; i < allTokList.length; i++){
 					toPrintExtents    = toPrintExtents+t.getFilename()+"\t"+t.getSentId()+"\t"+allTokList[i]+
 					"\ttimex3\t"+t.getTimexId()+"\t1\n";					
 				}
-				toPrintAttributes = toPrintAttributes+t.getFilename()+"\t"+t.getSentId()+"\t"+t.getFirstTokId()+
-											"\ttimex3\t"+t.getTimexId()+"\t1\ttype\t"+t.getTimexType()+"\n";
-				toPrintAttributes = toPrintAttributes+t.getFilename()+"\t"+t.getSentId()+"\t"+t.getFirstTokId()+
-											"\ttimex3\t"+t.getTimexId()+"\t1\tvalue\t"+t.getTimexValue()+"\n";
 				
-				// print extents
 				try {
 					BufferedWriter bf = new BufferedWriter(new FileWriter(outExtents, true));
 					bf.write(toPrintExtents);
 					bf.close();
-				} catch (IOException e1) {
-					e1.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
+
+				// output attributes
+				String toPrintAttributes = t.getFilename()+"\t"+t.getSentId()+"\t"+t.getFirstTokId()+
+											"\ttimex3\t"+t.getTimexId()+"\t1\ttype\t"+t.getTimexType()+"\n";
+				toPrintAttributes += t.getFilename()+"\t"+t.getSentId()+"\t"+t.getFirstTokId()+
+											"\ttimex3\t"+t.getTimexId()+"\t1\tvalue\t"+t.getTimexValue()+"\n";
 	
-				// print attributes
 				try {
 					BufferedWriter bf = new BufferedWriter(new FileWriter(outAttributes, true));
 					bf.write(toPrintAttributes);
