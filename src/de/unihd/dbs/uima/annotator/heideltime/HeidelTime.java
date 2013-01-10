@@ -1936,17 +1936,21 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				String substring = mr.group(1).substring(Integer.parseInt(mr.group(2)), Integer.parseInt(mr.group(3)));
 				tonormalize = tonormalize.replace(mr.group(),substring);
 			}
-			// replace lowercase
-			Pattern paLowercase = Pattern.compile("%LOWERCASE%\\((.*?)\\)");
-			for (MatchResult mr : Toolbox.findMatches(paLowercase,tonormalize)) {
-				String substring = mr.group(1).toLowerCase();
-				tonormalize = tonormalize.replace(mr.group(),substring);
-			}
-			// replace uppercase
-			Pattern paUppercase = Pattern.compile("%UPPERCASE%\\((.*?)\\)");
-			for (MatchResult mr : Toolbox.findMatches(paUppercase,tonormalize)) {
-				String substring = mr.group(1).toUpperCase();
-				tonormalize = tonormalize.replace(mr.group(),substring);
+			if(language.getName().compareTo("arabic") != 0)
+			{		
+				// replace lowercase
+				Pattern paLowercase = Pattern.compile("%LOWERCASE%\\((.*?)\\)");
+				for (MatchResult mr : Toolbox.findMatches(paLowercase,tonormalize)) {
+					String substring = mr.group(1).toLowerCase();
+					tonormalize = tonormalize.replace(mr.group(),substring);
+				}
+			
+				// replace uppercase
+				Pattern paUppercase = Pattern.compile("%UPPERCASE%\\((.*?)\\)");
+				for (MatchResult mr : Toolbox.findMatches(paUppercase,tonormalize)) {
+					String substring = mr.group(1).toUpperCase();
+					tonormalize = tonormalize.replace(mr.group(),substring);
+				}
 			}
 			// replace sum, concatenation
 			Pattern paSum = Pattern.compile("%SUM%\\((.*?),(.*?)\\)");
