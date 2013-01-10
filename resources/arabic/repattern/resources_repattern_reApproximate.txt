@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for "approximate" words.
+// FORMAT: one line is one disjunction of the pattern
+// about
+حوالي
+نحو
+تقريبا[ً]?
+حول
+حتى
+على ال[اأ]قل
+[اأ]كثر من
+[اأ]قل من
+[اأ]طول من
+[اأ]قصر من
+في غضون
+قرابة
+

@@ -1,0 +1,49 @@
+// author: Hans-Peter Pfeiffer
+// email:  H.Pfeiffer@stud.uni-heidelberg.de
+// date:   2012-02-11
+// This file contains fix holiday and their normalized expressions.
+// For example, the normalized value of "Newyear" is "01-01"
+// FORMAT: "hoilday_name","month-year"
+// 
+// the reference of the values is given in the repattern file
+
+
+// http://en.wikipedia.org/wiki/New_Year%27s_Eve
+//New Year's Eve
+"ليل[ةه] ر[اأ]س السن[هة] الميلادي[هة]","12-31"
+"ليل[ةه] ر[اأ]س السن[هة]","12-31"
+// http://en.wikipedia.org/wiki/New_Year%27s_Day
+//New Year's Day
+"ر[اأ]س السن[هة] الميلادي[هة]","01-01"
+// http://en.wikipedia.org/wiki/Valentine%27s_Day
+//Valentines Day
+"عيد الحب","02-14"
+// http://en.wikipedia.org/wiki/Veterans_Day
+//Veterans Day
+"يوم المحاربين القدامى","11-11"
+// http://en.wikipedia.org/wiki/Epiphany_%28holiday%29
+//Epiphany
+"عيد الغطاس","02-06"
+"عيد الظهور الإلهي","02-06"
+// http://en.wikipedia.org/wiki/Hallowe%27en
+//Halloween
+"الهالووين","10-31"
+// http://en.wikipedia.org/wiki/Assumption_of_Mary
+//Assumption of Mary
+"عيد رفع مريم","08-15"
+// http://en.wikipedia.org/wiki/All_Saints%27_Day
+//All Saints
+"عيد جميع القديسين","11-01"
+// http://en.wikipedia.org/wiki/Christmas
+//Christmas Eve
+"ليل[ةه] عيد الميلاد","12-24"
+"عيد الميلاد","12-25"
+"اعياد الميلاد","12-25"
+// http://en.wikipedia.org/wiki/May_Day
+//May Day
+
+"عيد العمال","05-01"
+"يوم العمال","05-01"
+// http://en.wikipedia.org/wiki/St._Patrick%27s_Day
+//Saint Patricks Day
+"يوم القديس باتريك","03-17"

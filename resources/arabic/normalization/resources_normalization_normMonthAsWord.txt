@@ -1,0 +1,31 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "month words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "2" is "02"
+// FORMAT: "month-word","normalized-month-word"
+"كانون (ال)?ثاني","january"
+"شباط","february"
+"[آا]ذار","march"
+"نيسان","april"
+"[اأ]يار","may"
+"حزيران","june"
+"تموز","july"
+"[اآ]ب","august"
+"[اأ]يلول","september"
+"تشرين (ال)?[اأ]ول","october"
+"تشرين (ال)?ثاني","november"
+"كانون (ال)?[اأ]ول","december"
+"يناير","january"
+"فبراير","february"
+"مارس","march"
+"[اأ]بريل","april"
+"مايو","may"
+"يوني[وه]","june"
+"يولي[وه]","july"
+"[اأ]غسطس","august"
+"سبتمبر","september"
+"[اأ]كتوبر","october"
+"نوفمبر","november"
+"ديسمبر","december"

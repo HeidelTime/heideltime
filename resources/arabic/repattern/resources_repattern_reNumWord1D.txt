@@ -1,0 +1,14 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for number word 1 digits.
+// FORMAT: one line is one disjunction of the pattern
+واحد[هة]?
+[اإ]ثن[اي]ن
+ثلاث[هة]?
+[اأ]ربع[هة]?
+خمس[هة]?
+ست[هة]?
+سبع[هة]?
+ثماني[هة]?
+تسع[هة]?

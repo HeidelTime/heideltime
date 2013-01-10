@@ -1,0 +1,126 @@
+// author: Hans-Peter Pfeiffer
+// email:  H.Pfeiffer@stud.uni-heidelberg.de
+// date:   2012-02-11
+// This file contains regular expression patterns for holidays on a moveable date.
+// FORMAT: one line is one disjunction of the pattern
+//
+
+// http://en.wikipedia.org/wiki/Ash_Wednesday
+Ash Wednesday
+
+// http://en.wikipedia.org/wiki/Palm_Sunday
+Palm Sunday
+Yew Sunday
+Branch Sunday
+
+// http://en.wikipedia.org/wiki/Maundy_Thursday
+Maundy Thursday
+Holy Thursday
+Covenant Thursday
+Great & Holy Thursday
+Thursday of Mysteries
+
+// http://en.wikipedia.org/wiki/Good_Friday
+Good Friday
+Holy Friday
+Great Friday
+Easter Friday
+
+// http://en.wikipedia.org/wiki/Holy_Saturday
+Holy Saturday
+Easter Eve
+Black Saturday
+Holy and Great Saturday
+The Great Sabbath
+Joyous Saturday
+
+// http://en.wikipedia.org/wiki/Easter
+Easter
+Easter Day
+Easter Sunday
+Resurrection Day
+Resurrection Sunday
+
+// http://en.wikipedia.org/wiki/Easter_Monday
+Easter Monday
+
+// http://en.wikipedia.org/wiki/Octave_of_Easter
+Octave of Easter
+Octave Day of Easter
+Low Sunday
+Saint Thomas Sunday
+St. Thomas Sunday
+Quasimodo Sunday
+Quasimodogeniti
+Second Sunday of Easter
+Divine Mercy Sunday
+
+// http://en.wikipedia.org/wiki/Feast_of_the_Ascension
+Feast of the Ascension
+Solemnity of the Ascension of the Lord
+Ascension Thursday
+
+// http://en.wikipedia.org/wiki/Father%27s_Day
+Father's Day
+
+// http://en.wikipedia.org/wiki/Reformation_Day
+Reformation Sunday
+
+// http://en.wikipedia.org/wiki/Pentecost
+Pentecost
+Whit Sunday
+Whitsun
+Whit
+
+// http://en.wikipedia.org/wiki/Corpus_Christi_%28feast%29
+Corpus Christi
+The Most Holy Body and Blood of Christ
+
+// advent sundays: the four sundays before christmas(12-24)
+1.Advent
+1st Advent
+first Advent
+
+2.Advent
+2nd Advent
+second Advent
+
+3.Advent
+3rd Advent
+third Advent
+
+4.Advent
+4th Advent
+fourth Advent
+
+// http://en.wikipedia.org/wiki/Black_Friday_%28shopping%29
+Black Friday
+
+// http://en.wikipedia.org/wiki/Martin_Luther_King,_Jr._Day
+Birthday of Martin Luther King, Jr.
+Martin Luther King Day
+Martin Luther King, Jr. Day
+
+// http://en.wikipedia.org/wiki/Washington%27s_Birthday
+Presidents Day
+Presidents' Day
+President's Day
+Washington's Birthday
+
+// http://en.wikipedia.org/wiki/Memorial_Day
+Memorial Day
+Decoration Day
+
+// http://en.wikipedia.org/wiki/Labor_Day
+Labor Day
+يوم العمال
+// http://en.wikipedia.org/wiki/Columbus_Day
+Columbus Day
+
+// http://en.wikipedia.org/wiki/Thanksgiving_%28United_States%29
+Thanksgiving
+Thanksgiving Day
+
+// http://en.wikipedia.org/wiki/Mother%27s_Day
+Mother's Day
+يوم الام

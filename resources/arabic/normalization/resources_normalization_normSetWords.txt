@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "set words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "daily" is "XXXX-XX-XX"
+// FORMAT: "set-word","normalized-set-word"
+"سنويا[ً]?","P1Y"
+"شهريا[ً]?","P1M"
+"يوميا[ً]?","P1D"
+"اسبوعيا[ً]?","P1W"
+"سنوي[هة]?","P1Y"
+"شهري[هة]?","P1M"
+"يومي[هة]?","P1D"
+"اسبوعي[هة]?","P1W"

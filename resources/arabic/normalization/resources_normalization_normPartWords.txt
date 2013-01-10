@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains contains "part words" and their normalized expressions
+// according to TIMEX3 format. 
+// For example, the normalized value of "the middle of" is "MID"
+// FORMAT: "part word","normalized-part-word"
+"بداي[هة]","START"
+"[اأ]ول","START"
+"[اأ]وائل","START"
+"منتصف","MID"
+"وسط","MID"
+"[اأ]واسط","MID"
+"نهاي[هة]","END"
+"[اأ]واخر","END"
+"مطلع","START"
