@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Wed May 04 16:11:59 CEST 2011
- * XML source: /home/jstroetgen/workspace/heideltime-kit/desc/reader/ACETernReader.xml
+ * Updated by JCasGen Thu Sep 20 15:38:14 CEST 2012
+ * XML source: /home/julian/heideltime/heideltime-kit/desc/type/HeidelTime_TypeSystem.xml
  * @generated */
 public class Timex3 extends Annotation {
   /** @generated
@@ -28,7 +28,7 @@ public class Timex3 extends Annotation {
  
   /** Never called.  Disable default constructor
    * @generated */
-  protected Timex3() {}
+  protected Timex3() {/* intentionally empty block */}
     
   /** Internal - constructor used by generator 
    * @generated */

@@ -36,25 +36,19 @@ import de.unihd.dbs.uima.types.heideltime.Timex3;
  *
  */
 public class Tempeval2Writer extends CasConsumer_ImplBase {
-
 	public static final String PARAM_OUTPUTDIR = "OutputDir";
 
 	private File mOutputDir;
-  
-	String toPrintExtents    = "";
-	String toPrintAttributes = "";
 	
 	/**
 	 * initialize
 	 */
 	public void initialize() throws ResourceInitializationException {
-    
 		mOutputDir = new File((String) getConfigParameterValue(PARAM_OUTPUTDIR));
 		if (!mOutputDir.exists()) {
 			mOutputDir.mkdirs();
-		} 
+		}
 	}
-
 
 	/**
 	 * process
@@ -72,44 +66,43 @@ public class Tempeval2Writer extends CasConsumer_ImplBase {
 	}
 	
 	
-	public void printTimexAnnotations(JCas jcas){
-
-		// open files for extents and attributes
-		File outExtents    = new File(mOutputDir, "timex-extents.tab");
+	public void printTimexAnnotations(JCas jcas) {
+		File outExtents = new File(mOutputDir, "timex-extents.tab");
 		File outAttributes = new File(mOutputDir, "timex-attributes.tab");
 		
 		// get timex index
 		FSIndex indexTimex   = jcas.getAnnotationIndex(Timex3.type);
 		FSIterator iterTimex = indexTimex.iterator();
-				
-
 		
 		while (iterTimex.hasNext()){
 			Timex3 t = (Timex3) iterTimex.next();
 			if (!((t.getType().toString().equals("de.unihd.dbs.uima.heidopp.types.tempeval2.GoldTimex3")))){
+				
+				// output extents
+				String toPrintExtents    = "";
 				String[] allTokList = t.getAllTokIds().split("<-->");
 				for (int i=1; i < allTokList.length; i++){
 					toPrintExtents    = toPrintExtents+t.getFilename()+"\t"+t.getSentId()+"\t"+allTokList[i]+
 					"\ttimex3\t"+t.getTimexId()+"\t1\n";					
 				}
-				toPrintAttributes = toPrintAttributes+t.getFilename()+"\t"+t.getSentId()+"\t"+t.getFirstTokId()+
-											"\ttimex3\t"+t.getTimexId()+"\t1\ttype\t"+t.getTimexType()+"\n";
-				toPrintAttributes = toPrintAttributes+t.getFilename()+"\t"+t.getSentId()+"\t"+t.getFirstTokId()+
-											"\ttimex3\t"+t.getTimexId()+"\t1\tvalue\t"+t.getTimexValue()+"\n";
 				
-				// print extents
 				try {
-					BufferedWriter bf = new BufferedWriter(new FileWriter(outExtents));
-					bf.append(toPrintExtents);
+					BufferedWriter bf = new BufferedWriter(new FileWriter(outExtents, true));
+					bf.write(toPrintExtents);
 					bf.close();
-				} catch (IOException e1) {
-					e1.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
+
+				// output attributes
+				String toPrintAttributes = t.getFilename()+"\t"+t.getSentId()+"\t"+t.getFirstTokId()+
+											"\ttimex3\t"+t.getTimexId()+"\t1\ttype\t"+t.getTimexType()+"\n";
+				toPrintAttributes += t.getFilename()+"\t"+t.getSentId()+"\t"+t.getFirstTokId()+
+											"\ttimex3\t"+t.getTimexId()+"\t1\tvalue\t"+t.getTimexValue()+"\n";
 	
-				// print attributes
 				try {
-					BufferedWriter bf = new BufferedWriter(new FileWriter(outAttributes));
-					bf.append(toPrintAttributes);
+					BufferedWriter bf = new BufferedWriter(new FileWriter(outAttributes, true));
+					bf.write(toPrintAttributes);
 					bf.close();
 				} catch (IOException e1) {
 					e1.printStackTrace();
