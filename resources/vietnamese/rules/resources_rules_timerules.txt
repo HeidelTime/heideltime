@@ -57,11 +57,35 @@ RULENAME="vn_time_r1g",EXTRACTION="(%reApproximate )?%reTimeHour(h| giờ) %reTi
 // PART-OF-DAY GRANULARITY //
 /////////////////////////////
 // time_r3
-// EXAMPLE vn_r3a: lúc nửa đêm Thư hai		 midnight Monday
-// EXAMPLE vn_r3b: lúc nửa đêm Hôm nay		 
+// EXAMPLE vn_time_r3a: lúc nửa đêm Thư hai		 midnight Monday
+// EXAMPLE vn_time_r3b: lúc nửa đêm Hôm nay		 
+// EXAMPLE vn_time_r3c:  sáng  (ngày|Ngày)? 29/10/1999
+// EXAMPLE vn_time_r3d:  chiều (ngày|Ngày)? 29-10-1999
+// EXAMPLE vn_time_r3e:  sáng  (ngày|Ngày)? 29/10
+// EXAMPLE vn_time_r3f:  sáng  (ngày|Ngày)? 29-10
+
+
+//EXAMPLE   vn_time_r3g:   sáng (ngày|Ngày)? 29 tháng 10 năm 1999
+//EXAMPLE   vn_time_r3h:   sáng (ngày|Ngày)? 29 tháng 10, 1999
+//EXAMPLE   vn_time_r3i:   sáng (ngày|Ngày)? 29 tháng 10
+
+
 
 RULENAME="vn_time_r3a",EXTRACTION="%rePartOfDay %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(2))T%normPartOfDay(group(1))"
 RULENAME="vn_time_r3b",EXTRACTION="%rePartOfDay %reDateWord",NORM_VALUE="%normDateWord(group(2))T%normPartOfDay(group(1))"
+RULENAME="vn_time_r3c",EXTRACTION="%rePartOfDay (ngày |Ngày )?%reDayNumber/%reMonthNumber/%reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(3))T%normPartOfDay(group(1))"
+RULENAME="vn_time_r3d",EXTRACTION="%rePartOfDay (ngày |Ngày )?%reDayNumber-%reMonthNumber-%reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(3))T%normPartOfDay(group(1))"
+RULENAME="vn_time_r3e",EXTRACTION="%rePartOfDay (ngày |Ngày )?%reDayNumber/%reMonthNumber",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(3))T%normPartOfDay(group(1))"
+RULENAME="vn_time_r3f",EXTRACTION="%rePartOfDay (ngày |Ngày )%reDayNumber-%reMonthNumber",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(3))T%normPartOfDay(group(1))"
+
+
+RULENAME="vn_time_r3g",EXTRACTION="%rePartOfDay (ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm|) %reYear4Digit",NORM_VALUE="group(7)-%normMonth(group(5))-%normDay(group(3))T%normPartOfDay(group(1))"
+RULENAME="vn_time_r3h",EXTRACTION="%rePartOfDay (ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber(,) %reYear4Digit",NORM_VALUE="group(7)-%normMonth(group(5))-%normDay(group(3))T%normPartOfDay(group(1))"
+RULENAME="vn_time_r3i",EXTRACTION="%rePartOfDay (ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber",NORM_VALUE="UNDEF-year-%normMonth(group(5))-%normDay(group(3))T%normPartOfDay(group(1))"
+
+
+
+
 
 ///////////////////////////
 // TIMEPOINT GRANULARITY //
@@ -75,12 +99,25 @@ RULENAME="vn_time_r3b",EXTRACTION="%rePartOfDay %reDateWord",NORM_VALUE="%normDa
 // EXAMPLE r5e-1: 10:30:34 a.m.
 // EXAMPLE r5e-1: 10:30:34 p.m.
 RULENAME="vn_time_r5a",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="vn_time_r5a1",EXTRACTION="(%reApproximate )?%reTimeHour (giờ|h) (sáng)?",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):00",NORM_MOD="%normApprox4Dates(group(2))"
+
 RULENAME="vn_time_r5b",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="vn_time_r5b1",EXTRACTION="(%reApproximate )?%reTimeHour (giờ|h) (chiều|tối)",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
+
 RULENAME="vn_time_r5c",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="vn_time_r5c1",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute (phút )?(sáng)?",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+
 RULENAME="vn_time_r5d",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="vn_time_r5d1",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute (phút )?(chiều|tối)",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+
 RULENAME="vn_time_r5e",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+
+RULENAME="vn_time_r5e1",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute (giây )?(sáng)?",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+
+
 RULENAME="vn_time_r5f",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
 
+RULENAME="vn_time_r5f1",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute (giây )?(chiều|tối)",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
 
 
 // time_r6

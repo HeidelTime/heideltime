@@ -11,5 +11,5 @@
 [Nn]ăm
 [Tt]hập niên
 [Tt]hế kỷ
-[Gg]iờ
-[Pp]hút
+//[Gg]iờ Hour
+//[Pp]hút Minute
