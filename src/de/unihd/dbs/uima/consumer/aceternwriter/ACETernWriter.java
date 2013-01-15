@@ -46,10 +46,13 @@ import de.unihd.dbs.uima.types.heideltime.SourceDocInfo;
 public class ACETernWriter extends CasConsumer_ImplBase {
 
 	public static final String PARAM_OUTPUTDIR = "OutputDir";
+	public static final String PARAM_CONVERTTIMEX3TO2 = "ConvertTimex3To2";
 
 	private File mOutputDir;
  
 	private int mDocNum;
+	
+	private Boolean convertTimex3To2 = true;
 	
 	private boolean printDetails = false;
 
@@ -59,6 +62,7 @@ public class ACETernWriter extends CasConsumer_ImplBase {
 	public void initialize() throws ResourceInitializationException {
     
 		mDocNum = 0;
+		convertTimex3To2 = (Boolean) getConfigParameterValue(PARAM_CONVERTTIMEX3TO2);
 		mOutputDir = new File((String) getConfigParameterValue(PARAM_OUTPUTDIR));
 		if (!mOutputDir.exists()) {
 			mOutputDir.mkdirs();
@@ -132,9 +136,11 @@ public class ACETernWriter extends CasConsumer_ImplBase {
 			}else{
 				// CHANGES DUE TO TIMEX2 not equal TIMEX3
 				String timexvalue = t.getTimexValue();
-				timexvalue = translatetimex3timex2(timexvalue);
-				if (t.getTimexType().equals("SET")){
-					timexvalue = translatetimex3timex2set(timexvalue); 
+				if(convertTimex3To2) {
+					timexvalue = translatetimex3timex2(timexvalue);
+					if (t.getTimexType().equals("SET")){
+						timexvalue = translatetimex3timex2set(timexvalue); 
+					}
 				}
 				toprint = toprint + doctext.substring(startposition, endposition); // text from begin or last timex to begin of new timex
 				toprint = toprint + "<TIMEX2 val=\"" + timexvalue + "\">";         // timex opening tag
