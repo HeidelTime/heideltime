@@ -180,6 +180,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		procMan.executeProcessors(jcas, Priority.PREPROCESSING);
 		
 		RuleManager rulem = RuleManager.getInstance();
+		
+		timexID = 1; // reset counter once per document processing
 
 		timex_counter = 0;
 		
@@ -1629,7 +1631,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 									diff = 0;
 								}
 								//  Tense is FUTURE
-								if ((last_used_tense.equals("FUTURE")) || (last_used_tense.equals("PRESENTFUTURE"))) {
+								if ((last_used_tense.equals("FUTURE"))) {
 									diff = diff + 7;
 								}
 								// Tense is PAST
