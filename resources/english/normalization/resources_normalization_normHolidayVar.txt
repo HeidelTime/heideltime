@@ -13,120 +13,120 @@
 //
 
 // http://en.wikipedia.org/wiki/Ash_Wednesday
-"Ash Wednesday","funcDateCalc(EasterSunday(YEAR, -46))"
+"Ash Wednesday","00-00 funcDateCalc(EasterSunday(YEAR, -46))"
 
 // http://en.wikipedia.org/wiki/Palm_Sunday
-"Palm Sunday","funcDateCalc(EasterSunday(YEAR, -7))"
-"Yew Sunday","funcDateCalc(EasterSunday(YEAR, -7))"
-"Branch Sunday","funcDateCalc(EasterSunday(YEAR, -7))"
+"Palm Sunday","00-00 funcDateCalc(EasterSunday(YEAR, -7))"
+"Yew Sunday","00-00 funcDateCalc(EasterSunday(YEAR, -7))"
+"Branch Sunday","00-00 funcDateCalc(EasterSunday(YEAR, -7))"
 
 // http://en.wikipedia.org/wiki/Maundy_Thursday
-"Maundy Thursday","funcDateCalc(EasterSunday(YEAR, -3))"
-"Holy Thursday","funcDateCalc(EasterSunday(YEAR, -3))"
-"Covenant Thursday","funcDateCalc(EasterSunday(YEAR, -3))"
-"Great & Holy Thursday","funcDateCalc(EasterSunday(YEAR, -3))"
-"Thursday of Mysteries","funcDateCalc(EasterSunday(YEAR, -3))"
+"Maundy Thursday","00-00 funcDateCalc(EasterSunday(YEAR, -3))"
+"Holy Thursday","00-00 funcDateCalc(EasterSunday(YEAR, -3))"
+"Covenant Thursday","00-00 funcDateCalc(EasterSunday(YEAR, -3))"
+"Great & Holy Thursday","00-00 funcDateCalc(EasterSunday(YEAR, -3))"
+"Thursday of Mysteries","00-00 funcDateCalc(EasterSunday(YEAR, -3))"
 
 // http://en.wikipedia.org/wiki/Good_Friday
-"Good Friday","funcDateCalc(EasterSunday(YEAR, -2))" 
-"Holy Friday","funcDateCalc(EasterSunday(YEAR, -2))"
-"Great Friday","funcDateCalc(EasterSunday(YEAR, -2))"
-"Easter Friday","funcDateCalc(EasterSunday(YEAR, -2))"
+"Good Friday","00-00 funcDateCalc(EasterSunday(YEAR, -2))" 
+"Holy Friday","00-00 funcDateCalc(EasterSunday(YEAR, -2))"
+"Great Friday","00-00 funcDateCalc(EasterSunday(YEAR, -2))"
+"Easter Friday","00-00 funcDateCalc(EasterSunday(YEAR, -2))"
 
 // http://en.wikipedia.org/wiki/Holy_Saturday
-"Holy Saturday","funcDateCalc(EasterSunday(YEAR, -1))"
-"Easter Eve","funcDateCalc(EasterSunday(YEAR, -1))"
-"Black Saturday","funcDateCalc(EasterSunday(YEAR, -1))"
-"Holy and Great Saturday","funcDateCalc(EasterSunday(YEAR, -1))"
-"The Great Sabbath","funcDateCalc(EasterSunday(YEAR, -1))"
-"Joyous Saturday","funcDateCalc(EasterSunday(YEAR, -1))"
+"Holy Saturday","00-00 funcDateCalc(EasterSunday(YEAR, -1))"
+"Easter Eve","00-00 funcDateCalc(EasterSunday(YEAR, -1))"
+"Black Saturday","00-00 funcDateCalc(EasterSunday(YEAR, -1))"
+"Holy and Great Saturday","00-00 funcDateCalc(EasterSunday(YEAR, -1))"
+"The Great Sabbath","00-00 funcDateCalc(EasterSunday(YEAR, -1))"
+"Joyous Saturday","00-00 funcDateCalc(EasterSunday(YEAR, -1))"
 
 // http://en.wikipedia.org/wiki/Easter
-"Easter","funcDateCalc(EasterSunday(YEAR, 0))"
-"Easter Day","funcDateCalc(EasterSunday(YEAR, 0))" 
-"Easter Sunday","funcDateCalc(EasterSunday(YEAR, 0))"
-"Resurrection Day","funcDateCalc(EasterSunday(YEAR, 0))"
-"Resurrection Sunday","funcDateCalc(EasterSunday(YEAR, 0))"
+"Easter","00-00 funcDateCalc(EasterSunday(YEAR, 0))"
+"Easter Day","00-00 funcDateCalc(EasterSunday(YEAR, 0))" 
+"Easter Sunday","00-00 funcDateCalc(EasterSunday(YEAR, 0))"
+"Resurrection Day","00-00 funcDateCalc(EasterSunday(YEAR, 0))"
+"Resurrection Sunday","00-00 funcDateCalc(EasterSunday(YEAR, 0))"
 
 // http://en.wikipedia.org/wiki/Easter_Monday
-"Easter Monday","funcDateCalc(EasterSunday(YEAR, 1))"
+"Easter Monday","00-00 funcDateCalc(EasterSunday(YEAR, 1))"
 
 // http://en.wikipedia.org/wiki/Octave_of_Easter
-"Octave of Easter","funcDateCalc(EasterSunday(YEAR, 7))"
-"Octave Day of Easter","funcDateCalc(EasterSunday(YEAR, 7))"
-"Low Sunday","funcDateCalc(EasterSunday(YEAR, 7))"
-"Saint Thomas Sunday","funcDateCalc(EasterSunday(YEAR, 7))"
-"St. Thomas Sunday","funcDateCalc(EasterSunday(YEAR, 7))"
-"Quasimodo Sunday","funcDateCalc(EasterSunday(YEAR, 7))" 
-"Quasimodogeniti","funcDateCalc(EasterSunday(YEAR, 7))"
-"Second Sunday of Easter","funcDateCalc(EasterSunday(YEAR, 7))"
-"Divine Mercy Sunday","funcDateCalc(EasterSunday(YEAR, 7))" 
+"Octave of Easter","00-00 funcDateCalc(EasterSunday(YEAR, 7))"
+"Octave Day of Easter","00-00 funcDateCalc(EasterSunday(YEAR, 7))"
+"Low Sunday","00-00 funcDateCalc(EasterSunday(YEAR, 7))"
+"Saint Thomas Sunday","00-00 funcDateCalc(EasterSunday(YEAR, 7))"
+"St. Thomas Sunday","00-00 funcDateCalc(EasterSunday(YEAR, 7))"
+"Quasimodo Sunday","00-00 funcDateCalc(EasterSunday(YEAR, 7))" 
+"Quasimodogeniti","00-00 funcDateCalc(EasterSunday(YEAR, 7))"
+"Second Sunday of Easter","00-00 funcDateCalc(EasterSunday(YEAR, 7))"
+"Divine Mercy Sunday","00-00 funcDateCalc(EasterSunday(YEAR, 7))" 
 
 // http://en.wikipedia.org/wiki/Feast_of_the_Ascension
-"Feast of the Ascension","funcDateCalc(EasterSunday(YEAR, 39))"
-"Solemnity of the Ascension of the Lord","funcDateCalc(EasterSunday(YEAR, 39))" 
-"Ascension Thursday","funcDateCalc(EasterSunday(YEAR, 39))"
+"Feast of the Ascension","00-00 funcDateCalc(EasterSunday(YEAR, 39))"
+"Solemnity of the Ascension of the Lord","00-00 funcDateCalc(EasterSunday(YEAR, 39))" 
+"Ascension Thursday","00-00 funcDateCalc(EasterSunday(YEAR, 39))"
 
 // http://en.wikipedia.org/wiki/Father%27s_Day
-"Father's Day","funcDateCalc(EasterSunday(YEAR, 39))"
+"Father's Day","06-00 funcDateCalc(EasterSunday(YEAR, 39))"
 
 // http://en.wikipedia.org/wiki/Reformation_Day
-"Reformation Sunday","funcDateCalc(WeekdayRelativeTo(YEAR-10-31, 1, -1, true))"
+"Reformation Sunday","10-00 funcDateCalc(WeekdayRelativeTo(YEAR-10-31, 1, -1, true))"
 
 // http://en.wikipedia.org/wiki/Pentecost
-"Pentecost","funcDateCalc(EasterSunday(YEAR, 49))" 
-"Whit Sunday","funcDateCalc(EasterSunday(YEAR, 49))"
-"Whitsun","funcDateCalc(EasterSunday(YEAR, 49))"
-"Whit","funcDateCalc(EasterSunday(YEAR, 49))"
+"Pentecost","00-00 funcDateCalc(EasterSunday(YEAR, 49))" 
+"Whit Sunday","00-00 funcDateCalc(EasterSunday(YEAR, 49))"
+"Whitsun","00-00 funcDateCalc(EasterSunday(YEAR, 49))"
+"Whit","00-00 funcDateCalc(EasterSunday(YEAR, 49))"
 
 // http://en.wikipedia.org/wiki/Corpus_Christi_%28feast%29
-"Corpus Christi","funcDateCalc(EasterSunday(YEAR, 60))"
-"The Most Holy Body and Blood of Christ","funcDateCalc(EasterSunday(YEAR, 60))"
+"Corpus Christi","00-00 funcDateCalc(EasterSunday(YEAR, 60))"
+"The Most Holy Body and Blood of Christ","00-00 funcDateCalc(EasterSunday(YEAR, 60))"
 
 // advent sundays: the four sundays before christmas(12-24)
-"1.Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
-"1st Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
-"first Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
+"1.Advent","00-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
+"1st Advent","00-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
+"first Advent","00-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
 
-"2.Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
-"2nd Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
-"second Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
+"2.Advent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
+"2nd Advent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
+"second Advent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
 
-"3.Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
-"3rd Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
-"third Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
+"3.Advent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
+"3rd Advent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
+"third Advent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
 
-"4.Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"
-"4th Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"
-"fourth Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"
+"4.Advent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"
+"4th Advent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"
+"fourth Advent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"
 
 // http://en.wikipedia.org/wiki/Black_Friday_%28shopping%29
-"Black Friday","funcDateCalc(WeekdayRelativeTo(YEAR-11-01, 6, 4, true))"
+"Black Friday","11-00 funcDateCalc(WeekdayRelativeTo(YEAR-11-01, 6, 4, true))"
 
 // http://en.wikipedia.org/wiki/Martin_Luther_King,_Jr._Day
-"Birthday of Martin Luther King, Jr.","funcDateCalc(WeekdayRelativeTo(YEAR-01-01, 2, 3, true))"
-"Martin Luther King Day","funcDateCalc(WeekdayRelativeTo(YEAR-01-01, 2, 3, true))"
-"Martin Luther King, Jr. Day","funcDateCalc(WeekdayRelativeTo(YEAR-01-01, 2, 3, true))"
+"Birthday of Martin Luther King, Jr.","01-00 funcDateCalc(WeekdayRelativeTo(YEAR-01-01, 2, 3, true))"
+"Martin Luther King Day","01-00 funcDateCalc(WeekdayRelativeTo(YEAR-01-01, 2, 3, true))"
+"Martin Luther King, Jr. Day","01-00 funcDateCalc(WeekdayRelativeTo(YEAR-01-01, 2, 3, true))"
 
 // http://en.wikipedia.org/wiki/Washington%27s_Birthday
-"Presidents Day","funcDateCalc(WeekdayRelativeTo(YEAR-02-01, 2, 3, true))"
-"Presidents' Day","funcDateCalc(WeekdayRelativeTo(YEAR-02-01, 2, 3, true))"
-"President's Day","funcDateCalc(WeekdayRelativeTo(YEAR-02-01, 2, 3, true))"
-"Washington's Birthday","funcDateCalc(WeekdayRelativeTo(YEAR-02-01, 2, 3, true))"
+"Presidents Day","02-00 funcDateCalc(WeekdayRelativeTo(YEAR-02-01, 2, 3, true))"
+"Presidents' Day","02-00 funcDateCalc(WeekdayRelativeTo(YEAR-02-01, 2, 3, true))"
+"President's Day","02-00 funcDateCalc(WeekdayRelativeTo(YEAR-02-01, 2, 3, true))"
+"Washington's Birthday","02-00 funcDateCalc(WeekdayRelativeTo(YEAR-02-01, 2, 3, true))"
 
 // http://en.wikipedia.org/wiki/Memorial_Day
-"Memorial Day","funcDateCalc(WeekdayRelativeTo(YEAR-06-01, 2, -1, false))"
-"Decoration Day","funcDateCalc(WeekdayRelativeTo(YEAR-06-01, 2, -1, false))"
+"Memorial Day","05-00 funcDateCalc(WeekdayRelativeTo(YEAR-06-01, 2, -1, false))"
+"Decoration Day","05-00 funcDateCalc(WeekdayRelativeTo(YEAR-06-01, 2, -1, false))"
 
 // http://en.wikipedia.org/wiki/Labor_Day
-"Labor Day","funcDateCalc(WeekdayRelativeTo(YEAR-09-01, 2, 1, true))"
+"Labor Day","09-00 funcDateCalc(WeekdayRelativeTo(YEAR-09-01, 2, 1, true))"
 
 // http://en.wikipedia.org/wiki/Columbus_Day
-"Columbus Day","funcDateCalc(WeekdayRelativeTo(YEAR-10-01, 2, 2, true))"
+"Columbus Day","10-00 funcDateCalc(WeekdayRelativeTo(YEAR-10-01, 2, 2, true))"
 
 // http://en.wikipedia.org/wiki/Thanksgiving_%28United_States%29
-"Thanksgiving","funcDateCalc(WeekdayRelativeTo(YEAR-11-01, 5, 4, true))"
-"Thanksgiving Day","funcDateCalc(WeekdayRelativeTo(YEAR-11-01, 5, 4, true))"
+"Thanksgiving","11-00 funcDateCalc(WeekdayRelativeTo(YEAR-11-01, 5, 4, true))"
+"Thanksgiving Day","11-00 funcDateCalc(WeekdayRelativeTo(YEAR-11-01, 5, 4, true))"
 
 // http://en.wikipedia.org/wiki/Mother%27s_Day
-"Mother's Day","funcDateCalc(WeekdayRelativeTo(YEAR-05-01, 1, 2, true))"
+"Mother's Day","05-00 funcDateCalc(WeekdayRelativeTo(YEAR-05-01, 1, 2, true))"

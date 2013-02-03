@@ -280,10 +280,10 @@ RULENAME="date_r24d",EXTRACTION="%reHolidayFix '%reYear2Digit",NORM_VALUE="UNDEF
 //EXAMPLE r25c_1: Eastersunday 87
 //EXAMPLE r25d_1: Eastersunday '87
 
-RULENAME="date_r25a",EXTRACTION="%reHolidayVar",NORM_VALUE="UNDEF-year-00-00 %normHolidayVar(group(1))"
-RULENAME="date_r25b",EXTRACTION="%reHolidayVar %reYear4Digit",NORM_VALUE="group(2)-00-00 %normHolidayVar(group(1))"
-RULENAME="date_r25c",EXTRACTION="%reHolidayVar %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-00-00 %normHolidayVar(group(1))"
-RULENAME="date_r25d",EXTRACTION="%reHolidayVar '%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-00-00 %normHolidayVar(group(1))"
+RULENAME="date_r25a",EXTRACTION="%reHolidayVar",NORM_VALUE="UNDEF-year-%normHolidayVar(group(1))"
+RULENAME="date_r25b",EXTRACTION="%reHolidayVar %reYear4Digit",NORM_VALUE="group(2)-%normHolidayVar(group(1))"
+RULENAME="date_r25c",EXTRACTION="%reHolidayVar %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayVar(group(1))"
+RULENAME="date_r25d",EXTRACTION="%reHolidayVar '%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayVar(group(1))"
 
 
 ////////////////////
