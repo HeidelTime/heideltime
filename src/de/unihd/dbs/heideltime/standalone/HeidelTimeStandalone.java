@@ -74,6 +74,12 @@ public class HeidelTimeStandalone {
 	 */
 	private Language language;
 
+
+	/**
+	 * output format
+	 */
+	private OutputType outputType;
+
 	/**
 	 * Logging engine
 	 */
@@ -89,6 +95,7 @@ public class HeidelTimeStandalone {
 	public HeidelTimeStandalone(Language language, DocumentType typeToProcess, OutputType outputType) {
 		this.language = language;
 		this.documentType = typeToProcess;
+		this.outputType = outputType;
 
 		logger.log(Level.INFO, "HeidelTimeStandalone initialized with language "+this.language.toString());
 
@@ -190,6 +197,46 @@ public class HeidelTimeStandalone {
 		partOfSpeechTagger.process(jcas, language);
 
 		logger.log(Level.FINEST, "Part of speech information established");
+	}
+
+	private ResultFormatter getFormatter() {
+		if (outputType.toString().equals("xmi")){
+			return new XMIResultFormatter();
+		} else {
+			return new TimeMLResultFormatter();
+		}
+	}
+
+	/**
+	 * Processes document with HeidelTime
+	 *
+	 * @param document
+	 * @return Annotated document
+	 * @throws DocumentCreationTimeMissingException
+	 *             If document creation time is missing when processing a
+	 *             document of type {@link DocumentType#NEWS}. Use
+	 *             {@link #process(String, Date)} instead to provide document
+	 *             creation time!
+	 */
+	public String process(String document)
+			throws DocumentCreationTimeMissingException {
+		return process(document, null, getFormatter());
+	}
+
+	/**
+	 * Processes document with HeidelTime
+	 *
+	 * @param document
+	 * @return Annotated document
+	 * @throws DocumentCreationTimeMissingException
+	 *             If document creation time is missing when processing a
+	 *             document of type {@link DocumentType#NEWS}. Use
+	 *             {@link #process(String, Date)} instead to provide document
+	 *             creation time!
+	 */
+	public String process(String document, Date documentCreationTime)
+			throws DocumentCreationTimeMissingException {
+		return process(document, documentCreationTime, getFormatter());
 	}
 
 	/**
@@ -456,15 +503,7 @@ public class HeidelTimeStandalone {
 			input = new String(input.getBytes("UTF-8"), "UTF-8");
 			
 			HeidelTimeStandalone standalone = new HeidelTimeStandalone(language, type, outputType);
-			String out = new String();
-			if (outputType.toString().equals("xmi")){
-				ResultFormatter resultFormatter = new XMIResultFormatter();
-				out = standalone.process(input, dct, resultFormatter);	
-			}
-			else{
-				ResultFormatter resultFormatter = new TimeMLResultFormatter();
-				out = standalone.process(input, dct, resultFormatter);
-			}
+			String out = standalone.process(input, dct);
 			
 			// Print output always as UTF-8
 			PrintWriter pwOut = new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"));
