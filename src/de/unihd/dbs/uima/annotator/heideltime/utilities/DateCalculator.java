@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 /**
  * 
@@ -64,8 +65,8 @@ public class DateCalculator {
 	 * @param x amount of weeks to go forward
 	 * @return new week
 	 */
-	public static String getXNextWeek(String date, Integer x) {
-		NormalizationManager nm = NormalizationManager.getInstance();
+	public static String getXNextWeek(String date, Integer x, Language language) {
+		NormalizationManager nm = NormalizationManager.getInstance(language);
 		String date_no_W = date.replace("W", "");
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-w");
 		String newDate = "";

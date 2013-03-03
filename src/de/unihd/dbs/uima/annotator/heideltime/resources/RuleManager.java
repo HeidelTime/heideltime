@@ -20,7 +20,7 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
  * 
  */
 public class RuleManager extends GenericResourceManager {
-	private static RuleManager INSTANCE = null;
+	protected static HashMap<Language, RuleManager> instances = new HashMap<Language, RuleManager>();
 
 	// PATTERNS TO READ RESOURCES "RULES" AND "NORMALIZATION"
 	Pattern paReadRules = Pattern
@@ -77,13 +77,13 @@ public class RuleManager extends GenericResourceManager {
 	 */
 	private RuleManager(String language) {
 		// Process Generic constructor with rules parameter
-		super("rules");
+		super("rules", language);
 
 		// /////////////////////////////////////////////////
 		// READ RULE RESOURCES FROM FILES AND STORE THEM //
 		// /////////////////////////////////////////////////
 		HashMap<String, String> hmResourcesRules = readResourcesFromDirectory();
-		readRules(hmResourcesRules);
+		readRules(hmResourcesRules, language);
 	}
 
 	/**
@@ -91,11 +91,13 @@ public class RuleManager extends GenericResourceManager {
 	 * 
 	 * @return singleton instance of RuleManager
 	 */
-	public static RuleManager getInstance() {
-		if (RuleManager.INSTANCE == null)
-			RuleManager.INSTANCE = new RuleManager(LANGUAGE);
-
-		return RuleManager.INSTANCE;
+	public static RuleManager getInstance(Language language) {
+		if(!instances.containsKey(language)) {
+			RuleManager nm = new RuleManager(language.getResourceFolder());
+			instances.put(language, nm);
+		}
+		
+		return instances.get(language);
 	}
 
 	/**
@@ -105,7 +107,7 @@ public class RuleManager extends GenericResourceManager {
 	 * @param hmResourcesRules
 	 *            rules to be interpreted
 	 */
-	public void readRules(HashMap<String, String> hmResourcesRules) {
+	public void readRules(HashMap<String, String> hmResourcesRules, String language) {
 		try {
 			for (String resource : hmResourcesRules.keySet()) {
 				BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -141,7 +143,7 @@ public class RuleManager extends GenericResourceManager {
 						// //////////////////////////////////////////////////////////////////
 						// create pattern for rule extraction part
 						Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]*)");
-						RePatternManager rpm = RePatternManager.getInstance();
+						RePatternManager rpm = RePatternManager.getInstance(Language.getLanguageFromString(language));
 						for (MatchResult mr : Toolbox.findMatches(paVariable, rule_extraction)) {
 							Logger.printDetail("DEBUGGING: replacing patterns..." + mr.group());
 							if (!(rpm.containsKey(mr.group(1)))) {
