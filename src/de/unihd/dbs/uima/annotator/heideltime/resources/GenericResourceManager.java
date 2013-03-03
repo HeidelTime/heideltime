@@ -17,7 +17,7 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
  */
 public abstract class GenericResourceManager {
 	// language for the utilized resources
-	public static String LANGUAGE;
+	protected String LANGUAGE;
 	// kind of resource -- e.g. repattern, normalization, rules
 	protected String resourceType;
 	// local package for logging output
@@ -27,8 +27,9 @@ public abstract class GenericResourceManager {
 	 * Instantiates the Resource Manager with a resource type
 	 * @param resourceType kind of resource to represent
 	 */
-	protected GenericResourceManager(String resourceType) {
+	protected GenericResourceManager(String resourceType, String language) {
 		this.resourceType = resourceType;
+		this.LANGUAGE = language;
 		this.component = this.getClass();
 	}
 

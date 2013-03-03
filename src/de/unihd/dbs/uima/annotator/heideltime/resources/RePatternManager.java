@@ -16,7 +16,7 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
  *
  */
 public class RePatternManager extends GenericResourceManager {
-	private static RePatternManager INSTANCE = null;
+	protected static HashMap<Language, RePatternManager> instances = new HashMap<Language, RePatternManager>();
 	
 	// STORE PATTERNS AND NORMALIZATIONS
 	private TreeMap<String, String> hmAllRePattern;
@@ -28,7 +28,7 @@ public class RePatternManager extends GenericResourceManager {
 	 */
 	private RePatternManager(String language) {
 		// calls the Generic constructor with repattern parameter
-		super("repattern");
+		super("repattern", language);
 		// initialize the member map of all repatterns
 		hmAllRePattern = new TreeMap<String, String>();
 
@@ -46,11 +46,13 @@ public class RePatternManager extends GenericResourceManager {
 	 * singleton producer.
 	 * @return singleton instance of RePatternManager
 	 */
-	public static RePatternManager getInstance() {
-		if(RePatternManager.INSTANCE == null)
-			RePatternManager.INSTANCE = new RePatternManager(LANGUAGE);
+	public static RePatternManager getInstance(Language language) {
+		if(!instances.containsKey(language)) {
+			RePatternManager nm = new RePatternManager(language.getResourceFolder());
+			instances.put(language, nm);
+		}
 		
-		return RePatternManager.INSTANCE;
+		return instances.get(language);
 	}
 	
 	
