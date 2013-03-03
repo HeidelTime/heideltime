@@ -16,8 +16,6 @@ package de.unihd.dbs.heideltime.standalone.components;
 
 import org.apache.uima.jcas.JCas;
 
-import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
-
 /**
  * Part of speech tagger
  * 
@@ -31,5 +29,5 @@ public interface PartOfSpeechTagger {
 	 * @param jcas
 	 * @param language Language of document
 	 */
-	public void process(JCas jcas, Language language);
+	public void process(JCas jcas);
 }

@@ -21,7 +21,11 @@ import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.FSIndex;
 import org.apache.uima.cas.FSIterator;
+import org.apache.uima.impl.RootUimaContext_impl;
 import org.apache.uima.jcas.JCas;
+import org.apache.uima.resource.ConfigurationManager;
+import org.apache.uima.resource.impl.ConfigurationManager_impl;
+import org.apache.uima.resource.impl.ResourceManager_impl;
 
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
@@ -61,18 +65,18 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	 */
 	private class TreeTaggerProperties {
 		// treetagger language name for par files
-		public String languageName;
+		public String languageName = null;
 		
 		// absolute path of the treetagger
-		public String rootPath;
+		public String rootPath = null;
 
 		// Files for tokenizer and part of speech tagger (standard values)
-		public String tokScriptName;
-		public String parFileName;
-		public String abbFileName;
+		public String tokScriptName = null;
+		public String parFileName = null;
+		public String abbFileName = null;
 
 		// english, italian, and french tagger models require additional splits (see tagger readme)
-		public String languageSwitch;
+		public String languageSwitch = null;
 
 		// perl requires(?) special hint for utf-8-encoded input/output (see http://perldoc.perl.org/perlrun.html#Command-Switches -C)
 		// The input text is read in HeidelTimeStandalone.java and always translated into UTF-8,
@@ -82,6 +86,55 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		// save System-specific separators for string generation
 		public String newLineSeparator = System.getProperty("line.separator");
 		public String fileSeparator = System.getProperty("file.separator");
+	}
+	
+	/**
+	 * uimacontext to make secondary initialize() method possible.
+	 * -> programmatic, non-uima pipeline usage.
+	 * @author julian
+	 *
+	 */
+	private class TreeTaggerContext extends RootUimaContext_impl {
+		public TreeTaggerContext(Language language, Boolean annotateTokens, Boolean annotateSentences, 
+				Boolean annotatePartOfSpeech, Boolean improveGermanSentences) {
+			super();
+
+			// Initialize config
+			ConfigurationManager configManager = new ConfigurationManager_impl();
+
+			// Initialize context
+			this.initializeRoot(null, new ResourceManager_impl(), configManager);
+
+			// Set session
+			configManager.setSession(this.getSession());
+			
+			// Set necessary variables
+			configManager.setConfigParameterValue(makeQualifiedName(PARAM_LANGUAGE), language.getName());
+			configManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_TOKENS), annotateTokens);
+			configManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_PARTOFSPEECH), annotatePartOfSpeech);
+			configManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_SENTENCES), annotateSentences);
+			configManager.setConfigParameterValue(makeQualifiedName(PARAM_IMPROVE_GERMAN_SENTENCES), improveGermanSentences);
+		}
+	}
+	
+	/**
+	 * secondary initialize() to use wrapper outside of a uima pipeline
+	 * @param language
+	 * @param treeTaggerHome
+	 * @param annotateTokens
+	 * @param annotateSentences
+	 * @param annotatePartOfSpeech
+	 * @param improveGermanSentences
+	 */
+	public void initialize(Language language, String treeTaggerHome, Boolean annotateTokens, 
+			Boolean annotateSentences, Boolean annotatePartOfSpeech, Boolean improveGermanSentences) {
+		this.setHome(treeTaggerHome);
+		
+		TreeTaggerContext ttContext = new TreeTaggerContext(language, annotateTokens, 
+				annotateSentences, annotatePartOfSpeech, improveGermanSentences);
+		
+		this.initialize(ttContext); 
+		
 	}
 	
 	/**
@@ -99,14 +152,15 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		
 		// set some configuration based upon these values
 		ttprops.languageName = language.getTreeTaggerLangName();
-		ttprops.rootPath = System.getenv("TREETAGGER_HOME");
+		if(ttprops.rootPath == null)
+			ttprops.rootPath = System.getenv("TREETAGGER_HOME");
 		ttprops.tokScriptName = "utf8-tokenize.perl";
 		ttprops.parFileName = ttprops.languageName + ".par";
 		ttprops.abbFileName = ttprops.languageName + "-abbreviations";
 		ttprops.languageSwitch = language.getTreeTaggerSwitch();
 
 		// handle the treetagger path from the environment variables
-		if((ttprops.rootPath = System.getenv("TREETAGGER_HOME")) == null) {
+		if(ttprops.rootPath == null) {
 			Logger.printError("TreeTagger environment variable is not present, aborting.");
 			System.exit(-1);
 		}
@@ -360,6 +414,10 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			tmpDocument.delete();
 		}
 
+	}
+	
+	public void setHome(String home) {
+		this.ttprops.rootPath = home; 
 	}
 
 	/**
