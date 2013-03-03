@@ -110,7 +110,7 @@ public class HeidelTimeStandalone {
 		this.documentType = typeToProcess;
 		this.outputType = outputType;
 
-		logger.log(Level.INFO, "HeidelTimeStandalone initialized with language "+this.language.toString());
+		logger.log(Level.INFO, "HeidelTimeStandalone initialized with language "+this.language.getName());
 
 		// read in configuration in case it's not yet initialized
 		if(!Config.isInitialized()) {
