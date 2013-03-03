@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<casConsumerDescription xmlns="http://uima.apache.org/resourceSpecifier">
+<?xml version="1.0" encoding="UTF-8"?><casConsumerDescription xmlns="http://uima.apache.org/resourceSpecifier">
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <implementationName>de.unihd.dbs.uima.consumer.aceternwriter.ACETernWriter</implementationName>
   <processingResourceMetaData>
@@ -14,12 +13,24 @@
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
+      <configurationParameter>
+        <name>ConvertTimex3To2</name>
+        <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
         <name>OutputDir</name>
         <value>
           <string>temp-uima-out/</string>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>ConvertTimex3To2</name>
+        <value>
+          <boolean>true</boolean>
         </value>
       </nameValuePair>
     </configurationParameterSettings>
