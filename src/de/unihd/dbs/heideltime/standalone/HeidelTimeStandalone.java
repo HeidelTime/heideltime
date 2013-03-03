@@ -215,7 +215,8 @@ public class HeidelTimeStandalone {
 
 		TreeTaggerWrapper partOfSpeechTagger = new TreeTaggerWrapper();
 		partOfSpeechTagger.setLogger(logger);
-		partOfSpeechTagger.process(jcas, language);
+		partOfSpeechTagger.initialize(language, true, true, true, true);
+		partOfSpeechTagger.process(jcas);
 
 		logger.log(Level.FINEST, "Part of speech information established");
 	}

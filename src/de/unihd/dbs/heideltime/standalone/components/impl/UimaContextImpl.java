@@ -60,7 +60,7 @@ public class UimaContextImpl extends RootUimaContext_impl {
 				Boolean.parseBoolean(Config.get(Config.CONSIDER_DURATION)));
 		configManager.setConfigParameterValue(
 				makeQualifiedName(Config.get(Config.UIMAVAR_LANGUAGE)),
-				language.toString());
+				language.getName());
 		configManager.setConfigParameterValue(
 				makeQualifiedName(Config.get(Config.UIMAVAR_SET)),
 				Boolean.parseBoolean(Config.get(Config.CONSIDER_SET)));
