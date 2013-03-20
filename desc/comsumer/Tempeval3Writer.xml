@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<casConsumerDescription xmlns="http://uima.apache.org/resourceSpecifier">
+<?xml version="1.0" encoding="UTF-8"?><casConsumerDescription xmlns="http://uima.apache.org/resourceSpecifier">
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <implementationName>de.unihd.dbs.uima.consumer.tempeval3writer.TempEval3Writer</implementationName>
   <processingResourceMetaData>
-    <name>TempEval2 Writer</name>
+    <name>TempEval3 Writer</name>
     <description/>
     <version>1.0</version>
     <vendor/>
