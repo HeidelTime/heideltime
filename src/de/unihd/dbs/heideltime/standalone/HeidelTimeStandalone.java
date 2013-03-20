@@ -88,6 +88,18 @@ public class HeidelTimeStandalone {
 
 	
 	/**
+	 * empty constructor.
+	 * 
+	 * call initialize() after using this!
+	 * 
+	 * @param language
+	 * @param typeToProcess
+	 * @param outputType
+	 */
+	public HeidelTimeStandalone() {
+	}
+	
+	/**
 	 * constructor
 	 * @param language
 	 * @param typeToProcess
@@ -109,8 +121,21 @@ public class HeidelTimeStandalone {
 		this.language = language;
 		this.documentType = typeToProcess;
 		this.outputType = outputType;
-
-		logger.log(Level.INFO, "HeidelTimeStandalone initialized with language "+this.language.getName());
+		
+		this.initialize(language, typeToProcess, outputType, configPath);
+	}
+	
+	
+	/**
+	 * Method that initializes all vital prerequisites
+	 * 
+	 * @param language	Language to be processed with this copy of HeidelTime
+	 * @param typeToProcess	Domain type to be processed
+	 * @param outputType	Output type
+	 * @param configPath	Path to the configuration file for HeidelTimeStandalone
+	 */
+	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, String configPath) {
+		logger.log(Level.INFO, "HeidelTimeStandalone initialized with language " + this.language.getName());
 
 		// read in configuration in case it's not yet initialized
 		if(!Config.isInitialized()) {
@@ -546,6 +571,30 @@ public class HeidelTimeStandalone {
 			logger.log(Level.WARNING, "couldn't close config file handle");
 			e.printStackTrace();
 		}
+	}
+
+	public DocumentType getDocumentType() {
+		return documentType;
+	}
+
+	public void setDocumentType(DocumentType documentType) {
+		this.documentType = documentType;
+	}
+
+	public Language getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(Language language) {
+		this.language = language;
+	}
+
+	public OutputType getOutputType() {
+		return outputType;
+	}
+
+	public void setOutputType(OutputType outputType) {
+		this.outputType = outputType;
 	}
 
 }
