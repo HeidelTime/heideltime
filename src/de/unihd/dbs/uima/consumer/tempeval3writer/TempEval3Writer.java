@@ -102,11 +102,26 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 		Element docidEl = doc.createElement("DOCID");
 		docidEl.appendChild(doc.createTextNode(dct.getFilename()));
 		rootEl.appendChild(docidEl);
+
 		
 		// create DCT tag
 		Element dctEl = doc.createElement("DCT");
-		dctEl.appendChild(doc.createTextNode(dct.getValue()));
+//		dctEl.appendChild(doc.createTextNode(dct.getValue())); // original
+		// NEW
+		Element timexForDCT = doc.createElement("TIMEX3");
+		timexForDCT.setAttribute("tid", "t0");
+		timexForDCT.setAttribute("type", "DATE");
+		timexForDCT.setAttribute("value", dct.getValue());
+		timexForDCT.setAttribute("temporalFunction", "false");
+		timexForDCT.setAttribute("functionInDocument", "CREATION_TIME");
+		timexForDCT.appendChild(doc.createTextNode(dct.getValue()));
+
+//		dctEl.appendChild(doc.createTextNode("<TIMEX3 tid=\"t0\" type=\"DATE\" value=\""+dct.getValue()+
+//				" temporalFunction=\"false\" functionInDocument=\"CREATION_TIME\">"+dct.getValue()+"</TIMEX3>")); // js: rough and dirty fix; dct needs TIMEX tag, doc does not contain original stuff before "TEXT"
+		
+		dctEl.appendChild(timexForDCT); // NEW		
 		rootEl.appendChild(dctEl);
+
 		
 		// create and fill the TEXT tag
 		Integer offset = 0;
