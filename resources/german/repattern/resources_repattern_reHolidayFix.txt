@@ -35,7 +35,7 @@ Heimgang Mariens
 Mari[aä] Entschlafung
 
 // http://de.wikipedia.org/wiki/Tag_der_Deutschen_Einheit
-Tag der [Dd]eutschen Einheit 
+Tag der [Dd]eutschen Einheit
 Tag der Wiedervereinigung
 
 // http://de.wikipedia.org/wiki/Reformationstag
