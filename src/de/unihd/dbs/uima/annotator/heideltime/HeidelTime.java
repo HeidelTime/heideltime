@@ -687,7 +687,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					}
 					// Tense is PAST
 					if ((last_used_tense.equals("PAST"))) {
-						if (dctDecade < viThisDecade) {
+						if (dctDecade <= viThisDecade) {
 							newCenturyValue = dctCentury - 1+"";
 						} else {
 							newCenturyValue = dctCentury+"";
@@ -874,11 +874,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 								}
 							} else if (unit.equals("decade")) {
 								if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
-									int decade = dctDecade;
+									int dctDecadeLong = Integer.parseInt(dctCentury + "" + dctDecade);
+									int decade = dctDecadeLong;
 									if (op.equals("MINUS")) {
-										decade = dctDecade - diff;
+										decade = dctDecadeLong - diff;
 									} else if (op.equals("PLUS")) {
-										decade = dctDecade + diff;
+										decade = dctDecadeLong + diff;
 									}
 									valueNew = valueNew.replace(checkUndef, decade+"X");
 								} else {
