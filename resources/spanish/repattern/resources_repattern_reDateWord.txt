@@ -5,21 +5,25 @@
 // FORMAT: one line is one disjunction of the pattern
 // THESE EXPRESSIONS ARE ALL IMPLICITS
 // SHOULD ONLY BE UPPER CASE IF AT THE BEGINNING OF A SENTENCE
-[Aa]ctual(mente)?
+[Aa]ctual(es|mente)?
 [Aa]hora( mismo)?
 [Aa]nteayer
 [Aa]ntes de ayer
 [Aa]yer
+[Dd]el presente
+([Uu]n|[Ee]l) futuro
 [Ee]stos días
 [Ee]stos momentos
 [Ee]ste momento
 [Hh]oy por hoy
 [Hh]oy
 [Jj]usto ahora
+[Ll]a [Aa]ctualidad
 [Ll]o antes posible
 [Pp]asado mañana
 [Mm]añana
 //[Pp]osterior(mente)?
+[Pp]róxim[oa]s?
 [Pp]ronto
 [Rr]eciente(mente)?
 [Tt]an pronto como sea posible

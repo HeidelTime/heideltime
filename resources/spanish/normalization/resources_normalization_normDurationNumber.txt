@@ -39,6 +39,7 @@
 "31","31"
 // números normales
 "[Uu]n[oa]?","1"
+"[Uu]n par de","2"
 "[Dd]os","2"
 "[Tt]res","3"
 "[Cc]uatro","4"

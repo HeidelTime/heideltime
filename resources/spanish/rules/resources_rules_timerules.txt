@@ -36,7 +36,7 @@ RULENAME="time_r2a",EXTRACTION="(%reMonthNumber-%reDayNumber-%reYear2Digit)( %re
 // EXAMPLE r3d-1: la noche del pasado viernes
 // EXAMPLE r3e-1: la noche del viernes pasado
 // EXAMPLE r3f-1: la mañana del miércoles
-RULENAME="time_r3a",EXTRACTION="%reThisNextLast %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normPartOfDay(group(2))"
+RULENAME="time_r3a",EXTRACTION="%reThisNextLast %rePartOfDay( mism[oa])?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normPartOfDay(group(2))"
 RULENAME="time_r3b",EXTRACTION="([Aa]noche)",NORM_VALUE="UNDEF-last-dayTNI"
 RULENAME="time_r3c",EXTRACTION="([Ee]l|[Ll]a) %rePartOfDay",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normPartOfDay(group(2))"
 RULENAME="time_r3d",EXTRACTION="([Dd]el |[Ee]l |[Ll]a |[Aa]l )?%rePartOfDay ([Dd]e la|[Dd]el|[Ee]l|[Ll]a|[Aa]l) %reThisNextLast %reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(4))-%normWeekday(group(5))T%normPartOfDay(group(2))"

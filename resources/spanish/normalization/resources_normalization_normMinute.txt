@@ -70,6 +70,7 @@
 // minute number words
 "[Cc]ero","00"
 "[Uu]no","01"
+"[Uu]n par de","02"
 "[Dd]os","02"
 "[Tt]res","03"
 "[Cc]uatro","04"

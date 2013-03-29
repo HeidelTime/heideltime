@@ -13,7 +13,7 @@
 [Pp]rácticamente
 [Uu]n[oa]s
 // less
-[Hh]ace
+// [Hh]ace
 // "hace dos años": in the spanish tempeval-2: 
 // "P2M" and not "UNDEF-this-month-LESS-2" 
 [Mm]enos( de)?
