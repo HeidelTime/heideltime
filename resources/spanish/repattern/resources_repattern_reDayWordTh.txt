@@ -3,6 +3,7 @@
 // date:   2012-07-16
 // This file contains regular expression patterns for day word th.
 // FORMAT: one line is one disjunction of the pattern
+[Dd]écim[oa]
 [Dd]écimoprimer[ao]?
 [Uu]ndécim[oa]
 [Dd]uodécim[oa]
@@ -15,6 +16,7 @@
 [Dd]ecimoctav[oa]
 [Dd]ecimonónic[oa]
 [Dd]ecimonoven[oa]
+[Vv]igésim[oa]
 [Vv]ig[ée]sim[oa]( )?primer[oa]
 [Vv]ig[ée]sim[oa]( )?segund[oa]
 [Vv]ig[ée]sim[oa]( )?tercer[oa]
@@ -24,9 +26,8 @@
 [Vv]ig[ée]sim[oa]( )?séptim[oa]
 [Vv]ig[ée]sim[oa]( )?octav[oa]
 [Vv]ig[ée]sim[oa]( )?noven[oa]
-[Vv]igésim[oa]
-[Tt]rig[ée]sim[oa]( )?primer[oa]
 [Tt]rig[ée]sim[oa]
+[Tt]rig[ée]sim[oa]( )?primer[oa]
 [Pp]rimer[oa]?
 [Uu]n[oa]
 [Ss]egund[oa]
@@ -37,4 +38,3 @@
 [Ss]éptim[oa]
 [Oo]ctav[oa]
 [Nn]oven[oa]
-[Dd]écim[oa]
