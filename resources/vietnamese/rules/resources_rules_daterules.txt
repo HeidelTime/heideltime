@@ -27,13 +27,10 @@
 
 RULENAME="vn_date_r0a",EXTRACTION="((ngày |Ngày )?%reDayNumber/%reMonthNumber/%reYear4Digit)",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(3))"
 RULENAME="vn_date_r0b",EXTRACTION="((ngày |Ngày )?%reDayNumber-%reMonthNumber-%reYear4Digit)",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(3))"
-//RULENAME="vn_date_r0c",EXTRACTION="((ngày |Ngày )?%reDayNumber.%reMonthNumber.%reYear4Digit)",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(3))"
 RULENAME="vn_date_r0d",EXTRACTION="((ngày |Ngày )?%reDayNumber/%reMonthNumber/%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(5)-%normMonth(group(4))-%normDay(group(3))"
 RULENAME="vn_date_r0e",EXTRACTION="((ngày |Ngày )?%reDayNumber-%reMonthNumber-%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(5)-%normMonth(group(4))-%normDay(group(3))"
-//RULENAME="vn_date_r0f",EXTRACTION="((ngày |Ngày )?%reDayNumber.%reMonthNumber.%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(5)-%normMonth(group(4))-%normDay(group(3))"
 RULENAME="vn_date_r0g",EXTRACTION="((ngày |Ngày )?%reDayNumber/%reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(3))"
 RULENAME="vn_date_r0h",EXTRACTION="((ngày |Ngày )?%reDayNumber-%reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(3))"
-//RULENAME="vn_date_r0i",EXTRACTION="((ngày |Ngày )?%reDayNumber.%reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(3))"
 
 
 
@@ -266,10 +263,10 @@ RULENAME="vn_date_r13b",EXTRACTION="%reDecadeWord (thế kỷ |Thế kỷ ) %reC
 // EXAMPLE vn_date_r15a: thế kỷ 19      the 19th century
 // EXAMPLE vn_date_r15b: thế kỷ mười bảy
 
-RULENAME="vn_date_r15a",EXTRACTION="(thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyNumber",NORM_VALUE="group(2)XX"
-RULENAME="vn_date_r15b",EXTRACTION="(thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyInWord",NORM_VALUE="%normCenturyInWord(group(2))XX"
-RULENAME="vn_date_r15c",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyNumber",NORM_VALUE="group(3)XX",NORM_MOD="%normPartWords(group(1))"
-RULENAME="vn_date_r15d",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyInWord",NORM_VALUE="%normCenturyInWord(group(3))XX",NORM_MOD="%normPartWords(group(1))"
+RULENAME="vn_date_r15a",EXTRACTION="(thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyNumber",NORM_VALUE="group(2)"
+RULENAME="vn_date_r15b",EXTRACTION="(thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyInWord",NORM_VALUE="%normCenturyInWord(group(2))"
+RULENAME="vn_date_r15c",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyNumber",NORM_VALUE="group(3)",NORM_MOD="%normPartWords(group(1))"
+RULENAME="vn_date_r15d",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyInWord",NORM_VALUE="%normCenturyInWord(group(3))",NORM_MOD="%normPartWords(group(1))"
 
 ///////////////////////////////////
 // GRANULARITY INDEPENDENT RULES //

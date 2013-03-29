@@ -163,9 +163,9 @@ RULENAME="date_r11k",EXTRACTION="([Nn]el |[Dd]al |[Dd]el )([']?%reYear2Digit)",N
 // EXAMPLE r12c_1: los años noventa
 // EXAMPLE r12c_2: finales de los años noventa
 RULENAME="date_r12c",EXTRACTION="(%rePartWords ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?%reDecadeWord",NORM_VALUE="19%normDecadeWord(group(5))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r12d",EXTRACTION="(%rePartWords ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?[Aa]nni ([Dd]uemila|Zz]ero)",NORM_VALUE="200X",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r12e",EXTRACTION="(%rePartWords ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?[Aa]nni [Dd]uemiladieci",NORM_VALUE="201X",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r12f",EXTRACTION="(%rePartWords ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?[Aa]nni (\\d\\d\\d)0",NORM_VALUE="group(5)X",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r12d",EXTRACTION="(%rePartWords ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?[Aa]nni ([Dd]uemila|Zz]ero)",NORM_VALUE="200",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r12e",EXTRACTION="(%rePartWords ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?[Aa]nni [Dd]uemiladieci",NORM_VALUE="201",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r12f",EXTRACTION="(%rePartWords ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?[Aa]nni (\\d\\d\\d)0",NORM_VALUE="group(5)",NORM_MOD="%normPartWords(group(2))"
 
 
 
@@ -174,7 +174,7 @@ RULENAME="date_r12f",EXTRACTION="(%rePartWords ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egl
 /////////////////////////
 // date_r13
 // EXAMPLE r13a_1: el siglo XXI
-//RULENAME="date_r13a",EXTRACTION="(%rePartWords )?([Dd]?[Ee]l) siglo %reDayRoman",NORM_VALUE="%normDay(%SUM%(%normDay(group(4)),-1))XX",NORM_MOD="%normPartWords(group(2))"
+//RULENAME="date_r13a",EXTRACTION="(%rePartWords )?([Dd]?[Ee]l) siglo %reDayRoman",NORM_VALUE="%normDay(%SUM%(%normDay(group(4)),-1))",NORM_MOD="%normPartWords(group(2))"
 
 
 
