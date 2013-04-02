@@ -1,0 +1,13 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for "this/next/last" words.
+// FORMAT: one line is one disjunction of the pattern
+[اأ]لماضي[اي]ن
+[اأ]لسابق[اي]ن
+[اأ]لفائت[اي]ن
+[اأ]لقادم[اي]ن
+[اأ]لحالي[اي]ن
+[اأ]لمقبل[اي]ن
+[اأ]لجاري[اي]ن
+

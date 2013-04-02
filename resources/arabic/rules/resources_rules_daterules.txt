@@ -1,0 +1,369 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-03-01
+// This file contains rules for the temporal expressions of the type date: daterules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////////
+// POSITIVE RULES //
+////////////////////
+
+/////////////////////
+// Day Granularity //
+/////////////////////
+// date_r0 (Timestamp style) TODO , In arabic and in many text they use the Left-to-Right style ?
+
+// EXAMPLE r0a_1: 2010-01-29 
+RULENAME="date_r0a_1",EXTRACTION="%reYear4Digit-%reMonthNumber-%reDayNumber",NORM_VALUE="group(1)-%normMonth(group(2))-%normDay(group(3))"
+// EXAMPLE r0a_2: 29-01-2010 , Left-to-Right
+RULENAME="date_r0a_2",EXTRACTION="%reDayNumber-%reMonthNumber-%reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))"
+// EXAMPLE r0b_2: 29-10-99 
+RULENAME="date_r0b",EXTRACTION="%reDayNumber-%reMonthNumber-%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-group(2)-group(1)"
+// EXAMPLE r0c_1: 09/26/1999
+RULENAME="date_r0c_1",EXTRACTION="%reMonthNumber\/%reDayNumber\/%reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(1))-%normDay(group(2))"
+// EXAMPLE r0c_2: 1999/09/26
+RULENAME="date_r0c_2",EXTRACTION="%reYear4Digit\/%reMonthNumber\/%reDayNumber",NORM_VALUE="group(1)-%normMonth(group(2))-%normDay(group(3))"
+// EXAMPLE r0d_1: 09/26/99
+RULENAME="date_r0d",EXTRACTION="(%reMonthNumber\/%reDayNumber\/%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(4)-%normMonth(group(2))-%normDay(group(3))"
+// EXAMPLE r0e_1: 7-14 (AP) (find 7-14)
+RULENAME="date_r0e",EXTRACTION="%reMonthNumber-%reDayNumber",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(2))",OFFSET="group(1)-group(2)"
+// NEW for ACE Tern 2005 training
+RULENAME="date_r0f",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber",NORM_VALUE="group(1)-group(2)-group(3)"
+// EXAMPLE r0g: 2005-02-16T??:??:??
+RULENAME="date_r0g",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T\?\?:\?\?:\?\?)",NORM_VALUE="group(2)-%normMonth(group(3))-%normDay(group(4))",OFFSET="group(1)-group(1)"
+
+
+// date_r1 day month year
+// EXAMPLE r1a_1: Monday, 25 February 2009
+// EXAMPLE r1a_2: twinty five February 2009
+// EXAMPLE r1a_3: Monday twinty fifth February 2009
+// EXAMPLE r1a_4: 25 of February, 2009
+// EXAMPLE r1a_5: day monday which is 25 of the month February from the year 2009
+// EXAMPLE r1a_6: Monday, 19 10 2010 (means the 19 of October 2010)
+RULENAME="date_r1a",EXTRACTION="([اأ]ل%reWeekday[\s]?[,]?[\s]?)?(الموافق )?(%reDayWordTh|%reDayNumber)( من| من شهر)? (%reMonthLong|%reMonthNumber)([\s]?[,/]?[\s]?)(%reMonthLong([\s]?[,]?[\s]?))?((عام|سن[هة]|من|من العام|من عام|من سن[هة]|من السن[هة]|,|للعام|لسن[هة])[\s]?)?%reYear4Digit",NORM_VALUE="group(17)-%normMonth(group(8))-%normDay(group(4))"
+
+RULENAME="date_r1a_arNum",EXTRACTION="([اأ]ل%reWeekday[\s]?[,]?[\s]?)?(الموافق )?(%reDayWordTh|%reDayNumber)( من| من شهر)? (%reMonthLong|%reMonthNumber)([\s]?[,/]?[\s]?)(%reMonthLong([\s]?[,]?[\s]?))?((عام|سن[هة]|من|من العام|من عام|من سن[هة]|من السن[هة]|,|للعام|لسن[هة])[\s]?)?(%reArabicDigit)(%reArabicDigit)(%reArabicDigit)(%reArabicDigit)",NORM_VALUE="%normArabicDigit(group(18))%normArabicDigit(group(20))%normArabicDigit(group(22))%normArabicDigit(group(24))-%normMonth(group(8))-%normDay(group(4))"
+
+// date_r2 day month
+// EXAMPLE r2a_1: 19 November
+// EXAMPLE r2a_2: Monday 19 November
+// EXAMPLE r2a_3: ninteenth of November
+// EXAMPLE r2a_4: Monday, 19 of November
+// EXAMPLE r2a_5: Monday, 19 10 (means the 19 of October)
+RULENAME="date_r2a",EXTRACTION="([اأ]ل%reWeekday[\s]?[,]?[\s]?)?(الموافق )?(%reDayWordTh|%reDayNumber)( من| من شهر)? %reMonthLong([\s]?[,/]?[\s]?%reMonthLong)?",NORM_VALUE="UNDEF-year-%normMonth(group(8))-%normDay(group(4))"
+
+// 
+// interval day month
+// EXAMPLE r2b_1: 19-20 from the month November  (find November 19)
+// EXAMPLE r2b_1: 19 to the day 20 from the month November  (find November 19)
+// EXAMPLE r2b_1: 19 to 20 from the month November  (find November 19)
+RULENAME="date_r2b",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber)( من| من شهر) %reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(10))-%normDay(group(1))",OFFSET="group(1)-group(1)"
+
+// EXAMPLE r2c_1: 19-20 November  (find November 19)
+RULENAME="date_r2c",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber) %reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(9))-%normDay(group(1))",OFFSET="group(0)-group(1)"
+
+// EXAMPLE r2d_1: 19-20 from the month November  (find November 20)
+RULENAME="date_r2d",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber)( من| من شهر) %reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(10))-%normDay(group(6))",OFFSET="group(6)-group(10)"
+
+// EXAMPLE r2e_1: 19-20 November  (find November 20)
+RULENAME="date_r2e",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber) %reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(9))-%normDay(group(6))",OFFSET="group(6)-group(9)"
+
+// date_r4 Interval day month year
+// EXAMPLE r4a_1: 19-20 from the month November 2010  (find November 19)
+// EXAMPLE r4a_1: 19 to the day 20 from the month November 2010  (find November 19)
+// EXAMPLE r4a_1: 19 to 20 from the month November 2010 (find November 19)
+RULENAME="date_r4a",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber)( من| من شهر) %reMonthLong([\s]?[,]?[\s]?)%reYear4Digit",NORM_VALUE="group(12)-%normMonth(group(10))-%normDay(group(1))",OFFSET="group(1)-group(3)"
+
+// EXAMPLE r4b_1: 19-20 November, 2010  (find November 19)
+RULENAME="date_r4b",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,]?[\s]?)%reYear4Digit",NORM_VALUE="group(11)-%normMonth(group(9))-%normDay(group(1))",OFFSET="group(1)-group(3)"
+
+// EXAMPLE r4c_1: 19-20 from the month November, 2010 (find November 20)
+RULENAME="date_r4c",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber)( من| من شهر) %reMonthLong([\s]?[,]?[\s]?)%reYear4Digit",NORM_VALUE="group(12)-%normMonth(group(10))-%normDay(group(6))",OFFSET="group(4)-group(12)"
+
+// EXAMPLE r4d_1: 19-20 November, 2010  (find November 20)
+RULENAME="date_r4d",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,]?[\s]?)%reYear4Digit",NORM_VALUE="group(11)-%normMonth(group(9))-%normDay(group(6))",OFFSET="group(4)-group(11)"
+
+// EXAMPLE r4e: 19 November to 20 December 2010  (find November 20)
+RULENAME="date_r4e",EXTRACTION="(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?([\s]?(عام|سن[هة]|من|من العام|من عام|من سن[هة]|من السن[هة]|,|للعام|لسن[هة])[\s]?)%reYear4Digit",NORM_VALUE="group(19)-%normMonth(group(4))-%normDay(group(1))",OFFSET="group(1)-group(7)"
+
+// EXAMPLE r4f: 19 November to 20 December 2010  (find November 20)
+RULENAME="date_r4f",EXTRACTION="(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?([\s]?(عام|سن[هة]|من|من العام|من عام|من سن[هة]|من السن[هة]|,|للعام|لسن[هة])[\s]?)%reYear4Digit",NORM_VALUE="group(19)-%normMonth(group(13))-%normDay(group(10))",OFFSET="group(8)-group(19)"
+// EXAMPLE r4g: 19 November 2010 to 20 December 2011 
+//RULENAME="date_r4g",EXTRACTION="(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?([\s]?(عام|سن[هة]|من|من العام|من عام|من سن[هة]|من السن[هة]|,|للعام|لسن[هة])[\s]?)%reYear4Digit",NORM_VALUE="group(19)-%normMonth(group(13))-%normDay(group(10))",OFFSET="group(8)-group(19)"
+
+
+// date_r5
+// EXAMPLE r5a_1: tomorrow
+RULENAME="date_r5a",EXTRACTION="%reDateWord( (ال)%reWeekday)?",NORM_VALUE="%normDateWord(group(1))"
+// EXAMPLE r5b_1: earlier yesterday
+RULENAME="date_r5b",EXTRACTION="%rePartWords %reDateWord( (ال)%reWeekday)?",NORM_VALUE="%normDateWord(group(2))",NORM_MOD="%normPartWords(group(1))"
+// EXAMPLE r5c_1: Monday
+RULENAME="date_r5c",EXTRACTION="(يوم )?((ال)%reWeekday)",NORM_VALUE="UNDEF-day-%normWeekday(group(4))"
+// EXAMPLE r5d_1: earlier Monday 
+RULENAME="date_r5d",EXTRACTION="%rePartWords [اأ]ل%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(2))",NORM_MOD="%normPartWords(group(1))"
+
+//////////////////////
+// WEEK GRANULARITY //
+//////////////////////
+// date_r6
+// EXAMPLE r6a_1: the weekend
+RULENAME="date_r61",EXTRACTION="(نهاي[هة] ال[اأ]سبوع|عطل[هة] ال[اأ]سبوع)",NORM_VALUE="UNDEF-last-week-WE"
+
+///////////////////////
+// MONTH GRANULARITY //
+///////////////////////
+//date_r7
+// EXAMPLE r7a_1: November 2001
+// EXAMPLE r7a_2: Nov. 2001
+// EXAMPLE r7a_3: February of 1999
+// EXAMPLE r7a_4: February/Feb,1999
+// EXAMPLE r7a_3: February of the year 1999
+RULENAME="date_r7a",EXTRACTION="%reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?([\s]?(عام|سن[هة]|من|من العام|من عام|من سن[هة]|من السن[هة]|,|للعام|لسن[هة])?[\s]?)%reYear4Digit",NORM_VALUE="group(7)-%normMonth(group(1))"
+// EXAMPLE r7b_1: May and June,2011 (find May 2001)
+// EXAMPLE r7b_2: May-June of 2011 (find May 2001)
+// EXAMPLE r7b_3: May till the month June of the year 2011 (find May 2001)
+RULENAME="date_r7b",EXTRACTION="(%reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?)(([\s]?(\–|-|الى|الى شهر|حتى|حتى شهر|و|[اأ]و)[\s]?)%reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?([\s]?(عام|سن[هة]|من|من العام|من عام|من سن[هة]|من السن[هة]|,|للعام|لسن[هة])?[\s]?)%reYear4Digit)",NORM_VALUE="group(15)-%normMonth(group(2))",OFFSET="group(1)-group(1)"
+// EXAMPLE r7c_1: May and June,2011 (find June 2001)
+// EXAMPLE r7c_2: May-June of 2011 (find June 2001)
+// EXAMPLE r7c_3: May till the month June of the year 2011 (find June 2001)
+RULENAME="date_r7c",EXTRACTION="(%reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?)(([\s]?(\–|-|الى|الى شهر|حتى|حتى شهر|و|[اأ]و)[\s]?)%reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?([\s]?(عام|سن[هة]|من|من العام|من عام|من سن[هة]|من السن[هة]|,|للعام|لسن[هة])?[\s]?)%reYear4Digit)",NORM_VALUE="group(15)-%normMonth(group(9))",OFFSET="group(6)-group(6)"
+
+// EXAMPLE r7d_1: May and June 2011 (find May 2001)
+// EXAMPLE r7d_2: May-June 2011 (find May 2001)
+// EXAMPLE r7d_3: May till June 2011 (find May 2001)
+//RULENAME="date_r7d",EXTRACTION="%reMonthLong([\s]?(\–|-|الى|الى شهر|حتى|حتى شهر|و|[اأ]و)[\s]?)%reMonthLong %reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(1))",OFFSET="group(1)-group(1)"
+// EXAMPLE r7e_1: May and June 2011 (find June 2001)
+// EXAMPLE r7e_2: May-June  2011 (find June 2001)
+// EXAMPLE r7e_3: May till June 2011 (find June 2001)
+//RULENAME="date_r7e",EXTRACTION="%reMonthLong([\s]?(\–|-|الى|الى شهر|حتى|حتى شهر|و|[اأ]و)[\s]?)%reMonthLong %reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(4))",OFFSET="group(2)-group(5)"
+
+// date_r8
+// EXAMPLE r8a_1: November next year
+// EXAMPLE r8a_2: May last year
+// EXAMPLE r8a_2: May May from last year
+RULENAME="date_r8a",EXTRACTION="%reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong([\s]?[,]?[\s]?))?(من )?(السن[هة] |العام |للعام |للسن[هة] )%reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(8))-year-%normMonth(group(1))"
+// EXAMPLE r8b_1: November 
+RULENAME="date_r8b",EXTRACTION="%reMonthLong(( )?([,/])?( )?%reMonthLong)?",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
+RULENAME="date_r8c",EXTRACTION="%reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
+
+////////////////////////
+// SEASON GRANULARITY //
+////////////////////////
+// date_r9
+
+// EXAMPLE r9a_1: winter 2001
+// EXAMPLE r9a_1: winter of 2001
+// EXAMPLE r9b_1: summer of 69
+// EXAMPLE r9c_1: summer
+RULENAME="date_r9a",EXTRACTION="(ال)?%reSeason[\s]?(((من )?(ال|ل|لل)?سن[هة])|((من )?(ال|ل|لل)?عام))?[\s]?%reYear4Digit",NORM_VALUE="group(10)-%normSeason(group(2))"
+RULENAME="date_r9b",EXTRACTION="(ال)?%reSeason[\s]?(((من )?(ال|ل|لل)?سن[هة])|((من )?(ال|ل|لل)?عام))?[\s]?%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(10)-%normSeason(group(2))"
+RULENAME="date_r9c",EXTRACTION="(ال)?%reSeason",NORM_VALUE="UNDEF-year-%normSeason(group(2))"
+
+
+//////////////////////////////
+// PART-OF-YEAR GRANULARITY //
+//////////////////////////////
+// date_r10
+// EXAMPLE r10a_1: the third quarter of 2001
+RULENAME="date_r10a",EXTRACTION="%rePartOfYear[\s]?(((من )?(ال|ل|لل)?سن[هة])|((من )?(ال|ل|لل)?عام))?[\s]?%reYear4Digit",NORM_VALUE="group(9)-%normPartOfYear(group(1))"
+// EXAMPLE r10b_1: the second half
+RULENAME="date_r10b",EXTRACTION="%rePartOfYear",NORM_VALUE="UNDEF-year-%normPartOfYear(group(1))"
+
+// date_r11
+// EXAMPLE r11a_1: this year's third quarter
+// EXAMPLE r11a_2: next year's first quarter
+RULENAME="date_r11a",EXTRACTION="%rePartOfYear[\s]?(((من )?(ال|ل|لل)?سن[هة])|((من )?(ال|ل|لل)?عام))?[\s]?%reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(9))-year-%normPartOfYear(group(1))"
+// EXAMPLE r11b_1: the year-earlier first half
+RULENAME="date_r11b",EXTRACTION="(((من )?(ال|ل|لل)?سن[هة])|((من )?(ال|ل|لل)?عام))?[\s]?%reThisNextLast %rePartOfYear",NORM_VALUE="UNDEF-%normThisNextLast(group(8))-year-%normPartOfYear(group(9))"
+
+
+//////////////////////
+// YEAR GRANULARITY //
+//////////////////////
+// date_r12
+// EXAMPLE r12a_1: 2009
+// EXAMPLE r12a_1: from the year 2009
+RULENAME="date_r12a",EXTRACTION="(في |و)?((ال|ل|لل)?(سن[هة] |عام )?%reYear4Digit)",NORM_VALUE="group(5)",OFFSET="group(2)-group(2)"
+RULENAME="date_r12a_arNum",EXTRACTION="(في |و)?((ﺎﻟ|ﻝ|ﻞﻟ)?(ﺲﻧ[ﻩﺓ] |ﻉﺎﻣ )?(%reArabicDigit)(%reArabicDigit)(%reArabicDigit)(%reArabicDigit))",NORM_VALUE="%normArabicDigit(group(6))%normArabicDigit(group(8))%normArabicDigit(group(10))%normArabicDigit(group(12))",OFFSET="group(2)-group(2)"
+
+// EXAMPLE : r12a_2 the year 91
+RULENAME="date_r12a_2_1",EXTRACTION="(في )((ال|ل|لل)?(سن[هة] |عام )?%reYear2Digit)",NORM_VALUE="19group(5)",OFFSET="group(2)-group(2)"
+RULENAME="date_r12a_2_2",EXTRACTION="(في |و)?((ال|ل|لل)?(سن[هة] |عام )%reYear2Digit)",NORM_VALUE="19group(5),OFFSET="group(2)-group(2)"
+RULENAME="date_r12a_2_1_arNum",EXTRACTION="(في )((ال|ل|لل)?(سن[هة] |عام )?(%reArabicDigit)(%reArabicDigit))",NORM_VALUE="19%normArabicDigit(group(6))%normArabicDigit(group(8))",OFFSET="group(2)-group(2)"
+RULENAME="date_r12a_2_2_arNum",EXTRACTION="(في |و)?((ال|ل|لل)?(سن[هة] |عام )(%reArabicDigit)(%reArabicDigit))",NORM_VALUE="19%normArabicDigit(group(6))%normArabicDigit(group(8))",OFFSET="group(2)-group(2)"
+
+// EXAMPLE r12b_1: 1850-58 (find: 1858)
+RULENAME="date_r12b",EXTRACTION="%reYear4Digit(-|–| and )%reYear2Digit",NORM_VALUE="%SUBSTRING%(group(1),0,2)group(3)",OFFSET="group(3)-group(3)"
+// EXAMPLE r12c_1:  a thousand nineteen hundereds and ninety-one
+RULENAME="date_r12c_1",EXTRACTION="[اأ]لف([\s]?[و]?[\s]?)%reNumWordHundreds([\s]?[و]?[\s]?)%reNumWord1D",NORM_VALUE="1%normDateNumber(group(2))%normDateNumber(group(4))"
+RULENAME="date_r12c_2",EXTRACTION="[اأ]لف([\s]?[و]?[\s]?)%reNumWordHundreds([\s]?[و]?[\s]?)%reNumWord2D",NORM_VALUE="1%normDateNumber(group(2))%normDateNumber(group(4))"
+// EXAMPLE r12d_1: two thousands nineteen hundereds and ninety-one
+RULENAME="date_r12d_1",EXTRACTION="[اأ]لف[اي]ن([\s]?[و]?[\s]?)%reNumWordHundreds([\s]?[و]?[\s]?)%reNumWord1D",NORM_VALUE="2%normDateNumber(group(2))%normDateNumber(group(4))"
+RULENAME="date_r12d_2",EXTRACTION="[اأ]لف[اي]ن([\s]?[و]?[\s]?)%reNumWordHundreds([\s]?[و]?[\s]?)%reNumWord2D",NORM_VALUE="2%normDateNumber(group(2))%normDateNumber(group(4))"
+// EXAMPLE r12e_1 : the year ninty one
+RULENAME="date_r12e_1",EXTRACTION="(((ال|ل|لل)?سن[هة])|((ال|ل|لل)?عام)) %reNumWord2D",NORM_VALUE="19%normDateNumber(group(6))"
+// EXAMPLE r12e_2 : the year two thousands
+RULENAME="date_r12e_2",EXTRACTION="(((ال|ل|لل)?سن[هة])|((ال|ل|لل)?عام)) الفين",NORM_VALUE="2000"
+
+
+
+////////////////////////
+// DECADE GRANULARITY // 
+////////////////////////
+// date_r13
+// EXAMPLE r13a_1: the seventies
+RULENAME="date_r13a",EXTRACTION="%reDecadeWord",NORM_VALUE="19%normDecadeWord(group(1))"
+
+
+// date_r14 
+// EXAMPLE r14a_1: the late seventies
+RULENAME="date_r14a",EXTRACTION="%rePartWords %reDecadeWord",NORM_VALUE="19%normDecadeWord(group(2))",NORM_MOD="%normPartWords(group(1))"
+
+
+/////////////////////////
+// CENTURY GRANULARITY //
+/////////////////////////
+// date_r15 
+// EXAMPLE r15a_1: the 19th century
+// EXAMPLE r15a_2: the seventh century
+RULENAME="date_r15a",EXTRACTION="[اأ]لقرن (%reDayNumber|%reDayWordTh)",NORM_VALUE="%normDay(%SUM%(%normDay(group(1)),-1))XX"
+
+///////////////////////////////////
+// GRANULARITY INDEPENDENT RULES //
+///////////////////////////////////
+// date_r16
+// EXAMPLE r16a_1: March
+//RULENAME="date_r16a",EXTRACTION="%reMonthLong([\s]?[,/]?[\s]?%reMonthLong)?",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
+// EXAMPLE r16b_1: Early 2001
+RULENAME="date_r16b",EXTRACTION="%rePartWords[\s]?(((من )?(ال|ل|لل)?سن[هة])|((من )?(ال|ل|لل)?عام))?[\s]?%reYear4Digit",NORM_VALUE="group(9)",NORM_MOD="%normPartWords(group(1))"
+// EXAMPLE r16c_1: the beginning of November 1999
+RULENAME="date_r16c",EXTRACTION="%rePartWords[ ]?(شهر )?%reMonthLong([\s]?[,/]?[\s]?%reMonthLong)?[\s]?(((من )?(ال|ل|لل)?سن[هة])|((من )?(ال|ل|لل)?عام))?[\s]?%reYear4Digit",NORM_VALUE="group(13)-%normMonth(group(3))",NORM_MOD="%normPartWords(group(1))"
+// EXAMPLE r16d_1: the middle of September
+RULENAME="date_r16d",EXTRACTION="%rePartWords[ ]?(شهر )?%reMonthLong([\s]?[,/]?[\s]?%reMonthLong)?",NORM_VALUE="UNDEF-year-%normMonth(group(3))",NORM_MOD="%normPartWords(group(1))"
+
+// date_r17
+// EXAMPLE r17a_1: this year
+RULENAME="date_r17a",EXTRACTION="(ال|أل|لل)?(%reUnitTwice|%reUnitOnce|%reUnit) %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(6))-%normUnit(group(2))"
+// EXAMPLE r17b_1: this November
+RULENAME="date_r17b",EXTRACTION="(شهر )?%reMonthLong([\s]?[,/]?[\s]?%reMonthLong )?( )?%reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(6))-%normMonthAsWord(group(2))"
+// EXAMPLE r17c_1: this November 24
+//Example r17c_1 : friday 24 from this october
+RULENAME="date_r17c",EXTRACTION="([اأ]ل%reWeekday[\s]?[,]?[\s]?)?(الموافق )?(%reDayWordTh|%reDayNumber)( من| من شهر)? %reMonthLong([\s]?[,/]?[\s]?%reMonthLong)?[\s]?%reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(11))-%normMonthAsWord(group(8))-%normDay(group(4))"
+// EXAMPLE r17d_1: this Monday
+RULENAME="date_r17d",EXTRACTION="[اأ]ل%reWeekday %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-%normWeekday(group(1))"
+// EXAMPLE r17e_1: this summer
+RULENAME="date_r17e",EXTRACTION="ال%reSeason %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-%normSeason(group(1))"
+// EXAMPLE r17f_1: this day ... (using UNDEF-REF normalization)
+RULENAME="date_r17f_1",EXTRACTION="(هذا|هذه) ال%reUnitOnce",NORM_VALUE="UNDEF-this-%normUnit(group(2))"
+RULENAME="date_r17f_2",EXTRACTION="([اأ]ل)%reUnitOnce [اأ]لجاري[هة]?",NORM_VALUE="UNDEF-this-%normUnit(group(2))"
+//RULENAME="date_r17g",EXTRACTION="([اأ]ل)%reUnitOnce [اأ]لقادم[هة]?",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-PLUS-1"
+
+// date_r18
+// EXAMPLE r18a_1: the beginning of this year
+RULENAME="date_r18a",EXTRACTION="%rePartWords ([اأ]ل)?%reUnitOnce %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(4))-%normUnit(group(3))",NORM_MOD="%normPartWords(group(1))"
+// EXAMPLE r18b_1: the beginning of this November
+RULENAME="date_r18b",EXTRACTION="%rePartWords %reMonthLong([\s]?[,/]?[\s]?%reMonthLong)?[\s]?%reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normMonthAsWord(group(2))",NORM_MOD="%normPartWords(group(1))"
+// EXAMPLE r18c_1: the beginning of this November 24
+RULENAME="date_r18c",EXTRACTION="%rePartWords (يوم )?([اأ]ل%reWeekday[\s]?[,]?[\s]?)?(الموافق )?(%reDayWordTh|%reDayNumber)( من| من شهر)? %reMonthLong([\s]?[,/]?[\s]?%reMonthLong)?[\s]?%reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(13))-%normMonthAsWord(group(10))-%normDay(group(6))",NORM_MOD="%normPartWords(group(1))"
+// EXAMPLE r18d_1: the beginning of this Monday
+RULENAME="date_r18d",EXTRACTION="%rePartWords (يوم )?[اأ]ل%reWeekday %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(4))-%normWeekday(group(3))",NORM_MOD="%normPartWords(group(1))"
+// EXAMPLE r18e_1: the beginning of this summer
+RULENAME="date_r18e",EXTRACTION="%rePartWords( فصل)? ال%reSeason %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(4))-%normSeason(group(3))",NORM_MOD="%normPartWords(group(1))"
+// EXAMPLE r18e_1: the beginning of the year
+RULENAME="date_r18e",EXTRACTION="%rePartWords ([اأ]ل)?%reUnitOnce",NORM_VALUE="UNDEF-%normUnit(group(3))",NORM_MOD="%normPartWords(group(1))"
+
+// date_r19 ago
+// EXAMPLE r19a_1: at least several years ago
+RULENAME="date_r19a",EXTRACTION="(قبل )(عد[هة] )?(ال)?%reUnit[\s]?(التي )?(السابق[هة]?|الفائت[هة]?|الماضي[هة]?|سبقت|فائت|مضت)?",NORM_VALUE="PAST_REF"
+// EXAMPLE r19b_1: about twenty years ago
+RULENAME="date_r19b",EXTRACTION="(قبل) (%reApproximate )?(%reNumWord2D|%reNumWord1D) (%reUnitOnce|%reUnit)( السابق[هة]?| الفائت[هة]?| الماضي[هة]?| التي سبقت| التي فائت| التي مضت)?",NORM_VALUE="UNDEF-this-%normUnit(group(7))-MINUS-%normDurationNumber(group(4))",NORM_MOD="%normApprox4Dates(group(3))"
+// EXAMPLE r19c_1: about 20 years ago
+RULENAME="date_r19c",EXTRACTION="(قبل) (%reApproximate )?([\d]+) (%reUnitOnce|%reUnit)( السابق[هة]?| الفائت[هة]?| الماضي[هة]?| التي سبقت| التي فائت| التي مضت)?",NORM_VALUE="UNDEF-this-%normUnit(group(5))-MINUS-group(4)",NORM_MOD="%normApprox4Dates(group(3))"
+// EXAMPLE r19d_1: a month ago
+RULENAME="date_r19d_1",EXTRACTION="(قبل) (%reApproximate )?(ال)?%reUnitOnce( السابق[هة]?| الفائت[هة]?| الماضي[هة]?| سابق[هة]?| فائت[هة]?| ماض[يهة]?)?( واحد[هة]?)?",NORM_VALUE="UNDEF-last-%normUnit(group(5))",NORM_MOD="%normApprox4Dates(group(3))"
+// EXAMPLE r19d_1: a month ago
+RULENAME="date_r19d_2",EXTRACTION="(%reApproximate )?(ال)?%reUnitOnce( السابق[هة]?| الفائت[هة]?| الماضي[هة]?| سابق[هة]?| فائت[هة]?| ماض[يهة]?)?( واحد[هة]?)",NORM_VALUE="UNDEF-last-%normUnit(group(4))",NORM_MOD="%normApprox4Dates(group(2))"
+// EXAMPLE r19e_1: two month ago
+RULENAME="date_r19e",EXTRACTION="(قبل) (%reApproximate )?(ال)?%reUnitTwice( (ال)?سابق[اي]ن| (ال)?فائت[اي]ن| (ال)?ماضي[اي]ن)?",NORM_VALUE="UNDEF-this-%normUnit(group(5))-MINUS-2",NORM_MOD="%normApprox4Dates(group(3))"
+
+
+
+// date_r20 (later)
+// EXAMPLE r20a_1: some days later
+RULENAME="date_r20a_1",EXTRACTION="(%reApproximate )?(ال)?%reUnit ((ال)?قادم[هة]?|(ال)?تالي[هة]?|(ال)?مقبل[هة]?|(ال)?لاحق[هة]?)",NORM_VALUE="FUTURE_REF"
+// EXAMPLE r20a_2: after some days
+RULENAME="date_r20a_2",EXTRACTION="(بعد )(%reApproximate )?(ال)?%reUnit",NORM_VALUE="FUTURE_REF"
+// EXAMPLE r20b_1: about twenty days later
+RULENAME="date_r20b_1",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) (%reUnitOnce|%reUnit) ((ال)?قادم[هة]?|(ال)?تالي[هة]?|(ال)?مقبل[هة]?|(ال)?لاحق[هة]?)",NORM_VALUE="UNDEF-this-%normUnit(group(6))-PLUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
+// EXAMPLE r20b_2: after twenty days
+RULENAME="date_r20b_2",EXTRACTION="(بعد )(%reApproximate )?(%reNumWord2D|%reNumWord1D) (%reUnit|%reUnitOnce)",NORM_VALUE="UNDEF-this-%normUnit(group(7))-PLUS-%normDurationNumber(group(4))",NORM_MOD="%normApprox4Dates(group(3))"
+// EXAMPLE r20c_1: about 20  days later
+RULENAME="date_r20c_1",EXTRACTION="(%reApproximate )?([\d]+) (%reUnitOnce|%reUnit) ((ال)?قادم[هة]?|(ال)?تالي[هة]?|(ال)?مقبل[هة]?|(ال)?لاحق[هة]?)",NORM_VALUE="UNDEF-this-%normUnit(group(4))-PLUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))"
+// EXAMPLE r20c_2: after about 20  days
+RULENAME="date_r20c_2",EXTRACTION="(بعد )(%reApproximate )?([\d]+) (%reUnitOnce|%reUnit)",NORM_VALUE="UNDEF-this-%normUnit(group(5))-PLUS-group(4)",NORM_MOD="%normApprox4Dates(group(3))"
+// EXAMPLE r20d_1: a year later 
+RULENAME="date_r20d_1",EXTRACTION="(%reApproximate )?(ال)?(%reUnitOnce) ((ال)?قادم[هة]?|(ال)?تالي[هة]?|(ال)?مقبل[هة]?|(ال)?لاحق[هة]?)",NORM_VALUE="UNDEF-next-%normUnit(group(4))",NORM_MOD="%normApprox4Dates(group(2))"
+// EXAMPLE r20d_2: after a year 
+RULENAME="date_r20d_2",EXTRACTION="(بعد )(%reApproximate )?(ال)?%reUnitOnce",NORM_VALUE="UNDEF-next-%normUnit(group(5))",NORM_MOD="%normApprox4Dates(group(3))"
+// EXAMPLE r20e_1: two years later 
+RULENAME="date_r20e_1",EXTRACTION="(%reApproximate )?(ال)?(%reUnitTwice) ((ال)?قادمت[اي]ن|(ال)?تاليت[اي]ن|(ال)?مقبلت[اي]ن|(ال)?لاحقت[اي]ن)",NORM_VALUE="UNDEF-this-%normUnit(group(4))-PLUS-1",NORM_MOD="%normApprox4Dates(group(2))"
+// EXAMPLE r20e_1: after two year 
+RULENAME="date_r20e_2",EXTRACTION="(بعد )(%reApproximate )?(ال)?%reUnitTwice",NORM_VALUE="UNDEF-this-%normUnit(group(5))-PLUS-2",NORM_MOD="%normApprox4Dates(group(3))"
+
+// date_r21 earlier
+// EXAMPLE r21a_1: at least several years earlier
+RULENAME="date_r21a",EXTRACTION="(منذ |قبل )?(عده )?(ال)?%reUnit (التي )?(السابق[هة]?|الفائت[هة]?|الماضي[هة]?|سبقت|فائت|مضت)",NORM_VALUE="PAST_REF"
+// EXAMPLE r21b_1: about twenty years earlier
+RULENAME="date_r21b",EXTRACTION="(قبل |منذ )?(%reApproximate )?(%reNumWord2D|%reNumWord1D) %reUnit (التي )?(السابق[هة]?|الفائت[هة]?|الماضي[هة]?|سبقت|فائت|مضت)",NORM_VALUE="UNDEF-this-%normUnit(group(7))-MINUS-%normDurationNumber(group(4))",NORM_MOD="%normApprox4Dates(group(3))"
+// EXAMPLE r21c_1: about 20 years earlier
+RULENAME="date_r21c",EXTRACTION="(قبل |منذ )?(%reApproximate )?([\d]+) %reUnit (التي )?(السابق[هة]?|الفائت[هة]?|الماضي[هة]?|سبقت|فائت|مضت)",NORM_VALUE="UNDEF-this-%normUnit(group(5))-MINUS-group(4)",NORM_MOD="%normApprox4Dates(group(3))"
+// EXAMPLE r21d_1: a month earlier
+RULENAME="date_r21d",EXTRACTION="(منذ |قبل )?(%reApproximate )?(ال)?%reUnitOnce( السابق[هة]?| الفائت[هة]?| الماضي[هة]?| سابق[هة]?| فائت[هة]?| ماض[يهة]?)( واحد[هة]?)?",NORM_VALUE="UNDEF-last-%normUnit(group(5))",NORM_MOD="%normApprox4Dates(group(3))"
+// EXAMPLE r21e_1: two month earlier 
+RULENAME="date_r21e",EXTRACTION="(منذ |قبل )?(%reApproximate )?(ال)?%reUnitTwice( (ال)?سابق[اي]ن| (ال)?فائت[اي]ن| (ال)?ماضي[اي]ن)",NORM_VALUE="UNDEF-this-%normUnit(group(5))-MINUS-2",NORM_MOD="%normApprox4Dates(group(3))"
+
+
+// date_r24 (ago/earlier/later normalizing with REFUNIT)
+// EXAMPLE r22a_1: a year ago
+//RULENAME="date_r22a",EXTRACTION="((السن[هة]|العام) (الماضي[هة]?|السابق[هة]?|الفائت[هة]?))",NORM_VALUE="UNDEF-REFUNIT-year-MINUS-1"
+// EXAMPLE r22b_1: a year later
+//RULENAME="date_r22b",EXTRACTION="(السن[هة] القادم[هة]|العام القادم)",NORM_VALUE="UNDEF-REFUNIT-year-PLUS-1"
+
+// date_r23
+// EXAMPLE r23a_1: the year-earlier first quarter
+RULENAME="date_r23a",EXTRACTION="%rePartOfYear (من )?((السن[هة]|العام) (الماضي[هة]?|السابق[هة]?|الفائت[هة]?))",NORM_VALUE="UNDEF-REF-year-MINUS-1-%normPartOfYear(group(1))"
+// EXAMPLE r23b_1: the year-earlier quarter
+//RULENAME="date_r23b",EXTRACTION="([Tt]he|[Tt]hat) (year-earlier|year-ago) quarter",NORM_VALUE="UNDEF-REF-quarter-MINUS-4"
+// EXAMPLE r23c_1: the quarter
+RULENAME="date_r23c",EXTRACTION="الربع",NORM_VALUE="UNDEF-REF-quarter"
+
+
+///////////////////
+// HOLIDAY RULES //
+///////////////////
+//date_r24
+//EXAMPLE r24a_1: Christmas
+//EXAMPLE r24b_1: Christmas 2010
+//EXAMPLE r24c_1: Christmas 87
+//EXAMPLE r24d_1: Christmas '87
+
+RULENAME="date_r24a",EXTRACTION="%reHolidayFix",NORM_VALUE="UNDEF-year-%normHolidayFix(group(1))"
+RULENAME="date_r24b",EXTRACTION="%reHolidayFix %reYear4Digit",NORM_VALUE="group(2)-%normHolidayFix(group(1))"
+RULENAME="date_r24c",EXTRACTION="%reHolidayFix %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayFix(group(1))"
+RULENAME="date_r24d",EXTRACTION="%reHolidayFix '%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayFix(group(1))"
+
+//date_r25
+// TODO 
+//EXAMPLE r25a_1: Eastersunday
+//EXAMPLE r25b_1: Eastersunday 2010
+//EXAMPLE r25c_1: Eastersunday 87
+//EXAMPLE r25d_1: Eastersunday '87
+
+//RULENAME="date_r25a",EXTRACTION="%reHolidayVar",NORM_VALUE="UNDEF-year-00-00 %normHolidayVar(group(1))"
+//RULENAME="date_r25b",EXTRACTION="%reHolidayVar %reYear4Digit",NORM_VALUE="group(2)-00-00 %normHolidayVar(group(1))"
+//RULENAME="date_r25c",EXTRACTION="%reHolidayVar %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-00-00 %normHolidayVar(group(1))"
+//RULENAME="date_r25d",EXTRACTION="%reHolidayVar '%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-00-00 %normHolidayVar(group(1))"
+
+
+
+

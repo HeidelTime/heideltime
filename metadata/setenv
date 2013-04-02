@@ -6,5 +6,7 @@ export CLASSPATH=$DKPRO_HOME/bin:$CLASSPATH
 export CLASSPATH=$DKPRO_HOME/lib:$CLASSPATH
 ### setting the environment for jvntextpro (required for the wrapper)
 export CLASSPATH=$JVNTEXTPRO_HOME:$CLASSPATH
+### setting the environment for the stanford pos tagger (required for the wrapper)
+export CLASSPATH=$STANFORDTAGGER:$CLASSPATH
 
 

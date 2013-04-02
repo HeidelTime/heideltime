@@ -1,0 +1,94 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-13
+// This file contains rules for the temporal expressions of the type time: timerules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+/////////////////////
+// TIMESTAMP STYLE //
+/////////////////////
+// time_r1 (Timestamp style)
+// EXAMPLE r1a-1: 2009-12-19T17:00:00
+// EXAMPLE r1a-2: 2009-12-19 17:00:00
+RULENAME="time_r1a",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )%reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7):group(8)"
+// EXAMPLE r1b-1: 2009-12-19T17:00
+RULENAME="time_r1b",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )%reTimeHour:%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7)"
+// EXAMPLE r1c-1: 12/29/2000 20:29
+RULENAME="time_r1c",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6)"
+// EXAMPLE r1d-1: 12/29/2000 20:29:29
+RULENAME="time_r1d",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6):group(7)"
+// EXAMPLE r1e-1: 12/29/2000 20:29:29.79
+RULENAME="time_r1e",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute:%reTimeMinute\.%reYear2Digit",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6):group(7).group(8)"
+// NEW for ACE Tern 2005 training
+RULENAME="time_r1f",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber-%reTimeHour-%reTimeMinute-%reTimeMinute",NORM_VALUE="group(1)-group(2)-group(3)Tgroup(4):group(5):group(6)"
+
+// time_r2
+// EXAMPLE r2a-1: 09-24-99 1145EST (TimeStamp style with timezone information)
+RULENAME="time_r2a",EXTRACTION="(%reMonthNumber-%reDayNumber-%reYear2Digit)( %reTimeHour(:)?%reTimeMinute)%reTimezone",NORM_VALUE="UNDEF-centurygroup(4)-group(2)-group(3)T%normMinute(group(6)):%normMinute(group(8))%normTimezone(group(9))"
+// EXAMPLE r2b-1: November 24, 2011 1535 GMT
+RULENAME="time_r2b",EXTRACTION="%reMonthLong %reDayNumber, %reYear4Digit %reTimeHour(:)?%reTimeMinute %reTimezone",NORM_VALUE="group(3)-%normMonth(group(1))-%normDay(group(2))T%normMinute(group(4)):%normMinute(group(6))"
+// EXAMPLE r2c-1: Wed, 29 Dec 2004 00:28:16 +0000
+// EXAMPLE r2d-1: Sat, 29 Jan 2005 17:21:13 -0600
+// EXAMPLE r2d-2: 1 Feb 2005 16:13:33 +1300
+
+
+
+/////////////////////////////
+// PART-OF-DAY GRANULARITY //
+/////////////////////////////
+// time_r3 
+// EXAMPLE r3a-1: midnight Monday
+RULENAME="time_r3a",EXTRACTION="%rePartOfDay (من |من يوم )?(ال)%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(4))T%normPartOfDay(group(1))"
+// EXAMPLE r3b-1: Monday night
+RULENAME="time_r3b",EXTRACTION="(ال)%reWeekday %rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(2))T%normPartOfDay(group(3))"
+// EXAMPLE r3c-1: midnight today
+RULENAME="time_r3c",EXTRACTION="%rePartOfDay %reDateWord( (ال)%reWeekday)?",NORM_VALUE="%normDateWord(group(2))T%normPartOfDay(group(1))"
+// EXAMPLE r3d-1: yesterday morning
+RULENAME="time_r3d",EXTRACTION="%reDateWord %rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
+
+// time_r4
+// EXAMPLE r4a-1: earlier this afternoon
+// EXAMPLE r4a-2: later last night
+RULENAME="time_r4a",EXTRACTION="%rePartOfDay %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-dayT%normPartOfDay(group(1))"
+// EXAMPLE r4b-1: tonight
+//RULENAME="time_r4b",EXTRACTION="([Tt]onight)",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(1))"
+
+
+///////////////////////////
+// TIMEPOINT GRANULARITY //
+///////////////////////////
+// time_r5
+// EXAMPLE r5a-1: circa 9 a.m.
+RULENAME="time_r5a_1",EXTRACTION="(%reApproximate )?(الساع[هة] )?%reTimeHour( صباحا[ً]?)",NORM_VALUE="UNDEF-this-dayT%normMinute(group(4)):00",NORM_MOD="%normApprox4Dates(group(2))" 
+RULENAME="time_r5a_2",EXTRACTION="(%reApproximate )?(الساع[هة] )%reTimeHour( صباحا[ً]?)?",NORM_VALUE="UNDEF-this-dayT%normMinute(group(4)):00",NORM_MOD="%normApprox4Dates(group(2))" 
+
+// EXAMPLE r5b-1: 11 PM
+RULENAME="time_r5b",EXTRACTION="(%reApproximate )?(الساع[هة] )?%reTimeHour (مساء[ا]?[ً]?)",NORM_VALUE="UNDEF-this-dayT%SUM%(%normMinute(group(4)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
+// EXAMPLE r5c-1: 11:30 a.m.
+RULENAME="time_r5c",EXTRACTION="(%reApproximate )?(الساع[هة] )?%reTimeHour:%reTimeMinute( صباحا[ً]?)?",NORM_VALUE="UNDEF-this-dayT%normMinute(group(4)):group(5)",NORM_MOD="%normApprox4Dates(group(2))"
+// EXAMPLE r5d-1: 9:30 p.m.
+RULENAME="time_r5d",EXTRACTION="(%reApproximate )?(الساع[هة] )?%reTimeHour:%reTimeMinute (مساء[ا]?[ً]?)",NORM_VALUE="UNDEF-this-dayT%SUM%(%normMinute(group(4)),12):group(5)",NORM_MOD="%normApprox4Dates(group(2))"
+// EXAMPLE r5e-1: 10:30:34 a.m.
+RULENAME="time_r5e",EXTRACTION="(%reApproximate )?(الساع[هة] )?%reTimeHour:%reTimeMinute:%reTimeMinute( صباحا[ً]?)?",NORM_VALUE="UNDEF-this-dayT%normMinute(group(4)):group(5)",NORM_MOD="%normApprox4Dates(group(2))"
+// EXAMPLE r5e-1: 10:30:34 p.m.
+RULENAME="time_r5f",EXTRACTION="(%reApproximate )?(الساع[هة] )?%reTimeHour:%reTimeMinute:%reTimeMinute (مساء[ا]?[ً]?)",NORM_VALUE="UNDEF-this-dayT%SUM%(%normMinute(group(4)),12):group(5)",NORM_MOD="%normApprox4Dates(group(2))"
+
+// EXAMPLE r5g: ????-??-??T16:58:00
+RULENAME="time_r5g",EXTRACTION="(\?\?\?\?-\?\?-\?\?T)%reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="UNDEF-this-dayTgroup(2):group(3):group(4)"
+
+// time_r6
+// EXAMPLE r6a-1: 9 am Wednesday
+RULENAME="time_r6a",EXTRACTION="(%reApproximate )?(الساع[هة] )?%reTimeHour( صباحا[ً]?)?( من| من يوم) (ال)%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(8))T%normDay(group(4)):00",NORM_MOD="%normApprox4Dates(group(2))"
+// EXAMPLE r6b-1: 9 pm Wednesday
+RULENAME="time_r6b",EXTRACTION="(%reApproximate )?(الساع[هة] )?%reTimeHour( مساء[ا]?[ً]?)( من| من يوم) (ﺎﻟ)%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(8))T%SUM%(%normDay(group(4)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
+// EXAMPLE r6c-1: 9:30 a.m. Wednesday
+RULENAME="time_r6c",EXTRACTION="(%reApproximate )?(الساع[هة] )?%reTimeHour:%reTimeMinute( صباحا[ً]?)?( من| من يوم) (ال)%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(9))T%normDay(group(4)):group(5)",NORM_MOD="%normApprox4Dates(group(2))"
+// EXAMPLE r6d-1: 9:30 p.m. Wednesday
+RULENAME="time_r6d",EXTRACTION="(%reApproximate )?(الساع[هة] )?%reTimeHour:%reTimeMinute( مساء[ا]?[ً]?)( من| من يوم) (ﺎﻟ)%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(9))T%SUM%(%normDay(group(4)),12):group(5)",NORM_MOD="%normApprox4Dates(group(2))"
+
+// time_r7
+// EXAMPLE r7a-1 : tenth in the morning , use reDayWordTh since all what we need is in this pattern file. 
+RULENAME="time_r7a_1",EXTRACTION="(%reApproximate )?(الساع[هة] )?%reDayWordTh (صباحا[ً]?)",NORM_VALUE="UNDEF-this-dayT%normDay(group(4)):00",NORM_MOD="%normApprox4Dates(group(2))" 
+RULENAME="time_r7a_2",EXTRACTION="(%reApproximate )?(الساع[هة]) %reDayWordTh( صباحا[ً]?)?",NORM_VALUE="UNDEF-this-dayT%normDay(group(4)):00",NORM_MOD="%normApprox4Dates(group(2))" 
+// EXAMPLE r7b-1 : tenth in the evening , use reDayWordTh since all what we need is in this pattern file. 
+RULENAME="time_r7b",EXTRACTION="(%reApproximate )?(الساع[هة] )?%reDayWordTh (مساء[ا]?[ً]?)",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(4)),12):00",NORM_MOD="%normApprox4Dates(group(2))"

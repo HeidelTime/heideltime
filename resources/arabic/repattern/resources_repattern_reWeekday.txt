@@ -1,0 +1,13 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for weekdays.
+// FORMAT: one line is one disjunction of the pattern
+
+[اإ]ثنين
+ثلاثاء
+[اأ]ربعاء
+خميس
+جمع[هة]
+سبت
+[اأ]حد

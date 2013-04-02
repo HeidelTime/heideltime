@@ -1,0 +1,34 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for date words.
+// FORMAT: one line is one disjunction of the pattern
+// THESE EXPRESSIONS ARE ALL IMPLICITS
+// SHOULD ONLY BE UPPER CASE IF AT THE BEGINNING OF A SENTENCE
+[اأ]ول [اأ]مس
+[اأ]لبارح[هة]
+(ب)?[اأ](لأ)?(لا)?مس
+[اأ]ليوم
+[اأ][ل]?غد
+غدا
+[اأ]ل[اآ]ن
+في اللحظ[هة]
+في [اأ]قرب وقت
+قريبا[ً]?
+حديثا[ً]?
+سابقا[ً]?
+مؤخرا[ً]?
+حاليا[ً]?
+آنذاك
+في الماضي
+في السابق
+في الراهن
+الوقت الراهن
+الوقت الماضي
+الوقت السابق
+الوقت الحالي
+هذه ال[اأ]يام
+ال[اأ]يام ال[أا]خير[هة]
+
+
+

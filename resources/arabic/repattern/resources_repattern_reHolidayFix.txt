@@ -1,0 +1,46 @@
+// author: Hans-Peter Pfeiffer
+// email:  H.Pfeiffer@stud.uni-heidelberg.de
+// date:   2012-02-11
+// This file contains regular expression patterns for holidays on a fix date.
+// FORMAT: one line is one disjunction of the pattern
+
+
+// http://en.wikipedia.org/wiki/New_Year%27s_Eve
+//New Year's Eve
+ليل[ةه] ر[اأ]س السن[هة] الميلادي[هة]
+ليل[ةه] ر[اأ]س السن[هة]
+// http://en.wikipedia.org/wiki/New_Year%27s_Day
+//New Year's Day
+ر[اأ]س السن[هة] الميلادي[هة]
+// http://en.wikipedia.org/wiki/Valentine%27s_Day
+//Valentines Day
+عيد الحب
+// http://en.wikipedia.org/wiki/Veterans_Day
+//Veterans Day
+يوم المحاربين القدامى
+// http://en.wikipedia.org/wiki/Epiphany_%28holiday%29
+//Epiphany
+عيد الغطاس
+عيد الظهور الإلهي
+// http://en.wikipedia.org/wiki/Hallowe%27en
+//Halloween
+الهالووين
+// http://en.wikipedia.org/wiki/Assumption_of_Mary
+//Assumption of Mary
+عيد رفع مريم
+// http://en.wikipedia.org/wiki/All_Saints%27_Day
+//All Saints
+عيد جميع القديسين
+// http://en.wikipedia.org/wiki/Christmas
+//Christmas Eve
+ليل[ةه] عيد الميلاد
+عيد الميلاد
+اعياد الميلاد
+// http://en.wikipedia.org/wiki/May_Day
+//May Day
+
+عيد العمال
+يوم العمال
+// http://en.wikipedia.org/wiki/St._Patrick%27s_Day
+//Saint Patricks Day
+يوم القديس باتريك

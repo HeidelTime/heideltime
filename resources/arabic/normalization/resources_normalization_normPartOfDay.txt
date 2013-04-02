@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "part-of-day words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "morning" is "MO"
+// FORMAT: "part-of-day-word","normalized-part-of-day-word"
+// morning
+
+// mid-day
+"noon","12:00"
+"Noon","12:00"
+"midnight","24:00"
+"Midnight","24:00"
+"midnights","24:00"
+"Midnights","24:00"
+"(ال)?صباح[ا]?[ً]?","MO"
+"(ال)?صبيح[هة]","MO"
+"(ال)?ضحى","MO"
+"(ال)?فجر[ا]?[ً]?","MO"
+"(ال)?غدو[هة]","MD"
+"(ال)?منتصف","MD"
+"(ال)?ظهر[ا]?[ُ]?","MD"
+"(ال)?ظهير[هة]","MD"
+"(ال)?عصر[ا]?[ً]?","AF"
+"(ال)?عشاء[ً]?","EV"
+"(ال)?مساء[ً]?","NI"
+"(ال)?ليل[هة]","NI"
+

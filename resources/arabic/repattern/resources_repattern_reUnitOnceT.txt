@@ -1,0 +1,7 @@
+// author: Ayser Armiti
+// email:  
+// date:   2012-07-23
+// This file contains regular expression patterns for unit words indicating a value of one from the unit.
+// FORMAT: one line is one disjunction of the pattern
+دقيق[هة][ً]?
+ساع[هة][ً]?

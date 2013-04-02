@@ -1,0 +1,13 @@
+// author: Ayser Armiti
+// email:  
+// date:   2012-07-23
+// This file contains regular expression patterns for unit words indicating a value twice the unit.
+// FORMAT: one line is one disjunction of the pattern
+يوم[اي]ن
+[اأ]سبوع[اي]ن
+شهر[اي]ن
+عام[اي]ن
+سنت[اي]ن
+قرن[اي]ن
+عقد[اي]ن
+

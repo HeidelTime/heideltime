@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// date:  2011-06-10
+// This file contains regular expression patterns for 
+// number word 2 digits: reNumWord2D
+// FORMAT: one line is one disjunction of the pattern
+
+
+ثلاث[هة]?[\s]?م[ا]?ئ[هة]
+[اأ]ربع[هة]?[\s]?م[ا]?ئ[هة]
+خمس[هة]?[\s]?م[ا]?ئ[هة]
+ست[هة]?[\s]?م[ا]?ئ[هة]
+سبع[هة]?[\s]?م[ا]?ئ[هة]
+ثماني[هة]?[\s]?م[ا]?ئ[هة]
+تسع[هة]?[\s]?م[ا]?ئ[هة]
+م[ا]?ئ[هة]
+م[ا]?ئت[اي][ن]?

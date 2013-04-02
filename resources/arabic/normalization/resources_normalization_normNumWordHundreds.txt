@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// date:  2011-06-10
+// This file contains "duration numbers" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "one" is "1"
+// FORMAT: "duration-number","normalized-duration-number"
+"م[ا]?ئ[هة]","100"
+"م[ا]?ئت[اي][ن]?","200"
+"ثلاث[هة]?[\s]?م[ا]?ئ[هة]","300"
+"[اأ]ربع[هة]?[\s]?م[ا]?ئ[هة],"400"
+"خمس[هة]?[\s]?م[ا]?ئ[هة]","500"
+"ست[هة]?[\s]?م[ا]?ئ[هة]","600"
+"سبع[هة]?[\s]?م[ا]?ئ[هة]","700"
+"ثماني[هة]?[\s]?م[ا]?ئ[هة]","800"
+"تسع[هة]?[\s]?م[ا]?ئ[هة]","900"

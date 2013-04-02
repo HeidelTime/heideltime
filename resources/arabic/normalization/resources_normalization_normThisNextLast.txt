@@ -1,0 +1,20 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "this/next/last words" and their normalized expressions.
+// FORMAT: "this/next/last-word","normalized-this/next/last-word"
+"[اأ]لماضي[هة]?","last"
+"[اأ]لسابق[هة]?","last"
+"[اأ]لفائت[هة]?","last"
+"[اأ]لقادم[هة]?","next"
+"[اأ]لمقبل[هة]?","next"
+"[اأ]لحالي[هة]?","this"
+"[اأ]لجاري[هة]?","this"
+"[اأ]لماضي[اي]ن","last"
+"[اأ]لسابق[اي]ن","last"
+"[اأ]لفائت[اي]ن","last"
+"[اأ]لقادم[اي]ن","next"
+"[اأ]لحالي[اي]ن","next"
+"[اأ]لمقبل[اي]ن","this"
+"[اأ]لجاري[اي]ن","this"
+
