@@ -202,11 +202,11 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			if (find_times) {
 				findTimexes("TIME", rulem.getHmTimePattern(), rulem.getHmTimeOffset(), rulem.getHmTimeNormalization(), rulem.getHmTimeQuant(), s, jcas);
 			}
-			if (find_durations) {
-				findTimexes("DURATION", rulem.getHmDurationPattern(), rulem.getHmDurationOffset(), rulem.getHmDurationNormalization(), rulem.getHmDurationQuant(), s, jcas);
-			}
 			if (find_sets) {
 				findTimexes("SET", rulem.getHmSetPattern(), rulem.getHmSetOffset(), rulem.getHmSetNormalization(), rulem.getHmSetQuant(), s, jcas);
+			}
+			if (find_durations) {
+				findTimexes("DURATION", rulem.getHmDurationPattern(), rulem.getHmDurationOffset(), rulem.getHmDurationNormalization(), rulem.getHmDurationQuant(), s, jcas);
 			}
 		}
 
