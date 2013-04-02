@@ -4,7 +4,7 @@ del used_resources.txt
 
 echo "Writing used_resources.txt"
 dir /s/b . | findstr /e ".txt" > used_resources_temp.txt
-pause
+
 SETLOCAL DISABLEDELAYEDEXPANSION
 FOR /F %%L IN (used_resources_temp.txt) DO (
   SET "line=%%L"
