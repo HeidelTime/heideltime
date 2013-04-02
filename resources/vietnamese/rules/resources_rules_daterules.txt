@@ -223,6 +223,7 @@ RULENAME="vn_date_r11a",EXTRACTION="%rePartOfYear (năm|Năm) %reThisNextLast",N
 
 RULENAME="vn_date_r12a",EXTRACTION="(năm |Năm )%reYear4Digit",NORM_VALUE="group(2)"
 RULENAME="vn_date_r12a1",EXTRACTION="%rePartWords (năm |Năm )%reYear4Digit",NORM_VALUE="group(3)",NORM_MOD="%normPartWords(group(1))"
+RULENAME="vn_date_r12a2",EXTRACTION="%reYear4Digit",NORM_VALUE="group(1)"
 
 RULENAME="vn_date_r12b",EXTRACTION="(năm |Năm )?%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)"
 
