@@ -11,20 +11,33 @@
 // EXAMPLE vn_r1a-1: khoảng/ít hơn... hai mươi ngày/tuần/năm
 // EXAMPLE vn_r1b-1: khoảng/ít hơn... 20 ngày/tuần/năm
 // EXAMPLE vn_r1c-1: nhiều ngày
+// EXAMPLE vn_r1d-1: một/hai ngày/tháng
 
-RULENAME="vn_duration_r1a",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D)( |-)%reUnit",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(7))",NORM_MOD="%normApprox4Durations(group(2))"
-RULENAME="vn_duration_r1b",EXTRACTION="(%reApproximate )?([\d]+)( |-)%reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
-RULENAME="vn_duration_r1c",EXTRACTION="(%reApproximate )%reUnit",NORM_VALUE="PX%normUnit4Duration(group(3))",NORM_MOD="%normApprox4Durations(group(2))"
-
-// duration_r2
-// EXAMPLE r2a-1: khoảng sau mười năm tới/sau/...  at least the last twenty years
-// EXAMPLE r2b-1: khoảng sau 10 năm tới/sau/... at least the last 20 years
+RULENAME="vn_duration_r1a",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D)( |-)(%reUnit|giờ|Giờ|phút|Phút)",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(7))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="vn_duration_r1b",EXTRACTION="(%reApproximate )?([\d]+)( |-)(%reUnit|giờ|Giờ|phút|Phút)",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="vn_duration_r1c",EXTRACTION="(%reApproximate )(%reUnit|giờ|Giờ|phút|Phút)",NORM_VALUE="PX%normUnit4Duration(group(3))",NORM_MOD="%normApprox4Durations(group(2))"
 
 
-RULENAME="vn_duration_r2a",EXTRACTION="(%reApproximate )?(%reThisNextLast )?(%reNumWord2D|%reNumWord1D) %reUnit %reThisNextLast",NORM_VALUE="P%normDurationNumber(group(5))%normUnit4Duration(group(8))",NORM_MOD="%normApprox4Durations(group(2))"
-RULENAME="vn_duration_r2b",EXTRACTION="(%reApproximate )?(%reThisNextLast )?([\d]+) %reUnit %reThisNextLast",NORM_VALUE="Pgroup(5)%normUnit4Duration(group(6))",NORM_MOD="%normApprox4Durations(group(2))"
 
+
+//duration_r3
+//EXAMPLE vn_duration_r3a: trong 3 năm 1920-1922	during 4 years 1920-1922
+
+RULENAME="vn_duration_r3a",EXTRACTION="(trong|Trong) ([\d]+) (năm) %reYear4Digit(-|–| đến )%reYear4Digit",NORM_VALUE="Pgroup(2)%normUnit4Duration(group(3))",OFFSET="group(1)-group(3)"
+RULENAME="vn_duration_r3b",EXTRACTION="(trong|Trong) ([\d]+) (năm) %reYear4Digit(-|–| đến )%reYear4Digit",NORM_VALUE="group(4)",OFFSET="group(4)-group(4)"
+RULENAME="vn_duration_r3c",EXTRACTION="(trong|Trong) ([\d]+) (năm) %reYear4Digit(-|–| đến )%reYear4Digit",NORM_VALUE="group(6)",OFFSET="group(6)-group(6)"
+
+
+//duration_r4
+
+//EXAMPLE vn_durarion_r4a: ngay/thang/... thứ 3
+//EXAMPLE vn_durarion_r4b: ngay/thang/... thứ nhất/hai/ba
+
+//
+RULENAME="vn_duration_r4a",EXTRACTION="%reUnit thứ ([\d]+)",NORM_VALUE="Pgroup(2)%normUnit4Duration(group(1))"
+RULENAME="vn_duration_r4b",EXTRACTION="%reUnit thứ (%reNumWord2D|%reNumWord1D)",NORM_VALUE="P%normDurationNumber(group(2))%normUnit4Duration(group(1))"
 
 ////////////////////
 // NEGATIVE RULES //
 ////////////////////
+
