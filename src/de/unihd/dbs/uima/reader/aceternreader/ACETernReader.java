@@ -133,7 +133,6 @@ public class ACETernReader extends CollectionReader_ImplBase {
 	    String xml = FileUtils.file2String(file);
 	    text = xml;
 
-	    // TODO ATTENTION!!!! (only for ACE 2005 Training????)
 	    // put document into CAS
 	    text = text.replaceAll("(?s)<QUOTE PREVIOUSPOST=.*?/>", "");
 	    jcas.setDocumentText(text);
@@ -159,7 +158,7 @@ public class ACETernReader extends CollectionReader_ImplBase {
 	@SuppressWarnings("unused")
 	public void setDCT(String xml, JCas jcas, String filename){
 		
-		// TODO SET DOCUMENT CREATION TIME!!!!
+		// SET DOCUMENT CREATION TIME!!!!
 		// possible tags for DCT:
 		// DATETIME (all WikiWar documents) with the following format 2009-12-20T17:00:00
 		// DATE_TIME (Tern 2004) with the following format "10/17/2000 18:46:13.59" "10/17/2000 18:41:01.17" "11/04/2000 9:14:43.41" "2000-10-01 20:56:35"
@@ -349,20 +348,19 @@ public class ACETernReader extends CollectionReader_ImplBase {
 			// Document Creation Time style of EVALITA I-CAB corpus (Italian corpus)
 			// example: <DOC ID="adige20040907_id405581" DATE="20040907">
 			if (date_value == null){
-				String dateformatICAB = "(.*?)(\\d\\d\\d\\d)(\\d\\d)(\\d\\d)(.*?)"; // 20030422
-				for (MatchResult m : findMatches(Pattern.compile("(<DOC ID=\".*?\" DATE=\")("+dateformatICAB+
-																								")(\">)"), xml)){
-					datetimetag = m.group(2);
-				}
-				 if (datetimetag.matches(dateformatICAB)){
-						for (MatchResult m : findMatches(Pattern.compile(dateformatICAB), datetimetag)){
+				try {
+					for (MatchResult m : findMatches(Pattern.compile("(<DOC ID=\".*?\" DATE=\")("+dateformat9+")(\">)"), xml)){
+						datetimetag = m.group(2);
+					}
+					if (datetimetag.matches(dateformat9)){
+						for (MatchResult m : findMatches(Pattern.compile(dateformat9), datetimetag)){
 							date_value = m.group(2)+"-"+m.group(3)+"-"+m.group(4);
 						}
-					}
-					else{
+					} else {
 						System.err.println();
 						System.err.println("["+compontent_id+"] cannot set dct with datetimetag: "+datetimetag);
 					}
+				} catch(NullPointerException e) { } // nothing to see here, carry on
 			}
 			if (date_value == null){
 				System.err.println();
