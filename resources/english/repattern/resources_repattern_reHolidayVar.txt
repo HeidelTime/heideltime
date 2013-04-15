@@ -15,9 +15,9 @@ Branch Sunday
 
 // http://en.wikipedia.org/wiki/Maundy_Thursday
 Maundy Thursday
+Great & Holy Thursday
 Holy Thursday
 Covenant Thursday
-Great & Holy Thursday
 Thursday of Mysteries
 
 // http://en.wikipedia.org/wiki/Good_Friday
@@ -35,9 +35,9 @@ The Great Sabbath
 Joyous Saturday
 
 // http://en.wikipedia.org/wiki/Easter
-Easter
-Easter Day
 Easter Sunday
+Easter Day
+Easter
 Resurrection Day
 Resurrection Sunday
 
@@ -77,19 +77,19 @@ Corpus Christi
 The Most Holy Body and Blood of Christ
 
 // advent sundays: the four sundays before christmas(12-24)
-1.Advent
+1. Advent
 1st Advent
 first Advent
 
-2.Advent
+2. Advent
 2nd Advent
 second Advent
 
-3.Advent
+3. Advent
 3rd Advent
 third Advent
 
-4.Advent
+4. Advent
 4th Advent
 fourth Advent
 
@@ -118,8 +118,8 @@ Labor Day
 Columbus Day
 
 // http://en.wikipedia.org/wiki/Thanksgiving_%28United_States%29
-Thanksgiving
 Thanksgiving Day
+Thanksgiving
 
 // http://en.wikipedia.org/wiki/Mother%27s_Day
 Mother's Day

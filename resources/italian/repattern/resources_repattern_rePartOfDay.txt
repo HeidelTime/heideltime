@@ -1,0 +1,23 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-24
+// This file contains regular expression patterns for parts of days.
+// FORMAT: one line is one disjunction of the pattern
+// ITALIAN
+// MORNING
+[Mm]attin[aoe]
+// MIDDAY
+[Mm]eridione
+[Mm]ezzod(ì|i'|i)
+[Mm]ezzogiorno
+// AFTERNOON
+[Dd]opopranzo
+[Pp]omeriggio
+// EVENING
+[Ss]era(ta)?
+// NIGHT
+[Nn]ottata
+[Mm]ezzanotte
+[Nn]ott[ei]
+// DAYTIME
+[Gg]iornata

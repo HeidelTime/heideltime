@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// date:  2011-06-10
+// This file contains "duration numbers" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "one" is "1"
+// FORMAT: "duration-number","normalized-duration-number"
+"\u0660","0"
+"\u0661","1"
+"\u0662","2"
+"\u0663","3"
+"\u0664","4"
+"\u0665","5"
+"\u0666","6"
+"\u0667","7"
+"\u0668","8"
+"\u0669","9"

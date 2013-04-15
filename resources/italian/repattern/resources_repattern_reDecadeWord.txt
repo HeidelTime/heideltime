@@ -1,0 +1,18 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-14
+// This file contains regular expression patterns for decade words.
+// FORMAT: one line is one disjunction of the pattern
+// ITALIN
+[Aa]nni [Vv]enti
+[Aa]nni [Tt]renta
+[Aa]nni [Qq]uaranta
+[Aa]nni [Cc]inquanta
+[Aa]nni [Ss]essanta
+[Aa]nni [Ss]ettanta
+[Aa]nni [Oo]ttanta
+[Aa]nni [Nn]ovanta
+[Aa]nni [2-9]0
+[Aa]nni [Zz]ero
+[Aa]nni [Dd]uemiladieci
+[Aa]nni [Dd]uemila

@@ -1,0 +1,37 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-24
+// This file contains regular expression patterns for day word th.
+// FORMAT: one line is one disjunction of the pattern
+// ITALIAN
+[Uu]ndic(è|e'|e)sim[oa]
+[Dd]odic(è|e'|e)sim[oa]
+[Tt]redic(è|e'|e)sim[oa]
+[Qq]uattordic(è|e'|e)sim[oa]
+[Qq]uindic(è|e'|e)sim[oa]
+[Ss]edic(è|e'|e)sim[oa]
+[Dd]iciassett(è|e'|e)sim[oa]
+[Dd]iciott(è|e'|e)sim[oa]
+[Dd]iciannov(è|e'|e)sim[oa]
+[Vv]entun(è|e'|e)sim[oa]
+[Vv]entidu(è|e'|e)sim[oa]
+[Vv]entitre(è|e'|e)sim[oa]
+[Vv]entiquattr(è|e'|e)sim[oa]
+[Vv]enticinqu(è|e'|e)sim[oa]
+[Vv]entisei(è|e'|e)sim[oa]
+[Vv]entisett(è|e'|e)sim[oa]
+[Vv]entott(è|e'|e)sim[oa]
+[Vv]entinov(è|e'|e)sim[oa]
+[Vv]ent(è|e'|e)sim[oa]
+[Tt]rentun(è|e'|e)sim[oa]
+[Tt]rent(è|e'|e)sim[oa]
+[Pp]rim[oa]
+[Ss]econd[oa]
+[Tt]erz[oa]
+[Qq]uart[oa]
+[Qq]uint[oa]
+[Ss]est[oa]
+[Ss]ettim[oa]
+[Oo]ttav[oa]
+[Nn]on[oa]
+[Dd](è|e'|e)cim[oa]

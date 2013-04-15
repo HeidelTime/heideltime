@@ -1,0 +1,16 @@
+// author: Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-16
+// This file contains "parts-of-year words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "first quarter" is "Q1"
+// FORMAT: "parts-of-year-word","normalized-parts-of-year-word"
+"[Pp]rimo trimestre","Q1"
+"[Ss]econdo trimestre","Q2"
+"[Tt]erzo trimestre","Q3"
+"[Qq]uarto trimestre","Q4"
+"[Pp]rima met(à|a'|a)","H1"
+"[Ss]econda met(à|a'|a)","H2"
+"[Pp]rima quadrimestre","Qu1"
+"[Ss]econda quadrimestre","Qu2"
+"[Tt]erza quadrimestre","Qu3"

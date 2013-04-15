@@ -1,0 +1,23 @@
+// author: TV Canh
+// email:  
+// date:   
+// This file contains regular expression patterns for holidays on a fix date.
+// FORMAT: one line is one disjunction of the pattern
+// http://en.wikipedia.org/wiki/New_Year%27s_Day
+[Tt]ết dương lịch
+Valentines
+lễ tình yêu
+[Qq]uốc khánh
+[Đđ]ộc lập
+[Gg]iải phóng miền nam
+[Gg]iải phóng Miền nam
+Halloween
+Christmas
+Xmas
+XMAS
+Noel
+[Gg]iáng sinh
+[Qq]uốc tế lao động
+[Qq]uốc tế thiếu nhi
+[Qq]uốc tế phụ nữ
+[Nn]hà giáo

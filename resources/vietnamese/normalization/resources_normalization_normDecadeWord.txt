@@ -1,0 +1,43 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "decade words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "twenties" is "2"
+// FORMAT: "decade-word","normalized-decade-word"
+"thập niên 20","2"
+"thập niên 30","3"
+"thập niên 40","4"
+"thập niên 50","5"
+"thập niên 60","6"
+"thập niên 70","7"
+"thập niên 80","8"
+"thập niên 90","9"
+// UPPER CASE
+"Thập niên 20","2"
+"Thập niên 30","3"
+"Thập niên 40","4"
+"Thập niên 50","5"
+"Thập niên 60","6"
+"Thập niên 70","7"
+"Thập niên 80","8"
+"Thập niên 90","9"
+//
+"những năm 20","2"
+"những năm 30","3"
+"những năm 40","4"
+"những năm 50","5"
+"những năm 60","6"
+"những năm 70","7"
+"những năm 80","8"
+"những năm 90","9"
+//
+"Những năm 20","2"
+"Những năm 30","3"
+"Những năm 40","4"
+"Những năm 50","5"
+"Những năm 60","6"
+"Những năm 70","7"
+"Những năm 80","8"
+"Những năm 90","9"
+

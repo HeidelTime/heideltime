@@ -9,15 +9,22 @@ package de.unihd.dbs.uima.annotator.heideltime.resources;
  */
 public enum Language {
 	/*
-	 * set languages here
+	 * set languages here. elements are:
+	 * (languageName [for output labelling],
+	 *  resourceFolder [where the resources for this language reside],
+	 *  treeTaggerLangName [partial of the name of the treetagger parameter file],
+	 *  treeTaggerSwitch [if tree-tagger tokenization script needs a special switch for this language]) 
 	 */
 	ENGLISH		("english", "english", "english", "-e"),
 	GERMAN		("german", "german", "german", ""),
 	DUTCH		("dutch", "dutch", "dutch", ""),
 	ENGLISHCOLL	("englishcoll", "englishcoll", "english", "-e"),
 	ENGLISHSCI	("englishsci", "englishsci", "english", "-e"),
-	//ITALIAN		("italian", "italian", "italian", "-i"),
-	//FRENCH		("french", "french", "french", "-f"),
+	ITALIAN		("italian", "italian", "italian", "-i"),
+	SPANISH		("spanish", "spanish", "spanish", ""),
+	VIETNAMESE	("vietnamese", "vietnamese", "vietnamese", ""),
+	ARABIC		("arabic", "arabic", "arabic", ""),
+	FRENCH		("french", "french", "french", "-f"),
 	WILDCARD	("", "", "", ""), // if no match was found, this gets filled with parameter
 	; // ends the enum element list
 	

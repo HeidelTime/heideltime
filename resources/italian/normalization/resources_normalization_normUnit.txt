@@ -1,0 +1,23 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-19
+// This file contains "unit words" and their normalized expressions.
+// For example, the normalized value of "week" is "week"
+// FORMAT: "unit-word","normalized-unit-word"
+// minute and hours are not in the pattern file 
+// since they have to be normalized in another way than the other expressions
+// but they are needed here
+"[Mm]inut[oe]","minute"
+"[Oo]r[ea]","hour"
+"[Gg]iornata lavorativa","day"
+"[Gg]iorn[oi] lavorativ[oi]","day"
+"[Gg]iorn[oi] feriale","day"
+"[Gg]iorn[oi]","day"
+"[Ff]ine settimana","weekend"
+"[Ss]ettiman[ae]","week"
+"[Mm]es[ei]","month"
+"[Tt]rimestre","quarter"
+"[Aa]nn[oi]","year"
+"[Dd]ecennio","decade"
+"[Dd]ecade","decade"
+"[Ss]ecolo","century"

@@ -1,0 +1,32 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "date words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "tomorrow" is "UNDEF-next-day"
+// FORMAT: "date-word","normalized-date-word"
+"[اأ]ول [اأ]مس","UNDEF-this-day-MINUS-2"
+"[اأ]لبارح[هة]","UNDEF-last-day"
+"(ب)?[اأ](لأ)?(لا)?مس","UNDEF-last-day"
+"[اأ]ليوم","UNDEF-this-day"
+"[اأ][ل]?غد","UNDEF-next-day"
+"غدا","UNDEF-next-day"
+"[اأ]ل[اآ]ن","PRESENT_REF"
+"في اللحظ[هة]","PRESENT_REF"
+"في [اأ]قرب وقت","FUTURE_REF"
+"قريبا[ً]?","FUTURE_REF"
+"حديثا[ً]?","PRESENT_REF"
+"حاليا[ً]?","PRESENT_REF"
+"سابقا[ً]?","PAST_REF"
+"في الماضي","PAST_REF"
+"في السابق","PAST_REF"
+"مؤخرا[ً]?","PAST_REF"
+"آنذاك","PAST_REF"
+"في الراهن","PRESENT_REF"
+"الوقت الراهن","PRESENT_REF"
+"الوقت الماضي","PAST_REF"
+"الوقت السابق","PAST_REF"
+"الوقت الحالي","PRESENT_REF"
+"هذه ال[اأ]يام","PRESENT_REF"
+"ال[اأ]يام ال[أا]خير[هة]","PAST_REF"
+

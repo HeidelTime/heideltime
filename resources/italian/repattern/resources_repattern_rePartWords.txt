@@ -1,0 +1,23 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-24
+// This file contains regular expression patterns for "part" words.
+// FORMAT: one line is one disjunction of the pattern
+// ITALIAN
+// START
+\b[Ll]'[\\s]?inizio( di| della| dell'| del)?
+[Ii]nizio( di| della| dell'| del)?
+\b[Ii] primi( di| della| dell'| del)?
+[Pp]rimi( di| della| dell'| del)?
+\b[Ll]'[\\s]?alba( di| della| dell'| del)?
+[Aa]lba( di| della| dell'| del)?
+[Pp]rimera met(à|a'|a)
+[Pp]rincipio
+// MID
+[Mm]et(à|a'|a)
+// END
+\b[Ll]a fine( di| della| dell'| del)?
+[Ff]ine( di| della| dell'| del)?
+[Tt]ard[oa]
+[Uu]ltimi
+[Ss]econda met(à|a'|a)

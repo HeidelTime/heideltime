@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for long months.
+// FORMAT: one line is one disjunction of the pattern
+[Tt]háng 1
+[Tt]háng 01
+[Tt]háng 2
+[Tt]háng 02
+[Tt]háng 3
+[Tt]háng 03
+[Tt]háng 4
+[Tt]háng 04
+[Tt]háng 5
+[Tt]háng 05
+[Tt]háng 6
+[Tt]háng 06
+[Tt]háng 7
+[Tt]háng 07
+[Tt]háng 8
+[Tt]háng 08
+[Tt]háng 9
+[Tt]háng 09
+[Tt]háng 10
+[Tt]háng 11
+[Tt]háng 12

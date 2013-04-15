@@ -1,0 +1,14 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-24
+// This file contains regular expression patterns for seasons.
+// FORMAT: one line is one disjunction of the pattern
+[Pp]rimavera
+[Ee]state
+[Aa]utunno
+[Ii]nverno
+[Vv]erno
+[Ii]nvernale
+[Aa]utunnale
+[Ee]stiv[oa]
+[Pp]rimaverile

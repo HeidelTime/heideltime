@@ -1,0 +1,30 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for long months.
+// FORMAT: one line is one disjunction of the pattern
+
+ابريل
+كانون (ال)?ثاني
+شباط
+[آا]ذار
+نيسان
+[اأ]يار
+حزيران
+تموز
+[اأ]يلول
+تشرين (ال)?[اأ]ول
+تشرين (ال)?ثاني
+كانون (ال)?[اأ]ول
+يناير
+فبراير
+مارس
+مايو
+يوني[وه]
+يولي[وه]
+[اأ]غسطس
+سبتمبر
+[اأ]كتوبر
+نوفمبر
+ديسمبر
+[اآ]ب

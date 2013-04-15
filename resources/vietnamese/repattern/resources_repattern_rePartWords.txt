@@ -1,0 +1,20 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for "part" words.
+// FORMAT: one line is one disjunction of the pattern
+[đĐ]ầu
+[Tt]ừ
+[Bb]ắt đầu
+[Bb]ắt đầu từ
+[Bb]ắt đầu lúc
+[Gg]iữa
+[cC]uối
+[Đđ]ến
+[Tt]ới
+[Kk]ết thúc
+[Kk]ết thúc vào
+[Kk]ết thúc vào lúc
+[Cc]hấm dứt vào
+[Cc]hấm dứt vào lúc
+

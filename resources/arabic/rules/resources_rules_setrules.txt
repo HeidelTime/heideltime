@@ -1,0 +1,58 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-13
+// This file contains rules for the temporal expressions of the type set: setrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////
+// EVERY UNIT //
+////////////////
+// set_r1
+// EXAMPLE r1a-1: each day
+RULENAME="set_r1a",EXTRACTION="(كل) %reUnitOnce",NORM_VALUE="P1%normUnit4Duration(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1"
+// EXAMPLE r1b-1: every Monday
+RULENAME="set_r1b",EXTRACTION="(كل) (يوم )?%reWeekday",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(3))",NORM_QUANT="EVERY",NORM_FREQ="1W"
+// EXAMPLE r1c-1: each September rule 1
+RULENAME="set_r1c_1",EXTRACTION="%reMonthLong ([\s]?[,/]?[\s]?%reMonthLong )?(من كل) (عام|سن[هة])",NORM_VALUE="XXXX-%normMonth(group(1))",NORM_QUANT="EVERY",NORM_FREQ="1M"
+// EXAMPLE r1c-1: each September rule 2
+RULENAME="set_r1c_2",EXTRACTION="(كل) %reMonthLong",NORM_VALUE="XXXX-%normMonth(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1M"
+// EXAMPLE r1d-1: every summer rule 1
+RULENAME="set_r1d_1",EXTRACTION="(ال)?%reSeason (من كل) (عام|سن[هة])",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1S"
+// EXAMPLE r1d-1: every summer rule 2
+RULENAME="set_r1d_2",EXTRACTION="(كل) %reSeason",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1S"
+
+// set_r2
+// EXAMPLE r2a-1: once a week
+RULENAME="set_r2a_1",EXTRACTION="(مره|مرّه) (واحده )?(من كل |في ال)%reUnitOnce",NORM_VALUE="P1%normUnit4Duration(group(4))",NORM_FREQ="1"
+//RULENAME="set_r2a_2",EXTRACTION="(مره|مرّه) (واحده )? %reSetWords",NORM_VALUE="P1%normUnit4Duration(group(4))",NORM_FREQ="1"
+// EXAMPLE r2b-1: twice a month
+RULENAME="set_r2b_1",EXTRACTION="(مرت[اي]ن|مرّت[اي]ن) (من كل |في ال)%reUnitOnce",NORM_VALUE="P1%normUnit4Duration(group(3))",NORM_FREQ="2"
+//RULENAME="set_r2b_2",EXTRACTION="(مرت[اي]ن|مرّت[اي]ن) %reSetWords",NORM_VALUE="P1%normUnit4Duration(group(2))",NORM_FREQ="2"
+// EXAMPLE r2c-1: three times a month
+RULENAME="set_r2c_1",EXTRACTION="(%reNumWord1D|%reNumWord2D) (مرات|مرّات) (من كل |في ال)%reUnitOnce",NORM_VALUE="P1%normUnit4Duration(group(6))",NORM_FREQ="%normDurationNumber(group(1))"
+//RULENAME="set_r2c_2",EXTRACTION="(%reNumWord1D|%reNumWord2D) (مرات|مرّات) %reSetWords",NORM_VALUE="P1%normUnit4Duration(group(5))",NORM_FREQ="%normDurationNumber(group(1))"
+// EXAMPLE r2d-1: 40 times per month
+RULENAME="set_r2d_1",EXTRACTION="([\d]+) (مرات|مرّات) (من كل |في ال)%reUnitOnce",NORM_VALUE="P1%normUnit4Duration(group(4))",NORM_FREQ="group(1)"
+//RULENAME="set_r2d_2",EXTRACTION="([\d]+) (مرات|مرّات) %reSetWords",NORM_VALUE="P1%normUnit4Duration(group(3))",NORM_FREQ="group(1)"
+
+// EXAMPLE r2f-1: a minute
+// TODO : minut and hours are not handled correctly.
+RULENAME="set_r2f",EXTRACTION="(a|an)( |-)(minutes?|hours?)",NORM_VALUE="PT1%normUnit4Duration(group(3))",NORM_FREQ="1"
+
+// set_r3
+// EXAMPLE r3a-1: every 5 years
+RULENAME="set_r3a",EXTRACTION="(كل) ([\d]+) %reUnit",NORM_VALUE="Pgroup(2)%normUnit4Duration(group(3))",NORM_QUANT="EVERY"
+// EXAMPLE r3b-1: every three days
+RULENAME="set_r3b",EXTRACTION="(كل) (%reNumWord1D|%reNumWord2D) %reUnit",NORM_VALUE="P%normDurationNumber(group(2))%normUnit4Duration(group(5))",NORM_QUANT="EVERY"
+// EXAMPLE r3c-1: every two days
+RULENAME="set_r3c",EXTRACTION="(كل) %reUnitTwice",NORM_VALUE="P2%normUnit4Duration(group(2))",NORM_QUANT="EVERY"
+
+// set_r4
+// EXAMPLE r4a-1: 2 days each week
+RULENAME="set_r4a",EXTRACTION="([\d]+) (%reUnitOnce|%reUnit) (من كل |في ال)(%reUnitOnce|%reUnit)",NORM_VALUE="P1%normUnit4Duration(group(6))",NORM_QUANT="EACH",NORM_FREQ="group(1)%normUnit(group(2))"
+// EXAMPLE r4a-1: five days each week
+RULENAME="set_r4b",EXTRACTION="(%reNumWord1D|%reNumWord2D) (%reUnitOnce|%reUnit) (من كل) (%reUnit|%reUnitOnce)",NORM_VALUE="P1%normUnit4Duration(group(8))",NORM_QUANT="EACH",NORM_FREQ="%normDurationNumber(group(1))%normUnit(group(4))"
+// set_r5 
+// EXAMPLE r5a-1: annually
+RULENAME="set_r5a",EXTRACTION="(ال)?%reSetWords",NORM_VALUE="%normSetWords(group(2))"
+

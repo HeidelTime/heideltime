@@ -159,6 +159,18 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		ttprops.abbFileName = ttprops.languageName + "-abbreviations";
 		ttprops.languageSwitch = language.getTreeTaggerSwitch();
 
+		// take utf-8 parameter files where available
+		if (language.equals(Language.GERMAN) && !ttprops.utf8Switch.equals("")) {
+			ttprops.abbFileName = "german-abbreviations-utf8";
+			ttprops.parFileName = "german-utf8.par";
+		}
+		if (language.equals(Language.SPANISH) && !ttprops.utf8Switch.equals("")) {
+			ttprops.parFileName = "spanish-utf8.par";
+		}
+		if (language.equals(Language.ITALIAN) && !ttprops.utf8Switch.equals("")) {
+			ttprops.parFileName = "italian-utf8.par";
+		}
+
 		// handle the treetagger path from the environment variables
 		if(ttprops.rootPath == null) {
 			Logger.printError("TreeTagger environment variable is not present, aborting.");
@@ -194,14 +206,6 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			Logger.printError(component, "If missing, copy " + ttprops.parFileName   + " into " +  ttprops.rootPath+ttprops.fileSeparator+"lib");
 			Logger.printError(component, "If missing, copy " + ttprops.tokScriptName + " into " +  ttprops.rootPath+ttprops.fileSeparator+"cmd");
 			System.exit(-1);
-		}
-
-		// TreeTagger: german abbreviation file for utf-8
-		// and 
-		// TreeTagger: german par file for utf8
-		if ((language.equals(Language.GERMAN)) && (!(ttprops.utf8Switch.equals("")))){
-			ttprops.abbFileName = "german-abbreviations-utf8";
-			ttprops.parFileName = "german-utf8.par";
 		}
 	}
 	

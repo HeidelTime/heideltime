@@ -1,0 +1,32 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-19
+// This file contains "date words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "tomorrow" is "UNDEF-next-day"
+// FORMAT: "date-word","normalized-date-word"
+"[Aa] questo punto","PRESENT_REF"
+"[Aa]ttualmente","PRESENT_REF"
+"[Aa]desso","PRESENT_REF"
+"[Pp]er ora","PRESENT_REF"
+"[Ff]inora","PRESENT_REF"
+"[Pp]er il momento","PRESENT_REF"
+"[Aa]vantieri","UNDEF-this-day-LESS-2"
+"[Aa]vant'ieri","UNDEF-this-day-LESS-2"
+"[Ii]eri l'altro","UNDEF-this-day-LESS-2"
+"[Ll]'altro ieri","UNDEF-this-day-LESS-2"
+"[Ii]eri","UNDEF-last-day"
+"[Aa]l giorno d'oggi","PRESENT_REF"
+"[Oo]ggi come oggi","PRESENT_REF"
+"[Oo]ggid(ì|i'|i)","PRESENT_REF"
+"[Oo]ggigiorno","PRESENT_REF"
+"[Oo]ggi","UNDEF-this-day"
+"[Dd]opodomani","UNDEF-this-day-PLUS-2"
+"[Pp]osdomani","UNDEF-this-day-PLUS-2"
+"[Dd]omani","UNDEF-next-day"
+"[Rr]ecentemente","PAST_REF"
+"[Dd]i fresco","PAST_REF"
+"[Dd]i recente","PAST_REF"
+"[Uu]ltimamente","PAST_REF"
+"[Uu]n domani","FUTURE_REF"
+

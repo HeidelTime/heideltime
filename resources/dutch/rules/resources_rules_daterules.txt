@@ -146,20 +146,20 @@ RULENAME="date_r12c",EXTRACTION="%reNumWordTeen( |-)?%reNumWord2D",NORM_VALUE="%
 // EXAMPLE r13b_1: de jaren '90 van de 20e eeuw
 // EXAMPLE r13c_1: de jaren negentig
 // EXAMPLE r13d_1: de jaren negentien-negentig
-RULENAME="date_r13a",EXTRACTION="([Dd]e )?jaren (\d\d\d0)",NORM_VALUE="%SUBSTRING%(group(2),0,3)X"
-RULENAME="date_r13b",EXTRACTION="([Dd]e )?jaren [']?%reYear2Digit",NORM_VALUE="UNDEF-century%SUBSTRING%(group(2),0,1)X"
+RULENAME="date_r13a",EXTRACTION="([Dd]e )?jaren (\d\d\d0)",NORM_VALUE="%SUBSTRING%(group(2),0,3)"
+RULENAME="date_r13b",EXTRACTION="([Dd]e )?jaren [']?%reYear2Digit",NORM_VALUE="UNDEF-century%SUBSTRING%(group(2),0,1)"
 RULENAME="date_r13c",EXTRACTION="([Dd]e )?%reDecadeWord",NORM_VALUE="UNDEF-century%normDecadeWord(group(2))"
 RULENAME="date_r13d",EXTRACTION="([Dd]e )?jaren %reNumWordTeen[ -]?%reDecadeWord",NORM_VALUE="%normDurationNumber(group(2))%normDecadeWord(group(3))"
-RULENAME="date_r13e",EXTRACTION="([Dd]e )?jaren (\d\d\d0) van de (%reDayWordTh|%reDayNumberTh) eeuw",NORM_VALUE="%normDay(group(3))%SUBSTRING%(group(2),0,3)X"
-RULENAME="date_r13f",EXTRACTION="([Dd]e )?jaren [']?%reYear2Digit van de (%reDayWordTh|%reDayNumberTh) eeuw",NORM_VALUE="%normDay(group(3))%SUBSTRING%(group(2),0,1)X"
+RULENAME="date_r13e",EXTRACTION="([Dd]e )?jaren (\d\d\d0) van de (%reDayWordTh|%reDayNumberTh) eeuw",NORM_VALUE="%normDay(group(3))%SUBSTRING%(group(2),0,3)"
+RULENAME="date_r13f",EXTRACTION="([Dd]e )?jaren [']?%reYear2Digit van de (%reDayWordTh|%reDayNumberTh) eeuw",NORM_VALUE="%normDay(group(3))%SUBSTRING%(group(2),0,1)"
 RULENAME="date_r13g",EXTRACTION="([Dd]e )?%reDecadeWord van de (%reDayWordTh|%reDayNumberTh) eeuw",NORM_VALUE="%normDay(group(3))%normDecadeWord(group(2))"
 
 // date_r14
 // EXAMPLE r14a_1: begin 1990 
 // EXAMPLE r14b_1: midden jaren 90
 // EXAMPLE r14c_1: laat jaren zeventig
-RULENAME="date_r14a",EXTRACTION="%rePartWords[\s]?(\d\d\d0)",NORM_VALUE="%SUBSTRING%(group(2),0,3)X",NORM_MOD="%normPartWords(group(1))"
-RULENAME="date_r14b",EXTRACTION="%rePartWords (jaren |van de jaren |van het jaar )[']?%reYear2Digit",NORM_VALUE="UNDEF-century%SUBSTRING%(group(3),0,1)X",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r14a",EXTRACTION="%rePartWords[\s]?(\d\d\d0)",NORM_VALUE="%SUBSTRING%(group(2),0,3)",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r14b",EXTRACTION="%rePartWords (jaren |van de jaren |van het jaar )[']?%reYear2Digit",NORM_VALUE="UNDEF-century%SUBSTRING%(group(3),0,1)",NORM_MOD="%normPartWords(group(1))"
 RULENAME="date_r14c",EXTRACTION="%rePartWords[\s]?%reDecadeWord",NORM_VALUE="UNDEF-century%normDecadeWord(group(2))",NORM_MOD="%normPartWords(group(1))"
 
 /////////////////////////
@@ -168,7 +168,7 @@ RULENAME="date_r14c",EXTRACTION="%rePartWords[\s]?%reDecadeWord",NORM_VALUE="UND
 // date_r15
 // EXAMPLE r15a_1: de 19e eeuw
 // EXAMPLE r15a_2: de negentiende eeuw
-RULENAME="date_r15a",EXTRACTION="([Dd]e )?(%reDayNumberTh|%reDayWordTh) eeuw",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))XX"
+RULENAME="date_r15a",EXTRACTION="([Dd]e )?(%reDayNumberTh|%reDayWordTh) eeuw",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))"
 
 ///////////////////////////////////
 // GRANULARITY INDEPENDENT RULES //

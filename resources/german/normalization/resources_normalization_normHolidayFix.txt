@@ -83,7 +83,7 @@
 "Heimgang Mariens","08-15"
 
 //
-"Tag der Deutschen Einheit","10-06" 
+"Tag der [Dd]eutschen Einheit","10-06" 
 "Tag der Wiedervereinigung","10-06"
 //
 "Reformationstag","10-31"

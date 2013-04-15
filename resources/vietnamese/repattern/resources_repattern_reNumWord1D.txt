@@ -1,0 +1,14 @@
+// author: TV Canh
+// email:  canhtv@uni-hd.de
+// date:   2012-07-22
+// This file contains regular expression patterns for number word 1 digits.
+// FORMAT: one line is one disjunction of the pattern
+[Mm]ột
+[Hh]ai
+[Bb]a
+[Bb]ốn
+[Nn]ăm
+[Ss]áu
+[Bb]ảy
+[Tt]ám
+[Cc]hín

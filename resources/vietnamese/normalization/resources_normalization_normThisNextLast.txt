@@ -1,0 +1,30 @@
+// author: TV Canh
+// email:  canhtv@uni-hd.de
+// date:   2012-06-26
+// This file contains "this/next/last words" and their normalized expressions.
+// FORMAT: "this/next/last-word","normalized-this/next/last-word"
+"cuối cùng","last"
+"Cuối cùng","last"
+"ngoái","last"
+"quá khứ","last"
+"Quá khứ","last"
+"trước","last"
+"Trước","last"
+"trước đó","last"
+"Trước đó","last"
+"tiếp theo","next"
+"Tiếp theo","next"
+"sau","next"
+"theo sau","next"
+"Theo sau","next"
+"gần nhất","last"
+"Gần nhất","last"
+"hiện tại","this"
+"Hiện tại","this"
+"hiện nay","this"
+"Hiện nay","this"
+"nay","this"
+"này","this"
+//nay: năm nay
+//này: tuần này, tháng này
+

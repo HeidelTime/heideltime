@@ -1,0 +1,66 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-09-13
+// This file contains "month words" and their English expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "2" is "february"
+// FORMAT: "month-word","normalized-month-word"
+// January
+"1","january"
+"01","january"
+"một","january"
+"Một.","january"
+"giêng","january"
+"Giêng","january"
+// February
+"2","february"
+"02","february"
+"hai.","february"
+"Hai.","february"
+// March
+"3","march"
+"03","march"
+"ba.","march"
+"Ba.","march"
+// April
+"4","april"
+"04","april"
+"bốn","april"
+"Bốn","april"
+// May
+"5","may"
+"05","may" 
+"năm","may"
+"Năm","may"
+// June
+"6","june"
+"06","june"
+"sáu","june"
+"Sáu","june"
+// July
+"7","july"
+"07","july"
+"bảy","july"
+"Bảy","july"
+// August
+"8","august"
+"08","august"
+"tám","august"
+"Tám","august"
+// September
+"9","september"
+"09","september"
+"chín.","september"
+"Chín","september"
+// October
+"10","october"
+"mười","october"
+"Mười","october"
+// November
+"11","november"
+"mười một","november"
+"Mười một","november"
+// December
+"12","december"
+"mười hai","december"
+"Mười hai","december"

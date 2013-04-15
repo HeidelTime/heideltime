@@ -1,0 +1,41 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-24
+// This file contains regular expression patterns for day number words (e.g., cinque)
+// FORMAT: one line is one disjunction of the pattern
+// 10 - 19
+[Dd]ieci
+[Uu]ndici
+[Dd]odici
+[Tt]redici
+[Qq]uattrodici
+[Qq]uindici
+[Ss]edici
+[Dd]iciassette
+[Dd]iciotto
+[Dd]iciannove
+// 21 - 29, 20
+[Vv]entuno
+[Vv]entidue
+[Vv]entitré
+[Vv]entiquattro
+[Vv]enticinque
+[Vv]entisei
+[Vv]entisette
+[Vv]entotto
+[Vv]entinove
+[Vv]enti
+// 31, 30
+[Tt]renta
+[Tt]rentuno
+// 1 - 9
+[Aa]cces[oa]
+[Uu]n[oa]?
+[Dd]ue
+[Tt]re
+[Qq]uattro
+[Cc]inque
+[Ss]ei
+[Ss]ette
+[Oo]tto
+[Nn]ove

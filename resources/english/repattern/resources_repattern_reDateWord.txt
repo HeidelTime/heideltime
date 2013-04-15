@@ -19,5 +19,5 @@
 [Cc]urrent
 // [Pp]reviously
 // [Yy]et
-[Ff]ormerly
-[Ff]ormer
+//[Ff]ormerly
+//[Ff]ormer

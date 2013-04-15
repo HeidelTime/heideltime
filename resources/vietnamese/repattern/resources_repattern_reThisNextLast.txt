@@ -1,0 +1,18 @@
+// author: TV Canh
+// email:  canhtv@uni-hd.de
+// date:   2012-06-26
+// This file contains regular expression patterns for "this/next/last" words.
+// FORMAT: one line is one disjunction of the pattern
+[Cc]uối cùng
+[Qq]úa khứ
+ngoái
+[Tt]rước
+[Tt]ước đó
+sau
+[Tt]iếp theo
+[Tt]heo sau
+[Gg]ần nhất
+[Hh]iện tại
+[Hh]iện nay
+nay
+này

@@ -147,10 +147,8 @@ RULENAME="date_r12d",EXTRACTION="two( |-)thousand( and)? (%reNumWord2D|%reNumWor
 // EXAMPLE r13b_1: the 90s
 // EXAMPLE r13c_1: the seventies
 // EXAMPLE r13d_1: the nineteen seventies
-RULENAME="date_r13a",EXTRACTION="([Tt]he )?(\d\d\d0)[']?[s]",NORM_VALUE="%SUBSTRING%(group(2),0,3)X"
-//RULENAME="date_r13b",EXTRACTION="([Tt]he )?[']?%reYear2Digit[']?[s]",NORM_VALUE="UNDEF-century%SUBSTRING%(group(2),0,1)X"
-RULENAME="date_r13b",EXTRACTION="([Tt]he )?[']?%reYear2Digit[']?[s]",NORM_VALUE="19%SUBSTRING%(group(2),0,1)X"
-// OLD: RULENAME="date_r13c",EXTRACTION="([Tt]he )?%reDecadeWord",NORM_VALUE="UNDEF-century%normDecadeWord(group(2))"
+RULENAME="date_r13a",EXTRACTION="([Tt]he )?(\d\d\d0)[']?[s]",NORM_VALUE="%SUBSTRING%(group(2),0,3)"
+RULENAME="date_r13b",EXTRACTION="([Tt]he )?[']?%reYear2Digit[']?[s]",NORM_VALUE="19%SUBSTRING%(group(2),0,1)"
 RULENAME="date_r13c",EXTRACTION="([Tt]he )?%reDecadeWord",NORM_VALUE="19%normDecadeWord(group(2))"
 RULENAME="date_r13d",EXTRACTION="([Tt]he )?%reNumWordTeen %reDecadeWord",NORM_VALUE="%normDurationNumber(group(2))%normDecadeWord(group(3))"
 
@@ -159,10 +157,8 @@ RULENAME="date_r13d",EXTRACTION="([Tt]he )?%reNumWordTeen %reDecadeWord",NORM_VA
 // EXAMPLE r14b_1: the mid-90s
 // EXAMPLE r14c_1: the late seventies
 // EXAMPLE r14d_1: the early nineteen seventies
-RULENAME="date_r14a",EXTRACTION="([Tt]he )?%rePartWords[\s]?(\d\d\d0)[']?[s]",NORM_VALUE="%SUBSTRING%(group(3),0,3)X",NORM_MOD="%normPartWords(group(2))"
-// OLD: RULENAME="date_r14b",EXTRACTION="([Tt]he )?%rePartWords[\s]?[']?%reYear2Digit[']?[s]",NORM_VALUE="UNDEF-century%SUBSTRING%(group(3),0,1)X",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r14b",EXTRACTION="([Tt]he )?%rePartWords[\s]?[']?%reYear2Digit[']?[s]",NORM_VALUE="19%SUBSTRING%(group(3),0,1)X",NORM_MOD="%normPartWords(group(2))"
-// OLD: RULENAME="date_r14c",EXTRACTION="([Tt]he )?%rePartWords[\s]?%reDecadeWord",NORM_VALUE="UNDEF-century%normDecadeWord(group(3))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r14a",EXTRACTION="([Tt]he )?%rePartWords[\s]?(\d\d\d0)[']?[s]",NORM_VALUE="%SUBSTRING%(group(3),0,3)",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r14b",EXTRACTION="([Tt]he )?%rePartWords[\s]?[']?%reYear2Digit[']?[s]",NORM_VALUE="19%SUBSTRING%(group(3),0,1)",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_r14c",EXTRACTION="([Tt]he )?%rePartWords[\s]?%reDecadeWord",NORM_VALUE="19%normDecadeWord(group(3))",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_r14d",EXTRACTION="([Tt]he )?%rePartWords[\s]?%reNumWordTeen %reDecadeWord",NORM_VALUE="%normDurationNumber(group(3))%normDecadeWord(group(4))",NORM_MOD="%normPartWords(group(2))"
 
@@ -172,7 +168,7 @@ RULENAME="date_r14d",EXTRACTION="([Tt]he )?%rePartWords[\s]?%reNumWordTeen %reDe
 // date_r15
 // EXAMPLE r15a_1: the 19th century
 // EXAMPLE r15a_2: the seventh century
-RULENAME="date_r15a",EXTRACTION="([Tt]he )?(%reDayNumberTh|%reDayWordTh) century",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))XX"
+RULENAME="date_r15a",EXTRACTION="([Tt]he )?(%reDayNumberTh|%reDayWordTh) [Cc]entury",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))"
 
 ///////////////////////////////////
 // GRANULARITY INDEPENDENT RULES //
@@ -280,10 +276,10 @@ RULENAME="date_r24d",EXTRACTION="%reHolidayFix '%reYear2Digit",NORM_VALUE="UNDEF
 //EXAMPLE r25c_1: Eastersunday 87
 //EXAMPLE r25d_1: Eastersunday '87
 
-RULENAME="date_r25a",EXTRACTION="%reHolidayVar",NORM_VALUE="UNDEF-year-00-00 %normHolidayVar(group(1))"
-RULENAME="date_r25b",EXTRACTION="%reHolidayVar %reYear4Digit",NORM_VALUE="group(2)-00-00 %normHolidayVar(group(1))"
-RULENAME="date_r25c",EXTRACTION="%reHolidayVar %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-00-00 %normHolidayVar(group(1))"
-RULENAME="date_r25d",EXTRACTION="%reHolidayVar '%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-00-00 %normHolidayVar(group(1))"
+RULENAME="date_r25a",EXTRACTION="%reHolidayVar",NORM_VALUE="UNDEF-year-%normHolidayVar(group(1))"
+RULENAME="date_r25b",EXTRACTION="%reHolidayVar %reYear4Digit",NORM_VALUE="group(2)-%normHolidayVar(group(1))"
+RULENAME="date_r25c",EXTRACTION="%reHolidayVar %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayVar(group(1))"
+RULENAME="date_r25d",EXTRACTION="%reHolidayVar '%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayVar(group(1))"
 
 
 ////////////////////
@@ -295,9 +291,11 @@ RULENAME="date_r1_negative",EXTRACTION="as soon as",NORM_VALUE="REMOVE"
 // EXAMPLE r2a_negative_1: they march the way (if it is a verb)
 // EXAMPLE r2b_negative_1: they march the way (if it is a verb)
 // EXAMPLE r2c_negative_1: may   (if it is a verb)
+// EXAMPLE r2d_negative_1: may (or march, fall -- if it is lower case and without any further temporal stuff around it...)
 RULENAME="date_r2a_negative",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(1):VBP:"
 RULENAME="date_r2b_negative",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(1):VVP:"
 RULENAME="date_r2c_negative",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(1):MD:"
+RULENAME="date_r2d_negative",EXTRACTION="(may|march|fall)",NORM_VALUE="REMOVE"
 
 // EXAMPLE r3a_negative_1: 2000 soldiers (four digit number followed by a plural noun)
 // EXAMPLE r3b_negative_1: 2000 dead soldiers (four digit number followed by an adjective and a plural noun)

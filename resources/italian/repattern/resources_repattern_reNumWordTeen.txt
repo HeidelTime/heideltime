@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-24
+// This file contains regular expression patterns for number words 10 to 20.
+// FORMAT: one line is one disjunction of the pattern
+[Uu]ndici
+[Dd]odici
+[Tt]redici
+[Qq]uattrodici
+[Qq]uindici
+[Ss]edici
+[Dd]iciassette
+[Dd]iciotto
+[Dd]iciannove
+[Dd]ieci

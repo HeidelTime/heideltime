@@ -1,0 +1,13 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for set words.
+// FORMAT: one line is one disjunction of the pattern
+سنويا[ً]?
+شهريا[ً]?
+يوميا[ً]?
+اسبوعيا[ً]?
+سنوي[هة]?
+شهري[هة]?
+يومي[هة]?
+اسبوعي[هة]?

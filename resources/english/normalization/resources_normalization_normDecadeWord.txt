@@ -5,20 +5,14 @@
 // according to TIMEX3 format.
 // For example, the normalized value of "twenties" is "2X"
 // FORMAT: "decade-word","normalized-decade-word"
-"twenties","2X"
-"thirties","3X"
-"forties","4X"
-"fifties","5X"
-"sixties","6X"
-"seventies","7X"
-"eighties","8X"
-"nineties","9X"
-// UPPER CASE
-"Twenties","2X"
-"Thirties","3X"
-"Forties","4X"
-"Fifties","5X"
-"Sixties","6X"
-"Seventies","7X"
-"Eighties","8X"
-"Nineties","9X"
+// Changed in the context of TempEval-3 
+// (there shouldn't be any "X" or "XX" at 
+// the end of decade and century expressions
+"[Tt]wenties","2"
+"[Tt]hirties","3"
+"[Ff]orties","4"
+"[Ff]ifties","5"
+"[Ss]ixties","6"
+"[Ss]eventies","7"
+"[Ee]ighties","8"
+"[Nn]ineties","9"

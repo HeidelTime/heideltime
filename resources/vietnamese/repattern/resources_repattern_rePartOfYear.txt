@@ -1,0 +1,22 @@
+// author: TV Canh
+// email:  canhtv@uni-hd.de
+// date:   2012-06-26
+// This file contains regular expression patterns for parts of year.
+// FORMAT: one line is one disjunction of the pattern
+[Qq]úy I
+[Qq]úy 1
+[Qq]úy một
+[Qq]úy II
+[Qq]úy 2
+[Qq]úy hai
+[Qq]úy III
+[Qq]úy 3
+[Qq]úy ba
+[Qq]úy IV
+[Qq]úy 4
+[Qq]úy bốn
+0?6 tháng đầu
+[Ss]áu tháng đầu
+0?6 tháng cuối
+[Ss]áu tháng cuối
+

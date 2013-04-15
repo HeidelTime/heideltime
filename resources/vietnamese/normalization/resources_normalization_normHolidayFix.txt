@@ -1,0 +1,35 @@
+// author: TV Canh
+// email:  
+// date:   
+// This file contains fix holiday and their normalized expressions.
+// For example, the normalized value of "Newyear" is "01-01"
+// FORMAT: "hoilday_name","month-year"
+// 
+// the reference of the values is given in the repattern file
+"tết dương lịch","01-01"
+"Tết dương lịch","01-01"
+"Valentines","02-14"
+"lễ tình yêu","02-14"
+"quốc khánh","09-02"
+"Quốc khánh","09-02"
+"độc lập","04-30"
+"Độc lập","04-30"
+"giải phóng miền nam","04-30"
+"giải phóng Miền nam","04-30"
+"Giải phóng miền nam","04-30"
+"Giải phóng Miền nam","04-30"
+"Halloween","10-31"
+"Christmas","12-25"
+"Xmas","12-25"
+"XMAS","12-25"
+"Noel","12-25"
+"giáng sinh","12-25"
+"Giáng sinh","12-25"
+"quốc tế lao động","05-01"
+"Quốc tế lao động","05-01"
+"quốc tế thiếu nhi","06-01"
+"Quốc tế thiếu nhi","06-01"
+"quốc tế phụ nữ","03-08"
+"Quốc tế phụ nữ","03-08"
+"Nhà giáo","11-20","11-20"
+"nhà giáo","11-20","11-20"

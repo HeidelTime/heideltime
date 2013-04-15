@@ -131,8 +131,8 @@ RULENAME="date_r16a",EXTRACTION="%reNumWordTeen( |-|)%reNumWord2D",NORM_VALUE="%
 // EXAMPLE r17a_1: Das 20. Jahrhundert
 // EXAMPLE r17b_1: Im 18. und 19. Jahrhundert (find: 17. Jahrhundert)
 // EXAMPLE 2: the seventh century
-RULENAME="date_r17a",EXTRACTION="(Das )?(%reDayNumber[\.]?|%reDayWordTh) Jahrhundert[s]?",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))XX"
-RULENAME="date_r17b",EXTRACTION="(Das )?(%reDayNumber[\.]?|%reDayWordTh)(-| - | und | bis )(%reDayNumber[\.]?|%reDayWordTh) Jahrhundert[s]?",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))XX",OFFSET="group(2)-group(2)"
+RULENAME="date_r17a",EXTRACTION="(Das )?(%reDayNumber[\.]?|%reDayWordTh) Jahrhundert[s]?",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))"
+RULENAME="date_r17b",EXTRACTION="(Das )?(%reDayNumber[\.]?|%reDayWordTh)(-| - | und | bis )(%reDayNumber[\.]?|%reDayWordTh) Jahrhundert[s]?",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))",OFFSET="group(2)-group(2)"
 
 ///////////////////////////////////
 // GRANULARITY INDEPENDENT RULES //
@@ -152,14 +152,10 @@ RULENAME="date_r18d",EXTRACTION="%rePartWords( |)(%reMonthLong|%reMonthShort)",N
 // EXAMPLE r19b_1: die 20er Jahre
 // EXAMPLE r19a_1: die frühen 1920er Jahre 
 // EXAMPLE r19b_1: die frühen 20er Jahre
-//RULENAME="date_r20a",EXTRACTION="([Tt]he )?(late|early|mid)?[-\s]?%reYear4Digit[s]",NORM_VALUE="%SUBSTRING%(group(3),0,3)X"
-//RULENAME="date_r20b",EXTRACTION="([Tt]he )?(late|early|mid)?[-\s]?[']?%reYear2Digit[s]",NORM_VALUE="UNDEF-century%SUBSTRING%(group(3),0,1)X"
-//RULENAME="date_r20d",EXTRACTION="([Tt]he )?(late|early|mid)?[-\s]?%reDecadeWord",NORM_VALUE="UNDEF-century%normDecadeWord(group(3))"
-//RULENAME="date_r20e",EXTRACTION="([Tt]he )?(late|early|mid)?[-\s]?%reNumWordTeen %reDecadeWord",NORM_VALUE="%normDurationNumber(group(3))%normDecadeWord(group(4))"
-RULENAME="date_r19a",EXTRACTION="([Dd]ie |[Dd]en )?%reYear4Digit(ern|er)( Jahren?|-Jahren?)?",NORM_VALUE="%SUBSTRING%(group(2),0,3)X"
-RULENAME="date_r19b",EXTRACTION="([Dd]ie |[Dd]en )?%reYear2Digit(ern|er)( Jahren?|-Jahren?)?",NORM_VALUE="UNDEF-century%SUBSTRING%(group(2),0,1)X"
-RULENAME="date_r19c",EXTRACTION="([Dd]ie |[Dd]en )?%rePartWords([ ]?)%reYear4Digit(ern|er)( Jahren?|-Jahren?)?",NORM_VALUE="%SUBSTRING%(group(4),0,3)X",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r19d",EXTRACTION="([Dd]ie |[Dd]en )?%rePartWords([ ]?)%reYear2Digit(ern|er)( Jahren?|-Jahren?)?",NORM_VALUE="UNDEF-century%SUBSTRING%(group(4),0,1)X",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r19a",EXTRACTION="([Dd]ie |[Dd]en )?%reYear4Digit(ern|er)( Jahren?|-Jahren?)?",NORM_VALUE="%SUBSTRING%(group(2),0,3)"
+RULENAME="date_r19b",EXTRACTION="([Dd]ie |[Dd]en )?%reYear2Digit(ern|er)( Jahren?|-Jahren?)?",NORM_VALUE="UNDEF-century%SUBSTRING%(group(2),0,1)"
+RULENAME="date_r19c",EXTRACTION="([Dd]ie |[Dd]en )?%rePartWords([ ]?)%reYear4Digit(ern|er)( Jahren?|-Jahren?)?",NORM_VALUE="%SUBSTRING%(group(4),0,3)",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r19d",EXTRACTION="([Dd]ie |[Dd]en )?%rePartWords([ ]?)%reYear2Digit(ern|er)( Jahren?|-Jahren?)?",NORM_VALUE="UNDEF-century%SUBSTRING%(group(4),0,1)",NORM_MOD="%normPartWords(group(2))"
 
 
 // date_r20

@@ -1,0 +1,82 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-17
+// This file contains rules for the temporal expressions of the type duration: durationrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////////////
+// PRECISE UNIT RULES //
+////////////////////////
+// duration_r1
+// EXAMPLE r1a-1: los últimos dos años
+// EXAMPLE r1b-1: dos años y tres meses
+// EXAMPLE r1c-1: 18 meses
+// EXAMPLE r1d-1: 18 años y 3 meses
+// EXAMPLE r1e-1: tres años y 2 meses
+RULENAME="duration_r1a",EXTRACTION="(%reApproximate ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?([Qq]uesti |[Pp]rossimi |[Ss]corsi |[Qq]ualche )?(%reNumWord2D|%reNumWord1D)( |-)%reUnit( fa)?",NORM_VALUE="P%normDurationNumber(group(6))%normUnit4Duration(group(10))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r1b",EXTRACTION="(%reApproximate ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?([Qq]uesti |[Pp]rossimi |[Ss]corsi |[Qq]ualche )?([\d]+)( |-)%reUnit( fa)?",NORM_VALUE="Pgroup(6)%normUnit4Duration(group(8))",NORM_MOD="%normApprox4Durations(group(2))"
+//RULENAME="duration_r1a",EXTRACTION="(%reApproximate )?([Ll][oa]s )?(%reThisNextLast )?(%reNumWord2D|%reNumWord1D)( |-)%reUnit( fa)?",NORM_VALUE="P%normDurationNumber(group(6))%normUnit4Duration(group(10))",NORM_MOD="%normApprox4Durations(group(2))"
+//RULENAME="duration_r1b",EXTRACTION="(%reApproximate )?([Ll][oa]s )?(%reThisNextLast )?(%reNumWord2D|%reNumWord1D)( |-)%reUnit y (%reNumWord2D|%reNumWord1D)( |-)%reUnit( fa)?",NORM_VALUE="P%normDurationNumber(group(6))%normUnit4Duration(group(10))%normDurationNumber(group(11))%normUnit4Duration(group(15))",NORM_MOD="%normApprox4Durations(group(2))"
+//RULENAME="duration_r1c",EXTRACTION="(%reApproximate )?([Ll][oa]s )?(%reThisNextLast )?([\d]+)( |-)%reUnit( fa)?",NORM_VALUE="Pgroup(6)%normUnit4Duration(group(8))",NORM_MOD="%normApprox4Durations(group(2))"
+//RULENAME="duration_r1d",EXTRACTION="(%reApproximate )?([Ll][oa]s )?(%reThisNextLast )?([\d]+)( |-)%reUnit y ([\d]+)( |-)%reUnit( fa)?",NORM_VALUE="Pgroup(6)%normUnit4Duration(group(8))group(9)%normUnit4Duration(group(11))",NORM_MOD="%normApprox4Durations(group(2))"
+//RULENAME="duration_r1e",EXTRACTION="(%reApproximate )?([Ll][oa]s )?(%reThisNextLast )?(%reNumWord2D|%reNumWord1D)( |-)%reUnit y ([\d]+)( |-)%reUnit( fa)?",NORM_VALUE="P%normDurationNumber(group(6))%normUnit4Duration(group(10))group(11)%normUnit4Duration(group(13))",NORM_MOD="%normApprox4Durations(group(2))"
+
+// duration_r2
+// EXAMPLE r2a-1: trece horas
+// EXAMPLE r2b-1: dos horas y tres minutos
+// EXAMPLE r2c-1: 30 horas
+// EXAMPLE r2d-1: 30 horas y 50 minutos
+// EXAMPLE r2e-1: dos horas y 30 miuntos
+RULENAME="duration_r2a",EXTRACTION="(%reApproximate ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?(%reThisNextLast )?(%reNumWord2D|%reNumWord1D)( |-)%reUnitTime( fa)?",NORM_VALUE="PT%normDurationNumber(group(7))%normUnit4Duration(group(11))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r2b",EXTRACTION="(%reApproximate ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?(%reThisNextLast )?([\d]+)( |-)%reUnitTime( fa)?",NORM_VALUE="PTgroup(7)%normUnit4Duration(group(9))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r2c",EXTRACTION="(%reApproximate ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?(%reThisNextLast )?([\d]+)( |-)%rePartOfDay( fa)?",NORM_VALUE="PTgroup(7)%normPartOfDay(group(9))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r2d",EXTRACTION="(%reApproximate ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?(%reThisNextLast )?(%reNumWord2D|%reNumWord1D)( |-)%rePartOfDay( fa)?",NORM_VALUE="PT%normDurationNumber(group(7))%normPartOfDay(group(11))",NORM_MOD="%normApprox4Durations(group(2))"
+//RULENAME="duration_r2b",EXTRACTION="(%reApproximate )?([Ll][oa]s )?(%reThisNextLast )?(%reNumWord2D|%reNumWord1D)( |-)(minutos?|ore) y (%reNumWord2D|%reNumWord1D)( |-)(minut[oi]|ore)( fa)?",NORM_VALUE="PT%normDurationNumber(group(6))%normUnit4Duration(group(10))normDurationNumber(group(11))%normUnit4Duration(group(15))",NORM_MOD="%normApprox4Durations(group(2))"
+//RULENAME="duration_r2d",EXTRACTION="(%reApproximate )?([Ll][oa]s )?(%reThisNextLast )?([\d]+)( |-)(minutos?|horas?) y ([\d]+)( |-)(minutos?|horas?)( fa)?",NORM_VALUE="PTgroup(6)%normUnit4Duration(group(8))group(9)%normUnit4Duration(group(11))",NORM_MOD="%normApprox4Durations(group(2))"
+//RULENAME="duration_r2e",EXTRACTION="(%reApproximate )?([Ll][oa]s )?(%reThisNextLast )?(%reNumWord2D|%reNumWord1D)( |-)(minutos?|horas?) y ([\d]+)( |-)(minutos?|horas?)( fa)?",NORM_VALUE="PT%normDurationNumber(group(6))%normUnit4Duration(group(10))group(11)%normUnit4Duration(group(13))",NORM_MOD="%normApprox4Durations(group(2))"
+
+//////////////////////
+// FUZZY UNIT RULES //
+//////////////////////
+// duration_r3
+// EXAMPLE r3a-1: varios meses
+// EXAMPLE r3b-1: las próximas horas
+//RULENAME="duration_r3a",EXTRACTION="(%reApproximate )?([Ll][oa]s )?([Mm]uch[oa]s|[Vv]ari[oa]s|[Hh]ace|[Úú]ltim[oa]s|[Pp]róxim[oa]s|[Uu]n[oa]s|[Pp]oc[oa]s|[Aa]lgun[oa]s) %reUnit",NORM_VALUE="PX%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+//RULENAME="duration_r3b",EXTRACTION="(%reApproximate )?([Ll][oa]s )?([Mm]uch[oa]s|[Vv]ari[oa]s|[Hh]ace|[Úú]ltim[oa]s|[Pp]róxim[oa]s|[Uu]n[oa]s|[Pp]oc[oa]s|[Aa]lgun[oa]s) (minutos?|horas?)",NORM_VALUE="PTX%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+
+// ITALIAN
+RULENAME="duration_r3c",EXTRACTION="(%reApproximate )?([Aa]lcun[ie]|[Qq]uest[ie]|[Pp]rossim[ie]|[Ss]cors[ie]|[Qq]ualch[ie]|[Pp]och[ie]|[Uu]ltim[ie]|[Pp]rim[ie]) %reUnit( fa)?",NORM_VALUE="PX%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r3d",EXTRACTION="(%reApproximate )?%reUnit ([Aa]lcun[ie]|[Qq]uest[ie]|[Pp]rossim[ie]|[Ss]cors[ie]|[Qq]ualch[ie]|[Pp]och[ie]|[Uu]ltim[ie]|[Pp]rim[ie])",NORM_VALUE="PX%normUnit4Duration(group(3))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r3e",EXTRACTION="(%reApproximate )?([Aa]lcun[ie]|[Qq]uest[ie]|[Pp]rossim[ie]|[Ss]cors[ie]|[Qq]ualch[ie]|[Pp]och[ie]|[Uu]ltim[ie]|[Pp]rim[ie]) %reUnitTime( fa)?",NORM_VALUE="PTX%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r3f",EXTRACTION="(%reApproximate )?%reUnitTime ([Aa]lcun[ie]|[Qq]uest[ie]|[Pp]rossim[ie]|[Ss]cors[ie]|[Qq]ualch[ie]|[Pp]och[ie]|[Uu]ltim[ie]|[Pp]rim[ie])",NORM_VALUE="PTX%normUnit4Duration(group(3))",NORM_MOD="%normApprox4Durations(group(2))"
+
+
+// duration_r4
+// EXAMPLE r4a-1: dos a tres años
+// EXAMPLE r4b-1: dos a tres horas
+// EXAMPLE r4c-1: 100 a 200 años
+// EXAMPLE r4d-1: 100 a 200 horas
+RULENAME="duration_r4a",EXTRACTION="(%reApproximate ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?([Qq]uesti |[Pp]rossimi |[Ss]corsi |[Qq]ualche )?(%reNumWord2D|%reNumWord1D)( o )(%reNumWord2D|%reNumWord1D)( |-)%reUnit( fa)?",NORM_VALUE="P%normDurationNumber(group(6))%normUnit4Duration(group(14))",NORM_MOD="%normApprox4Durations(group(2))",OFFSET="group(0)-group(6)"
+RULENAME="duration_r4b",EXTRACTION="(%reApproximate ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?([Qq]uesti |[Pp]rossimi |[Ss]corsi |[Qq]ualche )?([\d]+)( o )([\d]+)( |-)%reUnit( fa)?",NORM_VALUE="Pgroup(6)%normUnit4Duration(group(10))",NORM_MOD="%normApprox4Durations(group(2))",OFFSET="group(0)-group(6)"
+
+//RULENAME="duration_r4a",EXTRACTION="(%reNumWord2D|%reNumWord1D) (a|o) (%reNumWord2D|%reNumWord1D|([\d]+)) %reUnit",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(9))",OFFSET="group(1)-group(1)"
+//RULENAME="duration_r4b",EXTRACTION="(%reNumWord2D|%reNumWord1D) (a|o) (%reNumWord2D|%reNumWord1D|([\d]+)) (minutos?|horas?)",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(9))",OFFSET="group(1)-group(1)"
+//RULENAME="duration_r4c",EXTRACTION="([\d]+) (a|o) (%reNumWord2D|%reNumWord1D|([\d]+)) %reUnit",NORM_VALUE="Pgroup(1)%normUnit4Duration(group(7))",OFFSET="group(1)-group(1)"
+//RULENAME="duration_r4d",EXTRACTION="([\d]+) (a|o) (%reNumWord2D|%reNumWord1D|([\d]+)) (minutos?|horas?)",NORM_VALUE="Pgroup(1)%normUnit4Duration(group(7))",OFFSET="group(1)-group(1)"
+
+// duration_r5
+// EXAMPLE r5a: toda la semana
+//RULENAME="duration_r5a",EXTRACTION="[Tt]od[oa] (el|la) %reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))"
+
+////////////////////////////
+// RANDOM ADJECTIVE RULES //
+////////////////////////////
+// duration_r6
+// EXAMPLE r6a-1: un mismo año
+// EXAMPLE r6b-1: la misma hora
+// EXAMPLE r6c-1: los últimos meses
+// EXAMPLE r6d-1: las próximas horas
+//RULENAME="duration_r6a",EXTRACTION="([Uu]n[oa]?) ((\S)+) %reUnit",NORM_VALUE="P1%normUnit4Duration(group(4))",POS_CONSTRAINT="group(2):ADJ:"
+//RULENAME="duration_r6b",EXTRACTION="([Uu]n[oa]?) ((\S)+) (hora|minuto)",NORM_VALUE="PT1%normUnit4Duration(group(4))",POS_CONSTRAINT="group(2):ADJ:"
+//RULENAME="duration_r6c",EXTRACTION="([Ll][oa]s) ((\S)+) %reUnit",NORM_VALUE="PX%normUnit4Duration(group(4))",POS_CONSTRAINT="group(2):ADJ:"
+//RULENAME="duration_r6d",EXTRACTION="([Ll][oa]s) ((\S)+) (horas|minutos)",NORM_VALUE="PTX%normUnit4Duration(group(4))",POS_CONSTRAINT="group(2):ADJ:"

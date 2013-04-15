@@ -11,15 +11,15 @@ New Year's Day
 Groundhog Day
 
 // http://en.wikipedia.org/wiki/Valentine%27s_Day
-Valentines Day
 Saint Valentines Day
 St. Valentines Day
-Valentine's Day
-Saint Valentine's Day
+Valentines Day
 St. Valentine's Day
-Valentines' Day
+Saint Valentine's Day
+Valentine's Day
 Saint Valentines' Day
 St. Valentines' Day
+Valentines' Day
 
 // http://en.wikipedia.org/wiki/Patriots%27_Day
 Patriots Day
@@ -71,8 +71,8 @@ The Assumption
 Reformation Day
 
 // http://en.wikipedia.org/wiki/All_Saints%27_Day
-All Saints
 All Saints' Day
+All Saints
 Solemnity of All Saints
 All Hallows
 Hallowmas
@@ -80,9 +80,8 @@ Hallowmas
 
 // http://en.wikipedia.org/wiki/Christmas
 Christmas Eve
-
-Christmas
 Christmas Day
+Christmas
 Xmas
 XMAS
 Noel
@@ -105,7 +104,6 @@ Boxing Day
 // http://en.wikipedia.org/wiki/St._Patrick%27s_Day
 Saint Patricks Day
 St. Patricks Day
-Saint Patricks Day
 St. Paddys Day
 Saint Paddys Day
 St. Pattys Day
@@ -113,7 +111,6 @@ Saint Pattys Day
 
 Saint Patrick's Day
 St. Patrick's Day
-Saint Patrick's Day
 St. Paddy's Day
 Saint Paddy's Day
 St. Patty's Day
@@ -121,7 +118,6 @@ Saint Patty's Day
 
 Saint Patricks' Day
 St. Patricks' Day
-Saint Patricks' Day
 St. Paddys' Day
 Saint Paddys' Day
 St. Pattys' Day
