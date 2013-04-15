@@ -11,9 +11,9 @@
 //EXAMPLE interval_05: begann im März 2003 und endete im Mai 2003
 //EXAMPLE interval_06: 2012/2013
 
-RULENAME="interval_01",EXTRACTION="([vV]on)? <TX3_([0-9]+)> bis (zum )?<TX3_([0-9]+)>",NORM_VALUE="group(2)-group(4)"
-RULENAME="interval_02",EXTRACTION="([zZ]wischen|[wW]ährend) <TX3_([0-9]+)> und <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(3)"
-RULENAME="interval_03",EXTRACTION="([vV]on)?<TX3_([0-9]+)>( )?-( )?<TX3_([0-9]+)>",NORM_VALUE="group(2)-group(3)"
+RULENAME="interval_01",EXTRACTION="(?:[vV]on)? <TX3_([0-9]+)> bis (?:zum )?<TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"
+RULENAME="interval_02",EXTRACTION="(?:[zZ]wischen|[wW]ährend) <TX3_([0-9]+)> und <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"
+RULENAME="interval_03",EXTRACTION="(?:[vV]on)?<TX3_([0-9]+)>(?: )?-(?: )?<TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"
 RULENAME="interval_04",EXTRACTION="<TX3_([0-9]+)> bis <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"
-RULENAME="interval_05",EXTRACTION="begann (in|im|am) <TX3_([0-9]+)>(,)? und endete (in|im|am) <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(5)"
+RULENAME="interval_05",EXTRACTION="begann (?:in|im|am) <TX3_([0-9]+)>(?:,)? und endete (?:in|im|am) <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"
 RULENAME="interval_06",EXTRACTION="<TX3_([0-9]+)>/<TX3_([0-9]+)>,",NORM_VALUE="group(1)-group(2)"

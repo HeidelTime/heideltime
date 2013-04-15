@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import org.apache.uima.cas.FSIterator;
 import org.apache.uima.jcas.JCas;
 
+import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
@@ -21,9 +22,6 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  *
  */
 public class ContextAnalyzer {
-	// local reference to the normalization manager
-	private final static NormalizationManager nm = NormalizationManager.getInstance();
-	
 	/**
 	 * The value of the x of the last mentioned Timex is calculated.
 	 * @param linearDates list of previous linear dates
@@ -31,7 +29,8 @@ public class ContextAnalyzer {
 	 * @param x type to search for
 	 * @return last mentioned entry
 	 */
-	public static String getLastMentionedX(List<Timex3> linearDates, int i, String x) {
+	public static String getLastMentionedX(List<Timex3> linearDates, int i, String x, Language language) {
+		NormalizationManager nm = NormalizationManager.getInstance(language);
 		
 		// Timex for which to get the last mentioned x (i.e., Timex i)
 		Timex3 t_i = linearDates.get(i);
@@ -182,8 +181,8 @@ public class ContextAnalyzer {
 	 * @param timex timex construct to discover tense data for
 	 * @return string that contains the tense
 	 */
-	public static String getClosestTense(Timex3 timex, JCas jcas) {
-		RePatternManager rpm = RePatternManager.getInstance();
+	public static String getClosestTense(Timex3 timex, JCas jcas, Language language) {
+		RePatternManager rpm = RePatternManager.getInstance(language);
 		
 		String lastTense = "";
 		String nextTense = "";
@@ -310,8 +309,8 @@ public class ContextAnalyzer {
 	 * @param timex timex construct to discover tense data for
 	 * @return string that contains the tense
 	 */
-	public static String getLastTense(Timex3 timex, JCas jcas) {
-		RePatternManager rpm = RePatternManager.getInstance();
+	public static String getLastTense(Timex3 timex, JCas jcas, Language language) {
+		RePatternManager rpm = RePatternManager.getInstance(language);
 		
 		String lastTense = "";
 

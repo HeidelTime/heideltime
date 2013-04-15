@@ -18,6 +18,7 @@ import org.apache.uima.cas.FSIterator;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 
+import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
@@ -41,7 +42,7 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 	private String PARAM_INTERVALS = "annotate_intervals";
 	private String PARAM_INTERVAL_CANDIDATES = "annotate_interval_candidates";
 	// descriptor configuration
-	private String language = null;
+	private Language language = null;
 	private Boolean find_intervals = true;
 	private Boolean find_interval_candidates = true;
 	
@@ -54,7 +55,7 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 	public void initialize(UimaContext aContext) throws ResourceInitializationException {
 		super.initialize(aContext);
 		
-		language = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE);
+		language = Language.getLanguageFromString((String) aContext.getConfigParameterValue(PARAM_LANGUAGE));
 		
 		find_intervals = (Boolean) aContext.getConfigParameterValue(PARAM_INTERVALS);
 		find_interval_candidates = (Boolean) aContext.getConfigParameterValue(PARAM_INTERVAL_CANDIDATES);
@@ -100,7 +101,7 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 								////////////////////////////////////////////////////////////////////
 								// create pattern for rule extraction part
 								Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]*)");
-								RePatternManager rpm = RePatternManager.getInstance();
+								RePatternManager rpm = RePatternManager.getInstance(language);
 								for (MatchResult mr : Toolbox.findMatches(paVariable,rule_extraction)) {
 									Logger.printDetail("DEBUGGING: replacing patterns..."+ mr.group());
 									if (!(rpm.containsKey(mr.group(1)))) {
@@ -161,10 +162,10 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 		BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("used_resources.txt")));
 		try {
 			for (String line; (line=br.readLine()) != null; ) {
-				Pattern paResource = Pattern.compile("\\./"+language+"/"+resourceType+"/resources_"+resourceType+"_"+"(.*?)\\.txt");
+				Pattern paResource = Pattern.compile("\\./"+language.getResourceFolder()+"/"+resourceType+"/resources_"+resourceType+"_"+"(.*?)\\.txt");
 				for (MatchResult ro : Toolbox.findMatches(paResource, line)){
 					String foundResource  = ro.group(1);
-					String pathToResource = language+"/"+resourceType+"/resources_"+resourceType+"_"+foundResource+".txt";
+					String pathToResource = language.getResourceFolder()+"/"+resourceType+"/resources_"+resourceType+"_"+foundResource+".txt";
 					hmResources.put(foundResource, pathToResource);
 				}
 			}

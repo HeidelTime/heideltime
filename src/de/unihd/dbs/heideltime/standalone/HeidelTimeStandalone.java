@@ -16,6 +16,8 @@ package de.unihd.dbs.heideltime.standalone;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -75,23 +77,74 @@ public class HeidelTimeStandalone {
 	private Language language;
 
 	/**
-	 * Logging engine
+	 * output format
 	 */
-	private static Logger logger;
+	private OutputType outputType;
 
 	/**
-	 * Constructor
+	 * Logging engine
+	 */
+	private static Logger logger = Logger.getLogger("HeidelTimeStandalone");
+
+	
+	/**
+	 * empty constructor.
+	 * 
+	 * call initialize() after using this!
 	 * 
 	 * @param language
 	 * @param typeToProcess
 	 * @param outputType
 	 */
+	public HeidelTimeStandalone() {
+	}
+	
+	/**
+	 * constructor
+	 * @param language
+	 * @param typeToProcess
+	 * @param outputType
+	 */
 	public HeidelTimeStandalone(Language language, DocumentType typeToProcess, OutputType outputType) {
+		this(language, typeToProcess, outputType, null);
+	}
+	
+	/**
+	 * Constructor with configPath
+	 * 
+	 * @param language
+	 * @param typeToProcess
+	 * @param outputType
+	 * @param configPath
+	 */
+	public HeidelTimeStandalone(Language language, DocumentType typeToProcess, OutputType outputType, String configPath) {
 		this.language = language;
 		this.documentType = typeToProcess;
+		this.outputType = outputType;
+		
+		this.initialize(language, typeToProcess, outputType, configPath);
+	}
+	
+	
+	/**
+	 * Method that initializes all vital prerequisites
+	 * 
+	 * @param language	Language to be processed with this copy of HeidelTime
+	 * @param typeToProcess	Domain type to be processed
+	 * @param outputType	Output type
+	 * @param configPath	Path to the configuration file for HeidelTimeStandalone
+	 */
+	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, String configPath) {
+		logger.log(Level.INFO, "HeidelTimeStandalone initialized with language " + this.language.getName());
 
-		logger.log(Level.INFO, "HeidelTimeStandalone initialized with language "+this.language.toString());
-
+		// read in configuration in case it's not yet initialized
+		if(!Config.isInitialized()) {
+			if(configPath == null)
+				readConfigFile(CLISwitch.CONFIGFILE.getValue().toString());
+			else
+				readConfigFile(configPath);
+		}
+		
 		try {
 			heidelTime = new HeidelTime();
 			heidelTime.initialize(new UimaContextImpl(language, typeToProcess));
@@ -187,9 +240,50 @@ public class HeidelTimeStandalone {
 
 		TreeTaggerWrapper partOfSpeechTagger = new TreeTaggerWrapper();
 		partOfSpeechTagger.setLogger(logger);
-		partOfSpeechTagger.process(jcas, language);
+		partOfSpeechTagger.initialize(language, true, true, true, true);
+		partOfSpeechTagger.process(jcas);
 
 		logger.log(Level.FINEST, "Part of speech information established");
+	}
+
+	private ResultFormatter getFormatter() {
+		if (outputType.toString().equals("xmi")){
+			return new XMIResultFormatter();
+		} else {
+			return new TimeMLResultFormatter();
+		}
+	}
+
+	/**
+	 * Processes document with HeidelTime
+	 *
+	 * @param document
+	 * @return Annotated document
+	 * @throws DocumentCreationTimeMissingException
+	 *             If document creation time is missing when processing a
+	 *             document of type {@link DocumentType#NEWS}. Use
+	 *             {@link #process(String, Date)} instead to provide document
+	 *             creation time!
+	 */
+	public String process(String document)
+			throws DocumentCreationTimeMissingException {
+		return process(document, null, getFormatter());
+	}
+
+	/**
+	 * Processes document with HeidelTime
+	 *
+	 * @param document
+	 * @return Annotated document
+	 * @throws DocumentCreationTimeMissingException
+	 *             If document creation time is missing when processing a
+	 *             document of type {@link DocumentType#NEWS}. Use
+	 *             {@link #process(String, Date)} instead to provide document
+	 *             creation time!
+	 */
+	public String process(String document, Date documentCreationTime)
+			throws DocumentCreationTimeMissingException {
+		return process(document, documentCreationTime, getFormatter());
 	}
 
 	/**
@@ -270,10 +364,6 @@ public class HeidelTimeStandalone {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// create instance of the logger
-		logger = Logger.getLogger("HeidelTimeStandalone");
-
-		/////// Parse command line parameters ///////
 		String docPath = null;
 		for(int i = 0; i < args.length; i++) { // iterate over cli parameter tokens
 			if(args[i].startsWith("-")) { // assume we found a switch
@@ -413,15 +503,9 @@ public class HeidelTimeStandalone {
 		String configPath = CLISwitch.CONFIGFILE.getValue().toString();
 		try {
 			logger.log(Level.INFO, "Configuration path '-c': "+configPath);
-			
-			InputStream configStream = new FileInputStream(configPath);
-			
-			Properties props = new Properties();
-			props.load(configStream);
 
-			Config.setProps(props);
-			
-			configStream.close();
+			readConfigFile(configPath);
+
 			logger.log(Level.FINE, "Config initialized");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -456,23 +540,61 @@ public class HeidelTimeStandalone {
 			input = new String(input.getBytes("UTF-8"), "UTF-8");
 			
 			HeidelTimeStandalone standalone = new HeidelTimeStandalone(language, type, outputType);
-			String out = new String();
-			if (outputType.toString().equals("xmi")){
-				ResultFormatter resultFormatter = new XMIResultFormatter();
-				out = standalone.process(input, dct, resultFormatter);	
-			}
-			else{
-				ResultFormatter resultFormatter = new TimeMLResultFormatter();
-				out = standalone.process(input, dct, resultFormatter);
-			}
+			String out = standalone.process(input, dct);
 			
 			// Print output always as UTF-8
 			PrintWriter pwOut = new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"));
 			pwOut.println(out);
 			pwOut.close();
+			fileReader.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void readConfigFile(String configPath) {
+		InputStream configStream = null;
+		try {
+			logger.log(Level.INFO, "trying to read in file "+configPath);
+			configStream = new FileInputStream(configPath);
+			
+			Properties props = new Properties();
+			props.load(configStream);
+
+			Config.setProps(props);
+			
+			configStream.close();
+		} catch (FileNotFoundException e) {
+			logger.log(Level.WARNING, "couldn't open configuration file \""+configPath+"\". quitting.");
+			System.exit(-1);
+		} catch (IOException e) {
+			logger.log(Level.WARNING, "couldn't close config file handle");
+			e.printStackTrace();
+		}
+	}
+
+	public DocumentType getDocumentType() {
+		return documentType;
+	}
+
+	public void setDocumentType(DocumentType documentType) {
+		this.documentType = documentType;
+	}
+
+	public Language getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(Language language) {
+		this.language = language;
+	}
+
+	public OutputType getOutputType() {
+		return outputType;
+	}
+
+	public void setOutputType(OutputType outputType) {
+		this.outputType = outputType;
 	}
 
 }
