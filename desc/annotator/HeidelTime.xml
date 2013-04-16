@@ -33,13 +33,13 @@
         <mandatory>true</mandatory>
       </configurationParameter>
       <configurationParameter>
-        <name>Language_english_german</name>
+        <name>Language</name>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
       <configurationParameter>
-        <name>Type_news_narratives</name>
+        <name>Type</name>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
@@ -84,21 +84,21 @@
         </value>
       </nameValuePair>
       <nameValuePair>
-        <name>Type_news_narratives</name>
+        <name>Debugging</name>
         <value>
-          <string>news</string>
+          <boolean>false</boolean>
         </value>
       </nameValuePair>
       <nameValuePair>
-        <name>Language_english_german</name>
+        <name>Language</name>
         <value>
           <string>english</string>
         </value>
       </nameValuePair>
       <nameValuePair>
-        <name>Debugging</name>
+        <name>Type</name>
         <value>
-          <boolean>false</boolean>
+          <string>news</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>

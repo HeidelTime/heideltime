@@ -169,8 +169,8 @@ set the environment variables.
 			set "Time" to "true"
 			set "Duration" to "true"
 			set "Set" to "true"
-			set "Language_english_german" to "english"
-			set "Type_news_narratives" to "narratives"
+			set "Language" to "english"
+			set "Type" to "narratives"
 		CAS Consumer
 		- UIMA's XMI Writer CAS Consumer located at
 			$UIMA_HOME/examples/descriptors/cas_consumer/XmiWriterCasConsumer.xml

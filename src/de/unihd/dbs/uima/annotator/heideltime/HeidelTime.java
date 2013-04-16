@@ -68,9 +68,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private int timexID = 0;
 	
 	// INPUT PARAMETER HANDLING WITH UIMA
-	private String PARAM_LANGUAGE         = "Language_english_german";
+	private String PARAM_LANGUAGE         = "Language";
 	// supported languages (2012-05-19): english, german, dutch, englishcoll, englishsci
-	private String PARAM_TYPE_TO_PROCESS  = "Type_news_narratives";
+	private String PARAM_TYPE_TO_PROCESS  = "Type";
 	// chosen locale parameter name
 	private String PARAM_LOCALE			   = "locale";
 	// supported types (2012-05-19): news (english, german, dutch), narrative (english, german, dutch), colloquial
@@ -102,7 +102,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// DEBUGGING PARAMETER SETTING //
 		/////////////////////////////////
 		this.deleteOverlapped = true;
-		Logger.setPrintDetails((Boolean) aContext.getConfigParameterValue(PARAM_DEBUG));
+		Boolean doDebug = (Boolean) aContext.getConfigParameterValue(PARAM_DEBUG);
+		Logger.setPrintDetails(doDebug == null ? false : doDebug);
 		
 		/////////////////////////////////
 		// HANDLE LOCALE    		   //

@@ -40,7 +40,7 @@ uimaVarDate = Date
 uimaVarDuration = Duration
 
 # ...for language
-uimaVarLanguage = Language_english_german
+uimaVarLanguage = Language
 
 # ...for set-consideration
 uimaVarSet = Set
@@ -49,4 +49,4 @@ uimaVarSet = Set
 uimaVarTime = Time
 
 # ...for type to process
-uimaVarTypeToProcess = Type_news_narratives
+uimaVarTypeToProcess = Type
