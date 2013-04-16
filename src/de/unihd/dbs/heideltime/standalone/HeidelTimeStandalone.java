@@ -431,7 +431,7 @@ public class HeidelTimeStandalone {
 			language = Language.getLanguageFromString((String) CLISwitch.LANGUAGE.getValue());
 			
 			if(language == Language.WILDCARD) {
-				logger.log(Level.INFO, "Language '-l': "+CLISwitch.LANGUAGE.getValue()+" NOT RECOGNIZED; aborting.");
+				logger.log(Level.SEVERE, "Language '-l': "+CLISwitch.LANGUAGE.getValue()+" NOT RECOGNIZED; aborting.");
 				System.exit(-1);
 			} else {
 				logger.log(Level.INFO, "Language '-l': "+language.toString().toUpperCase());	
