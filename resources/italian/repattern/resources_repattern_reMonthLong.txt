@@ -5,7 +5,6 @@
 // FORMAT: one line is one disjunction of the pattern
 [Gg]ennaio
 [Ff]ebbraio
-[Ff]ebrero
 [Mm]arzo
 [Aa]prile
 [Mm]aggio
