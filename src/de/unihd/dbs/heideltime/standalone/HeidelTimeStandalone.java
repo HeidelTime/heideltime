@@ -585,8 +585,8 @@ public class HeidelTimeStandalone {
 	}
 	
 	private static void printHelp() {
-		String[] path = HeidelTimeStandalone.class.getProtectionDomain().getCodeSource().getLocation().getFile().split(System.getProperty("file.separator"));
-		String filename = path[path.length-1];
+		String path = HeidelTimeStandalone.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+		String filename = path.substring(path.lastIndexOf(System.getProperty("file.separator")) + 1);
 		
 		System.out.println("Usage:");
 		System.out.println("  java -jar " 
