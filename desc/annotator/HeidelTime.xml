@@ -34,12 +34,14 @@
       </configurationParameter>
       <configurationParameter>
         <name>Language</name>
+        <description>english, german, dutch, vietnamese, arabic, spanish, italian</description>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
       <configurationParameter>
         <name>Type</name>
+        <description>news, narratives, scientific, colloquial</description>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
@@ -90,15 +92,15 @@
         </value>
       </nameValuePair>
       <nameValuePair>
-        <name>Language</name>
-        <value>
-          <string>english</string>
-        </value>
-      </nameValuePair>
-      <nameValuePair>
         <name>Type</name>
         <value>
           <string>news</string>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>Language</name>
+        <value>
+          <string>english</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>

@@ -3,7 +3,7 @@
 #######################
 
 Author: Jannik Strötgen
-Date:   June 30, 2012
+Date:   April 17, 2013
 eMail:  stroetgen@uni-hd.de
 
 ###################################
@@ -59,7 +59,7 @@ abbreviated to fit a length constraint and non-standard language is common. Scie
 include for example biomedical studies, in which temporal information is often given relative 
 to a document-specific "local" time frame.
 
-In addition to HeidelTime with resources for English, German, and Dutch, the UIMA HeidelTime kit
+In addition to HeidelTime with resources for the respective languages, the UIMA HeidelTime kit
 contains collection readers, cas consumers, and analysis engines to process temporal annotated 
 corpora and reproduce HeidelTime's evaluation results on these corpora. The HeidelTime kit 
 contains:
@@ -68,19 +68,28 @@ contains:
       the document creation time. Using the corpora preparation script (for details, see below), 
       the following corpora can be processed: ACE Tern 2004 training, TimeBank, WikiWars, and 
       WikiWars_DE.
+      
     * TempEval-2 Reader: This Collection Reader reads the TempEval-2 input data of the training 
       and the evaluation sets and annotates the document creation time as well as token and 
       sentence information.
+      
     * TreeTaggerWrapper: This Analysis Engine produces Token, Sentence and Part-of-Speech annotations
       required by HeidelTime by using the language independent TreeTagger tool.
+      
     * HeidelTime
+    
     * Annotation Translator: This Analysis Engine translates Sentence, Token, and Part-of-Speech 
       annotations of one type system into HeidelTime's type system.
+      
     * ACE Tern Writer: This CAS Consumer creates output data as needed to run the official ACE 
       Tern evaluation scripts.
+      
     * TempEval-2 Writer: This CAS Consumer creates two files needed to evaluate the tasks of 
       extracting and evaluating temporal expressions of the TempEval-2 challenge using the 
       official evaluation scripts.
+      
+    * Supported languages right now are: german, english, dutch, arabic, vietnamese, spanish,
+      italian.
       
 ######################
 # 3. Getting started #
