@@ -2,9 +2,9 @@
 # UIMA HEIDELTIME KIT #
 #######################
 
-Author: Jannik Strötgen
+Author: Jannik Strötgen, Julian Zell
 Date:   April 17, 2013
-eMail:  stroetgen@uni-hd.de
+eMail:  stroetgen@uni-hd.de, j.zell@stud.uni-heidelberg.de
 
 ###################################
 # 1. Papers describing HeidelTime #
@@ -46,11 +46,15 @@ simply develop resources for additional languages using HeidelTime's well-define
 HeidelTime was the best system for the extraction and normalization of English temporal 
 expressions from documents in the TempEval-2 challenge in 2010. Furthermore, it is evaluated on 
 several additional corpora, as described in our paper "Multilingual Cross-domain Temporal 
-Tagging" (http://www.springerlink.com/content/64767752451075k8/).
+Tagging" (http://www.springerlink.com/content/64767752451075k8/). In TempEval-3, HeidelTime 
+achieved the best results for the combination of extraction and normalization for English and
+Spanish.
 
 HeidelTime with resources for English and German is one component of our UIMA HeidelTime kit.
 Furthermore, resources for Dutch were developed and kindly provided by Matje van de Camp 
-(Tilburg University, http://www.tilburguniversity.edu/webwijs/show/?uid=m.m.v.d.camp).
+(Tilburg University, http://www.tilburguniversity.edu/webwijs/show/?uid=m.m.v.d.camp). As of
+version 1.3, HeidelTime additionally contains resources for Spanish, Italian, Arabic, and
+Vietnamese.
 
 Additionally, whilst expanding the set of domains that HeidelTime can recognize temporal 
 expressions in, English resources for colloquial as well as scientific style documents were 
@@ -73,13 +77,32 @@ contains:
       and the evaluation sets and annotates the document creation time as well as token and 
       sentence information.
       
+    * TempEval-3 Reader: This Collection Reader reads the TempEval-3 input TimeML data of the
+      training and the evaluation sets and annotates the document creation time as well as some
+      meta information.
+      
     * TreeTaggerWrapper: This Analysis Engine produces Token, Sentence and Part-of-Speech annotations
       required by HeidelTime by using the language independent TreeTagger tool.
       
-    * HeidelTime
+    * StanfordPOSTaggerWrapper: This Analysis Engine produces Token, Sentence and Part-of-Speech
+      annotations required by HeidelTime by using the language independent Stanford POS Tagger.
+      
+    * JVnTextProWrapper: This Analysis Engine produces Token, Sentence and Part-of-Speech annotations
+      required by HeidelTime by using the language independent JVnTextPro tool for documents
+      in Vietnamese.
     
     * Annotation Translator: This Analysis Engine translates Sentence, Token, and Part-of-Speech 
       annotations of one type system into HeidelTime's type system.
+      
+    * HeidelTime: Possible parameter values are:
+    	- languages: english, englishcoll, englishsci, german, spanish, italian, vietnamese, arabic,
+    			   dutch
+    	- types: news, narratives, colloquial (for use with englishcoll), scientific (englishsci)
+    	- locale: the locale to use for date calculation. Leave it empty to use en_GB.
+    	- Debugging: to output verbose debugging information to stderr.
+    
+    * IntervalTagger: This Analysis Engine in conjunction with HeidelTime recognizes
+      temporal intervals in documents.
       
     * ACE Tern Writer: This CAS Consumer creates output data as needed to run the official ACE 
       Tern evaluation scripts.
@@ -88,8 +111,12 @@ contains:
       extracting and evaluating temporal expressions of the TempEval-2 challenge using the 
       official evaluation scripts.
       
-    * Supported languages right now are: german, english, dutch, arabic, vietnamese, spanish,
-      italian.
+    * TempEval-3 Writer: This CAS Consumer writes annotated TimeML files that were read in by
+      the TempEval-3 Reader and processed by HeidelTime in the format required by the TempEval-3
+      evaluation scripts.
+      
+    * Languages supported by HeidelTime as of version 1.3 are:
+      german, english, dutch, arabic, vietnamese, spanish, italian.
       
 ######################
 # 3. Getting started #
@@ -135,15 +162,17 @@ set the environment variables.
       http://www.ims.uni-stuttgart.de/projekte/corplex/TreeTagger/
       - mkdir treetagger 
       - cd treetagger
-      - wget ftp://ftp.ims.uni-stuttgart.de/pub/corpora/tree-tagger-linux-3.2.tar.gz
-      - wget ftp://ftp.ims.uni-stuttgart.de/pub/corpora/tagger-scripts.tar.gz
-      - wget ftp://ftp.ims.uni-stuttgart.de/pub/corpora/install-tagger.sh
-      - wget ftp://ftp.ims.uni-stuttgart.de/pub/corpora/german-par-linux-3.2.bin.gz
-      - wget ftp://ftp.ims.uni-stuttgart.de/pub/corpora/german-par-linux-3.2-utf8.bin.gz
-      - wget ftp://ftp.ims.uni-stuttgart.de/pub/corpora/english-par-linux-3.1.bin.gz
-      - wget ftp://ftp.ims.uni-stuttgart.de/pub/corpora/dutch-par-linux-3.1.bin.gz
+      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tree-tagger-linux-3.2.tar.gz
+      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tagger-scripts.tar.gz
+      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/install-tagger.sh
+      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/german-par-linux-3.2.bin.gz
+      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/german-par-linux-3.2-utf8.bin.gz
+      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/english-par-linux-3.2.bin.gz
+      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/dutch-par-linux-3.1.bin.gz
+      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/italian-par-linux-3.2-utf8.bin.gz
+      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/spanish-par-linux-3.2-utf8.bin.gz
       Attention: If you do not use Linux, please download all TreeTagger files directly from
-                 http://www.ims.uni-stuttgart.de/projekte/corplex/TreeTagger/ 
+                 http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
     * Install the TreeTagger
 		- sh install-tagger.sh 
 	* Set environment variables (you can set variables globally, e.g., in your $HOME/.bashrc)
@@ -209,15 +238,26 @@ TempEval Workshop at the ACL conference in Uppsala, Sweden on July 15, 2010 or J
 In the meantime, it is May 2011 and HeidelTime is made publicly available and identifies 
 these temporal expressions: January 22, 2001 or twice a week.
 
+##########################################
+# 7. Additional HeidelTime documentation #
+##########################################
+HeidelTime's Google Code Project contains a lot of valuable information on how to use
+HeidelTime or its components, as well as additional resources, an always up-to-date
+code repository and issue tracker in case you spot a bug.
+Visit the project at
+	
+	http://code.google.com/p/heideltime/
+
+
 #######################################################################
-# 7. Reproducing HeidelTime's evaluation results on different corpora #
+# 8. Reproducing HeidelTime's evaluation results on different corpora #
 #######################################################################
 To reproduce HeidelTime's evaluation results reported in in our paper "Multilingual 
 Cross-domain Temporal Tagging", follow the instructions on:
 http://code.google.com/p/heideltime/wiki/ReproduceEvaluationResults
 
 ##############
-# 8. License #
+# 9. License #
 ##############
 Copyright (c) 2012, Database Research Group, Institute of Computer Science, University of Heidelberg. 
 All rights reserved. This program and the accompanying materials 
@@ -227,5 +267,4 @@ author: Jannik Strötgen
 email:  stroetgen@uni-hd.de
 
 HeidelTime is a multilingual, cross-domain temporal tagger.
-For details, see http://dbs.ifi.uni-heidelberg.de/heideltime and
-http://code.google.com/p/heideltime/
+For details, see http://dbs.ifi.uni-heidelberg.de/heideltime
