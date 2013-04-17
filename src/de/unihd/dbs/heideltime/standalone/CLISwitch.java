@@ -13,15 +13,16 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
  *
  */
 public enum CLISwitch {
-	VERBOSITY	("Verbosity", "-v"),
-	VERBOSITY2	("More Verbosity", "-vv"),
-	ENCODING	("Encoding", "-e", "UTF-8"),
-	OUTPUTTYPE	("Output Type", "-o", OutputType.TIMEML),
-	LANGUAGE	("Language", "-l", Language.ENGLISH.toString()),
-	DOCTYPE		("Document Type", "-t", DocumentType.NARRATIVES),
-	DCT			("Document Creation Time", "-dct", new Date()),
-	CONFIGFILE	("Configuration Path", "-c", "config.props"), 
+	VERBOSITY	("Verbosity level set to INFO and above", "-v"),
+	VERBOSITY2	("Verbosity level set to ALL", "-vv"),
+	ENCODING	("Encoding to use", "-e", "UTF-8"),
+	OUTPUTTYPE	("Output Type output type to use", "-o", OutputType.TIMEML),
+	LANGUAGE	("Language to use", "-l", Language.ENGLISH.toString()),
+	DOCTYPE		("Document Type/Domain to use", "-t", DocumentType.NARRATIVES),
+	DCT			("Document Creation Time. Format: YYYY-mm-dd.", "-dct", new Date()),
+	CONFIGFILE	("Configuration file path", "-c", "config.props"), 
 	LOCALE		("Locale", "-locale", null),
+	HELP		("This screen", "-h"),
 	;
 	
 	private boolean hasFollowingValue = false;
@@ -92,6 +93,10 @@ public enum CLISwitch {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public Object getDefaultValue() {
+		return defaultValue;
 	}
 	
 	public String getSwitchString() {

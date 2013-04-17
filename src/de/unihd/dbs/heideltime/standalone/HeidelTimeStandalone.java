@@ -390,6 +390,12 @@ public class HeidelTimeStandalone {
 		}
 		
 		
+		// display help dialog if HELP-switch is given
+		if(CLISwitch.HELP.getIsActive()) {
+			printHelp();
+			System.exit(0);
+		}
+		
 		// start off with the verbosity recognition -- lots of the other 
 		// stuff can be skipped if this is set too high
 		if(CLISwitch.VERBOSITY2.getIsActive()) {
@@ -402,7 +408,7 @@ public class HeidelTimeStandalone {
 			logger.setLevel(Level.WARNING);
 			logger.log(Level.INFO, "Verbosity -v/-vv NOT FOUND OR RECOGNIZED; Logging level set to WARNING and above.");
 		}
-
+		
 		// Check input encoding
 		String encodingType = null;
 		if(CLISwitch.ENCODING.getIsActive()) {
@@ -432,6 +438,7 @@ public class HeidelTimeStandalone {
 			
 			if(language == Language.WILDCARD) {
 				logger.log(Level.SEVERE, "Language '-l': "+CLISwitch.LANGUAGE.getValue()+" NOT RECOGNIZED; aborting.");
+				printHelp();
 				System.exit(-1);
 			} else {
 				logger.log(Level.INFO, "Language '-l': "+language.toString().toUpperCase());	
@@ -463,6 +470,7 @@ public class HeidelTimeStandalone {
 			} catch (Exception e) {
 				// DCT was not parseable
 				logger.log(Level.WARNING, "Document Creation Time '-dct': NOT RECOGNIZED. Quitting.");
+				printHelp();
 				System.exit(-1);
 			}
 		} else {
@@ -492,6 +500,7 @@ public class HeidelTimeStandalone {
 			} catch(Exception e) { // if the above fails, spit out error message and available locales
 				logger.log(Level.WARNING, "Supplied locale parameter couldn't be resolved to a working locale. Try one of these:");
 				logger.log(Level.WARNING, Arrays.asList(Locale.getAvailableLocales()).toString()); // list available locales
+				printHelp();
 				System.exit(-1);
 			}
 		} else {
@@ -511,12 +520,14 @@ public class HeidelTimeStandalone {
 			e.printStackTrace();
 			logger.log(Level.WARNING, "Config could not be initialized! Please supply the -c switch or "
 					+ "put a config.props into this directory.");
+			printHelp();
 			System.exit(-1);
 		}
 		
 		// make sure we have a document path
 		if (docPath == null) {
 			logger.log(Level.WARNING, "No input file given; aborting.");
+			printHelp();
 			System.exit(-1);
 		}
 		
@@ -571,6 +582,43 @@ public class HeidelTimeStandalone {
 			logger.log(Level.WARNING, "couldn't close config file handle");
 			e.printStackTrace();
 		}
+	}
+	
+	private static void printHelp() {
+		String[] path = HeidelTimeStandalone.class.getProtectionDomain().getCodeSource().getLocation().getFile().split(System.getProperty("file.separator"));
+		String filename = path[path.length-1];
+		
+		System.out.println("Usage:");
+		System.out.println("  java -jar " 
+				+ filename 
+				+ " <input-document> [-param1 <value1> ...]");
+		System.out.println();
+		System.out.println("Parameters an expected values:");
+		for(CLISwitch c : CLISwitch.values()) {
+			System.out.println("  " 
+					+ c.getSwitchString() 
+					+ "\t"
+					+ ((c.getSwitchString().length() > 4)? "" : "\t")
+					+ c.getName()
+					);
+			
+			if(c == CLISwitch.LANGUAGE) {
+				System.out.print("\t\t" + "Available languages: [ ");
+				for(Language l : Language.values())
+					if(l != Language.WILDCARD)
+						System.out.print(l.getName().toLowerCase()+" ");
+				System.out.println("]");
+			}
+			
+			if(c == CLISwitch.DOCTYPE) {
+				System.out.print("\t\t" + "Available types: [ ");
+				for(DocumentType t : DocumentType.values())
+					System.out.print(t.toString().toLowerCase()+" ");
+				System.out.println("]");
+			}
+		}
+		
+		System.out.println();
 	}
 
 	public DocumentType getDocumentType() {
