@@ -1,6 +1,6 @@
 // author: Jannik Strötgen
 // email:  stroetgen@uni-hd.de
-// date:   2012-07-17
+// date:   2013-04-20
 // This file contains rules for the temporal expressions of the type date: daterules
 // RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
 
@@ -151,7 +151,7 @@ RULENAME="date_r11g",EXTRACTION="mil %reNumWord2D",NORM_VALUE="10%normDurationNu
 RULENAME="date_r12a",EXTRACTION="([Ll]a |[Ee]l |[Ll][oa]s )(décadas?|decenios?) de los %reYear4Digit",NORM_VALUE="%SUBSTRING%(group(3),0,3)"
 RULENAME="date_r12b1",EXTRACTION="([Ll]a |[Ee]l |[Ll][oa]s )(décadas?|decenios?) de los %reDecadeWord",NORM_VALUE="19%normDecadeWord(group(3))"
 RULENAME="date_r12b2",EXTRACTION="([Ll]a |[Ee]l |[Ll][oa]s )(décadas?|decenios?) de los %reDecadeWord y (([1-9])0)",NORM_VALUE="19group(5)",OFFSET="group(4)-group(4)"
-RULENAME="date_r12c",EXTRACTION="([Ee]l |[Ll]a |[Ll][oa]s )?(%rePartWords )?([Ll]os) (años )?%reDecadeWord",NORM_VALUE="19%normDecadeWord(group(6))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r12c",EXTRACTION="([Ee]l |[Ll]a |[Ll][oa]s )?(%rePartWords )?([Ll]os) (años )?%reDecadeWord",NORM_VALUE="19%normDecadeWord(group(6))",NORM_MOD="%normPartWords(group(3))"
 
 
 /////////////////////////
