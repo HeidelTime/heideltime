@@ -16,7 +16,7 @@
 // EXAMPLE r1f-1: cada abril
 RULENAME="set_r1a",EXTRACTION="([Tt]od[oa]s l[oa]s|[Cc]ada|[Aa]l) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_QUANT="EVERY"
 RULENAME="set_r1b",EXTRACTION="([Tt]od[oa]s l[oa]s|[Cc]ada|[Aa]l) (%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(2))%UPPERCASE%(%SUBSTRING%(%normUnit(group(5)),0,1))",NORM_QUANT="EVERY"
-RULENAME="set_r1c",EXTRACTION="([Tt]od[oa]s l[oa]s|[Cc]ada|[Aa]l) ([\d]+) %reUnit",NORM_VALUE="P%normDurationNumber(group(3))%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_QUANT="EVERY"
+RULENAME="set_r1c",EXTRACTION="([Tt]od[oa]s l[oa]s|[Cc]ada|[Aa]l) ([\d]+) %reUnit",NORM_VALUE="Pgroup(2)%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_QUANT="EVERY"
 RULENAME="set_r1d",EXTRACTION="([Tt]od[oa]s l[oa]s|[Cc]ada|[Aa]l) %reWeekday",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1W"
 RULENAME="set_r1e",EXTRACTION="([Tt]od[oa]s l[oa]s|[Cc]ada|[Aa]l) %rePartOfDay",NORM_VALUE="PT%normPartOfDay(group(2))",NORM_QUANT="EVERY"
 RULENAME="set_r1f",EXTRACTION="([Tt]odos los|[Cc]ada) (%reMonthLong|%reMonthShort)",NORM_VALUE="XXXX-%normMonth(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1M"
