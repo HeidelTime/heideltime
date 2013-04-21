@@ -38,7 +38,10 @@ import org.apache.uima.util.XMLInputSource;
 
 import de.unihd.dbs.heideltime.standalone.components.JCasFactory;
 import de.unihd.dbs.heideltime.standalone.components.ResultFormatter;
+import de.unihd.dbs.heideltime.standalone.components.PartOfSpeechTagger;
 import de.unihd.dbs.heideltime.standalone.components.impl.JCasFactoryImpl;
+import de.unihd.dbs.heideltime.standalone.components.impl.JVnTextProWrapper;
+import de.unihd.dbs.heideltime.standalone.components.impl.StanfordPOSTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.TimeMLResultFormatter;
 import de.unihd.dbs.heideltime.standalone.components.impl.TreeTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.UimaContextImpl;
@@ -238,9 +241,35 @@ public class HeidelTimeStandalone {
 	private void establishPartOfSpeechInformation(JCas jcas) {
 		logger.log(Level.FINEST, "Establishing part of speech information...");
 
-		TreeTaggerWrapper partOfSpeechTagger = new TreeTaggerWrapper();
-		partOfSpeechTagger.setLogger(logger);
-		partOfSpeechTagger.initialize(language, true, true, true, true);
+		PartOfSpeechTagger partOfSpeechTagger = null;
+		Properties settings = new Properties();
+		switch (language) {
+			case ARABIC:
+				partOfSpeechTagger = new StanfordPOSTaggerWrapper();
+				settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_ANNOTATE_TOKENS, true);
+				settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_ANNOTATE_SENTENCES, true);
+				settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_ANNOTATE_POS, true);
+				settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_MODEL_PATH, Config.get(Config.STANFORDPOSTAGGER_MODEL_PATH));
+				settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_CONFIG_PATH, Config.get(Config.STANFORDPOSTAGGER_CONFIG_PATH));
+				break;
+			case VIETNAMESE:
+				partOfSpeechTagger = new JVnTextProWrapper();
+				settings.put(PartOfSpeechTagger.JVNTEXTPRO_ANNOTATE_TOKENS, true);
+				settings.put(PartOfSpeechTagger.JVNTEXTPRO_ANNOTATE_SENTENCES, true);
+				settings.put(PartOfSpeechTagger.JVNTEXTPRO_ANNOTATE_POS, true);
+				settings.put(PartOfSpeechTagger.JVNTEXTPRO_WORD_MODEL_PATH, Config.get(Config.JVNTEXTPRO_WORD_MODEL_PATH));
+				settings.put(PartOfSpeechTagger.JVNTEXTPRO_SENT_MODEL_PATH, Config.get(Config.JVNTEXTPRO_SENT_MODEL_PATH));
+				settings.put(PartOfSpeechTagger.JVNTEXTPRO_POS_MODEL_PATH, Config.get(Config.JVNTEXTPRO_POS_MODEL_PATH));
+				break;
+			default:
+				partOfSpeechTagger = new TreeTaggerWrapper();
+				settings.put(PartOfSpeechTagger.TREETAGGER_LANGUAGE, language);
+				settings.put(PartOfSpeechTagger.TREETAGGER_ANNOTATE_TOKENS, true);
+				settings.put(PartOfSpeechTagger.TREETAGGER_ANNOTATE_SENTENCES, true);
+				settings.put(PartOfSpeechTagger.TREETAGGER_ANNOTATE_POS, true);
+				settings.put(PartOfSpeechTagger.TREETAGGER_IMPROVE_GERMAN_SENTENCES, (language == Language.GERMAN));
+		}
+		partOfSpeechTagger.initialize(settings);
 		partOfSpeechTagger.process(jcas);
 
 		logger.log(Level.FINEST, "Part of speech information established");
