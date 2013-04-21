@@ -5,7 +5,7 @@
 // according to TIMEX3 format.
 // For example, the normalized value of "sunday" is "1"
 // FORMAT: "day-word","normalized-day-word"
-"[Ll]uned(ì|i'|i),"1"
+"[Ll]uned(ì|i'|i)","1"
 "[Mm]arted(ì|i'|i)","2"
 "[Mm]ercoled(ì|i'|i)","3"
 "[Gg]ioved(ì|i'|i)","4"
