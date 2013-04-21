@@ -195,12 +195,12 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		}
 
 		if (!abbFileFlag || !parFileFlag || !tokScriptFlag) {
-			Logger.printError(component, "\nCannot find tree tagger (" + ttprops.rootPath + ttprops.fileSeparator 
+			Logger.printError(component, "Cannot find tree tagger (" + ttprops.rootPath + ttprops.fileSeparator 
 					+ "cmd" + ttprops.fileSeparator + ttprops.tokScriptName + ")." +
 			" Make sure that path to tree tagger is set correctly in config.props!");
-			Logger.printError(component, "\nIf path is set correctly:\n");
+			Logger.printError(component, "If path is set correctly:");
 			Logger.printError(component, "Maybe you need to download the TreeTagger tagger-scripts.tar.gz");
-			Logger.printError(component, "from ftp://ftp.ims.uni-stuttgart.de/pub/corpora/tagger-scripts.tar.gz");
+			Logger.printError(component, "from http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tagger-scripts.tar.gz");
 			Logger.printError(component, "Extract this file and copy the missing file into the corresponding TreeTagger directories.");
 			Logger.printError(component, "If missing, copy " + ttprops.abbFileName   + " into " +  ttprops.rootPath+ttprops.fileSeparator+"lib");
 			Logger.printError(component, "If missing, copy " + ttprops.parFileName   + " into " +  ttprops.rootPath+ttprops.fileSeparator+"lib");
