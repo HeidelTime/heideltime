@@ -13,6 +13,9 @@
 [Aa]nni [Oo]ttanta
 [Aa]nni [Nn]ovanta
 [Aa]nni [2-9]0
-[Aa]nni [Zz]ero
-[Aa]nni [Dd]uemiladieci
-[Aa]nni [Dd]uemila
+//[Aa]nni [Zz]ero
+//--> used outside of DecadeWord
+//[Aa]nni [Dd]uemiladieci 
+//--> used outside of DecadeWord
+//[Aa]nni [Dd]uemila
+//--> used outside of DecadeWord
