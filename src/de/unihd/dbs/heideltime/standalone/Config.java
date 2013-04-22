@@ -37,8 +37,17 @@ public abstract class Config {
 	public static final String CONSIDER_SET = "considerSet";
 	public static final String CONSIDER_TIME = "considerTime";
 	public static final String TREETAGGERHOME = "treeTaggerHome";
+	
+	public static final String JVNTEXTPRO_WORD_MODEL_PATH = "word_model_path";
+	public static final String JVNTEXTPRO_SENT_MODEL_PATH = "sent_model_path";
+	public static final String JVNTEXTPRO_POS_MODEL_PATH = "pos_model_path";
+	
+	public static final String STANFORDPOSTAGGER_MODEL_PATH = "model_path";
+	public static final String STANFORDPOSTAGGER_CONFIG_PATH = "config_path";
+	
 	public static final String TYPESYSTEMHOME = "typeSystemHome";
 	public static final String TYPESYSTEMHOME_DKPRO = "typeSystemHome_DKPro";
+	
 	public static final String UIMAVAR_DATE = "uimaVarDate";
 	public static final String UIMAVAR_DURATION = "uimaVarDuration";
 	public static final String UIMAVAR_LANGUAGE = "uimaVarLanguage";
