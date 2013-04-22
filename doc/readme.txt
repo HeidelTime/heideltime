@@ -157,6 +157,9 @@ set the environment variables.
    "Annotation Translator", which is part of the UIMA HeidelTime kit or you may adjust the 
    imports in HeidelTime.java itself. Furthermore, if a differing tag set is used, all rules
    containing part-of-speech information have to be adapted).
+   
+   To process English, German, Dutch, Spanish or Italian documents, the TreeTaggerWrapper
+   can be used for pre-processing: 
     * Download the TreeTagger and its tagging scripts, installation scripts, as well as 
       English, German, and Dutch (or any other) parameter files into one directory from:
       http://www.ims.uni-stuttgart.de/projekte/corplex/TreeTagger/
@@ -177,7 +180,42 @@ set the environment variables.
 		- sh install-tagger.sh 
 	* Set environment variables (you can set variables globally, e.g., in your $HOME/.bashrc)
     	- export TREETAGGER_HOME='path to TreeTagger'
-   For further information on the TreeTagger, take a look at its documentation.		
+   For further information on the TreeTagger, take a look at its documentation and our wiki
+   page for it: https://code.google.com/p/heideltime/wiki/TreeTaggerWrapper.
+   
+   
+   To process Vietnamese documents, we have developed the JVnTextProWrapper Analysis 
+   Engine. It makes use of the JVnTextPro tool. To use it, follow these steps:
+    * Download JVnTextPro and unpack it:
+      - wget http://sourceforge.net/projects/jvntextpro/files/latest/download -O JVnTextPro.zip
+      - unzip JVnTextPro.zip
+    * Set the relevant environment variable, then source the environment to construct
+      the CLASSPATH.
+      - export JVNTEXTPRO_HOME='<path to JVnTextPro>/bin'
+      - source $HEIDELTIME_HOME/metadata/setenv
+    Further information about JVnTextPro can be found on our Wiki page for the Engine:
+    	https://code.google.com/p/heideltime/wiki/JVnTextProWrapper
+    
+    
+    To process Arabic documents, we have developed the Stanford POS Tagger Wrapper
+    Analysis Engine. It utilizes the Stanford POS Tagger. Follow these instructions 
+    to set it up:
+     * Download the Stanford POS Tagger *Full Package* from this URL and unzip it:
+       http://nlp.stanford.edu/software/tagger.shtml
+       - wget http://nlp.stanford.edu/software/stanford-postagger-full-2013-04-04.zip
+       - unzip stanford-postagger-full-2013-04-04.zip
+     * Set the relevant environment variable, then source the environment to construct
+       the CLASSPATH.
+       - export STANFORDTAGGER='path to stanford-postagger-<version>.jar'
+       - source $HEIDELTIME_HOME/metadata/setenv
+     For more information on the Stanford POS Tagger Wrapper, see our Wiki page:
+     	https://code.google.com/p/heideltime/wiki/StanfordPOSTaggerWrapper
+     
+     
+    For sample UIMA workflows for any of the supported languages, please take a look
+    at our evaluation results reproduction Wiki page:
+    	https://code.google.com/p/heideltime/wiki/ReproduceEvaluationResults
+    and select a workflow description for a corpus of the language of your choice.
 
 
 #########################
