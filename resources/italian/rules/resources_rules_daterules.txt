@@ -24,13 +24,13 @@
 // EXAMPLE r0e_1: 16-4 (AP) (find 16-4)
 // EXAMPLE r0f_1: 2010/01/29
 // EXAMPLE r0g_1: 99/01/29
-RULENAME="date_r0a",EXTRACTION="(%reDayNumber-%reMonthNumber-%reYear4Digit)",NORM_VALUE="group(2)-%normMonth(group(3))-group(4)"
-RULENAME="date_r0b",EXTRACTION="(%reDayNumber-%reMonthNumber-%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(4)-%normMonth(group(2))-group(3)"
+RULENAME="date_r0a",EXTRACTION="(%reDayNumber-%reMonthNumber-%reYear4Digit)",NORM_VALUE="group(4)-%normMonth(group(3))-%normDay(group(2))"
+RULENAME="date_r0b",EXTRACTION="(%reDayNumber-%reMonthNumber-%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(4)-%normMonth(group(3))-%normDay(group(2))"
 RULENAME="date_r0c",EXTRACTION="%reDayNumber(/| )%reMonthNumber(/| )%reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(3))-%normDay(group(1))"
 RULENAME="date_r0d",EXTRACTION="%reDayNumber(/| )%reMonthNumber(/| )%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(5)-%normMonth(group(3))-%normDay(group(1))"
 RULENAME="date_r0e",EXTRACTION="%reDayNumber-%reMonthNumber( \(.*?\))",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(1))",OFFSET="group(1)-group(2)"
-RULENAME="date_r0f",EXTRACTION="%reYear4Digit\/%reMonthNumber\/%reDayNumber",NORM_VALUE="group(1)-%normMonth(group(2))-group(3)"
-RULENAME="date_r0g",EXTRACTION="%reYear2Digit\/%reMonthNumber\/%reDayNumber",NORM_VALUE="19group(1)-%normMonth(group(2))-group(3)"
+RULENAME="date_r0f",EXTRACTION="%reYear4Digit\/%reMonthNumber\/%reDayNumber",NORM_VALUE="group(1)-%normMonth(group(2))-%normDay(group(3))"
+RULENAME="date_r0g",EXTRACTION="%reYear2Digit\/%reMonthNumber\/%reDayNumber",NORM_VALUE="19group(1)-%normMonth(group(2))-%normDay(group(3))"
 
 // date_r1
 // EXAMPLE r1a_1: el 30 de abril de 1999
@@ -141,8 +141,8 @@ RULENAME="date_r10b",EXTRACTION="(\b[Ii]l |\b[Ll][oa'] )?%rePartOfYear( dell' | 
 RULENAME="date_r11a",EXTRACTION="(%rePartWords )?(\b[Ii]l |\b[Ll]' )?(mism[oa] )?(anno )?%reYear4Digit",NORM_VALUE="group(6)",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_r11b",EXTRACTION="(\b[Ii]l )?%rePartWords ([Dd]ell' |[Dd]el |[Dd]egli )?([Ii]l )?(anno )?%reYear4Digit",NORM_VALUE="group(6)",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_r11c",EXTRACTION="%reYear4Digit(\–| - | – |-|–| ed? | od? | ai? | alla )%reYear2Digit",NORM_VALUE="%SUBSTRING%(group(1),0,2)group(3)",OFFSET="group(3)-group(3)"
-RULENAME="date_r11d",EXTRACTION="[Mm]ille[\\s]?(%reNumWord1D)centos?[\\s]?%reNumWord2D",NORM_VALUE="1%normDurationNumber(group(1))%normDurationNumber(group(4))"
-RULENAME="date_r11e",EXTRACTION="[Mm]ille[\\s]?(%reNumWord1D)centos?[\\s]?%reNumWord1D",NORM_VALUE="1%normDurationNumber(group(1))0%normDurationNumber(group(4))"
+RULENAME="date_r11d",EXTRACTION="[Mm]ille[\\s]?(%reNumWord1D)centos?[\\s]?%reNumWord2D",NORM_VALUE="1%normDurationNumber(group(1))%normDurationNumber(group(3))"
+RULENAME="date_r11e",EXTRACTION="[Mm]ille[\\s]?(%reNumWord1D)centos?[\\s]?%reNumWord1D",NORM_VALUE="1%normDurationNumber(group(1))0%normDurationNumber(group(3))"
 RULENAME="date_r11f",EXTRACTION="[Dd]uemilae?[\\s]?%reNumWord1D",NORM_VALUE="200%normDurationNumber(group(1))"
 RULENAME="date_r11g",EXTRACTION="[Dd]uemilae?[\\s]?%reNumWord2D",NORM_VALUE="20%normDurationNumber(group(1))"
 
