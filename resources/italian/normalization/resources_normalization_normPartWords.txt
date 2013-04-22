@@ -36,7 +36,7 @@
 "[Pp]rimera met(à|a'|a)","START"
 "[Pp]rincipio","START"
 // MID
-"[Mm]et(à|a')","MID"
+"[Mm]et(à|a'|a)","MID"
 // END
 "[Ll]a fine( di| della| dell'| del)?","END"
 "[Ff]ine( di| della| dell'| del)?","END"
