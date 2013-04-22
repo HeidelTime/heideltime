@@ -12,13 +12,13 @@ Groundhog Day
 
 // http://en.wikipedia.org/wiki/Valentine%27s_Day
 Saint Valentines Day
-St. Valentines Day
+St\. Valentines Day
 Valentines Day
-St. Valentine's Day
+St\. Valentine's Day
 Saint Valentine's Day
 Valentine's Day
 Saint Valentines' Day
-St. Valentines' Day
+St\. Valentines' Day
 Valentines' Day
 
 // http://en.wikipedia.org/wiki/Patriots%27_Day
@@ -103,30 +103,30 @@ Boxing Day
 
 // http://en.wikipedia.org/wiki/St._Patrick%27s_Day
 Saint Patricks Day
-St. Patricks Day
-St. Paddys Day
+St\. Patricks Day
+St\. Paddys Day
 Saint Paddys Day
-St. Pattys Day
+St\. Pattys Day
 Saint Pattys Day
 
 Saint Patrick's Day
-St. Patrick's Day
-St. Paddy's Day
+St\. Patrick's Day
+St\. Paddy's Day
 Saint Paddy's Day
-St. Patty's Day
+St\. Patty's Day
 Saint Patty's Day
 
 Saint Patricks' Day
-St. Patricks' Day
-St. Paddys' Day
+St\. Patricks' Day
+St\. Paddys' Day
 Saint Paddys' Day
-St. Pattys' Day
+St\. Pattys' Day
 Saint Pattys' Day
 
 // http://en.wikipedia.org/wiki/St._Andrew%27s_Day
 Saint Andrews Day
 Saint Andrew's Day
 Saint Andrews' Day
-St. Andrews Day
-St. Andrew's Day
-St. Andrews' Day
+St\. Andrews Day
+St\. Andrew's Day
+St\. Andrews' Day
