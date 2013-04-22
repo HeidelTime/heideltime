@@ -27,13 +27,13 @@ Fronleichnam
 Buß- und Bettag
 
 // advent sundays: the four sundays before christmas(12-24)
-1. Advent
+1\. Advent
 [eE]rste[rnm]? Advent
-2. Advent
+2\. Advent
 [zZ]weite[rnm]? Advent
-3. Advent
+3\. Advent
 [dD]ritte[rnm]? Advent
-4. Advent
+4\. Advent
 [vV]ierte[rnm]? Advent
 
 // http://de.wikipedia.org/wiki/Liste_der_Gedenk-_und_Aktionstage#Mai
