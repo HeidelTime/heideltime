@@ -59,20 +59,20 @@ Christfest
 Heilige Nacht
 Christnacht
 //
-1. Weihnachtsfeiertag
-1. Weihnachtstag
-1.Weihnachtsfeiertag
-1.Weihnachtstag
+1\. Weihnachtsfeiertag
+1\. Weihnachtstag
+1\.Weihnachtsfeiertag
+1\.Weihnachtstag
 [Ee]rste[rnm]? Weihnachtsfeiertag
 [Ee]rste[rnm]? Weihnachtstag
 
 // http://de.wikipedia.org/wiki/Zweiter_Weihnachtsfeiertag
 // this won't work because the sentence borders are set at the full stop, so "2. Weihnachtstag" can never be found in a single sentence 
-2. Weihnachtsfeiertag
-2. Weihnachtstag
+2\. Weihnachtsfeiertag
+2\. Weihnachtstag
 // this will be found, because the sentence is not split at this full stop
-2.Weihnachtsfeiertag
-2.Weihnachtstag
+2\.Weihnachtsfeiertag
+2\.Weihnachtstag
 [Zz]weite[rnm]? Weihnachtsfeiertag
 [Zz]weite[rnm]? Weihnachtstag
 Stephanitag
