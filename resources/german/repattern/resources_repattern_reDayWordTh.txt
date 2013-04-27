@@ -1,36 +1,36 @@
 // author: Jannik Strötgen
 // email:  stroetgen@uni-hd.de
-// date:   2011-06-10
+// date:   2013-04-26
 // This file contains regular expression patterns for day word th.
 // FORMAT: one line is one disjunction of the pattern
-[Ee]rste[nr]
-[Zz]weite[nr]
-[Dd]ritte[nr]
-[Vv]ierte[nr]
-[Ff]ünfte[nr]
-[Ss]echste[nr]
-[Ss]iebte[nr]
-[Aa]chte[nr]
-[Nn]eunte[nr]
-[Ee]lfte[nr]
-[Zz]wölfte[nr]
-[Dd]reizehnte[nr]
-[Vv]ierzehnte[nr]
-[Ff]ünfzehnte[nr]
-[Ss]echzehnte[nr]
-[Ss]iebzehnte[nr]
-[Aa]chtzehnte[nr]
-[Nn]eunzehnte[nr]
-[Zz]ehnte[nr]
-[Ee]inundzwanzigste[nr]
-[Zz]weiundzwanzigste[nr]
-[Dd]reiundzwanzigste[nr]
-[Vv]ierundzwanzigste[nr]
-[Ff]ünfundzwanzigste[nr]
-[Ss]echsundzwanzigste[nr]
-[Ss]iebenundzwanzigste[nr]
-[Aa]chtundzwanzigste[nr]
-[Nn]eunundzwanzigste[nr]
-[Zz]wanzigste[nr]
-[Ee]inunddreißigste[nr]
-[Dd]reißigste[nr]
+[Ee]rste[nr]?
+[Zz]weite[nr]?
+[Dd]ritte[nr]?
+[Vv]ierte[nr]?
+[Ff]ünfte[nr]?
+[Ss]echste[nr]?
+[Ss]iebte[nr]?
+[Aa]chte[nr]?
+[Nn]eunte[nr]?
+[Ee]lfte[nr]?
+[Zz]wölfte[nr]?
+[Dd]reizehnte[nr]?
+[Vv]ierzehnte[nr]?
+[Ff]ünfzehnte[nr]?
+[Ss]echzehnte[nr]?
+[Ss]iebzehnte[nr]?
+[Aa]chtzehnte[nr]?
+[Nn]eunzehnte[nr]?
+[Zz]ehnte[nr]?
+[Ee]inundzwanzigste[nr]?
+[Zz]weiundzwanzigste[nr]?
+[Dd]reiundzwanzigste[nr]?
+[Vv]ierundzwanzigste[nr]?
+[Ff]ünfundzwanzigste[nr]?
+[Ss]echsundzwanzigste[nr]?
+[Ss]iebenundzwanzigste[nr]?
+[Aa]chtundzwanzigste[nr]?
+[Nn]eunundzwanzigste[nr]?
+[Zz]wanzigste[nr]?
+[Ee]inunddreißigste[nr]?
+[Dd]reißigste[nr]?
