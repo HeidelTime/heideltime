@@ -275,10 +275,10 @@ RULENAME="vn_date_r13b",EXTRACTION="%reDecadeWord (thế kỷ |Thế kỷ ) %reC
 // EXAMPLE vn_date_r15a: thế kỷ 19      the 19th century
 // EXAMPLE vn_date_r15b: thế kỷ mười bảy
 
-RULENAME="vn_date_r15a",EXTRACTION="(thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyNumber",NORM_VALUE="%SUM%(group(2),-1)XX"
-RULENAME="vn_date_r15b",EXTRACTION="(thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyInWord",NORM_VALUE="%SUM%(%normCenturyInWord(group(2)),-1)XX"
-RULENAME="vn_date_r15c",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyNumber",NORM_VALUE="%SUM%(group(3),-1)XX",NORM_MOD="%normPartWords(group(1))"
-RULENAME="vn_date_r15d",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyInWord",NORM_VALUE="%SUM%(%normCenturyInWord(group(3)),-1)XX",NORM_MOD="%normPartWords(group(1))"
+RULENAME="vn_date_r15a",EXTRACTION="(thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyNumber",NORM_VALUE="%SUM%(group(2),-1)"
+RULENAME="vn_date_r15b",EXTRACTION="(thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyInWord",NORM_VALUE="%SUM%(%normCenturyInWord(group(2)),-1)"
+RULENAME="vn_date_r15c",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyNumber",NORM_VALUE="%SUM%(group(3),-1)",NORM_MOD="%normPartWords(group(1))"
+RULENAME="vn_date_r15d",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyInWord",NORM_VALUE="%SUM%(%normCenturyInWord(group(3)),-1)",NORM_MOD="%normPartWords(group(1))"
 
 ///////////////////////////////////
 // GRANULARITY INDEPENDENT RULES //
