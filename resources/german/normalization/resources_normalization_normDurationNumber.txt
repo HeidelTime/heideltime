@@ -136,7 +136,7 @@
 "sechsundachtzig","86"
 "siebenundachtzig","87"
 "achtundachtzig","88"
-"neunundachtuig","89"
+"neunundachtzig","89"
 "neunzig","90"
 "einundneunzig","91"
 "zweiundneunzig","92"
