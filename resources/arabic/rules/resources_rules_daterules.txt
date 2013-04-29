@@ -188,7 +188,7 @@ RULENAME="date_r12a_arNum",EXTRACTION="(في |و)?((ﺎﻟ|ﻝ|ﻞﻟ)?(ﺲﻧ[�
 
 // EXAMPLE : r12a_2 the year 91
 RULENAME="date_r12a_2_1",EXTRACTION="(في )((ال|ل|لل)?(سن[هة] |عام )?%reYear2Digit)",NORM_VALUE="19group(5)",OFFSET="group(2)-group(2)"
-RULENAME="date_r12a_2_2",EXTRACTION="(في |و)?((ال|ل|لل)?(سن[هة] |عام )%reYear2Digit)",NORM_VALUE="19group(5),OFFSET="group(2)-group(2)"
+RULENAME="date_r12a_2_2",EXTRACTION="(في |و)?((ال|ل|لل)?(سن[هة] |عام )%reYear2Digit)",NORM_VALUE="19group(5)",OFFSET="group(2)-group(2)"
 RULENAME="date_r12a_2_1_arNum",EXTRACTION="(في )((ال|ل|لل)?(سن[هة] |عام )?(%reArabicDigit)(%reArabicDigit))",NORM_VALUE="19%normArabicDigit(group(6))%normArabicDigit(group(8))",OFFSET="group(2)-group(2)"
 RULENAME="date_r12a_2_2_arNum",EXTRACTION="(في |و)?((ال|ل|لل)?(سن[هة] |عام )(%reArabicDigit)(%reArabicDigit))",NORM_VALUE="19%normArabicDigit(group(6))%normArabicDigit(group(8))",OFFSET="group(2)-group(2)"
 
