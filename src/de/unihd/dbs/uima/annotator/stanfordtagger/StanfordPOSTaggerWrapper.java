@@ -23,8 +23,11 @@ import de.unihd.dbs.uima.types.heideltime.Token;
 
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.TaggedWord;
+import edu.stanford.nlp.ling.Word;
+import edu.stanford.nlp.process.TokenizerFactory;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import edu.stanford.nlp.tagger.maxent.TaggerConfig;
+import edu.stanford.nlp.process.PTBTokenizer.PTBTokenizerFactory;
 
 /**
  * @author Julian Zell
@@ -94,7 +97,9 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 		String docText = jcas.getDocumentText();
 		
 		// get [sentence-tokens[word-tokens]] from the MaxentTagger
-		List<List<HasWord>> tokenArray = MaxentTagger.tokenizeText(new StringReader(docText));
+		TokenizerFactory<Word> fac = PTBTokenizerFactory.newTokenizerFactory();
+		fac.setOptions("ptb3Escaping=false");
+		List<List<HasWord>> tokenArray = MaxentTagger.tokenizeText(new StringReader(docText), fac);
 		
 		// iterate over sentences in this document
 		for(List<HasWord> sentenceToken : tokenArray) {
