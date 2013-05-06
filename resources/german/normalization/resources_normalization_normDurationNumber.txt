@@ -111,7 +111,7 @@
 "einundsechzig","61"
 "zweiundsechzig","62"
 "dreiundsechzig","63"
-"vierundsechtig","64"
+"vierundsechzig","64"
 "fünfundsechzig","65"
 "sechsundsechzig","66"
 "siebenundsechzig","67"
