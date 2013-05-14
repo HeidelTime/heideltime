@@ -10,7 +10,7 @@ VER:impe
 //verb imperfect
 VER:impf
 // verb participle perfect
-VER:pper
+//VER:pper
 // verb simple past
 VER:remo
 
