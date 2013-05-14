@@ -349,17 +349,21 @@ public class ContextAnalyzer {
 				}
 				else if ((rpm.containsKey("tensePos4PresentFuture")) && (token.getPos().matches(rpm.get("tensePos4PresentFuture")))) {
 					lastTense = "PRESENTFUTURE";
+					Logger.printDetail("this tense:"+lastTense);
 				}
 				else if ((rpm.containsKey("tensePos4Past")) && (token.getPos().matches(rpm.get("tensePos4Past")))) {
 					lastTense = "PAST";
+					Logger.printDetail("this tense:"+lastTense);
 				}
 				else if ((rpm.containsKey("tensePos4Future")) && (token.getPos().matches(rpm.get("tensePos4Future")))) {
 					if (token.getCoveredText().matches(rpm.get("tenseWord4Future"))) {
 						lastTense = "FUTURE";
+						Logger.printDetail("this tense:"+lastTense);
 					}
 				}
 				if (token.getCoveredText().equals("since")) {
 					lastTense = "PAST";
+					Logger.printDetail("this tense:"+lastTense);
 				}
 			}
 			if (lastTense.equals("")) {
@@ -377,13 +381,16 @@ public class ContextAnalyzer {
 					}
 					else if ((rpm.containsKey("tensePos4PresentFuture")) && (token.getPos().matches(rpm.get("tensePos4PresentFuture")))) {
 						lastTense = "PRESENTFUTURE";
+						Logger.printDetail("this tense:"+lastTense);
 					}
 					else if ((rpm.containsKey("tensePos4Past")) && (token.getPos().matches(rpm.get("tensePos4Past")))) {
 						lastTense = "PAST";
+						Logger.printDetail("this tense:"+lastTense);
 					}
 					else if ((rpm.containsKey("tensePos4Future")) && (token.getPos().matches(rpm.get("tensePos4Future")))) {
 						if (token.getCoveredText().matches(rpm.get("tenseWord4Future"))) {
 							lastTense = "FUTURE";
+							Logger.printDetail("this tense:"+lastTense);
 						}
 					}
 				}
@@ -402,6 +409,7 @@ public class ContextAnalyzer {
 							if ((!(token.getCoveredText().equals("expected"))) && (!(token.getCoveredText().equals("scheduled")))) {
 								lastTense = "PAST";
 								longTense = "PAST";
+								Logger.printDetail("this tense:"+lastTense);
 							}
 						}
 					}
@@ -415,6 +423,7 @@ public class ContextAnalyzer {
 								if ((!(token.getCoveredText().equals("expected"))) && (!(token.getCoveredText().equals("scheduled")))) {
 									lastTense = "PAST";
 									longTense = "PAST";
+									Logger.printDetail("this tense:"+lastTense);
 								}
 							}
 						}

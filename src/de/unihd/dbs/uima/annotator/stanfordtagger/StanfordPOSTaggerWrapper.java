@@ -73,13 +73,13 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 				FileInputStream isr = new FileInputStream(config_path);
 				Properties props = new Properties();
 				props.load(isr);
-				mt = new MaxentTagger(model_path, new TaggerConfig(props));
+				mt = new MaxentTagger(model_path, new TaggerConfig(props), false);
 			} else { // instantiate without configuration file
-				mt = new MaxentTagger(model_path);
+				mt = new MaxentTagger(model_path, new TaggerConfig("-model", model_path), false);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			Logger.printError(component, "MaxentTagger could not be instantiated with the supplied model/config file.");
+			Logger.printError(component, "MaxentTagger could not be instantiated with the supplied model("+model_path+") and config("+config_path+") file.");
 			System.exit(-1);
 		}
 	}

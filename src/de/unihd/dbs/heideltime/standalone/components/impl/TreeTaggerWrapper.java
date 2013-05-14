@@ -14,7 +14,7 @@
 
 package de.unihd.dbs.heideltime.standalone.components.impl;
 
-import java.util.logging.Logger;
+import java.util.Properties;
 
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.jcas.JCas;
@@ -30,20 +30,12 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
  * @version 1.01
  */
 public class TreeTaggerWrapper implements PartOfSpeechTagger {
-	public Logger logger;
 	// uima wrapper instance
 	private de.unihd.dbs.uima.annotator.treetagger.TreeTaggerWrapper ttw = 
 			new de.unihd.dbs.uima.annotator.treetagger.TreeTaggerWrapper();
-
-	public void setLogger(Logger l) {
-		this.logger = l;
-	}
 	
 	public void initialize(Language language, Boolean annotateTokens, 
 			Boolean annotateSentences, Boolean annotatePartOfSpeech, Boolean improveGermanSentences) {
-		String treeTaggerHome = Config.get(Config.TREETAGGERHOME);
-		ttw.initialize(language, treeTaggerHome, annotateTokens, 
-				annotateSentences, annotatePartOfSpeech, improveGermanSentences);
 	}
 	
 	public void process(JCas jcas) {
@@ -52,5 +44,17 @@ public class TreeTaggerWrapper implements PartOfSpeechTagger {
 		} catch(AnalysisEngineProcessException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void initialize(Properties settings) {
+		Language language = (Language) settings.get(TREETAGGER_LANGUAGE);
+		String treeTaggerHome = Config.get(Config.TREETAGGERHOME);
+		Boolean annotateTokens = (Boolean) settings.get(TREETAGGER_ANNOTATE_TOKENS);
+		Boolean annotateSentences = (Boolean) settings.get(TREETAGGER_ANNOTATE_SENTENCES);
+		Boolean annotatePartOfSpeech = (Boolean) settings.get(TREETAGGER_ANNOTATE_POS);
+		Boolean improveGermanSentences = (Boolean) settings.get(TREETAGGER_IMPROVE_GERMAN_SENTENCES);
+		ttw.initialize(language, treeTaggerHome, annotateTokens, 
+				annotateSentences, annotatePartOfSpeech, improveGermanSentences);
 	}
 }

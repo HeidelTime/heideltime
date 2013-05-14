@@ -14,6 +14,8 @@
 
 package de.unihd.dbs.heideltime.standalone.components;
 
+import java.util.Properties;
+
 import org.apache.uima.jcas.JCas;
 
 /**
@@ -23,6 +25,25 @@ import org.apache.uima.jcas.JCas;
  * @version 1.0
  */
 public interface PartOfSpeechTagger {
+	public static final String TREETAGGER_ANNOTATE_TOKENS = "annotateTokens";
+	public static final String TREETAGGER_ANNOTATE_SENTENCES = "annotateSentences";
+	public static final String TREETAGGER_ANNOTATE_POS = "annotatePartOfSpeech";
+	public static final String TREETAGGER_IMPROVE_GERMAN_SENTENCES = "improveGermanSentences";
+	public static final String TREETAGGER_LANGUAGE = "language";
+	
+	public static final String JVNTEXTPRO_WORD_MODEL_PATH = "word_model_path";
+	public static final String JVNTEXTPRO_SENT_MODEL_PATH = "sent_model_path";
+	public static final String JVNTEXTPRO_POS_MODEL_PATH = "pos_model_path";
+	public static final String JVNTEXTPRO_ANNOTATE_TOKENS = "annotate_tokens";
+	public static final String JVNTEXTPRO_ANNOTATE_SENTENCES = "annotate_sentences";
+	public static final String JVNTEXTPRO_ANNOTATE_POS = "annotate_partofspeech";
+	
+	public static final String STANFORDPOSTAGGER_ANNOTATE_TOKENS = "annotate_tokens";
+	public static final String STANFORDPOSTAGGER_ANNOTATE_SENTENCES = "annotate_sentences"; 
+	public static final String STANFORDPOSTAGGER_ANNOTATE_POS = "annotate_partofspeech";
+	public static final String STANFORDPOSTAGGER_MODEL_PATH = "model_path";
+	public static final String STANFORDPOSTAGGER_CONFIG_PATH = "config_path";
+	
 	/**
 	 * Processes jcas object. Creates tokens with part of speech information.
 	 * 
@@ -30,4 +51,12 @@ public interface PartOfSpeechTagger {
 	 * @param language Language of document
 	 */
 	public void process(JCas jcas);
+
+	/**
+	 * Initializes the part of speech tagger
+	 * 
+	 * @param jcas
+	 * @param language Language of document
+	 */
+	public void initialize(Properties settings);
 }

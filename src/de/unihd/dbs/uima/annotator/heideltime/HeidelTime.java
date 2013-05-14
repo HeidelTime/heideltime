@@ -198,18 +198,44 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		
 		while (sentIter.hasNext()) {
 			Sentence s = (Sentence) sentIter.next();
-			if (find_dates) {
-				findTimexes("DATE", rulem.getHmDatePattern(), rulem.getHmDateOffset(), rulem.getHmDateNormalization(), rulem.getHmDateQuant(), s, jcas);
-			}
-			if (find_times) {
-				findTimexes("TIME", rulem.getHmTimePattern(), rulem.getHmTimeOffset(), rulem.getHmTimeNormalization(), rulem.getHmTimeQuant(), s, jcas);
-			}
-			if (find_sets) {
-				findTimexes("SET", rulem.getHmSetPattern(), rulem.getHmSetOffset(), rulem.getHmSetNormalization(), rulem.getHmSetQuant(), s, jcas);
-			}
-			if (find_durations) {
-				findTimexes("DURATION", rulem.getHmDurationPattern(), rulem.getHmDurationOffset(), rulem.getHmDurationNormalization(), rulem.getHmDurationQuant(), s, jcas);
-			}
+			
+			Boolean debugIteration = false;
+			Boolean oldDebugState = Logger.getPrintDetails();
+			do {
+				try {
+					if (find_dates) {
+						findTimexes("DATE", rulem.getHmDatePattern(), rulem.getHmDateOffset(), rulem.getHmDateNormalization(), rulem.getHmDateQuant(), s, jcas);
+					}
+					if (find_times) {
+						findTimexes("TIME", rulem.getHmTimePattern(), rulem.getHmTimeOffset(), rulem.getHmTimeNormalization(), rulem.getHmTimeQuant(), s, jcas);
+					}
+					if (find_sets) {
+						findTimexes("SET", rulem.getHmSetPattern(), rulem.getHmSetOffset(), rulem.getHmSetNormalization(), rulem.getHmSetQuant(), s, jcas);
+					}
+					if (find_durations) {
+						findTimexes("DURATION", rulem.getHmDurationPattern(), rulem.getHmDurationOffset(), rulem.getHmDurationNormalization(), rulem.getHmDurationQuant(), s, jcas);
+					}
+				} catch(NullPointerException npe) {
+					if(!debugIteration) {
+						debugIteration = true;
+						Logger.setPrintDetails(true);
+						
+						Logger.printError(component, "HeidelTime's execution has been interrupted by an exception that " +
+								"is likely rooted in faulty normalization resource files. Please consider opening an issue " +
+								"report containing the following information at our Google Code project issue tracker: " +
+								"https://code.googe.com/p/heideltime. Thanks!");
+						npe.printStackTrace();
+						Logger.printError(component, "Sentence [" + s.getBegin() + "-" + s.getEnd() + "]: " + s.getCoveredText());
+						Logger.printError(component, "Language: " + language);
+						Logger.printError(component, "Re-running this sentence with DEBUGGING enabled...");
+					} else {
+						debugIteration = false;
+						Logger.setPrintDetails(oldDebugState);
+						
+						Logger.printError(component, "Execution will now resume.");
+					}
+				}
+			} while(debugIteration);
 		}
 
 		/*

@@ -1,5 +1,7 @@
 package de.unihd.dbs.uima.annotator.heideltime.resources;
 
+import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
+
 /**
  * Hardcoded Language information for use with HeidelTime/Standalone. Contains
  * information on the resource folder name as well as the relevant treetagger
@@ -52,6 +54,11 @@ public enum Language {
 	 * @return Language enum element that represents the requested language
 	 */
 	public final static Language getLanguageFromString(String name) {
+		if(name == null) {
+			Logger.printError("Language parameter was specified as NULL.");
+			throw new NullPointerException();
+		}
+		
 		// loop through languages that aren't the wildcard one to see if we have special info on that language
 		for(Language l : Language.values()) {
 			if(l != WILDCARD && name.toLowerCase().equals(l.getName().toLowerCase())) {

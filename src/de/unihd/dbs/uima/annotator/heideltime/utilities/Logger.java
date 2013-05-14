@@ -64,4 +64,12 @@ public class Logger {
 	public static void printError(String msg) {
 		printError(null, msg);
 	}
+	
+
+	/**
+	 * Outputs whether DEBUG-Level information is printed or not
+	 */
+	public static Boolean getPrintDetails() {
+		return printDetails;
+	}
 }

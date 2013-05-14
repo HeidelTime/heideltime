@@ -49,7 +49,7 @@ Octave of Easter
 Octave Day of Easter
 Low Sunday
 Saint Thomas Sunday
-St. Thomas Sunday
+St\. Thomas Sunday
 Quasimodo Sunday
 Quasimodogeniti
 Second Sunday of Easter
@@ -77,19 +77,19 @@ Corpus Christi
 The Most Holy Body and Blood of Christ
 
 // advent sundays: the four sundays before christmas(12-24)
-1. Advent
+1\. Advent
 1st Advent
 first Advent
 
-2. Advent
+2\. Advent
 2nd Advent
 second Advent
 
-3. Advent
+3\. Advent
 3rd Advent
 third Advent
 
-4. Advent
+4\. Advent
 4th Advent
 fourth Advent
 
@@ -97,9 +97,9 @@ fourth Advent
 Black Friday
 
 // http://en.wikipedia.org/wiki/Martin_Luther_King,_Jr._Day
-Birthday of Martin Luther King, Jr.
+Birthday of Martin Luther King, Jr\.
 Martin Luther King Day
-Martin Luther King, Jr. Day
+Martin Luther King, Jr\. Day
 
 // http://en.wikipedia.org/wiki/Washington%27s_Birthday
 Presidents Day
