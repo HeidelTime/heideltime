@@ -13,7 +13,7 @@
 "[Gg]iorn[oi] lavorativ[oi]","day"
 "[Gg]iorn[oi] feriale","day"
 "[Gg]iorn[oi]","day"
-"[Ff]ine settimana","weekend"
+"[Ff]ine settimana","week-WE"
 "[Ss]ettiman[ae]","week"
 "[Mm]es[ei]","month"
 "[Tt]rimestre","quarter"
