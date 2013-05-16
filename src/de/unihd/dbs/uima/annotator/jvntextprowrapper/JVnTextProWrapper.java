@@ -6,6 +6,8 @@ package de.unihd.dbs.uima.annotator.jvntextprowrapper;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import jvntextpro.JVnTextPro;
 
@@ -111,11 +113,17 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 					token.setBegin(beginning);
 					token.setEnd(beginning+1);
 					offset = beginning+1;
-				} else if(tokenString.matches(".+/.+")) { // assume that the last found "/" is the postag-delimiter
-					Integer delimPos = tokenString.lastIndexOf("/");
-					word = tokenString.substring(0, delimPos);
-					tag = tokenString.substring(delimPos+1);
-					
+				} else if(tokenString.matches(".*/.*")) { // assume that the last found "/" is the postag-delimiter
+					Pattern p = Pattern.compile("^(.*)/(\\1)$");
+					Matcher m = p.matcher(tokenString);
+					if(m.matches()) { // jvntextpro didn't understand the string and gave us "<str>/<str>"
+						word = m.group(1);
+						tag = m.group(2);
+					} else {
+						Integer delimPos = tokenString.lastIndexOf("/");
+						word = tokenString.substring(0, delimPos);
+						tag = tokenString.substring(delimPos+1);
+					}
 					Boolean hasBegin = false;
 					
 					String[] inTokenWords = word.split("_");
