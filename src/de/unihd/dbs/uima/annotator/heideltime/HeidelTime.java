@@ -697,9 +697,11 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			///////////////////////////////////////////////////
 			else if ((value_i.startsWith("UNDEF-century"))) {
 				String newCenturyValue = dctCentury+"";
-				int viThisDecade = Integer.parseInt(value_i.substring(13, 14));
+				
 				// NEWS and COLLOQUIAL DOCUMENTS
-				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
+				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && !value_i.equals("UNDEF-century")) {
+					int viThisDecade = Integer.parseInt(value_i.substring(13, 14));
+					
 					Logger.printDetail("dctCentury"+dctCentury);
 					
 					newCenturyValue = dctCentury+"";
@@ -721,27 +723,6 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							newCenturyValue = dctCentury+"";
 						}
 					}
-//					// IF NO TENSE IS FOUND
-//					if (last_used_tense.equals("")){
-//						if (documentTypeColloquial){
-//							// IN COLLOQUIAL: future temporal expressions
-//							if (viThisDecade < dctDecade){
-//								newCenturyValue = dctCentury + 1+"";
-//							}
-//							else{
-//								newCenturyValue = dctCentury+"";
-//							}
-//						}
-//						else{
-//							// IN NEWS: past temporal expressions
-//							if (dctDecade <= viThisDecade){
-//								newCenturyValue = dctCentury - 1+"";
-//							}
-//							else{
-//								newCenturyValue = dctCentury+"";
-//							}
-//						}
-//					}
 				}
 				// NARRATIVE DOCUMENTS
 				else {
