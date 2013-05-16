@@ -188,7 +188,7 @@ RULENAME="date_r12a_arNum",EXTRACTION="(في |و)?((ﺎﻟ|ﻝ|ﻞﻟ)?(ﺲﻧ[�
 
 // EXAMPLE : r12a_2 the year 91
 RULENAME="date_r12a_2_1",EXTRACTION="(في )((ال|ل|لل)?(سن[هة] |عام )?%reYear2Digit)",NORM_VALUE="19group(5)",OFFSET="group(2)-group(2)"
-RULENAME="date_r12a_2_2",EXTRACTION="(في |و)?((ال|ل|لل)?(سن[هة] |عام )%reYear2Digit)",NORM_VALUE="19group(5),OFFSET="group(2)-group(2)"
+RULENAME="date_r12a_2_2",EXTRACTION="(في |و)?((ال|ل|لل)?(سن[هة] |عام )%reYear2Digit)",NORM_VALUE="19group(5)",OFFSET="group(2)-group(2)"
 RULENAME="date_r12a_2_1_arNum",EXTRACTION="(في )((ال|ل|لل)?(سن[هة] |عام )?(%reArabicDigit)(%reArabicDigit))",NORM_VALUE="19%normArabicDigit(group(6))%normArabicDigit(group(8))",OFFSET="group(2)-group(2)"
 RULENAME="date_r12a_2_2_arNum",EXTRACTION="(في |و)?((ال|ل|لل)?(سن[هة] |عام )(%reArabicDigit)(%reArabicDigit))",NORM_VALUE="19%normArabicDigit(group(6))%normArabicDigit(group(8))",OFFSET="group(2)-group(2)"
 
@@ -226,7 +226,7 @@ RULENAME="date_r14a",EXTRACTION="%rePartWords %reDecadeWord",NORM_VALUE="19%norm
 // date_r15 
 // EXAMPLE r15a_1: the 19th century
 // EXAMPLE r15a_2: the seventh century
-RULENAME="date_r15a",EXTRACTION="[اأ]لقرن (%reDayNumber|%reDayWordTh)",NORM_VALUE="%normDay(%SUM%(%normDay(group(1)),-1))XX"
+RULENAME="date_r15a",EXTRACTION="[اأ]لقرن (%reDayNumber|%reDayWordTh)",NORM_VALUE="%normDay(%SUM%(%normDay(group(1)),-1))"
 
 ///////////////////////////////////
 // GRANULARITY INDEPENDENT RULES //
@@ -269,8 +269,8 @@ RULENAME="date_r18c",EXTRACTION="%rePartWords (يوم )?([اأ]ل%reWeekday[\s]?
 RULENAME="date_r18d",EXTRACTION="%rePartWords (يوم )?[اأ]ل%reWeekday %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(4))-%normWeekday(group(3))",NORM_MOD="%normPartWords(group(1))"
 // EXAMPLE r18e_1: the beginning of this summer
 RULENAME="date_r18e",EXTRACTION="%rePartWords( فصل)? ال%reSeason %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(4))-%normSeason(group(3))",NORM_MOD="%normPartWords(group(1))"
-// EXAMPLE r18e_1: the beginning of the year
-RULENAME="date_r18e",EXTRACTION="%rePartWords ([اأ]ل)?%reUnitOnce",NORM_VALUE="UNDEF-%normUnit(group(3))",NORM_MOD="%normPartWords(group(1))"
+// EXAMPLE r18f_1: the beginning of the year
+RULENAME="date_r18f",EXTRACTION="%rePartWords ([اأ]ل)?%reUnitOnce",NORM_VALUE="UNDEF-%normUnit(group(3))",NORM_MOD="%normPartWords(group(1))"
 
 // date_r19 ago
 // EXAMPLE r19a_1: at least several years ago
