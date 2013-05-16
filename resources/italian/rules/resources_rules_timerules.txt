@@ -51,14 +51,14 @@ RULENAME="time_r3e",EXTRACTION="([Ss]tanotte)",NORM_VALUE="UNDEF-last-dayTNI"
 // ITALIAN
 //RULENAME="time_r3h",EXTRACTION="([Ss]taman[ei]|[Ss]tamattina)",NORM_VALUE="UNDEF-this-dayTMO"
 // ITALIAN
-RULENAME="time_r3i",EXTRACTION="(%rePartWords ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?%reWeekday ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?%rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(5))T%normPartOfDay(group(7))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="time_r3j",EXTRACTION="(%rePartWords ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?%reDateWord ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?%rePartOfDay",NORM_VALUE="%normDateWord(group(5))T%normPartOfDay(group(7))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="time_r3k",EXTRACTION="(%rePartWords ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?%rePartOfDay ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(7))T%normPartOfDay(group(5))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="time_r3l",EXTRACTION="(%rePartWords ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?%rePartOfDay ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?%reDateWord",NORM_VALUE="%normDateWord(group(7))T%normPartOfDay(group(5))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="time_r3i",EXTRACTION="(%rePartWords ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reWeekday ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?%rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(5))T%normPartOfDay(group(7))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="time_r3j",EXTRACTION="(%rePartWords ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reDateWord ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?%rePartOfDay",NORM_VALUE="%normDateWord(group(5))T%normPartOfDay(group(7))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="time_r3k",EXTRACTION="(%rePartWords ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%rePartOfDay ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(7))T%normPartOfDay(group(5))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="time_r3l",EXTRACTION="(%rePartWords ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%rePartOfDay ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?%reDateWord",NORM_VALUE="%normDateWord(group(7))T%normPartOfDay(group(5))",NORM_MOD="%normPartWords(group(2))"
 
 
-RULENAME="time_r15a",EXTRACTION="(%rePartWords ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?%reThisNextLast %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-dayT%normPartOfDay(group(6))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="time_r15b",EXTRACTION="(%rePartWords ([Dd]ell' |[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'] )?%rePartOfDay %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(6))-dayT%normPartOfDay(group(5))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="time_r15a",EXTRACTION="(%rePartWords ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLast %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-dayT%normPartOfDay(group(6))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="time_r15b",EXTRACTION="(%rePartWords ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%rePartOfDay %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(6))-dayT%normPartOfDay(group(5))",NORM_MOD="%normPartWords(group(2))"
 
 ///////////////////////////
 // TIMEPOINT GRANULARITY //
