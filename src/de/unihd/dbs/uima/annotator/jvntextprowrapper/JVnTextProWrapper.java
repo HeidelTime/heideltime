@@ -4,12 +4,20 @@
  */
 package de.unihd.dbs.uima.annotator.jvntextprowrapper;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.io.File;
+import java.util.List;
 
+import jmaxent.Classification;
+import jvnpostag.POSContextGenerator;
+import jvnpostag.POSDataReader;
+import jvnsegmenter.CRFSegmenter;
+import jvnsensegmenter.JVnSenSegmenter;
 import jvntextpro.JVnTextPro;
+import jvntextpro.conversion.CompositeUnicode2Unicode;
+import jvntextpro.data.DataReader;
+import jvntextpro.data.TaggingData;
+import jvntextpro.util.StringUtils;
+import jvntokenizer.PennTokenizer;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
@@ -43,13 +51,12 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 	private String wordModelPath = null;
 	private String posModelPath = null;
 	
-	// list of punctuation so we can split them off as tokens (correcting JVnTextPro's output)
-	private final HashSet<Character> vietPunctuation = new HashSet<Character>(Arrays.asList(new Character[] {
-		'!', '.', ',', '(', ')', '-', '{', '}', '[', ']', '"', '\''
-	}));
-	
-	// private jvntextpro object
-	private JVnTextPro jvtp = null;
+	// private jvntextpro objects
+	JVnSenSegmenter vnSenSegmenter = new JVnSenSegmenter();
+	CRFSegmenter vnSegmenter = new CRFSegmenter();
+	DataReader reader = new POSDataReader();
+	TaggingData dataTagger = new TaggingData();
+	Classification classifier = null;
 	
 	/**
 	 * initialization method where we fill configuration values and check some prerequisites
@@ -63,23 +70,26 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 		wordModelPath = (String) aContext.getConfigParameterValue(PARAM_WORDSEGMODEL_PATH);
 		posModelPath = (String) aContext.getConfigParameterValue(PARAM_POSMODEL_PATH);
 		
-		jvtp = new JVnTextPro();
-		
 		if(sentModelPath != null)
-			if(!jvtp.initSenSegmenter(sentModelPath)) {
-				Logger.printError(component, "Error initializing the sentence segmenter model: "+sentModelPath);
+			if(!vnSenSegmenter.init(sentModelPath)) {
+				Logger.printError(component, "Error initializing the sentence segmenter model: " + sentModelPath);
 				System.exit(-1);
 			}
 		
 		if(wordModelPath != null) 
-			if(!jvtp.initSegmenter(wordModelPath)) {
-				Logger.printError(component, "Error initializing the word segmenter model: "+wordModelPath);
+			try {
+				vnSegmenter.init(wordModelPath);
+			} catch(Exception e) {
+				Logger.printError(component, "Error initializing the word segmenter model: " + wordModelPath);
 				System.exit(-1);
 			}
 		
 		if(posModelPath != null) 
-			if(!jvtp.initPosTagger(posModelPath)) {
-				Logger.printError(component, "Error initializing the POS tagging model: "+posModelPath);
+			try {
+				dataTagger.addContextGenerator(new POSContextGenerator(posModelPath + File.separator + "featuretemplate.xml"));
+				classifier = new Classification(posModelPath);	
+			} catch(Exception e) {
+				Logger.printError(component, "Error initializing the POS tagging model: " + posModelPath);
 				System.exit(-1);
 			}
 	}
@@ -88,92 +98,89 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 	 * Method that gets called to process the documents' cas objects
 	 */
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
+		CompositeUnicode2Unicode convertor = new CompositeUnicode2Unicode();
 		String origText = jcas.getDocumentText();
 		
 		Integer offset = 0;
 		
-		String[] sentStrings = jvtp.process(origText).split("\n");
+		/*
+		 * partially taken from of JVnTextPro.java's process(String)
+		 */
+		String workedText = convertor.convert(origText);
+		workedText = vnSenSegmenter.senSegment(workedText).trim();
+		workedText = PennTokenizer.tokenize(workedText).trim();
+		workedText = vnSegmenter.segmenting(workedText);
+		workedText = (new JVnTextPro()).postProcessing(workedText).trim();
+		List<jvntextpro.data.Sentence> sentences = jvnTagging(workedText);
 		
-		// iterate over sentence strings
-		for(String sentString : sentStrings) {
+		/*
+		 * iterate over sentences given back by the JVnTextPro tagging method
+		 */
+		for(Integer i = 0; i < sentences.size(); ++i) {
+			jvntextpro.data.Sentence sent = sentences.get(i);
+			
 			Sentence sentence = new Sentence(jcas);
 			Boolean hasSentBegin = false;
-
-			String[] tokenStrings = sentString.split(" ");
-			// iterate over word strings
-			for(String tokenString : tokenStrings) {
+			
+			/*
+			 * iterate over words within sentence
+			 */
+			for(Integer j = 0; j < sent.size(); ++j) {
+				String word = sent.getWordAt(j);
+				String tag = sent.getTagAt(j);
 				Token token = new Token(jcas);
 				
-				String word = new String();
-				String tag = new String();
+				if(word == null || word.length() < 1 || word.equals("_"))
+					continue;
 				
-				// special case if the token is "/", delimited by "/", tagged as "/" => "///" in text
-				if(tokenString.equals("///")) {
-					Integer beginning = origText.indexOf("/", offset);
-					token.setBegin(beginning);
-					token.setEnd(beginning+1);
-					offset = beginning+1;
-				} else if(tokenString.matches(".*/.*")) { // assume that the last found "/" is the postag-delimiter
-					Pattern p = Pattern.compile("^(.*)/(\\1)$");
-					Matcher m = p.matcher(tokenString);
-					if(m.matches()) { // jvntextpro didn't understand the string and gave us "<str>/<str>"
-						word = m.group(1);
-						tag = m.group(2);
-					} else {
-						Integer delimPos = tokenString.lastIndexOf("/");
-						word = tokenString.substring(0, delimPos);
-						tag = tokenString.substring(delimPos+1);
+				Boolean hasBegin = false;
+				String[] inTokenWords = word.split("_");
+				/*
+				 * iterate over sub-words, i.e. word = "armadillo_animal/N" => "armadillo", "animal"
+				 */
+				for(String subWord : inTokenWords) {
+					offset = origText.indexOf(subWord, offset); // set offset to occurrence in original text
+					
+					if(hasSentBegin == false) { // beginning of the pos-tagged sentence
+						sentence.setBegin(offset);
+						hasSentBegin = true;
 					}
-					Boolean hasBegin = false;
 					
-					String[] inTokenWords = word.split("_");
-					// iterate over sub-words, i.e. word = "armadillo_animal/N" => "armadillo", "animal"
-					for(String subWord : inTokenWords) {
-						offset = origText.indexOf(subWord, offset); // set offset to occurrence in original text
-						
-						if(hasSentBegin == false) { // beginning of the pos-tagged sentence
-							sentence.setBegin(offset);
-							hasSentBegin = true;
-						}
-						
-						if(hasBegin == false) { // beginning of the pos-tagged token
-							token.setBegin(offset);
-							hasBegin = true;
-						}
-
-						offset = origText.indexOf(subWord, offset) + subWord.length(); // offset is now behind the word
-						
-						token.setEnd(offset); // word-token gets final value from the last sub-word
-						sentence.setEnd(offset); // sentence gets final value from the last sub-word
+					if(hasBegin == false) { // beginning of the pos-tagged token
+						token.setBegin(offset);
+						hasBegin = true;
 					}
-
-					/*
-					 * call our sanitation routine that splits off punctuation marks from the end and
-					 * the beginning of the token and creates new tokens for each of them
-					 */
-					sanitizeTokens(token, jcas);
 					
-					if(annotate_partofspeech) // if flag is true, then add pos info to indexes
-						token.setPos(tag);
+					offset = origText.indexOf(subWord, offset) + subWord.length(); // offset is now behind the word
 					
-					if(annotate_tokens) // if flag is true, then add this token to indexes
-						token.addToIndexes();
-					
-				} else { // otherwise, the tagger gave us something we don't understand (yet?)
-					continue; // jump to next token
+					token.setEnd(offset); // word-token gets final value from the last sub-word
 				}
+				
+				/*
+				 * call our sanitation routine that splits off punctuation marks from the end and
+				 * the beginning of the token and creates additional tokens for each of them
+				 */
+				sanitizeToken(token, jcas);
+				
+				if(annotate_partofspeech) // if flag is true, then add pos info to indexes
+					token.setPos(tag);
+				
+				if(annotate_tokens) // if flag is true, then add this token to indexes
+					token.addToIndexes();
 			}
 			
+			sentence.setEnd(offset);
+
 			if(annotate_sentences) // if flag is true, then add sentence token to indexes
 				sentence.addToIndexes();
 		}
 	}
 	
-	private Boolean sanitizeTokens(Token t, JCas jcas) {
+	private Boolean sanitizeToken(Token t, JCas jcas) {
 		Boolean workDone = false;
 		
 		// check the beginning of the token for punctuation and split off into a new token
-		if(vietPunctuation.contains(t.getCoveredText().charAt(0)) && t.getCoveredText().length() > 1) {
+		if(t.getCoveredText().matches("^\\p{Punct}.*") && t.getCoveredText().length() > 1) {
 			Character thisChar = t.getCoveredText().charAt(0);
 			t.setBegin(t.getBegin() + 1); // set corrected token boundary for the word
 			Token puncToken = new Token(jcas); // create a new token for the punctuation character
@@ -189,7 +196,7 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 		}
 		
 		// check the end of the token for punctuation and split off into a new token
-		if(vietPunctuation.contains(t.getCoveredText().charAt(t.getEnd() - t.getBegin() - 1)) && t.getCoveredText().length() > 1) {
+		if(t.getCoveredText().matches(".*\\p{Punct}$") && t.getCoveredText().length() > 1) {
 			Character thisChar = t.getCoveredText().charAt(t.getEnd() - t.getBegin() - 1);
 			t.setEnd(t.getEnd() - 1); // set corrected token boundary for the word
 			Token puncToken = new Token(jcas); // create a new token for the punctuation character
@@ -206,9 +213,36 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 		
 		// get into a recursion to sanitize tokens as long as there are stray ones
 		if(workDone) {
-			workDone = sanitizeTokens(t, jcas);
+			workDone = sanitizeToken(t, jcas);
 		}
 		
 		return workDone;
+	}
+	
+	/**
+	 * Taken from the JVnTextPro package and adapted to not output a string
+	 * @param instr input string to be tagged
+	 * @return tagged text
+	 */
+	public List<jvntextpro.data.Sentence> jvnTagging(String instr) {
+		List<jvntextpro.data.Sentence> data = reader.readString(instr);
+		for (int i = 0; i < data.size(); ++i) {
+        	
+			jvntextpro.data.Sentence sent = data.get(i);
+    		for (int j = 0; j < sent.size(); ++j) {
+    			String [] cps = dataTagger.getContext(sent, j);
+    			String label = classifier.classify(cps);
+    			
+    			if (label.equalsIgnoreCase("Mrk")) {
+    				if (StringUtils.isPunc(sent.getWordAt(j)))
+    					label = sent.getWordAt(j);
+    				else label = "X";
+    			}
+    			
+    			sent.getTWordAt(j).setTag(label);
+    		}
+    	}
+		
+		return data;
 	}
 }
