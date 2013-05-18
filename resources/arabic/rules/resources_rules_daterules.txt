@@ -72,10 +72,10 @@ RULENAME="date_r2e",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|
 // EXAMPLE r4a_1: 19-20 from the month November 2010  (find November 19)
 // EXAMPLE r4a_1: 19 to the day 20 from the month November 2010  (find November 19)
 // EXAMPLE r4a_1: 19 to 20 from the month November 2010 (find November 19)
-RULENAME="date_r4a",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber)( من| من شهر) %reMonthLong([\s]?[,]?[\s]?)%reYear4Digit",NORM_VALUE="group(12)-%normMonth(group(10))-%normDay(group(1))",OFFSET="group(1)-group(3)"
+RULENAME="date_r4a",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber)( من| من شهر) %reMonthLong([\s]?[,]?[\s]?)%reYear4Digit",NORM_VALUE="group(12)-%normMonth(group(10))-%normDay(group(1))",OFFSET="group(1)-group(1)"
 
 // EXAMPLE r4b_1: 19-20 November, 2010  (find November 19)
-RULENAME="date_r4b",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,]?[\s]?)%reYear4Digit",NORM_VALUE="group(11)-%normMonth(group(9))-%normDay(group(1))",OFFSET="group(1)-group(3)"
+RULENAME="date_r4b",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,]?[\s]?)%reYear4Digit",NORM_VALUE="group(11)-%normMonth(group(9))-%normDay(group(1))",OFFSET="group(1)-group(1)"
 
 // EXAMPLE r4c_1: 19-20 from the month November, 2010 (find November 20)
 RULENAME="date_r4c",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber)( من| من شهر) %reMonthLong([\s]?[,]?[\s]?)%reYear4Digit",NORM_VALUE="group(12)-%normMonth(group(10))-%normDay(group(6))",OFFSET="group(4)-group(12)"
@@ -84,7 +84,7 @@ RULENAME="date_r4c",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|
 RULENAME="date_r4d",EXTRACTION="(%reDayWordTh|%reDayNumber)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,]?[\s]?)%reYear4Digit",NORM_VALUE="group(11)-%normMonth(group(9))-%normDay(group(6))",OFFSET="group(4)-group(11)"
 
 // EXAMPLE r4e: 19 November to 20 December 2010  (find November 20)
-RULENAME="date_r4e",EXTRACTION="(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?([\s]?(عام|سن[هة]|من|من العام|من عام|من سن[هة]|من السن[هة]|,|للعام|لسن[هة])[\s]?)%reYear4Digit",NORM_VALUE="group(19)-%normMonth(group(4))-%normDay(group(1))",OFFSET="group(1)-group(7)"
+RULENAME="date_r4e",EXTRACTION="(%reDayWordTh|%reDayNumber) (%reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?)([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?([\s]?(عام|سن[هة]|من|من العام|من عام|من سن[هة]|من السن[هة]|,|للعام|لسن[هة])[\s]?)%reYear4Digit",NORM_VALUE="group(20)-%normMonth(group(5))-%normDay(group(1))",OFFSET="group(1)-group(4)"
 
 // EXAMPLE r4f: 19 November to 20 December 2010  (find November 20)
 RULENAME="date_r4f",EXTRACTION="(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?([\s]?(\–|-|الى|الى يوم|حتى|حتى يوم|و|[اأ]و)[\s]?)(%reDayWordTh|%reDayNumber) %reMonthLong([\s]?[,/]?[\s]?)(%reMonthLong)?([\s]?(عام|سن[هة]|من|من العام|من عام|من سن[هة]|من السن[هة]|,|للعام|لسن[هة])[\s]?)%reYear4Digit",NORM_VALUE="group(19)-%normMonth(group(13))-%normDay(group(10))",OFFSET="group(8)-group(19)"
