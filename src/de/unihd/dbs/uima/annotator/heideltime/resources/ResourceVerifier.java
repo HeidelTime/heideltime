@@ -2,7 +2,10 @@ package de.unihd.dbs.uima.annotator.heideltime.resources;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.regex.MatchResult;
@@ -35,10 +38,10 @@ public class ResourceVerifier {
 	LinkedList<String> normalizations = new LinkedList<String>();
 	LinkedList<String> rules = new LinkedList<String>();
 
-	private final String RULES_PATTERN = 
-			"RULENAME=\"((?:\\\\\"|[^\"])+)\",EXTRACTION=\"((?:\\\\\"|[^\"])+)\",NORM_VALUE=\"((?:\\\\\"|[^\"])+)\"(.*)";
-	private final String NORMALIZATIONS_PATTERN = 
-			"\"((?:\\\"|[^\"])+)\",\"((?:\\\\\"|[^\"])+)\"\\s*";
+	private final Pattern RULES_PATTERN = 
+			Pattern.compile("RULENAME=\"((?:\\\\\"|[^\"])+)\",EXTRACTION=\"((?:\\\\\"|[^\"])+)\",NORM_VALUE=\"((?:\\\\\"|[^\"])+)\"(.*)");
+	private final Pattern NORMALIZATIONS_PATTERN = 
+			Pattern.compile("\"((?:\\\"|[^\"])+)\",\"((?:\\\\\"|[^\"])+)\"\\s*");
 
 	/**
 	 * main method to jump into when running this program by itself
@@ -64,14 +67,40 @@ public class ResourceVerifier {
 		verifier.readFiles();
 		System.out.println("checking pattern => normalization association");
 		//verifier.checkPatternNormalizationAssoc();
+		System.out.println("checking rule validity...");
+		verifier.checkRulesSyntax();
+		
 		
 		
 		verifier.getStringsFromRegexPattern("f[oo]");
 		// normalization KEYS are supposed to be regexes:
 	}
 	
+	private void checkRulesSyntax() {
+		for(File f : ruleFiles) {
+			Integer lineNr = 0;
+			BufferedReader br = null;
+			try {
+				br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+				String line = null;
+			
+				while(null != (line = br.readLine())) {
+					++lineNr;
+					
+					if(!line.startsWith("//") && line.trim().length() > 0) {
+						Matcher m = RULES_PATTERN.matcher(line);
+						if(!m.matches())
+							warn("discovered an improper rule: [" + lineNr + "] " + line);
+					}
+				}
+			} catch (IOException e) {
+				warn("couldn't read file " + f.getName() + " properly.");
+			}
+		}
+	}
+
 	public LinkedList<String> getStringsFromRegexPattern(String in) {
-		
+		// TODO
 		return null;
 	}
 	
@@ -82,8 +111,7 @@ public class ResourceVerifier {
 				continue;
 			
 			for(String normalization : normalizations) {
-				Pattern p = Pattern.compile(NORMALIZATIONS_PATTERN);
-				Matcher m = p.matcher(normalization);
+				Matcher m = NORMALIZATIONS_PATTERN.matcher(normalization);
 				if(m.matches()) {
 					Pattern p2 = Pattern.compile(m.group(1));
 					Matcher m2 = p2.matcher(pattern);
@@ -119,7 +147,7 @@ public class ResourceVerifier {
 		tell("patterns: " + patterns.size() + "; norm: " + normalizations.size() + "; rules: " + rules.size());
 	}
 
-	public void checkRegex(String str) throws PatternSyntaxException {
+	public void checkIfProperRegex(String str) throws PatternSyntaxException {
 		try {
 			Pattern.compile(str);
 		} catch(PatternSyntaxException pse) {
@@ -133,16 +161,14 @@ public class ResourceVerifier {
 	 * @param str input line from a rule resource file
 	 */
 	public void checkRuleResourceSyntax(String str) {
-		Pattern rulesPattern = Pattern.compile(RULES_PATTERN);
-		Matcher matcher = rulesPattern.matcher(str);
+		Matcher matcher = RULES_PATTERN.matcher(str);
 		
 		if(!matcher.matches() && str.trim() != "" && str.startsWith("//"))
 			warn("rule \"" + str + "\" is not of a recognizable rule format");
 	}
 	
 	public void checkNormalizationResourceSyntax(String str) {
-		Pattern normPattern = Pattern.compile(NORMALIZATIONS_PATTERN);
-		Matcher matcher = normPattern.matcher(str);
+		Matcher matcher = NORMALIZATIONS_PATTERN.matcher(str);
 		
 		if(!matcher.matches() && str.trim() != "" && str.startsWith("//"))
 			warn("normalization domain \"" + str + "\" is not of a valid normalization format");
