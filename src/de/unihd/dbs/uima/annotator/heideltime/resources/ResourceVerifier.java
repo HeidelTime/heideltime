@@ -72,8 +72,8 @@ public class ResourceVerifier {
 		
 		
 		
-		verifier.getStringsFromRegexPattern("f[oo]");
-		// normalization KEYS are supposed to be regexes:
+		verifier.getStringsFromRegexPattern("f[oo]", null);
+		
 	}
 	
 	private void checkRulesSyntax() {
@@ -99,8 +99,23 @@ public class ResourceVerifier {
 		}
 	}
 
-	public LinkedList<String> getStringsFromRegexPattern(String in) {
-		// TODO
+	public LinkedList<String> getStringsFromRegexPattern(String in, LinkedList<String> list) {
+		//initialize the container for the created strings
+		if(list == null)
+			list = new LinkedList<String>(); 
+		
+		// handle [] expressions. we'll allow things like [0-9] (ranges) as well as [aAbB] character groups.
+		Pattern p = Pattern.compile("\\[([\\w\\-]+)\\]");
+		Matcher m = p.matcher(in);
+		if(m.matches()) {
+			String charGroup = m.group(1);
+			Pattern rangePattern = Pattern.compile("^((\\w)\\-(\\w))+$");
+			Matcher rangeMatcher = rangePattern.matcher(charGroup);
+			if(rangeMatcher.matches()) {
+				
+			}
+		}
+		
 		return null;
 	}
 	
