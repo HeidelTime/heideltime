@@ -5,6 +5,7 @@
 package de.unihd.dbs.uima.annotator.jvntextprowrapper;
 
 import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 
 import jmaxent.Classification;
@@ -15,6 +16,7 @@ import jvnsensegmenter.JVnSenSegmenter;
 import jvntextpro.JVnTextPro;
 import jvntextpro.conversion.CompositeUnicode2Unicode;
 import jvntextpro.data.DataReader;
+import jvntextpro.data.TWord;
 import jvntextpro.data.TaggingData;
 import jvntextpro.util.StringUtils;
 import jvntokenizer.PennTokenizer;
@@ -100,79 +102,154 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
 		CompositeUnicode2Unicode convertor = new CompositeUnicode2Unicode();
 		String origText = jcas.getDocumentText();
-		
-		Integer offset = 0;
-		
-		/*
-		 * partially taken from of JVnTextPro.java's process(String)
-		 */
-		String workedText = convertor.convert(origText);
-		workedText = vnSenSegmenter.senSegment(workedText).trim();
-		workedText = PennTokenizer.tokenize(workedText).trim();
-		workedText = vnSegmenter.segmenting(workedText);
-		workedText = (new JVnTextPro()).postProcessing(workedText).trim();
-		List<jvntextpro.data.Sentence> sentences = jvnTagging(workedText);
-		
-		/*
-		 * iterate over sentences given back by the JVnTextPro tagging method
-		 */
-		for(Integer i = 0; i < sentences.size(); ++i) {
-			jvntextpro.data.Sentence sent = sentences.get(i);
-			
-			Sentence sentence = new Sentence(jcas);
-			Boolean hasSentBegin = false;
-			
-			/*
-			 * iterate over words within sentence
-			 */
-			for(Integer j = 0; j < sent.size(); ++j) {
-				String word = sent.getWordAt(j);
-				String tag = sent.getTagAt(j);
-				Token token = new Token(jcas);
-				
-				if(word == null || word.length() < 1 || word.equals("_"))
-					continue;
-				
-				Boolean hasBegin = false;
-				String[] inTokenWords = word.split("_");
-				/*
-				 * iterate over sub-words, i.e. word = "armadillo_animal/N" => "armadillo", "animal"
-				 */
-				for(String subWord : inTokenWords) {
-					offset = origText.indexOf(subWord, offset); // set offset to occurrence in original text
-					
-					if(hasSentBegin == false) { // beginning of the pos-tagged sentence
-						sentence.setBegin(offset);
-						hasSentBegin = true;
-					}
-					
-					if(hasBegin == false) { // beginning of the pos-tagged token
-						token.setBegin(offset);
-						hasBegin = true;
-					}
-					
-					offset = origText.indexOf(subWord, offset) + subWord.length(); // offset is now behind the word
-					
-					token.setEnd(offset); // word-token gets final value from the last sub-word
-				}
-				
-				/*
-				 * call our sanitation routine that splits off punctuation marks from the end and
-				 * the beginning of the token and creates additional tokens for each of them
-				 */
-				sanitizeToken(token, jcas);
-				
-				if(annotate_partofspeech) // if flag is true, then add pos info to indexes
-					token.setPos(tag);
-				
-				if(annotate_tokens) // if flag is true, then add this token to indexes
-					token.addToIndexes();
-			}
-			
-			sentence.setEnd(offset);
 
-			if(annotate_sentences) // if flag is true, then add sentence token to indexes
-				sentence.addToIndexes();
+		final String convertedText = convertor.convert(origText);
+		final String senSegmentedText = vnSenSegmenter.senSegment(convertedText).trim();
+		
+		final String tokenizedText = PennTokenizer.tokenize(senSegmentedText).trim();
+		final String segmentedText = vnSegmenter.segmenting(tokenizedText);
+		final String postProcessedString = (new JVnTextPro()).postProcessing(segmentedText).trim();
+		
+		List<jvntextpro.data.Sentence> posSentences = jvnTagging(postProcessedString);
+		LinkedList<TWord> posWords = new LinkedList<TWord>();
+		for(jvntextpro.data.Sentence sent : posSentences)
+			for(Integer i = 0; i < sent.size(); ++i)
+				posWords.add(sent.getTWordAt(i));
+		
+		/*
+		 * annotate sentences
+		 */
+		if(annotate_sentences) {
+			Integer offset = 0;
+			String[] sentences = senSegmentedText.split("\n");
+			for(String sentence : sentences) {
+				Sentence s = new Sentence(jcas);
+				sentence = sentence.trim();
+				Integer sentOffset = origText.indexOf(sentence, offset);
+				
+				if(sentOffset >= 0) {
+					s.setBegin(sentOffset);
+					offset = sentOffset + sentence.length();
+					s.setEnd(offset);
+					s.addToIndexes();
+				} else {
+					sentence = sentence.substring(0, sentence.length() - 1).trim();
+					sentOffset = origText.indexOf(sentence, offset);
+					if(sentOffset >= 0) {
+						s.setBegin(sentOffset);
+						offset = sentOffset + sentence.length();
+						s.setEnd(offset);
+						s.addToIndexes();
+					} else {
+						System.err.println("Sentence \"" + sentence + "\" was not found in the original text.");
+					}
+				}
+			}
+		}
+		
+		/*
+		 * annotate tokens
+		 */
+		if(annotate_tokens) {
+			Integer offset = 0;
+			String[] tokens = postProcessedString.split("\\s+");
+			for(Integer i = 0; i < tokens.length; ++i) {
+				final String token = tokens[i].trim();
+				String thisPosTag = null;
+				if(posWords.size() >= i + 1) {
+					if(!token.equals(posWords.get(i).getWord())) {
+						System.err.println("Couldn't match token: " + token 
+								+ " to expected word/tag combination " + posWords.get(i).getWord());
+					} else {
+						thisPosTag = posWords.get(i).getTag();
+					}
+				}
+				Integer tokenOffset = origText.indexOf(token, offset);
+				
+				Token t = new Token(jcas);
+				
+				if(tokenOffset >= 0 ) {
+					/*
+					 * first, try to find the string in the form the tokenizer returned it
+					 */
+					t.setBegin(tokenOffset);
+					offset = tokenOffset + token.length();
+					t.setEnd(offset);
+					
+					sanitizeToken(t, jcas);
+					
+					if(annotate_tokens) t.setPos(thisPosTag);
+					t.addToIndexes();
+				} else {
+					/*
+					 * straight up token not found.
+					 * assume that it is a compound word (e.g. some_thing)
+					 * and try to find it in the original text again; first using
+					 * a "_" -> " " replacement, then try just removing the underscore.
+					 */
+					String underscoreToSpaceToken = token.replaceAll("_", " ");
+					Integer spaceOffset = origText.indexOf(underscoreToSpaceToken, offset);
+					String underscoreRemovedToken = token.replaceAll("_", "");
+					Integer removedOffset = origText.indexOf(underscoreRemovedToken, offset);
+					
+					/*
+					 * offsets are the same. can't think of a good example where this could 
+					 * possibly happen, but maybe there is one.
+					 */
+					if(removedOffset >= 0 && spaceOffset >= 0) {
+						if(removedOffset >= spaceOffset) {
+							t.setBegin(spaceOffset);
+							offset = spaceOffset + underscoreToSpaceToken.length();
+							t.setEnd(offset);
+							
+							sanitizeToken(t, jcas);
+							
+							if(annotate_tokens) t.setPos(thisPosTag);
+							t.addToIndexes();
+						} else {
+							t.setBegin(removedOffset);
+							offset = removedOffset + underscoreRemovedToken.length();
+							t.setEnd(offset);
+							
+							sanitizeToken(t, jcas);
+							
+							t.addToIndexes();
+						}
+					}
+					/*
+					 * underscore removed was found, underscore replaced to space was not
+					 */
+					else if(removedOffset >= 0 && spaceOffset == -1) {
+						t.setBegin(removedOffset);
+						offset = removedOffset + underscoreRemovedToken.length();
+						t.setEnd(offset);
+						
+						sanitizeToken(t, jcas);
+
+						if(annotate_tokens) t.setPos(thisPosTag);
+						t.addToIndexes();
+					} 
+					/*
+					 * underscore removed was not found, underscore replaced was found
+					 */
+					else if(removedOffset == -1 && spaceOffset >= 0) {
+						t.setBegin(spaceOffset);
+						offset = spaceOffset + underscoreToSpaceToken.length();
+						t.setEnd(offset);
+						
+						sanitizeToken(t, jcas);
+
+						if(annotate_tokens) t.setPos(thisPosTag);
+						t.addToIndexes();
+					}
+					/*
+					 * there is no hope of finding this token
+					 */
+					else {
+						System.err.println("Token \"" + token + "\" was not found in the original text.");
+					}
+				}
+			}
 		}
 	}
 	
