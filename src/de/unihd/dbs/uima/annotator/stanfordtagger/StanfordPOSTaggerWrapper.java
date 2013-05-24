@@ -95,7 +95,6 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 		
 		// grab the document text
 		String docText = jcas.getDocumentText();
-		
 		// get [sentence-tokens[word-tokens]] from the MaxentTagger
 		TokenizerFactory<Word> fac = PTBTokenizerFactory.newTokenizerFactory();
 		fac.setOptions("ptb3Escaping=false");
@@ -122,7 +121,7 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 				
 				String thisWord = wordToken.word();
 				
-				if(docText.indexOf(thisWord, offset) < 0) {
+				if(docText.indexOf(thisWord, offset) < 0 || docText.indexOf(thisWord, offset) > offset + 10) {
 					Logger.printDetail(component, "A previously tagged token wasn't found in the document text: \""+thisWord+"\". " +
 							"This may be due to unpredictable punctuation tokenization; hence this token isn't tagged.");
 					continue; // jump to next token: discards token
