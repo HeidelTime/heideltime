@@ -109,6 +109,7 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 			Sentence sentence = new Sentence(jcas);
 			sentence.setBegin(offset);
 			
+			Integer wordCount = 0;
 			// iterate over words in this sentence
 			for(HasWord wordToken : sentenceToken) {
 				Token t = new Token(jcas);
@@ -128,6 +129,7 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 				} else {
 					offset = docText.indexOf(thisWord, offset); // set cursor to the starting position of token in docText
 					t.setBegin(offset);
+					++wordCount;
 				}
 				
 				offset += thisWord.length(); // move cursor to after the word
@@ -141,7 +143,10 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 			
 			// if flag is set, also tag sentences
 			if(annotate_sentences) {
-				sentence.setEnd(offset-1);
+				if(wordCount == 0)
+					sentence.setEnd(offset);
+				else
+					sentence.setEnd(offset-1);
 				sentence.addToIndexes();
 			}
 		}
