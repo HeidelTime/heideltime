@@ -5,16 +5,15 @@ del used_resources.txt
 echo "Writing used_resources.txt"
 dir /s/b . | findstr /e ".txt" > used_resources_temp.txt
 
-SETLOCAL DISABLEDELAYEDEXPANSION
-FOR /F %%L IN (used_resources_temp.txt) DO (
-  SET "line=%%L"
-  SETLOCAL ENABLEDELAYEDEXPANSION
-  ECHO !line:%CD%=.! >> used_resources.txt
+@ECHO OFF
+SETLOCAL DisableDelayedExpansion
+SET "r=%__CD__%"
+FOR /R . %%F IN (*) DO (
+  SET "p=%%F"
+  SETLOCAL EnableDelayedExpansion
+  ECHO(.\!p:%r%=! >> used_resources.txt
   ENDLOCAL
 )
-ENDLOCAL
-del used_resources_temp.txt
-
 
 REM here, we'll have to do some hacky windows version detecting
 echo "Copying resources..."
