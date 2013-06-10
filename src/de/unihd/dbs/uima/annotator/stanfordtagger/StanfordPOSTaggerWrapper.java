@@ -124,7 +124,7 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 				String thisWord = wordToken.word();
 				
 				if(docText.indexOf(thisWord, offset) < 0) {
-					Logger.printDetail(component, "A previously tagged token wasn't found in the document text: \""+thisWord+"\". " +
+					Logger.printDetail(component, "A previously tagged token wasn't found in the document text: \"" + thisWord + "\". " +
 							"This may be due to unpredictable punctuation tokenization; hence this token isn't tagged.");
 					continue; // jump to next token: discards token
 				} else {
@@ -157,8 +157,8 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 		while(fsi.hasNext()) {
 			Sentence s = (Sentence) fsi.next();
 			if(s.getBegin() < 0 || s.getEnd() < 0) {
-				System.err.println("In text: " + jcas.getDocumentText());
-				System.err.println("Sentence: " + s.getBegin() + ":" + s.getEnd());
+				System.err.println("Sentence: " + s.getBegin() + ":" + s.getEnd() + " = " + s.getCoveredText());
+				System.err.println("wrong index in text: " + jcas.getDocumentText());
 				System.exit(-1);
 			}
 		}
