@@ -15,6 +15,7 @@ import java.util.Properties;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
+import org.apache.uima.cas.FSIterator;
 import org.apache.uima.jcas.JCas;
 
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
@@ -95,10 +96,9 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 		
 		// grab the document text
 		String docText = jcas.getDocumentText();
-		
 		// get [sentence-tokens[word-tokens]] from the MaxentTagger
-		TokenizerFactory<Word> fac = PTBTokenizerFactory.newTokenizerFactory();
-		fac.setOptions("ptb3Escaping=false");
+		TokenizerFactory<Word> fac = PTBTokenizerFactory.newTokenizerFactory();  
+		fac.setOptions("ptb3Escaping=false,untokenizable=noneKeep");
 		List<List<HasWord>> tokenArray = MaxentTagger.tokenizeText(new StringReader(docText), fac);
 		
 		// iterate over sentences in this document
@@ -110,28 +110,30 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 			Sentence sentence = new Sentence(jcas);
 			sentence.setBegin(offset);
 			
+			Integer wordCount = 0;
 			// iterate over words in this sentence
 			for(HasWord wordToken : sentenceToken) {
 				Token t = new Token(jcas);
+				TaggedWord tw = twit.next();
 				
 				// if pos is supposed to be added, iterate through the tagged tokens and set pos
 				if(annotate_partofspeech) {
-					TaggedWord tw = twit.next();
 					t.setPos(tw.tag());
 				}
 				
 				String thisWord = wordToken.word();
 				
 				if(docText.indexOf(thisWord, offset) < 0) {
-					Logger.printDetail(component, "A previously tagged token wasn't found in the document text: \""+thisWord+"\". " +
+					Logger.printDetail(component, "A previously tagged token wasn't found in the document text: \"" + thisWord + "\". " +
 							"This may be due to unpredictable punctuation tokenization; hence this token isn't tagged.");
 					continue; // jump to next token: discards token
 				} else {
 					offset = docText.indexOf(thisWord, offset); // set cursor to the starting position of token in docText
 					t.setBegin(offset);
+					++wordCount;
 				}
 				
-				offset += thisWord.length(); // move cursor to after the word
+				offset += thisWord.length(); // move cursor behind the word
 				t.setEnd(offset);
 				
 				// add tokens to indexes.
@@ -142,8 +144,31 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 			
 			// if flag is set, also tag sentences
 			if(annotate_sentences) {
-				sentence.setEnd(offset-1);
+				if(wordCount == 0)
+					sentence.setEnd(offset);
+				else
+					sentence.setEnd(offset-1);
 				sentence.addToIndexes();
+			}
+		}
+		
+		// TODO: DEBUG
+		FSIterator fsi = jcas.getAnnotationIndex(Sentence.type).iterator();
+		while(fsi.hasNext()) {
+			Sentence s = (Sentence) fsi.next();
+			if(s.getBegin() < 0 || s.getEnd() < 0) {
+				System.err.println("Sentence: " + s.getBegin() + ":" + s.getEnd() + " = " + s.getCoveredText());
+				System.err.println("wrong index in text: " + jcas.getDocumentText());
+				System.exit(-1);
+			}
+		}
+		FSIterator fsi2 = jcas.getAnnotationIndex(Token.type).iterator();
+		while(fsi2.hasNext()) {
+			Token t = (Token) fsi2.next();
+			if(t.getBegin() < 0 || t.getEnd() < 0) {
+				System.err.println("In text: " + jcas.getDocumentText());
+				System.err.println("Token: " + t.getBegin() + ":" + t.getEnd());
+				System.exit(-1);
 			}
 		}
 	}
