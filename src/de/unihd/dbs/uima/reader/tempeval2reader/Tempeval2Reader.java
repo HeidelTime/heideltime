@@ -197,6 +197,7 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 						hmDct.put("t0", dct);
 					}
 				}
+				bf.close();
 			}
 			catch (IOException e){
 				throw new IOException(e);
@@ -284,6 +285,8 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 				if (fileId.equals(docname)){
 					positionCounter = addSentenceAnnotation(sentString, docname, lastSentId, positionCounter, jcas);
 				}
+				
+				bf.close();
 			}catch (IOException e){
 				throw new IOException(e);
 			}
@@ -391,6 +394,7 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 						filenames.add(docName);
 					}
 				}
+				bf.close();
 			} catch (IOException e) {
 				throw new ResourceInitializationException(e);
 			}
