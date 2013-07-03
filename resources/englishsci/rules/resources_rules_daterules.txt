@@ -34,7 +34,7 @@ RULENAME="date_r0f",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber",NORM_VA
 RULENAME="date_r1a",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayNumberTh|%reDayNumber)[\s]?,? %reYear4Digit(, %reWeekday)?",NORM_VALUE="group(7)-%normMonth(group(1))-%normDay(group(4))"
 RULENAME="date_r1b",EXTRACTION="%reDayNumber (%reMonthLong|%reMonthShort)([\s]?,)? %reYear4Digit",NORM_VALUE="group(6)-%normMonth(group(2))-%normDay(group(1))"
 RULENAME="date_r1c",EXTRACTION="(%reDayWordTh|%reDayNumberTh|%reDayNumber) (of) (%reMonthLong|%reMonthShort) %reYear4Digit",NORM_VALUE="group(9)-%normMonth(group(6))-%normDay(group(1))"
-RULENAME="date_r1d",EXTRACTION=""%reDayNumber(\–|-|–)%reMonthShort(\–|-|–)%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(5)-%normMonth(group(3))-%normDay(group(1))
+RULENAME="date_r1d",EXTRACTION="%reDayNumber[‐–-]%reMonthShort[‐–-]%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(2))-%normDay(group(1))"
 
 // date_r2
 // EXAMPLE r2a_1: November 19
