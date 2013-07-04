@@ -36,8 +36,8 @@ RULENAME="duration_r2f",EXTRACTION="(%reApproximate )?die %reThisNextLast (paar|
 // EXAMPLE r3b_1: eine Stunde
 // EXAMPLE r3c_1: 20-tägig
 // EXAMPLE r3d_1: 20-stündig
-RULENAME="duration_r3a",EXTRACTION="(ein|eine)( |-)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(3))"
-RULENAME="duration_r3b",EXTRACTION="(ein|eine)( |-)(Minuten?|Stunden?)",NORM_VALUE="PT1%normUnit4Duration(group(3))"
+RULENAME="duration_r3a",EXTRACTION="ein(|e|es|em|er|en)( |-)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(3))"
+RULENAME="duration_r3b",EXTRACTION="einer?( |-)(Minuten?|Stunden?)",NORM_VALUE="PT1%normUnit4Duration(group(2))"
 RULENAME="duration_r3c",EXTRACTION="([\d]+)( |-)tägige?[ns]?",NORM_VALUE="PTgroup(1)D"
 RULENAME="duration_r3d",EXTRACTION="([\d]+)( |-)stündige?[ns]?",NORM_VALUE="PTgroup(1)D"
 
