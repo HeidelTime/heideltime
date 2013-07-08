@@ -1,0 +1,53 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains "moveable holidays". They can be calculated realtive to the Eastersunday like many christian holidays or relative to a date.
+// The german "Buß- und Bettag" is the first wednesday before YEAR-11-23. The placeholders are replaced with the value from the ruleset.
+// available functions: EasterSunday(<YEAR>, <numberOfDaysToAdd>), WeekdayRelativeTo(<DateToBeRelativeTo>, <Weekday>, <numberOfWeekdays>, <countItself>)
+// available placeholder: DATE, YEAR, MONTH, DAY 
+// sunday=1, monday=2, tuesday=3, wednesday=4, thursday=5, friday=6, saturday=7
+// 
+// FORMAT: "holiday","funcDateCalc(<function>(<arguments>))"
+//
+// the reference of the values is given in the repattern file
+//
+
+// http://en.wikipedia.org/wiki/Ash_Wednesday
+"mercredi des Cendres","funcDateCalc(EasterSunday(YEAR, -46))"
+"Mercredi des Cendres","funcDateCalc(EasterSunday(YEAR, -46))"
+
+// http://en.wikipedia.org/wiki/Palm_Sunday
+"Dimanche des rameaux","funcDateCalc(EasterSunday(YEAR, -7))"
+"Dimanche des Rameaux","funcDateCalc(EasterSunday(YEAR, -7))"
+"dimanche des rameaux","funcDateCalc(EasterSunday(YEAR, -7))"
+"dimanche des Rameaux","funcDateCalc(EasterSunday(YEAR, -7))"
+
+
+// http://en.wikipedia.org/wiki/Maundy_Thursday
+"jeudi saint","funcDateCalc(EasterSunday(YEAR, -3))"
+
+// http://en.wikipedia.org/wiki/Good_Friday
+"vendredi saint","funcDateCalc(EasterSunday(YEAR, -2))" 
+
+// http://en.wikipedia.org/wiki/Easter
+"Pâques","funcDateCalc(EasterSunday(YEAR, 0))"
+"dimanche de Pâques","funcDateCalc(EasterSunday(YEAR, 0))"
+"Dimanche de Pâques","funcDateCalc(EasterSunday(YEAR, 0))"
+
+// http://en.wikipedia.org/wiki/Easter_Monday
+"lundi de Pâques","funcDateCalc(EasterSunday(YEAR, 1))"
+"Lundi de Pâques","funcDateCalc(EasterSunday(YEAR, 1))"
+
+
+// http://en.wikipedia.org/wiki/Feast_of_the_Ascension
+"jeudi de l'ascension","funcDateCalc(EasterSunday(YEAR, 39))"
+"jeudi de l'Ascension","funcDateCalc(EasterSunday(YEAR, 39))"
+"Jeudi de l'ascension","funcDateCalc(EasterSunday(YEAR, 39))"
+"Jeudi de l'Ascension","funcDateCalc(EasterSunday(YEAR, 39))"
+"Ascension","funcDateCalc(EasterSunday(YEAR, 39))"
+
+
+// http://en.wikipedia.org/wiki/Pentecost
+"Pentecôte","funcDateCalc(EasterSunday(YEAR, 49))" 
+
+

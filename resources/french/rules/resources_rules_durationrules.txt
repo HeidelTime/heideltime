@@ -1,0 +1,104 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains rules for the temporal expressions of the type duration: durationrules
+// RULENAME=""",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+/////////////////////
+// POSITIVE RULES // 
+/////////////////////
+
+// duration_r1
+// EXAMPLE r1a-1: moins de soixante jours
+RULENAME="duration_r1a",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D)( |-)%reUnit",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(7))",NORM_MOD="%normApprox4Durations(group(2))"
+
+// EXAMPLE r1b-1: moins de 60 jours
+RULENAME="duration_r1b",EXTRACTION="(%reApproximate )?([\d]+)( |-)%reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+
+// EXAMPLE r1c-1: moins de soixante minutes
+RULENAME="duration_r1c",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D)( |-)(minutes?|heures?)",NORM_VALUE="PT%normDurationNumber(group(3))%normUnit4Duration(group(7))",NORM_MOD="%normApprox4Durations(group(2))"
+
+// EXAMPLE r1d-1: moins de 60 minutes
+RULENAME="duration_r1d",EXTRACTION="(%reApproximate )?([\d]+)( |-)(minutes?|heures?)",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
+
+
+
+// duration_r2
+// EXAMPLE r2a-1: les vingt dernières/prochaines années
+RULENAME="duration_r2a",EXTRACTION="les (%reNumWord2D|%reNumWord1D) %reThisNextLast %reUnit",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(5))"
+
+// EXAMPLE r2b-1: les 20 dernières/prochaines années
+RULENAME="duration_r2b",EXTRACTION="les ([\d]+) %reThisNextLast %reUnit",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(3))"     
+
+
+
+//////////////////////
+// FUZZY UNIT RULES //
+//////////////////////
+
+// duration_r4
+// EXAMPLE r4a-1: plusieurs jours
+RULENAME="duration_r4a",EXTRACTION="(%reApproximate )?([Pp]lusieurs|[Qq]uelques) %reUnit",NORM_VALUE="PX%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
+
+// EXAMPLE r4b-1: plusieurs minutes
+RULENAME="duration_r4b",EXTRACTION="(%reApproximate )?([Pp]lusieurs|[Qq]uelques) (minutes?|heures?)",NORM_VALUE="PTX%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
+
+// EXAMPLE r4c-1: les années suivantes
+RULENAME="duration_r4c",EXTRACTION="[CcLlDd]es (quelques )?%reUnit %reThisNextLast",NORM_VALUE="PX%normUnit4Duration(group(2))"
+
+// EXAMPLE r4d-1: ces dernières années
+RULENAME="duration_r4d",EXTRACTION="[CcLlDd]es (quelques )?%reThisNextLast %reUnit",NORM_VALUE="PX%normUnit4Duration(group(3))"
+
+// EXAMPLE r4e-1: les dernières heures
+RULENAME="duration_r4e",EXTRACTION="[CcLlDd]es (quelques )?%reThisNextLast (minutes?|heures?)",NORM_VALUE="PTX%normUnit4Duration(group(3))"
+
+
+
+// duration_r5
+// EXAMPLE r5a-1: deux à/et trois ans
+RULENAME="duration_r5a",EXTRACTION="(%reNumWord2D|%reNumWord1D) (à|et) (%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(8))",OFFSET="group(1)-group(1)"
+
+// EXAMPLE r5b-1: deux à/et trois heures
+RULENAME="duration_r5b",EXTRACTION="(%reNumWord2D|%reNumWord1D) (à|et) (%reNumWord2D|%reNumWord1D) (minutes?|heures?)",NORM_VALUE="PT%normDurationNumber(group(1))%normUnit4Duration(group(8))",OFFSET="group(1)-group(1)"
+
+// EXAMPLE r5c-1: 2 à/et 3 ans
+RULENAME="duration_r5c",EXTRACTION="([\d]+) (à|et) ([\d]+) %reUnit",NORM_VALUE="Pgroup(1)%normUnit4Duration(group(4))",OFFSET="group(1)-group(1)"
+
+// EXAMPLE r5d-1: 2 à/et 3 heures
+RULENAME="duration_r5d",EXTRACTION="([\d]+) (à|et) ([\d]+) (minutes?|heures?)",NORM_VALUE="PTgroup(1)%normUnit4Duration(group(4))",OFFSET="group(1)-group(1)"
+
+
+
+// duration_r6
+// EXAMPLE r6a: toute la semaine, tout le mois, toute l'année
+RULENAME="duration_r6a",EXTRACTION="[Tt]oute? (la |le |l'|ce |cette )%reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))"
+
+// EXAMPLE r6b_1: 24 heures sur 24
+RULENAME="duration_r6b",EXTRACTION="(24) (heures) sur 24",NORM_VALUE="PT%normDurationNumber(group(1))%normUnit4Duration(group(2))" 
+
+// EXAMPLE r6c_1: 7 jours sur 7
+RULENAME="duration_r6c",EXTRACTION="(7) (jours) sur 7",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(2))" 
+
+
+
+
+////////////////////
+//*************************************  NEGATIVE RULES //
+////////////////////
+
+
+// EXAMPLE r1a_1: âgé de 86 ans
+RULENAME="date_r1a_negative",EXTRACTION="[Aâ]gée?s? de \d ans",NORM_VALUE="REMOVE"
+RULENAME="date_r1b_negative",EXTRACTION="[Aâ]gée?s? de \d\d ans",NORM_VALUE="REMOVE"
+
+// EXAMPLE r2a_1: 10-12 ans
+RULENAME="date_r2a_negative",EXTRACTION="\d-\d ans",NORM_VALUE="REMOVE"
+RULENAME="date_r2b_negative",EXTRACTION="\d-\d\d ans",NORM_VALUE="REMOVE"
+RULENAME="date_r2c_negative",EXTRACTION="\d\d-\d\d ans",NORM_VALUE="REMOVE"
+
+// EXAMPLE r3a_1: , 35 ans,
+RULENAME="date_r3a_negative",EXTRACTION="[^\s]*, \d ans,",NORM_VALUE="REMOVE"
+RULENAME="date_r3b_negative",EXTRACTION="[^\s]*, \d\d ans,",NORM_VALUE="REMOVE"
+
+
+

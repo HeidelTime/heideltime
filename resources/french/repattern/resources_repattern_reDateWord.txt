@@ -1,0 +1,30 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for date words.
+// FORMAT: one line is one disjunction of the pattern
+// THESE EXPRESSIONS ARE ALL IMPLICITS
+// SHOULD ONLY BE UPPER CASE IF AT THE BEGINNING OF A SENTENCE
+
+[Hh]ier
+[Aa]ujourd'hui
+[Dd]emain
+[Ll]endemain
+[Tt]out de suite
+[Mm]aintenant
+[Dd]ès que possible
+[Bb]ientôt
+[Rr]écemment
+[Rr]écent
+[Aa]ctuellement
+[Aa]ctuel
+[Pp]récédemment
+[Pp]récédent
+[Pp]our le moment
+[Pp]our l'instant
+[Ll]e futur
+[Ll]'avenir
+[Ll]e passé
+[Aa]uparavant
+[Dd]ésormais
+

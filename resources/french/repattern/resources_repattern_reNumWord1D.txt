@@ -1,0 +1,14 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for number word 1 digits.
+// FORMAT: one line is one disjunction of the pattern
+[Uu]ne?
+[Dd]eux
+[Tt]rois
+[Qq]uatre
+[Cc]inq
+[Ss]ix
+[Ss]ept
+[Hh]uit
+[Nn]euf

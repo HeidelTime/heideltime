@@ -1,0 +1,16 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for "this/next/last" words.
+// FORMAT: one line is one disjunction of the pattern
+[Dd]erniers?
+[Dd]ernières?
+[Pp]assés?
+[Pp]assées?
+[Pp]rochains?
+[Pp]rochaines?
+[Pp]récédents?
+[Pp]récédentes?
+[Cc]es?
+[Cc]et
+[Cc]ette

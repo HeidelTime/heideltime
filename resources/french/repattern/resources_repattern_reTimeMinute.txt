@@ -1,0 +1,6 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for time minutes.
+// FORMAT: one line is one disjunction of the pattern
+[0|1|2|3|4|5][0-9]

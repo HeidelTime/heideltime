@@ -1,0 +1,16 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for unit words.
+// FORMAT: one line is one disjunction of the pattern
+jours?
+week-ends?
+weekends?
+semaines?
+mois
+trimestres?
+années?
+ans?
+décennies?
+siècles?
+

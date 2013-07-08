@@ -1,0 +1,22 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains "this/next/last words" and their normalized expressions.
+// FORMAT: "this/next/last-word","normalized-this/next/last-word"
+"[Dd]erniers?","last"
+"[Dd]ernières?","last"
+"[Pp]assés?","last"
+"[Pp]assées?","last"
+"[Pp]récédents?","last"
+"[Pp]récédentes?","last"
+"[Pp]rochains?","next"
+"[Pp]rochaines?","next"
+"[Ss]uivants?","next"
+"[Ss]uivantes?","next"
+"[Ll]e plus récent","last"
+"[Ll]a plus récente","last"
+"[Aa]ctuel","this"
+"[Aa]ctuelle","this"
+"[Cc]et?","this"
+"[Cc]ette","this"
+"[Cc]es?","this"

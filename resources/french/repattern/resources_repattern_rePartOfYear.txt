@@ -1,0 +1,16 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for parts of year.
+// FORMAT: one line is one disjunction of the pattern
+[Pp]remier trimestre
+1er trimestre
+[Dd]euxième trimestre
+2ème trimestre
+2ième trimestre
+[Tt]roisième trimestre
+3ème trimestre
+3ième trimestre
+[Qq]uatrième trimestre
+4ème trimestre
+4ième trimestre

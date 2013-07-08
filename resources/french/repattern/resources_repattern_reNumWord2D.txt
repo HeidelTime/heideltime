@@ -1,0 +1,96 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   --
+// This file contains regular expression patterns for 
+// number word  digits: reNumWordD
+// FORMAT: one line is one disjunction of the pattern
+[Dd]ix
+[Oo]nze
+[Dd]ouze
+[Tt]reize
+[Qq]uatorze
+[Qq]uinze
+[Ss]eize
+[Dd]ix-sept
+[Dd]ix-huit
+[Dd]ix-neuf
+[Vv]ingt
+[Vv]ingt et un
+[Vv]ingt-deux
+[Vv]ingt-trois
+[Vv]ingt-quatre
+[Vv]ingt-cinq
+[Vv]ingt-six
+[Vv]ingt-sept
+[Vv]ingt-huit
+[Vv]ingt-neuf
+[Tt]rente
+[Tt]rente et un
+[Tt]rente-deux
+[Tt]rente-trois
+[Tt]rente-quatre
+[Tt]rente-cinq
+[Tt]rente-six
+[Tt]rente-sept
+[Tt]rente-huit
+[Tt]rente-neuf
+[Qq]uarante
+[Qq]uarante et un
+[Qq]uarante-deux
+[Qq]uarante-trois
+[Qq]uarante-quatre
+[Qq]uarante-cinq
+[Qq]uarante-six
+[Qq]uarante-sept
+[Qq]uarante-huit
+[Qq]uarante-neuf
+[Cc]inquante
+[Cc]inquante et un
+[Cc]inquante-deux
+[Cc]inquante-trois
+[Cc]inquante-quatre
+[Cc]inquante-cinq
+[Cc]inquante-six
+[Cc]inquante-sept
+[Cc]inquante-huit
+[Cc]inquante-neuf
+[Ss]oixante
+[Ss]oixante et un
+[Ss]oixante-deux
+[Ss]oixante-trois
+[Ss]oixante-quatre
+[Ss]oixante-cinq
+[Ss]oixante-six
+[Ss]oixante-sept
+[Ss]oixante-huit
+[Ss]oixante-neuf
+[Ss]oixante-dix
+[Ss]oixante et onze
+[Ss]oixante-douze
+[Ss]oixante-treize
+[Ss]oixante-quatorze
+[Ss]oixante-quinze
+[Ss]oixante-seize
+[Ss]oixante-dix-sept
+[Ss]oixante-dix-huit
+[Ss]oixante-dix-neuf
+[Qq]uatre-vingts
+[Qq]uatre-vingt-un
+[Qq]uatre-vingt-deux
+[Qq]uatre-vingt-trois
+[Qq]uatre-vingt-quatre
+[Qq]uatre-vingt-cinq
+[Qq]uatre-vingt-six
+[Qq]uatre-vingt-sept
+[Qq]uatre-vingt-huit
+[Qq]uatre-vingt-neuf
+[Qq]uatre-vingt-dix
+[Qq]uatre-vingt-onze
+[Qq]uatre-vingt-douze
+[Qq]uatre-vingt-treize
+[Qq]uatre-vingt-quatorze
+[Qq]uatre-vingt-quinze
+[Qq]uatre-vingt-seize
+[Qq]uatre-vingt-dix-sept
+[Qq]uatre-vingt-dix-huit
+[Qq]uatre-vingt-dix-neuf

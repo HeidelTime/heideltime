@@ -1,0 +1,33 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains "date words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "tomorrow" is "UNDEF-next-day"
+// FORMAT: "date-word","normalized-date-word"
+"[Aa]ujourd'hui","UNDEF-this-day"
+"[Ll]endemain","UNDEF-next-day"
+"[Dd]emain","UNDEF-next-day"
+"[Hh]ier","UNDEF-last-day"
+"[Tt]out de suite","PRESENT_REF"
+"[Mm]aintenant","PRESENT_REF"
+"[Aa]ctuel","PRESENT_REF"
+"[Aa]ctuellement","PRESENT_REF"
+"[Pp]our le moment","PRESENT_REF"
+"[Pp]our l'instant","PRESENT_REF"
+"[Dd]ésormais","PRESENT_REF"
+
+"[Bb]ientôt","FUTURE_REF"
+"[Dd]ès que possible","FUTURE_REF"
+"[Ll]e futur","FUTURE_REF"
+"[Ll]'avenir","FUTURE_REF"
+
+"[Rr]écent","PAST_REF"
+"[Rr]écemment","PAST_REF"
+"[Pp]récédent","PAST_REF"
+"[Pp]récédemment","PAST_REF"
+"[Ll]e passé","PAST_REF"
+"[Aa]uparavant","PAST_REF"
+
+
+

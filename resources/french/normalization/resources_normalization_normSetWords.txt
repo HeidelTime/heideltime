@@ -1,0 +1,16 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains "set words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "daily" is "XXXX-XX-XX"
+// FORMAT: "set-word","normalized-set-word"
+"[Aa]nnuellement","XXXX"
+"annuels?","XXXX"
+"annuelles?","XXXX"
+"[Mm]ensuellement","XXXX-XX"
+"mensuels?","XXXX-XX"
+"mensuelles?","XXXX-XX"
+"[Qq]uotidiennement","XXXX-XX-XX"
+"hebdomadaires?","XXXX-WXX"
+

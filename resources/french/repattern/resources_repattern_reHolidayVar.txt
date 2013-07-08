@@ -1,0 +1,44 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for holidays on a moveable date.
+// FORMAT: one line is one disjunction of the pattern
+//
+
+// http://en.wikipedia.org/wiki/Ash_Wednesday
+mercredi des Cendres
+Mercredi des Cendres
+
+// http://en.wikipedia.org/wiki/Palm_Sunday
+Dimanche des rameaux
+Dimanche des Rameaux
+dimanche des rameaux
+dimanche des Rameaux
+
+
+// http://en.wikipedia.org/wiki/Maundy_Thursday
+jeudi saint
+
+// http://en.wikipedia.org/wiki/Good_Friday
+vendredi saint","funcDateCalc(EasterSunday(YEAR, -2))" 
+
+// http://en.wikipedia.org/wiki/Easter
+Pâques
+dimanche de Pâques
+Dimanche de Pâques
+
+// http://en.wikipedia.org/wiki/Easter_Monday
+lundi de Pâques
+Lundi de Pâques
+
+
+// http://en.wikipedia.org/wiki/Feast_of_the_Ascension
+jeudi de l'ascension
+jeudi de l'Ascension
+Jeudi de l'ascension
+Jeudi de l'Ascension
+Ascension
+
+
+// http://en.wikipedia.org/wiki/Pentecost
+Pentecôte

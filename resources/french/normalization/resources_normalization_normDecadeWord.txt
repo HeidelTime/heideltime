@@ -1,0 +1,33 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains "decade words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "twenties" is "2X"
+// FORMAT: "decade-word","normalized-decade-word"
+"twenties","2X"
+"thirties","3X"
+"forties","4X"
+"fifties","5X"
+"sixties","6X"
+"seventies","7X"
+"eighties","8X"
+"nineties","9X"
+// UPPER CASE
+"Twenties","2X"
+"Thirties","3X"
+"Forties","4X"
+"Fifties","5X"
+"Sixties","6X"
+"Seventies","7X"
+"Eighties","8X"
+"Nineties","9X"
+//
+"années 20","2X"
+"années 30","3X"
+"années 40","4X"
+"années 50","5X"
+"années 60","6X"
+"années 70","7X"
+"années 80","8X"
+"années 90","9X"

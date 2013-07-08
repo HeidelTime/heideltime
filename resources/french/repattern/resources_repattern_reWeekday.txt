@@ -1,0 +1,19 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for weekdays.
+// FORMAT: one line is one disjunction of the pattern
+[Ll]undis?
+[Mm]ardis?
+[Mm]ercredis?
+[Jj]eudis?
+[Vv]endredis?
+[Ss]amedis?
+[Dd]imanches?
+LUNDI
+MARDI
+MERCREDI
+JEUDI
+VENDREDI
+SAMEDI
+DIMANCHE

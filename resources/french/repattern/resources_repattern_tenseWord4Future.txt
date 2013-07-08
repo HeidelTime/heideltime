@@ -1,0 +1,14 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for words indicating future.
+// FORMAT: one line is one disjunction of the pattern
+// No word in French which indicates the "future" tense
+// The tags in tensePos4Future have to be matched for "future tense" and in addition
+// the token with such a tag has to be included in tenseWord4Future:
+[A-Z]?[a-zéèêàùïü]+rai
+[A-Z]?[a-zéèêàùïü]+ras
+[A-Z]?[a-zéèêàùïü]+ra
+[A-Z]?[a-zéèêàùïü]+rons
+[A-Z]?[a-zéèêàùïü]+rez
+[A-Z]?[a-zéèêàùïü]+ront

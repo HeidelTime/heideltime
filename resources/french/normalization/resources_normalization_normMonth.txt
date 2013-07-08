@@ -1,0 +1,98 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi\.fr
+// date:   2013-05-27
+// This file contains "month words" and their normalized expressions 
+// according to TIMEX3 format\.
+// For example, the normalized value of "2" is "02"
+// FORMAT: "month-word","normalized-month-word"
+// January
+"[Jj]an\.?","01"
+"JAN\.?","01"
+"[Jj]anvier","01"
+"JANVIER","01"
+// February
+"[Ff]év\.?","02"
+"FEV\.?","02"
+"[Ff]évrier","02"
+"FEVRIER","02"
+// March
+"[Mm]ar\.?","03"
+"MAR\.?","03"
+"[Mm]ars","03"
+"MARS","03"
+// April
+"[Aa]vr\.?","04"
+"AVR\.?","04"
+"[Aa]vril","04"
+"AVRIL","04"
+// May
+"[Mm]ai","05"
+"MAI","05"
+// June
+"[Jj]ui\.?","06"
+"JUIN?","06"
+"JUI\.?","06"
+"[Jj]uin","06"
+// July
+"[Jj]uil\.?","07"
+"JUILLET","07"
+"JUIL\.?","07"
+"[Jj]uillet","07"
+// August
+"[Aa]oût","08"
+"AOUT","08"
+// September
+"[Ss]ep\.?","09"
+"SEP\.?","09"
+"[Ss]ept\.?","09"
+"SEPTEMBRE","09"
+"SEPT\.?","09"
+"[Ss]eptembre","09"
+// October
+"[Oo]ct\.?","10"
+"OCTOBRE","10"
+"OCT\.?","10"
+"[Oo]ctobre","10"
+// November
+"[Nn]ov\.?","11"
+"NOVEMBRE","11"
+"NOV\.?","11"
+"[Nn]ovembre","11"
+// December
+"[Dd]éc\.?","12"
+"DECEMBRE","12"
+"DEC\.?","12"
+"[Dd]écembre","12"
+// January
+"1","01"
+"01","01"
+// February
+"2","02"
+"02","02"
+// March
+"3","03"
+"03","03"
+// April
+"4","04"
+"04","04"
+// May
+"5","05"
+"05","05" 
+// June
+"6","06"
+"06","06"
+// July
+"7","07"
+"07","07"
+// August
+"8","08"
+"08","08"
+// September
+"9","09"
+"09","09"
+// October
+"10","10"
+// November
+"11","11"
+// December
+"12","12"

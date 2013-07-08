@@ -1,0 +1,88 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains rules for the temporal expressions of the type time: timerules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+/////////////////////
+// TIMESTAMP STYLE // 
+
+// time_r1 (Timestamp style)
+// EXAMPLE r1a-1: 2009-12-19T17:00:00
+// EXAMPLE r1a-2: 2009-12-19 17:00:00
+RULENAME="time_r1a",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )%reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7):group(8)"
+
+// EXAMPLE r1b-1: 20091219T170000 
+RULENAME="time_r1b",EXTRACTION="(%reYear4Digit%reMonthNumber%reDayNumber)(T)%reTimeHour%reTimeMinute%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7):group(8)"
+
+// EXAMPLE r1c-1: 2009-12-19T17:00
+RULENAME="time_r1c",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )%reTimeHour:%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7)"
+
+// EXAMPLE r1d-1: 12/29/2000 20:29
+//RULENAME="time_r1d",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6)"
+
+
+// EXAMPLE r1e-1: 29/12/2000 20:29:29
+RULENAME="time_r1e",EXTRACTION="(%reDayNumber/%reMonthNumber/%reYear4Digit) %reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(4)-group(3)-group(2)Tgroup(5):group(6):group(7)"
+
+// EXAMPLE r1f-1: 29/12/2000 20:29:29.79
+//RULENAME="time_r1f",EXTRACTION="(%reDayNumber/%reMonthNumber/%reYear4Digit) %reTimeHour:%reTimeMinute:%reTimeMinute\.%reYear2Digit",NORM_VALUE="group(4)-group(3)-group(2)Tgroup(5):group(6):group(7).group(8)"
+
+// NEW for ACE Tern 2005 training
+RULENAME="time_r1g",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber-%reTimeHour-%reTimeMinute-%reTimeMinute",NORM_VALUE="group(1)-group(2)-group(3)Tgroup(4):group(5):group(6)"
+
+
+
+
+// time_r2
+// EXAMPLE r2a-1: 24-09-99 1145EST (TimeStamp style with timezone information)
+RULENAME="time_r2a",EXTRACTION="(%reDayNumber-%reMonthNumber-%reYear2Digit)( %reTimeHour(:)?%reTimeMinute)%reTimezone",NORM_VALUE="UNDEF-centurygroup(4)-group(3)-group(2)T%normMinute(group(6)):%normMinute(group(8))%normTimezone(group(9))"
+
+// EXAMPLE r2b-1: 15 h 35 GMT
+// EXAMPLE r2b-2: 15h35 GMT
+RULENAME="time_r2b1",EXTRACTION="%reTimeHour (h|H|heures) %reTimeMinute %reTimezone",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normMinute(group(1)):%normMinute(group(3))%normTimezone(group(4))"
+RULENAME="time_r2b2",EXTRACTION="%reTimeHour(h|H|heures)%reTimeMinute %reTimezone",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normMinute(group(1)):%normMinute(group(3))%normTimezone(group(4))"
+
+// EXAMPLE r2c-1: 15 h 35 (heure locale) 
+// EXAMPLE r2c-2: 15h35 (heure locale)
+RULENAME="time_r2c1",EXTRACTION="%reTimeHour (h|H|heures) %reTimeMinute( heure locale)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normMinute(group(1)):%normMinute(group(3))"
+RULENAME="time_r2c2",EXTRACTION="%reTimeHour(h|H|heures)%reTimeMinute( heure locale)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normMinute(group(1)):%normMinute(group(3))"
+
+// EXAMPLE r2d-1: 15 h GMT
+// EXAMPLE r2d-2: 15h GMT
+RULENAME="time_r2d1",EXTRACTION="%reTimeHour (h|H|heures) %reTimezone",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normMinute(group(1)):00%normTimezone(group(3))"
+RULENAME="time_r2d2",EXTRACTION="%reTimeHour (h|H|heures) %reTimezone",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normMinute(group(1)):00%normTimezone(group(3))"
+
+// EXAMPLE r2e-1: 15 h (heure locale) 
+// EXAMPLE r2e-2: 15h (heure locale) 
+RULENAME="time_r2e1",EXTRACTION="%reTimeHour (h|H|heures)( heure locale)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normMinute(group(1)):00"
+RULENAME="time_r2e2",EXTRACTION="%reTimeHour(h|H|heures)( heure locale)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normMinute(group(1)):00"
+
+
+// EXAMPLE r2f-1: (Mercredi )29 Déc 2004 00:28:16 +0000
+// RULENAME="time_r2f",EXTRACTION="((%reWeekday )?%reDayNumber (%reMonthLong|%reMonthShort) %reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute (\+|-)0000",NORM_VALUE="group(7)-%normMonth(group(4))-%normDay(group(3))Tgroup(8):group(9):group(10)"
+
+
+/////////////////////////////
+// PART-OF-DAY GRANULARITY //
+/////////////////////////////
+// time_r3
+// EXAMPLE r3a-1: lundi( à) minuit
+RULENAME="time_r3a",EXTRACTION="%reWeekday( à)? %rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normPartOfDay(group(3))"
+
+// EXAMPLE r3b_1: la nuit de mercredi à jeudi
+RULENAME="time_r3b",EXTRACTION="la nuit de %reWeekday à %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(1))TNI"
+
+// EXAMPLE r3c-1: hier matin
+RULENAME="time_r3c",EXTRACTION="%reDateWord %rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
+
+// EXAMPLE r3d-1: le lendemain matin
+RULENAME="time_r3d",EXTRACTION="le (lendemain )%rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
+
+// EXAMPLE r3e-1: la soirée, ce matin
+RULENAME="time_r3e",EXTRACTION="(le |la |l'|%reThisNextLast )?%rePartOfDay",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(3))"
+
+// EXAMPLE r3f_1: début d'après-midi 
+RULENAME="date_r3f",EXTRACTION="%rePartWords\s?%rePartOfDay",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(2))",NORM_MOD="%normPartWords(group(1))"
+
+

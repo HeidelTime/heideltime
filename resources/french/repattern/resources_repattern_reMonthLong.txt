@@ -1,0 +1,29 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for long months.
+// FORMAT: one line is one disjunction of the pattern
+[Jj]anvier
+[Ff]évrier
+[Mm]ars
+[Aa]vril
+[Mm]ai
+[Jj]uin
+[Jj]uillet
+[Aa]oût
+[Ss]eptembre
+[Oo]ctobre
+[Nn]ovembre
+[Dd]écembre
+JANVIER
+FEVRIER
+MARS
+AVRIL
+MAI
+JUIN
+JUILLET
+AOUT
+SEPTEMBRE
+OCTOBRE
+NOVEMBRE
+DECEMBRE

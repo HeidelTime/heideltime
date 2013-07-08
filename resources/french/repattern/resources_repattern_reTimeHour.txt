@@ -1,0 +1,21 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for time hours.
+// FORMAT: one line is one disjunction of the pattern
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+0?[0-9]

@@ -1,0 +1,19 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains "month numbers" and their normalized season expressions
+// according to TIMEX3 format.
+// For example, the normalized value of month "04" is season "SP"
+// FORMAT: "normalized month","normalized season"
+"01","WI"
+"02","WI"
+"03","SR"
+"04","SR"
+"05","SR"
+"06","SU"
+"07","SU"
+"08","SU"
+"09","FA"
+"10","FA"
+"11","FA"
+"12","WI"

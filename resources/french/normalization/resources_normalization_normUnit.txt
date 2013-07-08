@@ -1,0 +1,20 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains "unit words" and their normalized expressions.
+// For example, the normalized value of "week" is "week"
+// FORMAT: "unit-word","normalized-unit-word"
+"jours?","day"
+"week-ends?","week-WE"
+"weekends?","week-WE"
+"semaines?","week"
+"mois","month"
+"trimestres?","quarter"
+"années?","year"
+"ans?","year"
+"décennies?","decade"
+"siècles?","century"
+
+// not in reUnit
+"heures?","hour"
+"minutes?","minute"

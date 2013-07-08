@@ -1,0 +1,16 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for number words 10 to 20.
+// FORMAT: one line is one disjunction of the pattern
+dix
+onze
+douze
+treize
+quatorze
+quinze
+seize
+dix-sept
+dix-huit
+dix-neuf
+vingt

@@ -1,0 +1,39 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains fix holiday and their normalized expressions.
+// For example, the normalized value of "Newyear" is "01-01"
+// FORMAT: "hoilday_name","month-year"
+// 
+// the reference of the values is given in the repattern file
+
+// http://en.wikipedia.org/wiki/New_Year%27s_Day
+"Nouvel An","01-01"
+
+// http://en.wikipedia.org/wiki/Valentine%27s_Day
+"Saint Valentin","02-14"
+
+
+// http://en.wikipedia.org/wiki/Patriots%27_Day
+"fête du travail","05-01"
+
+"14 juillet","07-14"
+
+
+// http://en.wikipedia.org/wiki/Hallowe%27en
+"Halloween","10-31"
+
+
+// http://en.wikipedia.org/wiki/Assumption_of_Mary
+"assomption","08-15"
+"Toussaint","11-01"
+
+
+// http://en.wikipedia.org/wiki/Christmas
+"Noël","12-25"
+
+
+"Saint Patrick","03-17"
+"St. Patrick","03-17"
+
+

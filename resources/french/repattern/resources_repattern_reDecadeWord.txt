@@ -1,0 +1,21 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for decade words.
+// FORMAT: one line is one disjunction of the pattern
+twenties
+thirties
+forties
+fifties
+sixties
+seventies
+eighties
+nineties
+années 20
+années 30
+années 40
+années 50
+années 60
+années 70
+années 80
+années 90

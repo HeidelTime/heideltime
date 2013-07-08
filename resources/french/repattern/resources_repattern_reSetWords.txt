@@ -1,0 +1,12 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for set words.
+// FORMAT: one line is one disjunction of the pattern
+[Aa]nnuellement
+[Mm]ensuellement
+annuels?
+annuelles?
+mensuels?
+mensuelles?
+hebdomadaires?

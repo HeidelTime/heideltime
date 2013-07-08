@@ -1,0 +1,40 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for "part" words.
+// FORMAT: one line is one disjunction of the pattern
+[Ll]e début de l[a']
+[Ll]e début du
+[Ll]e début d'
+[Ll]e début des?
+[Dd]ébut du
+[Dd]ébut de l[a']
+[Dd]ébut d'
+[Dd]ébut des?
+[Dd]ébut
+//
+[Ll]e milieu des?
+[Ll]e milieu de l[a']
+[Ll]e milieu du
+[Ll]e milieu d'
+[Mm]i-
+[Mm]ilieu de l[a']
+[Mm]ilieu d'
+[Mm]ilieu du
+[Mm]ilieu des?
+[Mm]ilieu
+//
+[Ll]a fin des?
+[Ll]a fin du
+[Ll]a fin d'
+[Ll]a fin de l[a']
+[Ff]in des?
+[Ff]in d'
+[Ff]in du
+[Ff]in de l[a']
+[Ff]in
+//
+[Tt]ard
+[Pp]lus tard
+[Tt]ôt
+[Pp]lus tôt

@@ -1,0 +1,20 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains "weekday words" and their normalized expressions.
+// For example, the normalized value of "Monday" is "monday"
+// FORMAT: "weekday-word","normalized-weekday-word"
+"[Ll]undis?","monday"
+"[Mm]ardis?","tuesday"
+"[Mm]ercredis?","wednesday"
+"[Jj]eudis?","thursday"
+"[Vv]endredis?","friday"
+"[Ss]amedis?","saturday"
+"[Dd]imanches?","sunday"
+"LUNDI","monday"
+"MARDI","tuesday"
+"MERCREDI","wednesday"
+"JEUDI","thursday"
+"VENDREDI","friday"
+"SAMEDI","saturday"
+"DIMANCHE","sunday"

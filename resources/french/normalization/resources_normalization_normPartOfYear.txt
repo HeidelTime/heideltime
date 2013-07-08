@@ -1,0 +1,37 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains "parts-of-year words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "first quarter" is "Q1"
+// FORMAT: "parts-of-year-word","normalized-parts-of-year-word"
+// First Quarter
+"[Pp]remier trimestre","Q1"
+"1er trimestre","Q1"
+// Second Quarter
+"[Ss]econd trimestre","Q2"
+"[Dd]euxième trimestre","Q2"
+"2e trimestre","Q2"
+"2i?ème trimestre","Q2"
+// Third Quarter
+"[Tt]roisième trimestre","Q3"
+"3e trimestre","Q3"
+"3i?ème trimestre","Q3"
+// Forth Quarter
+"[Qq]uatrième trimestre","Q4"
+"4e trimestre","Q4"
+"4i?ème trimestre","Q4"
+
+"[Dd]ernier trimestre","Q4"
+
+// First Half
+"[Pp]remière moitié","H1"
+"1ère moitié","H1"
+
+// Second Half
+"[Dd]euxième moitié","H2"
+"[Ss]econde moitié","H2"
+"[Dd]ernière moitié","H2"
+"2e moitié","H2"
+"2i?ème moitié","H2"
+

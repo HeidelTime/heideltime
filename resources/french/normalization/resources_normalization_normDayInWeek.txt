@@ -1,0 +1,21 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains "day words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "sunday" is "1"
+// FORMAT: "day-word","normalized-day-word"
+"[Ll]undis?","1"
+"[Mm]ardis?","2"
+"[Mm]ercredis?","3"
+"[Jj]eudis?","4"
+"[Vv]endredis?","5"
+"[Ss]amedis?","6"
+"[Dd]imanches?","7"
+"LUNDI","1"
+"MARDI","2"
+"MERCREDI","3"
+"JEUDI","4"
+"VENDREDI","5"
+"SAMEDI","6"
+"DIMANCHE","7"

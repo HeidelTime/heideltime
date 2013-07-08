@@ -1,0 +1,49 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains contains "part words" and their normalized expressions
+// according to TIMEX3 format. 
+// For example, the normalized value of "the middle of" is "MID"
+// FORMAT: "part word","normalized-part-word"
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for "part" words.
+// FORMAT: one line is one disjunction of the pattern
+
+"[Mm]ilieu des?","MID"
+"[Mm]ilieu du","MID"
+"[Mm]ilieu de l[a']","MID"
+"[Mm]ilieu","MID"
+"[Mm]ilieu d'","MID"
+"[Mm]i-","MID"
+"[Ll]e milieu des?","MID"
+"[Ll]e milieu du","MID"
+"[Ll]e milieu de l[a']","MID"
+"[Ll]e milieu d'","MID"
+
+"[Ff]in des?","END"
+"[Ff]in du","END"
+"[Ff]in de l[a']","END"
+"[Ff]in d'","END"
+"[Ff]in","END"
+"[Ll]a fin du","END"
+"[Ll]a fin des?","END"
+"[Ll]a fin de l[a']","END"
+"[Ll]a fin d'","END"
+"[Tt]ard","END"
+"[Pp]lus tard","END"
+
+"[Ll]e début du","START"
+"[Ll]e début des?","START"
+"[Ll]e début de l[a']","START"
+"[Ll]e début d'","START"
+"[Dd]ébut des?","START"
+"[Dd]ébut du","START"
+"[Dd]ébut de l['a]","START"
+"[Dd]ébut d'","START"
+"[Dd]ébut","START"
+"[Tt]ôt","START"
+"[Pp]lus tôt","START"
+
+

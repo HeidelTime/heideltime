@@ -1,0 +1,25 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains regular expression patterns for "approximate" words.
+// FORMAT: one line is one disjunction of the pattern
+// about
+[Aa]pproximativement
+[Aa]u moins
+[Aa]utour
+[Aa]utour de
+[Ee]nviron
+[Pp]resque
+[Pp]rès de
+
+// less
+[Mm]oins de
+[Mm]oins que
+[Jj]usqu'à
+[Pp]as plus de
+
+//  more
+[Aa]u moins
+[Ppl]us que
+[Ppl]us de
+
