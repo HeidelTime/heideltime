@@ -4,7 +4,7 @@
 
 Author: Jannik Strötgen, Julian Zell
 Date:   April 17, 2013
-eMail:  stroetgen@uni-hd.de, j.zell@stud.uni-heidelberg.de
+eMail:  stroetgen@uni-hd.de, zell@informatik.uni-heidelberg.de
 
 ###################################
 # 1. Papers describing HeidelTime #
