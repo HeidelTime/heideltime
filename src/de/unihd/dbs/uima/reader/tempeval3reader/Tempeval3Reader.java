@@ -69,7 +69,6 @@ public class Tempeval3Reader extends CollectionReader_ImplBase {
 	private void fillJCas(JCas jcas) {
 		// grab a file to process
 		File f = files.poll();
-
 		try {
 			// create xml parsing facilities
 			DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -86,16 +85,42 @@ public class Tempeval3Reader extends CollectionReader_ImplBase {
 			jcas.setDocumentText(text);
 			
 			// get the <dct> timex tag's value attribute for the dct
-			nList = doc.getDocumentElement().getElementsByTagName("DCT");
-			nList = ((Element) nList.item(0)).getElementsByTagName("TIMEX3"); // timex3 tag
-			Node dctTimex = nList.item(0);
-			NamedNodeMap dctTimexAttr = dctTimex.getAttributes();
-			Node dctValue = dctTimexAttr.getNamedItem("value");
-			String dctText = dctValue.getTextContent();
+			Boolean gotDCT = false;
+			String dctText = null;
+			try {
+				nList = doc.getDocumentElement().getElementsByTagName("DCT");
+				nList = ((Element) nList.item(0)).getElementsByTagName("TIMEX3"); // timex3 tag
+				Node dctTimex = nList.item(0);
+				NamedNodeMap dctTimexAttr = dctTimex.getAttributes();
+				Node dctValue = dctTimexAttr.getNamedItem("value");
+				dctText = dctValue.getTextContent();
+				gotDCT = true;
+			} catch(Exception e) {
+				gotDCT = false;
+			}
+			
+			if(!gotDCT) 
+				try { // try a different location for the DCT timex element
+					nList = doc.getDocumentElement().getElementsByTagName("TEXT");
+					nList = ((Element) nList.item(0)).getElementsByTagName("TIMEX3"); // timex3 tag
+					Node dctTimex = nList.item(0);
+					NamedNodeMap dctTimexAttr = dctTimex.getAttributes();
+					if(dctTimexAttr.getNamedItem("functionInDocument") != null && dctTimexAttr.getNamedItem("functionInDocument").getTextContent().equals("CREATION_TIME")) {
+						Node dctValue = dctTimexAttr.getNamedItem("value");
+						dctText = dctValue.getTextContent();
+					}
+					gotDCT = true;
+				} catch(Exception e) {
+					gotDCT = false;
+				}
 			
 			// get the document id
 			nList = doc.getElementsByTagName("DOCID");
-			String filename = nList.item(0).getTextContent();
+			String filename = null;
+			if(nList != null && nList.getLength() > 0)
+				filename = nList.item(0).getTextContent();
+			else
+				filename = f.getName().replaceAll("\\.[^\\.]+$", "");
 
 			Dct dct = new Dct(jcas);
 			dct.setBegin(0);
