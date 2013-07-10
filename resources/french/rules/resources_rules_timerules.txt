@@ -77,7 +77,7 @@ RULENAME="time_r3b",EXTRACTION="la nuit de %reWeekday à %reWeekday",NORM_VALUE=
 RULENAME="time_r3c",EXTRACTION="%reDateWord %rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
 
 // EXAMPLE r3d-1: le lendemain matin
-RULENAME="time_r3d",EXTRACTION="le (lendemain )%rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
+RULENAME="time_r3d",EXTRACTION="le (lendemain) %rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
 
 // EXAMPLE r3e-1: la soirée, ce matin
 RULENAME="time_r3e",EXTRACTION="(le |la |l'|%reThisNextLast )?%rePartOfDay",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(3))"

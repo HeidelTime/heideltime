@@ -236,7 +236,7 @@ RULENAME="date_r12c",EXTRACTION="l'(année|an) %reThisNextLast",NORM_VALUE="UNDE
 //////////////  date_r13
 // EXAMPLE r13a_1: les années 1990
 RULENAME="date_r13a",EXTRACTION="(les années )(\d\d\d0)",NORM_VALUE="%SUBSTRING%(group(2),0,3)X"
- 
+
 // EXAMPLE r13b_1: les années 90
 RULENAME="date_r13b",EXTRACTION="(les années )%reYear2Digit",NORM_VALUE="19%SUBSTRING%(group(2),0,1)X"
 
