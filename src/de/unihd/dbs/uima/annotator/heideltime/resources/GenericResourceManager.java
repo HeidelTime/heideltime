@@ -46,10 +46,11 @@ public abstract class GenericResourceManager {
 		try {
 			String pathDelim = System.getProperty("file.separator");
 			for (String line; (line=br.readLine()) != null; ) {
-				Pattern paResource = Pattern.compile(".\\"+pathDelim+"?\\"+pathDelim+LANGUAGE+"\\"+pathDelim+resourceType+"\\"+pathDelim+"resources_"+resourceType+"_"+"(.*?)\\.txt");
+				Pattern paResource = Pattern.compile(".(?:\\"+pathDelim+"|/)?(\\"+pathDelim+"|/)"+LANGUAGE+"(?:\\"+pathDelim+"|/)"+resourceType+"(?:\\"+pathDelim+"|/)"+"resources_"+resourceType+"_"+"(.*?)\\.txt");
 				for (MatchResult ro : Toolbox.findMatches(paResource, line)){
-					String foundResource  = ro.group(1);
-					String pathToResource = LANGUAGE+pathDelim+resourceType+pathDelim+"resources_"+resourceType+"_"+foundResource+".txt";
+					pathDelim = ro.group(1);
+					String foundResource  = ro.group(2);
+					String pathToResource = LANGUAGE+ro.group(1)+resourceType+ro.group(1)+"resources_"+resourceType+"_"+foundResource+".txt";
 					hmResources.put(foundResource, pathToResource);
 				}
 			}
