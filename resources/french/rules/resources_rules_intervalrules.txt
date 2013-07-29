@@ -1,0 +1,35 @@
+//******
+// Copyright LIMSI-CNRS
+// Author: Véronique Moriceau
+// E-mail : moriceau@limsi.fr
+// Date: 2013-05-27
+// Governed by the CeCILL license under French law and abiding by the rules of distribution of free software.
+// You can use, modify and/or redistribute the software under the terms of the CeCILL license as circulated by CEA, CNRS and INRIA at the following URL "http://www.cecill.info/licences/Licence_CeCILL_V1.1-US.txt".
+//******
+// This file contains rules for the temporal expressions of the type interval: intervalrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""
+
+///////////////////
+//INTERVAL RULES //
+///////////////////
+
+//EXAMPLE interval_01: de 1999 à 2012
+RULENAME="interval_01",EXTRACTION="([Dd]e)? <TX3_([0-9]+)> (à|jusqu'à) <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(4)"
+
+//EXAMPLE interval_02: entre mars et mai
+RULENAME="interval_02",EXTRACTION="([Ee]ntre|[Pp]endant|[Ee]n) <TX3_([0-9]+)> et <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(3)"
+
+//EXAMPLE interval_03: entre le 20 et le 30 juin
+RULENAME="interval_03",EXTRACTION="[Ee]ntre le <TX3_([0-9]+)> et le <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"
+
+//EXAMPLE interval_04: du 20 au 30 juin
+RULENAME="interval_04",EXTRACTION="[Dd]u <TX3_([0-9]+)> au <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"
+
+//EXAMPLE interval_05: en 1999/2000
+RULENAME="interval_05",EXTRACTION="[Ee]n <TX3_([0-9]+)>/<TX3_([0-9]+)>,",NORM_VALUE="group(1)-group(2)"
+
+//EXAMPLE interval_06: mars, avril et mai
+RULENAME="interval_06",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)> et <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(3)"
+
+//EXAMPLE interval_07: lundi, mardi, mercredi et jeudi
+RULENAME="interval_07",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)>, <TX3_([0-9]+)> et <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(4)"

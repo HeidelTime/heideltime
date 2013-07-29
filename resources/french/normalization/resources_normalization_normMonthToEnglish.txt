@@ -1,0 +1,70 @@
+//******
+// Copyright LIMSI-CNRS
+// Author: Véronique Moriceau
+// E-mail : moriceau@limsi.fr
+// Date: 2013-05-27
+// Governed by the CeCILL license under French law and abiding by the rules of distribution of free software.
+// You can use, modify and/or redistribute the software under the terms of the CeCILL license as circulated by CEA, CNRS and INRIA at the following URL "http://www.cecill.info/licences/Licence_CeCILL_V1.1-US.txt".
+//******
+// This file contains "month words" and their English expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "2" is "february"
+// FORMAT: "month-word","normalized-month-word"
+// January
+"[Jj]an\.?","january"
+"JAN\.?","january"
+"[Jj]anvier","january"
+"JANVIER","january"
+// February
+"[Ff]év\.?","february"
+"FEV\.?","february"
+"[Ff]évrier","february"
+"FEVRIER","february"
+// March
+"[Mm]ar\.?","march"
+"MAR\.?","march"
+"[Mm]ars","march"
+"MARS","march"
+// April
+"[Aa]vr\.?","april"
+"AVR\.?","april"
+"[Aa]vril","april"
+"AVRIL","april"
+// May
+"[Mm]ai","may"
+"MAI","may"
+// June
+"[Jj]ui\.?","june"
+"JUIN?","june"
+"JUI\.?","june"
+"[Jj]uin","june"
+// July
+"[Jj]uil\.?","july"
+"JUILLET","july"
+"JUIL\.?","july"
+"[Jj]uillet","july"
+// August
+"[Aa]oût","august"
+"AOUT","august"
+// September
+"[Ss]ep\.?","september"
+"SEP\.?","september"
+"[Ss]ept\.?","september"
+"SEPTEMBRE","september"
+"SEPT\.?","september"
+"[Ss]eptembre","september"
+// October
+"[Oo]ct\.?","october"
+"OCTOBRE","october"
+"OCT\.?","october"
+"[Oo]ctobre","october"
+// November
+"[Nn]ov\.?","november"
+"NOVEMBRE","november"
+"NOV\.?","november"
+"[Nn]ovembre","november"
+// December
+"[Dd]éc\.?","december"
+"DECEMBRE","december"
+"DEC\.?","december"
+"[Dd]écembre","december"

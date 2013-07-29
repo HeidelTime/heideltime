@@ -1639,7 +1639,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 									diff = 0;
 								}
 								//  Tense is FUTURE
-								if ((last_used_tense.equals("FUTURE"))) {
+								if ((last_used_tense.equals("FUTURE")) && diff != 0) {
 									diff = diff + 7;
 								}
 								// Tense is PAST

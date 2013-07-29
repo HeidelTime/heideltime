@@ -1,0 +1,26 @@
+//******
+// Copyright LIMSI-CNRS
+// Author: Véronique Moriceau
+// E-mail : moriceau@limsi.fr
+// Date: 2013-05-27
+// Governed by the CeCILL license under French law and abiding by the rules of distribution of free software.
+// You can use, modify and/or redistribute the software under the terms of the CeCILL license as circulated by CEA, CNRS and INRIA at the following URL "http://www.cecill.info/licences/Licence_CeCILL_V1.1-US.txt".
+//******
+// This file contains regular expression patterns for decade words.
+// FORMAT: one line is one disjunction of the pattern
+twenties
+thirties
+forties
+fifties
+sixties
+seventies
+eighties
+nineties
+années 20
+années 30
+années 40
+années 50
+années 60
+années 70
+années 80
+années 90

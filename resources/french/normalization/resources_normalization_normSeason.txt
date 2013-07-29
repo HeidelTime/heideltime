@@ -1,0 +1,20 @@
+//******
+// Copyright LIMSI-CNRS
+// Author: Véronique Moriceau
+// E-mail : moriceau@limsi.fr
+// Date: 2013-05-27
+// Governed by the CeCILL license under French law and abiding by the rules of distribution of free software.
+// You can use, modify and/or redistribute the software under the terms of the CeCILL license as circulated by CEA, CNRS and INRIA at the following URL "http://www.cecill.info/licences/Licence_CeCILL_V1.1-US.txt".
+//******
+// This file contains "season words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "summer" is "SU"
+// FORMAT: "season-word","normalized-season-word"
+// spring
+"[Pp]rintemps","SP"
+//summer
+"[Eé]té","SU"
+// fall
+"[Aa]utomne","FA"
+// winter
+"[Hh]iver","WI"

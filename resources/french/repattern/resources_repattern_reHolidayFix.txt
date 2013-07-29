@@ -1,0 +1,40 @@
+//******
+// Copyright LIMSI-CNRS
+// Author: Véronique Moriceau
+// E-mail : moriceau@limsi.fr
+// Date: 2013-05-27
+// Governed by the CeCILL license under French law and abiding by the rules of distribution of free software.
+// You can use, modify and/or redistribute the software under the terms of the CeCILL license as circulated by CEA, CNRS and INRIA at the following URL "http://www.cecill.info/licences/Licence_CeCILL_V1.1-US.txt".
+//******
+// This file contains regular expression patterns for holidays on a fix date.
+// FORMAT: one line is one disjunction of the pattern
+
+// http://en.wikipedia.org/wiki/New_Year%27s_Day
+Nouvel An
+
+
+// http://en.wikipedia.org/wiki/Valentine%27s_Day
+Saint Valentin
+
+
+// http://en.wikipedia.org/wiki/Independence_Day_%28US%29
+14 juillet
+
+// http://en.wikipedia.org/wiki/Hallowe%27en
+Halloween
+
+// http://en.wikipedia.org/wiki/Assumption_of_Mary
+Assomption
+
+// http://en.wikipedia.org/wiki/All_Saints%27_Day
+Toussaint
+
+// http://en.wikipedia.org/wiki/Christmas
+Noël
+
+// http://en.wikipedia.org/wiki/May_Day
+fête du travail
+
+// http://en.wikipedia.org/wiki/St._Patrick%27s_Day
+Saint Patrick
+St. Patrick

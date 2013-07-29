@@ -1,0 +1,36 @@
+//******
+// Copyright LIMSI-CNRS
+// Author: Véronique Moriceau
+// E-mail : moriceau@limsi.fr
+// Date: 2013-05-27
+// Governed by the CeCILL license under French law and abiding by the rules of distribution of free software.
+// You can use, modify and/or redistribute the software under the terms of the CeCILL license as circulated by CEA, CNRS and INRIA at the following URL "http://www.cecill.info/licences/Licence_CeCILL_V1.1-US.txt".
+//******
+// This file contains regular expression patterns for day digit th.
+// FORMAT: one line is one disjunction of the pattern
+[123]0i?ème
+1er
+[2]?2i?ème
+[2]?3i?ème
+[12]?4i?ème
+[12]?5i?ème
+[12]?6i?ème
+[12]?7i?ème
+[12]?8i?ème
+[12]?9i?ème
+11i?ème
+12i?ème
+13i?ème
+//
+[123]0e
+[2]?2e
+[2]?3e
+[12]?4e
+[12]?5e
+[12]?6e
+[12]?7e
+[12]?8e
+[12]?9e
+11e
+12e
+13e

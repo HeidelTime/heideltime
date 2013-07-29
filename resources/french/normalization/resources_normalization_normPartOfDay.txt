@@ -1,0 +1,19 @@
+// author: Véronique Moriceau
+// email:  moriceau@limsi.fr
+// date:   2013-05-27
+// This file contains "part-of-day words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "morning" is "MO"
+// FORMAT: "part-of-day-word","normalized-part-of-day-word"
+// morning
+"[Mm]atins?","MO"
+"[Mm]atinées?","MO"
+// mid-day
+"[Mm]idi","12:00"
+"[Mm]i-journée","MD"
+"[Aa]près-midi","AF"
+"[Ss]oirs?","EV"
+"[Ss]oirées?","EV"
+// night
+"[Nn]uits?","NI"
+"[Mm]inuit","24:00"

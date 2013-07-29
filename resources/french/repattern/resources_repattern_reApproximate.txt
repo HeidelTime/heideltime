@@ -1,0 +1,29 @@
+//******
+// Copyright LIMSI-CNRS
+// Author: Véronique Moriceau
+// E-mail : moriceau@limsi.fr
+// Date: 2013-05-27
+// Governed by the CeCILL license under French law and abiding by the rules of distribution of free software.
+// You can use, modify and/or redistribute the software under the terms of the CeCILL license as circulated by CEA, CNRS and INRIA at the following URL "http://www.cecill.info/licences/Licence_CeCILL_V1.1-US.txt".
+//******
+// This file contains regular expression patterns for "approximate" words.
+// FORMAT: one line is one disjunction of the pattern
+// about
+[Aa]pproximativement
+[Aa]u moins
+[Aa]utour
+[Aa]utour de
+[Ee]nviron
+[Pp]resque
+[Pp]rès de
+
+// less
+[Mm]oins de
+[Mm]oins que
+[Jj]usqu'à
+[Pp]as plus de
+
+//  more
+[Aa]u moins
+[Ppl]us que
+[Ppl]us de

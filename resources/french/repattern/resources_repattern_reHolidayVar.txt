@@ -1,0 +1,49 @@
+//******
+// Copyright LIMSI-CNRS
+// Author: Véronique Moriceau
+// E-mail : moriceau@limsi.fr
+// Date: 2013-05-27
+// Governed by the CeCILL license under French law and abiding by the rules of distribution of free software.
+// You can use, modify and/or redistribute the software under the terms of the CeCILL license as circulated by CEA, CNRS and INRIA at the following URL "http://www.cecill.info/licences/Licence_CeCILL_V1.1-US.txt".
+//******
+// This file contains regular expression patterns for holidays on a moveable date.
+// FORMAT: one line is one disjunction of the pattern
+//
+
+// http://en.wikipedia.org/wiki/Ash_Wednesday
+mercredi des Cendres
+Mercredi des Cendres
+
+// http://en.wikipedia.org/wiki/Palm_Sunday
+Dimanche des rameaux
+Dimanche des Rameaux
+dimanche des rameaux
+dimanche des Rameaux
+
+
+// http://en.wikipedia.org/wiki/Maundy_Thursday
+jeudi saint
+
+// http://en.wikipedia.org/wiki/Good_Friday
+vendredi saint","funcDateCalc(EasterSunday(YEAR, -2))" 
+
+// http://en.wikipedia.org/wiki/Easter
+Pâques
+dimanche de Pâques
+Dimanche de Pâques
+
+// http://en.wikipedia.org/wiki/Easter_Monday
+lundi de Pâques
+Lundi de Pâques
+
+
+// http://en.wikipedia.org/wiki/Feast_of_the_Ascension
+jeudi de l'ascension
+jeudi de l'Ascension
+Jeudi de l'ascension
+Jeudi de l'Ascension
+Ascension
+
+
+// http://en.wikipedia.org/wiki/Pentecost
+Pentecôte

@@ -1,0 +1,19 @@
+//******
+// Copyright LIMSI-CNRS
+// Author: Véronique Moriceau
+// E-mail : moriceau@limsi.fr
+// Date: 2013-05-27
+// Governed by the CeCILL license under French law and abiding by the rules of distribution of free software.
+// You can use, modify and/or redistribute the software under the terms of the CeCILL license as circulated by CEA, CNRS and INRIA at the following URL "http://www.cecill.info/licences/Licence_CeCILL_V1.1-US.txt".
+//******
+// This file contains regular expression patterns for words indicating future.
+// FORMAT: one line is one disjunction of the pattern
+// No word in French which indicates the "future" tense
+// The tags in tensePos4Future have to be matched for "future tense" and in addition
+// the token with such a tag has to be included in tenseWord4Future:
+[A-Z]?[a-zéèêàùïü]+rai
+[A-Z]?[a-zéèêàùïü]+ras
+[A-Z]?[a-zéèêàùïü]+ra
+[A-Z]?[a-zéèêàùïü]+rons
+[A-Z]?[a-zéèêàùïü]+rez
+[A-Z]?[a-zéèêàùïü]+ront

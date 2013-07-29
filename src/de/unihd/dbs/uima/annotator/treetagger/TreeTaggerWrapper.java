@@ -170,6 +170,9 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		if (language.equals(Language.ITALIAN) && !ttprops.utf8Switch.equals("")) {
 			ttprops.parFileName = "italian-utf8.par";
 		}
+		if (language.equals(Language.FRENCH) && !ttprops.utf8Switch.equals("")) {
+			ttprops.abbFileName = "french-abbreviations-utf8";
+		}
 
 		// handle the treetagger path from the environment variables
 		if(ttprops.rootPath == null) {
