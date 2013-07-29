@@ -17,6 +17,3 @@
 // night
 "[Nn]uits?","NI"
 "[Mm]inuit","24:00"
-
-
-
