@@ -85,6 +85,11 @@ public class HeidelTimeStandalone {
 	private OutputType outputType;
 
 	/**
+	 * POS tagger
+	 */
+	private POSTagger posTagger;
+
+	/**
 	 * Logging engine
 	 */
 	private static Logger logger = Logger.getLogger("HeidelTimeStandalone");
@@ -113,7 +118,7 @@ public class HeidelTimeStandalone {
 	}
 	
 	/**
-	 * Constructor with configPath
+	 * Constructor with configPath. Used primarily for WebUI
 	 * 
 	 * @param language
 	 * @param typeToProcess
@@ -128,7 +133,23 @@ public class HeidelTimeStandalone {
 		this.initialize(language, typeToProcess, outputType, configPath);
 	}
 	
-	
+	/**
+	 * Constructor with configPath
+	 * 
+	 * @param language
+	 * @param typeToProcess
+	 * @param outputType
+	 * @param configPath
+	 * @param posTagger
+	 */
+	public HeidelTimeStandalone(Language language, DocumentType typeToProcess, OutputType outputType, String configPath, POSTagger posTagger) {
+		this.language = language;
+		this.documentType = typeToProcess;
+		this.outputType = outputType;
+		
+		this.initialize(language, typeToProcess, outputType, configPath, posTagger);
+	}
+
 	/**
 	 * Method that initializes all vital prerequisites
 	 * 
@@ -138,8 +159,24 @@ public class HeidelTimeStandalone {
 	 * @param configPath	Path to the configuration file for HeidelTimeStandalone
 	 */
 	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, String configPath) {
+		initialize(language, typeToProcess, outputType, configPath, POSTagger.TREETAGGER);
+	}
+
+	/**
+	 * Method that initializes all vital prerequisites, including POS Tagger
+	 * 
+	 * @param language	Language to be processed with this copy of HeidelTime
+	 * @param typeToProcess	Domain type to be processed
+	 * @param outputType	Output type
+	 * @param configPath	Path to the configuration file for HeidelTimeStandalone
+	 * @param posTagger		POS Tagger to use for preprocessing
+	 */
+	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, String configPath, POSTagger posTagger) {
 		logger.log(Level.INFO, "HeidelTimeStandalone initialized with language " + this.language.getName());
 
+		// set the POS tagger
+		this.posTagger = posTagger;
+		
 		// read in configuration in case it's not yet initialized
 		if(!Config.isInitialized()) {
 			if(configPath == null)
@@ -262,12 +299,23 @@ public class HeidelTimeStandalone {
 				settings.put(PartOfSpeechTagger.JVNTEXTPRO_POS_MODEL_PATH, Config.get(Config.JVNTEXTPRO_POS_MODEL_PATH));
 				break;
 			default:
-				partOfSpeechTagger = new TreeTaggerWrapper();
-				settings.put(PartOfSpeechTagger.TREETAGGER_LANGUAGE, language);
-				settings.put(PartOfSpeechTagger.TREETAGGER_ANNOTATE_TOKENS, true);
-				settings.put(PartOfSpeechTagger.TREETAGGER_ANNOTATE_SENTENCES, true);
-				settings.put(PartOfSpeechTagger.TREETAGGER_ANNOTATE_POS, true);
-				settings.put(PartOfSpeechTagger.TREETAGGER_IMPROVE_GERMAN_SENTENCES, (language == Language.GERMAN));
+				if(POSTagger.STANFORDPOSTAGGER.equals(posTagger)) {
+					partOfSpeechTagger = new StanfordPOSTaggerWrapper();
+					settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_ANNOTATE_TOKENS, true);
+					settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_ANNOTATE_SENTENCES, true);
+					settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_ANNOTATE_POS, true);
+					settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_MODEL_PATH, Config.get(Config.STANFORDPOSTAGGER_MODEL_PATH));
+					settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_CONFIG_PATH, Config.get(Config.STANFORDPOSTAGGER_CONFIG_PATH));
+				} else if(POSTagger.TREETAGGER.equals(posTagger)) {
+					partOfSpeechTagger = new TreeTaggerWrapper();
+					settings.put(PartOfSpeechTagger.TREETAGGER_LANGUAGE, language);
+					settings.put(PartOfSpeechTagger.TREETAGGER_ANNOTATE_TOKENS, true);
+					settings.put(PartOfSpeechTagger.TREETAGGER_ANNOTATE_SENTENCES, true);
+					settings.put(PartOfSpeechTagger.TREETAGGER_ANNOTATE_POS, true);
+					settings.put(PartOfSpeechTagger.TREETAGGER_IMPROVE_GERMAN_SENTENCES, (language == Language.GERMAN));
+				} else {
+					logger.log(Level.FINEST, "Sorry, but you can't use that tagger.");
+				}
 		}
 		partOfSpeechTagger.initialize(settings);
 		partOfSpeechTagger.process(jcas);
@@ -552,6 +600,23 @@ public class HeidelTimeStandalone {
 			printHelp();
 			System.exit(-1);
 		}
+
+		// Set the preprocessing POS tagger
+		POSTagger posTagger = null;
+		if(CLISwitch.POSTAGGER.getIsActive()) {
+			try {
+				posTagger = POSTagger.valueOf(CLISwitch.POSTAGGER.getValue().toString().toUpperCase());
+			} catch(IllegalArgumentException e) {
+				logger.log(Level.WARNING, "Given POS Tagger doesn't exist. Please specify a valid one as listed in the help.");
+				printHelp();
+				System.exit(-1);
+			}
+			logger.log(Level.INFO, "POS Tagger '-pos': "+posTagger.toString().toUpperCase());
+		} else {
+			// Type not found
+			posTagger = (POSTagger) CLISwitch.POSTAGGER.getValue();
+			logger.log(Level.INFO, "POS Tagger '-pos': NOT FOUND OR RECOGNIZED; set to "+posTagger.toString().toUpperCase());
+		}
 		
 		// make sure we have a document path
 		if (docPath == null) {
@@ -579,7 +644,7 @@ public class HeidelTimeStandalone {
 			// should not be necessary, but without this, it's not running on Windows (?)
 			input = new String(input.getBytes("UTF-8"), "UTF-8");
 			
-			HeidelTimeStandalone standalone = new HeidelTimeStandalone(language, type, outputType);
+			HeidelTimeStandalone standalone = new HeidelTimeStandalone(language, type, outputType, null, posTagger);
 			String out = standalone.process(input, dct);
 			
 			// Print output always as UTF-8
@@ -630,12 +695,19 @@ public class HeidelTimeStandalone {
 					+ ((c.getSwitchString().length() > 4)? "" : "\t")
 					+ c.getName()
 					);
-			
+
 			if(c == CLISwitch.LANGUAGE) {
 				System.out.print("\t\t" + "Available languages: [ ");
 				for(Language l : Language.values())
 					if(l != Language.WILDCARD)
 						System.out.print(l.getName().toLowerCase()+" ");
+				System.out.println("]");
+			}
+			
+			if(c == CLISwitch.POSTAGGER) {
+				System.out.print("\t\t" + "Available taggers: [ ");
+				for(POSTagger p : POSTagger.values())
+					System.out.print(p.toString().toLowerCase()+" ");
 				System.out.println("]");
 			}
 			
@@ -672,6 +744,14 @@ public class HeidelTimeStandalone {
 
 	public void setOutputType(OutputType outputType) {
 		this.outputType = outputType;
+	}
+
+	public final POSTagger getPosTagger() {
+		return posTagger;
+	}
+
+	public final void setPosTagger(POSTagger posTagger) {
+		this.posTagger = posTagger;
 	}
 
 }
