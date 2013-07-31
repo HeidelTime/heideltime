@@ -71,12 +71,12 @@ RULENAME="time_r4b",EXTRACTION="([Tt]onight)",NORM_VALUE="UNDEF-this-dayT%normPa
 // EXAMPLE r5d-1: 9:30 p.m.
 // EXAMPLE r5e-1: 10:30:34 a.m.
 // EXAMPLE r5e-1: 10:30:34 p.m.
-RULENAME="time_r5a",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):00",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r5b",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r5c",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r5d",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r5e",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r5f",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5a",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(3)):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5b",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(3)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5c",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5d",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5e",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5f",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
 
 // time_r6
 // TODO CHANGE THAT AM PM, A.M. P.M. is allowed as well
