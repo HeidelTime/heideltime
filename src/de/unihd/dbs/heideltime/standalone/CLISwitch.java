@@ -23,6 +23,7 @@ public enum CLISwitch {
 	CONFIGFILE	("Configuration file path", "-c", "config.props"),
 	LOCALE		("Locale", "-locale", null),
 	POSTAGGER	("Part of Speech tagger", "-pos", POSTagger.TREETAGGER),
+	INTERVALS	("Interval Tagger", "-it"),
 	HELP		("This screen", "-h"),
 	;
 	

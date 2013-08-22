@@ -14,17 +14,13 @@
 
 package de.unihd.dbs.heideltime.standalone.components;
 
-import java.util.Properties;
-
-import org.apache.uima.jcas.JCas;
-
 /**
  * Part of speech tagger
  * 
  * @author Andreas Fay, University of Heidelberg
  * @version 1.0
  */
-public interface PartOfSpeechTagger {
+public interface PartOfSpeechTagger extends UIMAAnnotator {
 	public static final String TREETAGGER_ANNOTATE_TOKENS = "annotateTokens";
 	public static final String TREETAGGER_ANNOTATE_SENTENCES = "annotateSentences";
 	public static final String TREETAGGER_ANNOTATE_POS = "annotatePartOfSpeech";
@@ -43,20 +39,4 @@ public interface PartOfSpeechTagger {
 	public static final String STANFORDPOSTAGGER_ANNOTATE_POS = "annotate_partofspeech";
 	public static final String STANFORDPOSTAGGER_MODEL_PATH = "model_path";
 	public static final String STANFORDPOSTAGGER_CONFIG_PATH = "config_path";
-	
-	/**
-	 * Processes jcas object. Creates tokens with part of speech information.
-	 * 
-	 * @param jcas
-	 * @param language Language of document
-	 */
-	public void process(JCas jcas);
-
-	/**
-	 * Initializes the part of speech tagger
-	 * 
-	 * @param jcas
-	 * @param language Language of document
-	 */
-	public void initialize(Properties settings);
 }

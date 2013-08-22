@@ -14,7 +14,6 @@
 
 package de.unihd.dbs.heideltime.standalone.components.impl;
 
-import java.io.ByteArrayOutputStream;
 import java.util.HashSet;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -25,6 +24,7 @@ import org.apache.uima.jcas.JCas;
 
 import de.unihd.dbs.heideltime.standalone.components.ResultFormatter;
 import de.unihd.dbs.uima.types.heideltime.Timex3;
+import de.unihd.dbs.uima.types.heideltime.Timex3Interval;
 
 /**
  * Result formatter based on TimeML.
@@ -36,9 +36,30 @@ import de.unihd.dbs.uima.types.heideltime.Timex3;
  */
 public class TimeMLResultFormatter implements ResultFormatter {
 	public String format(JCas jcas) throws Exception {
-		ByteArrayOutputStream outStream = null;
-
-		String documentText = jcas.getDocumentText();
+		final String documentText = jcas.getDocumentText();
+		String outText = new String();
+		
+		// get the timex3 intervals, do some pre-selection on them
+		FSIterator iterIntervals = jcas.getAnnotationIndex(Timex3Interval.type).iterator();
+		TreeMap<Integer, Timex3Interval> intervals = new TreeMap<Integer, Timex3Interval>();
+		while(iterIntervals.hasNext()) {
+			Timex3Interval t = (Timex3Interval) iterIntervals.next();
+			
+			// disregard intervals that likely aren't a real interval, but just a timex-translation
+			/*if(t.getTimexValueEB().equals(t.getTimexValueLB()) && t.getTimexValueEE().equals(t.getTimexValueLE()))
+				continue;*/
+			
+			if(intervals.containsKey(t.getBegin())) {
+				Timex3Interval tInt = intervals.get(t.getBegin());
+				
+				// always get the "larger" intervals
+				if(t.getEnd() - t.getBegin() > tInt.getEnd() - tInt.getBegin()) {
+					intervals.put(t.getBegin(), t);
+				}
+			} else {
+				intervals.put(t.getBegin(), t);
+			}
+		}
 
 		/* 
 		 * loop through the timexes to create two treemaps:
@@ -91,50 +112,79 @@ public class TimeMLResultFormatter implements ResultFormatter {
 			}
 		}
 
-		// iterate backwards over Timex3 Annotations and start with the last one in the document
-		for (Integer end : backwardTimexes.descendingKeySet()){
-			Timex3 t = backwardTimexes.get(end);
-			if(timexesToSkip.contains(t)) continue; // skip this timex
+		// alternative xml creation method
+		Timex3Interval interval = null;
+		Timex3 timex = null;
+		for(Integer docOffset = 0; docOffset <= documentText.length(); docOffset++) {
+			/**
+			 *  see if we have to finish off old timexes/intervals
+			 */
+			if(timex != null && timex.getEnd() == docOffset) {
+				outText += "</TIMEX3>";
+				timex = null;
+			}
+			if(interval != null && interval.getEnd() == docOffset) {
+				outText += "</TIMEX3INTERVAL>";
+				interval = null;
+			}
 			
-			String timexStartTag = "<TIMEX3";
-			if (!(t.getTimexId().equals(""))){
-				timexStartTag += " tid=\""+t.getTimexId()+"\"";
+			/**
+			 *  grab a new interval/timex if this offset marks the beginning of one
+			 */
+			if(interval == null && intervals.containsKey(docOffset))
+				interval = intervals.get(docOffset);
+			if(timex == null && forwardTimexes.containsKey(docOffset) && !timexesToSkip.contains(forwardTimexes.get(docOffset)))
+				timex = forwardTimexes.get(docOffset);
+			
+			/**
+			 *  if an interval/timex begin here, append the opening tag. interval first, timex afterwards
+			 */
+			// handle interval openings first
+			if(interval != null && interval.getBegin() == docOffset) {
+				String intervalTag = "<TIMEX3INTERVAL";
+				if (!interval.getTimexValueEB().equals(""))
+					intervalTag += " earliestBegin=\"" + interval.getTimexValueEB() + "\"";
+				if (!interval.getTimexValueLB().equals(""))
+					intervalTag += " latestBegin=\"" + interval.getTimexValueLB() + "\"";
+				if (!interval.getTimexValueEE().equals(""))
+					intervalTag += " earliestEnd=\"" + interval.getTimexValueEE() + "\"";
+				if (!interval.getTimexValueLE().equals(""))
+					intervalTag += " latestEnd=\"" + interval.getTimexValueLE() + "\"";
+				intervalTag += ">";
+				outText += intervalTag;
 			}
-			if (!(t.getTimexType().equals(""))){
-				timexStartTag += " type=\""+t.getTimexType()+"\"";
+			// handle timex openings after that
+			if(timex != null && timex.getBegin() == docOffset) {
+				String timexTag = "<TIMEX3";
+				if (!timex.getTimexId().equals(""))
+					timexTag += " tid=\"" + timex.getTimexId() + "\"";
+				if (!timex.getTimexType().equals(""))
+					timexTag += " type=\"" + timex.getTimexType() + "\"";
+				if (!timex.getTimexValue().equals(""))
+					timexTag += " value=\"" + timex.getTimexValue() + "\"";
+				if (!timex.getTimexQuant().equals(""))
+					timexTag += " quant=\"" + timex.getTimexQuant() + "\"";
+				if (!timex.getTimexFreq().equals(""))
+					timexTag += " freq=\"" + timex.getTimexFreq() + "\"";
+				if (!timex.getTimexMod().equals(""))
+					timexTag += " mod=\"" + timex.getTimexMod() + "\"";
+				timexTag += ">";
+				outText += timexTag;
 			}
-			if (!(t.getTimexValue().equals(""))){
-				timexStartTag += " value=\""+t.getTimexValue()+"\"";
-			}
-			if (!(t.getTimexQuant().equals(""))){
-				timexStartTag += " quant=\""+t.getTimexQuant()+"\"";
-			}
-			if (!(t.getTimexFreq().equals(""))){
-				timexStartTag += " freq=\""+t.getTimexFreq()+"\"";
-			}
-			if (!(t.getTimexMod().equals(""))){
-				timexStartTag += " mod=\""+t.getTimexMod()+"\"";
-			}
-			timexStartTag += ">";
-			documentText = documentText.substring(0, t.getBegin()) +
-								timexStartTag + 
-								documentText.substring(t.getBegin(), t.getEnd()) +
-								"</TIMEX3>" +
-								documentText.substring(t.getEnd());
+			
+			/**
+			 * append the current character
+			 */
+			if(docOffset + 1 <= documentText.length())
+				outText += documentText.substring(docOffset, docOffset + 1);
 		}
+		
+		
 		
 		// Add TimeML start and end tags		
-		documentText = "<?xml version=\"1.0\"?>\n<!DOCTYPE TimeML SYSTEM \"TimeML.dtd\">\n<TimeML>\n" + documentText;
-		documentText = documentText + "\n</TimeML>\n";
+		outText = "<?xml version=\"1.0\"?>\n<!DOCTYPE TimeML SYSTEM \"TimeML.dtd\">\n<TimeML>\n" + outText + "\n</TimeML>\n";
 		
-		try {
-			// Write TimeML file
-			return documentText;
-		} finally {
-			if (outStream != null) {
-				outStream.close();
-			}
-		}
+		return outText;
 	}
 
 }

@@ -39,6 +39,7 @@ import org.apache.uima.util.XMLInputSource;
 import de.unihd.dbs.heideltime.standalone.components.JCasFactory;
 import de.unihd.dbs.heideltime.standalone.components.ResultFormatter;
 import de.unihd.dbs.heideltime.standalone.components.PartOfSpeechTagger;
+import de.unihd.dbs.heideltime.standalone.components.impl.IntervalTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.JCasFactoryImpl;
 import de.unihd.dbs.heideltime.standalone.components.impl.JVnTextProWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.StanfordPOSTaggerWrapper;
@@ -49,6 +50,7 @@ import de.unihd.dbs.heideltime.standalone.components.impl.XMIResultFormatter;
 import de.unihd.dbs.heideltime.standalone.exceptions.DocumentCreationTimeMissingException;
 import de.unihd.dbs.uima.annotator.heideltime.HeidelTime;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
+import de.unihd.dbs.uima.annotator.intervaltagger.IntervalTagger;
 import de.unihd.dbs.uima.types.heideltime.Dct;
 
 /**
@@ -88,6 +90,11 @@ public class HeidelTimeStandalone {
 	 * POS tagger
 	 */
 	private POSTagger posTagger;
+
+	/**
+	 * Whether or not to do Interval Tagging
+	 */
+	private Boolean doIntervalTagging;
 
 	/**
 	 * Logging engine
@@ -149,6 +156,24 @@ public class HeidelTimeStandalone {
 		
 		this.initialize(language, typeToProcess, outputType, configPath, posTagger);
 	}
+	
+	/**
+	 * Constructor with configPath
+	 * 
+	 * @param language
+	 * @param typeToProcess
+	 * @param outputType
+	 * @param configPath
+	 * @param posTagger
+	 */
+	public HeidelTimeStandalone(Language language, DocumentType typeToProcess, OutputType outputType, String configPath, POSTagger posTagger, Boolean doIntervalTagging) {
+		this.language = language;
+		this.documentType = typeToProcess;
+		this.outputType = outputType;
+		this.doIntervalTagging = doIntervalTagging;
+		
+		this.initialize(language, typeToProcess, outputType, configPath, posTagger, doIntervalTagging);
+	}
 
 	/**
 	 * Method that initializes all vital prerequisites
@@ -172,10 +197,27 @@ public class HeidelTimeStandalone {
 	 * @param posTagger		POS Tagger to use for preprocessing
 	 */
 	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, String configPath, POSTagger posTagger) {
+		initialize(language, typeToProcess, outputType, configPath, posTagger, false);
+	}
+
+	/**
+	 * Method that initializes all vital prerequisites, including POS Tagger
+	 * 
+	 * @param language	Language to be processed with this copy of HeidelTime
+	 * @param typeToProcess	Domain type to be processed
+	 * @param outputType	Output type
+	 * @param configPath	Path to the configuration file for HeidelTimeStandalone
+	 * @param posTagger		POS Tagger to use for preprocessing
+	 * @param doIntervalTagging	Whether or not to invoke the IntervalTagger
+	 */
+	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, String configPath, POSTagger posTagger, Boolean doIntervalTagging) {
 		logger.log(Level.INFO, "HeidelTimeStandalone initialized with language " + this.language.getName());
 
 		// set the POS tagger
 		this.posTagger = posTagger;
+		
+		// set doIntervalTagging flag
+		this.doIntervalTagging = doIntervalTagging;
 		
 		// read in configuration in case it's not yet initialized
 		if(!Config.isInitialized()) {
@@ -220,6 +262,30 @@ public class HeidelTimeStandalone {
 			e.printStackTrace();
 			logger.log(Level.WARNING, "JCas factory could not be initialized");
 		}
+	}
+	
+	/**
+	 * Runs the IntervalTagger on the JCAS object.
+	 * @param jcas jcas object
+	 */
+	private void runIntervalTagger(JCas jcas) {
+		logger.log(Level.FINEST, "Running Interval Tagger...");
+		Integer beforeAnnotations = jcas.getAnnotationIndex().size();
+		
+		// Prepare the options for IntervalTagger's execution
+		Properties settings = new Properties();
+		settings.put(IntervalTagger.PARAM_LANGUAGE, language.getResourceFolder());
+		settings.put(IntervalTagger.PARAM_INTERVALS, true);
+		settings.put(IntervalTagger.PARAM_INTERVAL_CANDIDATES, false);
+		
+		// Instantiate and process with IntervalTagger
+		IntervalTaggerWrapper iTagger = new IntervalTaggerWrapper();
+		iTagger.initialize(settings);
+		iTagger.process(jcas);
+		
+		// debug output
+		Integer afterAnnotations = jcas.getAnnotationIndex().size();
+		logger.log(Level.FINEST, "Annotation delta: " + (afterAnnotations - beforeAnnotations));
 	}
 
 	/**
@@ -422,6 +488,10 @@ public class HeidelTimeStandalone {
 			logger.log(Level.WARNING, "Processing aborted due to errors");
 		}
 
+		// process interval tagging ---
+		if(doIntervalTagging)
+			runIntervalTagger(jcas);
+		
 		// Process results ---------------
 		logger.log(Level.FINE, "Formatting result...");
 		// PrintAnnotations.printAnnotations(jcas.getCas(), System.out);
@@ -617,6 +687,15 @@ public class HeidelTimeStandalone {
 			posTagger = (POSTagger) CLISwitch.POSTAGGER.getValue();
 			logger.log(Level.INFO, "POS Tagger '-pos': NOT FOUND OR RECOGNIZED; set to "+posTagger.toString().toUpperCase());
 		}
+
+		// Set whether or not to use the Interval Tagger
+		Boolean doIntervalTagging = false;
+		if(CLISwitch.INTERVALS.getIsActive()) {
+			doIntervalTagging = CLISwitch.INTERVALS.getIsActive();
+			logger.log(Level.INFO, "Interval Tagger '-it': " + doIntervalTagging.toString());
+		} else {
+			logger.log(Level.INFO, "Interval Tagger '-it': NOT FOUND OR RECOGNIZED; set to " + doIntervalTagging.toString());
+		}
 		
 		// make sure we have a document path
 		if (docPath == null) {
@@ -644,7 +723,7 @@ public class HeidelTimeStandalone {
 			// should not be necessary, but without this, it's not running on Windows (?)
 			input = new String(input.getBytes("UTF-8"), "UTF-8");
 			
-			HeidelTimeStandalone standalone = new HeidelTimeStandalone(language, type, outputType, null, posTagger);
+			HeidelTimeStandalone standalone = new HeidelTimeStandalone(language, type, outputType, null, posTagger, doIntervalTagging);
 			String out = standalone.process(input, dct);
 			
 			// Print output always as UTF-8
