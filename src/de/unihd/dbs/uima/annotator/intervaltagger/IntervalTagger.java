@@ -38,9 +38,9 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 	private Class<?> component = this.getClass();
 	
 	// descriptor parameter names
-	private String PARAM_LANGUAGE = "language";
-	private String PARAM_INTERVALS = "annotate_intervals";
-	private String PARAM_INTERVAL_CANDIDATES = "annotate_interval_candidates";
+	public static String PARAM_LANGUAGE = "language";
+	public static String PARAM_INTERVALS = "annotate_intervals";
+	public static String PARAM_INTERVAL_CANDIDATES = "annotate_interval_candidates";
 	// descriptor configuration
 	private Language language = null;
 	private Boolean find_intervals = true;
@@ -162,10 +162,12 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 		BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("used_resources.txt")));
 		try {
 			for (String line; (line=br.readLine()) != null; ) {
-				Pattern paResource = Pattern.compile("\\./"+language.getResourceFolder()+"/"+resourceType+"/resources_"+resourceType+"_"+"(.*?)\\.txt");
+				String pathDelim = System.getProperty("file.separator");
+				Pattern paResource = Pattern.compile(".(?:\\"+pathDelim+"|/)?(\\"+pathDelim+"|/)"+language.getResourceFolder()+"(?:\\"+pathDelim+"|/)"+resourceType+"(?:\\"+pathDelim+"|/)"+"resources_"+resourceType+"_"+"(.*?)\\.txt");
 				for (MatchResult ro : Toolbox.findMatches(paResource, line)){
-					String foundResource  = ro.group(1);
-					String pathToResource = language.getResourceFolder()+"/"+resourceType+"/resources_"+resourceType+"_"+foundResource+".txt";
+					pathDelim = ro.group(1);
+					String foundResource  = ro.group(2);
+					String pathToResource = language.getResourceFolder()+ro.group(1)+resourceType+ro.group(1)+"resources_"+resourceType+"_"+foundResource+".txt";
 					hmResources.put(foundResource, pathToResource);
 				}
 			}
@@ -269,6 +271,8 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 	 * @param jcas
 	 */
 	private void findIntervals(JCas jcas) {
+		ArrayList<Timex3Interval> newAnnotations = new ArrayList<Timex3Interval>();
+		
 		FSIterator iterTimex3 = jcas.getAnnotationIndex(Timex3.type).iterator();
 		while (iterTimex3.hasNext()) {
 			Timex3Interval annotation=new Timex3Interval(jcas);
@@ -457,10 +461,13 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 				annotation.setAllTokIds(timex3.getAllTokIds());
 				annotation.setFilename(timex3.getFilename());
 				
-				//Add Timex3Interval to Index
-				annotation.addToIndexes();
+				// remember this one for addition to indexes later
+				newAnnotations.add(annotation);
 			}
 		}
+		// add to indexes
+		for(Timex3Interval t3i : newAnnotations)
+			t3i.addToIndexes();
 	}
 
 }

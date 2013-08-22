@@ -20,8 +20,10 @@ public enum CLISwitch {
 	LANGUAGE	("Language to use", "-l", Language.ENGLISH.toString()),
 	DOCTYPE		("Document Type/Domain to use", "-t", DocumentType.NARRATIVES),
 	DCT			("Document Creation Time. Format: YYYY-mm-dd.", "-dct", new Date()),
-	CONFIGFILE	("Configuration file path", "-c", "config.props"), 
+	CONFIGFILE	("Configuration file path", "-c", "config.props"),
 	LOCALE		("Locale", "-locale", null),
+	POSTAGGER	("Part of Speech tagger", "-pos", POSTagger.TREETAGGER),
+	INTERVALS	("Interval Tagger", "-it"),
 	HELP		("This screen", "-h"),
 	;
 	
