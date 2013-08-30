@@ -34,7 +34,7 @@
       </configurationParameter>
       <configurationParameter>
         <name>Language</name>
-        <description>english, englishcoll, englishsci, german, dutch, vietnamese, arabic, spanish, italian</description>
+        <description>english, englishcoll, englishsci, german, dutch, vietnamese, arabic, spanish, italian, french</description>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
