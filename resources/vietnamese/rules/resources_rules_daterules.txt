@@ -239,7 +239,7 @@ RULENAME="vn_date_r12c2",EXTRACTION="%reYear4Digit(-|–| đến )%reYear4Digit"
 
 
 RULENAME="vn_date_r12c3",EXTRACTION="%rePartWords (năm |Năm )?%reYear4Digit(-|–| %rePartWords )(năm |Năm )?%reYear4Digit",NORM_VALUE="group(3)",NORM_MOD="%normPartWords(group(1))", OFFSET="group(1)-group(3)"
-RULENAME="vn_date_r12c4",EXTRACTION="%rePartWords (năm |Năm )?%reYear4Digit(-|–| %rePartWords )(năm |Năm )?%reYear4Digit",NORM_VALUE="group(7)",NORM_MOD="%normPartWords(group(5))", OFFSET="group(4)-group(7)"
+RULENAME="vn_date_r12c4",EXTRACTION="%rePartWords (năm |Năm )?%reYear4Digit ?(-|–|%rePartWords )(năm |Năm )?%reYear4Digit",NORM_VALUE="group(7)",NORM_MOD="%normPartWords(group(5))", OFFSET="group(4)-group(7)"
 
 
 
