@@ -234,7 +234,7 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 			// prepare the transformer to convert from the xml doc to output text
 			Transformer transformer = TransformerFactory.newInstance().newTransformer();
 			// some pretty printing
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty(OutputKeys.INDENT, "no");
 			DOMSource source = new DOMSource(xmlDoc);
 			StreamResult result = new StreamResult(bw);
 			
