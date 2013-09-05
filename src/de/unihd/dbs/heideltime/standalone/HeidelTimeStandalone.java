@@ -766,7 +766,7 @@ public class HeidelTimeStandalone {
 				+ filename 
 				+ " <input-document> [-param1 <value1> ...]");
 		System.out.println();
-		System.out.println("Parameters an expected values:");
+		System.out.println("Parameters and expected values:");
 		for(CLISwitch c : CLISwitch.values()) {
 			System.out.println("  " 
 					+ c.getSwitchString() 
