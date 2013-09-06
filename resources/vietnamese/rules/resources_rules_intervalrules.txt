@@ -1,0 +1,68 @@
+// This file contains rules for the temporal expressions of the type interval: intervalrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""
+
+///////////////////
+//INTERVAL RULES //
+///////////////////
+
+//EXAMPLE interval_01: from 1999 to 2012
+//EXAMPLE interval_02: between March and May
+//EXAMPLE interval_03: 20.3.2003 - 1.5.2003
+//EXAMPLE interval_04: 20.3.2003 to 1.5.2003
+//EXAMPLE interval_05: on 20.3.2003 the war began and it lastet until 1.5.2003
+//EXAMPLE interval_06: for December after leaving in February
+//EXAMPLE interval_07: began on March 20 in 2003 and ended on May 1
+//EXAMPLE interval_08: in 1999/2000
+//EXAMPLE interval_09: War ended in May, after fighting from March on
+//EXAMPLE interval_10: March, April and May
+//EXAMPLE interval_11: Monday, Thuesday, Wednesday and Thursday
+
+RULENAME="interval_01",EXTRACTION="([fF]rom|over)? <TX3_([0-9]+)> (to|until|right up to) <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(4)"
+RULENAME="interval_02",EXTRACTION="([bB]etween|[dD]uring|[Oo]n|[iI]n|[iI]n the|of|on|on the|throughout the) <TX3_([0-9]+)> and <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(3)"
+RULENAME="interval_03",EXTRACTION="([iI]n)?<TX3_([0-9]+)>( )?-( )?<TX3_([0-9]+)>",NORM_VALUE="group(2)-group(5)"
+RULENAME="interval_04",EXTRACTION="<TX3_([0-9]+)> (to|through) <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(3)"
+RULENAME="interval_05",EXTRACTION="(in|on|began) <TX3_([0-9]+)> .* until <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(3)"
+RULENAME="interval_06",EXTRACTION="[fF]or <TX3_([0-9]+)> after .* in <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(1)"
+RULENAME="interval_07",EXTRACTION="began on <TX3_([0-9]+)>, and (was completed by|ended on) <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(3)"
+RULENAME="interval_08",EXTRACTION="[Ii]n <TX3_([0-9]+)>/<TX3_([0-9]+)>,",NORM_VALUE="group(1)-group(2)"
+RULENAME="interval_09",EXTRACTION="in <TX3_([0-9]+)>, .* from <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(1)"
+RULENAME="interval_10",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)> and <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(3)"
+RULENAME="interval_11",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)>, <TX3_([0-9]+)> and <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(4)"
+
+//vn_date_r4
+//EXAMPLE    vn_date_r4a1:    (từ ngày)? 10 đến (ngày)? 15 tháng 5 năm 1999 - find 1999-05-10
+//EXAMPLE    vn_date_r4a2:    (từ ngày)? 10 đến (ngày)? 15 tháng 5 năm 1999 - find 1999-05-15
+//EXAMPLE    vn_date_r4b1:    (từ ngày)? 10 đến (ngày)? 15 tháng 5 năm 99  	- find 99 - 05-10
+//EXAMPLE    vn_date_r4b2:    (từ ngày)? 10 đến (ngày)? 15 tháng 5 năm 99  	- find 99 - 05-15
+//EXAMPLE    vn_date_r4c1:    (từ ngày)? 10 đến (ngày)? 15 tháng 5			- find 05-10	
+//EXAMPLE    vn_date_r4c2:    (từ ngày)? 10 đến (ngày)? 15 tháng 5			 -find 05-15
+
+//EXAMPLE	 vn_date_r4d1: 	 từ (ngày)? 10 tháng 6 đến (ngày)? 20 tháng 7 	- find 06-10
+//EXAMPLE	 vn_date_r4d2: 	 từ (ngày)? 10 tháng 6 đến (ngày)? 20 tháng 7	- find 07-20
+
+//EXAMPLE	 vn_date_r4e1: 	 từ (ngày)? 10 tháng 6 đến (ngày)? 20 tháng 7 năm 2010	-find 2010-06-10
+//EXAMPLE	 vn_date_r4e2: 	 từ (ngày)? 10 tháng 6 đến (ngày)? 20 tháng 7 năm 2010	-find 2010-07-20
+
+//EXAMPLE	vn_date_r4f1:	từ/đến ([\S]+) (ngày )? 10 tháng 6 năm 2010 								find: từ ...ngày 10 tháng 6 năm 2010
+
+// the following rules needed to be modified using the above English template format.
+
+//RULENAME="vn_date_r4a1",EXTRACTION="((từ ngày )?%reDayNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm) %reYear4Digit)",NORM_VALUE="group(9)-%normMonth(group(7))-%normDay(group(3))",OFFSET="group(0)-group(3)"
+//RULENAME="vn_date_r4a2",EXTRACTION="((từ ngày )?%reDayNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm) %reYear4Digit)",NORM_VALUE="group(9)-%normMonth(group(7))-%normDay(group(5))",OFFSET="group(5)-group(9)"
+
+//RULENAME="vn_date_r4b1",EXTRACTION="((từ ngày )?%reDayNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm) %reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(9)-%normMonth(group(7))-%normDay(group(3))",OFFSET="group(0)-group(3)"
+//RULENAME="vn_date_r4b2",EXTRACTION="((từ ngày )?%reDayNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm) %reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(9)-%normMonth(group(7))-%normDay(group(5))",OFFSET="group(5)-group(9)"
+
+//RULENAME="vn_date_r4c1",EXTRACTION="((từ ngày )?%reDayNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(7))-%normDay(group(3))",OFFSET="group(0)-group(3)"
+//RULENAME="vn_date_r4c2",EXTRACTION="((từ ngày )?%reDayNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(7))-%normDay(group(5))",OFFSET="group(5)-group(7)"
+
+//RULENAME="vn_date_r4d1",EXTRACTION="từ (ngày )?%reDayNumber (tháng |Tháng )%reMonthNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(2))",OFFSET="group(0)-group(4)"
+//RULENAME="vn_date_r4d2",EXTRACTION="từ (ngày )?%reDayNumber (tháng |Tháng )%reMonthNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber",NORM_VALUE="UNDEF-year-%normMonth(group(8))-%normDay(group(6))",OFFSET="group(6)-group(8)"
+
+//RULENAME="vn_date_r4e1",EXTRACTION="từ (ngày )?%reDayNumber (tháng |Tháng )%reMonthNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (Năm |năm |,) %reYear4Digit",NORM_VALUE="group(10)-%normMonth(group(4))-%normDay(group(2))",OFFSET="group(0)-group(4)"
+
+//RULENAME="vn_date_r4e2",EXTRACTION="từ (ngày )?%reDayNumber (tháng |Tháng )%reMonthNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (Năm |năm |,) %reYear4Digit",NORM_VALUE="group(10)-%normMonth(group(8))-%normDay(group(6))",OFFSET="group(6)-group(10)"
+
+//RULENAME="vn_date_r4f1",EXTRACTION="%rePartWords (ngày )?%reDayNumber (tháng |Tháng )%reMonthNumber (năm|Năm|,) %reYear4Digit",NORM_VALUE="group(7)-%normMonth(group(5))-%normDay(group(3))",NORM_MOD="%normPartWords(group(1))"
+
+
