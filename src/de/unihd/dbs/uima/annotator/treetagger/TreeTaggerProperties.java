@@ -3,8 +3,11 @@
  */
 package de.unihd.dbs.uima.annotator.treetagger;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -36,6 +39,9 @@ public class TreeTaggerProperties {
 	public String newLineSeparator = System.getProperty("line.separator");
 	public String fileSeparator = System.getProperty("file.separator");
 	
+	// chinese tokenizer path
+	public File chineseTokenizerPath = null;
+	
 	public Process getTokenizationProcess(File inputFile) throws IOException {
 		// assemble a command line for the tokenization script and execute it
 		ArrayList<String> command = new ArrayList<String>();
@@ -55,6 +61,48 @@ public class TreeTaggerProperties {
 		Process p = Runtime.getRuntime().exec(commandStr);
 		
 		return p;
+	}
+	
+	public Process getChineseTokenizationProcess() throws IOException {
+		// assemble a command line for the tokenization script and execute it
+		ArrayList<String> command = new ArrayList<String>();
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(this.chineseTokenizerPath, "segment-zh.pl")))); 
+		String segmenterScript = "";
+		String buf = null;
+		Boolean firstLine = true;
+		
+		// this dirty hack is to force the script to autoflush its buffers. thanks, PERL
+		while((buf = br.readLine()) != null) {
+			// set the lexicon files
+			if(buf.startsWith("$lexicon="))
+				buf = "$lexicon=\"" + new File(this.chineseTokenizerPath, "lcmc-uni2.dat").getAbsolutePath() + "\";";
+			if(buf.startsWith("$lexicon2=")) 
+				buf = "$lexicon2=\"" + new File(this.chineseTokenizerPath, "lcmc-bigrams2.dat").getAbsolutePath() + "\";";
+			
+			// add the autoflush variable
+			if(firstLine) {
+				segmenterScript += "$| = 1;";
+				firstLine = false;
+			}
+			
+			// we omit comments
+			if(!buf.startsWith("#"))
+				segmenterScript += buf;
+		}
+		br.close();
+		
+		command.add("perl");
+		command.add("-X");
+		command.add("-e");
+		command.add(segmenterScript);
+		
+		String[] commandStr = new String[command.size()];
+		command.toArray(commandStr);
+
+		ProcessBuilder builder = new ProcessBuilder(commandStr);
+		builder.directory(this.chineseTokenizerPath);
+		
+		return builder.start();
 	}
 	
 	public Process getTreeTaggingProcess(File inputFile) throws IOException {

@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -45,6 +46,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	public static final String PARAM_ANNOTATE_SENTENCES = "annotate_sentences";
 	public static final String PARAM_ANNOTATE_PARTOFSPEECH = "annotate_partofspeech";
 	public static final String PARAM_IMPROVE_GERMAN_SENTENCES = "improvegermansentences";
+	public static final String PARAM_CHINESE_TOKENIZER_PATH = "ChineseTokenizerPath";
 	
 	// language for this instance of the treetaggerwrapper
 	private Language language;
@@ -65,8 +67,16 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	 *
 	 */
 	private class TreeTaggerContext extends RootUimaContext_impl {
+		// shorthand for when we don't want to supply a cnTokPath
+		@SuppressWarnings("unused")
 		public TreeTaggerContext(Language language, Boolean annotateTokens, Boolean annotateSentences, 
 				Boolean annotatePartOfSpeech, Boolean improveGermanSentences) {
+			this(language, annotateTokens, annotateSentences, annotatePartOfSpeech, 
+					improveGermanSentences, null);
+		}
+		
+		public TreeTaggerContext(Language language, Boolean annotateTokens, Boolean annotateSentences, 
+				Boolean annotatePartOfSpeech, Boolean improveGermanSentences, String cnTokPath) {
 			super();
 
 			// Initialize config
@@ -84,27 +94,38 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			configManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_PARTOFSPEECH), annotatePartOfSpeech);
 			configManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_SENTENCES), annotateSentences);
 			configManager.setConfigParameterValue(makeQualifiedName(PARAM_IMPROVE_GERMAN_SENTENCES), improveGermanSentences);
+			configManager.setConfigParameterValue(makeQualifiedName(PARAM_CHINESE_TOKENIZER_PATH), cnTokPath);
 		}
 	}
 	
 	/**
 	 * secondary initialize() to use wrapper outside of a uima pipeline
-	 * @param language
-	 * @param treeTaggerHome
-	 * @param annotateTokens
-	 * @param annotateSentences
-	 * @param annotatePartOfSpeech
-	 * @param improveGermanSentences
+	 * shorthand for when we don't want to specify a cnTokPath
 	 */
 	public void initialize(Language language, String treeTaggerHome, Boolean annotateTokens, 
 			Boolean annotateSentences, Boolean annotatePartOfSpeech, Boolean improveGermanSentences) {
+		this.initialize(language, treeTaggerHome, annotateTokens, annotateSentences, annotatePartOfSpeech,
+				improveGermanSentences, null);
+	}
+	
+	/**
+	 * secondary initialize() to use wrapper outside of a uima pipeline
+	 * 
+	 * @param language Language/parameter file to use for the TreeTagger
+	 * @param treeTaggerHome Path to the TreeTagger folder
+	 * @param annotateTokens Whether to annotate tokens
+	 * @param annotateSentences Whether to annotate sentences
+	 * @param annotatePartOfSpeech Whether to annotate POS tags
+	 * @param improveGermanSentences Whether to do improvements for german sentences
+	 */
+	public void initialize(Language language, String treeTaggerHome, Boolean annotateTokens, 
+			Boolean annotateSentences, Boolean annotatePartOfSpeech, Boolean improveGermanSentences, String cnTokPath) {
 		this.setHome(treeTaggerHome);
 		
 		TreeTaggerContext ttContext = new TreeTaggerContext(language, annotateTokens, 
-				annotateSentences, annotatePartOfSpeech, improveGermanSentences);
+				annotateSentences, annotatePartOfSpeech, improveGermanSentences, cnTokPath);
 		
 		this.initialize(ttContext); 
-		
 	}
 	
 	/**
@@ -119,6 +140,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		annotate_sentences = (Boolean) aContext.getConfigParameterValue(PARAM_ANNOTATE_SENTENCES);
 		annotate_partofspeech = (Boolean) aContext.getConfigParameterValue(PARAM_ANNOTATE_PARTOFSPEECH);
 		improve_german_sentences = (Boolean) aContext.getConfigParameterValue(PARAM_IMPROVE_GERMAN_SENTENCES);
+		String cnTokPath = (String) aContext.getConfigParameterValue(PARAM_CHINESE_TOKENIZER_PATH);
 		
 		// set some configuration based upon these values
 		ttprops.languageName = language.getTreeTaggerLangName();
@@ -128,6 +150,10 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		ttprops.parFileName = ttprops.languageName + ".par";
 		ttprops.abbFileName = ttprops.languageName + "-abbreviations";
 		ttprops.languageSwitch = language.getTreeTaggerSwitch();
+		if(cnTokPath != null && !cnTokPath.equals(""))
+			ttprops.chineseTokenizerPath = new File(cnTokPath);
+		else
+			ttprops.chineseTokenizerPath = new File(ttprops.rootPath, "cmd");
 
 		// take utf-8 parameter files where available
 		if (language.equals(Language.GERMAN) && !ttprops.utf8Switch.equals("")) {
@@ -158,13 +184,19 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		File parFile = new File(ttprops.rootPath+ttprops.fileSeparator+"lib",ttprops.parFileName);
 		File tokFile = new File(ttprops.rootPath+ttprops.fileSeparator+"cmd",ttprops.tokScriptName);
 		if (!(abbFileFlag = abbFile.exists())) {
-			Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.abbFileName);
+			if(language.equals(Language.CHINESE))
+				abbFileFlag = true;
+			else
+				Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.abbFileName);
 		}
 		if (!(parFileFlag = parFile.exists())) {
 			Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.parFileName);
 		}
 		if (!(tokScriptFlag = tokFile.exists())) {
-			Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.tokScriptName);
+			if(language.equals(Language.CHINESE))
+				tokScriptFlag = true;
+			else
+				Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.tokScriptName);
 		}
 
 		if (!abbFileFlag || !parFileFlag || !tokScriptFlag) {
@@ -188,7 +220,10 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
 		// if the annotate_tokens flag is set, annotate the tokens and add them to the jcas
 		if(annotate_tokens)
-			tokenize(jcas);
+			if(language.equals(Language.CHINESE))
+				tokenizeChinese(jcas); // chinese needs different tokenization
+			else
+				tokenize(jcas);
 
 		/* if the annotate_partofspeech flag is set, annotate partofspeech and,
 		 * if specified, also tag sentences based upon the partofspeech tags. 
@@ -270,8 +305,57 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 				}
 			}
 		}
-
 	}
+	
+	/**
+	 * tokenizes a given JCas object's document text using the chinese tokenization
+	 * script and adds the recognized tokens to the JCas object. 
+	 * @param jcas JCas object supplied by the pipeline
+	 */
+	private void tokenizeChinese(JCas jcas) {
+		try {
+			// read tokenized text to add tokens to the jcas
+			Process proc = ttprops.getChineseTokenizationProcess();
+			Logger.printDetail(component, "Chinese tokenization: " + ttprops.chineseTokenizerPath);
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(), "UTF-8"));
+			BufferedWriter out = null;
+			
+			int tokenOffset = 0;
+			// loop through all the lines in the stdout output
+			String[] inSplits = jcas.getDocumentText().split("[\\r\\n]+");
+			for(String inSplit : inSplits) {
+				out = new BufferedWriter(new OutputStreamWriter(proc.getOutputStream(), "UTF-8"));
+				out.write(inSplit);
+				out.newLine();
+				out.flush();
+				
+				String s;
+				while((s = in.readLine()) != null && in.ready()) {
+					String[] outSplits = s.split("\\s+");
+					for(String tok : outSplits) {
+						if(jcas.getDocumentText().indexOf(tok, tokenOffset) < 0)
+							throw new RuntimeException("Could not find token " + tok +
+									" in JCas after tokenizing with Chinese tokenization script.");
+						
+						// create tokens and add them to the jcas's indexes.
+						Token newToken = new Token(jcas);
+						newToken.setBegin(jcas.getDocumentText().indexOf(tok, tokenOffset));
+						newToken.setEnd(newToken.getBegin() + tok.length());
+						newToken.addToIndexes();
+						tokenOffset = newToken.getEnd();
+					}
+				}
+			}
+			
+			// clean up
+			in.close();
+			proc.destroy();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	/**
 	 * based on tokens from the jcas object, adds part of speech (POS) and sentence
@@ -311,6 +395,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		hsEndOfSentenceTag.add("_Z_Fst"); // ESTONIAN
 		hsEndOfSentenceTag.add("_Z_Int"); // ESTONIAN
 		hsEndOfSentenceTag.add("_Z_Exc"); // ESTONIAN
+		hsEndOfSentenceTag.add("ew"); // CHINESE
 		
 		try {
 			Process p = ttprops.getTreeTaggingProcess(tmpDocument);

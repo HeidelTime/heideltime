@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>
@@ -36,6 +37,14 @@
       <configurationParameter>
         <name>improvegermansentences</name>
         <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+      </configurationParameter>
+    <configurationParameter>
+        <name>ChineseTokenizerPath</name>
+        <description>Specifies the folder in which the chinese tokenizer scripts and data files reside. If left empty, this assumes $TREETAGGER_HOME/cmd/
+For the tokenizer and TreeTagger parameter file, see here: http://corpus.leeds.ac.uk/tools/zh/</description>
+        <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>false</mandatory>
       </configurationParameter>
