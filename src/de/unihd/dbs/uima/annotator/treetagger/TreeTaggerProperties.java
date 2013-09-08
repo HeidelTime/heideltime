@@ -7,16 +7,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
-
 /**
  * 
  * @author Julian Zell
  *
  */
 public class TreeTaggerProperties {
-	private Class<?> component = this.getClass();
-	
 	// treetagger language name for par files
 	public String languageName = null;
 	
