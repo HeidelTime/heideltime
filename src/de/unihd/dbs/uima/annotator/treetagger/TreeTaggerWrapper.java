@@ -220,6 +220,8 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			
 			// read tokenized text to add tokens to the jcas
 			Process proc = ttprops.getTokenizationProcess(tmpDocument);
+			Logger.printDetail(component, "TreeTagger (tokenization) with: " + ttprops.tokScriptName + " and " + ttprops.abbFileName);
+			
 			in = new BufferedReader(new InputStreamReader(proc.getInputStream(), "UTF-8"));
 			String s;
 			int tokenOffset = 0;

@@ -1,3 +1,6 @@
+/**
+ * Settings class with variables and helper methods to use with TreeTaggerWrapper
+ */
 package de.unihd.dbs.uima.annotator.treetagger;
 
 import java.io.File;
@@ -6,6 +9,11 @@ import java.util.ArrayList;
 
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 
+/**
+ * 
+ * @author Julian Zell
+ *
+ */
 public class TreeTaggerProperties {
 	private Class<?> component = this.getClass();
 	
@@ -49,7 +57,6 @@ public class TreeTaggerProperties {
 		command.toArray(commandStr);
 		
 		Process p = Runtime.getRuntime().exec(commandStr);
-		Logger.printDetail(component, "TreeTagger (tokenization) with: " + this.tokScriptName + " and " + this.abbFileName);
 		
 		return p;
 	}
