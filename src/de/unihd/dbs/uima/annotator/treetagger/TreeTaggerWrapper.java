@@ -59,36 +59,6 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	private TreeTaggerProperties ttprops = new TreeTaggerProperties();
 	
 	/**
-	 * An embedded class that contains all of the treetagger-related settings.
-	 * @author Julian Zell
-	 *
-	 */
-	private class TreeTaggerProperties {
-		// treetagger language name for par files
-		public String languageName = null;
-		
-		// absolute path of the treetagger
-		public String rootPath = null;
-
-		// Files for tokenizer and part of speech tagger (standard values)
-		public String tokScriptName = null;
-		public String parFileName = null;
-		public String abbFileName = null;
-
-		// english, italian, and french tagger models require additional splits (see tagger readme)
-		public String languageSwitch = null;
-
-		// perl requires(?) special hint for utf-8-encoded input/output (see http://perldoc.perl.org/perlrun.html#Command-Switches -C)
-		// The input text is read in HeidelTimeStandalone.java and always translated into UTF-8,
-		// i.e., switch always "-CSD"
-		public String utf8Switch = "-CSD";
-		
-		// save System-specific separators for string generation
-		public String newLineSeparator = System.getProperty("line.separator");
-		public String fileSeparator = System.getProperty("file.separator");
-	}
-	
-	/**
 	 * uimacontext to make secondary initialize() method possible.
 	 * -> programmatic, non-uima pipeline usage.
 	 * @author julian
@@ -237,10 +207,8 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	 * @param jcas JCas object supplied by the pipeline
 	 */
 	private void tokenize(JCas jcas) {
-		BufferedWriter tmpFileWriter = null;
-
 		File tmpDocument = null;
-
+		BufferedWriter tmpFileWriter = null;
 		BufferedReader in = null;
 
 		try {
@@ -250,26 +218,9 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			tmpFileWriter.write(jcas.getDocumentText());
 			tmpFileWriter.close();
 			
-			// assemble a command line for the tokenization script and execute it
-			ArrayList<String> command = new ArrayList<String>();
-			command.add("perl");
-			if(ttprops.utf8Switch != "")
-				command.add(ttprops.utf8Switch);
-			command.add(ttprops.rootPath + ttprops.fileSeparator + "cmd" + ttprops.fileSeparator + ttprops.tokScriptName);
-			if(ttprops.languageSwitch != "")
-				command.add(ttprops.languageSwitch);
-			command.add("-a");
-			command.add(ttprops.rootPath + ttprops.fileSeparator + "lib" + ttprops.fileSeparator + ttprops.abbFileName);
-			command.add(tmpDocument.getAbsolutePath());
-			
-			String[] commandStr = new String[command.size()];
-			command.toArray(commandStr);
-			
-			Process p = Runtime.getRuntime().exec(commandStr);
-			Logger.printDetail(component, "TreeTagger (tokenization) with: " + ttprops.tokScriptName + " and " + ttprops.abbFileName);
-			
 			// read tokenized text to add tokens to the jcas
-			in = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
+			Process proc = ttprops.getTokenizationProcess(tmpDocument);
+			in = new BufferedReader(new InputStreamReader(proc.getInputStream(), "UTF-8"));
 			String s;
 			int tokenOffset = 0;
 			// loop through all the lines in the treetagger output
@@ -292,7 +243,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			}
 			// clean up
 			in.close();
-			p.destroy();
+			proc.destroy();
 			tmpDocument.delete();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -360,17 +311,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		hsEndOfSentenceTag.add("_Z_Exc"); // ESTONIAN
 		
 		try {
-			// assemble a command line based on configuration and execute the POS tagging.
-			ArrayList<String> command = new ArrayList<String>();
-			command.add(ttprops.rootPath + ttprops.fileSeparator + "bin" + ttprops.fileSeparator + "tree-tagger");
-			command.add(ttprops.rootPath + ttprops.fileSeparator + "lib" + ttprops.fileSeparator + ttprops.parFileName);
-			command.add(tmpDocument.getAbsolutePath());
-			command.add("-no-unknown");
-			
-			String[] commandStr = new String[command.size()];
-			command.toArray(commandStr);
-			
-			Process p = Runtime.getRuntime().exec(commandStr);
+			Process p = ttprops.getTreeTaggingProcess(tmpDocument);
 			Logger.printDetail(component, "TreeTagger (pos tagging) with: " + ttprops.parFileName);
 				
 			BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
