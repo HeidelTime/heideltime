@@ -318,19 +318,23 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			Logger.printDetail(component, "Chinese tokenization: " + ttprops.chineseTokenizerPath);
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(), "UTF-8"));
-			BufferedWriter out = null;
+			BufferedWriter out = new BufferedWriter(new OutputStreamWriter(proc.getOutputStream(), "UTF-8"));
 			
-			int tokenOffset = 0;
+			Integer tokenOffset = 0;
 			// loop through all the lines in the stdout output
 			String[] inSplits = jcas.getDocumentText().split("[\\r\\n]+");
 			for(String inSplit : inSplits) {
-				out = new BufferedWriter(new OutputStreamWriter(proc.getOutputStream(), "UTF-8"));
 				out.write(inSplit);
 				out.newLine();
 				out.flush();
 				
-				String s;
-				while((s = in.readLine()) != null && in.ready()) {
+				// do one initial read
+				String s = in.readLine();
+				do {
+					// break out of the loop if we've read a null
+					if(s == null)
+						break;
+					
 					String[] outSplits = s.split("\\s+");
 					for(String tok : outSplits) {
 						if(jcas.getDocumentText().indexOf(tok, tokenOffset) < 0)
@@ -344,7 +348,13 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 						newToken.addToIndexes();
 						tokenOffset = newToken.getEnd();
 					}
-				}
+					
+					// break out of the loop if the next read will block
+					if(!in.ready())
+						break;
+					
+					s = in.readLine();
+				} while(true);
 			}
 			
 			// clean up
