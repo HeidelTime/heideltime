@@ -263,12 +263,6 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 	}
 
 	public static synchronized Integer getOutCount() {
-		return outCount;
+		return outCount++;
 	}
-
-	public static synchronized void incrementOutCount() {
-		TempEval3Writer.outCount++;
-	}
-	
-
 }
