@@ -223,8 +223,9 @@ set the environment variables.
 #########################
 # 4. Testing HeidelTime #
 #########################
-1. source the environment
-	* . $HEIDELTIME_HOME/metadata/setenv
+1. source the environment and copy the resources into the CLASSPATH
+	* source $HEIDELTIME_HOME/metadata/setenv
+    * cd $HEIDELTIME_HOME/resources && sh printResourceInformation.sh
 
 2. run cpeGUI.sh and create a workflow
 	* cpeGUI.sh
