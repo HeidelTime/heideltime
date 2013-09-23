@@ -3,7 +3,7 @@
 #######################
 
 Author: Jannik Strötgen, Julian Zell
-Date:   September 14th, 2013
+Date:   April 17, 2013
 eMail:  stroetgen@uni-hd.de, zell@informatik.uni-heidelberg.de
 
 ###################################
@@ -96,7 +96,7 @@ contains:
       
     * HeidelTime: Possible parameter values are:
     	- languages: english, englishcoll, englishsci, german, spanish, italian, vietnamese, arabic,
-    			   dutch, french
+    			   dutch
     	- types: news, narratives, colloquial (for use with englishcoll), scientific (englishsci)
     	- locale: the locale to use for date calculation. Leave it empty to use en_GB.
     	- Debugging: to output verbose debugging information to stderr.
@@ -115,8 +115,8 @@ contains:
       the TempEval-3 Reader and processed by HeidelTime in the format required by the TempEval-3
       evaluation scripts.
       
-    * Languages supported by HeidelTime as of version 1.5 are:
-      German, English, Dutch, Arabic, Vietnamese, Spanish, Italian, French.
+    * Languages supported by HeidelTime as of version 1.3 are:
+      german, english, dutch, arabic, vietnamese, spanish, italian.
       
 ######################
 # 3. Getting started #
@@ -158,7 +158,7 @@ set the environment variables.
    imports in HeidelTime.java itself. Furthermore, if a differing tag set is used, all rules
    containing part-of-speech information have to be adapted).
    
-   To process English, German, Dutch, Spanish, Italian or French documents, the TreeTaggerWrapper
+   To process English, German, Dutch, Spanish or Italian documents, the TreeTaggerWrapper
    can be used for pre-processing: 
     * Download the TreeTagger and its tagging scripts, installation scripts, as well as 
       English, German, and Dutch (or any other) parameter files into one directory from:
@@ -174,13 +174,14 @@ set the environment variables.
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/dutch-par-linux-3.1.bin.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/italian-par-linux-3.2-utf8.bin.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/spanish-par-linux-3.2-utf8.bin.gz
-      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/french-par-linux-3.2-utf8.bin.gz
       Attention: If you do not use Linux, please download all TreeTagger files directly from
                  http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
     * Install the TreeTagger
 		- sh install-tagger.sh 
-	* Set environment variables (you can set variables globally, e.g., in your $HOME/.bashrc)
+	* Set environment variables (you can set variables permanently, e.g., in your $HOME/.bashrc)
+      and then source the environment.
     	- export TREETAGGER_HOME='path to TreeTagger'
+        - source $HEIDELTIME_HOME/metadata/setenv
    For further information on the TreeTagger, take a look at its documentation and our wiki
    page for it: https://code.google.com/p/heideltime/wiki/TreeTaggerWrapper.
    
