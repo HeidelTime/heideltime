@@ -43,6 +43,14 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  * CollectionReader for TempEval Data 
  */
 public class Tempeval2Reader extends CollectionReader_ImplBase {
+	public static Charset CHINESE_CHARSET = null;
+	static {
+		try {
+			CHINESE_CHARSET = Charset.forName("MS936");
+		} catch(Exception e) {
+			CHINESE_CHARSET = Charset.defaultCharset();
+		}
+	}
 	/**
 	 * Logger for this class
 	 */
@@ -274,15 +282,23 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 						// new Sentence, first Token
 						else if ((tokId == newTokSentNumber) || (lastSentId != sentId)){
 							positionCounter = addSentenceAnnotation(sentString, fileId, sentId-1, positionCounter, jcas);
-							text = text+" "+tokenString;
+							if(CHINESE_CHARSET.equals(charset)) // in chinese, there are no spaces 
+								text = text + tokenString;
+							else
+								text = text + " " + tokenString;
 							sentString  = tokenString;
 							positionCounter = addTokenAnnotation(tokenString, fileId, sentId, tokId, positionCounter, jcas);
 						}
 						
 						// within any sentence
 						else{
-							text = text+" "+tokenString;
-							sentString  = sentString+" "+tokenString;
+							if(CHINESE_CHARSET.equals(charset)) { // in chinese, there are no spaces 
+								text = text + tokenString;
+								sentString = sentString + tokenString;
+							} else {
+								text = text + " " + tokenString;
+								sentString = sentString + " " + tokenString;
+							}
 							positionCounter = addTokenAnnotation(tokenString, fileId, sentId, tokId, positionCounter, jcas);
 						}
 					}
@@ -370,7 +386,8 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
   public Integer addTokenAnnotation(String tokenString, String fileId, Integer sentId, Integer tokId, Integer positionCounter, JCas jcas){
 		Token token = new Token(jcas);
 		if (!((sentId == newTokSentNumber) && (tokId == newTokSentNumber))){
-			positionCounter = positionCounter +1;
+			if(!CHINESE_CHARSET.equals(charset)) // in chinese, there are no spaces, so the +1 correction is unnecessary
+				positionCounter = positionCounter + 1;
 		}
 		token.setBegin(positionCounter);
 		positionCounter = positionCounter + tokenString.length();
