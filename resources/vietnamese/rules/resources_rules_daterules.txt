@@ -85,6 +85,8 @@ RULENAME="vn_date_r3g",EXTRACTION="%reWeekday[,]? (ngày|Ngày) %reDayNumber/%re
 RULENAME="vn_date_r3h",EXTRACTION="%reWeekday[,]? (ngày|Ngày) %reDayNumber-%reMonthNumber-%reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(3))"
 //RULENAME="vn_date_r3i",EXTRACTION="%reWeekday[,]? (ngày|Ngày) %reDayNumber.%reMonthNumber.%reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(3))"
 
+
+// The following rules have been moved to interval rule file. 
 //vn_date_r4
 //EXAMPLE    vn_date_r4a1:    (từ ngày)? 10 đến (ngày)? 15 tháng 5 năm 1999 - find 1999-05-10
 //EXAMPLE    vn_date_r4a2:    (từ ngày)? 10 đến (ngày)? 15 tháng 5 năm 1999 - find 1999-05-15
@@ -92,34 +94,12 @@ RULENAME="vn_date_r3h",EXTRACTION="%reWeekday[,]? (ngày|Ngày) %reDayNumber-%re
 //EXAMPLE    vn_date_r4b2:    (từ ngày)? 10 đến (ngày)? 15 tháng 5 năm 99  	- find 99 - 05-15
 //EXAMPLE    vn_date_r4c1:    (từ ngày)? 10 đến (ngày)? 15 tháng 5			- find 05-10	
 //EXAMPLE    vn_date_r4c2:    (từ ngày)? 10 đến (ngày)? 15 tháng 5			 -find 05-15
-
 //EXAMPLE	 vn_date_r4d1: 	 từ (ngày)? 10 tháng 6 đến (ngày)? 20 tháng 7 	- find 06-10
 //EXAMPLE	 vn_date_r4d2: 	 từ (ngày)? 10 tháng 6 đến (ngày)? 20 tháng 7	- find 07-20
-
 //EXAMPLE	 vn_date_r4e1: 	 từ (ngày)? 10 tháng 6 đến (ngày)? 20 tháng 7 năm 2010	-find 2010-06-10
 //EXAMPLE	 vn_date_r4e2: 	 từ (ngày)? 10 tháng 6 đến (ngày)? 20 tháng 7 năm 2010	-find 2010-07-20
-
 //EXAMPLE	vn_date_r4f1:	từ/đến ([\S]+) (ngày )? 10 tháng 6 năm 2010 								find: từ ...ngày 10 tháng 6 năm 2010
 
-// The following rules have been moved to interval rule file. 
-
-//RULENAME="vn_date_r4a1",EXTRACTION="((từ ngày )?%reDayNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm) %reYear4Digit)",NORM_VALUE="group(9)-%normMonth(group(7))-%normDay(group(3))",OFFSET="group(0)-group(3)"
-//RULENAME="vn_date_r4a2",EXTRACTION="((từ ngày )?%reDayNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm) %reYear4Digit)",NORM_VALUE="group(9)-%normMonth(group(7))-%normDay(group(5))",OFFSET="group(5)-group(9)"
-
-//RULENAME="vn_date_r4b1",EXTRACTION="((từ ngày )?%reDayNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm) %reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(9)-%normMonth(group(7))-%normDay(group(3))",OFFSET="group(0)-group(3)"
-//RULENAME="vn_date_r4b2",EXTRACTION="((từ ngày )?%reDayNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm) %reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(9)-%normMonth(group(7))-%normDay(group(5))",OFFSET="group(5)-group(9)"
-
-//RULENAME="vn_date_r4c1",EXTRACTION="((từ ngày )?%reDayNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(7))-%normDay(group(3))",OFFSET="group(0)-group(3)"
-//RULENAME="vn_date_r4c2",EXTRACTION="((từ ngày )?%reDayNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(7))-%normDay(group(5))",OFFSET="group(5)-group(7)"
-
-//RULENAME="vn_date_r4d1",EXTRACTION="từ (ngày )?%reDayNumber (tháng |Tháng )%reMonthNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(2))",OFFSET="group(0)-group(4)"
-//RULENAME="vn_date_r4d2",EXTRACTION="từ (ngày )?%reDayNumber (tháng |Tháng )%reMonthNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber",NORM_VALUE="UNDEF-year-%normMonth(group(8))-%normDay(group(6))",OFFSET="group(6)-group(8)"
-
-//RULENAME="vn_date_r4e1",EXTRACTION="từ (ngày )?%reDayNumber (tháng |Tháng )%reMonthNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (Năm |năm |,) %reYear4Digit",NORM_VALUE="group(10)-%normMonth(group(4))-%normDay(group(2))",OFFSET="group(0)-group(4)"
-
-//RULENAME="vn_date_r4e2",EXTRACTION="từ (ngày )?%reDayNumber (tháng |Tháng )%reMonthNumber đến (ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (Năm |năm |,) %reYear4Digit",NORM_VALUE="group(10)-%normMonth(group(8))-%normDay(group(6))",OFFSET="group(6)-group(10)"
-
-//RULENAME="vn_date_r4f1",EXTRACTION="%rePartWords (ngày )?%reDayNumber (tháng |Tháng )%reMonthNumber (năm|Năm|,) %reYear4Digit",NORM_VALUE="group(7)-%normMonth(group(5))-%normDay(group(3))",NORM_MOD="%normPartWords(group(1))"
 
 
 

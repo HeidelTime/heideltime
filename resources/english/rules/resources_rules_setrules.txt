@@ -25,7 +25,7 @@ RULENAME="set_r1d",EXTRACTION="([Ee]very|[Ee]ach) %reSeason",NORM_VALUE="XXXX-%n
 // EXAMPLE r2e-1: a month
 // EXAMPLE r2f-1: a minute
 RULENAME="set_r2a",EXTRACTION="[Oo]nce (a|per) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_FREQ="1"
-RULENAME="set_r2b",EXTRACTION="[Tt]wice (a|per) %reUnit",NORM_VALUE="P%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_FREQ="2"
+RULENAME="set_r2b",EXTRACTION="[Tt]wice (a|per) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_FREQ="2"
 RULENAME="set_r2c",EXTRACTION="(%reNumWord1D|%reNumWord2D) times? (a|per) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(5)),0,1))",NORM_FREQ="%normDurationNumber(group(1))"
 RULENAME="set_r2d",EXTRACTION="([\d]+) times? (a|per) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_FREQ="group(1)"
 RULENAME="set_r2e",EXTRACTION="(a|an)( |-)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(3))",NORM_FREQ="1"

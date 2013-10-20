@@ -146,29 +146,25 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		if(ttprops.rootPath == null)
 			ttprops.rootPath = System.getenv("TREETAGGER_HOME");
 		ttprops.tokScriptName = "utf8-tokenize.perl";
-		ttprops.parFileName = ttprops.languageName + ".par";
-		ttprops.abbFileName = ttprops.languageName + "-abbreviations";
+		
+		// parameter file
+		if(!(new File(ttprops.rootPath+ttprops.fileSeparator+"lib", ttprops.languageName + "-utf8.par").exists())) // get UTF8 version if it exists
+			ttprops.parFileName = ttprops.languageName + ".par";
+		else
+			ttprops.parFileName = ttprops.languageName + "-utf8.par";
+		
+		// abbreviation file
+		if(!(new File(ttprops.rootPath+ttprops.fileSeparator+"lib", ttprops.languageName + "-abbreviations-utf8").exists())) // get UTF8 version if it exists
+			ttprops.abbFileName = ttprops.languageName + "-abbreviations";
+		else
+			ttprops.abbFileName = ttprops.languageName + "-abbreviations-utf8";
+		
 		ttprops.languageSwitch = language.getTreeTaggerSwitch();
 		if(cnTokPath != null && !cnTokPath.equals(""))
 			ttprops.chineseTokenizerPath = new File(cnTokPath);
 		else
 			ttprops.chineseTokenizerPath = new File(ttprops.rootPath, "cmd");
-
-		// take utf-8 parameter files where available
-		if (language.equals(Language.GERMAN) && !ttprops.utf8Switch.equals("")) {
-			ttprops.abbFileName = "german-abbreviations-utf8";
-			ttprops.parFileName = "german-utf8.par";
-		}
-		if (language.equals(Language.SPANISH) && !ttprops.utf8Switch.equals("")) {
-			ttprops.parFileName = "spanish-utf8.par";
-		}
-		if (language.equals(Language.ITALIAN) && !ttprops.utf8Switch.equals("")) {
-			ttprops.parFileName = "italian-utf8.par";
-		}
-		if (language.equals(Language.FRENCH) && !ttprops.utf8Switch.equals("")) {
-			ttprops.abbFileName = "french-abbreviations-utf8";
-		}
-
+		
 		// handle the treetagger path from the environment variables
 		if(ttprops.rootPath == null) {
 			Logger.printError("TreeTagger environment variable is not present, aborting.");
@@ -179,9 +175,9 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		Boolean abbFileFlag   = true;
 		Boolean parFileFlag   = true;
 		Boolean tokScriptFlag = true;
-		File abbFile = new File(ttprops.rootPath+ttprops.fileSeparator+"lib",ttprops.abbFileName);
-		File parFile = new File(ttprops.rootPath+ttprops.fileSeparator+"lib",ttprops.parFileName);
-		File tokFile = new File(ttprops.rootPath+ttprops.fileSeparator+"cmd",ttprops.tokScriptName);
+		File abbFile = new File(ttprops.rootPath+ttprops.fileSeparator+"lib", ttprops.abbFileName);
+		File parFile = new File(ttprops.rootPath+ttprops.fileSeparator+"lib", ttprops.parFileName);
+		File tokFile = new File(ttprops.rootPath+ttprops.fileSeparator+"cmd", ttprops.tokScriptName);
 		if (!(abbFileFlag = abbFile.exists())) {
 			if(language.equals(Language.CHINESE))
 				abbFileFlag = true;

@@ -34,6 +34,9 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 	private Class<?> component = this.getClass();
 
 	private static final String PARAM_OUTPUTDIR = "OutputDir";
+	
+	// counter for outputting documents. gets increased in case there is no DCT/filename info 
+	private static volatile Integer outCount = 0;
 
 	private File mOutputDir;
 
@@ -62,13 +65,20 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 		}
 		
 		// get the DCT
-		Dct dct = (Dct) jcas.getAnnotationIndex(Dct.type).iterator().next();
+		Dct dct = null;
+		String filename = null;
+		try {
+			dct = (Dct) jcas.getAnnotationIndex(Dct.type).iterator().next();
+			filename = dct.getFilename();
+		} catch(Exception e) {
+			filename = "doc_" + TempEval3Writer.getOutCount() + ".tml";
+		}
 
 		// assemble an XML document
-		Document xmlDoc = buildTimeMLDocument(jcas, dct);
+		Document xmlDoc = buildTimeMLDocument(jcas, dct, filename);
 		
 		// write the document to file
-		writeTimeMLDocument(xmlDoc, dct.getFilename());
+		writeTimeMLDocument(xmlDoc, filename);
 	}
 
 	/**
@@ -77,7 +87,7 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 	 * @param dct the document's DCT
 	 * @return
 	 */
-	private Document buildTimeMLDocument(JCas jcas, Dct dct) {
+	private Document buildTimeMLDocument(JCas jcas, Dct dct, String filename) {
 		DocumentBuilderFactory dbf = null;
 		DocumentBuilder db = null;
 		Document doc = null;
@@ -89,7 +99,7 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 			doc = db.newDocument();
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
-			Logger.printError(component, "XML Builder could not be instantiated for "+dct.getFilename());
+			Logger.printError(component, "XML Builder could not be instantiated");
 		}
 		
 		// create the TimeML root element
@@ -100,28 +110,24 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 		
 		// create DOCID tag
 		Element docidEl = doc.createElement("DOCID");
-		docidEl.appendChild(doc.createTextNode(dct.getFilename()));
+		docidEl.appendChild(doc.createTextNode(filename));
 		rootEl.appendChild(docidEl);
-
 		
 		// create DCT tag
-		Element dctEl = doc.createElement("DCT");
-//		dctEl.appendChild(doc.createTextNode(dct.getValue())); // original
-		// NEW
-		Element timexForDCT = doc.createElement("TIMEX3");
-		timexForDCT.setAttribute("tid", "t0");
-		timexForDCT.setAttribute("type", "DATE");
-		timexForDCT.setAttribute("value", dct.getValue());
-		timexForDCT.setAttribute("temporalFunction", "false");
-		timexForDCT.setAttribute("functionInDocument", "CREATION_TIME");
-		timexForDCT.appendChild(doc.createTextNode(dct.getValue()));
-
-//		dctEl.appendChild(doc.createTextNode("<TIMEX3 tid=\"t0\" type=\"DATE\" value=\""+dct.getValue()+
-//				" temporalFunction=\"false\" functionInDocument=\"CREATION_TIME\">"+dct.getValue()+"</TIMEX3>")); // js: rough and dirty fix; dct needs TIMEX tag, doc does not contain original stuff before "TEXT"
-		
-		dctEl.appendChild(timexForDCT); // NEW		
-		rootEl.appendChild(dctEl);
-
+		if(dct != null) {
+			Element dctEl = doc.createElement("DCT");
+	
+			Element timexForDCT = doc.createElement("TIMEX3");
+			timexForDCT.setAttribute("tid", "t0");
+			timexForDCT.setAttribute("type", "DATE");
+			timexForDCT.setAttribute("value", dct.getValue());
+			timexForDCT.setAttribute("temporalFunction", "false");
+			timexForDCT.setAttribute("functionInDocument", "CREATION_TIME");
+			timexForDCT.appendChild(doc.createTextNode(dct.getValue()));
+			
+			dctEl.appendChild(timexForDCT); // NEW		
+			rootEl.appendChild(dctEl);
+		}
 		
 		// create and fill the TEXT tag
 		Integer offset = 0;
@@ -255,6 +261,8 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 			}
 		}
 	}
-	
 
+	public static synchronized Integer getOutCount() {
+		return outCount++;
+	}
 }
