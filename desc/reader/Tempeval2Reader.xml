@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <collectionReaderDescription xmlns="http://uima.apache.org/resourceSpecifier">
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <implementationName>de.unihd.dbs.uima.reader.tempeval2reader.Tempeval2Reader</implementationName>
@@ -14,6 +15,13 @@
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
+      </configurationParameter>
+    <configurationParameter>
+        <name>Charset</name>
+        <description>Charset to use when reading in the files.</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
       </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
