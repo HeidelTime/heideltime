@@ -1,0 +1,43 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "decade words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "twenties" is "2X"
+// FORMAT: "decade-word","normalized-decade-word"
+// Changed in the context of TempEval-3 
+// (there shouldn't be any "X" or "XX" at 
+// the end of decade and century expressions
+
+"二十世纪", "2"
+"二十年代","2"
+"20世纪","2"
+"20年代","2"
+"三十世纪","3"
+"三十年代","3"
+"30世纪","3"
+"30年代","3"
+"四十世纪","4"
+"四十年代","4"
+"40世纪","4"
+"40年代","4"
+"五十世纪","5"
+"五十年代","5"
+"50世纪","5"
+"50年代","5"
+"六十世纪","6"
+"六十年代","6"
+"60世纪","6"
+"60年代","6"
+"七十世纪","7"
+"七十年代","7"
+"70世纪","8"
+"70年代","8"
+"八十世纪","8"
+"八十年代","8"
+"80世纪","8"
+"80年代","8"
+"九十世纪","9"
+"九十年代","9"
+"90世纪","9"
+"90年代","9"

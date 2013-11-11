@@ -1,0 +1,45 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for "part" words.
+// FORMAT: one line is one disjunction of the pattern
+中间
+中
+当中
+底
+末
+结束
+结尾
+尾声
+开始
+开头
+初
+
+晚
+晚期
+迟
+日暮
+深夜
+早
+早上
+早期
+初期
+
+
+中部
+
+
+
+
+//[Tt]he middle of
+//[Tt]he end of
+//[Tt]he beginning of
+//[Tt]he start of
+//[Ll]ate
+//[Ll]ater
+//[Ee]arly
+//[Ee]arlier
+//[Mm]id-
+//[Mm]id
+//[Ff]iscal-
+//[Ff]iscal

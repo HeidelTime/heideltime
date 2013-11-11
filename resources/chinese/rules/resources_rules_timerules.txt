@@ -1,0 +1,59 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-13
+// This file contains rules for the temporal expressions of the type time: timerules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+/////////////////////
+// TIMESTAMP STYLE //
+/////////////////////
+// time_r1 (Timestamp style)
+// EXAMPLE r1a-1: 2009-12-19T17:00:00
+// EXAMPLE r1a-2: 2009-12-19 17:00:00
+// EXAMPLE r1b-1: 2009-12-19T17:00
+
+RULENAME="time_r1a",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )%reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7):group(8)"
+RULENAME="time_r1b",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )%reTimeHour:%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7)"
+
+// time_r2
+// EXAMPLE r2a-1: 09-24-99 1145EST (TimeStamp style with timezone information)
+// EXAMPLE r2b-1: November 24, 2011 1535 GMT
+
+//RULENAME="time_r2a",EXTRACTION="(%reMonthNumber-%reDayNumber-%reYear2Digit)( %reTimeHour(:)?%reTimeMinute)%reTimezone",NORM_VALUE="UNDEF-centurygroup(4)-group(2)-group(3)T%normMinute(group(6)):%normMinute(group(8))%normTimezone(group(9))"
+//RULENAME="time_r2b",EXTRACTION="%reMonthLong %reDayNumber, %reYear4Digit %reTimeHour(:)?%reTimeMinute %reTimezone",NORM_VALUE="group(3)-%normMonth(group(1))-%normDay(group(2))T%normMinute(group(4)):%normMinute(group(6))"
+
+
+
+/////////////////////////////
+// PART-OF-DAY GRANULARITY //
+/////////////////////////////
+
+// time_r3  
+// EXAMPLE time_partofday_c1: 星期一晚上
+// EXAMPLE time_partofday_c2: 昨天早上
+RULENAME="time_partofday_c1",EXTRACTION="%reWeekday%rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normPartOfDay(group(2))"
+RULENAME="time_partofday_c2",EXTRACTION="%reDateWord%rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
+
+///////////////////////////
+// TIMEPOINT GRANULARITY //
+///////////////////////////
+
+// time_r5
+// TODO CHANGE THAT AM PM, A.M. P.M. is allowed as well
+// EXAMPLE time_timepoint_c1: 大约上午九点 
+// EXAMPLE time_timepoint_c2: 上午九点 
+// EXAMPLE time_timepoint_c3: 上午九点半
+// EXAMPLE time_timepoint_c4: 上午十点二十分
+
+//RULENAME="time_timepoint_c1",EXTRACTION="%reApproximate%rePartOfDay%reTimeHour",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(3)):00",NORM_MOD="%normApprox4Dates(group(2))"
+
+// time_r6
+// TODO CHANGE THAT AM PM, A.M. P.M. is allowed as well
+// EXAMPLE time_timepoint_c5: 大约周三
+// EXAMPLE time_timepoint_c6: 周三上午九点
+// EXAMPLE time_timepoint_c7: 周三上午九点半
+// EXAMPLE time_timepoint_c8: 周三上午九点二十分
+
+RULENAME="time_timepoint_c5",EXTRACTION="(%reApproximate)?%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(3))",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_timepoint_c6",EXTRACTION="(%reApproximate)?%reWeekday%reTimeHour",NORM_VALUE="UNDEF-day-%normWeekday(group(3))T%normDay(group(4)):00",NORM_MOD="%normApprox4Dates(group(1))"
+//RULENAME="time_timepoint_c7",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*a[\.]?m[\.]? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(5))T%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"

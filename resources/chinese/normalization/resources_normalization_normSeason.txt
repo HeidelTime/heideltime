@@ -1,0 +1,23 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "season words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "summer" is "SU"
+// FORMAT: "season-word","normalized-season-word"
+// spring
+"春季","SP"
+"春天","SP"
+"春","SP"
+//summer
+"夏天","SU"
+"夏季","SU"
+"夏","SU"
+// fall
+"秋天","FA"
+"秋季","FA"
+"秋","FA"
+// winter
+"冬天","WI"
+"冬季","WI"
+"冬","WI"

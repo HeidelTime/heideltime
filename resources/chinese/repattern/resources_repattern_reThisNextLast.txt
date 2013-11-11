@@ -1,0 +1,44 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for "this/next/last" words.
+// FORMAT: one line is one disjunction of the pattern
+最后
+最近
+最终
+上
+上个
+下个
+前
+去
+近
+过去
+先前
+以前
+此前
+以往
+最新
+最近
+当前
+现代
+目前
+这
+这个
+今年
+明年
+去年
+今天
+
+
+
+
+
+
+//[Ll]ast
+//[Pp]ast
+//[Nn]ext
+//[Ff]ollowing -> handled differently using UNDEF-REF
+//[Ll]atest
+//[Cc]urrent
+//[Tt]his
+//[Pp]revious

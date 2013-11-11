@@ -1,0 +1,20 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for set words.
+// FORMAT: one line is one disjunction of the pattern
+
+每年
+年年
+年度
+每月
+月月
+月度
+每日
+
+
+
+//[Aa]nnually
+//[Mm]onthly
+//[Dd]aily
+//[Ww]eekly

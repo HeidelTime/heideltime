@@ -1,0 +1,53 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-13
+// This file contains rules for the temporal expressions of the type set: setrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////
+// EVERY UNIT //
+////////////////
+// set_r1
+// EXAMPLE set_every_c1: 每天
+// EXAMPLE set_every_c2: 每周一
+// EXAMPLE set_every_c3: 每个九月
+// EXAMPLE set_every_c4: 每个夏天
+RULENAME="set_every_c1",EXTRACTION="(每|每一|每一个|每个)%reUnit",NORM_VALUE="%SUBSTRING%(%normUnit(group(2)),0,1))"
+RULENAME="set_every_c2",EXTRACTION="(每|每个|每一个)%reWeekday",NORM_VALUE="XXXX-%normDayInWeek(group(2))",NORM_FREQ="1W"
+RULENAME="set_every_c3",EXTRACTION="(每一个|每个)%reMonthWord",NORM_VALUE="XXXX-%normMonth(group(2))",NORM_FREQ="1M"
+RULENAME="set_every_c4",EXTRACTION="(每个|每一个)%reSeason",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_FREQ="1S"
+
+// set_r2
+// EXAMPLE set_every_c5: 一星期一次
+// EXAMPLE set_every_c6: 一个月三次
+// EXAMPLE set_every_c7: 每个月三次
+// EXAMPLE set_every_c8: 一个月
+// EXAMPLE set_every_c9: 一分钟
+//RULENAME="set_r2a",EXTRACTION="(一|一个)%reUnit(%reNumWord1D|%reNumWord2D)次",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_FREQ="1"
+//RULENAME="set_r2c",EXTRACTION="(一|一个)%reUnit(%reNumWord1D|%reNumWord2D)次",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(5)),0,1))",NORM_FREQ="%normDurationNumber(group(1))"
+//RULENAME="set_r2d",EXTRACTION="(每|每个|每一个)%reUnit(%reNumWord1D|%reNumWord2D)次 ",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_FREQ="group(1)"
+
+
+// set_r3
+// EXAMPLE r3a-1: every 5 years
+// EXAMPLE r3b-1: every two days
+//RULENAME="set_r3a",EXTRACTION="(每|每隔)%reUnit",NORM_VALUE="Pgroup(2)%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_QUANT="%UPPERCASE%(group(1))"
+//RULENAME="set_r3b",EXTRACTION="([每|每隔)(%reNumWord1D|%reNumWord2D)%reUnit",NORM_VALUE="P%normDurationNumber(group(2))%UPPERCASE%(%SUBSTRING%(%normUnit(group(5)),0,1))",NORM_QUANT="%UPPERCASE%(group(1))"
+
+// set_r4
+// EXAMPLE r4a-1: 2 days each week
+RULENAME="set_r4a",EXTRACTION="([\d]+) %reUnit (each|per) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(4)),0,1))",NORM_QUANT="EACH",NORM_FREQ="group(1)%normUnit(group(2))"
+
+// set_r5 
+// EXAMPLE r5a-1: 每年
+RULENAME="set_r5a",EXTRACTION="%reSetWords",NORM_VALUE="%normSetWords(group(1))"
+
+//////////////////////////////
+// PART-OF-DAYS EXPRESSIONS //
+//////////////////////////////
+// set_r6
+// EXAMPLE r6a-1: Monday afternoons
+// EXAMPLE r6b-1: Monday and Tuesday nights (find: Monday nights)
+RULENAME="set_r6a",EXTRACTION="%reWeekday%rePartOfDay",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(1))T%normPartOfDay(group(2))",NORM_FREQ="1W"
+RULENAME="set_r6b",EXTRACTION="%reWeekday(和|或|至|到)%reWeekday%rePartOfDay",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(1))T%normPartOfDay(group(4))",NORM_FREQ="1W",OFFSET="group(1)-group(1)"
+

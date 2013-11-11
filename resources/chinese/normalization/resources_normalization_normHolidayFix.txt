@@ -1,0 +1,36 @@
+// author: Hans-Peter Pfeiffer
+// email:  H.Pfeiffer@stud.uni-heidelberg.de
+// date:   2012-02-11
+// This file contains fix holiday and their normalized expressions.
+// For example, the normalized value of "Newyear" is "01-01"
+// FORMAT: "hoilday_name","month-year"
+// 
+// the reference of the values is given in the repattern file
+
+
+"元旦,"01-01"
+"情人节","02-14"
+"妇女节","02-14"
+"愚人节","04-01"
+"清明节","04-05"
+"劳动节","05-01"
+"五一劳动节","04-05"
+"青年节","05-04"
+"五四青年节","05-04"
+"儿童节","06-01"
+"建军节","08-01"
+"教师节","09-10"
+"国庆节","10-01"
+"万圣节","10-31"
+"圣诞节","12-25"
+
+
+
+
+
+
+
+
+
+
+

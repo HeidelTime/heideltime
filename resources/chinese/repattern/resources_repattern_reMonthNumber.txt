@@ -1,0 +1,12 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for month numbers.
+// FORMAT: one line is one disjunction of the pattern
+10
+11
+12
+//[零一二三四五六七八九０１２３４５６７８９]
+[一二三四五六七八九１２３４５６７８９]
+[一１][一二三０１２]
+0?[1-9]
