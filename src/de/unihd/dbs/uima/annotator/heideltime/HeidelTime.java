@@ -33,6 +33,7 @@ import de.unihd.dbs.uima.annotator.heideltime.ProcessorManager.Priority;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
+import de.unihd.dbs.uima.annotator.heideltime.resources.RegexHashMap;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RuleManager;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.DateCalculator;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.ContextAnalyzer;
@@ -1972,6 +1973,34 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			Pattern paNormNoGroup = Pattern.compile("%([A-Za-z0-9]+?)\\((.*?)\\)");
 			for (MatchResult mr : Toolbox.findMatches(paNormNoGroup, tonormalize)) {
 				tonormalize = tonormalize.replace(mr.group(),norm.getFromHmAllNormalization(mr.group(1)).get(mr.group(2)));
+			}
+			// replace Chinese with Arabic numerals
+			Pattern paChineseNorm = Pattern.compile("%CHINESENUMBERS%\\((.*?)\\)");
+			for (MatchResult mr : Toolbox.findMatches(paChineseNorm, tonormalize)) {
+				RegexHashMap<String> chineseNumerals = new RegexHashMap<String>();
+				chineseNumerals.put("[零０0]", "0");
+				chineseNumerals.put("[一１1]", "1");
+				chineseNumerals.put("[二２2]", "2");
+				chineseNumerals.put("[三３3]", "3");
+				chineseNumerals.put("[四４4]", "4");
+				chineseNumerals.put("[五５5]", "5");
+				chineseNumerals.put("[六６6]", "6");
+				chineseNumerals.put("[七７7]", "7");
+				chineseNumerals.put("[八８8]", "8");
+				chineseNumerals.put("[九９9]", "9");
+				String outString = "";
+				for(Integer i = 0; i < mr.group(1).length(); i++) {
+					String thisChar = mr.group(1).substring(i, i+1);
+					if(chineseNumerals.containsKey(thisChar)){
+						outString += chineseNumerals.get(thisChar);
+					} else {
+						System.out.println(chineseNumerals.entrySet());
+						Logger.printError(component, "Found an error in the resources: " + mr.group(1) + " contains " +
+								"a character that is not defined in the Chinese numerals map. Normalization may be mangled.");
+						outString += thisChar;
+					}
+				}
+				tonormalize = tonormalize.replace(mr.group(), outString);
 			}
 		}
 		normalized = tonormalize;
