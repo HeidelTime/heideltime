@@ -1799,15 +1799,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
             Pattern p = (Pattern) i.next();
 
 			for (MatchResult r : Toolbox.findMatches(p, s.getCoveredText())) {
-				boolean infrontBehindOK = true;
-
-				/*
-				 * chinese doesn't have whitespaces, so the checking for them within tokens will always fail
-				 * => makes extraction fail quite often due to improper tokenization.
-				 */
-				if(!language.equals(Language.CHINESE))
-					infrontBehindOK = ContextAnalyzer.checkTokenBoundaries(r, s, jcas) // improved token boundary checking
-										&& ContextAnalyzer.checkInfrontBehind(r, s);
+				boolean infrontBehindOK = ContextAnalyzer.checkTokenBoundaries(r, s, jcas) // improved token boundary checking
+									&& ContextAnalyzer.checkInfrontBehind(r, s);
 
 				boolean posConstraintOK = true;
 				// CHECK POS CONSTRAINTS
