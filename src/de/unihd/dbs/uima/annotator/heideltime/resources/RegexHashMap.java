@@ -38,11 +38,11 @@ public class RegexHashMap<T> implements Map<String, T> {
 		// the key is a direct hit from our hashmap
 		if(container.containsKey(key))
 			return true;
-		
+
 		// check if the requested key is a matching string of a regex key from our container
 		Iterator<String> regexKeys = container.keySet().iterator();
 		while(regexKeys.hasNext()) {
-			if(regexKeys.next().matches((String) key))
+			if(Pattern.matches(regexKeys.next(), (String) key))
 				return true;
 		}
 		
