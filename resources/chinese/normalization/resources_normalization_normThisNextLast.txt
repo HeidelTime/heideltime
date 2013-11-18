@@ -14,7 +14,8 @@
 "上","last"
 "前","last"
 "去","last"
-"近","last"
+"昨","last"
+
 
 "最新","last"
 "最近","last"
@@ -23,7 +24,7 @@
 "目前","this"
 "这","this"
 "这个","this"
-"今天","this"
-"今年","this"
-"明年","next"
-"去年","last"
+"今","this"
+"本","this"
+"明","next"
+"新","next"

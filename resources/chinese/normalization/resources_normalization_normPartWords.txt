@@ -6,8 +6,10 @@
 // For example, the normalized value of "the middle of" is "MID"
 // FORMAT: "part word","normalized-part-word"
 "中间","MID"
-"中","MID"
 "当中","MID"
+"中期","MID"
+"中部","MID"
+"中旬","MID"
 "底","END"
 "末","END"
 "结束","END"
@@ -19,6 +21,7 @@
 
 "晚","END"
 "晚期","END"
+"后期","END"
 "迟","END"
 "日暮","END"
 "深夜","END"
@@ -26,9 +29,8 @@
 "早期","START"
 "初期","START"
 
-"中间","MID"
-"中部","MID"
-"中","MID"
+
+
 
 "Fiscal-",""
 "fiscal-",""

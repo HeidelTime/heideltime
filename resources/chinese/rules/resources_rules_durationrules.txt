@@ -14,6 +14,8 @@
 // EXAMPLE r1d-1: less than sixty minutes
 // EXAMPLE r1e-1: less than 60 minutes
 // EXAMPLE r1f-1: several minutes
+RULENAME="duration_year_c1",,EXTRACTION="(%reNumWord2D|%reNumWord1D)%reUnit%reApproximate",NORM_VALUE="P%normDurationNumber(group(3))%normUnit(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
+
 RULENAME="duration_r1a",EXTRACTION="(%reApproximate |[Tt]he )?(%reNumWord2D|%reNumWord1D)( more |-| )%reUnit",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(7))",NORM_MOD="%normApprox4Durations(group(2))"
 RULENAME="duration_r1b1",EXTRACTION="(%reApproximate)([\d]+)( more | |-)%reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
 RULENAME="duration_r1b2",EXTRACTION="(%reApproximate|[Tt]he )([\d]+)( more | )%reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
@@ -61,6 +63,8 @@ RULENAME="duration_r5c1",EXTRACTION="(%reApproximate )(%reNumWord2D|%reNumWord1D
 RULENAME="duration_r5c2",EXTRACTION="(%reNumWord2D|%reNumWord1D)( to | or | and |-)(%reNumWord2D|%reNumWord1D) (seconds?|minutes?|hours?)",NORM_VALUE="PT%normDurationNumber(group(1))%normUnit4Duration(group(8))",OFFSET="group(1)-group(1)"
 RULENAME="duration_r5d1",EXTRACTION="(%reApproximate )([\d]+)( to | or | and |-)([\d]+) (seconds?|minutes?|hours?)",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(6))",NORM_MOD="%normApprox4Durations(group(2))",OFFSET="group(1)-group(3)"
 RULENAME="duration_r5d2",EXTRACTION="([\d]+)( to | or | and |-)([\d]+) (seconds?|minutes?|hours?)",NORM_VALUE="PTgroup(1)%normUnit4Duration(group(4))",OFFSET="group(1)-group(1)"
+
+RULENAME="duration_r9999",EXTRACTION="%reThisNextLast%reThisNextLast(%reNumWord2D|%reNumWord1D)(%reUnit)",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(6))"
 
 
 ////////////////////

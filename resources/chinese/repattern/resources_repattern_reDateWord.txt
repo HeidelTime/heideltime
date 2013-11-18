@@ -7,35 +7,64 @@
 // SHOULD ONLY BE UPPER CASE IF AT THE BEGINNING OF A SENTENCE
 //today
 今天
+//今
 //yesterday
-昨天
-//right now
+
 前天
 //[Tt]he day before yesterday
 明天
 //[Tt]omorrow
 目前
+日前
+眼前
 方才
 现在
-马上
-立刻
+//立刻
 //[Rr]ight now（[Nn]ow）
-尽快
 //[Aa]s soon as possible
-很快
 不久
 //[Ss]oon
 最近
+新近
 //[Rr]ecently [Rr]ecent
-目前
-当前
+//当前
 现时
 时下
+//同时
+//当时
+当年
+与此同时
+现今
+
+//现
+如今
+当今
+//今日
+今后几年
+今后
+近期
+未来
+将来
+近日
+近年
+//几年
+近几年
+过去的几十年
+建国初期
 //[Cc]urrently [Cc]urrent
 以前
-先前
-之前
+前几年
+前一阵子
+//先前
+//之前
 //[Pp]reviously
+原先
 从前
+前不久
 过去
+以往
+那时
+近来
+昔日
+这期间
 //[Ff]ormerly [Ff]ormer

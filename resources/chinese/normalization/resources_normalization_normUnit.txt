@@ -5,7 +5,7 @@
 // For example, the normalized value of "week" is "week"
 // FORMAT: "unit-word","normalized-unit-word"
 "天","day"
-"日",day"
+"日","day"
 "周末","week-WE"
 "周","week"
 "星期","week"

@@ -4,7 +4,8 @@
 // This file contains regular expression patterns for "part" words.
 // FORMAT: one line is one disjunction of the pattern
 中间
-中
+中期
+中旬
 当中
 底
 末
@@ -24,7 +25,7 @@
 早上
 早期
 初期
-
+后期
 
 中部
 

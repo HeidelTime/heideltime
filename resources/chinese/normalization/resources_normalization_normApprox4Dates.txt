@@ -41,6 +41,7 @@
 "不止","MORE_THAN"
 "以上","MORE_THAN"
 "超过","MORE_THAN"
-"长","MORE_THAN"
+"多","MORE_THAN"
+//"长","MORE_THAN"
 "更长","MORE_THAN"
 "较长","MORE_THAN"

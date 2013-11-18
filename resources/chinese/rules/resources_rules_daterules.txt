@@ -19,35 +19,54 @@
 // EXAMPLE date_year_c6: 1987年12月28日
 // EXAMPLE date_year_c7: 1987年|八七年
 // EXAMPLE date_year_c8: 87年12月28
+// EXAMPLE date_year_c9d: 1987年
+// EXAMPLE date_year_c9c: 87
 
 
-RULENAME="date_year_c1",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)",NORM_VALUE="group(1)"
+RULENAME="date_year_c1",EXTRACTION="%reYear4Digit-%reMonthNumber-%reDayNumber",NORM_VALUE="group(1)-group(2)-group(3)"
 RULENAME="date_year_c2",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber",NORM_VALUE="group(1)-group(2)-group(3)"
-RULENAME="date_year_c3",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthNumber月)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(3))"
-RULENAME="date_year_c4",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthWord)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(3))"
+RULENAME="date_year_c3",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthNumber月)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))"
+RULENAME="date_year_c4",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthWord)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))"
 RULENAME="date_year_c5",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthWord)(%reDayWord日)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))-%normDay(group(6))"
-RULENAME="date_year_c6",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthNumber月)(%reDayNumber|%reDayWord)日",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(3))-%normDay(group(5))"
+RULENAME="date_year_c6",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthNumber月)(%reDayNumber|%reDayWord)日",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))-%normDay(group(6))"
 RULENAME="date_year_c7",EXTRACTION="(%reYear4Digit|%reYear2Digit)年",NORM_VALUE="%CHINESENUMBERS%(group(1))"
-RULENAME="date_year_c8",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthNumber月)(%reDayNumber)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(3))-%normDay(group(5))"
-RULENAME="date_year_c9",EXTRACTION="%reYear4Digit",NORM_VALUE="group(1)"
+RULENAME="date_year_c8",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthNumber月)(%reDayNumber)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))-%normDay(group(6))"
+//RULENAME="date_year_c9",EXTRACTION="%reYear4Digit",NORM_VALUE="%CHINESENUMBERS%(group(1))"
+RULENAME="date_year_c9d",EXTRACTION="%reYear4Digit年",NORM_VALUE="%CHINESENUMBERS%(group(1))"
+RULENAME="date_year_c9c",EXTRACTION="“(%reNumWord2D五)",NORM_VALUE="%normFiveYearPlans(group(1))",OFFSET="group(1)-group(1)"
+
+
 
 //RULENAME="date_year_c9",EXTRACTION="",NORM_VALUE=""
 // EXAMPLE date_year_c9:1987年十二月14日和16日
 // EXAMPLE date_year_c10: 87年12月28至31日
 // EXAMPLE date_year_c11: 明年十二月
 // EXAMPLE date_year_c12: 一九八七至八九年
-// EXAMPLE date_year_c13: 明年
+// EXAMPLE date_year_c13: 1987至1989年
+// EXAMPLE date_year_c14: 明年
+// EXAMPLE date_year_c14a: 前几年
+// EXAMPLE date_year_c15: 二十几年
+// EXAMPLE date_year_c16: 二十年
+// EXAMPLE date_year_c17: 近三年
+// EXAMPLE date_year_c18: 1987年12月
 
 RULENAME="date_year_c9a",EXTRACTION="(%reYear4Digit|%reYear2Digit)年%reMonthWord(%reDayWord)(和|或|至|到)(%reDayWord)",NORM_VALUE="group(1)-%normMonth(group(4))-%normDay(group(5)),OFFSET="group(1)-group(5)"
 RULENAME="date_year_c9b",EXTRACTION="(%reYear4Digit|%reYear2Digit)年%reMonthWord(%reDayWord)(和|或|至|到)(%reDayWord)",NORM_VALUE="group(1)-%normMonth(group(4))-%normDay(group(8)),OFFSET="group(8)"
 //RULENAME="date_year_c10",EXTRACTION=("%reYear4Digit|%reYear2Digit)年(%reMonthNumber月)(%reDayNumber)(-|和|或|至|到)(%reDayNumber日)",NORM_VALUE="group(1)-%normMonth(group(1))-%normDay(group(8))",OFFSET="group(8)-group(11)"
+RULENAME="date_year_c14b",EXTRACTION="%reThisNextLast年%reMonthWord%reDayWord日",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(2))-%normDay(group(3))"
 RULENAME="date_year_c11",EXTRACTION="%reThisNextLast年%reMonthWord",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(2))"
-RULENAME="date_year_c12a",EXTRACTION="%reYear4Digit(-|和|或|至|到)(%reYear2Digit)年",NORM_VALUE="%CHINESENUMBERS%(group(1))",OFFSET="group(1)"
-RULENAME="date_year_c12b",EXTRACTION="%reYear4Digit(-|和|或|至|到)(%reYear2Digit)年",NORM_VALUE="%CHINESENUMBERS%(%SUBSTRING%(group(1),0,2)group(3)))",OFFSET="group(3)"
-RULENAME="date_year_c13a",EXTRACTION="%reYear4Digit(-|和|或|至|到)(%reYear4Digit)年",NORM_VALUE="%CHINESENUMBERS%(group(1))",OFFSET="group(1)-group(1)"
-RULENAME="date_year_c13b",EXTRACTION="%reYear4Digit(-|和|或|至|到)(%reYear4Digit)年",NORM_VALUE="%CHINESENUMBERS%(group(3))",OFFSET="group(3)-group(3)"
+RULENAME="date_year_c12a",EXTRACTION="%reYear4Digit(-|－|和|或|至)(%reYear2Digit)年",NORM_VALUE="%CHINESENUMBERS%(group(1))",OFFSET="group(1)"
+RULENAME="date_year_c12b",EXTRACTION="%reYear4Digit(-|－|和|或|至)(%reYear2Digit)年",NORM_VALUE="%CHINESENUMBERS%(%SUBSTRING%(group(1),0,2)group(3)))",OFFSET="group(3)"
+RULENAME="date_year_c13a",EXTRACTION="%reYear4Digit(-|－|和|或|至)(%reYear4Digit)年",NORM_VALUE="%CHINESENUMBERS%(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="date_year_c13b",EXTRACTION="%reYear4Digit(-|－|和|或|至)(%reYear4Digit)年",NORM_VALUE="%CHINESENUMBERS%(group(3))",OFFSET="group(3)-group(3)"
 RULENAME="date_year_c14",EXTRACTION="%reThisNextLast%reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normUnit(group(2))"
+RULENAME="date_year_c14a",EXTRACTION="(%reThisNextLast)几(%reUnit)",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normUnit(group(3))"
 
+RULENAME="date_year_c15",EXTRACTION="(%reNumWord2D|%reNumWord1D)几(%reUnit)",NORM_VALUE="UNDEF-this-%normDurationNumber(group(1))-%normUnit(group(4))"
+//RULENAME="date_year_c16",EXTRACTION="(%reNumWord2D|%reNumWord1D)(%reUnit)",NORM_VALUE="UNDEF-%normDurationNumber(group(1))-%normUnit(group(4))"
+RULENAME="date_year_c17",EXTRACTION="%reApproximate(%reNumWord2D|%reNumWord1D)(%reUnit)",NORM_VALUE="UNDEF--this-%normUnit(group(5))-MINUS-%normDurationNumber(group(2))-",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="date_year_c18",EXTRACTION="(%reYear4Digit|%reYear2Digit)年%reMonthWord",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))"
+RULENAME="date_year_c19",EXTRACTION="(民国)(%reUnit)",NORM_VALUE="UNDEF-%normDurationNumber(group(1))-%normUnit(group(4))"
 
 //////////////////////////////
 // PART-OF-YEAR GRANULARITY //
@@ -79,15 +98,17 @@ RULENAME="date_partofyear_c5",EXTRACTION="%reYear4Digit年%reMonthWord%rePartWor
 // EXAMPLE date_month_c6: 下个十二月
 // EXAMPLE date_month_c7: 下个十二月二十八日
 // EXAMPLE date_month_c8: 12月
+// EXAMPLE date_month_c9: 12月份
 
 RULENAME="date_month_c1",EXTRACTION="(%reMonthNumber)月(%reDayNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(3))"
 RULENAME="date_month_c2",EXTRACTION="(%reMonthNumber)月(%reDayNumber)日",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(3))"
 RULENAME="date_month_c3",EXTRACTION="%reMonthWord(%reDayWord日)",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(2))"
 RULENAME="date_month_c4",EXTRACTION="(%reMonthWord)",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
 RULENAME="date_month_c5",EXTRACTION="%reMonthWord%rePartWords",NORM_VALUE="UNDEF-year-%normMonth(group(1))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_month_c6",EXTRACTION="%reThisNextLast%reMonthWord",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-(group(2))"
+RULENAME="date_month_c6",EXTRACTION="%reThisNextLast%reMonthWord",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normMonth(group(2))"
 RULENAME="date_month_c7",EXTRACTION="%reThisNextLast%reMonthWord%reDayWord日",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-(group(2))-%normDay(group(3))"
 RULENAME="date_month_c8",EXTRACTION="(%reMonthNumber月)",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
+RULENAME="date_month_c9",EXTRACTION="(%reMonthNumber)(月份)",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
 
 //////////////////////
 // DAY GRANULARITY //
@@ -103,9 +124,7 @@ RULENAME="date_month_c8",EXTRACTION="(%reMonthNumber月)",NORM_VALUE="UNDEF-year
 RULENAME="date_day_c1",EXTRACTION="%reDateWord",NORM_VALUE="%normDateWord(group(1))"
 RULENAME="date_day_c2",EXTRACTION="%reDateWord%rePartWords",NORM_VALUE="%normDateWord(group(1))",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_day_c3",EXTRACTION="%reDateWord%rePartOfDay",NORM_VALUE="%normDateWord(group(1))",NORM_MOD="%normPartOfDay(group(2))"
-RULENAME="date_day_c4",EXTRACTION="%reDayWord日",NORM_VALUE="%normDay(group(1))"
-RULENAME="date_day_c5",EXTRACTION="%reDayNumber日",NORM_VALUE="%normDay(group(1))"
-
+RULENAME="date_day_c4",EXTRACTION="(%reDayWord|%reDayNumber)日",NORM_VALUE="UNDEF-year-UNDEF-month-%normDay(group(1))"
 
 //////////////////////
 // WEEK GRANULARITY //
@@ -146,6 +165,9 @@ RULENAME="date_season_c3",EXTRACTION="%reThisNextLast%reSeason",NORM_VALUE="UNDE
 // EXAMPLE date_decade_c4: 19世纪20年代初
 // EXAMPLE date_decade_c5: 明年二月初
 // EXAMPLE date_decade_c6: 去年夏初
+// EXAMPLE date_decade_c7: 去年年底
+// EXAMPLE date_decade_c8: 前20个月
+// EXAMPLE date_decade_c9: 今昨两天
 
 RULENAME="date_decade_c1",EXTRACTION="%reDecadeWord",NORM_VALUE="%normDecadeWord(group(1))"
 RULENAME="date_decade_c2",EXTRACTION="%reDecadeWord%reDecadeWord",NORM_VALUE="%normDecadeWord(group(1))%normDecadeWord(group(2))"
@@ -153,6 +175,9 @@ RULENAME="date_decade_c3",EXTRACTION="%reDecadeWord%rePartWords",NORM_VALUE="%no
 RULENAME="date_decade_c4",EXTRACTION="%reDecadeWord%reDecadeWord%rePartWords",NORM_VALUE="%normDecadeWord(group(1))%normDecadeWord(group(2))",NORM_MOD="%normPartWords(group(3))"
 RULENAME="date_decade_c5",EXTRACTION="%reThisNextLast%reMonthWord%rePartWords",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-(group(2))",NORM_MOD="%normPartWords(group(3))"
 RULENAME="date_decade_c6",EXTRACTION="%reThisNextLast%reSeason%rePartWords",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normSeason(group(2))",NORM_MOD="%normPartWords(group(3))"
+RULENAME="date_decade_c7",EXTRACTION="%reThisNextLast%reUnit(年底|底|末|年末)",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normUnit(group(2))"
+RULENAME="date_decade_c8",EXTRACTION="%reThisNextLast(%reNumWord2D|%reNumWord1D)个(%reUnit)",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normDurationNumber(group(2))-%normUnit(group(5))"
+//RULENAME="date_decade_c9",EXTRACTION="%reThisNextLast%reThisNextLast(%reNumWord2D|%reNumWord1D)(%reUnit)",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normDurationNumber(group(2))-%normUnit(group(5))"
 
 // RULENAME="date_ago_c1",EXTRACTION="",NORM_VALUE=""
 // EXAMPLE "date_ago_c1": 至少几年前
@@ -160,9 +185,11 @@ RULENAME="date_decade_c6",EXTRACTION="%reThisNextLast%reSeason%rePartWords",NORM
 // EXAMPLE "date_ago_c3": 大约20年前
 // EXAMPLE "date_ago_c4": 一个月前
 RULENAME="date_ago_c1",EXTRACTION="(%reApproximate)?几(%reUnit)(前|以前)",NORM_VALUE="PAST_REF"
-RULENAME="date_ago_c2",EXTRACTION="(%reApproximate)?(%reNumWord2D|%reNumWord1D)(%reUnit)(前|以前)",NORM_VALUE="UNDEF-this-%normUnit(group(6))-MINUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="date_ago_c2",EXTRACTION="(%reApproximate)?(%reNumWord2D|%reNumWord1D)(%reUnit)(前|以前)",NORM_VALUE="UNDEF-this-%normUnit(group(6))-MINUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="date_ago_c2a",EXTRACTION="(%reNumWord2D|%reNumWord1D)(%reUnit)(前|以前)",NORM_VALUE="UNDEF-this-%normUnit(group(4))-MINUS-%normDurationNumber(group(1))"
 RULENAME="date_ago_c3",EXTRACTION="(%reApproximate)?([\d]+) (%reUnit)(前|以前)",NORM_VALUE="UNDEF-this-%normUnit(group(4))-MINUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))"
 RULENAME="date_ago_c4",EXTRACTION="(%reApproximate)?(一个|一)(%reUnit)(前|以前)",NORM_VALUE="UNDEF-this-%normUnit(group(4))-MINUS-1",NORM_MOD="%normApprox4Dates(group(2))"
+
 
 
 // RULENAME="date_later_c1",EXTRACTION="",NORM_VALUE=""
@@ -170,12 +197,11 @@ RULENAME="date_ago_c4",EXTRACTION="(%reApproximate)?(一个|一)(%reUnit)(前|�
 // EXAMPLE "date_later_c2": 大约二十天后
 // EXAMPLE "date_later_c3": 大约20天后
 // EXAMPLE "date_later_c4": 一年后
-// EXAMPLE "date_later_c5": 近年
 RULENAME="date_later_c1",EXTRACTION="(%reApproximate)(几)(%reUnit)(后|以后)",NORM_VALUE="FUTURE_REF"
 RULENAME="date_later_c2",EXTRACTION="(%reApproximate)(%reNumWord2D|%reNumWord1D)(%reUnit)(后|以后)",NORM_VALUE="UNDEF-REF-%normUnit(group(6))-PLUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
 RULENAME="date_later_c3",EXTRACTION="(%reApproximate)([\d]+)(%reUnit)(后|以后)",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))"
 RULENAME="date_later_c4",EXTRACTION="(%reApproximate)(一)(%reUnit)(后|以后)",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-1",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="date_later_c5",EXTRACTION="近%reUnit",NORM_VALUE="PAST_REF"
+
 
 // date_r24 (ago/earlier/later normalizing with REFUNIT)
 // EXAMPLE r22a_1: a year ago
@@ -197,6 +223,10 @@ RULENAME="date_later_c5",EXTRACTION="近%reUnit",NORM_VALUE="PAST_REF"
 RULENAME="date_holiday_c1",EXTRACTION="%reHolidayFix",NORM_VALUE="UNDEF-year-%normHolidayFix(group(1))"
 RULENAME="date_holiday_c2",EXTRACTION="%reYear4Digit"年“%reHolidayFix",NORM_VALUE="group(1)-%normHolidayFix(group(2))"
 RULENAME="date_holiday_c3",EXTRACTION="%reYear2Digit"年"%reHolidayFix ",NORM_VALUE="UNDEF-centurygroup(1)-%normHolidayFix(group(2))"
+
+///////////////////
+// UNIT RULES //
+///////////////////
 
 
 ////////////////////
