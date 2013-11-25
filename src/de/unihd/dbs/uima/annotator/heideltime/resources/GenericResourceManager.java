@@ -68,7 +68,7 @@ public abstract class GenericResourceManager {
 			System.exit(-1);
 		}
 		
-		Logger.printDetail(component, "Read in " + hmResources.size() + " resource files.");
+		Logger.printDetail(component, "Read in " + hmResources.size() + " " + LANGUAGE + " " + resourceType + " resource files.");
 		
 		if(hmResources.size() == 0) {
 			Logger.printError(component, "used_resources.txt contained no readable files. Consider rebuilding it "
