@@ -223,7 +223,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						Logger.printError(component, "HeidelTime's execution has been interrupted by an exception that " +
 								"is likely rooted in faulty normalization resource files. Please consider opening an issue " +
 								"report containing the following information at our Google Code project issue tracker: " +
-								"https://code.googe.com/p/heideltime. Thanks!");
+								"https://code.google.com/p/heideltime. Thanks!");
 						npe.printStackTrace();
 						Logger.printError(component, "Sentence [" + s.getBegin() + "-" + s.getEnd() + "]: " + s.getCoveredText());
 						Logger.printError(component, "Language: " + language);
