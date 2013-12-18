@@ -43,14 +43,6 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  * CollectionReader for TempEval Data 
  */
 public class Tempeval2Reader extends CollectionReader_ImplBase {
-	public static Charset CHINESE_CHARSET = null;
-	static {
-		try {
-			CHINESE_CHARSET = Charset.forName("MS936");
-		} catch(Exception e) {
-			CHINESE_CHARSET = Charset.defaultCharset();
-		}
-	}
 	/**
 	 * Logger for this class
 	 */
@@ -89,6 +81,7 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
    */
 	  public static final String PARAM_INPUTDIR  = "InputDirectory";
 	  public static final String PARAM_CHARSET  = "Charset";
+	  public static final String PARAM_USE_SPACES = "UseSpacesAsSeparators";
 
   /**
    * List containing all filenames of "documents"
@@ -116,6 +109,11 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
    * Charset to use for reading in files
    */
   Charset charset = null;
+	
+  /**
+   * Charset to use for reading in files
+   */
+  Boolean USE_SPACES = true;
 
   /**
    * 
@@ -129,6 +127,13 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 	  } catch(Exception e) {
 		  System.err.println("["+compontent_id+"] Charset " + charsetText + " was not available to be used.");
 		  throw new ResourceInitializationException();
+	  }
+
+	  Boolean useSpaces = (Boolean) getConfigParameterValue(PARAM_USE_SPACES);
+	  if(useSpaces != false) {
+		  USE_SPACES = true;
+	  } else {
+		  USE_SPACES = false;
 	  }
 	   
 	  // save doc names to list
@@ -282,7 +287,7 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 						// new Sentence, first Token
 						else if ((tokId == newTokSentNumber) || (lastSentId != sentId)){
 							positionCounter = addSentenceAnnotation(sentString, fileId, sentId-1, positionCounter, jcas);
-							if(CHINESE_CHARSET.equals(charset)) // in chinese, there are no spaces 
+							if(!USE_SPACES) // in chinese, there are no spaces 
 								text = text + tokenString;
 							else
 								text = text + " " + tokenString;
@@ -292,7 +297,7 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 						
 						// within any sentence
 						else{
-							if(CHINESE_CHARSET.equals(charset)) { // in chinese, there are no spaces 
+							if(!USE_SPACES) { // in chinese, there are no spaces 
 								text = text + tokenString;
 								sentString = sentString + tokenString;
 							} else {
@@ -386,7 +391,7 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
   public Integer addTokenAnnotation(String tokenString, String fileId, Integer sentId, Integer tokId, Integer positionCounter, JCas jcas){
 		Token token = new Token(jcas);
 		if (!((sentId == newTokSentNumber) && (tokId == newTokSentNumber))){
-			if(!CHINESE_CHARSET.equals(charset)) // in chinese, there are no spaces, so the +1 correction is unnecessary
+			if(USE_SPACES) // in chinese, there are no spaces, so the +1 correction is unnecessary
 				positionCounter = positionCounter + 1;
 		}
 		token.setBegin(positionCounter);

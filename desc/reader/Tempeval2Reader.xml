@@ -23,12 +23,25 @@
         <multiValued>false</multiValued>
         <mandatory>false</mandatory>
       </configurationParameter>
+    <configurationParameter>
+        <name>UseSpacesAsSeparators</name>
+        <description>Whether or not to use spaces to separate read tokens</description>
+        <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
         <name>InputDirectory</name>
         <value>
           <string>/data/heideltime_rerun_eval_scripts/corpora/tempeval2-data/test/english/entities</string>
+        </value>
+      </nameValuePair>
+    <nameValuePair>
+        <name>UseSpacesAsSeparators</name>
+        <value>
+          <boolean>true</boolean>
         </value>
       </nameValuePair>
     </configurationParameterSettings>
