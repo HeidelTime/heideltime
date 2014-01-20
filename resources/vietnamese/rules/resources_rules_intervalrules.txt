@@ -43,7 +43,7 @@ RULENAME="interval_11",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)>, <TX3_([0-9]+)
 //EXAMPLE	 vn_date_r4e1: 	 từ (ngày)? 10 tháng 6 đến (ngày)? 20 tháng 7 năm 2010	-find 2010-06-10
 //EXAMPLE	 vn_date_r4e2: 	 từ (ngày)? 10 tháng 6 đến (ngày)? 20 tháng 7 năm 2010	-find 2010-07-20
 
-//EXAMPLE	vn_date_r4f1:	từ/đến ([\S]+) (ngày )? 10 tháng 6 năm 2010 								find: từ ...ngày 10 tháng 6 năm 2010
+//EXAMPLE	vn_date_r4f1:	từ/đến ([\w]+) (ngày )? 10 tháng 6 năm 2010 								find: từ ...ngày 10 tháng 6 năm 2010
 
 // the following rules needed to be modified using the above English template format.
 

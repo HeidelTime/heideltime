@@ -5,7 +5,7 @@
 // FORMAT: one line is one disjunction of the pattern
 
 سوف
-وس[\S+]
-س[\S+]
+وس[\S]+
+س[\S]+
 المقرر
 

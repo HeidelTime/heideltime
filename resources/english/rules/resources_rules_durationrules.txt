@@ -74,4 +74,4 @@ RULENAME="duration_r5d2",EXTRACTION="([\d]+)( to | or | and |-)([\d]+) (seconds?
 RULENAME="duration_r1a_negation",EXTRACTION="(%reApproximate |[Tt]he )?(%reNumWord2D|%reNumWord1D|[\d]+) (%reUnit|minutes?|hours?) (older|younger|old|young)",NORM_VALUE="REMOVE"
 RULENAME="duration_r1b_negation",EXTRACTION="(%reApproximate |[Tt]he )?([Ss]everal|[Aa] couple of|[Ss]ome|[Aa] few|[Rr]ecent|[Cc]oming) (%reUnit|minutes?|hours?) (older|younger|old|young)",NORM_VALUE="REMOVE"
 RULENAME="duration_r1c_negation",EXTRACTION="([Tt]he )?(%reNumWord2D|%reNumWord1D|[\d]+)-(%reUnit|minutes?|hours?)-(older|younger|old|young)",NORM_VALUE="REMOVE"
-RULENAME="duration_r1d_negation",EXTRACTION="(%reApproximate )?(an|a)( )%reUnit-([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(5):NN:"
+RULENAME="duration_r1d_negation",EXTRACTION="(%reApproximate )?(an|a)( )%reUnit-([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(5):NN:"

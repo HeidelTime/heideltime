@@ -98,7 +98,7 @@ RULENAME="vn_date_r3h",EXTRACTION="%reWeekday[,]? (ngày|Ngày) %reDayNumber-%re
 //EXAMPLE	 vn_date_r4d2: 	 từ (ngày)? 10 tháng 6 đến (ngày)? 20 tháng 7	- find 07-20
 //EXAMPLE	 vn_date_r4e1: 	 từ (ngày)? 10 tháng 6 đến (ngày)? 20 tháng 7 năm 2010	-find 2010-06-10
 //EXAMPLE	 vn_date_r4e2: 	 từ (ngày)? 10 tháng 6 đến (ngày)? 20 tháng 7 năm 2010	-find 2010-07-20
-//EXAMPLE	vn_date_r4f1:	từ/đến ([\S]+) (ngày )? 10 tháng 6 năm 2010 								find: từ ...ngày 10 tháng 6 năm 2010
+//EXAMPLE	vn_date_r4f1:	từ/đến ([\w]+) (ngày )? 10 tháng 6 năm 2010 								find: từ ...ngày 10 tháng 6 năm 2010
 
 
 
@@ -333,9 +333,9 @@ RULENAME="vn_date_r19a",EXTRACTION="(%reApproximate )?(%reUnit|phút|giờ) (tr�
 RULENAME="vn_date_r19b",EXTRACTION="(%reApproximate )?([\d]+) (%reUnit) (trước|đã qua|trước đó|trước đây)",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-MINUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))"
 RULENAME="vn_date_r19c",EXTRACTION="(%reApproximate )?%reDateInWord (%reUnit) (trước|đã qua|trước đó|trước đây)",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-MINUS-%normDateInWord(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
 
-RULENAME="vn_date_r19d",EXTRACTION="(Trước |trước |Sớm |sớm)([\S]+ )?([\d]+) %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-MINUS-group(3)"
+RULENAME="vn_date_r19d",EXTRACTION="(Trước |trước |Sớm |sớm)([\w]+ )?([\d]+) %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-MINUS-group(3)"
 
-RULENAME="vn_date_r19e",EXTRACTION="(Trước |trước |Sớm |sớm)([\S]+ )?%reDateInWord %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-MINUS-%normDateInWord(group(3))"
+RULENAME="vn_date_r19e",EXTRACTION="(Trước |trước |Sớm |sớm)([\w]+ )?%reDateInWord %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-MINUS-%normDateInWord(group(3))"
 
 
 
@@ -351,10 +351,10 @@ RULENAME="vn_date_r20a",EXTRACTION="(%reApproximate )?(%reUnit|phút|giờ) (t�
 RULENAME="vn_date_r20b",EXTRACTION="(%reApproximate )?([\d]+) (%reUnit) (tới|sau|tiếp theo|sau đó)",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-PLUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))"
 RULENAME="vn_date_r20c",EXTRACTION="(%reApproximate )?%reDateInWord (%reUnit) (tới|sau|tiếp theo|sau đó)",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-PLUS-%normDateInWord(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
 
-//RULENAME="vn_date_r20d",EXTRACTION="(Sau |sau |Muộn |muộn )([\S]+ )?([\d]+) %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-group(3)"
-RULENAME="vn_date_r20d",EXTRACTION="(Sau |sau |Muộn |muộn )([\S]+ )?([\d]+) %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-0"
-//RULENAME="vn_date_r20e",EXTRACTION="(Sau |sau |Muộn |muộn )([\S]+ )?%reDateInWord %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-%normDateInWord(group(3))"
-RULENAME="vn_date_r20e",EXTRACTION="(Sau |sau |Muộn |muộn )([\S]+ )?%reDateInWord %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-0)"
+//RULENAME="vn_date_r20d",EXTRACTION="(Sau |sau |Muộn |muộn )([\w]+ )?([\d]+) %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-group(3)"
+RULENAME="vn_date_r20d",EXTRACTION="(Sau |sau |Muộn |muộn )([\w]+ )?([\d]+) %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-0"
+//RULENAME="vn_date_r20e",EXTRACTION="(Sau |sau |Muộn |muộn )([\w]+ )?%reDateInWord %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-%normDateInWord(group(3))"
+RULENAME="vn_date_r20e",EXTRACTION="(Sau |sau |Muộn |muộn )([\w]+ )?%reDateInWord %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-0)"
 
 
 
@@ -404,7 +404,7 @@ RULENAME="vn_date_r24c",EXTRACTION="(Ngày |ngày )%reHolidayFix (năm )?%reYear
 // NEGATIVE RULES //
 ////////////////////
 
-RULENAME="vn_date_negative_1a",EXTRACTION="%reYear4Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):N:"
+RULENAME="vn_date_negative_1a",EXTRACTION="%reYear4Digit ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):N:"
 RULENAME="vn_date_negative_1b",EXTRACTION="([\d]+)%",NORM_VALUE="REMOVE"
 RULENAME="vn_date_negative_1c",EXTRACTION="([\d]+),([\d]+)",NORM_VALUE="REMOVE"
 RULENAME="vn_date_negative_1d",EXTRACTION="%reWeekday,",NORM_VALUE="REMOVE"

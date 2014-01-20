@@ -105,21 +105,21 @@ RULENAME="duration_r1b_negation",EXTRACTION="(عقد)",NORM_VALUE="REMOVE"
 ////////////////////
 // TODO , add more rules
 // EXAMPLE r3a_negative_1: 2000 soldiers (four digit number followed by a plural noun)
-RULENAME="date_r1a_negative",EXTRACTION="((?!في).)* %reYear4Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(3):NNS:"
-RULENAME="date_r1a_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%reArabicDigit)(%reArabicDigit)(%reArabicDigit) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(10):NNS:"
+RULENAME="date_r1a_negative",EXTRACTION="((?!في).)* %reYear4Digit ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(3):NNS:"
+RULENAME="date_r1a_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%reArabicDigit)(%reArabicDigit)(%reArabicDigit) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(10):NNS:"
 // EXAMPLE r3b_negative_1: 2000 dead soldiers (four digit number followed by an adjective and a plural noun)
-RULENAME="date_r1b_negative",EXTRACTION="((?!في).)* %reYear4Digit ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):JJ:group(4):NNS:"
-RULENAME="date_r1b_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%reArabicDigit)(%reArabicDigit)(%reArabicDigit) ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(10):JJ:group(11):NNS:"
+RULENAME="date_r1b_negative",EXTRACTION="((?!في).)* %reYear4Digit ([\w]+) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):JJ:group(4):NNS:"
+RULENAME="date_r1b_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%reArabicDigit)(%reArabicDigit)(%reArabicDigit) ([\w]+) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(10):JJ:group(11):NNS:"
 // EXAMPLE r3c_negative_1: 2000 kilometer (four digit number followed a non-temporal unit)
 RULENAME="date_r1c_negative",EXTRACTION="(%reYear4Digit|%reYear2Digit) (طن|كلم|كيلومتر|دولار|قدم|يورو|متر|كيلوغرام|كيلو متر)",NORM_VALUE="REMOVE"
 RULENAME="date_r1c_arNum_negative",EXTRACTION="(%reArabicDigit)(%reArabicDigit)?(%reArabicDigit)?(%reArabicDigit)? (طن|كلم|كيلومتر|دولار|قدم|يورو|متر|كيلوغرام|كيلو متر)",NORM_VALUE="REMOVE"
 // EXAMPLE r4a_negative: W2000.1920
-RULENAME="date_r1d_negative",EXTRACTION="[\S]+%reYear4Digit\.%reYear4Digit",NORM_VALUE="REMOVE"
-RULENAME="date_r1e_negative",EXTRACTION="((?!في).)* %reYear4Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(3):NN:"
-RULENAME="date_r1f_negative",EXTRACTION="((?!في).)* ر%reYear2Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(3):NN:"
-RULENAME="date_r1f_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%reArabicDigit) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(6):NN:"
-RULENAME="date_r1h_negative",EXTRACTION="((?!في).)* %reYear2Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(3):NNS:"
-RULENAME="date_r1h_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%reArabicDigit) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(6):NNS:"
+RULENAME="date_r1d_negative",EXTRACTION="[\w]+%reYear4Digit\.%reYear4Digit",NORM_VALUE="REMOVE"
+RULENAME="date_r1e_negative",EXTRACTION="((?!في).)* %reYear4Digit ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(3):NN:"
+RULENAME="date_r1f_negative",EXTRACTION="((?!في).)* ر%reYear2Digit ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(3):NN:"
+RULENAME="date_r1f_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%reArabicDigit) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(6):NN:"
+RULENAME="date_r1h_negative",EXTRACTION="((?!في).)* %reYear2Digit ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(3):NNS:"
+RULENAME="date_r1h_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%reArabicDigit) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(6):NNS:"
 
-RULENAME="date_r1i_negative",EXTRACTION="((?!في).)* (%reYear2Digit|%reYear4Digit) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(5):JJ:"
-RULENAME="date_r1i_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%reArabicDigit) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(6):JJ:"
+RULENAME="date_r1i_negative",EXTRACTION="((?!في).)* (%reYear2Digit|%reYear4Digit) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(5):JJ:"
+RULENAME="date_r1i_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%reArabicDigit) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(6):JJ:"

@@ -17,7 +17,7 @@ RULENAME="set_r1a",EXTRACTION="([Ee]very|[Ee]ach) %reUnit",NORM_VALUE="P1%UPPERC
 RULENAME="set_r1b",EXTRACTION="([Ee]very|[Ee]ach) %reWeekday",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1W"
 RULENAME="set_r1c",EXTRACTION="([Ee]very|[Ee]ach) (%reMonthLong|%reMonthShort)",NORM_VALUE="XXXX-%normMonth(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1M"
 RULENAME="set_r1d",EXTRACTION="([Ee]very|[Ee]ach) %reSeason",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1S"
-RULENAME="set_r1e",EXTRACTION="([\S]+)(/%reUnit)",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",OFFSET="group(2)-group(3),"NORM_QUANT="EACH",
+RULENAME="set_r1e",EXTRACTION="([\w]+)(/%reUnit)",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",OFFSET="group(2)-group(3),"NORM_QUANT="EACH",
 
 // set_r2
 // EXAMPLE r2a-1: once a week
