@@ -52,3 +52,14 @@ RULENAME="duration_r1a_negation",EXTRACTION="(%reApproximate )?(%reNumWord2D|%re
 RULENAME="duration_r1b_negation",EXTRACTION="(%reApproximate )?([\d]+) (%reUnit|Minuten?|Stunden?) (älter|jünger|alt|jung)",NORM_VALUE="REMOVE"
 RULENAME="duration_r1c_negation",EXTRACTION="(%reApproximate )?(einige) %reUnit (älter|jünger|alt|jung)",NORM_VALUE="REMOVE"
 
+
+////////////////////
+// NEGATIVE RULES //
+////////////////////
+// CHECK THESE RULES (the German tag set is not equal to the English tag set)
+RULENAME="date_r1a_negative",EXTRACTION="%reYear4Digit (\p{L}+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NNS:"
+RULENAME="date_r1b_negative",EXTRACTION="%reYear4Digit (\p{L}+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NN:"
+RULENAME="date_r1c_negative",EXTRACTION="%reYear4Digit (\p{L}+) (\p{L}+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):JJ:group(3):NNS:"
+RULENAME="date_r1d_negative",EXTRACTION="%reYear4Digit (\p{L}+) (\p{L}+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ADJ:group(3):NNS:"
+RULENAME="date_r1e_negative",EXTRACTION="%reYear4Digit (\p{L}+) (\p{L}+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ADJ:group(3):NN:"
+RULENAME="date_r1f_negative",EXTRACTION="%reYear4Digit (m |km |ft |yr |dg |cm |ha |sq )",NORM_VALUE="REMOVE"

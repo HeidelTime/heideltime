@@ -403,8 +403,6 @@ RULENAME="vn_date_r24c",EXTRACTION="(Ngày |ngày )%reHolidayFix (năm )?%reYear
 ////////////////////
 // NEGATIVE RULES //
 ////////////////////
-
-RULENAME="vn_date_negative_1a",EXTRACTION="%reYear4Digit ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):N:"
 RULENAME="vn_date_negative_1b",EXTRACTION="([\d]+)%",NORM_VALUE="REMOVE"
 RULENAME="vn_date_negative_1c",EXTRACTION="([\d]+),([\d]+)",NORM_VALUE="REMOVE"
 RULENAME="vn_date_negative_1d",EXTRACTION="%reWeekday,",NORM_VALUE="REMOVE"

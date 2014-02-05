@@ -82,3 +82,13 @@ RULENAME="duration_r6a2",EXTRACTION="([Uu]n[oa]?) %reDayWordTh %reUnit",NORM_VAL
 RULENAME="duration_r6b2",EXTRACTION="([Uu]n[oa]?) %reDayWordTh (hora|minuto)",NORM_VALUE="PT1%normUnit4Duration(group(3))"
 RULENAME="duration_r6c2",EXTRACTION="([Ll][oa]s) %reDayWordTh %reUnit",NORM_VALUE="PX%normUnit4Duration(group(3))"
 RULENAME="duration_r6d2",EXTRACTION="([Ll][oa]s) %reDayWordTh (horas|minutos)",NORM_VALUE="PTX%normUnit4Duration(group(3))"
+
+
+// EXAMPLE r3a_negative_1: 2000 soldiers (four digit number followed by a plural noun)
+// EXAMPLE r3b_negative_1: 2000 dead soldiers (four digit number followed by an adjective and a plural noun)
+// EXAMPLE r3c_negative_1: 2000 kilometer (four digit number followed a non-temporal unit)
+RULENAME="date_r3a_negative",EXTRACTION="%reYear4Digit (\b\p{L}+s\b)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NC:"
+RULENAME="date_r3b_negative",EXTRACTION="%reYear4Digit (\b\p{L}+s\b) ",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NP:"
+RULENAME="date_r3c_negative",EXTRACTION="%reYear4Digit (\b\p{L}+s\b) ",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NMEA:"
+RULENAME="date_r3d_negative",EXTRACTION="%reYear4Digit (\p{L}+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):UMMX:"
+RULENAME="date_r3e_negative",EXTRACTION="%reYear4Digit (\p{L}+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ACRNM:"

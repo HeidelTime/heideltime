@@ -233,15 +233,6 @@ RULENAME="date_r18d",EXTRACTION="(([Hh]ace) )(%reApproximate )?([Ll][oa]s )?(%re
 ////////////////////
 RULENAME="date_r1a_negative",EXTRACTION="[Aa]hora que",NORM_VALUE="REMOVE"
 
-// EXAMPLE r3a_negative_1: 2000 soldiers (four digit number followed by a plural noun)
-// EXAMPLE r3b_negative_1: 2000 dead soldiers (four digit number followed by an adjective and a plural noun)
-// EXAMPLE r3c_negative_1: 2000 kilometer (four digit number followed a non-temporal unit)
-RULENAME="date_r3a_negative",EXTRACTION="%reYear4Digit (\b\p{L}+s\b)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NC:"
-RULENAME="date_r3b_negative",EXTRACTION="%reYear4Digit (\b\p{L}+s\b) ",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NP:"
-RULENAME="date_r3c_negative",EXTRACTION="%reYear4Digit (\b\p{L}+s\b) ",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NMEA:"
-RULENAME="date_r3d_negative",EXTRACTION="%reYear4Digit (\p{L}+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):UMMX:"
-RULENAME="date_r3e_negative",EXTRACTION="%reYear4Digit (\p{L}+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ACRNM:"
-
 // EXAMPLE r4a_negative: W2000.1920
 RULENAME="date_r4a_negative",EXTRACTION="\p{L}+%reYear4Digit\.%reYear4Digit",NORM_VALUE="REMOVE"
 

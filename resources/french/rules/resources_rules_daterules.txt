@@ -438,14 +438,6 @@ RULENAME="date_r2c1_negative",EXTRACTION="%reDayNumber(\–| - | – |-|–|/)%r
 RULENAME="date_r2c2_negative",EXTRACTION="%reDayNumber(\–| - | – |-|–|/)%reMonthNumber(\–| - | – |-|–|/)\d\d\d",NORM_VALUE="REMOVE"
 RULENAME="date_r2c3_negative",EXTRACTION="%reDayNumber(\–| - | – |-|–|/)%reMonthNumber(\–| - | – |-|–|/)[A-Za-z]+",NORM_VALUE="REMOVE"
 
-// EXAMPLE r3a_negative_1: 2000 soldats (4 digits followed by a noun)
-RULENAME="date_r3a_negative",EXTRACTION="%reYear4Digit (\p{L}+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NOM:"
-
-// EXAMPLE r3c_negative_1: 2000 kilomètres 
-RULENAME="date_r3c_negative",EXTRACTION="%reYear4Digit (kilomètres?|mètres?|dollars?|euros?)",NORM_VALUE="REMOVE"
-
-// EXAMPLE r4a_negative: W2000.1920
-RULENAME="date_r4a_negative",EXTRACTION="\p{L}+%reYear4Digit\.%reYear4Digit",NORM_VALUE="REMOVE"
 
 // EXAMPLE r4b_negative: 859.1920
 RULENAME="date_r4b_negative",EXTRACTION="[\d][\d][\d][\.|\–| - | – |-|–]%reYear4Digit",NORM_VALUE="REMOVE"
