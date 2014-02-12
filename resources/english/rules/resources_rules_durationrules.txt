@@ -17,11 +17,11 @@
 RULENAME="duration_r1a",EXTRACTION="(%reApproximate |[Tt]he )?(%reNumWord2D|%reNumWord1D)( more |-| )%reUnit",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(7))",NORM_MOD="%normApprox4Durations(group(2))"
 RULENAME="duration_r1b1",EXTRACTION="(%reApproximate )?([\d]+)( more | |-)%reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
 RULENAME="duration_r1b2",EXTRACTION="(%reApproximate |[Tt]he )?([\d]+)( more | )%reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
-RULENAME="duration_r1c",EXTRACTION="(%reApproximate )?([Ss]everal|[Aa] couple of|[Ss]ome|[Aa] few|[Rr]ecent|[Cc]oming) %reUnit",NORM_VALUE="PX%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r1c",EXTRACTION="(%reApproximate )?([Ss]everal|[Aa] couple of|[Ss]ome|[Mm]any|[Aa] few|[Rr]ecent|[Cc]oming) %reUnit",NORM_VALUE="PX%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
 RULENAME="duration_r1d",EXTRACTION="(%reApproximate |[Tt]he )?(%reNumWord2D|%reNumWord1D)( more | |-)(seconds?|minutes?|hours?)",NORM_VALUE="PT%normDurationNumber(group(3))%normUnit4Duration(group(7))",NORM_MOD="%normApprox4Durations(group(2))"
 RULENAME="duration_r1e1",EXTRACTION="(%reApproximate |[Tt]he )?([\d]+)( more | )(seconds?|minutes?|hours?)",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
 RULENAME="duration_r1e2",EXTRACTION="(%reApproximate )?([\d]+)( more | |-)(seconds?|minutes?|hours?)",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
-RULENAME="duration_r1f",EXTRACTION="(%reApproximate )?([Ss]everal|[Aa] couple of|[Ss]ome|[Aa] few|[Rr]ecent|[Cc]oming) (seconds?|minutes?|hours?)",NORM_VALUE="PTX%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r1f",EXTRACTION="(%reApproximate )?([Ss]everal|[Aa] couple of|[Ss]ome|[Mm]any|[Aa] few|[Rr]ecent|[Cc]oming) (seconds?|minutes?|hours?)",NORM_VALUE="PTX%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
 RULENAME="duration_r1g",EXTRACTION="(%reApproximate )([Aa]n?)( )%reUnit",NORM_VALUE="P1%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
 
 // duration_r2
@@ -72,7 +72,7 @@ RULENAME="duration_r5d2",EXTRACTION="([\d]+)( to | or | and |-)([\d]+) (seconds?
 // EXAMPLE r1b_negative-1: several days old
 // EXAMPLE r1c_negative-1: 59-year-old
 RULENAME="duration_r1a_negation",EXTRACTION="(%reApproximate |[Tt]he )?(%reNumWord2D|%reNumWord1D|[\d]+) (%reUnit|minutes?|hours?) (older|younger|old|young)",NORM_VALUE="REMOVE"
-RULENAME="duration_r1b_negation",EXTRACTION="(%reApproximate |[Tt]he )?([Ss]everal|[Aa] couple of|[Ss]ome|[Aa] few|[Rr]ecent|[Cc]oming) (%reUnit|minutes?|hours?) (older|younger|old|young)",NORM_VALUE="REMOVE"
+RULENAME="duration_r1b_negation",EXTRACTION="(%reApproximate |[Tt]he )?([Ss]everal|[Aa] couple of|[Ss]ome|[Mm]any|[Aa] few|[Rr]ecent|[Cc]oming) (%reUnit|minutes?|hours?) (older|younger|old|young)",NORM_VALUE="REMOVE"
 RULENAME="duration_r1c_negation",EXTRACTION="([Tt]he )?(%reNumWord2D|%reNumWord1D|[\d]+)-(%reUnit|minutes?|hours?)-(older|younger|old|young)",NORM_VALUE="REMOVE"
 RULENAME="duration_r1d_negation",EXTRACTION="(%reApproximate )?(an|a)( )%reUnit-(\p{L}+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(5):NN:"
 

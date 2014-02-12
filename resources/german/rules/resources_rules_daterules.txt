@@ -8,6 +8,91 @@
 // POSITIVE RULES //
 ////////////////////
 
+// simplest LREC2014 rules
+// EXAMPLE date_lrec1a: \d BC
+// EXAMPLE date_lrec1b: \d or \d BC
+RULENAME="date_lrec1a",EXTRACTION="(%reApproximate )?(Jahr(e)?([ns])? )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))"
+RULENAME="date_lrec1b",EXTRACTION="(%reApproximate )?(Jahr(e)?([ns])? )?%reYearPrefix %reYearBC",NORM_VALUE="%normYearPrefix(group(6))%normYearBC(group(7))"
+RULENAME="date_lrec1c",EXTRACTION="(%reApproximate )?(Jahr(e)?([ns])? )?%reYearBC(-|–|/| - | – | und | bis | oder )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(9))%normYearBC(group(6))",OFFSET="group(0)-group(6)"
+RULENAME="date_lrec1d",EXTRACTION="(%rePartWords )?(Jahr(e)?([ns])? )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))"
+RULENAME="date_lrec1e",EXTRACTION="(%rePartWords )?(Jahr(e)?([ns])? )?%reYearPrefix %reYearBC",NORM_VALUE="%normYearPrefix(group(6))%normYearBC(group(7))"
+RULENAME="date_lrec1f",EXTRACTION="(%rePartWords )?(Jahr(e)?([ns])? )?%reYearBC(-|–|/| - | – | und | bis | oder )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(9))%normYearBC(group(6))",OFFSET="group(0)-group(6)"
+
+
+// month and year
+RULENAME="date_lrec2a",EXTRACTION="(%reApproximate )?(%reMonthLong|%reMonthShort)( )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(8))%normYearBC(group(7))-%normMonth(group(3))"
+RULENAME="date_lrec2b",EXTRACTION="(%reApproximate )?(%reMonthLong|%reMonthShort)( )([\d][\d][\d])",NORM_VALUE="%normYearBC(group(7))-%normMonth(group(3))"
+RULENAME="date_lrec2c",EXTRACTION="(%reApproximate )?(%reMonthLong|%reMonthShort)( )([\d][\d])",NORM_VALUE="%normYearBC(group(7))-%normMonth(group(3))"
+RULENAME="date_lrec2d",EXTRACTION="(%rePartWords )?(%reMonthLong|%reMonthShort)( )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(8))%normYearBC(group(7))-%normMonth(group(3))"
+RULENAME="date_lrec2e",EXTRACTION="(%rePartWords )?(%reMonthLong|%reMonthShort)( )([\d][\d][\d])",NORM_VALUE="%normYearBC(group(7))-%normMonth(group(3))"
+RULENAME="date_lrec2f",EXTRACTION="(%rePartWords )?(%reMonthLong|%reMonthShort)( )([\d][\d])",NORM_VALUE="%normYearBC(group(7))-%normMonth(group(3))"
+//RULENAME="date_r7a_LREC",EXTRACTION="([Ii]n )(%reMonthLong|%reMonthShort)( of | )%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(6)-%normMonth(group(2))",OFFSET="group(2)-group(6)"
+//RULENAME="date_r7b_LREC",EXTRACTION="(%reMonthLong|%reMonthShort)( of )%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(5)-%normMonth(group(1))"
+
+
+// day and year
+//RULENAME="date_lrec3a",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayNumberTh|%reDayNumber)[\s]?,? %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(8))%normYearBC(group(7))-%normMonth(group(1))-%normDay(group(4))"
+//RULENAME="date_lrec3b",EXTRACTION="%reDayNumber (%reMonthLong|%reMonthShort)([\s]?,)? %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))-%normMonth(group(2))-%normDay(group(1))"
+//RULENAME="date_lrec3c",EXTRACTION="(%reDayWordTh|%reDayNumberTh|%reDayNumber) (of) (%reMonthLong|%reMonthShort) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(10))%normYearBC(group(9))-%normMonth(group(6))-%normDay(group(1))"
+//RULENAME="date_lrec3d",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayNumberTh|%reDayNumber)[\s]?,? ([\d\d\d])",NORM_VALUE="%normYearBC(group(7))-%normMonth(group(1))-%normDay(group(4))"
+//RULENAME="date_lrec3e",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayNumberTh|%reDayNumber)(,)? ([\d\d])",NORM_VALUE="UNDEF-centurygroup(8)-%normMonth(group(1))-%normDay(group(4))"
+RULENAME="date_lrec_r3a",EXTRACTION="%reDayNumber[\.]? (%reMonthLong|%reMonthShort)( des Jahres| im Jahre)? %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))-%normMonth(group(2))-%normDay(group(1))"
+RULENAME="date_lrec_r3b",EXTRACTION="%reDayNumber[\.]? (%reMonthLong|%reMonthShort)( des Jahres| im Jahre)? %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(6)-%normMonth(group(2))-%normDay(group(1))"
+
+// season and year
+RULENAME="date_lrec4a",EXTRACTION="(%reApproximate )?%reSeason %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(4))-%normSeason(group(3))",
+RULENAME="date_lrec4b",EXTRACTION="(%rePartWords )?%reSeason %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(4))-%normSeason(group(3))",
+
+// date_r15 LREC changes
+// EXAMPLE r15a_1: the 19th century
+// EXAMPLE r15a_2: the seventh century
+RULENAME="date_lrec_r17a",EXTRACTION="(Das )?(%reDayNumber[\.]?|%reDayWordTh) (Jahrhundert[s]?|Jh\.) %reYearPrefix",NORM_VALUE="%normYearPrefix(group(6))%normDay(%SUM%(%normDay(group(2)),-1))"
+//RULENAME="date_r15a",EXTRACTION="([Tt]he )?(%reDayNumberTh|%reDayWordTh) [Cc]entur(y|ies)( %reYearPrefix)?",NORM_VALUE="%normYearPrefix(group(7))%normDay(%SUM%(%normDay(group(2)),-1))"
+//RULENAME="date_r15b",EXTRACTION="%rePartWords( the)? (%reDayNumberTh|%reDayWordTh) [Cc]entur(y|ies)( %reYearPrefix)?",NORM_VALUE="%normYearPrefix(group(8))%normDay(%SUM%(%normDay(group(3)),-1))",NORM_MOD="%normPartWords(group(1))"
+//RULENAME="date_r15c",EXTRACTION="(([Tt]he )?(%reDayNumberTh|%reDayWordTh))%reAndOrTo(the )?(%reDayNumberTh|%reDayWordTh) [Cc]entur(y|ies)( %reYearPrefix)?",NORM_VALUE="%normYearPrefix(group(13))%normDay(%SUM%(%normDay(group(3)),-1))",OFFSET="group(1)-group(1)"
+//RULENAME="date_r15d",EXTRACTION="(%rePartWords( the)? (%reDayNumberTh|%reDayWordTh))%reAndOrTo(the )?(%reDayNumberTh|%reDayWordTh) [Cc]entur(y|ies)( %reYearPrefix)?",NORM_VALUE="%normYearPrefix(group(14))%normDay(%SUM%(%normDay(group(4)),-1))",OFFSET="group(1)-group(1)",NORM_MOD="%normPartWords(group(1))"
+
+// decade expressions with BC
+//RULENAME="date_lrec6a",EXTRACTION="(%rePartWords )?([Tt]he )?(\d\d\d0)[']?[s] %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%SUBSTRING%(group(4),0,3)",NORM_MOD="%normPartWords(group(2))"
+//RULENAME="date_lrec6b",EXTRACTION="(%rePartWords )?([Tt]he )?(\d\d0)[']?[s] %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))0%SUBSTRING%(group(4),0,2)",NORM_MOD="%normPartWords(group(2))"
+//RULENAME="date_lrec6c",EXTRACTION="(%rePartWords )?([Tt]he )?(\d0)[']?[s] %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))00%SUBSTRING%(group(4),0,1)",NORM_MOD="%normPartWords(group(2))"
+
+// three digit number without BC AD etc.
+//RULENAME="date_lrec7a1",EXTRACTION="(\b[Ii]n) (\d\d\d)",NORM_VALUE="%normYearBC(group(2))",OFFSET="group(2)-group(2)"
+//RULENAME="date_lrec7b",EXTRACTION="(\b[Ii]n) (\d\d\d)(,)",NORM_VALUE="%normYearBC(group(2))",OFFSET="group(2)-group(2)"
+//RULENAME="date_lrec7c",EXTRACTION="\A(\d\d[\d]?[\d]?[\d]?)\Z",NORM_VALUE="%normYearBC(group(1))"
+RULENAME="date_lrec7d",EXTRACTION="(Jahr(e)?([ns])?) (\d\d)",NORM_VALUE="%normYearBC(group(4))"
+RULENAME="date_lrec7e",EXTRACTION="(Jahr(e)?([ns])?) (\d\d\d)",NORM_VALUE="%normYearBC(group(4))"
+//RULENAME="date_lrec7f",EXTRACTION="(\d\d[\d]?) ([\S]+)",NORM_VALUE="%normYearBC(group(1))",POS_CONSTRAINT="group(2):APPR:",OFFSET="group(1)-group(1)"
+RULENAME="date_lrec7g",EXTRACTION="(\d\d[\d]?) ([\S]+)",NORM_VALUE="%normYearBC(group(1))",POS_CONSTRAINT="group(2):VAFIN:",OFFSET="group(1)-group(1)"
+RULENAME="date_lrec7h",EXTRACTION="(\d\d[\d]?) ([\S]+)",NORM_VALUE="%normYearBC(group(1))",POS_CONSTRAINT="group(2):VVFIN:",OFFSET="group(1)-group(1)"
+
+// two digit year number
+//RULENAME="date_lrec8a",EXTRACTION="(\b[Ii]n) (\d\d)(,)",NORM_VALUE="%normYearBC(group(2))",OFFSET="group(2)-group(2)"
+//RULENAME="date_lrec8b",EXTRACTION="(\b[Ii]n) (\d\d)",NORM_VALUE="%normYearBC(group(2))",OFFSET="group(2)-group(2)"
+
+// negative rules
+RULENAME="date_lrec0d_negative",EXTRACTION="(MiG(-)%reYearBC)",NORM_VALUE="REMOVE"
+RULENAME="date_lrec0e_negative",EXTRACTION="(%reYear2Digit )([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(3):NN:",OFFSET="group(1)-group(1)"
+//RULENAME="date_lrec0e_negative",EXTRACTION="(\b[Ii]n) (%reYearBC )([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(4):JJ:group(5):NNS:",OFFSET="group(2)-group(2)"
+//RULENAME="date_lrec0f_negative",EXTRACTION="(\b[Ii]n) (%reYearBC )([\S]+) ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(4):JJ:group(5):NN:group(6):NNS:",OFFSET="group(2)-group(2)"
+//RULENAME="date_lrec0g_negative",EXTRACTION="(\b[Ii]n) (%reYearBC )(kilometers?|miles?|foot|feet|dollars?)",NORM_VALUE="REMOVE"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /////////////////////
 // Day Granularity //
 /////////////////////
@@ -164,7 +249,7 @@ RULENAME="date_r19d",EXTRACTION="([Dd]ie |[Dd]en )?%rePartWords([ ]?)%reYear2Dig
 // EXAMPLE r20c_1: diesen November
 // EXAMPLE r20d_1: diesen Montag
 // EXAMPLE r20e_1: diesen Sommer
-RULENAME="date_r20a",EXTRACTION="%reThisNextLast %reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normUnit(group(2))"
+RULENAME="date_r20a",EXTRACTION="([Dd]er |[Dd]ie |[Dd]as )?%reThisNextLast %reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-%normUnit(group(3))"
 RULENAME="date_r20b",EXTRACTION="([Ss]elbe[nrs]?|[Gg]leiche[nrs]?) Tag",NORM_VALUE="UNDEF-REF-day-PLUS-0"
 RULENAME="date_r20c",EXTRACTION="%reThisNextLast %reMonthLong",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normMonthToEnglish(group(2))"
 RULENAME="date_r20d",EXTRACTION="%reThisNextLast %reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normWeekday(group(2))"

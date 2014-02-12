@@ -30,6 +30,7 @@
 "Jahrhundert","century"
 "Jahrhunderte","century"
 "Jahrhunderten","century"
+"Jh\.","century"
 // LOWERCASE
 "handelstag","day"
 "handelstage","day"
