@@ -1687,12 +1687,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	public void deleteOverlappedTimexes(JCas jcas) {
 		FSIterator timexIter1 = jcas.getAnnotationIndex(Timex3.type).iterator();
 		HashSet<Timex3> hsTimexesToRemove = new HashSet<Timex3>();
-
-		
 		while (timexIter1.hasNext()) {
 			Timex3 t1 = (Timex3) timexIter1.next();
-			FSIterator timexIter2 = jcas.getAnnotationIndex(Timex3.type)
-					.iterator();
+			FSIterator timexIter2 = jcas.getAnnotationIndex(Timex3.type).iterator();
 
 			while (timexIter2.hasNext()) {
 				Timex3 t2 = (Timex3) timexIter2.next();
@@ -1734,11 +1731,138 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		}
 		// remove, finally
 		for (Timex3 t : hsTimexesToRemove) {
-			Logger.printDetail(t.getTimexId()+"REMOVE DUPLICATE: " + t.getCoveredText()+"(id:"+t.getTimexId()+" value:"+t.getTimexValue()+" found by:"+t.getFoundByRule()+")");
+			Logger.printDetail("REMOVE DUPLICATE: " + t.getCoveredText()+"(id:"+t.getTimexId()+" value:"+t.getTimexValue()+" found by:"+t.getFoundByRule()+")");
 			
 			t.removeFromIndexes();
 			timex_counter--;
 		}
+		
+		/* new code */
+		FSIterator timexIter = jcas.getAnnotationIndex(Timex3.type).iterator();
+		FSIterator innerTimexIter = timexIter.copy();
+		HashSet<ArrayList<Timex3>> effectivelyToInspect = new HashSet<ArrayList<Timex3>>();
+		ArrayList<Timex3> allTimexesToInspect = new ArrayList<Timex3>();
+		while(timexIter.hasNext()) {
+			Timex3 myTimex = (Timex3) timexIter.next();
+			
+			ArrayList<Timex3> timexSet = new ArrayList<Timex3>();
+			timexSet.add(myTimex);
+			
+			// compare this timex to all other timexes and mark those that have an overlap
+			while(innerTimexIter.hasNext()) {
+				Timex3 myInnerTimex = (Timex3) innerTimexIter.next();
+				
+				if((myTimex.getBegin() <= myInnerTimex.getBegin() && myTimex.getEnd() > myInnerTimex.getBegin()) || // timex1 starts, timex2 is partial overlap
+				   (myInnerTimex.getBegin() <= myTimex.getBegin() && myInnerTimex.getEnd() > myTimex.getBegin()) || // same as above, but in reverse
+				   (myInnerTimex.getBegin() <= myTimex.getBegin() && myTimex.getEnd() <= myInnerTimex.getEnd()) || // timex 1 is contained within or identical to timex2
+				   (myTimex.getBegin() <= myInnerTimex.getBegin() && myInnerTimex.getEnd() <= myTimex.getEnd())) { // same as above, but in reverse
+					timexSet.add(myInnerTimex); // increase the set
+					
+					allTimexesToInspect.add(myTimex); // note that these timexes are being looked at
+					allTimexesToInspect.add(myInnerTimex);
+				}
+			}
+			
+			// if overlaps with myTimex were detected, memorize them
+			if(timexSet.size() > 1)
+				effectivelyToInspect.add(timexSet);
+			
+			// reset the inner iterator
+			innerTimexIter.moveToFirst();
+		}
+		
+		/* prune those sets of overlapping timexes that are subsets of others 
+		 * (i.e. leave only the largest union of overlapping timexes)
+		 */
+		HashSet<ArrayList<Timex3>> newEffectivelyToInspect = new HashSet<ArrayList<Timex3>>();
+		for(Timex3 t : allTimexesToInspect) {
+			ArrayList<Timex3> setToKeep = new ArrayList<Timex3>();
+			
+			// determine the largest set that contains this timex
+			for(ArrayList<Timex3> tSet : effectivelyToInspect) {
+				if(tSet.contains(t) && tSet.size() > setToKeep.size())
+					setToKeep = tSet;
+			}
+			
+			newEffectivelyToInspect.add(setToKeep);
+		}
+		// overwrite previous list of sets
+		effectivelyToInspect = newEffectivelyToInspect;
+		
+		// iterate over the selected sets and merge information, remove old timexes
+		for(ArrayList<Timex3> tSet : effectivelyToInspect) {
+			Timex3 newTimex = new Timex3(jcas);
+			
+			// if a timex has the timex value REMOVE, remove it from consideration
+			@SuppressWarnings("unchecked")
+			ArrayList<Timex3> newTSet = (ArrayList<Timex3>) tSet.clone();
+			for(Timex3 t : tSet) {
+				if(t.getTimexValue().equals("REMOVE")) { // remove timexes with value "REMOVE"
+					newTSet.remove(t);
+				}
+			}
+			tSet = newTSet;
+			
+			// iteration is done if all the timexes have been removed, i.e. the set is empty 
+			if(tSet.size() == 0)
+				continue;
+			
+			/* 
+			 * check 
+			 * - whether all timexes of this set have the same timex type attribute,
+			 * - which one in the set has the longest value attribute string length,
+			 * - what the combined extents are
+			 */
+			Boolean allSameTypes = true;
+			String timexType = null;
+			Timex3 longestTimex = null;
+			Integer combinedBegin = Integer.MAX_VALUE, combinedEnd = Integer.MIN_VALUE;
+			for(Timex3 t : tSet) {
+				// check whether the types are identical and either all DATE or TIME
+				if(timexType == null) {
+					timexType = t.getTimexType();
+				} else {
+					if(!timexType.equals(t.getTimexType()) || !timexType.equals("DATE") || !timexType.equals("TIME")) {
+						allSameTypes = false;
+					}
+				}
+				Logger.printDetail("Are these overlapping timexes of same type? => " + allSameTypes);
+				
+				// check timex value attribute string length
+				if(longestTimex == null) {
+					longestTimex = t;
+				} else if(longestTimex.getTimexValue().length() < t.getTimexValue().length()) {
+					longestTimex = t;
+				}
+				Logger.printDetail("Selected " + longestTimex.getTimexId() + ": " + longestTimex.getCoveredText() + 
+						"[" + longestTimex.getTimexValue() + "] as the longest-valued timex.");
+				
+				// check combined beginning/end
+				if(combinedBegin > t.getBegin())
+					combinedBegin = t.getBegin();
+				if(combinedEnd < t.getEnd())
+					combinedEnd = t.getEnd();
+				Logger.printDetail("Selected combined constraints: " + combinedBegin + ":" + combinedEnd);
+			}
+
+			/* types are equal => merge constraints, use the longer, "more granular" value. 
+			 * if types are not equal, just take the longest value.
+			 */
+			newTimex = longestTimex;
+			if(allSameTypes) {
+				newTimex.setBegin(combinedBegin);
+				newTimex.setEnd(combinedEnd);
+			}
+			
+			// remove old overlaps.
+			for(Timex3 t : tSet)
+				t.removeFromIndexes();
+			
+			// add the single constructed/chosen timex to the indexes.
+			newTimex.addToIndexes();
+		}
+		
+		/*/new code */
 	}
 	
 	
