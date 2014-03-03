@@ -1,6 +1,6 @@
-// author: Jannik Strötgen
-// email:  stroetgen@uni-hd.de
-// date:   2011-06-10
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
 // This file contains "unit words" and their normalized expressions.
 // For example, the normalized value of "week" is "week"
 // FORMAT: "unit-word","normalized-unit-word"
@@ -10,12 +10,17 @@
 "周","week"
 "星期","week"
 "月","month"
+"月份","month"
 "季度","quarter"
 "季","quarter"
-"年","year"
 "世纪","century"
-"年代","year"
+
+"年","year"
 "时期","Decades"
 "小时","hour"
+"时","hour"
 "分钟","minute"
+"秒","second"
+
+//"年代","year"
 

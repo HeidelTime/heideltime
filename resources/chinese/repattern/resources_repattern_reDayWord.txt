@@ -1,9 +1,9 @@
-// author: Jannik Strötgen
-// email:  stroetgen@uni-hd.de
-// date:   2011-06-10
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
 // This file contains regular expression patterns for long  days.
 // FORMAT: one line is one disjunction of the pattern
-十
+
 十一
 十二
 十三
@@ -13,7 +13,7 @@
 十七
 十八
 十九
-二十
+十
 二十一
 二十二
 二十三
@@ -23,8 +23,9 @@
 二十七
 二十八
 二十九
-三十
+二十
 三十一
+三十
 一
 二
 三

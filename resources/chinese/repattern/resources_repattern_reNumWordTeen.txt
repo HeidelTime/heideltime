@@ -1,9 +1,9 @@
-// author: Jannik Strötgen
-// email:  stroetgen@uni-hd.de
-// date:   2011-06-10
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
 // This file contains regular expression patterns for number words 10 to 20.
 // FORMAT: one line is one disjunction of the pattern
-十
+
 十一
 十二
 十三
@@ -13,4 +13,5 @@
 十七
 十八
 十九
+十
 二十

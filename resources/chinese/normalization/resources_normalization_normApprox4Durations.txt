@@ -1,34 +1,36 @@
-// author: Jannik Strötgen
-// email:  stroetgen@uni-hd.de
-// date:   2011-09-12
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
 // This file contains "approximate words" and their normalized expressions
 // for dates/times according to TIMEX3 format.
 // For example, the normalized value of "about" is "APPROX"
 // FORMAT: "approximate-word","normalized-approximate-word"
 // about
 "大约","APPROX"
-"大概","APPROX"
-"近似","APPROX"
 "约","APPROX"
+"大概","APPROX"
 "差不多","APPROX"
 "左右","APPROX"
+"近似","APPROX"
 "将近","APPROX"
-"几乎","APPROX"
-"前后","APPROX"
 "近于","APPROX"
 "近","APPROX"
+"几乎","APPROX"
+"前后","APPROX"
+
 
 // less
-"只","EQUAL_OR_LESS"
 "只是","EQUAL_OR_LESS"
-"仅","EQUAL_OR_LESS"
+"只","EQUAL_OR_LESS"
 "仅仅","EQUAL_OR_LESS"
+"仅","EQUAL_OR_LESS"
 "至多","EQUAL_OR_LESS"
-"不过","EQUAL_OR_LESS"
-"不超过","EQUAL_OR_LESS"
 "不会超过","EQUAL_OR_LESS"
-"直到","EQUAL_OR_LESS"
+"不超过","EQUAL_OR_LESS"
+"不过","EQUAL_OR_LESS"
+
 "一直到","EQUAL_OR_LESS"
+"直到","EQUAL_OR_LESS"
 "直至","EQUAL_OR_LESS"
 "少于","LESS_THAN"
 "不到","LESS_THAN"
@@ -41,6 +43,7 @@
 "不止","MORE_THAN"
 "以上","MORE_THAN"
 "超过","MORE_THAN"
-//"长","MORE_THAN"
+"多","MORE_THAN"
 "更长","MORE_THAN"
 "较长","MORE_THAN"
+//"长","MORE_THAN"

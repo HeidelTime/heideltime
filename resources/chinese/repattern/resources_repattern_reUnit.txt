@@ -1,6 +1,6 @@
-// author: Jannik Strötgen
-// email:  stroetgen@uni-hd.de
-// date:   2011-06-10
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
 // This file contains regular expression patterns for unit words.
 // FORMAT: one line is one disjunction of the pattern
 
@@ -10,23 +10,18 @@
 周
 星期
 月
+月份
 季度
 季
-年
 世纪
-年代
-时期
-小时
-分钟
 
-//[Dd]ays?
-//[Ww]eek-ends?
-//[Ww]eekends?
-//[Ww]eeks?
-//[Mm]onths?
-//[Qq]uarters?
-//[Yy]ears?
-//[Dd]ecades?
-//[Cc]entury
-//[Cc]enturies
+年
+时期
+
+// the following are of time granularity and listed in reUinitTime
+//小时
+//时
+//分钟
+//年代
+
 

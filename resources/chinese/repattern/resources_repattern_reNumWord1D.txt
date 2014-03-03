@@ -1,11 +1,12 @@
-// author: Jannik Strötgen
-// email:  stroetgen@uni-hd.de
-// date:   2011-06-10
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
 // This file contains regular expression patterns for number word 1 digits.
 // FORMAT: one line is one disjunction of the pattern
 
 一
 二
+两
 三
 四
 五
@@ -22,14 +23,5 @@
 ７
 ８
 ９
+全
 
-
-//[Oo]ne
-//[Tt]wo
-//[Tt]hree
-//[Ff]our
-//[Ff]ive
-//[Ss]ix
-//[Ss]even
-//[Ee]ight
-//[Nn]ine

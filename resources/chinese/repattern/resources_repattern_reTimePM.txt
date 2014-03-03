@@ -3,20 +3,9 @@
 // date:   2013-12-12
 // This file contains regular expression patterns for parts of days.
 // FORMAT: one line is one disjunction of the pattern
-早晨
-上午
-早上
-清晨
-凌晨
-
-中午
-正午
-午间
-晌午
 
 下午
 午后
-
 晚上
 傍晚
 夜晚

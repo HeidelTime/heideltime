@@ -1,26 +1,42 @@
-// author: Jannik Strötgen
-// email:  stroetgen@uni-hd.de
-// date:   2011-06-10
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
 // This file contains regular expression patterns for parts of year.
 // FORMAT: one line is one disjunction of the pattern
 
 第一季度
 第一季
 第1季
-上半年
-前半年
+第１季
+一季度
+
 第二季度
 第二季
 第2季
+第２季
+二季度
+
+第三季度
 第三季
 第3季
-第三季度
+第３季
+三季度
+
+第四季度
 第四季
 第4季
-第四季度
-下半年
-后半年
+第４季
+四季度
+
 最后一个季度
 最后一季度
 最后一季
+
+上半年
+前半年
+头半年
+下半年
+后半年
+
+
 

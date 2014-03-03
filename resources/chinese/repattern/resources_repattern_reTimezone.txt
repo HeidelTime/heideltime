@@ -1,6 +1,7 @@
 // author: Hui Li
 // email:  hui.li@informatik.uni-heidelberg.de
 // date:   2013-12-12
-// This file contains regular expression patterns for POS tags indicating future.
+// This file contains regular expression patterns for time zones.
 // FORMAT: one line is one disjunction of the pattern
-MD
+
+北京时间

@@ -1,32 +1,35 @@
-// author: Jannik Strötgen
-// email:  stroetgen@uni-hd.de
-// date:   2011-06-10
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
 // This file contains regular expression patterns for "approximate" words.
 // FORMAT: one line is one disjunction of the pattern
+
 // about
 大约
-大概
-近似
 约
+大概
 差不多
 左右
+近似
 将近
-几乎
-前后
 近于
 近
+几乎
+前后
 
 //less
-只
+
 只是
-仅
+只
 仅仅
+仅
 至多
-不过
-不超过
 不会超过
-直到
+不超过
+不过
+
 一直到
+直到
 直至
 少于
 不到
@@ -39,31 +42,10 @@
 不止
 以上
 超过
-//长
+多
 更长
 较长
-多
+//长
 
 
 
-
-
-
-
-//about
-//Aa]pproximately
-//[Aa]bout
-//[Aa]round
-//[Cc]irca
-// less
-//[Nn]o more than
-//[Nn]o longer than
-//[Uu]p to
-//[Ll]ess than
-//[Nn]early
-//[Aa]lmost
-//  more
-//[Aa]t least
-//[Mm]ore than
-//[Ll]onger than
-//[Oo]ver

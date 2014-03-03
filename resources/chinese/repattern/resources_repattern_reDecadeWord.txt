@@ -1,40 +1,64 @@
-// author: Jannik Strötgen
-// email:  stroetgen@uni-hd.de
-// date:   2011-06-10
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
 // This file contains regular expression patterns for decade words.
 // FORMAT: one line is one disjunction of the pattern
+
 二十世纪
 二十年代
 20世纪
 20年代
+２０世纪
+２０年代
+
 三十世纪
 三十年代
 30世纪
 30年代
+３０世纪
+３０年代
+
 四十世纪
 四十年代
 40世纪
 40年代
+４０世纪
+４０年代
+
 五十世纪
 五十年代
 50世纪
 50年代
+５０世纪
+５０年代
+
 六十世纪
 六十年代
 60世纪
 60年代
+６０世纪
+６０年代
+
 七十世纪
 七十年代
 70世纪
 70年代
+７０世纪
+７０年代
+
 八十世纪
 八十年代
 80世纪
 80年代
+８０世纪
+８０年代
+
 九十世纪
 九十年代
 90世纪
 90年代
+９０世纪
+９０年代
 
 
 

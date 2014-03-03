@@ -1,6 +1,13 @@
 // author: Hui Li
 // email:  hui.li@informatik.uni-heidelberg.de
 // date:   2013-12-12
-// This file contains regular expression patterns for POS tags indicating future.
+// This file contains regular expression patterns for unit words.
 // FORMAT: one line is one disjunction of the pattern
-MD
+
+小时
+时
+分钟
+秒
+
+
+

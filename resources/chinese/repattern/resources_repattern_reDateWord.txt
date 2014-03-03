@@ -1,70 +1,87 @@
-// author: Jannik Strötgen
-// email:  stroetgen@uni-hd.de
-// date:   2011-06-10
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
 // This file contains regular expression patterns for date words.
 // FORMAT: one line is one disjunction of the pattern
 // THESE EXPRESSIONS ARE ALL IMPLICITS
 // SHOULD ONLY BE UPPER CASE IF AT THE BEGINNING OF A SENTENCE
+
 //today
 今天
-//今
-//yesterday
 
-前天
 //[Tt]he day before yesterday
-明天
+前天
+
 //[Tt]omorrow
+明天
+
+//[Rr]ight now
 目前
 日前
 眼前
 方才
-现在
-//立刻
-//[Rr]ight now（[Nn]ow）
-//[Aa]s soon as possible
-不久
+当前
+
 //[Ss]oon
+不久
+
+//[Rr]ecently [Rr]ecent
 最近
 新近
-//[Rr]ecently [Rr]ecent
-//当前
+近几年
+这几年
+近年
+近日
+
+//[Cc]urrently [Cc]urrent
 现时
 时下
-//同时
-//当时
-当年
-与此同时
+现在
 现今
-
-//现
 如今
 当今
-//今日
+现
+
+//in the future
 今后几年
 今后
 近期
 未来
 将来
-近日
-近年
-//几年
-近几年
-过去的几十年
-建国初期
-//[Cc]urrently [Cc]urrent
-以前
-前几年
-前一阵子
-//先前
-//之前
+
 //[Pp]reviously
-原先
-从前
+前一阵子
+前几年
 前不久
+这期间
+当年
+以前
+从前
+原先
 过去
 以往
 那时
 近来
 昔日
-这期间
-//[Ff]ormerly [Ff]ormer
+近一段时期
+
+过去的几十年
+建国初期
+战后初期
+//商
+//战国
+//东汉
+//隋
+
+
+//今
+//立刻
+//同时
+//当时
+
+//今日
+//几年
+
+//与此同时
+//先前
+//之前

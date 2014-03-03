@@ -1,6 +1,6 @@
-// author: Jannik Strötgen
-// email:  stroetgen@uni-hd.de
-// date:   2011-06-10
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
 // This file contains "unit words for duration" and their normalized expressions
 // according to TIMEX3 format.
 // For example, the normalized value of "week" is "W"
@@ -11,12 +11,16 @@
 "周","W"
 "星期","W"
 "月","M"
+"月份","M"
 "季度","Q"
 "季","Q"
-"年","Y"
 "世纪","CE"
 "年代","Y"
+"年","Y"
 "时期","DE"
 "小时","H"
+"时","H"
 "分钟","M"
+"秒","S"
+
 
