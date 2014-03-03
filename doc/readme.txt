@@ -3,7 +3,7 @@
 #######################
 
 Author: Jannik Strötgen, Julian Zell
-Date:   April 17, 2013
+Date:   March 03, 2014
 eMail:  stroetgen@uni-hd.de, zell@informatik.uni-heidelberg.de
 
 ###################################
@@ -96,7 +96,7 @@ contains:
       
     * HeidelTime: Possible parameter values are:
     	- languages: english, englishcoll, englishsci, german, spanish, italian, vietnamese, arabic,
-    			   dutch
+    			   dutch, chinese, french
     	- types: news, narratives, colloquial (for use with englishcoll), scientific (englishsci)
     	- locale: the locale to use for date calculation. Leave it empty to use en_GB.
     	- Debugging: to output verbose debugging information to stderr.
@@ -115,8 +115,8 @@ contains:
       the TempEval-3 Reader and processed by HeidelTime in the format required by the TempEval-3
       evaluation scripts.
       
-    * Languages supported by HeidelTime as of version 1.3 are:
-      german, english, dutch, arabic, vietnamese, spanish, italian.
+    * Languages supported by HeidelTime as of version 1.6 are:
+      German, English, Dutch, Arabic, Vietnamese, Spanish, Italian, French, Chinese.
       
 ######################
 # 3. Getting started #
@@ -138,7 +138,7 @@ set the environment variables.
 		- make sure that JAVA_HOME is set correctly
 		- add the "$UIMA_HOME/bin" to your PATH
 			* export PATH=$PATH:$UIMA_HOME/bin
-	* Adjust the UIMA's example paths: 
+	* Adjust the UIMA's example paths:
 		- $UIMA_HOME/bin/adjustExamplePaths.sh
 	* For further information about UIMA, see http://uima.apache.org/
 
@@ -158,7 +158,7 @@ set the environment variables.
    imports in HeidelTime.java itself. Furthermore, if a differing tag set is used, all rules
    containing part-of-speech information have to be adapted).
    
-   To process English, German, Dutch, Spanish or Italian documents, the TreeTaggerWrapper
+   To process English, German, Dutch, Spanish, Italian or Chinese documents, the TreeTaggerWrapper
    can be used for pre-processing: 
     * Download the TreeTagger and its tagging scripts, installation scripts, as well as 
       English, German, and Dutch (or any other) parameter files into one directory from:
@@ -177,6 +177,8 @@ set the environment variables.
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/french-par-linux-3.2-utf8.bin.gz
       Attention: If you do not use Linux, please download all TreeTagger files directly from
                  http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
+	* (OPTIONAL) For Chinese documents, please get the Tokenizer and TreeTagger parameter file
+	  from http://corpus.leeds.ac.uk/tools/zh/.
     * Install the TreeTagger
 		- sh install-tagger.sh 
 	* Set environment variables (you can set variables permanently, e.g., in your $HOME/.bashrc)
