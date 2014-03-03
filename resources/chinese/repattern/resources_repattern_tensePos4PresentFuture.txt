@@ -1,0 +1,13 @@
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
+// This file contains regular expression patterns for POS tags indicating present or future.
+// FORMAT: one line is one disjunction of the pattern
+VBP
+VBZ
+VHP
+VHZ
+VVP
+VVZ
+VV
+

@@ -1,0 +1,32 @@
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
+// This file contains regular expression patterns for parts of days.
+// FORMAT: one line is one disjunction of the pattern
+早晨
+上午
+早上
+清晨
+凌晨
+
+中午
+正午
+午间
+晌午
+
+下午
+午后
+
+晚上
+傍晚
+夜晚
+今晚
+晚
+今夜
+今宵
+午夜
+子夜
+半夜
+夜半
+
+

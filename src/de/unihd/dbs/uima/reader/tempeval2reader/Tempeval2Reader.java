@@ -16,8 +16,10 @@ package de.unihd.dbs.uima.reader.tempeval2reader;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -77,13 +79,15 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
    * Name of configuration parameter that must be set to the path of a directory
    * containing input files.
    */
-  public static final String PARAM_INPUTDIR  = "InputDirectory";
+	  public static final String PARAM_INPUTDIR  = "InputDirectory";
+	  public static final String PARAM_CHARSET  = "Charset";
+	  public static final String PARAM_USE_SPACES = "UseSpacesAsSeparators";
 
   /**
    * List containing all filenames of "documents"
    */
   private List<String> filenames = new ArrayList<String>();
-    
+
   
   /**
    * Current file number
@@ -99,14 +103,39 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
   /**
    * Check the TempEval counting beginning if "0" or "1"
    */
-	int newTokSentNumber = 0; 
+	int newTokSentNumber = 0;
+	
+  /**
+   * Charset to use for reading in files
+   */
+  Charset charset = null;
+	
+  /**
+   * Charset to use for reading in files
+   */
+  Boolean USE_SPACES = true;
 
   /**
    * 
    */
   public void initialize() throws ResourceInitializationException {
+	  String charsetText = (String) getConfigParameterValue(PARAM_CHARSET);
+	  if(charsetText == null || charsetText.equals(""))
+		  charsetText = "UTF-8";
+	  try {
+		  charset = Charset.forName(charsetText);
+	  } catch(Exception e) {
+		  System.err.println("["+compontent_id+"] Charset " + charsetText + " was not available to be used.");
+		  throw new ResourceInitializationException();
+	  }
 
-	  
+	  Boolean useSpaces = (Boolean) getConfigParameterValue(PARAM_USE_SPACES);
+	  if(useSpaces != false) {
+		  USE_SPACES = true;
+	  } else {
+		  USE_SPACES = false;
+	  }
+	   
 	  // save doc names to list
 	  List<File> inputFiles = getFilesFromInputDirectory();
 	  
@@ -114,10 +143,6 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 	  numberOfDocuments = getNumberOfDocuments(inputFiles);
 	  System.err.println("["+compontent_id+"] number of documents: "+numberOfDocuments);
   }
-
-  
-  
-
   
   
   public void getNext(CAS cas) throws IOException, CollectionException {
@@ -178,7 +203,7 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 		if (file.getAbsolutePath().equals(filename)){
 			try {
 				String line;
-				BufferedReader bf = new BufferedReader (new FileReader(file));
+				BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset));
 				while ((line = bf.readLine()) != null){
 					String[] parts = line.split("(\t)+");
 					String fileId  = parts[0];
@@ -220,7 +245,7 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 		if (file.getAbsolutePath().equals(filename)){
 			try {
 				String line;
-				BufferedReader bf = new BufferedReader (new FileReader(file));
+				BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset));
 				Boolean lastSentProcessed  = false;
 				Boolean firstSentProcessed = false;
 				String fileId = "";
@@ -262,15 +287,23 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 						// new Sentence, first Token
 						else if ((tokId == newTokSentNumber) || (lastSentId != sentId)){
 							positionCounter = addSentenceAnnotation(sentString, fileId, sentId-1, positionCounter, jcas);
-							text = text+" "+tokenString;
+							if(!USE_SPACES) // in chinese, there are no spaces 
+								text = text + tokenString;
+							else
+								text = text + " " + tokenString;
 							sentString  = tokenString;
 							positionCounter = addTokenAnnotation(tokenString, fileId, sentId, tokId, positionCounter, jcas);
 						}
 						
 						// within any sentence
 						else{
-							text = text+" "+tokenString;
-							sentString  = sentString+" "+tokenString;
+							if(!USE_SPACES) { // in chinese, there are no spaces 
+								text = text + tokenString;
+								sentString = sentString + tokenString;
+							} else {
+								text = text + " " + tokenString;
+								sentString = sentString + " " + tokenString;
+							}
 							positionCounter = addTokenAnnotation(tokenString, fileId, sentId, tokId, positionCounter, jcas);
 						}
 					}
@@ -358,7 +391,8 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
   public Integer addTokenAnnotation(String tokenString, String fileId, Integer sentId, Integer tokId, Integer positionCounter, JCas jcas){
 		Token token = new Token(jcas);
 		if (!((sentId == newTokSentNumber) && (tokId == newTokSentNumber))){
-			positionCounter = positionCounter +1;
+			if(USE_SPACES) // in chinese, there are no spaces, so the +1 correction is unnecessary
+				positionCounter = positionCounter + 1;
 		}
 		token.setBegin(positionCounter);
 		positionCounter = positionCounter + tokenString.length();
@@ -387,7 +421,7 @@ public class Tempeval2Reader extends CollectionReader_ImplBase {
 		if (file.getAbsolutePath().equals(filename)){
 			try {
 				String line;
-				BufferedReader bf = new BufferedReader (new FileReader(file));
+				BufferedReader bf = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset));
 				while ((line = bf.readLine()) != null){
 					String docName = (line.split("\t"))[0];
 					if (!(filenames.contains(docName))){
