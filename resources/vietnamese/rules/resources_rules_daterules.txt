@@ -1,3 +1,94 @@
+// author: Tran Van Canh
+// email:  canhtv@gmail.com
+// date:   2014-Jan
+// This file contains rules for the temporal expressions of the type date: daterules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+//DAY MONTH YEAR BC/AC
+
+RULENAME="vn_date_r1a_lrec",EXTRACTION="((ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm|) %reYearBC)",NORM_VALUE="%normYearBC(group(7))-%normMonth(group(5))-%normDay(group(3))"
+
+RULENAME="vn_date_r1b_lrec",EXTRACTION="((ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthInWord (năm|Năm|) %reYearBC)",NORM_VALUE="%normYearBC(group(7))-%normMonthInWord(group(5))-%normDay(group(3))"
+
+///////////////////////
+// MONTH GRANULARITY BC/AD //
+///////////////////////
+//vn_date_r7
+// EXAMPLE vn_date_r7a_lrec: tháng 12 năm 1999 truoc CN
+// EXAMPLE vn_date_r7c_lrec: tháng 12/1999 truoc CN
+// EXAMPLE vn_date_r7d_lrec: tháng 12-1999 truoc CN
+// EXAMPLE vn_date_r7g_lrec: tháng 12.99 truoc CN
+// EXAMPLE vn_date_r7h_lrec: tháng một năm 1999 truoc CN
+// EXAMPLE vn_date_r7j_lrec: tháng 1 và tháng 2 năm 1999 truoc CN : find 1999-01 truoc CN
+// EXAMPLE vn_date_r7k_lrec: tháng 1 và tháng 2 năm 1999 truoc CN : find 1999-02 truoc CN
+RULENAME="vn_date_r7a_lrec",EXTRACTION="(tháng|Tháng) %reMonthNumber (năm|Năm) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(4))-%normMonth(group(2))"
+RULENAME="vn_date_r7a1_lrec",EXTRACTION="(tháng|Tháng) %reMonthNumber (năm|Năm) %reYearBC",NORM_VALUE="%normYearBC(group(4))-%normMonth(group(2))"
+
+RULENAME="vn_date_r7c_lrec",EXTRACTION="(tháng|Tháng) %reMonthNumber/%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))"
+RULENAME="vn_date_r7d_lrec",EXTRACTION="(tháng|Tháng) %reMonthNumber-%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))"
+RULENAME="vn_date_r7h_lrec",EXTRACTION="(tháng|Tháng) %reMonthInWord (năm|Năm) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(4))-%normMonthInWord(group(2))"
+RULENAME="vn_date_r7h1_lrec",EXTRACTION="(tháng|Tháng) %reMonthInWord (năm|Năm) %reYearBC",NORM_VALUE="%normYearBC(group(4))-%normMonthInWord(group(2))"
+
+RULENAME="vn_date_r7j_lrec",EXTRACTION="(tháng|Tháng) %reMonthNumber và (tháng|Tháng) %reMonthNumber (năm|Năm) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))-%normMonth(group(2))",OFFSET="group(1)-group(2)"
+RULENAME="vn_date_r7k_lrec",EXTRACTION="(tháng|Tháng) %reMonthNumber và (tháng|Tháng) %reMonthNumber (năm|Năm) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))-%normMonth(group(4))",OFFSET="group(3)-group(7)"
+
+
+
+
+//////////////////////
+// YEAR GRANULARITY BC/AD//
+//////////////////////
+// vn_date_r12
+// EXAMPLE vn_date_r12a_lrec: năm 2009 truoc CN
+// EXAMPLE vn_date_r12a1_lrec: Dau năm 2009 truoc CN
+// EXAMPLE vn_date_r12c1: 1850-1958 truoc CN (find: 1950 BC)
+// EXAMPLE vn_date_r12c2: 1850-1958 truoc CN (find: 1958 BC)
+// EXAMPLE vn_date_r12c3: từ 1850 đến 1958 (find: 1958, START)
+// EXAMPLE vn_date_r12c4: từ 1850 đến 1958 (find: 1958, END)
+// EXAMPLE vn_date_r12d: 90-95 (find: 95)
+
+// EXAMPLE vn_date_r12e: thập niên 1950
+// EXAMPLE vn_date_r12f: trước 1927, sau 1927 is considered 1927
+// EXAMPLE vn_date_r12g: trước 90, sau 90 
+// EXAMPLE vn_date_r12h: (1996)
+
+RULENAME="vn_date_r12a_lrec",EXTRACTION="(%reApproximate )?(năm |Năm )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(4))",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="vn_date_r12a1_lrec",EXTRACTION="%rePartWords (năm |Năm )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))",NORM_MOD="%normPartWords(group(1))"
+
+RULENAME="vn_date_r12c1_lrec",EXTRACTION="(năm |Năm )%reYearBC(-|–| đến )%reYearBC",NORM_VALUE="%normYearBC(group(2))",OFFSET="group(1)-group(2)"
+RULENAME="vn_date_r12c2_lrec",EXTRACTION="(năm |Năm )%reYearBC(-|–| đến )%reYearBC",NORM_VALUE="%normYearBC(group(4))",OFFSET="group(4)-group(4)"
+
+
+RULENAME="vn_date_r12c3_lrec",EXTRACTION="%rePartWords (năm |Năm )?%reYearBC(-|–| %rePartWords )(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(8))%normYearBC(group(3))",NORM_MOD="%normPartWords(group(1))", OFFSET="group(1)-group(3)"
+RULENAME="vn_date_r12c4_lrec",EXTRACTION="%rePartWords (năm |Năm )?%reYearBC(-|–| %rePartWords )(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(8))%normYearBC(group(7))",NORM_MOD="%normPartWords(group(5))", OFFSET="group(4)-group(8)"
+
+RULENAME="vn_date_r12c5_lrec",EXTRACTION="(năm |Năm )?%reYearBC(-|–| %rePartWords )(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(2))",OFFSET="group(1)-group(2)"
+RULENAME="vn_date_r12c6_lrec",EXTRACTION="(năm |Năm )?%reYearBC(-|–| %rePartWords )(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))", OFFSET="group(3)-group(7)"
+
+
+
+
+// season and year
+RULENAME="date_lrec4a",EXTRACTION="(%reApproximate )?%reSeason(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(6))%normYearBC(group(5))-%normSeason(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
+
+RULENAME="date_lrec4b",EXTRACTION="(%reApproximate )?%reSeason(năm |Năm )?%reYearBC",NORM_VALUE="%normYearBC(group(5))-%normSeason(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
+
+/////////////////////////
+// CENTURY GRANULARITY BC/AD // 
+/////////////////////////
+// vn_date_r15
+// EXAMPLE vn_date_r15a_lrec: thế kỷ 19      the 19th century
+// EXAMPLE vn_date_r15b_lrec: thế kỷ mười bảy
+
+RULENAME="vn_date_r15a_lrec",EXTRACTION="(thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyNumber %reYearPrefix",NORM_VALUE="%normYearPrefix(group(3))%normDay(%SUM%(%normDay(group(2)),-1))"
+RULENAME="vn_date_r15b_lrec",EXTRACTION="(thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyInWord %reYearPrefix",NORM_VALUE="%normYearPrefix(group(3))%normDay(%SUM%(%normDay(%normCenturyInWord(group(2))),-1))"
+RULENAME="vn_date_r15c_lrec",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyNumber %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normDay(%SUM%(%normDay(group(3)),-1))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="vn_date_r15d_lrec",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyInWord %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normDay(%SUM%(%normDay(%normCenturyInWord(group(3))),-1))",NORM_MOD="%normPartWords(group(1))"
+
+
+
+
+
 // author: Jannik Strötgen
 // email:  stroetgen@uni-hd.de
 // date:   2012-03-01
@@ -176,6 +267,9 @@ RULENAME="vn_date_r9a",EXTRACTION="%reSeason",NORM_VALUE="UNDEF-year-%normSeason
 RULENAME="vn_date_r9b",EXTRACTION="%reSeason (năm |Năm )?%reYear4Digit",NORM_VALUE="group(3)-%normSeason(group(1))"
 RULENAME="vn_date_r9c",EXTRACTION="%reSeason (năm |Năm )?%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normSeason(group(1))"
 RULENAME="vn_date_r9d",EXTRACTION="%reSeason (năm |Năm )?%reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(3))-year-%normSeason(group(1))"
+// SEASON BC
+RULENAME="vn_date_r9e",EXTRACTION="%reSeason (năm |Năm )%reYearBC",NORM_VALUE="%normYearBC(group(3))-%normSeason(group(1))"
+RULENAME="vn_date_r9f",EXTRACTION="%reSeason (năm |Năm )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normSeason(group(1))"
 
 ////////////////////////////// 
 // PART-OF-YEAR GRANULARITY //
@@ -211,6 +305,7 @@ RULENAME="vn_date_r11a",EXTRACTION="%rePartOfYear (năm|Năm) %reThisNextLast",N
 // EXAMPLE vn_date_r12h: (1996)
 
 RULENAME="vn_date_r12a",EXTRACTION="(năm |Năm )%reYear4Digit",NORM_VALUE="group(2)"
+RULENAME="vn_date_r12a0_lrec",EXTRACTION="(năm |Năm )%reYearBC",NORM_VALUE="%normYearBC(group(2))"
 RULENAME="vn_date_r12a1",EXTRACTION="%rePartWords (năm |Năm )%reYear4Digit",NORM_VALUE="group(3)",NORM_MOD="%normPartWords(group(1))"
 RULENAME="vn_date_r12a2",EXTRACTION="%reYear4Digit",NORM_VALUE="group(1)"
 
@@ -348,6 +443,10 @@ RULENAME="vn_date_r19e",EXTRACTION="(Trước |trước |Sớm |sớm)([\w]+ )?%
 // EXAMPLE vn_date_r20e: 	sau|muộn (đos,hơn một thoi gian khoảng) hai năm 
 
 RULENAME="vn_date_r20a",EXTRACTION="(%reApproximate )?(%reUnit|phút|giờ) (tới|sau|tiếp theo|sau đó)",NORM_VALUE="FUTURE_REF"
+RULENAME="vn_date_r20a1",EXTRACTION="(sau |Sau ) một thời gian",NORM_VALUE="FUTURE_REF"
+RULENAME="vn_date_r20a1",EXTRACTION="(sau |Sau ) đó một thời gian",NORM_VALUE="FUTURE_REF"
+RULENAME="vn_date_r20a2",EXTRACTION="Ngay sau đó",NORM_VALUE="FUTURE_REF"
+RULENAME="vn_date_r20a3",EXTRACTION="ngay sau đó",NORM_VALUE="FUTURE_REF"
 RULENAME="vn_date_r20b",EXTRACTION="(%reApproximate )?([\d]+) (%reUnit) (tới|sau|tiếp theo|sau đó)",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-PLUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))"
 RULENAME="vn_date_r20c",EXTRACTION="(%reApproximate )?%reDateInWord (%reUnit) (tới|sau|tiếp theo|sau đó)",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-PLUS-%normDateInWord(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
 

@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2013-10-10
+// This file contains "BCyears" and their normalized expressions.
+// For example, the normalized value of "BC" is "BC"
+// FORMAT: "yearPrefix","normalized-yearPrefix"
+"TCN","BC"
+"trước CN","BC"
+"trước Công nguyên","BC"
+"trước Công Nguyên","BC"
+"Trước Công Nguyên","BC"
+"Sau CN",""
+"sau CN",""
+"sau Công nguyên",""
+"sau Công Nguyên",""
+"Sau Công Nguyên",""

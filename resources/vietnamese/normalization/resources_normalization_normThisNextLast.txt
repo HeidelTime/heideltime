@@ -14,7 +14,10 @@
 "Trước đó","last"
 "tiếp theo","next"
 "Tiếp theo","next"
-"sau","next"
+//"sau","next"
+"sau này","next"
+"Sau này","next"
+"sau đó","next"
 "theo sau","next"
 "Theo sau","next"
 "gần nhất","last"
@@ -24,6 +27,7 @@
 "hiện nay","this"
 "Hiện nay","this"
 "nay","this"
+"ngày nay","this"
 "này","this"
 //nay: năm nay
 //này: tuần này, tháng này

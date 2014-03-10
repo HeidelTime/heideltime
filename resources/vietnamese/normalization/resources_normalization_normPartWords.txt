@@ -17,6 +17,8 @@
 "Bắt đầu lúc","START"
 "giữa","MID"
 "Giữa","MID"
+"Trong","MID"
+"trong","MID"
 "cuối","END"
 "Cuối","END"
 "đến","END"
