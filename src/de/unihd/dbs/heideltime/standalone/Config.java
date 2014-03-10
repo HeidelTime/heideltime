@@ -37,6 +37,7 @@ public abstract class Config {
 	public static final String CONSIDER_SET = "considerSet";
 	public static final String CONSIDER_TIME = "considerTime";
 	public static final String TREETAGGERHOME = "treeTaggerHome";
+	public static final String CHINESE_TOKENIZER_PATH = "chineseTokenizerPath";
 	
 	public static final String JVNTEXTPRO_WORD_MODEL_PATH = "word_model_path";
 	public static final String JVNTEXTPRO_SENT_MODEL_PATH = "sent_model_path";
