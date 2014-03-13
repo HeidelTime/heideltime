@@ -4,9 +4,9 @@
 // This file contains rules for the temporal expressions of the type duration: durationrules
 // RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
 
-/////////////////////
+////////////////////
 // POSITIVE RULES //
-/////////////////////
+////////////////////
 
 // duration_unit_c1
 // EXAMPLE duration_unit_c1: 大约20年/20天
@@ -19,7 +19,6 @@
 // EXAMPLE duration_unit_c8: 大约三百多年
 // EXAMPLE duration_unit_c9: 最近20年
 
-
 RULENAME="duration_unit_c1",EXTRACTION="(%reApproximate)?(%reNumWord2D|%reNumWord1D)(%reUnit)",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(6))"
 RULENAME="duration_unit_c2",EXTRACTION="(%reApproximate)?(%reNumWord2D|%reNumWord1D)(%reUnitTime)",NORM_VALUE="PT%normDurationNumber(group(3))%normUnit4Duration(group(6))"
 RULENAME="duration_unit_c3",EXTRACTION="%reThisNextLast%reThisNextLast(%reNumWord2D|%reNumWord1D)(%reUnit)",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(6))"
@@ -30,7 +29,6 @@ RULENAME="duration_unit_c6a",EXTRACTION="(%reApproximate)?(%reNumWord2D|%reNumWo
 RULENAME="duration_unit_c7",EXTRACTION="近?(半|半个)%reUnit",NORM_VALUE="P0.5%normUnit4Duration(group(2))"
 RULENAME="duration_unit_c8",EXTRACTION="(%reApproximate)?(%reNumWord2D|%reNumWord1D)%reCountWord(%reApproximate)?(%reUnit)",NORM_VALUE="P%normDurationNumber(group(3))%normCountWord(group(6))%normUnit4Duration(group(9))",NORM_MOD="%normApprox4Durations(group(7))"
 RULENAME="duration_unit_c8a",EXTRACTION="(%reApproximate)?%reCountWord(%reApproximate)?(%reUnit)",NORM_VALUE="P1%normCountWord(group(3))%normUnit4Duration(group(6))",NORM_MOD="%normApprox4Durations(group(4))"
-//RULENAME="duration_unit_c8b",EXTRACTION="(%reApproximate)?(%reNumWord2D|%reNumWord1D)%reCountWord(%reNumWord2D|%reNumWord1D))%reCountWord(%reUnit)",NORM_VALUE="P%normDurationNumber(group(3))%normCountWord(group(6))%normUnit4Duration(group(9))",NORM_MOD="%normApprox4Durations(group(7))"
 RULENAME="duration_unit_c9",EXTRACTION="(%reDateWord)的?(%reNumWord2D|%reNumWord1D)(%reUnit)",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(6))"
 RULENAME="duration_unit_c10",EXTRACTION="(%reNumWord2D|%reNumWord1D)(至|到)(%reNumWord2D|%reNumWord1D)%reUnit",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(8))"
 RULENAME="duration_unit_c11",EXTRACTION="%reDayWordTh%reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))"
@@ -43,11 +41,6 @@ RULENAME="duration_year_c2",EXTRACTION="(多|连)年",NORM_VALUE="PXY"
 RULENAME="duration_year_c3",EXTRACTION="连续多年",NORM_VALUE="PXY"
 
 
-
-
-
-
 ////////////////////
 // NEGATIVE RULES //
 ////////////////////
-// duration_r1_negative

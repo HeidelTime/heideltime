@@ -16,31 +16,11 @@
 // EXAMPLE set_every_c5: 每个夏天
 // EXAMPLE set_every_c6: 每年
 
-
 RULENAME="set_every_c1",EXTRACTION="(每|每一|每一个|每个)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))"
 RULENAME="set_every_c2",EXTRACTION="(每|每一|每一个|每个)%reUnitTime",NORM_VALUE="PT1%normUnit4Duration(group(2))"
 RULENAME="set_every_c3",EXTRACTION="(每|每个|每一个)%reWeekday",NORM_VALUE="XXXX-%normDayInWeek(group(2))",NORM_FREQ="1W"
 RULENAME="set_every_c4",EXTRACTION="(每一个|每个)%reMonthWord",NORM_VALUE="XXXX-%normMonth(group(2))",NORM_FREQ="1M"
 RULENAME="set_every_c5",EXTRACTION="(每个|每一个)%reSeason",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_FREQ="1S"
-//RULENAME="set_every_c6",EXTRACTION="%reSetWords",NORM_VALUE="%normSetWords(group(1))"
-
-// set_r2
-// EXAMPLE set_every_c6: 一星期一次
-// EXAMPLE set_every_c7: 一个月三次
-// EXAMPLE set_every_c8: 每个月三次
-
-//RULENAME="set_r2a",EXTRACTION="(一|一个)%reUnit(%reNumWord1D|%reNumWord2D)次",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_FREQ="1"
-//RULENAME="set_r2c",EXTRACTION="(一|一个)%reUnit(%reNumWord1D|%reNumWord2D)次",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(5)),0,1))",NORM_FREQ="%normDurationNumber(group(1))"
-//RULENAME="set_r2d",EXTRACTION="(每|每个|每一个)%reUnit(%reNumWord1D|%reNumWord2D)次 ",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_FREQ="group(1)"
-
-
-// set_r3
-// EXAMPLE r3a-1: 每年
-// EXAMPLE r3b-1: 每隔20天
-//RULENAME="set_r3a",EXTRACTION="(每|每隔)%reUnit",NORM_VALUE="Pgroup(2)%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_QUANT="%UPPERCASE%(group(1))"
-//RULENAME="set_r3b",EXTRACTION="([每|每隔)(%reNumWord1D|%reNumWord2D)%reUnit",NORM_VALUE="P%normDurationNumber(group(2))%UPPERCASE%(%SUBSTRING%(%normUnit(group(5)),0,1))",NORM_QUANT="%UPPERCASE%(group(1))"
-
-
 
 
 //////////////////////////////
