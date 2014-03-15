@@ -1823,7 +1823,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				if(timexType == null) {
 					timexType = t.getTimexType();
 				} else {
-					if(!timexType.equals(t.getTimexType()) || !timexType.equals("DATE") || !timexType.equals("TIME")) {
+					if(allSameTypes && !timexType.equals(t.getTimexType()) || !(timexType.equals("DATE") || timexType.equals("TIME"))) {
 						allSameTypes = false;
 					}
 				}
