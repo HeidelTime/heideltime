@@ -170,6 +170,8 @@ public class ContextAnalyzer {
 					else {
 						j--;
 					}
+				} else {
+					j--;
 				}
 		}
 		return xValue;
