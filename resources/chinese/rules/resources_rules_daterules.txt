@@ -29,7 +29,7 @@ RULENAME="date_year_c6",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthNum
 RULENAME="date_year_c7",EXTRACTION="(%reYear4Digit|%reYear2Digit)年",NORM_VALUE="%CHINESENUMBERS%(group(1))"
 RULENAME="date_year_c8",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthNumber月)(%reDayNumber)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(5))-%normDay(group(6))"
 RULENAME="date_year_c9",EXTRACTION="%reYear4Digit年(一年)?",NORM_VALUE="%CHINESENUMBERS%(group(1))"
-RULENAME="date_year_c10",EXTRACTION="“(%reNumWord2D五)",NORM_VALUE="%normFiveYearPlans(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="date_year_c10",EXTRACTION="“(%reFiveYearPlans五)",NORM_VALUE="%normFiveYearPlans(group(1))",OFFSET="group(1)-group(1)"
 RULENAME="date_year_c11",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(年底|底|末|)",NORM_VALUE="%CHINESENUMBERS%(group(1))"
 
 // EXAMPLE date_year_c12:一九八七年十二月十四和十六日/八七年十二月十四和十六日

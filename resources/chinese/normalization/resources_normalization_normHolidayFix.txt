@@ -8,7 +8,7 @@
 // the reference of the values is given in the repattern file
 
 
-"元旦,"01-01"
+"元旦","01-01"
 "情人节","02-14"
 "妇女节","02-14"
 "愚人节","04-01"

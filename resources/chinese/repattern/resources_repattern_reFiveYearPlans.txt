@@ -1,0 +1,17 @@
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
+// FORMAT: one line is one disjunction of the pattern
+
+一五
+二五
+三五
+四五
+五五
+六五
+七五
+八五
+九五
+十一五
+十二五
+十五

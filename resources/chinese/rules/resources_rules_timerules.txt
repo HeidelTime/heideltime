@@ -31,7 +31,7 @@ RULENAME="time_c3",EXTRACTION="(%reTimezone)?%reMonthWord(%reDayWord日)(%rePart
 RULENAME="time_c4",EXTRACTION="(%reTimezone)?%reYear4Digit年%reMonthWord(%reDayWord日)%rePartOfDay",NORM_VALUE="%CHINESENUMBERS%(group(3))-%normMonth(group(4))-%normDay(group(6))T%normPartOfDay(group(7))"
 RULENAME="time_c5",EXTRACTION="(%reTimezone)?%reYear4Digit年%reMonthWord(%reDayWord日)(%rePartOfDay)?%reTimeHour(时|点)%reTimeMinute(分钟|分)?",NORM_VALUE="%CHINESENUMBERS%(group(3))-%normMonth(group(4))-%normDay(group(6))T%normMinute(group(9)):%normMinute(group(11))"
 RULENAME="time_c6",EXTRACTION="(%reDayWord日)%rePartOfDay",NORM_VALUE="UNDEF-this-month-%normDay(group(2))T%normPartOfDay(group(3))"
-RULENAME="time_c7",EXTRACTION="(%reDayWord日)%reTimeHour(时|点)%reTimeMinute(分钟|分)?",NORM_VALUE="UNDEF-this-month-%normDay(group(2))T%normMinute(group(5)):%normMinute(group(7))"
+RULENAME="time_c7",EXTRACTION="(%reDayWord日)%reTimeHour(时|点)%reTimeMinute(分钟|分)?",NORM_VALUE="UNDEF-this-month-%normDay(group(2))T%normMinute(group(3)):%normMinute(group(5))"
 RULENAME="time_c8",EXTRACTION="(%reDayWord日)(%reTimeAM)%reTimeHour(时|点)%reTimeMinute(分钟|分)?",NORM_VALUE="UNDEF-this-month-%normDay(group(2))T%normMinute(group(5)):%normMinute(group(7))"
 RULENAME="time_c9",EXTRACTION="(%reDayWord日)(%reTimePM)%reTimeHour(时|点)%reTimeMinute(分钟|分)?",NORM_VALUE="UNDEF-this-month-%normDay(group(2))T%SUM%(%normMinute(group(5)),12):%normMinute(group(7))"
 RULENAME="time_r10",EXTRACTION="%reThisNextLast%rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normPartOfDay(group(2))"
