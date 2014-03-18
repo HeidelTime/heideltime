@@ -1840,6 +1840,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				// check timex value attribute string length
 				if(longestTimex == null) {
 					longestTimex = t;
+				} else if(longestTimex.getTimexValue().length() == t.getTimexValue().length()) {
+					if(t.getBegin() < longestTimex.getBegin())
+						longestTimex = t;
 				} else if(longestTimex.getTimexValue().length() < t.getTimexValue().length()) {
 					longestTimex = t;
 				}
@@ -1856,7 +1859,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				// disassemble and remember the token ids
 				String[] tokenizedTokenIds = t.getAllTokIds().split("<-->");
 				for(Integer i = 1; i < tokenizedTokenIds.length; i++) {
-					if(!tokenIds.contains(tokenizedTokenIds[i])) {
+					if(!tokenIds.contains(Integer.parseInt(tokenizedTokenIds[i]))) {
 						tokenIds.add(Integer.parseInt(tokenizedTokenIds[i]));
 					}
 				}
