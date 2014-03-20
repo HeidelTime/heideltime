@@ -26,12 +26,12 @@
 
 RULENAME="date_year_c1",EXTRACTION="%reYear4Digit-%reMonthNumber-%reDayNumber",NORM_VALUE="group(1)-group(2)-group(3)"
 RULENAME="date_year_c2",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber",NORM_VALUE="group(1)-group(2)-group(3)"
-RULENAME="date_year_c3",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthNumber月)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))"
+RULENAME="date_year_c3",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthNumber月)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(5))"
 RULENAME="date_year_c4",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthWord)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))"
-RULENAME="date_year_c5",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthWord)(%reDayWord日)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))-%normDay(group(6))"
-RULENAME="date_year_c6",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthNumber月)(%reDayNumber|%reDayWord)日",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))-%normDay(group(6))"
+RULENAME="date_year_c5",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthWord)(%reDayWord日)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))-%normDay(group(7))"
+RULENAME="date_year_c6",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthNumber月)(%reDayNumber|%reDayWord)日",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(5))-%normDay(group(6))"
 RULENAME="date_year_c7",EXTRACTION="(%reYear4Digit|%reYear2Digit)年",NORM_VALUE="%CHINESENUMBERS%(group(1))"
-RULENAME="date_year_c8",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthNumber月)(%reDayNumber)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))-%normDay(group(6))"
+RULENAME="date_year_c8",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(%reMonthNumber月)(%reDayNumber)",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(5))-%normDay(group(6))"
 RULENAME="date_year_c9",EXTRACTION="%reYear4Digit年(一年)?",NORM_VALUE="%CHINESENUMBERS%(group(1))"
 RULENAME="date_year_c10",EXTRACTION="“(%reNumWord2D五)",NORM_VALUE="%normFiveYearPlans(group(1))",OFFSET="group(1)-group(1)"
 RULENAME="date_year_c11",EXTRACTION="(%reYear4Digit|%reYear2Digit)年(年底|底|末|)",NORM_VALUE="%CHINESENUMBERS%(group(1))"
@@ -52,7 +52,7 @@ RULENAME="date_year_c12a",EXTRACTION="(%reYear4Digit|%reYear2Digit)年%reMonthWo
 RULENAME="date_year_c12b",EXTRACTION="(%reYear4Digit|%reYear2Digit)年%reMonthWord(%reDayWord)(和|或|至|到)(%reDayWord)日?",NORM_VALUE="group(1)-%normMonth(group(4))-%normDay(group(8)),OFFSET="group(8)"
 RULENAME="date_year_c13",EXTRACTION="%reThisNextLast年%reMonthWord%reDayWord日",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(2))-%normDay(group(3))"
 RULENAME="date_year_c14a",EXTRACTION="%reThisNextLast年%reMonthWord",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(2))"
-RULENAME="date_year_c14b",EXTRACTION="%reThisNextLast年(%reMonthNumber月)份?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(2))"
+RULENAME="date_year_c14b",EXTRACTION="%reThisNextLast年(%reMonthNumber月)份?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(3))"
 
 RULENAME="date_year_c15a",EXTRACTION="%reYear4Digit(-|－|和|或|至)(%reYear2Digit)年",NORM_VALUE="%CHINESENUMBERS%(group(1))",OFFSET="group(1)"
 RULENAME="date_year_c15b",EXTRACTION="%reYear4Digit(-|－|和|或|至)(%reYear2Digit)年",NORM_VALUE="%CHINESENUMBERS%(%SUBSTRING%(group(1),0,2)group(3)))",OFFSET="group(3)"
@@ -63,7 +63,7 @@ RULENAME="date_year_c17",EXTRACTION="(%reNumWord2D|%reNumWord1D)几(%reUnit)",NO
 RULENAME="date_year_c18",EXTRACTION="(%reYear4Digit|%reYear2Digit)年%reMonthWord",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))"
 
 RULENAME="date_year_c19a",EXTRACTION="%reThisNextLast年%reMonthNumber月?(－|和|或|至)(%reMonthNumber月)份?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(2))",OFFSET="group(1)-group(2)"
-RULENAME="date_year_c19b",EXTRACTION="%reThisNextLast年%reMonthNumber月?(－|和|或|至)(%reMonthNumber月)份?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(4))",OFFSET="group(4)-group(4)"
+RULENAME="date_year_c19b",EXTRACTION="%reThisNextLast年%reMonthNumber月?(－|和|或|至)(%reMonthNumber月)份?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(5))",OFFSET="group(4)-group(4)"
 
 //RULENAME="date_year_c14b",EXTRACTION="今天",NORM_VALUE="UNDEF-REF-day-PLUS-0"
 //RULENAME="date_year_c19",EXTRACTION="(民国)(%reUnit)",NORM_VALUE="UNDEF-%normDurationNumber(group(1))-%normUnit(group(4))"
@@ -106,17 +106,17 @@ RULENAME="date_partofyear_c5",EXTRACTION="%reYear4Digit年%reMonthWord%rePartWor
 
 RULENAME="date_month_c1",EXTRACTION="(%reMonthNumber)月(%reDayNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(3))"
 RULENAME="date_month_c2",EXTRACTION="(%reMonthNumber)月(%reDayNumber)日",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(3))"
-RULENAME="date_month_c3",EXTRACTION="%reMonthWord(%reDayWord日)",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(2))"
+RULENAME="date_month_c3",EXTRACTION="%reMonthWord(%reDayWord日)",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(3))"
 RULENAME="date_month_c4",EXTRACTION="%reMonthWord",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
 RULENAME="date_month_c5",EXTRACTION="%reMonthWord%rePartWords",NORM_VALUE="UNDEF-year-%normMonth(group(1))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_month_c5a",EXTRACTION="(%reMonthNumber月)%rePartWords",NORM_VALUE="UNDEF-year-%normMonth(group(1))",NORM_MOD="%normPartWords(group(3))"
+RULENAME="date_month_c5a",EXTRACTION="(%reMonthNumber月)%rePartWords",NORM_VALUE="UNDEF-year-%normMonth(group(2))",NORM_MOD="%normPartWords(group(3))"
 RULENAME="date_month_c5b",EXTRACTION="%reThisNextLast年%reMonthWord%rePartWords",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(2))",NORM_MOD="%normPartWords(group(3))"
 RULENAME="date_month_c6",EXTRACTION="%reThisNextLast%reMonthWord",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normMonth(group(2))"
 RULENAME="date_month_c7",EXTRACTION="%reThisNextLast%reMonthWord%reDayWord日",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-(group(2))-%normDay(group(3))"
-RULENAME="date_month_c8",EXTRACTION="(%reMonthNumber月)",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
-RULENAME="date_month_c9",EXTRACTION="(%reMonthNumber月)份",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
+RULENAME="date_month_c8",EXTRACTION="(%reMonthNumber月)",NORM_VALUE="UNDEF-year-%normMonth(group(2))"
+RULENAME="date_month_c9",EXTRACTION="(%reMonthNumber月)份",NORM_VALUE="UNDEF-year-%normMonth(group(2))"
 RULENAME="date_month_c10a",EXTRACTION="%reMonthNumber月?(－|和|或|至)(%reMonthNumber月)份?",NORM_VALUE="UNDEF-year-%normMonth(group(1))",OFFSET="group(1)-group(1)"
-RULENAME="date_month_c10b",EXTRACTION="%reMonthNumber月?(－|和|或|至)(%reMonthNumber月)份?",NORM_VALUE="UNDEF-year-%normMonth(group(3))",OFFSET="group(3)-group(3)"
+RULENAME="date_month_c10b",EXTRACTION="%reMonthNumber月?(－|和|或|至)(%reMonthNumber月)份?",NORM_VALUE="UNDEF-year-%normMonth(group(4))",OFFSET="group(3)-group(3)"
 RULENAME="date_month_c11a",EXTRACTION="%reMonthWord(%reDayWord)日?(－|和|或|至)(%reDayWord)日?",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(2))",OFFSET="group(1)-group(2)"
 RULENAME="date_month_c11b",EXTRACTION="%reMonthWord(%reDayWord)日?(－|和|或|至)(%reDayWord)日?",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(5))",OFFSET="group(1)-group(5)"
 
@@ -226,8 +226,8 @@ RULENAME="date_later_c4",EXTRACTION="(%reApproximate)(一)(%reUnit)(后|以后)"
 //EXAMPLE "date_holiday_c3": 10年圣诞节
 
 RULENAME="date_holiday_c1",EXTRACTION="%reHolidayFix",NORM_VALUE="UNDEF-year-%normHolidayFix(group(1))"
-RULENAME="date_holiday_c2",EXTRACTION="%reYear4Digit"年“%reHolidayFix",NORM_VALUE="group(1)-%normHolidayFix(group(2))"
-RULENAME="date_holiday_c3",EXTRACTION="%reYear2Digit"年"%reHolidayFix ",NORM_VALUE="UNDEF-centurygroup(1)-%normHolidayFix(group(2))"
+RULENAME="date_holiday_c2",EXTRACTION="%reYear4Digit年%reHolidayFix",NORM_VALUE="group(1)-%normHolidayFix(group(2))"
+RULENAME="date_holiday_c3",EXTRACTION="%reYear2Digit年%reHolidayFix",NORM_VALUE="UNDEF-centurygroup(1)-%normHolidayFix(group(2))"
 
 ///////////////////
 // UNIT RULES //

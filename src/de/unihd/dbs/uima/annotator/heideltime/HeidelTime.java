@@ -15,6 +15,7 @@
 package de.unihd.dbs.uima.annotator.heideltime;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -244,13 +245,20 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		 */
 		if (deleteOverlapped == true)
 			// could be modified to: get longest TIMEX expressions of one type, only ???
-			deleteOverlappedTimexes(jcas);
+			deleteOverlappedTimexesPreprocessing(jcas);
 
 		/*
 		 * specify ambiguous values, e.g.: specific year for date values of
 		 * format UNDEF-year-01-01; specific month for values of format UNDEF-last-month
 		 */
 		specifyAmbiguousValues(jcas);
+		
+		/*
+		 * get longest Timex expressions only (if needed)
+		 */
+		if (deleteOverlapped == true)
+			// could be modified to: get longest TIMEX expressions of one type, only ???
+			deleteOverlappedTimexesPostprocessing(jcas);
 		
 		// run arbitrary processors
 		procMan.executeProcessors(jcas, Priority.ARBITRARY);
@@ -291,7 +299,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		String allTokIds = "";
 		while (iterToken.hasNext()) {
 			Token tok = (Token) iterToken.next();
-			if (tok.getBegin() == begin) {
+			if (tok.getBegin() <= begin && tok.getEnd() > begin) {
 				annotation.setFirstTokId(tok.getTokenId());
 				allTokIds = "BEGIN<-->" + tok.getTokenId();
 			}
@@ -1685,7 +1693,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	/**
 	 * @param jcas
 	 */
-	public void deleteOverlappedTimexes(JCas jcas) {
+	public void deleteOverlappedTimexesPreprocessing(JCas jcas) {
 		FSIterator timexIter1 = jcas.getAnnotationIndex(Timex3.type).iterator();
 		HashSet<Timex3> hsTimexesToRemove = new HashSet<Timex3>();
 		while (timexIter1.hasNext()) {
@@ -1737,7 +1745,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			t.removeFromIndexes();
 			timex_counter--;
 		}
-		
+	}
+	public void deleteOverlappedTimexesPostprocessing(JCas jcas) { 
 		/* new code */
 		FSIterator timexIter = jcas.getAnnotationIndex(Timex3.type).iterator();
 		FSIterator innerTimexIter = timexIter.copy();
@@ -1818,12 +1827,13 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			String timexType = null;
 			Timex3 longestTimex = null;
 			Integer combinedBegin = Integer.MAX_VALUE, combinedEnd = Integer.MIN_VALUE;
+			ArrayList<Integer> tokenIds = new ArrayList<Integer>();
 			for(Timex3 t : tSet) {
 				// check whether the types are identical and either all DATE or TIME
 				if(timexType == null) {
 					timexType = t.getTimexType();
 				} else {
-					if(!timexType.equals(t.getTimexType()) || !timexType.equals("DATE") || !timexType.equals("TIME")) {
+					if(allSameTypes && !timexType.equals(t.getTimexType()) || !(timexType.equals("DATE") || timexType.equals("TIME"))) {
 						allSameTypes = false;
 					}
 				}
@@ -1832,6 +1842,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				// check timex value attribute string length
 				if(longestTimex == null) {
 					longestTimex = t;
+				} else if(longestTimex.getTimexValue().length() == t.getTimexValue().length()) {
+					if(t.getBegin() < longestTimex.getBegin())
+            			longestTimex = t;
 				} else if(longestTimex.getTimexValue().length() < t.getTimexValue().length()) {
 					longestTimex = t;
 				}
@@ -1844,15 +1857,31 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				if(combinedEnd < t.getEnd())
 					combinedEnd = t.getEnd();
 				Logger.printDetail("Selected combined constraints: " + combinedBegin + ":" + combinedEnd);
+				
+				// disassemble and remember the token ids
+				String[] tokenizedTokenIds = t.getAllTokIds().split("<-->");
+				for(Integer i = 1; i < tokenizedTokenIds.length; i++) {
+					if(!tokenIds.contains(Integer.parseInt(tokenizedTokenIds[i]))) {
+						tokenIds.add(Integer.parseInt(tokenizedTokenIds[i]));
+					}
+				}
+
 			}
 
 			/* types are equal => merge constraints, use the longer, "more granular" value. 
 			 * if types are not equal, just take the longest value.
 			 */
+			Collections.sort(tokenIds);
 			newTimex = longestTimex;
 			if(allSameTypes) {
 				newTimex.setBegin(combinedBegin);
 				newTimex.setEnd(combinedEnd);
+				newTimex.setFirstTokId(tokenIds.get(0));
+				String tokenIdText = "BEGIN";
+				for(Integer tokenId : tokenIds) {
+					tokenIdText += "<-->" + tokenId;
+				}
+				newTimex.setAllTokIds(tokenIdText);
 			}
 			
 			// remove old overlaps.
