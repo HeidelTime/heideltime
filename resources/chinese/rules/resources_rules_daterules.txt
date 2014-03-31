@@ -55,7 +55,7 @@ RULENAME="date_year_c17",EXTRACTION="(%reNumWord2D|%reNumWord1D)几(%reUnit)",NO
 RULENAME="date_year_c18",EXTRACTION="(%reYear4Digit|%reYear2Digit)年%reMonthWord",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))"
 
 RULENAME="date_year_c19a",EXTRACTION="%reThisNextLast年%reMonthNumber月?(－|和|或|至)(%reMonthNumber月)份?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(2))",OFFSET="group(1)-group(2)"
-RULENAME="date_year_c19b",EXTRACTION="%reThisNextLast年%reMonthNumber月?(－|和|或|至)(%reMonthNumber月)份?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(5))",OFFSET="group(4)-group(4)"
+RULENAME="date_year_c19b",EXTRACTION="%reThisNextLast年%reMonthNumber月?(－|和|或|至)(%reMonthNumber月)份?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(5))",OFFSET="group(4)-group(0)"
 
 
 //////////////////////////////
@@ -103,7 +103,7 @@ RULENAME="date_month_c9",EXTRACTION="(%reMonthNumber月)份",NORM_VALUE="UNDEF-y
 RULENAME="date_month_c10a",EXTRACTION="%reMonthNumber月?(－|和|或|至)(%reMonthNumber月)份?",NORM_VALUE="UNDEF-year-%normMonth(group(1))",OFFSET="group(1)-group(1)"
 RULENAME="date_month_c10b",EXTRACTION="%reMonthNumber月?(－|和|或|至)(%reMonthNumber月)份?",NORM_VALUE="UNDEF-year-%normMonth(group(4))",OFFSET="group(3)-group(3)"
 RULENAME="date_month_c11a",EXTRACTION="%reMonthWord(%reDayWord)日?(－|和|或|至)(%reDayWord)日?",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(2))",OFFSET="group(1)-group(2)"
-RULENAME="date_month_c11b",EXTRACTION="%reMonthWord(%reDayWord)日?(－|和|或|至)(%reDayWord)日?",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(5))",OFFSET="group(1)-group(5)"
+RULENAME="date_month_c11b",EXTRACTION="%reMonthWord(%reDayWord)日?(－|和|或|至)(%reDayWord)日?",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(5))"
 
 
 //////////////////////
@@ -209,7 +209,7 @@ RULENAME="date_holiday_c3",EXTRACTION="%reYear2Digit"年"%reHolidayFix",NORM_VAL
 
 //EXAMPLE "date_unit_c1": 这一年
 
-RULENAME="date_unit_c1",EXTRACTION="%reThisNextLast(一)?%reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normUnit(group(3))"
+RULENAME="date_unit_c1",EXTRACTION="%reThisNextLast(一)?%reUnit(同期?)?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normUnit(group(3))"
 
 
 ////////////////////
