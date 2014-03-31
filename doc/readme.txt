@@ -50,11 +50,17 @@ Tagging" (http://www.springerlink.com/content/64767752451075k8/). In TempEval-3,
 achieved the best results for the combination of extraction and normalization for English and
 Spanish.
 
-HeidelTime with resources for English and German is one component of our UIMA HeidelTime kit.
-Furthermore, resources for Dutch were developed and kindly provided by Matje van de Camp 
-(Tilburg University, http://www.tilburguniversity.edu/webwijs/show/?uid=m.m.v.d.camp). As of
-version 1.3, HeidelTime additionally contains resources for Spanish, Italian, Arabic, and
-Vietnamese.
+HeidelTime with resources for several languages is one component of our UIMA HeidelTime kit.
+- German
+- English
+- Dutch (kindly provided by Matje van de Camp, Tilburg University, 
+	http://www.tilburguniversity.edu/webwijs/show/?uid=m.m.v.d.camp)
+- Arabic
+- Vietnamese
+- Spanish
+- Italian
+- French (kindly provided by Véronique Moriceau, LIMSI - CNRS, http://vero.moriceau.free.fr/)
+- Chinese
 
 Additionally, whilst expanding the set of domains that HeidelTime can recognize temporal 
 expressions in, English resources for colloquial as well as scientific style documents were 
@@ -115,9 +121,6 @@ contains:
       the TempEval-3 Reader and processed by HeidelTime in the format required by the TempEval-3
       evaluation scripts.
       
-    * Languages supported by HeidelTime as of version 1.6 are:
-      German, English, Dutch, Arabic, Vietnamese, Spanish, Italian, French, Chinese.
-      
 ######################
 # 3. Getting started #
 ######################
@@ -129,12 +132,12 @@ set the environment variables.
    To be able to use HeidelTime, you have to install UIMA:
 	* Download UIMA:
 		- either from http://uima.apache.org/downloads.cgi or
-		- wget http://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist//uima///uimaj-2.3.1-bin.tar.gz
+		- wget http://archive.apache.org/dist/uima/uimaj-2.3.1-bin.tar.gz
 	* Extract UIMA:
 		- tar xvfz uimaj-2.3.1-bin.tar.gz
 	* Set environment variable (you can set variables globally, e.g., in your $HOME/.bashrc)
 		- set UIMA_HOME to the path of your "apache-uima" folder
-			* export UIMA_HOME=`pwd`/apache-uima
+			* export UIMA_HOME="$(pwd)/apache-uima"
 		- make sure that JAVA_HOME is set correctly
 		- add the "$UIMA_HOME/bin" to your PATH
 			* export PATH=$PATH:$UIMA_HOME/bin
@@ -158,7 +161,7 @@ set the environment variables.
    imports in HeidelTime.java itself. Furthermore, if a differing tag set is used, all rules
    containing part-of-speech information have to be adapted).
    
-   To process English, German, Dutch, Spanish, Italian or Chinese documents, the TreeTaggerWrapper
+   To process English, German, Dutch, Spanish, Italian, French or Chinese documents, the TreeTaggerWrapper
    can be used for pre-processing: 
     * Download the TreeTagger and its tagging scripts, installation scripts, as well as 
       English, German, and Dutch (or any other) parameter files into one directory from:
@@ -178,7 +181,13 @@ set the environment variables.
       Attention: If you do not use Linux, please download all TreeTagger files directly from
                  http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
 	* (OPTIONAL) For Chinese documents, please get the Tokenizer and TreeTagger parameter file
-	  from http://corpus.leeds.ac.uk/tools/zh/.
+	  from Serge Sharoff's page http://corpus.leeds.ac.uk/tools/zh/:
+	  - wget http://corpus.leeds.ac.uk/tools/zh/tt-lcmc.tgz
+	  - wget http://corpus.leeds.ac.uk/tools/zh/zh-tokenise.tgz
+	  Extract the Tokenizer into a new directory and TreeTagger parameter files like this:
+	  - mkdir chinese-tokenizer
+	  - tar -xzvf tt-lcmc.tgz
+	  - tar -xzvf zh-tokenise.tgz -C chinese-tokenizer 
     * Install the TreeTagger
 		- sh install-tagger.sh 
 	* Set environment variables (you can set variables permanently, e.g., in your $HOME/.bashrc)
@@ -207,8 +216,8 @@ set the environment variables.
     to set it up:
      * Download the Stanford POS Tagger *Full Package* from this URL and unzip it:
        http://nlp.stanford.edu/software/tagger.shtml
-       - wget http://nlp.stanford.edu/software/stanford-postagger-full-2013-04-04.zip
-       - unzip stanford-postagger-full-2013-04-04.zip
+       - wget http://nlp.stanford.edu/software/stanford-postagger-full-2014-01-04.zip
+       - unzip stanford-postagger-full-2014-01-04.zip
      * Set the relevant environment variable, then source the environment to construct
        the CLASSPATH.
        - export STANFORDTAGGER='path to stanford-postagger-<version>.jar'
