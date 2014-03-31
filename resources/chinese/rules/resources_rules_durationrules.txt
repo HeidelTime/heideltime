@@ -32,6 +32,8 @@ RULENAME="duration_unit_c8a",EXTRACTION="(%reApproximate)?%reCountWord(%reApprox
 RULENAME="duration_unit_c9",EXTRACTION="(%reDateWord)的?(%reNumWord2D|%reNumWord1D)(%reUnit)",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(6))"
 RULENAME="duration_unit_c10",EXTRACTION="(%reNumWord2D|%reNumWord1D)(至|到)(%reNumWord2D|%reNumWord1D)%reUnitNoMonth",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(8))"
 RULENAME="duration_unit_c11",EXTRACTION="%reDayWordTh%reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))"
+RULENAME="duration_unit_c12",EXTRACTION="(%reNumWord2D|%reNumWord1D)几(%reUnit)",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(4))"
+
 
 // duration_year_c1
 // EXAMPLE : 二十年左右

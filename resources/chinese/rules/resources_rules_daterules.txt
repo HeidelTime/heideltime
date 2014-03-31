@@ -51,7 +51,6 @@ RULENAME="date_year_c15b",EXTRACTION="%reYear4Digit(-|－|和|或|至)(%reYear2D
 RULENAME="date_year_c16a",EXTRACTION="%reYear4Digit年?(-|－|和|或|至)(%reYear4Digit)年",NORM_VALUE="%CHINESENUMBERS%(group(1))",OFFSET="group(1)-group(1)"
 RULENAME="date_year_c16b",EXTRACTION="%reYear4Digit年?(-|－|和|或|至)(%reYear4Digit)年",NORM_VALUE="%CHINESENUMBERS%(group(3))",OFFSET="group(3)-group(3)"
 
-RULENAME="date_year_c17",EXTRACTION="(%reNumWord2D|%reNumWord1D)几(%reUnit)",NORM_VALUE="UNDEF-this-%normDurationNumber(group(1))-%normUnit(group(4))"
 RULENAME="date_year_c18",EXTRACTION="(%reYear4Digit|%reYear2Digit)年%reMonthWord",NORM_VALUE="%CHINESENUMBERS%(group(1))-%normMonth(group(4))"
 
 RULENAME="date_year_c19a",EXTRACTION="%reThisNextLast年%reMonthNumber月?(－|和|或|至)(%reMonthNumber月)份?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(2))",OFFSET="group(1)-group(2)"
@@ -131,7 +130,7 @@ RULENAME="date_day_c3",EXTRACTION="%reDateWord%rePartOfDay",NORM_VALUE="%normDat
 RULENAME="date_week_c1",EXTRACTION="(%reApproximate)?%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(3))",NORM_MOD="%normApprox4Dates(group(1))"
 RULENAME="date_week_c2",EXTRACTION="%reWeekday%rePartWords",NORM_VALUE="UNDEF-day-%normWeekday(group(1))",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_week_c3",EXTRACTION="%reDateWord%rePartOfDay",NORM_VALUE="%normDateWord(group(1))",NORM_MOD="%normPartOfDay(group(2))"
-RULENAME="date_week_c4",EXTRACTION="%reThisNextLast%reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-(group(2))"
+RULENAME="date_week_c4",EXTRACTION="%reThisNextLast%reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normWeekday(group(2))"
 
 
 ////////////////////////
