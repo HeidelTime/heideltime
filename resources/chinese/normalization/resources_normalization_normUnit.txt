@@ -16,7 +16,7 @@
 "世纪","century"
 
 "年","year"
-"时期","Decades"
+"时期","decade"
 "小时","hour"
 "时","hour"
 "分钟","minute"
