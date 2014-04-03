@@ -1,0 +1,20 @@
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
+// This file contains regular expression patterns for set words.
+// FORMAT: one line is one disjunction of the pattern
+
+每年
+年年
+每月
+每日
+每天
+每周
+
+//年度
+//月月
+//月度
+//天天
+//周周
+
+

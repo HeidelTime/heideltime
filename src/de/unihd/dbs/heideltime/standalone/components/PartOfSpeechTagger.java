@@ -26,6 +26,7 @@ public interface PartOfSpeechTagger extends UIMAAnnotator {
 	public static final String TREETAGGER_ANNOTATE_POS = "annotatePartOfSpeech";
 	public static final String TREETAGGER_IMPROVE_GERMAN_SENTENCES = "improveGermanSentences";
 	public static final String TREETAGGER_LANGUAGE = "language";
+	public static final String TREETAGGER_CHINESE_TOKENIZER_PATH = "ChineseTokenizerPath";
 	
 	public static final String JVNTEXTPRO_WORD_MODEL_PATH = "word_model_path";
 	public static final String JVNTEXTPRO_SENT_MODEL_PATH = "sent_model_path";

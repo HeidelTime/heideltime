@@ -1,0 +1,26 @@
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
+// This file contains "unit words for duration" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "week" is "W"
+// FORMAT: "unit-word","normalized-unit-word"
+"天","D"
+"日","D"
+"周末","WE"
+"周","W"
+"星期","W"
+"月","M"
+"月份","M"
+"季度","Q"
+"季","Q"
+"世纪","CE"
+"年代","Y"
+"年","Y"
+"时期","DE"
+"小时","H"
+"时","H"
+"分钟","M"
+"秒","S"
+
+

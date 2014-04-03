@@ -1,0 +1,63 @@
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
+// This file contains "parts-of-year words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "first quarter" is "Q1"
+// FORMAT: "parts-of-year-word","normalized-parts-of-year-word"
+// First Quarter
+"第一季度","Q1"
+"第1季","Q1"
+"第一季","Q1"
+"第１季","Q1"
+"一季度","Q1"
+
+"第二季度","Q2"
+"第二季","Q2"
+"第2季","Q2"
+"第２季","Q2"
+"二季度","Q2"
+
+"第三季度","Q3"
+"第3季","Q3"
+"第三季","Q3"
+"第３季","Q3"
+"三季度","Q3"
+
+"第四季度","Q4"
+"第四季","Q4"
+"第4季","Q4"
+"第４季","Q4"
+"四季度","Q4"
+
+"最后一个季度","Q4"
+"最后一季度","Q4"
+"最后一季","Q4"
+
+// First Half
+"上半年","H1"
+"前半年","H1"
+"头半年","H1"
+
+// Second Half
+"下半年","H2"
+"后半年","H2"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,22 @@
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
+// This file contains regular expression patterns for seasons.
+// FORMAT: one line is one disjunction of the pattern
+
+春季
+春天
+春
+
+夏天
+夏季
+夏
+
+秋天
+秋季
+秋
+
+冬天
+冬季
+冬
+

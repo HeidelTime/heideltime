@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <collectionReaderDescription xmlns="http://uima.apache.org/resourceSpecifier">
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <implementationName>de.unihd.dbs.uima.reader.tempeval2reader.Tempeval2Reader</implementationName>
@@ -15,12 +16,32 @@
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
+    <configurationParameter>
+        <name>Charset</name>
+        <description>Charset to use when reading in the files.</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+      </configurationParameter>
+    <configurationParameter>
+        <name>UseSpacesAsSeparators</name>
+        <description>Whether or not to use spaces to separate read tokens</description>
+        <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
         <name>InputDirectory</name>
         <value>
           <string>/data/heideltime_rerun_eval_scripts/corpora/tempeval2-data/test/english/entities</string>
+        </value>
+      </nameValuePair>
+    <nameValuePair>
+        <name>UseSpacesAsSeparators</name>
+        <value>
+          <boolean>true</boolean>
         </value>
       </nameValuePair>
     </configurationParameterSettings>

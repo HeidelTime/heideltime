@@ -1,0 +1,36 @@
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
+// This file contains contains "part words" and their normalized expressions
+// according to TIMEX3 format. 
+// For example, the normalized value of "the middle of" is "MID"
+// FORMAT: "part word","normalized-part-word"
+
+
+"开头","START"
+"初期","START"
+"初","START"
+"早期","START"
+"早","START"
+
+"中间","MID"
+"中期","MID"
+"中旬","MID"
+"当中","MID"
+"中部","MID"
+
+"底","END"
+"末","END"
+"结束","END"
+"结尾","END"
+"尾声","END"
+
+"晚期","END"
+"晚","END"
+"后期","END"
+"迟","END"
+"日暮","END"
+"深夜","END"
+
+//"开始","START"
+

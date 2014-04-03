@@ -54,7 +54,8 @@ public class TreeTaggerWrapper implements PartOfSpeechTagger {
 		Boolean annotateSentences = (Boolean) settings.get(TREETAGGER_ANNOTATE_SENTENCES);
 		Boolean annotatePartOfSpeech = (Boolean) settings.get(TREETAGGER_ANNOTATE_POS);
 		Boolean improveGermanSentences = (Boolean) settings.get(TREETAGGER_IMPROVE_GERMAN_SENTENCES);
+		String cnTokenizerPath = (String) settings.get(TREETAGGER_CHINESE_TOKENIZER_PATH);
 		ttw.initialize(language, treeTaggerHome, annotateTokens, 
-				annotateSentences, annotatePartOfSpeech, improveGermanSentences);
+				annotateSentences, annotatePartOfSpeech, improveGermanSentences, cnTokenizerPath);
 	}
 }

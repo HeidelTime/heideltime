@@ -1,0 +1,22 @@
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
+// This file contains "day words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "sunday" is "1"
+// FORMAT: "day-word","normalized-day-word"
+
+"星期一","1"
+"星期二","2"
+"星期三","3"
+"星期四","4"
+"星期五","5"
+"星期六","6"
+"星期日","7"
+"周一","1"
+"周二","2"
+"周三","3"
+"周四","4"
+"周五","5"
+"周六","6"
+"周日","7"

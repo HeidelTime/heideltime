@@ -379,6 +379,7 @@ public class HeidelTimeStandalone {
 					settings.put(PartOfSpeechTagger.TREETAGGER_ANNOTATE_SENTENCES, true);
 					settings.put(PartOfSpeechTagger.TREETAGGER_ANNOTATE_POS, true);
 					settings.put(PartOfSpeechTagger.TREETAGGER_IMPROVE_GERMAN_SENTENCES, (language == Language.GERMAN));
+					settings.put(PartOfSpeechTagger.TREETAGGER_CHINESE_TOKENIZER_PATH, Config.get(Config.CHINESE_TOKENIZER_PATH));
 				} else {
 					logger.log(Level.FINEST, "Sorry, but you can't use that tagger.");
 				}

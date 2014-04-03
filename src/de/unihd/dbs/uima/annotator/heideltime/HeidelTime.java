@@ -15,6 +15,7 @@
 package de.unihd.dbs.uima.annotator.heideltime;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -33,6 +34,7 @@ import de.unihd.dbs.uima.annotator.heideltime.ProcessorManager.Priority;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
+import de.unihd.dbs.uima.annotator.heideltime.resources.RegexHashMap;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RuleManager;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.DateCalculator;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.ContextAnalyzer;
@@ -239,17 +241,22 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		}
 
 		/*
-		 * get longest Timex expressions only (if needed)
+		 * kick out some overlapping expressions
 		 */
 		if (deleteOverlapped == true)
-			// could be modified to: get longest TIMEX expressions of one type, only ???
-			deleteOverlappedTimexes(jcas);
+			deleteOverlappedTimexesPreprocessing(jcas);
 
 		/*
 		 * specify ambiguous values, e.g.: specific year for date values of
 		 * format UNDEF-year-01-01; specific month for values of format UNDEF-last-month
 		 */
 		specifyAmbiguousValues(jcas);
+
+		/*
+		 * kick out the rest of the overlapping expressions
+		 */
+		if (deleteOverlapped == true)
+			deleteOverlappedTimexesPostprocessing(jcas);
 		
 		// run arbitrary processors
 		procMan.executeProcessors(jcas, Priority.ARBITRARY);
@@ -290,7 +297,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		String allTokIds = "";
 		while (iterToken.hasNext()) {
 			Token tok = (Token) iterToken.next();
-			if (tok.getBegin() == begin) {
+			if (tok.getBegin() <= begin && tok.getEnd() > begin) {
 				annotation.setFirstTokId(tok.getTokenId());
 				allTokIds = "BEGIN<-->" + tok.getTokenId();
 			}
@@ -1706,15 +1713,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	/**
 	 * @param jcas
 	 */
-	public void deleteOverlappedTimexes(JCas jcas) {
+	private void deleteOverlappedTimexesPreprocessing(JCas jcas) {
 		FSIterator timexIter1 = jcas.getAnnotationIndex(Timex3.type).iterator();
 		HashSet<Timex3> hsTimexesToRemove = new HashSet<Timex3>();
-
-		
 		while (timexIter1.hasNext()) {
 			Timex3 t1 = (Timex3) timexIter1.next();
-			FSIterator timexIter2 = jcas.getAnnotationIndex(Timex3.type)
-					.iterator();
+			FSIterator timexIter2 = jcas.getAnnotationIndex(Timex3.type).iterator();
 
 			while (timexIter2.hasNext()) {
 				Timex3 t2 = (Timex3) timexIter2.next();
@@ -1756,10 +1760,155 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		}
 		// remove, finally
 		for (Timex3 t : hsTimexesToRemove) {
-			Logger.printDetail(t.getTimexId()+"REMOVE DUPLICATE: " + t.getCoveredText()+"(id:"+t.getTimexId()+" value:"+t.getTimexValue()+" found by:"+t.getFoundByRule()+")");
+			Logger.printDetail("REMOVE DUPLICATE: " + t.getCoveredText()+"(id:"+t.getTimexId()+" value:"+t.getTimexValue()+" found by:"+t.getFoundByRule()+")");
 			
 			t.removeFromIndexes();
 			timex_counter--;
+		}
+	}
+	
+	private void deleteOverlappedTimexesPostprocessing(JCas jcas) {
+		FSIterator timexIter = jcas.getAnnotationIndex(Timex3.type).iterator();
+		FSIterator innerTimexIter = timexIter.copy();
+		HashSet<ArrayList<Timex3>> effectivelyToInspect = new HashSet<ArrayList<Timex3>>();
+		ArrayList<Timex3> allTimexesToInspect = new ArrayList<Timex3>();
+		while(timexIter.hasNext()) {
+			Timex3 myTimex = (Timex3) timexIter.next();
+			
+			ArrayList<Timex3> timexSet = new ArrayList<Timex3>();
+			timexSet.add(myTimex);
+			
+			// compare this timex to all other timexes and mark those that have an overlap
+			while(innerTimexIter.hasNext()) {
+				Timex3 myInnerTimex = (Timex3) innerTimexIter.next();
+				
+				if((myTimex.getBegin() <= myInnerTimex.getBegin() && myTimex.getEnd() > myInnerTimex.getBegin()) || // timex1 starts, timex2 is partial overlap
+				   (myInnerTimex.getBegin() <= myTimex.getBegin() && myInnerTimex.getEnd() > myTimex.getBegin()) || // same as above, but in reverse
+				   (myInnerTimex.getBegin() <= myTimex.getBegin() && myTimex.getEnd() <= myInnerTimex.getEnd()) || // timex 1 is contained within or identical to timex2
+				   (myTimex.getBegin() <= myInnerTimex.getBegin() && myInnerTimex.getEnd() <= myTimex.getEnd())) { // same as above, but in reverse
+					timexSet.add(myInnerTimex); // increase the set
+					
+					allTimexesToInspect.add(myTimex); // note that these timexes are being looked at
+					allTimexesToInspect.add(myInnerTimex);
+				}
+			}
+			
+			// if overlaps with myTimex were detected, memorize them
+			if(timexSet.size() > 1)
+				effectivelyToInspect.add(timexSet);
+			
+			// reset the inner iterator
+			innerTimexIter.moveToFirst();
+		}
+		
+		/* prune those sets of overlapping timexes that are subsets of others 
+		 * (i.e. leave only the largest union of overlapping timexes)
+		 */
+		HashSet<ArrayList<Timex3>> newEffectivelyToInspect = new HashSet<ArrayList<Timex3>>();
+		for(Timex3 t : allTimexesToInspect) {
+			ArrayList<Timex3> setToKeep = new ArrayList<Timex3>();
+			
+			// determine the largest set that contains this timex
+			for(ArrayList<Timex3> tSet : effectivelyToInspect) {
+				if(tSet.contains(t) && tSet.size() > setToKeep.size())
+					setToKeep = tSet;
+			}
+			
+			newEffectivelyToInspect.add(setToKeep);
+		}
+		// overwrite previous list of sets
+		effectivelyToInspect = newEffectivelyToInspect;
+		
+		// iterate over the selected sets and merge information, remove old timexes
+		for(ArrayList<Timex3> tSet : effectivelyToInspect) {
+			Timex3 newTimex = new Timex3(jcas);
+			
+			// if a timex has the timex value REMOVE, remove it from consideration
+			@SuppressWarnings("unchecked")
+			ArrayList<Timex3> newTSet = (ArrayList<Timex3>) tSet.clone();
+			for(Timex3 t : tSet) {
+				if(t.getTimexValue().equals("REMOVE")) { // remove timexes with value "REMOVE"
+					newTSet.remove(t);
+				}
+			}
+			tSet = newTSet;
+			
+			// iteration is done if all the timexes have been removed, i.e. the set is empty 
+			if(tSet.size() == 0)
+				continue;
+			
+			/* 
+			 * check 
+			 * - whether all timexes of this set have the same timex type attribute,
+			 * - which one in the set has the longest value attribute string length,
+			 * - what the combined extents are
+			 */
+			Boolean allSameTypes = true;
+			String timexType = null;
+			Timex3 longestTimex = null;
+			Integer combinedBegin = Integer.MAX_VALUE, combinedEnd = Integer.MIN_VALUE;
+			ArrayList<Integer> tokenIds = new ArrayList<Integer>();
+			for(Timex3 t : tSet) {
+				// check whether the types are identical and either all DATE or TIME
+				if(timexType == null) {
+					timexType = t.getTimexType();
+				} else {
+					if(allSameTypes && !timexType.equals(t.getTimexType()) || !(timexType.equals("DATE") || timexType.equals("TIME"))) {
+						allSameTypes = false;
+					}
+				}
+				Logger.printDetail("Are these overlapping timexes of same type? => " + allSameTypes);
+				
+				// check timex value attribute string length
+				if(longestTimex == null) {
+					longestTimex = t;
+				} else if(longestTimex.getTimexValue().length() == t.getTimexValue().length()) {
+					if(t.getBegin() < longestTimex.getBegin())
+						longestTimex = t;
+				} else if(longestTimex.getTimexValue().length() < t.getTimexValue().length()) {
+					longestTimex = t;
+				}
+				Logger.printDetail("Selected " + longestTimex.getTimexId() + ": " + longestTimex.getCoveredText() + 
+						"[" + longestTimex.getTimexValue() + "] as the longest-valued timex.");
+				
+				// check combined beginning/end
+				if(combinedBegin > t.getBegin())
+					combinedBegin = t.getBegin();
+				if(combinedEnd < t.getEnd())
+					combinedEnd = t.getEnd();
+				Logger.printDetail("Selected combined constraints: " + combinedBegin + ":" + combinedEnd);
+				
+				// disassemble and remember the token ids
+				String[] tokenizedTokenIds = t.getAllTokIds().split("<-->");
+				for(Integer i = 1; i < tokenizedTokenIds.length; i++) {
+					if(!tokenIds.contains(Integer.parseInt(tokenizedTokenIds[i]))) {
+						tokenIds.add(Integer.parseInt(tokenizedTokenIds[i]));
+					}
+				}
+			}
+
+			/* types are equal => merge constraints, use the longer, "more granular" value. 
+			 * if types are not equal, just take the longest value.
+			 */
+			Collections.sort(tokenIds);
+			newTimex = longestTimex;
+			if(allSameTypes) {
+				newTimex.setBegin(combinedBegin);
+				newTimex.setEnd(combinedEnd);
+				newTimex.setFirstTokId(tokenIds.get(0));
+				String tokenIdText = "BEGIN";
+				for(Integer tokenId : tokenIds) {
+					tokenIdText += "<-->" + tokenId;
+				}
+				newTimex.setAllTokIds(tokenIdText);
+			}
+			
+			// remove old overlaps.
+			for(Timex3 t : tSet) {
+				t.removeFromIndexes();
+			}
+			// add the single constructed/chosen timex to the indexes.
+			newTimex.addToIndexes();
 		}
 	}
 	
@@ -1822,7 +1971,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 			for (MatchResult r : Toolbox.findMatches(p, s.getCoveredText())) {
 				boolean infrontBehindOK = ContextAnalyzer.checkTokenBoundaries(r, s, jcas) // improved token boundary checking
-										&& ContextAnalyzer.checkInfrontBehind(r, s);
+									&& ContextAnalyzer.checkInfrontBehind(r, s);
 
 				boolean posConstraintOK = true;
 				// CHECK POS CONSTRAINTS
@@ -1994,6 +2143,34 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			Pattern paNormNoGroup = Pattern.compile("%([A-Za-z0-9]+?)\\((.*?)\\)");
 			for (MatchResult mr : Toolbox.findMatches(paNormNoGroup, tonormalize)) {
 				tonormalize = tonormalize.replace(mr.group(),norm.getFromHmAllNormalization(mr.group(1)).get(mr.group(2)));
+			}
+			// replace Chinese with Arabic numerals
+			Pattern paChineseNorm = Pattern.compile("%CHINESENUMBERS%\\((.*?)\\)");
+			for (MatchResult mr : Toolbox.findMatches(paChineseNorm, tonormalize)) {
+				RegexHashMap<String> chineseNumerals = new RegexHashMap<String>();
+				chineseNumerals.put("[零０0]", "0");
+				chineseNumerals.put("[一１1]", "1");
+				chineseNumerals.put("[二２2]", "2");
+				chineseNumerals.put("[三３3]", "3");
+				chineseNumerals.put("[四４4]", "4");
+				chineseNumerals.put("[五５5]", "5");
+				chineseNumerals.put("[六６6]", "6");
+				chineseNumerals.put("[七７7]", "7");
+				chineseNumerals.put("[八８8]", "8");
+				chineseNumerals.put("[九９9]", "9");
+				String outString = "";
+				for(Integer i = 0; i < mr.group(1).length(); i++) {
+					String thisChar = mr.group(1).substring(i, i+1);
+					if(chineseNumerals.containsKey(thisChar)){
+						outString += chineseNumerals.get(thisChar);
+					} else {
+						System.out.println(chineseNumerals.entrySet());
+						Logger.printError(component, "Found an error in the resources: " + mr.group(1) + " contains " +
+								"a character that is not defined in the Chinese numerals map. Normalization may be mangled.");
+						outString += thisChar;
+					}
+				}
+				tonormalize = tonormalize.replace(mr.group(), outString);
 			}
 		}
 		normalized = tonormalize;
