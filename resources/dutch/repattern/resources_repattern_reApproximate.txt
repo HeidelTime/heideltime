@@ -8,6 +8,7 @@
 [Oo]m en nabij
 [Rr]ond
 [Cc]irca
+[Tt]egen
 // less
 [Nn]iet meer dan
 [Nn]iet langer dan

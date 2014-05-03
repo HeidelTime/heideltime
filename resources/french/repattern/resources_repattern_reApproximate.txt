@@ -16,6 +16,7 @@
 [Ee]nviron
 [Pp]resque
 [Pp]rès de
+[Vv]ers
 
 // less
 [Mm]oins de
@@ -25,5 +26,5 @@
 
 //  more
 [Aa]u moins
-[Ppl]us que
-[Ppl]us de
+[Pp]lus que
+[Pp]lus de

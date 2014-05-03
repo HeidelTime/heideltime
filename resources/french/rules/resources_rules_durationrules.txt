@@ -9,6 +9,19 @@
 // This file contains rules for the temporal expressions of the type duration: durationrules
 // RULENAME=""",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
 
+// NEGATIVE RULES have to be located here (LREC rules)
+RULENAME="date_lrec0a_negative",EXTRACTION="[0]+",NORM_VALUE="REMOVE"
+//RULENAME="date_lrec0b_negative",EXTRACTION="(Junio|Julio) ([A-Z][\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NP:"
+RULENAME="date_lrec0b_negative",EXTRACTION="%reYearBC (\b\S+s\b)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NOM:"
+RULENAME="date_lrec0c_negative",EXTRACTION="%reYearBC (\b\S+s\b)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NAM:"
+RULENAME="date_lrec0d_negative",EXTRACTION="%reYearBC(%| %)",NORM_VALUE="REMOVE"
+RULENAME="date_lrec0e_negative",EXTRACTION="%reYearBC (km\b|cm\b|mm\b|m\b|kg\b)",NORM_VALUE="REMOVE"
+RULENAME="date_lrec0f_negative",EXTRACTION="(\btotal) (de) %reYearBC",NORM_VALUE="REMOVE"
+//RULENAME="date_lrec0g_negative",EXTRACTION="%reYearBC ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ACRNM:"
+RULENAME="date_lrec0h_negative",EXTRACTION="%reYearBC ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NUM:"
+
+
+
 /////////////////////
 // POSITIVE RULES // 
 /////////////////////
@@ -105,12 +118,5 @@ RULENAME="date_r2c_negative",EXTRACTION="\d\d-\d\d ans",NORM_VALUE="REMOVE"
 RULENAME="date_r3a_negative",EXTRACTION="[^\s]*, \d ans,",NORM_VALUE="REMOVE"
 RULENAME="date_r3b_negative",EXTRACTION="[^\s]*, \d\d ans,",NORM_VALUE="REMOVE"
 
-// EXAMPLE r3c_negative_1: 2000 kilomètres 
-RULENAME="date_r3c_negative",EXTRACTION="%reYear4Digit (kilomètres?|mètres?|dollars?|euros?)",NORM_VALUE="REMOVE"
 
-// EXAMPLE r4a_negative: W2000.1920
-RULENAME="date_r4a_negative",EXTRACTION="\p{L}+%reYear4Digit\.%reYear4Digit",NORM_VALUE="REMOVE"
-
-// EXAMPLE r3a_negative_1: 2000 soldats (4 digits followed by a noun)
-RULENAME="date_r3a_negative",EXTRACTION="%reYear4Digit (\p{L}+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NOM:"
 

@@ -8,6 +8,7 @@
 [Aa]fgelopen
 [Vv]olgend
 [Vv]olgende
+[Hh]etzelfde
 [Hh]uidig
 [Hh]uidige
 [Dd]eze

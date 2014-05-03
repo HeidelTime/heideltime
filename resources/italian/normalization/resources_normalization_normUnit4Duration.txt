@@ -16,7 +16,7 @@
 "[Aa]nn[oi]","Y"
 "[Dd]ecennio","DE"
 "[Dd]ecade","DE"
-"[Ss]ecolo","CE"
+"[Ss]ecol[io]","CE"
 "[Oo]r[aei]","H"
 "[Mm]inut[aeio]s?","M"
 

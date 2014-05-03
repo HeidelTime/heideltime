@@ -76,13 +76,7 @@ RULENAME="duration_r4b",EXTRACTION="(%reApproximate ([Dd]ell'[\s]?|[Dd]el |[Dd]i
 // EXAMPLE r6b-1: la misma hora
 // EXAMPLE r6c-1: los últimos meses
 // EXAMPLE r6d-1: las próximas horas
-//RULENAME="duration_r6a",EXTRACTION="([Uu]n[oa]?) ((\w)+) %reUnit",NORM_VALUE="P1%normUnit4Duration(group(4))",POS_CONSTRAINT="group(2):ADJ:"
-//RULENAME="duration_r6b",EXTRACTION="([Uu]n[oa]?) ((\w)+) (hora|minuto)",NORM_VALUE="PT1%normUnit4Duration(group(4))",POS_CONSTRAINT="group(2):ADJ:"
-//RULENAME="duration_r6c",EXTRACTION="([Ll][oa]s) ((\w)+) %reUnit",NORM_VALUE="PX%normUnit4Duration(group(4))",POS_CONSTRAINT="group(2):ADJ:"
-//RULENAME="duration_r6d",EXTRACTION="([Ll][oa]s) ((\w)+) (horas|minutos)",NORM_VALUE="PTX%normUnit4Duration(group(4))",POS_CONSTRAINT="group(2):ADJ:"
-
-// EXAMPLE r3a_negative_1: 2000 soldiers (four digit number followed by a plural noun)
-// EXAMPLE r3b_negative_1: 2000 dead soldiers (four digit number followed by an adjective and a plural noun)
-RULENAME="date_r3a_negative",EXTRACTION="(%reYear4Digit a )?%reYear4Digit (\b\p{L}+i\b)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(4):NOM:"
-RULENAME="date_r3b_negative",EXTRACTION="(%reYear4Digit a )?%reYear4Digit (\b\p{L}+s\b) ",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(4):NPR:"
-
+//RULENAME="duration_r6a",EXTRACTION="([Uu]n[oa]?) ((\S)+) %reUnit",NORM_VALUE="P1%normUnit4Duration(group(4))",POS_CONSTRAINT="group(2):ADJ:"
+//RULENAME="duration_r6b",EXTRACTION="([Uu]n[oa]?) ((\S)+) (hora|minuto)",NORM_VALUE="PT1%normUnit4Duration(group(4))",POS_CONSTRAINT="group(2):ADJ:"
+//RULENAME="duration_r6c",EXTRACTION="([Ll][oa]s) ((\S)+) %reUnit",NORM_VALUE="PX%normUnit4Duration(group(4))",POS_CONSTRAINT="group(2):ADJ:"
+//RULENAME="duration_r6d",EXTRACTION="([Ll][oa]s) ((\S)+) (horas|minutos)",NORM_VALUE="PTX%normUnit4Duration(group(4))",POS_CONSTRAINT="group(2):ADJ:"

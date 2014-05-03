@@ -20,4 +20,4 @@
 "[Aa]nn[oi]","year"
 "[Dd]ecennio","decade"
 "[Dd]ecade","decade"
-"[Ss]ecolo","century"
+"[Ss]ecol[io]","century"

@@ -229,6 +229,11 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		// if the improve_german_sentences flag is set, improve the sentence tokens made by the treetagger
 		if(improve_german_sentences) 
 			improveGermanSentences(jcas);
+		
+		// if French, improve the sentence tokens made by the TreeTagger with settings for French
+		if (this.language.getTreeTaggerLangName().equals("french"))
+			improveFrenchSentences(jcas);
+		
 	}
 	
 	/**
@@ -504,6 +509,62 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	public void setHome(String home) {
 		this.ttprops.rootPath = home; 
 	}
+	
+	private void improveFrenchSentences(JCas jcas) {
+		HashSet<de.unihd.dbs.uima.types.heideltime.Sentence> hsRemoveAnnotations = new HashSet<de.unihd.dbs.uima.types.heideltime.Sentence>();
+		HashSet<de.unihd.dbs.uima.types.heideltime.Sentence> hsAddAnnotations    = new HashSet<de.unihd.dbs.uima.types.heideltime.Sentence>();
+		
+		HashSet<String> hsSentenceBeginnings = new HashSet<String>();
+		hsSentenceBeginnings.add("J.-C.");
+		hsSentenceBeginnings.add("J-C.");
+		hsSentenceBeginnings.add("NSJC");
+		
+		Boolean changes = true;
+		while (changes) {
+			changes = false;
+			FSIndex annoHeidelSentences = jcas.getAnnotationIndex(de.unihd.dbs.uima.types.heideltime.Sentence.type);
+			FSIterator iterHeidelSent   = annoHeidelSentences.iterator();
+			while (iterHeidelSent.hasNext()){
+				de.unihd.dbs.uima.types.heideltime.Sentence s1 = (de.unihd.dbs.uima.types.heideltime.Sentence) iterHeidelSent.next();
+				
+				if ((s1.getCoveredText().endsWith("av.")) ||
+						(s1.getCoveredText().endsWith("Av.")) ||
+						(s1.getCoveredText().endsWith("apr.")) ||
+						(s1.getCoveredText().endsWith("Apr.")) ||
+						(s1.getCoveredText().endsWith("avant.")) ||
+						(s1.getCoveredText().endsWith("Avant."))){
+					if (iterHeidelSent.hasNext()){
+						de.unihd.dbs.uima.types.heideltime.Sentence s2 = (de.unihd.dbs.uima.types.heideltime.Sentence) iterHeidelSent.next();
+						iterHeidelSent.moveToPrevious();
+						for (String beg : hsSentenceBeginnings){
+							if (s2.getCoveredText().startsWith(beg)){
+								de.unihd.dbs.uima.types.heideltime.Sentence s3 = new de.unihd.dbs.uima.types.heideltime.Sentence(jcas);
+								s3.setBegin(s1.getBegin());
+								s3.setEnd(s2.getEnd());
+								hsAddAnnotations.add(s3);
+								hsRemoveAnnotations.add(s1);
+								hsRemoveAnnotations.add(s2);
+								changes = true;
+								break;
+							}
+						}
+					}
+				}
+				
+				
+			}
+			for (de.unihd.dbs.uima.types.heideltime.Sentence s : hsRemoveAnnotations){
+				s.removeFromIndexes(jcas);
+			}
+			hsRemoveAnnotations.clear();
+			for (de.unihd.dbs.uima.types.heideltime.Sentence s : hsAddAnnotations){
+				s.addToIndexes(jcas);
+			}
+			hsAddAnnotations.clear();
+		}
+	}
+		
+	
 
 	/**
 	 * improve german sentences; the treetagger splits german sentences incorrectly on some occasions
@@ -544,6 +605,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 					if (iterHeidelSent.hasNext()){
 						de.unihd.dbs.uima.types.heideltime.Sentence s2 = (de.unihd.dbs.uima.types.heideltime.Sentence) iterHeidelSent.next();
 						iterHeidelSent.moveToPrevious();
+						boolean newBoundary = false;
 						for (String beg : hsSentenceBeginnings){
 							if (s2.getCoveredText().startsWith(beg)){
 								de.unihd.dbs.uima.types.heideltime.Sentence s3 = new de.unihd.dbs.uima.types.heideltime.Sentence(jcas);
@@ -552,8 +614,32 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 								hsAddAnnotations.add(s3);
 								hsRemoveAnnotations.add(s1);
 								hsRemoveAnnotations.add(s2);
+								newBoundary = true;
 								changes = true;
 								break;
+							}
+						}
+						if (newBoundary == false){
+							if (s2.getCoveredText().matches("^([a-z]).*")){
+								de.unihd.dbs.uima.types.heideltime.Sentence s3 = new de.unihd.dbs.uima.types.heideltime.Sentence(jcas);
+								s3.setBegin(s1.getBegin());
+								s3.setEnd(s2.getEnd());
+								hsAddAnnotations.add(s3);
+								hsRemoveAnnotations.add(s1);
+								hsRemoveAnnotations.add(s2);
+								newBoundary = true;
+								changes = true;
+							}
+						}
+						if (newBoundary == false){
+							if (s2.getCoveredText().matches("^[/].*")){
+								de.unihd.dbs.uima.types.heideltime.Sentence s3 = new de.unihd.dbs.uima.types.heideltime.Sentence(jcas);
+								s3.setBegin(s1.getBegin());
+								s3.setEnd(s2.getEnd());
+								hsAddAnnotations.add(s3);
+								hsRemoveAnnotations.add(s1);
+								hsRemoveAnnotations.add(s2);
+								changes = true;
 							}
 						}
 					}

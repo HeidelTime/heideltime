@@ -10,7 +10,6 @@
 //[Bb]ắt đầu lúc
 [Gg]iữa
 [cC]uối
-[Tt]rong
 //[Đđ]ến
 //[Tt]ới
 //[Kk]ết thúc

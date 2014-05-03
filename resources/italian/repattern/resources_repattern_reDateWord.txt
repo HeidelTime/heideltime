@@ -6,6 +6,7 @@
 // THESE EXPRESSIONS ARE ALL IMPLICITS
 \b[Aa] questo punto
 [Aa]ttualmente
+//[Aa]ttuale
 [Aa]desso
 [Aa]vantieri
 [Aa]vant'ieri
@@ -13,6 +14,7 @@
 [Ll]'altro ieri
 [Ii]eri
 [Aa]l giorno d'oggi
+[Oo]diern[ae]
 [Oo]ggi come oggi
 [Oo]ggid(ì|i'|i)
 [Oo]ggigiorno

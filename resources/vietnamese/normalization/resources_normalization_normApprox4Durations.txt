@@ -36,6 +36,8 @@
 "Nhiều","MORE_THAN"
 "nhiều hơn","MORE_THAN"
 "một vài","APPROX"
+"[Vv]ài","APPROX"
 "Một vài","APPROX"
 "một số","APPROX"
 "Một số","APPROX"
+"[Nn]hững","APPROX"

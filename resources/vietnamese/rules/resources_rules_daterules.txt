@@ -6,9 +6,8 @@
 
 //DAY MONTH YEAR BC/AC
 
-RULENAME="vn_date_r1a_lrec",EXTRACTION="((ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm|) %reYearBC)",NORM_VALUE="%normYearBC(group(7))-%normMonth(group(5))-%normDay(group(3))"
-
-RULENAME="vn_date_r1b_lrec",EXTRACTION="((ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthInWord (năm|Năm|) %reYearBC)",NORM_VALUE="%normYearBC(group(7))-%normMonthInWord(group(5))-%normDay(group(3))"
+RULENAME="vn_date_r1a_lrec",EXTRACTION="(đến )?(([Nn]gày )?%reDayNumber ([Tt]háng) %reMonthNumber ([Nn]ăm) %reYearBC)",NORM_VALUE="%normYearBC(group(8))-%normMonth(group(6))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+RULENAME="vn_date_r1b_lrec",EXTRACTION="(đến )?(([Nn]gày )?%reDayNumber ([Tt]háng) %reMonthInWord ([Nn]ăm) %reYearBC)",NORM_VALUE="%normYearBC(group(8))-%normMonthInWord(group(6))-%normDay(group(4))",OFFSET="group(2)-group(2)"
 
 ///////////////////////
 // MONTH GRANULARITY BC/AD //
@@ -21,16 +20,16 @@ RULENAME="vn_date_r1b_lrec",EXTRACTION="((ngày |Ngày )?%reDayNumber (tháng|Th
 // EXAMPLE vn_date_r7h_lrec: tháng một năm 1999 truoc CN
 // EXAMPLE vn_date_r7j_lrec: tháng 1 và tháng 2 năm 1999 truoc CN : find 1999-01 truoc CN
 // EXAMPLE vn_date_r7k_lrec: tháng 1 và tháng 2 năm 1999 truoc CN : find 1999-02 truoc CN
-RULENAME="vn_date_r7a_lrec",EXTRACTION="(tháng|Tháng) %reMonthNumber (năm|Năm) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(4))-%normMonth(group(2))"
-RULENAME="vn_date_r7a1_lrec",EXTRACTION="(tháng|Tháng) %reMonthNumber (năm|Năm) %reYearBC",NORM_VALUE="%normYearBC(group(4))-%normMonth(group(2))"
+RULENAME="vn_date_r7a_lrec-BCADhint",EXTRACTION="(tháng|Tháng) %reMonthNumber (năm|Năm) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(4))-%normMonth(group(2))"
+RULENAME="vn_date_r7a1_lrec-BCADhint",EXTRACTION="(tháng|Tháng) %reMonthNumber (năm|Năm) %reYearBC",NORM_VALUE="%normYearBC(group(4))-%normMonth(group(2))"
 
-RULENAME="vn_date_r7c_lrec",EXTRACTION="(tháng|Tháng) %reMonthNumber/%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))"
-RULENAME="vn_date_r7d_lrec",EXTRACTION="(tháng|Tháng) %reMonthNumber-%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))"
-RULENAME="vn_date_r7h_lrec",EXTRACTION="(tháng|Tháng) %reMonthInWord (năm|Năm) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(4))-%normMonthInWord(group(2))"
+RULENAME="vn_date_r7c_lrec-BCADhint",EXTRACTION="(tháng|Tháng) %reMonthNumber/%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))"
+RULENAME="vn_date_r7d_lrec-BCADhint",EXTRACTION="(tháng|Tháng) %reMonthNumber-%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))"
+RULENAME="vn_date_r7h_lrec-BCADhint",EXTRACTION="(tháng|Tháng) %reMonthInWord (năm|Năm) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(4))-%normMonthInWord(group(2))"
 RULENAME="vn_date_r7h1_lrec",EXTRACTION="(tháng|Tháng) %reMonthInWord (năm|Năm) %reYearBC",NORM_VALUE="%normYearBC(group(4))-%normMonthInWord(group(2))"
 
-RULENAME="vn_date_r7j_lrec",EXTRACTION="(tháng|Tháng) %reMonthNumber và (tháng|Tháng) %reMonthNumber (năm|Năm) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))-%normMonth(group(2))",OFFSET="group(1)-group(2)"
-RULENAME="vn_date_r7k_lrec",EXTRACTION="(tháng|Tháng) %reMonthNumber và (tháng|Tháng) %reMonthNumber (năm|Năm) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))-%normMonth(group(4))",OFFSET="group(3)-group(7)"
+RULENAME="vn_date_r7j_lrec-BCADhint",EXTRACTION="(tháng|Tháng) %reMonthNumber và (tháng|Tháng) %reMonthNumber (năm|Năm) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))-%normMonth(group(2))",OFFSET="group(1)-group(2)"
+RULENAME="vn_date_r7k_lrec-BCADhint",EXTRACTION="(tháng|Tháng) %reMonthNumber và (tháng|Tháng) %reMonthNumber (năm|Năm) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))-%normMonth(group(4))",OFFSET="group(3)-group(7)"
 
 
 
@@ -52,24 +51,24 @@ RULENAME="vn_date_r7k_lrec",EXTRACTION="(tháng|Tháng) %reMonthNumber và (thá
 // EXAMPLE vn_date_r12g: trước 90, sau 90 
 // EXAMPLE vn_date_r12h: (1996)
 
-RULENAME="vn_date_r12a_lrec",EXTRACTION="(%reApproximate )?(năm |Năm )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(4))",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="vn_date_r12a1_lrec",EXTRACTION="%rePartWords (năm |Năm )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="vn_date_r12a_lrec-BCADhint",EXTRACTION="(%reApproximate )?(năm |Năm )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(4))",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="vn_date_r12a1_lrec-BCADhint",EXTRACTION="%rePartWords (năm |Năm )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))",NORM_MOD="%normPartWords(group(1))"
 
 RULENAME="vn_date_r12c1_lrec",EXTRACTION="(năm |Năm )%reYearBC(-|–| đến )%reYearBC",NORM_VALUE="%normYearBC(group(2))",OFFSET="group(1)-group(2)"
 RULENAME="vn_date_r12c2_lrec",EXTRACTION="(năm |Năm )%reYearBC(-|–| đến )%reYearBC",NORM_VALUE="%normYearBC(group(4))",OFFSET="group(4)-group(4)"
 
 
-RULENAME="vn_date_r12c3_lrec",EXTRACTION="%rePartWords (năm |Năm )?%reYearBC(-|–| %rePartWords )(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(8))%normYearBC(group(3))",NORM_MOD="%normPartWords(group(1))", OFFSET="group(1)-group(3)"
-RULENAME="vn_date_r12c4_lrec",EXTRACTION="%rePartWords (năm |Năm )?%reYearBC(-|–| %rePartWords )(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(8))%normYearBC(group(7))",NORM_MOD="%normPartWords(group(5))", OFFSET="group(4)-group(8)"
+RULENAME="vn_date_r12c3_lrec-BCADhint",EXTRACTION="%rePartWords (năm |Năm )?%reYearBC(-|–| %rePartWords )(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(8))%normYearBC(group(3))",NORM_MOD="%normPartWords(group(1))", OFFSET="group(1)-group(3)"
+RULENAME="vn_date_r12c4_lrec-BCADhint",EXTRACTION="%rePartWords (năm |Năm )?%reYearBC(-|–| %rePartWords )(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(8))%normYearBC(group(7))",NORM_MOD="%normPartWords(group(5))", OFFSET="group(4)-group(8)"
 
-RULENAME="vn_date_r12c5_lrec",EXTRACTION="(năm |Năm )?%reYearBC(-|–| %rePartWords )(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(2))",OFFSET="group(1)-group(2)"
-RULENAME="vn_date_r12c6_lrec",EXTRACTION="(năm |Năm )?%reYearBC(-|–| %rePartWords )(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))", OFFSET="group(3)-group(7)"
+RULENAME="vn_date_r12c5_lrec-BCADhint",EXTRACTION="(năm |Năm )?%reYearBC(-|–| %rePartWords )(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(2))",OFFSET="group(1)-group(2)"
+RULENAME="vn_date_r12c6_lrec-BCADhint",EXTRACTION="(năm |Năm )?%reYearBC(-|–| %rePartWords )(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))", OFFSET="group(3)-group(7)"
 
 
 
 
 // season and year
-RULENAME="date_lrec4a",EXTRACTION="(%reApproximate )?%reSeason(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(6))%normYearBC(group(5))-%normSeason(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="date_lrec4a-BCADhint",EXTRACTION="(%reApproximate )?%reSeason(năm |Năm )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(6))%normYearBC(group(5))-%normSeason(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
 
 RULENAME="date_lrec4b",EXTRACTION="(%reApproximate )?%reSeason(năm |Năm )?%reYearBC",NORM_VALUE="%normYearBC(group(5))-%normSeason(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
 
@@ -80,10 +79,10 @@ RULENAME="date_lrec4b",EXTRACTION="(%reApproximate )?%reSeason(năm |Năm )?%reY
 // EXAMPLE vn_date_r15a_lrec: thế kỷ 19      the 19th century
 // EXAMPLE vn_date_r15b_lrec: thế kỷ mười bảy
 
-RULENAME="vn_date_r15a_lrec",EXTRACTION="(thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyNumber %reYearPrefix",NORM_VALUE="%normYearPrefix(group(3))%normDay(%SUM%(%normDay(group(2)),-1))"
-RULENAME="vn_date_r15b_lrec",EXTRACTION="(thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyInWord %reYearPrefix",NORM_VALUE="%normYearPrefix(group(3))%normDay(%SUM%(%normDay(%normCenturyInWord(group(2))),-1))"
-RULENAME="vn_date_r15c_lrec",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyNumber %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normDay(%SUM%(%normDay(group(3)),-1))",NORM_MOD="%normPartWords(group(1))"
-RULENAME="vn_date_r15d_lrec",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyInWord %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normDay(%SUM%(%normDay(%normCenturyInWord(group(3))),-1))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="vn_date_r15a_lrec-BCADhint",EXTRACTION="(thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyNumber %reYearPrefix",NORM_VALUE="%normYearPrefix(group(3))%normDay(%SUM%(%normDay(group(2)),-1))"
+RULENAME="vn_date_r15b_lrec-BCADhint",EXTRACTION="(thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyInWord %reYearPrefix",NORM_VALUE="%normYearPrefix(group(3))%normDay(%SUM%(%normDay(%normCenturyInWord(group(2))),-1))"
+RULENAME="vn_date_r15c_lrec-BCADhint",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyNumber %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normDay(%SUM%(%normDay(group(3)),-1))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="vn_date_r15d_lrec-BCADhint",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|thế kỉ|Thế kỉ) %reCenturyInWord %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normDay(%SUM%(%normDay(%normCenturyInWord(group(3))),-1))",NORM_MOD="%normPartWords(group(1))"
 
 
 
@@ -116,15 +115,16 @@ RULENAME="vn_date_r15d_lrec",EXTRACTION="%rePartWords (thế kỷ|Thế kỷ|th�
 //EXAMPLE   vn_date_r0h:    (ngày|Ngày)? 29-10
 //EXAMPLE   vn_date_r0i:    (ngày|Ngày)? 29.10
 
-RULENAME="vn_date_r0a",EXTRACTION="((ngày |Ngày )?%reDayNumber/%reMonthNumber/%reYear4Digit)",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(3))"
-RULENAME="vn_date_r0b",EXTRACTION="((ngày |Ngày )?%reDayNumber-%reMonthNumber-%reYear4Digit)",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(3))"
-//RULENAME="vn_date_r0c",EXTRACTION="((ngày |Ngày )?%reDayNumber.%reMonthNumber.%reYear4Digit)",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(3))"
-RULENAME="vn_date_r0d",EXTRACTION="((ngày |Ngày )?%reDayNumber/%reMonthNumber/%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(5)-%normMonth(group(4))-%normDay(group(3))"
-RULENAME="vn_date_r0e",EXTRACTION="((ngày |Ngày )?%reDayNumber-%reMonthNumber-%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(5)-%normMonth(group(4))-%normDay(group(3))"
-//RULENAME="vn_date_r0f",EXTRACTION="((ngày |Ngày )?%reDayNumber.%reMonthNumber.%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(5)-%normMonth(group(4))-%normDay(group(3))"
-RULENAME="vn_date_r0g",EXTRACTION="((ngày |Ngày )%reDayNumber/%reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(3))"
-RULENAME="vn_date_r0h",EXTRACTION="((ngày |Ngày )%reDayNumber-%reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(3))"
-//RULENAME="vn_date_r0i",EXTRACTION="((ngày |Ngày )?%reDayNumber.%reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(3))"
+RULENAME="vn_date_r0a",EXTRACTION="(đến )?((ngày |Ngày )?%reDayNumber/%reMonthNumber/%reYear4Digit)",NORM_VALUE="group(6)-%normMonth(group(5))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+RULENAME="vn_date_r0b",EXTRACTION="(đến )?((ngày |Ngày )?%reDayNumber-%reMonthNumber-%reYear4Digit)",NORM_VALUE="group(6)-%normMonth(group(5))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+//RULENAME="vn_date_r0c",EXTRACTION="(đến )?((ngày |Ngày )?%reDayNumber.%reMonthNumber.%reYear4Digit)",NORM_VALUE="group(6)-%normMonth(group(5))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+RULENAME="vn_date_r0d",EXTRACTION="(đến )?((ngày |Ngày )?%reDayNumber/%reMonthNumber/%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(6)-%normMonth(group(5))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+RULENAME="vn_date_r0e",EXTRACTION="(đến )?((ngày |Ngày )?%reDayNumber-%reMonthNumber-%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(6)-%normMonth(group(5))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+//RULENAME="vn_date_r0f",EXTRACTION="(đến )?((ngày |Ngày )?%reDayNumber.%reMonthNumber.%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(6)-%normMonth(group(5))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+RULENAME="vn_date_r0g",EXTRACTION="(đến )?((ngày |Ngày )%reDayNumber/%reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(5))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+RULENAME="vn_date_r0h",EXTRACTION="(đến )?((ngày |Ngày )%reDayNumber-%reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(5))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+//RULENAME="vn_date_r0i",EXTRACTION="(đến )?((ngày |Ngày )?%reDayNumber.%reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(5))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+
 
 
 
@@ -137,11 +137,11 @@ RULENAME="vn_date_r0h",EXTRACTION="((ngày |Ngày )%reDayNumber-%reMonthNumber)"
 //EXAMPLE   vn_date_r1e:    (ngày|Ngày)? 29 tháng 10
 
 
-RULENAME="vn_date_r1a",EXTRACTION="((ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm|) %reYear4Digit)",NORM_VALUE="group(7)-%normMonth(group(5))-%normDay(group(3))"
-RULENAME="vn_date_r1b",EXTRACTION="((ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber(,) %reYear4Digit)",NORM_VALUE="group(7)-%normMonth(group(5))-%normDay(group(3))"
-RULENAME="vn_date_r1c",EXTRACTION="((ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm|) %reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(7)-%normMonth(group(5))-%normDay(group(3))"
-RULENAME="vn_date_r1d",EXTRACTION="((ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber(,) %reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(7)-%normMonth(group(5))-%normDay(group(3))"
-RULENAME="vn_date_r1e",EXTRACTION="((ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(5))-%normDay(group(3))"
+RULENAME="vn_date_r1a",EXTRACTION="(đến )?((ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm|) %reYear4Digit)",NORM_VALUE="group(8)-%normMonth(group(6))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+RULENAME="vn_date_r1b",EXTRACTION="(đến )?((ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber(,) %reYear4Digit)",NORM_VALUE="group(8)-%normMonth(group(6))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+RULENAME="vn_date_r1c",EXTRACTION="(đến )?((ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber (năm|Năm|) %reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(8)-%normMonth(group(6))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+RULENAME="vn_date_r1d",EXTRACTION="(đến )?((ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber(,) %reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(8)-%normMonth(group(6))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+RULENAME="vn_date_r1e",EXTRACTION="(đến )?((ngày |Ngày )?%reDayNumber (tháng|Tháng) %reMonthNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(6))-%normDay(group(4))",OFFSET="group(2)-group(2)"
 
 
 //vn_date_r2
@@ -150,10 +150,10 @@ RULENAME="vn_date_r1e",EXTRACTION="((ngày |Ngày )?%reDayNumber (tháng|Tháng)
 //EXAMPLE   vn_date_r2c:    (ngày|Ngày) 11 tháng mười năm 1999
 //EXAMPLE   vn_date_r2d:    (ngày|Ngày) 11 tháng mười năm 99
 
-RULENAME="vn_date_r2a",EXTRACTION="((ngày |Ngày )? %reDateInWord (tháng|Tháng) %reMonthInWord (năm|Năm) %reYear4Digit)",NORM_VALUE="group(7)-%normMonthInWord(group(5))-%normDateInWord(group(3))"
-RULENAME="vn_date_r2b",EXTRACTION="((ngày |Ngày )? %reDateInWord (tháng|Tháng) %reMonthInWord (năm|Năm) %reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(7)-%normMonthInWord(group(5))-%normDateInWord(group(3))"
-RULENAME="vn_date_r2c",EXTRACTION="((ngày |Ngày )? %reDayNumber (tháng|Tháng) %reMonthInWord (năm|Năm) %reYear4Digit)",NORM_VALUE="group(7)-%normMonthInWord(group(5))-%normDay(group(3))"
-RULENAME="vn_date_r2d",EXTRACTION="((ngày |Ngày )? %reDayNumber (tháng|Tháng) %reMonthInWord (năm|Năm) %reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(7)-%normMonthInWord(group(5))-%normDay(group(3))"
+RULENAME="vn_date_r2a",EXTRACTION="(đến )?((ngày |Ngày )? %reDateInWord (tháng|Tháng) %reMonthInWord (năm|Năm) %reYear4Digit)",NORM_VALUE="group(8)-%normMonthInWord(group(6))-%normDateInWord(group(4))",OFFSET="group(2)-group(2)"
+RULENAME="vn_date_r2b",EXTRACTION="(đến )?((ngày |Ngày )? %reDateInWord (tháng|Tháng) %reMonthInWord (năm|Năm) %reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(8)-%normMonthInWord(group(6))-%normDateInWord(group(4))",OFFSET="group(2)-group(2)"
+RULENAME="vn_date_r2c",EXTRACTION="(đến )?((ngày |Ngày )? %reDayNumber (tháng|Tháng) %reMonthInWord (năm|Năm) %reYear4Digit)",NORM_VALUE="group(8)-%normMonthInWord(group(6))-%normDay(group(4))",OFFSET="group(2)-group(2)"
+RULENAME="vn_date_r2d",EXTRACTION="(đến )?((ngày |Ngày )? %reDayNumber (tháng|Tháng) %reMonthInWord (năm|Năm) %reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(8)-%normMonthInWord(group(6))-%normDay(group(4))",OFFSET="group(2)-group(2)"
 
 //vn_date_r3
 //EXAMPLE    vn_date_r3a:    thứ 2[,]? ngày 15 tháng 5
@@ -269,7 +269,7 @@ RULENAME="vn_date_r9c",EXTRACTION="%reSeason (năm |Năm )?%reYear2Digit",NORM_V
 RULENAME="vn_date_r9d",EXTRACTION="%reSeason (năm |Năm )?%reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(3))-year-%normSeason(group(1))"
 // SEASON BC
 RULENAME="vn_date_r9e",EXTRACTION="%reSeason (năm |Năm )%reYearBC",NORM_VALUE="%normYearBC(group(3))-%normSeason(group(1))"
-RULENAME="vn_date_r9f",EXTRACTION="%reSeason (năm |Năm )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normSeason(group(1))"
+RULENAME="vn_date_r9f-BCADhint",EXTRACTION="%reSeason (năm |Năm )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normSeason(group(1))"
 
 ////////////////////////////// 
 // PART-OF-YEAR GRANULARITY //
@@ -330,7 +330,7 @@ RULENAME="vn_date_r12c4",EXTRACTION="%rePartWords (năm |Năm )?%reYear4Digit ?(
 RULENAME="vn_date_r12e",EXTRACTION="(Thập niên |thập niên )%reYear4Digit",NORM_VALUE="group(2)"
 RULENAME="vn_date_r12f",EXTRACTION="(Trước |trước |Sau |sau )%reYear4Digit",NORM_VALUE="group(2)"
 //RULENAME="vn_date_r12g",EXTRACTION="(Trước |trước |Sau |sau )%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)"
-RULENAME="vn_date_r12h",EXTRACTION="\(%reYear4Digit\)",NORM_VALUE="group(1)"
+RULENAME="vn_date_r12h",EXTRACTION="\(%reYear4Digit\)",NORM_VALUE="group(1)",OFFSET="group(1)-group(1)"
 
 ///////////////////////
 // DECADE GRANULARITY //
