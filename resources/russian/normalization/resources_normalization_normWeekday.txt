@@ -1,0 +1,14 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains "weekday words" and their normalized expressions.
+// For example, the normalized value of "понедельник" is "monday"
+// FORMAT: "weekday-word","normalized-weekday-word"
+"[Пп]онедельник(у|ом|е|ам|а)?","monday"
+"[Вв]торник(у|ом|е|ам|а)?","tuesday"
+"[Сс]ред(ы|е|у|ой|ам|а)?","wednesday"
+"[Чч]етверг(у|ом|е|ам|а)?","thursday"
+"[Пп]ятниц(ы|е|у|ой|ам|а)?","friday"
+"[Сс]уббот(ы|е|у|ой|ам|а)?","saturday"
+"[Вв]оскресень(ю|ем|е|ям|я)?","sunday"
+

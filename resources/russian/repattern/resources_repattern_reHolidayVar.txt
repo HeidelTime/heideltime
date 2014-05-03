@@ -1,0 +1,15 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains regular expression patterns for holidays on a moveable date.
+// FORMAT: one line is one disjunction of the pattern
+//
+
+// moveable holidays in Germany according to Wikipedia:
+// http://de.wikipedia.org/wiki/Liste_der_Gedenk-_und_Aktionstage#Vom_Ostertermin_abh.C3.A4ngige_Feste_und_Gedenktage
+//http://ru.wikipedia.org/wiki/%D0%9F%D0%B0%D1%81%D1%85%D0%B0
+Пасх(а|и|е|у|ой)
+Вербн(ое|ого|ому|ом|ым) воскресень(е|я|ю|ем)
+Троиц(а|ы|у|ей|е)
+Маслениц(а|ы|у|ей|е)
+

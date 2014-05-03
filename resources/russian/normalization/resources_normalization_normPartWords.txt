@@ -1,0 +1,13 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains "part words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "начало" is "START"
+// FORMAT: "part-word","normalized-part-word"
+
+"[Нн]ачал(а|у|ом|о|е)","START"
+"[Сс]ередин(а|ы|е|у|ой)","MID"
+"[Кк]он(ец|ца|цу|цом|це)","END"
+"[Рр]анн(ий|его|ему|ем|яя|юю|ей|ее|ие|их|ими|им)","START"
+"[Пп]оздн(ий|его|ему|ем|яя|юю|ей|ее|ие|их|ими|им)","END"

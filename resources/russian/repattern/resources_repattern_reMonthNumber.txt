@@ -1,0 +1,9 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains regular expression patterns for month numbers.
+// FORMAT: one line is one disjunction of the pattern
+10
+11
+12
+0?[1-9]

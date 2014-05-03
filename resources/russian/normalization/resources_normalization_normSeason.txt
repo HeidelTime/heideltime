@@ -1,0 +1,11 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains "season words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "лето" is "SU"
+// FORMAT: "season-word","normalized-season-word"
+"[Вв]есн(а|ы|е|у|ой|ою)","SP"
+"[Лл]ет(о|а|ом|е)","SU"
+"[Оо]сен(ь|ью|и)","FA"
+"[Зз]им(а|ы|е|у|ой|ою)","WI"

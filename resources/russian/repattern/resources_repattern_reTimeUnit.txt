@@ -1,0 +1,8 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains regular expression patterns for unit words.
+// FORMAT: one line is one disjunction of the pattern
+[Чч]ас(у|ом|ы|ов|ами|ам|ах|а)?
+[Мм]инут(ы|е|у|ой|ами|ам|ах|а)?
+[Сс]екунд(ы|е|у|ой|ами|ам|ах|а)?

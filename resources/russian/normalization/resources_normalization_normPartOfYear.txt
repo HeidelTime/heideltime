@@ -1,0 +1,15 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains "parts-of-year words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "первый квартал" is "Q1"
+// FORMAT: "parts-of-year-word","normalized-parts-of-year-word"
+"[Пп]ерв(ый|ого|ому|ым|ом) квартал(а|у|ом|е)?","Q1"
+"[Вв]тор(ой|ого|ому|ым|ом) квартал(а|у|ом|е)?","Q2"
+"[Тт]рет(ий|ьего|ьему|ьим|ьем) квартал(а|у|ом|е)?","Q3"
+"[Чч]етверт(ый|ого|ому|ым|ом) квартал(а|у|ом|е)?","Q4"
+"[Пп]оследн(ий|его|ему|ым|ем) квартал(а|у|ом|е)?","Q4"
+"[Пп]ерв(ая|ую|ой) половин(а|ы|у|е|ой)?","H1"
+"[Вв]тор(ая|ую|ой) половин(а|ы|у|е|ой)?","H2"
+"[Пп]оследн(яя|юю|ей) половин(а|у|ы|е|ой)?","H2"

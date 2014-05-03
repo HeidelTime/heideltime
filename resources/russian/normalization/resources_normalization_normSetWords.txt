@@ -1,0 +1,15 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains "set words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "ежедневно" is "P1D"
+// FORMAT: "set-word","normalized-set-word"
+"[Ее]жегодно","P1Y"
+"[Ее]жемесячно","P1M"
+"[Ее]женедельно","P1W"
+"[Ее]жесуточно","P1D"
+"[Ее]жедневно","P1D"
+"[Пп]о ночам","XXXX-XX-XXTNI"
+"[Пп]о утрам","XXXX-XX-XXTMO"
+

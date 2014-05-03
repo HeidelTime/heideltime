@@ -1,0 +1,18 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains regular expression patterns for unit words.
+// FORMAT: one line is one disjunction of the pattern
+[Дд]ень
+[Дд]н(я|ю|ём|ем|и|ей|е|ям|ями|ях)
+[Сс]утк(и|ами|ам|ах)
+[Сс]уток
+[Вв]ыходны(е|х|м|ми)
+[Уу]икенд(а|х|м|ми)
+[Нн]едел(я|и|ю|ей|е|ь|ями|ям|ях)
+[Мм]есяц(а|у|ом|ы|ев|ами|ам|ах|е)?
+[Кк]вартал(а|у|ом|е)?
+[Гг]од(а|у|ом|е)?
+[Лл]ет
+[Дд]есятилети(я|ю|ем|е|и)
+[Вв]ек(а|у|ом|е)?

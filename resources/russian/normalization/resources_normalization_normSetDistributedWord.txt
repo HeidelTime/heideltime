@@ -1,0 +1,21 @@
+// author: Elena Klyachko
+// email:  elena.klyachko@gmail.com
+// date:   2014-03-02
+// This file contains regular expression patterns for set words and their normalized expressions
+// For example, the normalized value of "месяц" is "month"
+// FORMAT: "weekday-word","normalized-weekday-word"
+"понедельникам","1"
+"вторникам","2"
+"средам","3"
+"четвергам","4"
+"пятницам","5"
+"субботам","6"
+"воскресеньям","7"
+"день","day"
+"сутки","day"
+"неделю","week"
+"месяц","month"
+"квартал","quarter"
+"год","year"
+"век","century"
+

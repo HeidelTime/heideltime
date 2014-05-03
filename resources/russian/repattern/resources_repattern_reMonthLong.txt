@@ -1,0 +1,17 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains regular expression patterns for long months.
+// FORMAT: one line is one disjunction of the pattern
+[Яя]нвар(ь|я|ю|ём|ем|е)
+[Фф]еврал(ь|я|ю|ём|ем|е)
+[Мм]арт(а|у|ом|е)?
+[Аа]прел(ь|я|е|ю|ем)
+[Мм]а(й|я|е|ю|ем)
+[Ии]юн(ь|я|е|ю|ем)
+[Ии]юл(ь|я|е|ю|ем)
+[Аа]вгуст(а|у|ом|е)?
+[Сс]ентябр(ь|я|ю|ём|ем|е)
+[Оо]ктябр(ь|я|ю|ём|ем|е)
+[Нн]оябр(ь|я|ю|ём|ем|е)
+[Дд]екабр(ь|я|ю|ём|ем|е)

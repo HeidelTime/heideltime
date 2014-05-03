@@ -1,0 +1,6 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains regular expression patterns for time minutes.
+// FORMAT: one line is one disjunction of the pattern
+[0|1|2|3|4|5][0-9]

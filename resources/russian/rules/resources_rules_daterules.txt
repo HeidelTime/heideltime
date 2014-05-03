@@ -1,0 +1,269 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-13
+// This file contains rules for the temporal expressions of the type date: daterules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////////
+// POSITIVE RULES //
+////////////////////
+
+/////////////////////
+// Day Granularity //
+/////////////////////
+// date_r0
+// EXAMPLE r0a_1: 2010-01-29
+// EXAMPLE r0b_1: 10-29-99
+// EXAMPLE r0c_1: 09/26/1999
+// EXAMPLE r0d_1: 09/26/99
+// EXAMPLE r0e_1: 7-14 (AP) (find 7-14)
+RULENAME="date_r0a",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)",NORM_VALUE="group(1)"
+RULENAME="date_r0b",EXTRACTION="(%reMonthNumber-%reDayNumber-%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(4)-group(2)-group(3)"
+RULENAME="date_r0c",EXTRACTION="%reMonthNumber/%reDayNumber/%reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(1))-%normDay(group(2))"
+RULENAME="date_r0d",EXTRACTION="%reMonthNumber/%reDayNumber/%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(1))-%normDay(group(2))"
+RULENAME="date_r0e",EXTRACTION="%reMonthNumber-%reDayNumber( \(.*?\))",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(2))",OFFSET="group(1)-group(2)"
+
+// date_r1
+// EXAMPLE r1a_1: 01.03.99
+// EXAMPLE r1b_1: 01.03.1999
+RULENAME="date_r1a",EXTRACTION="%reDayNumber[\.]%reMonthNumber[\.]%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(2))-%normDay(group(1))"
+RULENAME="date_r1b",EXTRACTION="%reDayNumber[\.]%reMonthNumber[\.]%reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))"
+
+
+// date_r3
+// EXAMPLE r3a_1: 25 февраля 2009 года
+RULENAME="date_r3a",EXTRACTION="(%reDayWordTh|%reDayNumberTh|%reDayNumber) %reMonthLong( \(%reDayNumber %reMonthLong по старому стилю\))? %reYear4Digit(-го)?(( года)|( )?г\.)?",NORM_VALUE="group(9)-%normMonth(group(5))-%normDay(group(1))"
+
+// date_r4
+// EXAMPLE r4b_1: 19 ноября
+// EXAMPLE r4d_1: 19 и 20 ноября (find 20 ноября)
+RULENAME="date_r4b",EXTRACTION="(%reDayWordTh|%reDayNumberTh|%reDayNumber) %reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(5))-%normDay(group(1))"
+RULENAME="date_r4d",EXTRACTION="(с )?(%reDayWordTh|%reDayNumberTh|%reDayNumber)(\–| - | – |-|–| и | до | по )(%reDayWordTh|%reDayNumberTh|%reDayNumber) (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(12))-%normDay(group(2))",OFFSET="group(2)-group(2)"
+
+// date_r5
+// EXAMPLE r5b_1: в пятницу, 13 октября
+RULENAME="date_r5b",EXTRACTION="%reWeekday[,]? (%reDayWordTh|%reDayNumberTh|%reDayNumber) %reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(6))-%normDay(group(2))"
+
+// date_r6
+// EXAMPLE r6a_1: 14 и 15 сентября 2010 года (find: 14 сентября 2010)
+RULENAME="date_r6a",EXTRACTION="(с )?(%reDayWordTh|%reDayNumberTh|%reDayNumber)(\–| - | – |-|–| и | до | по )(%reDayWordTh|%reDayNumberTh|%reDayNumber) (%reMonthLong|%reMonthShort) %reYear4Digit(( года)|( )?г\.)?",NORM_VALUE="group(14)-%normMonth(group(12))-%normDay(group(2))",OFFSET="group(2)-group(2)"
+
+// date_r7
+// EXAMPLE r7a_1: в пятницу, 13 октября 2009 года
+RULENAME="date_r7a",EXTRACTION="%reWeekday[,]? (%reDayWordTh|%reDayNumberTh|%reDayNumber) %reMonthLong %reYear4Digit(-го)?(( года)|( )?г\.)?",NORM_VALUE="group(7)-%normMonth(group(6))-%normDay(group(2))"
+
+// date_r8
+// EXAMPLE 8a_1: завтра
+RULENAME="date_r8a",EXTRACTION="%reDateWord",NORM_VALUE="%normDateWord(group(1))"
+
+// date_r9
+// EXAMPLE r9a_1: в понедельник
+RULENAME="date_r9a",EXTRACTION="%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(1))"
+
+///////////////////////
+// Month Granularity //
+///////////////////////
+//date_r10
+// EXAMPLE r10a_1: ноябрь 2005 года
+// EXAMPLE r10b_1: май и июнь 2011 года (find май 2001)
+RULENAME="date_r10a",EXTRACTION="%reMonthLong %reYear4Digit(-го)?(( года)|( )?г\.)?",NORM_VALUE="group(2)-%normMonth(group(1))"
+RULENAME="date_r10b",EXTRACTION="(с )?%reMonthLong(\–| - | – |-|–| и | до | по )%reMonthLong %reYear4Digit(( года)|( )?г\.)?",NORM_VALUE="group(5)-%normMonth(group(2))",OFFSET="group(2)-group(2)"
+
+
+////////////////////////
+// Season Granularity //
+////////////////////////
+// date_r12
+// EXAMPLE r12a_1: летом
+// EXAMPLE r12b_1: летом 2001 года
+// EXAMPLE r12c_1: зима 89-го
+// EXAMPLE r12d_1: зимой и летом 2001 года
+RULENAME="date_r12a",EXTRACTION="%reSeason",NORM_VALUE="UNDEF-year-%normSeason(group(1))"
+RULENAME="date_r12b",EXTRACTION="%reSeason %reYear4Digit(-го)?(( года)|( )?г\.)?",NORM_VALUE="group(2)-%normSeason(group(1))"
+RULENAME="date_r12c",EXTRACTION="%reSeason %reYear2Digit(-го)?(( года)|( )?г\.)?",NORM_VALUE="UNDEF-centurygroup(2)-%normSeason(group(1))"
+RULENAME="date_r12d",EXTRACTION="%reSeason( или|и|,)? %reSeason %reYear4Digit(-го)?(( года)|( )?г\.)?",NORM_VALUE="group(4)-%normSeason(group(1))", OFFSET="group(1)-group(1)"
+RULENAME="date_r12e",EXTRACTION="%reSeason( или|и|,)? %reSeason %reYear2Digit(-го)?(( года)|( )?г\.)?",NORM_VALUE="UNDEF-centurygroup(4)-%normSeason(group(1))", OFFSET="group(1)-group(1)"
+
+
+//////////////////////////////
+// PART-OF-YEAR GRANULARITY //
+//////////////////////////////
+// date_r13
+// EXAMPLE r13a_1: в первом квартале 2007 года
+// EXAMPLE r13a_1: первое полугодие
+RULENAME="date_r13a",EXTRACTION="%rePartOfYear %reYear4Digit(-го)?(( года)|( )?г\.)?",NORM_VALUE="group(2)-%normPartOfYear(group(1))"
+RULENAME="date_r13b",EXTRACTION="%rePartOfYear",NORM_VALUE="UNDEF-year-%normPartOfYear(group(1))"
+
+//////////////////////
+// Year Granularity //
+//////////////////////
+// date_r14
+// EXAMPLE r14a_1: 2009-й
+// EXAMPLE r14a_2: 2009-й год
+// EXAMPLE r14a_1: 2009 год
+// EXAMPLE r14a_2: 2009-й год
+// EXAMPLE r14c: в 2009 и 2013 годах
+// EXAMPLE r14d: Мисс Мира-2014
+RULENAME="date_r14a",EXTRACTION="%reYear4Digit(-(й|го|му|м))(( год(у|ом|ах|а)?)|(( )?г\.))?",NORM_VALUE="group(1)"
+RULENAME="date_r14b",EXTRACTION="%reYear4Digit(-(й|го|му|м))?(( год(у|ом|ах|а)?)|( )?г\.)",NORM_VALUE="group(1)"
+RULENAME="date_r14c",EXTRACTION="%reYear4Digit(-(й|го|му|м))?( или| и|,) %reYear4Digit(-(й|го|му|м))?",NORM_VALUE="group(1)", OFFSET="group(1)-group(1)"
+
+//date_r15
+// EXAMPLE r15a_2: 1850/51 (find: 1851)
+RULENAME="date_r15a",EXTRACTION="%reYear4Digit/%reYear2Digit",NORM_VALUE="group(1)",OFFSET="group(1)-group(1)"
+RULENAME="date_r15b",EXTRACTION="%reYear4Digit/%reYear2Digit",NORM_VALUE="%SUBSTRING%(group(1),0,2)group(2)",OFFSET="group(2)-group(2)"
+RULENAME="date_r15c",EXTRACTION="%reYear4Digit/%reYear4Digit",NORM_VALUE="group(1)",OFFSET="group(1)-group(1)"
+RULENAME="date_r15d",EXTRACTION="%reYear4Digit/%reYear4Digit",NORM_VALUE="group(2)",OFFSET="group(2)-group(2)"
+RULENAME="date_r15e",EXTRACTION="%reYear4Digit-%reYear4Digit( год(ы|ах))?",NORM_VALUE="group(1)",OFFSET="group(1)-group(1)"
+RULENAME="date_r15f",EXTRACTION="%reYear4Digit-%reYear4Digit( год(ы|ах))?",NORM_VALUE="group(2)",OFFSET="group(2)-group(2)"
+
+
+
+/////////////////////////
+// Century Granularity //
+/////////////////////////
+// date_r17
+// EXAMPLE r17a_1: 19-й век
+// EXAMPLE r17a_1: десятый век
+// EXAMPLE r17b_1: В 18 и 19 веках (find: 18 век)
+// EXAMPLE r17c_1: XX век
+
+RULENAME="date_r17a",EXTRACTION="(%reDayNumber|%reCenturyWordTh)(-(й|го|му|м))? (век(а|у|ом|е)?|столети(ем|е|я|ю|и))",NORM_VALUE="%normDay(%SUM%(%normDay(group(1)),-1))"
+RULENAME="date_r17c",EXTRACTION="%reCenturyRomic (век(а|у|ом|е)?|столети(ем|е|я|ю|и))",NORM_VALUE="%normCenturyRomic(group(1))"
+///////////////////////////////////
+// GRANULARITY INDEPENDENT RULES //
+///////////////////////////////////
+// date_r18
+// EXAMPLE r18a_1: март
+// EXAMPLE r18b_1: начало 1899 года
+// EXAMPLE r18c_1: начало ноября 1997 года
+// EXAMPLE r18d_1: начало ноября
+RULENAME="date_r18a",EXTRACTION="%reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
+RULENAME="date_r18b",EXTRACTION="%rePartWords %reYear4Digit(-го)?(( года)|( )?г\.)?",NORM_VALUE="group(2)",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r18c",EXTRACTION="%rePartWords %reMonthLong %reYear4Digit(-го)?(( года)|( )?г\.)?",NORM_VALUE="group(3)-%normMonth(group(2))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r18d",EXTRACTION="%rePartWords %reMonthLong",NORM_VALUE="UNDEF-this-year-%normMonth(group(2))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r18e",EXTRACTION="%rePartWords года",NORM_VALUE="UNDEF-this-year",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r18f",EXTRACTION="%rePartWords %reSeason",NORM_VALUE="UNDEF-this-year-%normSeason(group(2))",NORM_MOD="%normPartWords(group(1))"
+
+// date_r19
+// EXAMPLE r19a_1: 1990-е годы
+// EXAMPLE r19b_1: 20-е годы
+// EXAMPLE r19с_1: начало 1990-х
+// EXAMPLE r19d_1: начало 90-х
+// EXAMPLE r19e_1: девяностые годы
+// EXAMPLE r19e_1: начало девяностых годов
+RULENAME="date_r19a",EXTRACTION="%reYear4Digit-(е|х|ми|м)(( год(ы|ов|ами|ам|ах))|( )?гг\.)?",NORM_VALUE="%SUBSTRING%(group(1),0,3)"
+RULENAME="date_r19b",EXTRACTION="(\d)0-(е|х|ми|м)(( год(ы|ов|ами|ам|ах))( )?гг\.)?",NORM_VALUE="UNDEF-centurygroup(1)"
+RULENAME="date_r19c",EXTRACTION="%rePartWords %reYear4Digit-(е|х|ми|м)(( год(ы|ов|ами|ам|ах))|( )?гг\.)?",NORM_VALUE="%SUBSTRING%(group(2),0,3)",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r19d",EXTRACTION="%rePartWords %reYear2Digit-(е|х|ми|м)(( год(ы|ов|ами|ам|ах))|( )?гг\.)?",NORM_VALUE="UNDEF-century%SUBSTRING%(group(2),0,1)",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r19e",EXTRACTION="%reDecadeWord(( год(ы|ов|ами|ам|ах))|( )?гг\.)?",NORM_VALUE="UNDEF-this-century%normDecadeWord(group(1))"
+RULENAME="date_r19f",EXTRACTION="%rePartWords %reDecadeWord(( год(ы|ов|ами|ам|ах))|( )?гг\.)?",NORM_VALUE="UNDEF-this-century%normDecadeWord(group(2))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r19g",EXTRACTION="%reYear2Digit-(е|х|ми|м)(( год(ы|ов|ами|ам|ах))|( )?гг\.)? %reThisNextLast века",NORM_VALUE="UNDEF-%normThisNextLast(group(6))-century%SUBSTRING%(group(1),0,1)"
+RULENAME="date_r19h",EXTRACTION="%rePartWords %reYear2Digit-(е|х|ми|м)(( год(ы|ов|ами|ам|ах))|( )?гг\.)? %reThisNextLast века",NORM_VALUE="UNDEF-%normThisNextLast(group(7))-century%SUBSTRING%(group(2),0,1)",NORM_MOD="%normPartWords(group(1))"
+
+
+
+// date_r20
+// EXAMPLE r20a_1: этот год
+// EXAMPLE r20b_1: тот же день
+// EXAMPLE r20c_1: этот ноябрь
+// EXAMPLE r20d_1: этот понедельник
+// EXAMPLE r20e_1: прошлым летом
+// EXAMPLE r20f_1: летом прошлого года
+// EXAMPLE r20g_1: ноябре прошлого года
+RULENAME="date_r20a",EXTRACTION="%reThisNextLast %reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normUnit(group(2))"
+RULENAME="date_r20c",EXTRACTION="%reThisNextLast %reMonthLong",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normMonth(group(2))"
+RULENAME="date_r20d",EXTRACTION="%reThisNextLast %reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normWeekday(group(2))"
+RULENAME="date_r20e",EXTRACTION="%reThisNextLast %reSeason",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normSeason(group(2))"
+RULENAME="date_r20f",EXTRACTION="%reSeason %reThisNextLast года",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-year-%normSeason(group(1))"
+RULENAME="date_r20g",EXTRACTION="%reMonthLong %reThisNextLast года",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-year-%normMonth(group(1))"
+RULENAME="date_r20h",EXTRACTION="%rePartWords %reThisNextLast года",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-year",NORM_MOD="%normPartWords(group(1))"
+
+
+// date_r21
+// EXAMPLE r21c_1: начало следующего месяца
+// EXAMPLE r21d_1: конец лета
+RULENAME="date_r21a",EXTRACTION="%rePartWords %reThisNextLast %reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-%normUnit(group(3))",NORM_MOD="%normPartWords(group(1))"
+
+
+// date_r25
+// EXAMPLE r25a_1: человек года
+RULENAME="date_r25a",EXTRACTION="([\S]+) (года)",NORM_VALUE="UNDEF-this-year",POS_CONSTRAINT="group(1):NN:",OFFSET="group(1)-group(1)"
+
+
+
+
+
+// date_r26
+// EXAMPLE r26a_1: почти двадцать лет назад
+// EXAMPLE r26b_1: примерно 20 лет назад
+// EXAMPLE r26c_1: через двенадцать дней
+// EXAMPLE r26d_1: через 25 недель
+// EXAMPLE r26e_1: где-то год назад
+// EXAMPLE r26f_1: где-то через неделю
+// EXAMPLE date_r26g: год спустя
+// EXAMPLE date_r26g: час спустя
+// EXAMPLE date_r26i: 3 часа спустя
+// EXAMPLE date_r26l: годом ранее
+RULENAME="date_r26a",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) (%reUnit|%reTimeUnit) назад",NORM_VALUE="UNDEF-this-%normUnit(group(6))-MINUS-%normDurationNumber(group(3))"
+RULENAME="date_r26b",EXTRACTION="(%reApproximate )?([\d]+) (%reUnit|%reTimeUnit) назад",NORM_VALUE="UNDEF-this-%normUnit(group(5))-MINUS-group(3)"
+RULENAME="date_r26c",EXTRACTION="(%reApproximate )?[Чч]ерез (%reNumWord2D|%reNumWord1D) (%reUnit|%reTimeUnit)",NORM_VALUE="UNDEF-REF-%normUnit(group(6))-PLUS-%normDurationNumber(group(3))"
+RULENAME="date_r26d",EXTRACTION="(%reApproximate )?[Чч]ерез ([\d]+) (%reUnit|%reTimeUnit)",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-PLUS-group(3)"
+RULENAME="date_r26e",EXTRACTION="(%reApproximate )?(%reUnit|%reTimeUnit) назад",NORM_VALUE="UNDEF-this-%normUnit(group(3))-MINUS-1"
+RULENAME="date_r26f",EXTRACTION="(%reApproximate )?[Чч]ерез (%reUnit|%reTimeUnit)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-1"
+RULENAME="date_r26g",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) (%reUnit|%reTimeUnit) спустя",NORM_VALUE="UNDEF-REF-%normUnit(group(6))-PLUS-%normDurationNumber(group(3))"
+RULENAME="date_r26g",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) (%reUnit|%reTimeUnit) спустя",NORM_VALUE="UNDEF-REF-%normUnit(group(6))-PLUS-%normDurationNumber(group(3))"
+
+RULENAME="date_r26h",EXTRACTION="спустя (%reApproximate )?(%reNumWord2D|%reNumWord1D) (%reUnit|%reTimeUnit)",NORM_VALUE="UNDEF-REF-%normUnit(group(6))-PLUS-%normDurationNumber(group(3))"
+RULENAME="date_r26i",EXTRACTION="(%reApproximate )?([\d]+) (%reUnit|%reTimeUnit) спустя",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-PLUS-group(3)"
+RULENAME="date_r26j",EXTRACTION="спустя (%reApproximate )?([\d]+) (%reUnit|%reTimeUnit)",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-PLUS-group(3)"
+RULENAME="date_r26k",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) (%reUnit|%reTimeUnit) ранее",NORM_VALUE="UNDEF-REF-%normUnit(group(6))-MINUS-%normDurationNumber(group(3))"
+RULENAME="date_r26l",EXTRACTION="(%reApproximate )?([\d]+) (%reUnit|%reTimeUnit) ранее",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-MINUS-group(3)"
+RULENAME="date_r26m",EXTRACTION="(%reApproximate )?(%reUnit|%reTimeUnit) ранее",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-1"
+
+
+
+
+
+///////////////////
+// HOLIDAY RULES //
+///////////////////
+
+//date_r27
+//EXAMPLE r27a_1: Новый год
+//EXAMPLE r27b_1: Рождество 1989-го года
+//EXAMPLE r27c_1: Рождество 52-го года
+//EXAMPLE r27d_1: Новый 1984-й год
+RULENAME="date_r27a",EXTRACTION="%reHolidayFix",NORM_VALUE="UNDEF-year-%normHolidayFix(group(1))"
+RULENAME="date_r27b",EXTRACTION="%reHolidayFix %reYear4Digit(-(й|го|м))? год(а|у|ом)?",NORM_VALUE="group(2)-%normHolidayFix(group(1))"
+RULENAME="date_r27c",EXTRACTION="%reHolidayFix %reYear2Digit(-(й|го|м))? год(а|у|ом)?",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayFix(group(1))"
+RULENAME="date_r27d",EXTRACTION="[Нн]ов(ый|ого|ым|ом) %reYear4Digit(-(й|го|м))? год(а|у|ом)?",NORM_VALUE="group(2)-01-01"
+
+//date_r28
+//EXAMPLE r28a_1: Пасха
+//EXAMPLE r28b_1: Пасха 1999 года
+//EXAMPLE r28c_1: Пасха 87-го года
+RULENAME="date_r28a",EXTRACTION="%reHolidayVar",NORM_VALUE="UNDEF-year-00-00 %normHolidayVar(group(1))"
+RULENAME="date_r28b",EXTRACTION="%reHolidayVar %reYear4Digit(-(й|го|м))?(( года)|( )?г\.)?",NORM_VALUE="group(2)-00-00 %normHolidayVar(group(1))"
+RULENAME="date_r28c",EXTRACTION="%reHolidayVar %reYear2Digit(-(й|го|м))?(( года)|( )?г\.)?",NORM_VALUE="UNDEF-centurygroup(2)-00-00 %normHolidayVar(group(1))"
+
+
+
+// date_r29
+// EXAMPLE r29a_1: несколько лет/часов/минут назад
+RULENAME="date_r29a",EXTRACTION="(%reApproximate )?(несколько) (%reUnit|%reTimeUnit)",NORM_VALUE="PAST_REF"
+
+////////////////////
+// NEGATIVE RULES //
+////////////////////
+// CHECK THESE RULES
+RULENAME="date_r1a_negative",EXTRACTION="%reYear2Digit(-м)? году жизни",NORM_VALUE="REMOVE"
+RULENAME="date_r1b_negative",EXTRACTION="%reYear4Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NN:"
+RULENAME="date_r1c_negative",EXTRACTION="%reYear4Digit ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):JJ:group(3):NNS:"
+RULENAME="date_r1d_negative",EXTRACTION="%reYear4Digit ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ADJ:group(3):NNS:"
+RULENAME="date_r1e_negative",EXTRACTION="%reYear4Digit ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ADJ:group(3):NN:"
+RULENAME="date_r1f_negative",EXTRACTION="%reYear4Digit (m |km |ft |yr |dg |cm |ha |sq )",NORM_VALUE="REMOVE"
+RULENAME="date_r1g_negative",EXTRACTION="%reWeekday %reWeekdayNegativeContexts",NORM_VALUE="REMOVE"
+RULENAME="date_r1h_negative",EXTRACTION="%reWeekdayNegativeContexts %reWeekday",NORM_VALUE="REMOVE"
+RULENAME="date_r1i_negative",EXTRACTION="([\S]+) сред(а|ы|е|у|ой)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(1):JJ:"
+RULENAME="date_r1j_negative",EXTRACTION="%reYear4Digit(-го)? года рождения",NORM_VALUE="REMOVE"

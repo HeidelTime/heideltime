@@ -1,0 +1,14 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains regular expression patterns for parts of days.
+// FORMAT: one line is one disjunction of the pattern
+[Уу]тро(м)?
+[Дд]ень
+[Дд]н(е|ё)м
+[Вв]ечер(ом)?
+[Нн]оч(ью|ь)?
+[Пп]олночь
+[Пп]олуноч(ью|ь)
+[Пп]олдень
+[Пп]олудн(ью|ь)

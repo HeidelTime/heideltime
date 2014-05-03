@@ -1,0 +1,13 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains "day words" and their normalized expressions.
+// For example, the normalized value of "понедельник" is "1"
+// FORMAT: "day-word","normalized-day-word"
+"[Пп]онедельник(у|ом|е|ам|а)?","1"
+"[Вв]торник(у|ом|е|ам|а)?","2"
+"[Сс]ред(ы|е|у|ой|ам|а)?","3"
+"[Чч]етверг(у|ом|е|ам|а)?","4"
+"[Пп]ятниц(ы|е|у|ой|ам|а)?","5"
+"[Сс]уббот(ы|е|у|ой|ам|а)?","6"
+"[Вв]оскресень(ю|ем|е|ям|я)?","7"

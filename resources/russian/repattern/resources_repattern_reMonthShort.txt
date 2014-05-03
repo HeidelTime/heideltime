@@ -1,0 +1,14 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains regular expression patterns for short months.
+// FORMAT: one line is one disjunction of the pattern
+//http://media.utmn.ru/library_view_book.php?bid=978&chapter_num=19
+янв\.
+февр\.
+апр\.
+авг\.
+сент\.
+окт\.
+нояб\.
+дек\.

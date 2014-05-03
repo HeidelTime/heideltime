@@ -1,0 +1,9 @@
+// author: Elena Klyachko
+// email:  elena.klyachko@gmail.com
+// date:   2014-02-07
+// This file contains regular expression patterns for phrases which occur in negative rules.
+// FORMAT: one line is one disjunction of the pattern
+//окружающая среда
+[Оо]кружающ(ая|ей|ую)
+//среда обитания
+обитания

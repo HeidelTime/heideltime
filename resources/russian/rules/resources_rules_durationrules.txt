@@ -1,0 +1,60 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-13
+// This file contains rules for the temporal expressions of the type duration: durationrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////////
+// POSITIVE RULES //
+////////////////////
+// duration_r1
+// EXAMPLE r1a_1: почти пять дней
+// EXAMPLE r1b_1: почти 20 дней
+RULENAME="duration_r1a",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(6))"
+RULENAME="duration_r1b",EXTRACTION="(%reApproximate )?([\d]+) %reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(4))"
+RULENAME="duration_r1с",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) %reTimeUnit",NORM_VALUE="PT%normDurationNumber(group(3))%normUnit4Duration(group(6))"
+RULENAME="duration_r1в",EXTRACTION="(%reApproximate )?([\d]+) %reTimeUnit",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(4))"
+
+
+// duration_r2
+// EXAMPLE r2a_1: следующие двадцать дней
+// EXAMPLE r2b_1: следующие 20 дней
+// EXAMPLE r2c_1: следующие несколько дней
+// EXAMPLE r2d_1: следующие двадцать часов
+// EXAMPLE r2e_1: следующие 20 минут
+// EXAMPLE r2f_1: следующие несколько несколько
+RULENAME="duration_r2a",EXTRACTION="%reThisNextLast( %reApproximate)? (%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(4))%normUnit4Duration(group(7))"
+RULENAME="duration_r2b",EXTRACTION="%reThisNextLast( %reApproximate)? ([\d]+) %reUnit",NORM_VALUE="Pgroup(4)%normUnit4Duration(group(5))"
+RULENAME="duration_r2c",EXTRACTION="%reThisNextLast( %reApproximate)? (несколько) %reUnit",NORM_VALUE="PX%normUnit4Duration(group(5))"
+
+RULENAME="duration_r2d",EXTRACTION="%reThisNextLast( %reApproximate)? (%reNumWord2D|%reNumWord1D) %reTimeUnit",NORM_VALUE="PT%normDurationNumber(group(4))%normUnit4Duration(group(7))"
+RULENAME="duration_r2e",EXTRACTION="%reThisNextLast( %reApproximate)? ([\d]+) %reTimeUnit",NORM_VALUE="PTgroup(4)%normUnit4Duration(group(5))"
+RULENAME="duration_r2f",EXTRACTION="%reThisNextLast( %reApproximate)? (несколько) %reTimeUnit",NORM_VALUE="PTX%normUnit4Duration(group(5))"
+
+// duration_r3
+// EXAMPLE r3a_1: прошел час
+// EXAMPLE r3c_1: 20-дневный
+// EXAMPLE r3c_1: недельный
+RULENAME="duration_r3a",EXTRACTION="%reUnitSingle",NORM_VALUE="P1%normUnit4Duration(group(1))"
+RULENAME="duration_r3b",EXTRACTION="%reTimeUnitSingle",NORM_VALUE="PT1%normUnit4Duration(group(1))"
+
+// duration_r5
+// EXAMPLE: r5_a: 2-3 дня
+RULENAME="duration_r5a2",EXTRACTION="(от )?(%reNumWord2D|%reNumWord1D)( до |-)(%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(2))%normUnit4Duration(group(9))",OFFSET="group(2)-group(2)"
+RULENAME="duration_r5b2",EXTRACTION="(от )?([\d]+)( до |-)([\d]+) %reUnit",NORM_VALUE="Pgroup(2)%normUnit4Duration(group(5))",OFFSET="group(2)-group(2)"
+
+
+////////////////////
+// NEGATIVE RULES //
+////////////////////
+// duration_r1
+// EXAMPLE r1a_negation_1: в возрасте 70 лет
+// EXAMPLE r1b_negation_1: в возрасте от 70 до 80 лет
+// EXAMPLE r1c_negation_1: в три года
+// EXAMPLE r1d_negation_1: человек 50 лет
+RULENAME="duration_r1a_negation",EXTRACTION="[Вв] возрасте (%reNumWord2D|%reNumWord1D|%reYear2Digit) лет",NORM_VALUE="REMOVE"
+RULENAME="duration_r1b_negation",EXTRACTION="[Вв] возрасте от (%reNumWord2D|%reNumWord1D|%reYear2Digit) до (%reNumWord2D|%reNumWord1D|%reYear2Digit) лет",NORM_VALUE="REMOVE"
+RULENAME="duration_r1c_negation",EXTRACTION="[Вв] (%reNumWord2D|%reNumWord1D|%reYear2Digit) года",NORM_VALUE="REMOVE"
+RULENAME="duration_r1d_negation",EXTRACTION="((человек(а|у|ом|е)?)|люд(и|ей|ьми|ям|ях)) (%reNumWord2D|%reNumWord1D|%reYear2Digit) лет",NORM_VALUE="REMOVE"
+RULENAME="duration_r1e_negation",EXTRACTION="((человек(а|у|ом|е)?)|люд(и|ей|ьми|ям|ях)) (%reNumWord2D|%reNumWord1D|%reYear2Digit)-(%reNumWord2D|%reNumWord1D|%reYear2Digit) лет",NORM_VALUE="REMOVE"
+RULENAME="duration_r1f_negation",EXTRACTION="исполнилось (%reNumWord2D|%reNumWord1D|%reYear2Digit) (лет|года)",NORM_VALUE="REMOVE"
