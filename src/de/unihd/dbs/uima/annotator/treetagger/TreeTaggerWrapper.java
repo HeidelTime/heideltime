@@ -179,7 +179,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		File parFile = new File(ttprops.rootPath+ttprops.fileSeparator+"lib", ttprops.parFileName);
 		File tokFile = new File(ttprops.rootPath+ttprops.fileSeparator+"cmd", ttprops.tokScriptName);
 		if (!(abbFileFlag = abbFile.exists())) {
-			if(language.equals(Language.CHINESE))
+			if(language.equals(Language.CHINESE) || language.equals(Language.RUSSIAN))
 				abbFileFlag = true;
 			else
 				Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.abbFileName);
