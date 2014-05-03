@@ -205,10 +205,8 @@ public class ContextAnalyzer {
 							else {
 								j--;
 							}
-						}
-						
-					}
-					else {
+						}	
+					} else {
 						j--;
 					}
 				} else {

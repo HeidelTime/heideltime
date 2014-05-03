@@ -1,0 +1,72 @@
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
+
+// This file contains rules for the temporal expressions of the type time: timerules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+/////////////////////
+// TIMESTAMP STYLE //
+/////////////////////
+
+// EXAMPLE time_c1: 2009-12-19T17:00:00
+// EXAMPLE time_c2: 北京时间十二月二十八日下午
+// EXAMPLE time_c3: 北京时间十二月二十八日下午三点五十分
+// EXAMPLE time_c4: 北京时间一九八七年十二月二十八日下午三点五十分
+// EXAMPLE time_c5: 北京时间一九八七年十二月二十八日下午三点五十分
+// EXAMPLE time_c6: 二十日下午
+// EXAMPLE time_c7: 二十日八点五十分
+// EXAMPLE time_c8: 二十日上午八点五十分
+// EXAMPLE time_c9: 二十日下午八点五十分
+// EXAMPLE time_c10:明天下午
+// EXAMPLE time_c11:昨上午八时五十分
+// EXAMPLE time_c12:昨下午八时五十分
+// EXAMPLE time_c13:上午八时五十分
+// EXAMPLE time_c14:下午八时五十分
+
+
+RULENAME="time_r1a",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )%reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7):group(8)"
+RULENAME="time_r1b",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )%reTimeHour:%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7)"
+RULENAME="time_c2",EXTRACTION="(%reTimezone)?%reMonthWord(%reDayWord日)%rePartOfDay",NORM_VALUE="UNDEF-year-%normMonth(group(3))-%normDay(group(5))T%normPartOfDay(group(6))"
+RULENAME="time_c3",EXTRACTION="(%reTimezone)?%reMonthWord(%reDayWord日)(%rePartOfDay)?%reTimeHour(时|点)%reTimeMinute(分钟|分)?",NORM_VALUE="UNDEF-year-%normMonth(group(3))-%normDay(group(5))T%normMinute(group(8)):%normMinute(group(10))"
+RULENAME="time_c4",EXTRACTION="(%reTimezone)?%reYear4Digit年%reMonthWord(%reDayWord日)%rePartOfDay",NORM_VALUE="%CHINESENUMBERS%(group(3))-%normMonth(group(4))-%normDay(group(6))T%normPartOfDay(group(7))"
+RULENAME="time_c5",EXTRACTION="(%reTimezone)?%reYear4Digit年%reMonthWord(%reDayWord日)(%rePartOfDay)?%reTimeHour(时|点)%reTimeMinute(分钟|分)?",NORM_VALUE="%CHINESENUMBERS%(group(3))-%normMonth(group(4))-%normDay(group(6))T%normMinute(group(9)):%normMinute(group(11))"
+RULENAME="time_c6",EXTRACTION="(%reDayWord日)%rePartOfDay",NORM_VALUE="UNDEF-this-month-%normDay(group(2))T%normPartOfDay(group(3))"
+RULENAME="time_c7",EXTRACTION="(%reDayWord日)%reTimeHour(时|点)%reTimeMinute(分钟|分)?",NORM_VALUE="UNDEF-this-month-%normDay(group(2))T%normMinute(group(3)):%normMinute(group(5))"
+RULENAME="time_c8",EXTRACTION="(%reDayWord日)(%reTimeAM)%reTimeHour(时|点)%reTimeMinute(分钟|分)?",NORM_VALUE="UNDEF-this-month-%normDay(group(2))T%normMinute(group(5)):%normMinute(group(7))"
+RULENAME="time_c9",EXTRACTION="(%reDayWord日)(%reTimePM)%reTimeHour(时|点)%reTimeMinute(分钟|分)?",NORM_VALUE="UNDEF-this-month-%normDay(group(2))T%SUM%(%normMinute(group(5)),12):%normMinute(group(7))"
+
+RULENAME="time_r10",EXTRACTION="%reThisNextLast%rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normPartOfDay(group(2))"
+RULENAME="time_r10a",EXTRACTION="%reThisNextLast(日|天)%rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normPartOfDay(group(3))"
+RULENAME="time_r11",EXTRACTION="%reThisNextLast(%reTimeAM)%reTimeHour(时|点)%reTimeMinute(分钟|分)?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normMinute(group(4)):%normMinute(group(6))"
+RULENAME="time_r12",EXTRACTION="%reThisNextLast(%reTimePM)%reTimeHour(时|点)%reTimeMinute(分钟|分)?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%SUM%(%normMinute(group(4)),12):%normMinute(group(6))"
+RULENAME="time_r13",EXTRACTION="(%reTimeAM)%reTimeHour(时|点)%reTimeMinute(分钟|分)?",NORM_VALUE="UNDEF-this-dayT%normMinute(group(3)):%normMinute(group(5))"
+RULENAME="time_r14",EXTRACTION="(%reTimePM)%reTimeHour(时|点)%reTimeMinute(分钟|分)?",NORM_VALUE="UNDEF-this-dayT%SUM%(%normMinute(group(3)),12):%normMinute(group(5))"
+
+
+
+/////////////////////////////
+// PART-OF-DAY GRANULARITY //
+/////////////////////////////
+
+// time_r3  
+
+// EXAMPLE time_partofday_c1: 星期一晚上
+// EXAMPLE time_partofday_c2: 昨天早上
+
+RULENAME="time_partofday_c1",EXTRACTION="%reWeekday%rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normPartOfDay(group(2))"
+RULENAME="time_partofday_c2",EXTRACTION="%reDateWord%rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
+
+
+///////////////////////////
+// TIMEPOINT GRANULARITY //
+///////////////////////////
+
+
+// time_r6
+
+
+// EXAMPLE time_timepoint_c6: 大约周三23时
+
+
+RULENAME="time_timepoint_c6",EXTRACTION="(%reApproximate)?%reWeekday%reTimeHour(时|点)",NORM_VALUE="UNDEF-day-%normWeekday(group(3))T%normDay(group(4)):00",NORM_MOD="%normApprox4Dates(group(1))"
