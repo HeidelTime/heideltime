@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for year numbers (4 digits).
+// FORMAT: one line is one disjunction of the pattern
+[Aa]v[\.]? J[\.]?-C[\.]?
+[Aa]pr[\.]? J[\.]?-C[\.]?
+[Aa]vant[\.]? J[\.]?-C[\.]?
+[Aa]près[\.]? J[\.]?-C[\.]?
+[Aa]v[\.]? NSJC
+[Aa]pr[\.]? NSJC
+[Aa]vant Jésus-Christ
+[Aa]près Jésus-Christ
+[Aa]vant l'ère chrétienne
+[Aa]près l'ère chrétienne
