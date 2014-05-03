@@ -45,8 +45,12 @@ public class ContextAnalyzer {
 					String value = timex.getTimexValue();
 					if (!(value.contains("funcDate"))){
 						if (x.equals("century")) {
-							if (value.matches("^[0-9][0-9]...*")) {
+							if (value.matches("^[0-9][0-9].*")) {
 								xValue = value.substring(0,2);
+								break;
+							}
+							else if (value.matches("^BC[0-9][0-9].*")){
+								xValue = value.substring(0,4);
 								break;
 							}
 							else {
@@ -54,8 +58,12 @@ public class ContextAnalyzer {
 							}
 						}
 						else if (x.equals("decade")) {
-							if (value.matches("^[0-9][0-9][0-9]..*")) {
+							if (value.matches("^[0-9][0-9][0-9].*")) {
 								xValue = value.substring(0,3);
+								break;
+							}
+							else if (value.matches("^BC[0-9][0-9][0-9].*")){
+								xValue = value.substring(0,5);
 								break;
 							}
 							else {
@@ -67,12 +75,20 @@ public class ContextAnalyzer {
 								xValue = value.substring(0,4);
 								break;
 							}
+							else if (value.matches("^BC[0-9][0-9][0-9][0-9].*")){
+								xValue = value.substring(0,6);
+								break;
+							}
 							else {
 								j--;
 							}
 						}
 						else if (x.equals("dateYear")) {
 							if (value.matches("^[0-9][0-9][0-9][0-9].*")) {
+								xValue = value;
+								break;
+							}
+							else if (value.matches("^BC[0-9][0-9][0-9][0-9].*")){
 								xValue = value;
 								break;
 							}
@@ -85,6 +101,10 @@ public class ContextAnalyzer {
 								xValue = value.substring(0,7);
 								break;
 							}
+							else if (value.matches("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9].*")){
+								xValue = value.substring(0,9);
+								break;
+							}
 							else {
 								j--;
 							}
@@ -94,6 +114,10 @@ public class ContextAnalyzer {
 								xValue = value;
 								break;
 							}
+//							else if (value.matches("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9].*")) {
+//								xValue = value;
+//								break;
+//							}
 							else {
 								j--;
 							}
@@ -103,6 +127,10 @@ public class ContextAnalyzer {
 								xValue = value.substring(0,10);
 								break;
 							}
+//							else if (value.matches("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*")) {
+//								xValue = value.substring(0,12);
+//								break;
+//							}
 							else {
 								j--;
 							}
@@ -122,6 +150,7 @@ public class ContextAnalyzer {
 								}
 								break;
 							}
+							// TODO check what to do for BC times
 							else {
 								j--;
 							}
@@ -137,6 +166,7 @@ public class ContextAnalyzer {
 								xValue = value.substring(0,7);
 								break;
 							}
+							// TODO check what to do for BC times
 							else {
 								j--;
 							}
@@ -146,6 +176,7 @@ public class ContextAnalyzer {
 								xValue = value.substring(0,7);
 								break;
 							}
+							// TODO check what to do for BC times
 							else {
 								j--;
 							}
@@ -157,10 +188,20 @@ public class ContextAnalyzer {
 								xValue = value.substring(0,4)+"-"+season;
 								break;
 							}
+//							else if (value.matches("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9].*")) {
+//								String month   = value.substring(7,9);
+//								String season = nm.getFromNormMonthInSeason(month);
+//								xValue = value.substring(0,6)+"-"+season;
+//								break;
+//							}
 							else if (value.matches("^[0-9][0-9][0-9][0-9]-(SP|SU|FA|WI).*")) {
 								xValue = value.substring(0,7);
 								break;
 							}
+//							else if (value.matches("^BC[0-9][0-9][0-9][0-9]-(SP|SU|FA|WI).*")) {
+//								xValue = value.substring(0,9);
+//								break;
+//							}
 							else {
 								j--;
 							}
@@ -524,6 +565,11 @@ public class ContextAnalyzer {
 		Boolean beginOK = false;
 		Boolean endOK = false;
 	
+		// whole expression is marked as a sentence
+		if ((r.end() - r.start()) == (s.getEnd() -s.getBegin())){
+			return true;
+		}
+		
 		// Only check Token boundaries if no white-spaces in front of and behind the match-result
 		if ((r.start() > 0) 
 				&& ((s.getCoveredText().subSequence(r.start()-1, r.start()).equals(" ")))

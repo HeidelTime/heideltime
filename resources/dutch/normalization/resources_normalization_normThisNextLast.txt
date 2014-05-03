@@ -23,6 +23,7 @@
 "aankomende","next"
 "Aankomend","next"
 "aankomend","next"
+"[Hh]etzelfde","this"
 "Huidig","this"
 "huidig","this"
 "Huidige","this"

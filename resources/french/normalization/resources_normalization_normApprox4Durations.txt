@@ -17,6 +17,7 @@
 "[Ee]nviron","APPROX"
 "[Pp]resque","APPROX"
 "[Pp]rès de","APPROX"
+"[Vv]ers","APPROX"
 // less
 "[Pp]as plus de","EQUAL_OR_LESS"
 "[Jj]usqu'à","EQUAL_OR_LESS"

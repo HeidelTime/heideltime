@@ -4,6 +4,11 @@
 // This file contains rules for the temporal expressions of the type duration: durationrules
 // RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
 
+// LREC NEGATIVE RULES
+RULENAME="date_lrec0a_negative",EXTRACTION="%reYearBC ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):nounpl:"
+RULENAME="date_lrec0b_negative",EXTRACTION="%reYearBC ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):JJ:group(3):nounpl:"
+RULENAME="date_lrec0c_negative",EXTRACTION="%reYearBC (kilometers?|dollars?|gulden|meters?|kilogram|gram|ons|pond)",NORM_VALUE="REMOVE"
+
 /////////////////////
 // POSITIVE RULES //
 /////////////////////
@@ -16,7 +21,7 @@
 // EXAMPLE r1f-1: een paar minuten
 RULENAME="duration_r1a",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D)( |-)%reUnit",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(7))"
 RULENAME="duration_r1b",EXTRACTION="(%reApproximate )?([\d]+)( |-)%reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(5))"
-RULENAME="duration_r1c",EXTRACTION="(enkele|een paar|wat) %reUnit",NORM_VALUE="PX%normUnit4Duration(group(2))"
+RULENAME="duration_r1c",EXTRACTION="(enkele|een paar|wat|vele) %reUnit",NORM_VALUE="PX%normUnit4Duration(group(2))"
 RULENAME="duration_r1d",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D)( |-)(minuut|minuten|uur)",NORM_VALUE="PT%normDurationNumber(group(3))%normUnit4Duration(group(7))"
 RULENAME="duration_r1e",EXTRACTION="(%reApproximate )?([\d]+)( |-)(minuut|minuten|uur)",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(5))"
 RULENAME="duration_r1f",EXTRACTION="(enkele|een paar|wat) (minuut|minuten|uur)",NORM_VALUE="PTX%normUnit4Duration(group(2))"
@@ -31,7 +36,7 @@ RULENAME="duration_r1g",EXTRACTION="(%reApproximate )(een)( )%reUnit",NORM_VALUE
 // EXAMPLE r2f-1: sowieso de laatste uren
 RULENAME="duration_r2a",EXTRACTION="(%reApproximate )?(de |het )?%reThisNextLast (%reNumWord2D|%reNumWord1D) %reUnit( al| nog)?",NORM_VALUE="P%normDurationNumber(group(5))%normUnit4Duration(group(8))"
 RULENAME="duration_r2b",EXTRACTION="(%reApproximate )?(de |het )?%reThisNextLast ([\d]+) %reUnit( al| nog)?",NORM_VALUE="Pgroup(5)%normUnit4Duration(group(6))"
-RULENAME="duration_r2c",EXTRACTION="(%reApproximate )?(de |het )?%reThisNextLast (paar )?%reUnit( al| nog)?",NORM_VALUE="PX%normUnit4Duration(group(6))"
+// --> is date! RULENAME="duration_r2c",EXTRACTION="(%reApproximate )?(de |het )?%reThisNextLast (paar )?%reUnit( al| nog)?",NORM_VALUE="PX%normUnit4Duration(group(6))"
 RULENAME="duration_r2d",EXTRACTION="(%reApproximate )?(de |het )?%reThisNextLast (%reNumWord2D|%reNumWord1D) (minuut|minuten|uur)( al| nog)?",NORM_VALUE="PT%normDurationNumber(group(5))%normUnit4Duration(group(8))"
 RULENAME="duration_r2e",EXTRACTION="(%reApproximate )?(de |het )?%reThisNextLast ([\d]+) (minuut|minuten|uur)( al| nog)?",NORM_VALUE="PTgroup(5)%normUnit4Duration(group(6))"
 RULENAME="duration_r2f",EXTRACTION="(%reApproximate )?(de |het )?%reThisNextLast (paar )?(minuut|minuten|uur)( al| nog)?",NORM_VALUE="PTX%normUnit4Duration(group(6))"
@@ -66,11 +71,5 @@ RULENAME="duration_r3h",EXTRACTION="((een|de) )?([\d]+) (minuut|minuten|uur|uren
 // EXAMPLE r1a_negative-1: ongeveer 200 jaar ouder
 // EXAMPLE r1b_negative-1: enkele dagen oud
 RULENAME="duration_r1a_negation",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D|[\d]+) (%reUnit|minuut|minuten|uur|uren) (ouder|jonger|oud|jong)",NORM_VALUE="REMOVE"
-RULENAME="duration_r1b_negation",EXTRACTION="(%reApproximate )?(enkele|een paar|wat) (%reUnit|minuut|minuten|uur|uren) (ouder|jonger|oud|jong)",NORM_VALUE="REMOVE"
+RULENAME="duration_r1b_negation",EXTRACTION="(%reApproximate )?(enkele|een paar|wat|vele) (%reUnit|minuut|minuten|uur|uren) (ouder|jonger|oud|jong)",NORM_VALUE="REMOVE"
 
-// EXAMPLE r2a_negative_1: 2000 soldaten
-// EXAMPLE r2b_negative_1: 2000 dode soldaten
-// EXAMPLE r2c_negative_1: 2000 kilometer
-RULENAME="date_r2a_negative",EXTRACTION="%reYear4Digit (\p{L}+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):nounpl:"
-RULENAME="date_r2b_negative",EXTRACTION="%reYear4Digit (\p{L}+) (\p{L}+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):JJ:group(3):nounpl:"
-RULENAME="date_r2c_negative",EXTRACTION="%reYear4Digit (kilometers?|dollars?|gulden|meters?|kilogram|gram|ons|pond)",NORM_VALUE="REMOVE"

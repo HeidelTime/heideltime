@@ -229,6 +229,11 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		// if the improve_german_sentences flag is set, improve the sentence tokens made by the treetagger
 		if(improve_german_sentences) 
 			improveGermanSentences(jcas);
+		
+		// if French, improve the sentence tokens made by the TreeTagger with settings for French
+		if (this.language.getTreeTaggerLangName().equals("french"))
+			improveFrenchSentences(jcas);
+		
 	}
 	
 	/**
@@ -245,7 +250,8 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			// Create temp file containing the document text
 			tmpDocument = File.createTempFile("pos", null);
 			tmpFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tmpDocument), "UTF-8"));
-			tmpFileWriter.write(jcas.getDocumentText());
+//			tmpFileWriter.write(jcas.getDocumentText());
+			tmpFileWriter.write(jcas.getDocumentText().replaceAll("\n\n", "\nEMPTYLINE\n"));
 			tmpFileWriter.close();
 			
 			// read tokenized text to add tokens to the jcas
@@ -258,7 +264,8 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			// loop through all the lines in the treetagger output
 			while ((s = in.readLine()) != null) {
 				// charset missmatch fallback: signal (invalid) s
-				if (jcas.getDocumentText().indexOf(s, tokenOffset) < 0)
+				if ((!(s.equals("EMPTYLINE"))) && (jcas.getDocumentText().indexOf(s, tokenOffset) < 0))
+//				if (jcas.getDocumentText().indexOf(s, tokenOffset) < 0)
 					throw new RuntimeException("Opps! Could not find token "+s+
 							" in JCas after tokenizing with TreeTagger." +
 							" Hmm, there may exist a charset missmatch!" +
@@ -268,10 +275,21 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 
 				// create tokens and add them to the jcas's indexes.
 				Token newToken = new Token(jcas);
-				newToken.setBegin(jcas.getDocumentText().indexOf(s, tokenOffset));
-				newToken.setEnd(newToken.getBegin() + s.length());
-				newToken.addToIndexes();
-				tokenOffset = newToken.getEnd();
+				if (s.equals("EMPTYLINE")){
+					newToken.setBegin(tokenOffset);
+					newToken.setEnd(tokenOffset);
+					newToken.setPos("EMPTYLINE");
+					if (annotate_partofspeech){
+						newToken.addToIndexes();
+					}
+				}
+				else{
+					newToken.setBegin(jcas.getDocumentText().indexOf(s, tokenOffset));
+					newToken.setEnd(newToken.getBegin() + s.length());
+					newToken.addToIndexes();
+					tokenOffset = newToken.getEnd();
+				}
+				
 			}
 			// clean up
 			in.close();
@@ -383,7 +401,9 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 				Token t = (Token) ai.next();
 				
 				tokens.add(t);
-				tmpFileWriter.write(t.getCoveredText() + ttprops.newLineSeparator);
+				if (!(t.getBegin() == t.getEnd())){
+					tmpFileWriter.write(t.getCoveredText() + ttprops.newLineSeparator);
+				}
 			}
 			
 			tmpFileWriter.close();
@@ -417,15 +437,34 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 				Token token = tokens.get(i++);
 				// modified (Aug 29, 2011): Handle empty tokens (such as empty lines) in input file
 				while (token.getCoveredText().equals("")){
-					token.setPos("");
-					token.addToIndexes();
+					// if part of the configuration, also add sentences to the jcas document
+					if ((annotate_sentences) && (!(token.getPos().equals(null))) && (token.getPos().equals("EMPTYLINE"))) {
+						// Establish sentence structure
+						if (sentence == null) {
+							sentence = new Sentence(jcas);
+							sentence.setBegin(token.getBegin());
+						}
+		
+						// Finish current sentence if end-of-sentence pos was found or document ended
+						sentence.setEnd(token.getEnd());
+						if (sentence.getBegin() < sentence.getEnd()){
+							sentence.addToIndexes();
+						}
+						
+						// Make sure current sentence is not active anymore so that a new one might be created
+						sentence = null;
+//						sentence = new Sentence(jcas);
+					}
+					token.removeFromIndexes();
 					token = tokens.get(i++);
 				}
 				// remove tokens, otherwise they are in the index twice
 				token.removeFromIndexes(); 
 				// set part of speech tag and add to indexes again
-				token.setPos(s);
-				token.addToIndexes();
+				if (!(token.getCoveredText().equals(""))){
+					token.setPos(s);
+					token.addToIndexes();
+				}
 				
 				// if part of the configuration, also add sentences to the jcas document
 				if(annotate_sentences) {
@@ -442,7 +481,18 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 						
 						// Make sure current sentence is not active anymore so that a new one might be created
 						sentence = null;
+//						sentence = new Sentence(jcas);
 					}
+				}
+			}
+			while (i < tokens.size()){
+				if (!(sentence == null)){
+					sentence.setEnd(tokens.get(tokens.size()-1).getEnd());
+					sentence.addToIndexes();
+				}
+				Token token = tokens.get(i++);
+				if ((!(token.getPos().equals(null))) && (token.getPos().equals("EMPTYLINE"))){
+					token.removeFromIndexes();
 				}
 			}
 			in.close();
@@ -459,6 +509,62 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	public void setHome(String home) {
 		this.ttprops.rootPath = home; 
 	}
+	
+	private void improveFrenchSentences(JCas jcas) {
+		HashSet<de.unihd.dbs.uima.types.heideltime.Sentence> hsRemoveAnnotations = new HashSet<de.unihd.dbs.uima.types.heideltime.Sentence>();
+		HashSet<de.unihd.dbs.uima.types.heideltime.Sentence> hsAddAnnotations    = new HashSet<de.unihd.dbs.uima.types.heideltime.Sentence>();
+		
+		HashSet<String> hsSentenceBeginnings = new HashSet<String>();
+		hsSentenceBeginnings.add("J.-C.");
+		hsSentenceBeginnings.add("J-C.");
+		hsSentenceBeginnings.add("NSJC");
+		
+		Boolean changes = true;
+		while (changes) {
+			changes = false;
+			FSIndex annoHeidelSentences = jcas.getAnnotationIndex(de.unihd.dbs.uima.types.heideltime.Sentence.type);
+			FSIterator iterHeidelSent   = annoHeidelSentences.iterator();
+			while (iterHeidelSent.hasNext()){
+				de.unihd.dbs.uima.types.heideltime.Sentence s1 = (de.unihd.dbs.uima.types.heideltime.Sentence) iterHeidelSent.next();
+				
+				if ((s1.getCoveredText().endsWith("av.")) ||
+						(s1.getCoveredText().endsWith("Av.")) ||
+						(s1.getCoveredText().endsWith("apr.")) ||
+						(s1.getCoveredText().endsWith("Apr.")) ||
+						(s1.getCoveredText().endsWith("avant.")) ||
+						(s1.getCoveredText().endsWith("Avant."))){
+					if (iterHeidelSent.hasNext()){
+						de.unihd.dbs.uima.types.heideltime.Sentence s2 = (de.unihd.dbs.uima.types.heideltime.Sentence) iterHeidelSent.next();
+						iterHeidelSent.moveToPrevious();
+						for (String beg : hsSentenceBeginnings){
+							if (s2.getCoveredText().startsWith(beg)){
+								de.unihd.dbs.uima.types.heideltime.Sentence s3 = new de.unihd.dbs.uima.types.heideltime.Sentence(jcas);
+								s3.setBegin(s1.getBegin());
+								s3.setEnd(s2.getEnd());
+								hsAddAnnotations.add(s3);
+								hsRemoveAnnotations.add(s1);
+								hsRemoveAnnotations.add(s2);
+								changes = true;
+								break;
+							}
+						}
+					}
+				}
+				
+				
+			}
+			for (de.unihd.dbs.uima.types.heideltime.Sentence s : hsRemoveAnnotations){
+				s.removeFromIndexes(jcas);
+			}
+			hsRemoveAnnotations.clear();
+			for (de.unihd.dbs.uima.types.heideltime.Sentence s : hsAddAnnotations){
+				s.addToIndexes(jcas);
+			}
+			hsAddAnnotations.clear();
+		}
+	}
+		
+	
 
 	/**
 	 * improve german sentences; the treetagger splits german sentences incorrectly on some occasions
@@ -479,6 +585,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		hsSentenceBeginnings.add("November");
 		hsSentenceBeginnings.add("Dezember");
 		hsSentenceBeginnings.add("Jahrhundert");
+		hsSentenceBeginnings.add("Jh");
 		hsSentenceBeginnings.add("Jahr");
 		hsSentenceBeginnings.add("Monat");
 		hsSentenceBeginnings.add("Woche");
@@ -498,6 +605,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 					if (iterHeidelSent.hasNext()){
 						de.unihd.dbs.uima.types.heideltime.Sentence s2 = (de.unihd.dbs.uima.types.heideltime.Sentence) iterHeidelSent.next();
 						iterHeidelSent.moveToPrevious();
+						boolean newBoundary = false;
 						for (String beg : hsSentenceBeginnings){
 							if (s2.getCoveredText().startsWith(beg)){
 								de.unihd.dbs.uima.types.heideltime.Sentence s3 = new de.unihd.dbs.uima.types.heideltime.Sentence(jcas);
@@ -506,8 +614,32 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 								hsAddAnnotations.add(s3);
 								hsRemoveAnnotations.add(s1);
 								hsRemoveAnnotations.add(s2);
+								newBoundary = true;
 								changes = true;
 								break;
+							}
+						}
+						if (newBoundary == false){
+							if (s2.getCoveredText().matches("^([a-z]).*")){
+								de.unihd.dbs.uima.types.heideltime.Sentence s3 = new de.unihd.dbs.uima.types.heideltime.Sentence(jcas);
+								s3.setBegin(s1.getBegin());
+								s3.setEnd(s2.getEnd());
+								hsAddAnnotations.add(s3);
+								hsRemoveAnnotations.add(s1);
+								hsRemoveAnnotations.add(s2);
+								newBoundary = true;
+								changes = true;
+							}
+						}
+						if (newBoundary == false){
+							if (s2.getCoveredText().matches("^[/].*")){
+								de.unihd.dbs.uima.types.heideltime.Sentence s3 = new de.unihd.dbs.uima.types.heideltime.Sentence(jcas);
+								s3.setBegin(s1.getBegin());
+								s3.setEnd(s2.getEnd());
+								hsAddAnnotations.add(s3);
+								hsRemoveAnnotations.add(s1);
+								hsRemoveAnnotations.add(s2);
+								changes = true;
 							}
 						}
 					}

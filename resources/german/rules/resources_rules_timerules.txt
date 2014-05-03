@@ -45,3 +45,9 @@ RULENAME="time_r3a",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute( Uhr
 RULENAME="time_r3b",EXTRACTION="(%reApproximate )?%reTimeHour (Uhr) %reTimeMinute",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):group(5)"
 RULENAME="time_r3c",EXTRACTION="(%reApproximate )?%reTimeHour Uhr",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):00"
 
+
+// time_r4
+// EXAMPLE r4a_1: Morgen des 1. August 2000
+// EXAMPLE r4b_1: Morgen des 1. August
+RULENAME="time_r4a",EXTRACTION="(%reApproximate )?%rePartOfDay (des) (%reDayNumber[\.]?)( |)(%reMonthLong|%reMonthShort|%reMonthNumber[\.]?),? %reYear4Digit",NORM_VALUE="group(12)-%normMonth(group(8))-%normDay(group(5))T%normPartOfDay(group(3))"
+RULENAME="time_r4b",EXTRACTION="(%reApproximate )?%rePartOfDay (des) (%reDayNumber[\.]?)( |)(%reMonthLong|%reMonthShort|%reMonthNumber[\.]?)",NORM_VALUE="UNDEF-year-%normMonth(group(8))-%normDay(group(5))T%normPartOfDay(group(3))"

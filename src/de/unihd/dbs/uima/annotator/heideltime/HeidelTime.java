@@ -66,6 +66,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	public int timex_counter        = 0;
 	public int timex_counter_global = 0;
 	
+	// FLAG (for historic expressions referring to BC)
+	public Boolean flagHistoricDates = false;
+	
 	// COUNTER FOR TIMEX IDS
 	private int timexID = 0;
 	
@@ -182,6 +185,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		timexID = 1; // reset counter once per document processing
 
 		timex_counter = 0;
+
+		flagHistoricDates = false;
 		
 		////////////////////////////////////////////
 		// CHECK SENTENCE BY SENTENCE FOR TIMEXES //
@@ -211,6 +216,22 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					if (find_times) {
 						findTimexes("TIME", rulem.getHmTimePattern(), rulem.getHmTimeOffset(), rulem.getHmTimeNormalization(), rulem.getHmTimeQuant(), s, jcas);
 					}
+					
+					/*
+					 *  check for historic dates/times starting with BC
+					 *  to check if post-processing step is required
+					 */
+					if (typeToProcess.equals("narratives")){
+						FSIterator iterDates = jcas.getAnnotationIndex(Timex3.type).iterator();
+						while (iterDates.hasNext()){
+							Timex3 t = (Timex3) iterDates.next();
+							if (t.getTimexValue().startsWith("BC")){
+								flagHistoricDates = true;
+								break;
+							}
+						}
+					}
+					
 					if (find_sets) {
 						findTimexes("SET", rulem.getHmSetPattern(), rulem.getHmSetOffset(), rulem.getHmSetNormalization(), rulem.getHmSetQuant(), s, jcas);
 					}
@@ -251,6 +272,11 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		 * format UNDEF-year-01-01; specific month for values of format UNDEF-last-month
 		 */
 		specifyAmbiguousValues(jcas);
+		
+		// disambiguate historic dates
+		// check dates without explicit hints to AD or BC if they might refer to BC dates
+		if (flagHistoricDates)
+			disambiguateHistoricDates(jcas);
 
 		/*
 		 * kick out the rest of the overlapping expressions
@@ -336,6 +362,74 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 	
 	/**
+	 * Postprocessing: Check dates starting with "0" which were extracted without 
+	 * explicit "AD" hints if it is likely that they refer to the respective date BC
+	 * 
+	 * @param jcas
+	 */
+	public void disambiguateHistoricDates(JCas jcas){
+		
+		// build up a list with all found TIMEX expressions
+		List<Timex3> linearDates = new ArrayList<Timex3>();
+		FSIterator iterTimex = jcas.getAnnotationIndex(Timex3.type).iterator();
+
+		// Create List of all Timexes of types "date" and "time"
+		while (iterTimex.hasNext()) {
+			Timex3 timex = (Timex3) iterTimex.next();
+			if (timex.getTimexType().equals("DATE") || timex.getTimexType().equals("TIME")) {
+				linearDates.add(timex);
+			}
+		}
+		
+        //////////////////////////////////////////////
+        // go through list of Date and Time timexes //
+        //////////////////////////////////////////////
+		for (int i = 1; i < linearDates.size(); i++) {
+			Timex3 t_i = (Timex3) linearDates.get(i);
+			String value_i = t_i.getTimexValue();
+			String newValue = value_i;
+			Boolean change = false;
+			if (!(t_i.getFoundByRule().contains("-BCADhint"))){
+				if (value_i.startsWith("0")){
+					Integer offset = 1;
+					do {
+						if ((i == 1 || (i > 1 && !change)) && linearDates.get(i-offset).getTimexValue().startsWith("BC")){
+							if (value_i.length()>1){
+								if ((linearDates.get(i-offset).getTimexValue().startsWith("BC"+value_i.substring(0,2))) ||
+										(linearDates.get(i-offset).getTimexValue().startsWith("BC"+String.format("%02d",(Integer.parseInt(value_i.substring(0,2))+1))))){
+									if (((value_i.startsWith("00")) && (linearDates.get(i-offset).getTimexValue().startsWith("BC00"))) ||
+											((value_i.startsWith("01")) && (linearDates.get(i-offset).getTimexValue().startsWith("BC01")))){
+										if ((value_i.length()>2) && (linearDates.get(i-offset).getTimexValue().length()>4)){
+											if (Integer.parseInt(value_i.substring(0,3)) <= Integer.parseInt(linearDates.get(i-offset).getTimexValue().substring(2,5))){
+												newValue = "BC" + value_i;
+												change = true;
+												Logger.printDetail("DisambiguateHistoricDates: "+value_i+" to "+newValue+". Expression "+t_i.getCoveredText()+" due to "+linearDates.get(i-offset).getCoveredText());
+											}
+										}
+									}
+									else{
+										newValue = "BC" + value_i;
+										change = true;
+										Logger.printDetail("DisambiguateHistoricDates: "+value_i+" to "+newValue+". Expression "+t_i.getCoveredText()+" due to "+linearDates.get(i-offset).getCoveredText());
+									}
+								}
+							}               
+						}
+					} while (offset++ < 5 && offset < i);
+				}
+			}
+			if (!(newValue.equals(value_i))){
+				t_i.removeFromIndexes();
+				Logger.printDetail("DisambiguateHistoricDates: value changed to BC");
+
+				t_i.setTimexValue(newValue);
+				t_i.addToIndexes();
+				linearDates.set(i, t_i);
+			}
+		}	
+	}
+	
+	/**
 	 * Postprocessing: Remove invalid timex expressions. These are already
 	 * marked as invalid: timexValue().equals("REMOVE")
 	 * 
@@ -400,7 +494,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		if (typeToProcess.equals("news")) {
 			documentTypeNews = true;
 		}
-		if (typeToProcess.equals("narrative")) {
+		if (typeToProcess.equals("narrative") || typeToProcess.equals("narratives")) {
 			documentTypeNarrative = true;
 		}
 		if (typeToProcess.equals("colloquial")) {
@@ -514,6 +608,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						viHasQuarter  = true;
 						viThisQuarter = valueParts[2]; 
 					}
+					// get v1 half
 					else if ((valueParts[2].equals("H1")) || (valueParts[2].equals("H2"))) {
 						viHasHalf  = true;
 						viThisHalf = valueParts[2];
@@ -537,6 +632,16 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						viHasSeason  = true;
 						viThisSeason = valueParts[1]; 
 					}
+					// get v1 quarter
+					else if ((valueParts[1].equals("Q1")) || (valueParts[1].equals("Q2")) || (valueParts[1].equals("Q3")) || (valueParts[1].equals("Q4"))) {
+						viHasQuarter  = true;
+						viThisQuarter = valueParts[1]; 
+					}
+					// get v1 half
+					else if ((valueParts[1].equals("H1")) || (valueParts[1].equals("H2"))) {
+						viHasHalf  = true;
+						viThisHalf = valueParts[1];
+					}
 					// get vi day
 					if ((valueParts.length > 2) && (valueParts[2].matches("\\d\\d"))) {
 						viHasDay = true;
@@ -558,7 +663,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			if (value_i.startsWith("UNDEF-year")) {
 				String newYearValue = dctYear+"";
 				// vi has month (ignore day)
-				if (viHasMonth == true && (viHasSeason == false)) {
+				if ((viHasMonth == true) && (viHasSeason == false)) {
 					// WITH DOCUMENT CREATION TIME
 					if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
 						//  Tense is FUTURE
@@ -734,16 +839,29 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				// NARRATIVE DOCUMENTS
 				else {
 					newCenturyValue = ContextAnalyzer.getLastMentionedX(linearDates, i, "century", language);
+					if (!(newCenturyValue.startsWith("BC"))){
+						if ((newCenturyValue.matches("^\\d\\d.*")) && (Integer.parseInt(newCenturyValue.substring(0, 2)) < 10)){
+							newCenturyValue = "00";
+						}
+					}else{
+						newCenturyValue = "00";
+					}
 				}
-				if (newCenturyValue.equals("")) {
-					// always assume that sixties, twenties, and so on are 19XX (changed 2011-09-08)
-					valueNew = value_i.replaceFirst("UNDEF-century", "19");
+				if (newCenturyValue.equals("")){
+					if (!(documentTypeNarrative)) {
+						// always assume that sixties, twenties, and so on are 19XX if no century found (LREC change)
+						valueNew = value_i.replaceFirst("UNDEF-century", "19");
+					}
+					// LREC change: assume in narrative-style documents that if no other century was mentioned before, 1st century
+					else {
+						valueNew = value_i.replaceFirst("UNDEF-century", "00");
+					}
 				}
 				else {
-					valueNew = value_i.replaceFirst("UNDEF-century", newCenturyValue+"");
+					valueNew = value_i.replaceFirst("UNDEF-century", newCenturyValue);
 				}
-				// always assume that sixties, twenties, and so on are 19XX (changed 2011-09-08)
-				if (valueNew.matches("\\d\\d\\d")) {
+				// always assume that sixties, twenties, and so on are 19XX -- if not narrative document (LREC change)
+				if ((valueNew.matches("\\d\\d\\d")) && (!(documentTypeNarrative))) {
 					valueNew = "19" + valueNew.substring(2);
 				}
 			}
@@ -852,13 +970,20 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							// check for REFUNIT (only allowed for "year")
 							if ((ltn.equals("REFUNIT")) && (unit.equals("year"))) {
 								String dateWithYear = ContextAnalyzer.getLastMentionedX(linearDates, i, "dateYear", language);
+								String year = dateWithYear;
 								if (dateWithYear.equals("")) {
 									valueNew = valueNew.replace(checkUndef, "XXXX");
 								} else {
+									if (dateWithYear.startsWith("BC")){
+										year = dateWithYear.substring(0,6);
+									}
+									else{
+										year = dateWithYear.substring(0,4);
+									}
 									if (op.equals("MINUS")) {
 										diff = diff * (-1);
 									}
-									int yearNew = Integer.parseInt(dateWithYear.substring(0,4)) + diff;
+									String yearNew = DateCalculator.getXNextYear(dateWithYear, diff);
 									String rest = dateWithYear.substring(4);
 									valueNew = valueNew.replace(checkUndef, yearNew+rest);
 								}
@@ -878,13 +1003,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 								} else {
 									String lmCentury = ContextAnalyzer.getLastMentionedX(linearDates, i, "century", language);
 									if (lmCentury.equals("")) {
-										valueNew = valueNew.replace(checkUndef, "");
+										valueNew = valueNew.replace(checkUndef, "XX");
 									} else {
 										if (op.equals("MINUS")) {
-											lmCentury = Integer.parseInt(lmCentury) - diff + "";
-										} else if (op.equals("PLUS")) {
-											lmCentury = Integer.parseInt(lmCentury) + diff + "";	
-										}
+											diff = (-1) * diff;
+										} 
+										lmCentury = DateCalculator.getXNextCentury(lmCentury, diff);
 										valueNew = valueNew.replace(checkUndef, lmCentury);
 									}
 								}
@@ -904,10 +1028,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 										valueNew = valueNew.replace(checkUndef, "XXX");
 									} else {
 										if (op.equals("MINUS")) {
-											lmDecade = Integer.parseInt(lmDecade) - diff + "";
-										} else if (op.equals("PLUS")) {
-											lmDecade = Integer.parseInt(lmDecade) + diff + "";
+											diff = (-1) * diff;
 										}
+										lmDecade = DateCalculator.getXNextDecade(lmDecade, diff);
 										valueNew = valueNew.replace(checkUndef, lmDecade);
 									}
 								}
@@ -925,15 +1048,14 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 									if (lmYear.equals("")) {
 										valueNew = valueNew.replace(checkUndef, "XXXX");
 									} else {
-										int intValue = Integer.parseInt(lmYear);
 										if (op.equals("MINUS")) {
-											intValue = Integer.parseInt(lmYear) - diff;	
-										} else if (op.equals("PLUS")) {
-											intValue = Integer.parseInt(lmYear) + diff;
-										}
-										valueNew = valueNew.replace(checkUndef, intValue+"");
+											diff = (-1) * diff;
+										} 
+										lmYear = DateCalculator.getXNextYear(lmYear, diff);
+										valueNew = valueNew.replace(checkUndef, lmYear);
 									}
 								}
+								// TODO BC years
 							} else if (unit.equals("quarter")) {
 								if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
 									int intYear    = dctYear;
@@ -1035,9 +1157,11 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					} else {
 						String lmCentury = ContextAnalyzer.getLastMentionedX(linearDates,i,"century", language);
 						if (lmCentury.equals("")) {
-							valueNew = valueNew.replace(checkUndef, "XXXX");
-						} else {
-							valueNew = valueNew.replace(checkUndef, norm.getFromNormNumber(Integer.parseInt(lmCentury) - 1 +""));
+							valueNew = valueNew.replace(checkUndef, "XX");
+						} 
+						else {
+							lmCentury = DateCalculator.getXNextCentury(lmCentury, -1);
+							valueNew = valueNew.replace(checkUndef, lmCentury);
 						}
 					}
 				} else if (value_i.startsWith("UNDEF-this-century")) {
@@ -1047,9 +1171,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					} else {
 						String lmCentury = ContextAnalyzer.getLastMentionedX(linearDates,i,"century", language);
 						if (lmCentury.equals("")) {
-							valueNew = valueNew.replace(checkUndef, "XXXX");
+							valueNew = valueNew.replace(checkUndef, "XX");
 						} else {
-							valueNew = valueNew.replace(checkUndef, norm.getFromNormNumber(Integer.parseInt(lmCentury)+""));
+							valueNew = valueNew.replace(checkUndef, lmCentury);
 						}
 					}
 				} else if (value_i.startsWith("UNDEF-next-century")) {
@@ -1059,9 +1183,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					} else {
 						String lmCentury = ContextAnalyzer.getLastMentionedX(linearDates,i,"century", language);
 						if (lmCentury.equals("")) {
-							valueNew = valueNew.replace(checkUndef, "XXXX");
+							valueNew = valueNew.replace(checkUndef, "XX");
 						} else {
-							valueNew = valueNew.replace(checkUndef, norm.getFromNormNumber(Integer.parseInt(lmCentury) + 1+""));
+							lmCentury = DateCalculator.getXNextCentury(lmCentury, +1);
+							valueNew = valueNew.replace(checkUndef, lmCentury);
 						}
 					}
 				}
@@ -1076,7 +1201,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						if (lmDecade.equals("")) {
 							valueNew = valueNew.replace(checkUndef, "XXXX");
 						} else {
-							valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmDecade)-1+"");
+							lmDecade = DateCalculator.getXNextDecade(lmDecade, -1);
+							valueNew = valueNew.replace(checkUndef, lmDecade);
 						}
 					}
 				} else if (value_i.startsWith("UNDEF-this-decade")) {
@@ -1088,7 +1214,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						if (lmDecade.equals("")) {
 							valueNew = valueNew.replace(checkUndef, "XXXX");
 						} else {
-							valueNew = valueNew.replace(checkUndef, lmDecade);						
+							valueNew = valueNew.replace(checkUndef, lmDecade);
 						}
 					}
 				} else if (value_i.startsWith("UNDEF-next-decade")) {
@@ -1100,7 +1226,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						if (lmDecade.equals("")) {
 							valueNew = valueNew.replace(checkUndef, "XXXX");
 						} else {
-							valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmDecade)+1+"");
+							lmDecade = DateCalculator.getXNextDecade(lmDecade, 1);
+							valueNew = valueNew.replace(checkUndef, lmDecade);
 						}
 					}
 				}
@@ -1115,7 +1242,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						if (lmYear.equals("")) {
 							valueNew = valueNew.replace(checkUndef, "XXXX");
 						} else {
-							valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmYear)-1+"");
+							lmYear = DateCalculator.getXNextYear(lmYear, -1);
+							valueNew = valueNew.replace(checkUndef, lmYear);
 						}
 					}
 				} else if (value_i.startsWith("UNDEF-this-year")) {
@@ -1139,7 +1267,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						if (lmYear.equals("")) {
 							valueNew = valueNew.replace(checkUndef, "XXXX");
 						} else {
-							valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmYear)+1+"");						
+							lmYear = DateCalculator.getXNextYear(lmYear, 1);
+							valueNew = valueNew.replace(checkUndef, lmYear);
 						}
 					}
 				}
@@ -1840,6 +1969,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				// check timex value attribute string length
 				if(longestTimex == null) {
 					longestTimex = t;
+				} else if(allSameTypes && t.getFoundByRule().indexOf("-BCADhint") != -1) {
+					longestTimex = t;
+				} else if(allSameTypes && t.getFoundByRule().indexOf("relative") == -1 && longestTimex.getFoundByRule().indexOf("relative") != -1) { 
+					longestTimex = t;
 				} else if(longestTimex.getTimexValue().length() == t.getTimexValue().length()) {
 					if(t.getBegin() < longestTimex.getBegin())
 						longestTimex = t;
@@ -1873,7 +2006,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			if(allSameTypes) {
 				newTimex.setBegin(combinedBegin);
 				newTimex.setEnd(combinedEnd);
-				newTimex.setFirstTokId(tokenIds.get(0));
+				if(tokenIds.size() > 0)
+					newTimex.setFirstTokId(tokenIds.get(0));
 				String tokenIdText = "BEGIN";
 				for(Integer tokenId : tokenIds) {
 					tokenIdText += "<-->" + tokenId;

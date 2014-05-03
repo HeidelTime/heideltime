@@ -39,3 +39,7 @@
 "Một vài","APPROX"
 "một số","APPROX"
 "Một số","APPROX"
+"Vài","APPROX"
+"vài","APPROX"
+"Những","APPROX"
+"những","APPROX"

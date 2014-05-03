@@ -14,7 +14,7 @@ RULENAME="duration_r1a_1",EXTRACTION="(%reApproximate[\s])?(ال)?(%reNumWord2D|
 // EXAMPLE r1a_1: less than sixty days , arabic numbers
 RULENAME="duration_r1a_1_arNum",EXTRACTION="(%reApproximate[\s]?)?(ال)?(%reArabicDigit(%reArabicDigit)?(%reArabicDigit)?(%reArabicDigit)?) (%reUnitOnce|%reUnit)( %reThisNextLast)?",NORM_VALUE="P%normArabicDigit(group(5))%normArabicDigit(group(7))%normArabicDigit(group(9))%normArabicDigit(group(11))%normUnit4Duration(group(12))",NORM_MOD="%normApprox4Durations(group(2))"
 // EXAMPLE r1a_2: less one day
-RULENAME="duration_r1a_2",EXTRACTION="(%reApproximate[\s]?)?%reUnitOnce( واحد[هة]?)?( %reThisNextLast)?",NORM_VALUE="P1%normUnit4Duration(group(3))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r1a_2",EXTRACTION="(%reApproximate[\s]?)?%reUnitOnce( واحد[هة]?)?( %reThisNextLast)?( !%reYearBC)",NORM_VALUE="P1%normUnit4Duration(group(3))",NORM_MOD="%normApprox4Durations(group(2))"
 // EXAMPLE r1a_3: less two days
 RULENAME="duration_r1a_3",EXTRACTION="(%reApproximate[\s]?)?(ال)?%reUnitTwice( %reThisNextLastTwice)?",NORM_VALUE="P2%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
 // EXAMPLE r1b-1: less than 60 days
@@ -69,7 +69,7 @@ RULENAME="duration_r4d",EXTRACTION="(%reApproximate )?(ال)%reUnitT (ال)(%reN
 
 // duration_r5
 // EXAMPLE r5a: the 3rd year.
-RULENAME="duration_r5a",EXTRACTION="(ال|لل)%reUnitOnce (%reDayWordTh|([\d]+)|(%reArabicDigit(reArabicDigit)?))",NORM_VALUE="P1%normUnit4Duration(group(2))"
+RULENAME="duration_r5a",EXTRACTION="(ال|لل)%reUnitOnceNoCentury (%reDayWordTh|([\d]+)|(%reArabicDigit(reArabicDigit)?))",NORM_VALUE="P1%normUnit4Duration(group(2))"
 // EXAMPLE r5b: the 3rd minute.
 RULENAME="duration_r5b",EXTRACTION="(ال|لل)%reUnitOnceT (%reDayWordTh|([\d]+)|(%reArabicDigit(reArabicDigit)?))",NORM_VALUE="PT1%normUnit4Duration(group(2))"
 
@@ -77,7 +77,8 @@ RULENAME="duration_r5b",EXTRACTION="(ال|لل)%reUnitOnceT (%reDayWordTh|([\d]+
 
 // date_r19 before
 // EXAMPLE r6a_1: after/before at least several years
-RULENAME="duration_r6a",EXTRACTION="((قبل|ﺐﻋﺩ)( عد[هة] | )?%reUnit) (من|على)",NORM_VALUE="PX%normUnit4Duration(group(4))",OFFSET="group(1)-group(1)"
+RULENAME="duration_r6a",EXTRACTION="((قبل|ﺐﻋﺩ)( عد[هة] | بضع )?%reUnit) (من|على)",NORM_VALUE="PX%normUnit4Duration(group(4))",OFFSET="group(1)-group(1)"
+RULENAME="duration_r6a_1",EXTRACTION="(في) (عد[هة]|بضع) %reUnit",NORM_VALUE="PX%normUnit4Duration(group(3))",OFFSET="group(2)-group(3)"
 // EXAMPLE r6b_1: after/before about twenty years
 RULENAME="duration_r6b",EXTRACTION="((بعد|قبل) (%reApproximate )?(%reNumWord2D|%reNumWord1D) (%reUnitOnce|%reUnit)) (من|على)",NORM_VALUE="P%normDurationNumber(group(5))%normUnit4Duration(group(8))",NORM_MOD="%normApprox4Dates(group(4))",OFFSET="group(1)-group(1)"
 // EXAMPLE r6c_1: after/before about 20 years
@@ -111,8 +112,8 @@ RULENAME="date_r1a_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%re
 RULENAME="date_r1b_negative",EXTRACTION="((?!في).)* %reYear4Digit ([\w]+) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):JJ:group(4):NNS:"
 RULENAME="date_r1b_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%reArabicDigit)(%reArabicDigit)(%reArabicDigit) ([\w]+) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(10):JJ:group(11):NNS:"
 // EXAMPLE r3c_negative_1: 2000 kilometer (four digit number followed a non-temporal unit)
-RULENAME="date_r1c_negative",EXTRACTION="(%reYear4Digit|%reYear2Digit) (طن|كلم|كيلومتر|دولار|قدم|يورو|متر|كيلوغرام|كيلو متر)",NORM_VALUE="REMOVE"
-RULENAME="date_r1c_arNum_negative",EXTRACTION="(%reArabicDigit)(%reArabicDigit)?(%reArabicDigit)?(%reArabicDigit)? (طن|كلم|كيلومتر|دولار|قدم|يورو|متر|كيلوغرام|كيلو متر)",NORM_VALUE="REMOVE"
+RULENAME="date_r1c_negative",EXTRACTION="(%reYear4Digit|%reYear2Digit) (طن|كلم|كيلومتر|دولار|قدم|يورو|متر|كيلوغرام|كيلو متر|ميل)",NORM_VALUE="REMOVE"
+RULENAME="date_r1c_arNum_negative",EXTRACTION="(%reArabicDigit)(%reArabicDigit)?(%reArabicDigit)?(%reArabicDigit)? (طن|كلم|كيلومتر|دولار|قدم|يورو|متر|كيلوغرام|كيلو متر|ميل)",NORM_VALUE="REMOVE"
 // EXAMPLE r4a_negative: W2000.1920
 RULENAME="date_r1d_negative",EXTRACTION="[\w]+%reYear4Digit\.%reYear4Digit",NORM_VALUE="REMOVE"
 RULENAME="date_r1e_negative",EXTRACTION="((?!في).)* %reYear4Digit ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(3):NN:"
@@ -123,3 +124,5 @@ RULENAME="date_r1h_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%re
 
 RULENAME="date_r1i_negative",EXTRACTION="((?!في).)* (%reYear2Digit|%reYear4Digit) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(5):JJ:"
 RULENAME="date_r1i_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%reArabicDigit) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(6):JJ:"
+
+

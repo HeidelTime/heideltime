@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for year numbers (4 digits).
+// FORMAT: one line is one disjunction of the pattern
+TCN
+trước CN
+trước Công nguyên
+trước Công Nguyên
+Trước Công Nguyên
+Sau CN
+sau CN
+sau Công nguyên
+sau Công Nguyên
+Sau Công Nguyên

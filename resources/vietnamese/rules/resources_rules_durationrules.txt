@@ -24,8 +24,6 @@ RULENAME="vn_duration_r1c",EXTRACTION="(%reApproximate )(%reUnit|giờ|Giờ|ph�
 //EXAMPLE vn_duration_r3a: trong 3 năm 1920-1922	during 4 years 1920-1922
 
 RULENAME="vn_duration_r3a",EXTRACTION="(trong|Trong) ([\d]+) (năm) %reYear4Digit(-|–| đến )%reYear4Digit",NORM_VALUE="Pgroup(2)%normUnit4Duration(group(3))",OFFSET="group(1)-group(3)"
-RULENAME="vn_duration_r3b",EXTRACTION="(trong|Trong) ([\d]+) (năm) %reYear4Digit(-|–| đến )%reYear4Digit",NORM_VALUE="group(4)",OFFSET="group(4)-group(4)"
-RULENAME="vn_duration_r3c",EXTRACTION="(trong|Trong) ([\d]+) (năm) %reYear4Digit(-|–| đến )%reYear4Digit",NORM_VALUE="group(6)",OFFSET="group(6)-group(6)"
 
 
 //duration_r4

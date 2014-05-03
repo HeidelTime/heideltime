@@ -15,6 +15,130 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
  */
 public class DateCalculator {
 	
+	public static String getXNextYear(String date, Integer x){
+		
+		// two formatters depending if BC or not
+		SimpleDateFormat formatter   = new SimpleDateFormat("yyyy");
+		SimpleDateFormat formatterBC = new SimpleDateFormat("GGyyyy");
+		
+		String newDate = "";
+		Calendar c = Calendar.getInstance();
+		
+		try {
+			// read the original date
+			if (date.matches("^\\d.*")){
+				c.setTime(formatter.parse(date));
+			}
+			else{
+				c.setTime(formatterBC.parse(date));
+			}
+			// make calucaltion
+			c.add(Calendar.YEAR, x);
+			c.getTime();
+			// check if new date is BC or AD for choosing formatter or formatterBC
+			int newEra = c.get(Calendar.ERA);
+			if (newEra > 0){
+				newDate = formatter.format(c.getTime());
+			}
+			else{
+				newDate = formatterBC.format(c.getTime());
+			}
+		}
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return newDate;
+	}
+	
+	public static String getXNextDecade(String date, Integer x) {
+		date = date + "0"; // deal with years not with centuries
+		
+		// two formatters depending if BC or not
+		SimpleDateFormat formatter   = new SimpleDateFormat("yyyy");
+		SimpleDateFormat formatterBC = new SimpleDateFormat("GGyyyy");
+		
+		String newDate = "";
+		Calendar c = Calendar.getInstance();
+		
+		try {
+			// read the original date
+			if (date.matches("^\\d.*")){
+				c.setTime(formatter.parse(date));
+			}
+			else{
+				c.setTime(formatterBC.parse(date));
+			}
+			
+			// make calucaltion
+			c.add(Calendar.YEAR, x*10);
+			c.getTime();
+			
+			// check if new date is BC or AD for choosing formatter or formatterBC
+			int newEra = c.get(Calendar.ERA);
+			if (newEra > 0){
+				newDate = formatter.format(c.getTime()).substring(0, 3);
+			}
+			else{
+				newDate = formatterBC.format(c.getTime()).substring(0, 5);
+			}
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return newDate;
+	}
+	
+	
+	public static String getXNextCentury(String date, Integer x) {
+		date = date + "00"; // deal with years not with centuries
+		int oldEra = 0;     // 0 if BC date, 1 if AD date
+		
+		// two formatters depending if BC or not
+		SimpleDateFormat formatter   = new SimpleDateFormat("yyyy");
+		SimpleDateFormat formatterBC = new SimpleDateFormat("GGyyyy");
+		
+		String newDate = "";
+		Calendar c = Calendar.getInstance();
+		
+		try {
+			// read the original date
+			if (date.matches("^\\d.*")){
+				c.setTime(formatter.parse(date));
+				oldEra = 1;
+			}
+			else{
+				c.setTime(formatterBC.parse(date));
+			}
+			
+			// make calucaltion
+			c.add(Calendar.YEAR, x*100);
+			c.getTime();
+			
+			// check if new date is BC or AD for choosing formatter or formatterBC
+			int newEra = c.get(Calendar.ERA);
+			if (newEra > 0){
+				if (oldEra == 0){
+					// -100 if from BC to AD
+					c.add(Calendar.YEAR, -100);
+					c.getTime();
+				}
+				newDate = formatter.format(c.getTime()).substring(0, 2);
+			}
+			else{
+				if (oldEra > 0){
+					// +100 if from AD to BC
+					c.add(Calendar.YEAR, 100);
+					c.getTime();
+				}
+				newDate = formatterBC.format(c.getTime()).substring(0, 4);
+			}
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return newDate;
+	}
+	
 	/**
 	 * get the x-next day of date.
 	 * 
@@ -45,15 +169,36 @@ public class DateCalculator {
 	 * @return new month
 	 */
 	public static String getXNextMonth(String date, Integer x) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
+
+		// two formatters depending if BC or not
+		SimpleDateFormat formatter   = new SimpleDateFormat("yyyy-MM");
+		SimpleDateFormat formatterBC = new SimpleDateFormat("GGyyyy-MM");
 		String newDate = "";
 		Calendar c = Calendar.getInstance();
+
 		try {
-			c.setTime(formatter.parse(date));
+			// read the original date
+			if (date.matches("^\\d.*")){
+				c.setTime(formatter.parse(date));
+			}
+			else{
+				c.setTime(formatterBC.parse(date));
+			}
+			// make calucaltion
 			c.add(Calendar.MONTH, x);
 			c.getTime();
-			newDate = formatter.format(c.getTime());
-		} catch (ParseException e) {
+			
+			// check if new date is BC or AD for choosing formatter or formatterBC
+			int newEra = c.get(Calendar.ERA);
+			if (newEra > 0){
+				newDate = formatter.format(c.getTime());
+			}
+			else{
+				newDate = formatterBC.format(c.getTime());
+			}
+			
+		}
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 		return newDate;
