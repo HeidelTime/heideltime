@@ -1,0 +1,24 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains "date words" and their normalized expressions.
+// For example, the normalized value of "вчера" is "UNDEF-next-day"
+// FORMAT: "date-word","normalized-date-word"
+"[Вв]чера","UNDEF-last-day"
+"[Нн]акануне","UNDEF-last-day"
+"[Сс]егодня","UNDEF-this-day"
+"[Зз]автра","UNDEF-next-day"
+"[Нн]азавтра","UNDEF-next-day"
+"[Сс]ейчас","PRESENT_REF"
+"[Тт]еперь","PRESENT_REF"
+"[Сс]егодняшний день","PRESENT_REF"
+"[Сс]егодняшн(ий|его|ему|им|ем) дн(я|ю|ем|ём|е)","PRESENT_REF"
+"данн(ый|ого|ому|ым|ом)? момент(а|у|ом|е)?","PRESENT_REF"
+"настоящ(ее|его|ему|им|ем) врем(я|ени|енем)","PRESENT_REF"
+"[Сс]коро","FUTURE_REF"
+"[Нн]едавно","PAST_REF"
+"[Пп]озавчера","UNDEF-this-day-MINUS-2"
+"[Пп]ослезавтра","UNDEF-this-day-PLUS-2"
+"сих пор","PRESENT_REF"
+"прошлые годы","PAST_REF"
+"прошлые времена","PAST_REF"

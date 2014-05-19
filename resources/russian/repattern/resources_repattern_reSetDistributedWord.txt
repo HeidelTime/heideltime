@@ -1,0 +1,18 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains regular expression patterns for distributive expressions.
+// FORMAT: one line is one disjunction of the pattern
+понедельникам
+вторникам
+средам
+четвергам
+пятницам
+воскресеньям
+день
+сутки
+неделю
+месяц
+квартал
+год
+век

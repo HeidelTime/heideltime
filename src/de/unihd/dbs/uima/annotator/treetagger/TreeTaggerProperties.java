@@ -51,8 +51,10 @@ public class TreeTaggerProperties {
 		command.add(this.rootPath + this.fileSeparator + "cmd" + this.fileSeparator + this.tokScriptName);
 		if(this.languageSwitch != "")
 			command.add(this.languageSwitch);
-		command.add("-a");
-		command.add(this.rootPath + this.fileSeparator + "lib" + this.fileSeparator + this.abbFileName);
+		if(new File(this.abbFileName).exists()) {
+			command.add("-a");
+			command.add(this.rootPath + this.fileSeparator + "lib" + this.fileSeparator + this.abbFileName);
+		}
 		command.add(inputFile.getAbsolutePath());
 		
 		String[] commandStr = new String[command.size()];

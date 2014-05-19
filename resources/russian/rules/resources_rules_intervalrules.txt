@@ -1,0 +1,15 @@
+// This file contains rules for the temporal expressions of the type interval: intervalrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""
+
+///////////////////
+//INTERVAL RULES //
+///////////////////
+//EXAMPLE interval_01: с 1999 по 2012
+//EXAMPLE interval_02: между 5 и 17 июня
+//EXAMPLE interval_03: 20.3.2003 - 1.5.2003
+//EXAMPLE interval_06: 2012/2013
+
+RULENAME="interval_01",EXTRACTION="(?:[Сс(о)?]) <TX3_([0-9]+)> (по|до) <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"
+RULENAME="interval_02",EXTRACTION="(?:[Мм]ежду) <TX3_([0-9]+)> и <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"
+RULENAME="interval_03",EXTRACTION="(?:[Сс(о)?])?<TX3_([0-9]+)>(?: )?-(?: )?<TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"
+RULENAME="interval_06",EXTRACTION="<TX3_([0-9]+)>(/|-)<TX3_([0-9]+)>,",NORM_VALUE="group(1)-group(3)"

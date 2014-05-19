@@ -1,0 +1,15 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains regular expression patterns for decade words.
+// FORMAT: one line is one disjunction of the pattern
+[Нн]улевы(е|х|ми|м)
+[Дд]есяты(е|х|ми|м)
+[Дд]вадцаты(е|х|ми|м)
+[Тт]ридцаты(е|х|ми|м)
+[Сс]ороковы(е|х|ми|м)
+[Пп]ятидесяты(е|х|ми|м)
+[Шш]естидесяты(е|х|ми|м)
+[Сс]емидесяты(е|х|ми|м)
+[Вв]осьмидесяты(е|х|ми|м)
+[Дд]евяносты(е|х|ми|м)

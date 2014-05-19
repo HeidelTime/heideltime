@@ -1,0 +1,33 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains "romic century numbers" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "I" is "00"
+// FORMAT: "century-romic","normalized-century-romic"
+"I","00"
+"II","01"
+"III","02"
+"IV","03"
+"V","04"
+"VI","05"
+"VII","06"
+"VIII","07"
+"IX","08"
+"X","09"
+"XI","10"
+"XII","11"
+"XIII","12"
+"XIV","13"
+"XV","14"
+"XVI","15"
+"XVII","16"
+"XVIII","17"
+"XIX","18"
+"XX","19"
+"XXI","20"
+"XXII","21"
+"XXIII","22"
+"XXIV","23"
+"XXV","24"
+"XXVI","25"

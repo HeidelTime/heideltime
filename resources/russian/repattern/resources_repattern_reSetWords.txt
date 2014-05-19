@@ -1,0 +1,12 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains regular expression patterns for distributive constructions.
+// FORMAT: one line is one disjunction of the pattern
+[Ее]жегодно
+[Ее]жемесячно
+[Ее]женедельно
+[Ее]жесуточно
+[Ее]жедневно
+[Пп]о ночам
+[Пп]о утрам

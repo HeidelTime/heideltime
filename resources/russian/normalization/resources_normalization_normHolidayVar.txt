@@ -1,0 +1,18 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains "moveable holidays". They can be calculated realtive to the Eastersunday like many christian holidays or relative to a date.
+// The german "Buß- und Bettag" is the first wednesday before YEAR-11-23. The placeholders are replaced with the value from the ruleset.
+// available functions: EasterSunday(<YEAR>, <numberOfDaysToAdd>), WeekdayRelativeTo(<DateToBeRelativeTo>, <Weekday>, <numberOfWeekdays>, <countItself>)
+// available placeholder: DATE, YEAR, MONTH, DAY 
+// sunday=1, monday=2, tuesday=3, wednesday=4, thursday=5, friday=6, saturday=7
+// 
+// FORMAT: "holiday","funcDateCalc(<function>(<arguments>))"
+//
+// the reference of the values is given in the repattern file
+//
+
+"Пасх(а|и|е|у|ой)","funcDateCalc(EasterSundayOrthodox(YEAR, 0))"
+"Вербн(ое|ого|ому|ом|ым) воскресень(е|я|ю|ем)","funcDateCalc(EasterSundayOrthodox(YEAR, -7))"
+"Троиц(а|ы|у|ей|е)","funcDateCalc(EasterSundayOrthodox(YEAR, 49))"
+"Маслениц(а|ы|у|ей|е)","funcDateCalc(ShroveTideOrthodox(YEAR))"

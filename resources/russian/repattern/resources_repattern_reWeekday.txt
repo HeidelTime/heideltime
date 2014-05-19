@@ -1,0 +1,12 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains regular expression patterns for weekdays.
+// FORMAT: one line is one disjunction of the pattern
+[Пп]онедельник(у|ом|е|ами|ам|а)?
+[Вв]торник(у|ом|е|ами|ам|а)?
+[Сс]ред(ы|е|у|ой|ами|ам|а)?
+[Чч]етверг(у|ом|е|ами|ам|а)?
+[Пп]ятниц(ы|е|у|ой|ами|ам|а)?
+[Сс]уббот(ы|е|у|ой|ами|ам|а)?
+[Вв]оскресень(ю|ем|е|ями|ям|я)?

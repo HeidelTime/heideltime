@@ -1,0 +1,10 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains regular expression patterns for "part" words.
+// FORMAT: one line is one disjunction of the pattern
+[Нн]ачал(а|у|ом|о|е)
+[Сс]ередин(а|ы|е|у|ой)
+[Кк]он(ец|ца|цу|цом|це)
+[Рр]анн(ий|его|ему|ем|яя|юю|ей|ее|ие|их|ими|им)
+[Пп]оздн(ий|его|ему|ем|яя|юю|ей|ее|ие|их|ими|им)

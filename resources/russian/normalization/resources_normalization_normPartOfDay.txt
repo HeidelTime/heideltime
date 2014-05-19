@@ -1,0 +1,17 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains "times-of-day words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "утро" is "MO"
+// FORMAT: "times-of-day-word","normalized-times-of-day-word"
+// morning
+"[Пп]олдень","12:00"
+"[Пп]олудн(я|ю|ем|е)","12:00"
+"[Пп]олночь","24:00"
+"[Пп]олуноч(ью|ь)","12:00"
+"[Уу]тро(м)?","MO"
+"[Дд]ень","AF"
+"[Дд]н(е|ё)м","AF"
+"[Вв]ечер(ом)?","EV"
+"[Нн]оч(ью|ь)?","NI"

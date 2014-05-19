@@ -1,0 +1,25 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains "unit words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "неделя" is "week"
+// FORMAT: "unit-word","normalized-unit-word"
+"[Дд]ень","day"
+"[Сс]утк(и|ами|ам|ах)","day"
+"[Сс]уток","day"
+"[Дд]н(я|ю|ём|ем|и|ей|е|ям|ями|ях)","day"
+"[Вв]ыходны(е|х|м|ми)","week-WE"
+"[Уу]икенд(а|х|м|ми)","week-WE"
+"[Нн]едел(я|и|ю|ей|е|ь|ями|ям|ях)","week"
+"[Мм]есяц(а|у|ом|ы|ев|ами|ам|ах|е)?","month"
+"[Кк]вартал(а|у|ом|е)?","quarter"
+"[Гг]од(а|у|ом|е)?","year"
+"[Лл]ет","year"
+"[Дд]есятилети(я|ю|ем|е|и)","decade"
+"[Вв]ек(а|у|ом|е)?","century"
+
+// not in reUnit but in timeUnit
+"[Чч]ас(а|у|ом|ы|ов|ами|ам)?","hour"
+"[Мм]инут(а|ы|е|у|ой|ы|ами|ам)?","minute"
+"[Сс]екунд(а|ы|е|у|ой|ы|ами|ам)?","second"

@@ -1,0 +1,36 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-13
+// This file contains rules for the temporal expressions of the type set: setrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////
+// EVERY UNIT //
+////////////////
+// set_r1
+// EXAMPLE 1: каждый день
+// EXAMPLE 2: каждая среда
+// EXAMPLE 3: каждый март
+// EXAMPLE 4: каждое лето
+RULENAME="set_r1a",EXTRACTION="[Кк]ажд(ый|ого|ому|ая|ой|ую|ое|ые|ых|ыми|ым|ом) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_QUANT="EVERY"
+RULENAME="set_r1b",EXTRACTION="[Кк]ажд(ый|ого|ому|ая|ой|ую|ое|ые|ых|ыми|ым|ом) %reWeekday",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1W"
+RULENAME="set_r1c",EXTRACTION="[Кк]ажд(ый|ого|ому|ой|ые|ых|ыми|ым|ом) %reMonthLong",NORM_VALUE="XXXX-%normMonth(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1M"
+RULENAME="set_r1d",EXTRACTION="[Кк]ажд(ый|ого|ому|ая|ой|ую|ое|ые|ых|ыми|ым|ом) %reSeason",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1S"
+RULENAME="set_r1e",EXTRACTION="[Кк]ажд(ый|ого|ому|ая|ой|ую|ое|ые|ых|ыми|ым|ом) %reTimeUnit",NORM_VALUE="PT1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_QUANT="EVERY"
+
+// set_r2
+// EXAMPLE r2a-1: ежегодно
+RULENAME="set_r2a",EXTRACTION="%reSetWords",NORM_VALUE="%normSetWords(group(1))"
+
+
+
+// set_r4
+// EXAMPLE 1: по понедельникам
+// EXAMPLE 2: в год
+RULENAME="set_r3a",EXTRACTION="[Пп]о %reSetDistributedWord",NORM_VALUE="XXXX-WXX-%normSetDistributedWord(group(1))",NORM_QUANT="EVERY",NORM_FREQ="1W"
+RULENAME="set_r3b",EXTRACTION="([Вв]|[Зз]а) %reSetDistributedWord",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normSetDistributedWord(group(2)),0,1))",NORM_QUANT="EVERY"
+
+
+// set_r5
+// EXAMPLE 1: по понедельникам и вторникам
+RULENAME="set_r4a",EXTRACTION="[Пп]о %reSetDistributedWord( и|,) %reSetDistributedWord",NORM_VALUE="XXXX-WXX-%normSetDistributedWord(group(3))",NORM_QUANT="EVERY",NORM_FREQ="1W",OFFSET="group(3)-group(3)"

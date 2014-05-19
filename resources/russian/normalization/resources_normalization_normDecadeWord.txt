@@ -1,0 +1,17 @@
+// author: Elena Klyachko
+// email:  elenaklyachko@gmail.com
+// date:   2014-04-26
+// This file contains "decade words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "двадцатые" is "2"
+// FORMAT: "decade-word","normalized-decade-word"
+"[Нн]улевы(е|х|ми|м)","0"
+"[Дд]есяты(е|х|ми|м)","1"
+"[Дд]вадцаты(е|х|ми|м)","2"
+"[Тт]ридцаты(е|х|ми|м)","3"
+"[Сс]ороковы(е|х|ми|м)","4"
+"[Пп]ятидесяты(е|х|ми|м)","5"
+"[Шш]естидесяты(е|х|ми|м)","6"
+"[Сс]емидесяты(е|х|ми|м)","7"
+"[Вв]осьмидесяты(е|х|ми|м)","8"
+"[Дд]евяносты(е|х|ми|м)","9"
