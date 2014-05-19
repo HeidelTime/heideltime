@@ -1,0 +1,27 @@
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
+// This file contains regular expression patterns for number word 1 digits.
+// FORMAT: one line is one disjunction of the pattern
+
+一
+二
+两
+三
+四
+五
+六
+七
+八
+九
+１
+２
+３
+４
+５
+６
+７
+８
+９
+全
+

@@ -1,0 +1,35 @@
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
+
+// This file contains rules for the temporal expressions of the type set: setrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////
+// EVERY UNIT //
+////////////////
+// set_r1
+// EXAMPLE set_every_c1: 每天
+// EXAMPLE set_every_c2: 每小时
+// EXAMPLE set_every_c3: 每周一
+// EXAMPLE set_every_c4: 每个九月
+// EXAMPLE set_every_c5: 每个夏天
+// EXAMPLE set_every_c6: 每年
+
+RULENAME="set_every_c1",EXTRACTION="(每|每一|每一个|每个)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))"
+RULENAME="set_every_c2",EXTRACTION="(每|每一|每一个|每个)%reUnitTime",NORM_VALUE="PT1%normUnit4Duration(group(2))"
+RULENAME="set_every_c3",EXTRACTION="(每|每个|每一个)%reWeekday",NORM_VALUE="XXXX-%normDayInWeek(group(2))",NORM_FREQ="1W"
+RULENAME="set_every_c4",EXTRACTION="(每一个|每个)%reMonthWord",NORM_VALUE="XXXX-%normMonth(group(2))",NORM_FREQ="1M"
+RULENAME="set_every_c5",EXTRACTION="(每个|每一个)%reSeason",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_FREQ="1S"
+
+
+//////////////////////////////
+// PART-OF-DAYS EXPRESSIONS //
+//////////////////////////////
+
+// set_r6
+// EXAMPLE r6a-1: 周一下午
+// EXAMPLE r6b-1: 周一 和 周二晚上 
+
+RULENAME="set_r7a",EXTRACTION="%reWeekday%rePartOfDay",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(1))T%normPartOfDay(group(2))",NORM_FREQ="1W"
+RULENAME="set_r7b",EXTRACTION="%reWeekday(和|或|至|到)%reWeekday%rePartOfDay",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(1))T%normPartOfDay(group(4))",NORM_FREQ="1W",OFFSET="group(1)-group(1)"

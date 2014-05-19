@@ -1,0 +1,30 @@
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
+// This file contains regular expression patterns for long months.
+// FORMAT: one line is one disjunction of the pattern
+一月
+//[Jj]anuary
+二月
+//[Ff]ebruary
+三月
+//[Mm]arch
+四月
+//[Aa]pril
+五月
+//[Mm]ay
+六月
+//[Jj]une
+七月
+//[Jj]uly
+八月
+//[Aa]ugust
+九月
+//[Ss]eptember
+十二月
+//[Dd]ecember
+十一月
+//[Nn]ovember
+十月
+//[Oo]ctober
+

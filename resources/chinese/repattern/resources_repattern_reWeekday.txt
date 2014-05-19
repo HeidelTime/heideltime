@@ -1,0 +1,26 @@
+// author: Hui Li
+// email:  hui.li@informatik.uni-heidelberg.de
+// date:   2013-12-12
+// This file contains regular expression patterns for weekdays.
+// FORMAT: one line is one disjunction of the pattern
+星期一
+礼拜一
+周一
+星期二
+礼拜二
+周二
+星期三
+礼拜三
+周三
+星期四
+礼拜四
+周四
+星期五
+礼拜五
+周五
+星期六
+礼拜六
+周六
+星期日
+礼拜日
+周日
