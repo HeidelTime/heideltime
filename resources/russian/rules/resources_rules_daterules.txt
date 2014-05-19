@@ -158,8 +158,8 @@ RULENAME="date_r19c",EXTRACTION="%rePartWords %reYear4Digit-(е|х|ми|м)(( г
 RULENAME="date_r19d",EXTRACTION="%rePartWords %reYear2Digit-(е|х|ми|м)(( год(ы|ов|ами|ам|ах))|( )?гг\.)?",NORM_VALUE="UNDEF-century%SUBSTRING%(group(2),0,1)",NORM_MOD="%normPartWords(group(1))"
 RULENAME="date_r19e",EXTRACTION="%reDecadeWord(( год(ы|ов|ами|ам|ах))|( )?гг\.)?",NORM_VALUE="UNDEF-this-century%normDecadeWord(group(1))"
 RULENAME="date_r19f",EXTRACTION="%rePartWords %reDecadeWord(( год(ы|ов|ами|ам|ах))|( )?гг\.)?",NORM_VALUE="UNDEF-this-century%normDecadeWord(group(2))",NORM_MOD="%normPartWords(group(1))"
-RULENAME="date_r19g",EXTRACTION="%reYear2Digit-(е|х|ми|м)(( год(ы|ов|ами|ам|ах))|( )?гг\.)? %reThisNextLast века",NORM_VALUE="UNDEF-%normThisNextLast(group(6))-century%SUBSTRING%(group(1),0,1)"
-RULENAME="date_r19h",EXTRACTION="%rePartWords %reYear2Digit-(е|х|ми|м)(( год(ы|ов|ами|ам|ах))|( )?гг\.)? %reThisNextLast века",NORM_VALUE="UNDEF-%normThisNextLast(group(7))-century%SUBSTRING%(group(2),0,1)",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r19g",EXTRACTION="%reYear2Digit-(е|х|ми|м)(( год(ы|ов|ами|ам|ах))|( )?гг\.)? %reThisNextLast века",NORM_VALUE="UNDEF-%normThisNextLast(group(7))-century%SUBSTRING%(group(1),0,1)"
+RULENAME="date_r19h",EXTRACTION="%rePartWords %reYear2Digit-(е|х|ми|м)(( год(ы|ов|ами|ам|ах))|( )?гг\.)? %reThisNextLast века",NORM_VALUE="UNDEF-%normThisNextLast(group(8))-century%SUBSTRING%(group(2),0,1)",NORM_MOD="%normPartWords(group(1))"
 
 
 
