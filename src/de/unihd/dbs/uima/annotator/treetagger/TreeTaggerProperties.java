@@ -51,7 +51,7 @@ public class TreeTaggerProperties {
 		command.add(this.rootPath + this.fileSeparator + "cmd" + this.fileSeparator + this.tokScriptName);
 		if(this.languageSwitch != "")
 			command.add(this.languageSwitch);
-		if(new File(this.abbFileName).exists()) {
+		if(new File(this.rootPath + this.fileSeparator + "lib" + this.fileSeparator, this.abbFileName).exists()) {
 			command.add("-a");
 			command.add(this.rootPath + this.fileSeparator + "lib" + this.fileSeparator + this.abbFileName);
 		}
@@ -59,7 +59,6 @@ public class TreeTaggerProperties {
 		
 		String[] commandStr = new String[command.size()];
 		command.toArray(commandStr);
-		
 		Process p = Runtime.getRuntime().exec(commandStr);
 		
 		return p;
