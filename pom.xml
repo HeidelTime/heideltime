@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.unihd.dbs</groupId>
   <artifactId>heideltime</artifactId>
-  <version>1.6</version>
+  <version>1.7</version>
   <name>HeidelTime</name>
   <description>HeidelTime is a multilingual cross-domain temporal tagger that extracts temporal expressions from documents and normalizes them according to the TIMEX3 annotation standard.</description>
   <build>

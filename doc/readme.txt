@@ -3,7 +3,7 @@
 #######################
 
 Author: Jannik Strötgen, Julian Zell
-Date:   March 03, 2014
+Date:   May 20th, 2014
 eMail:  stroetgen@uni-hd.de, zell@informatik.uni-heidelberg.de
 
 ###################################
@@ -61,6 +61,7 @@ HeidelTime with resources for several languages is one component of our UIMA Hei
 - Italian
 - French (kindly provided by Véronique Moriceau, LIMSI - CNRS, http://vero.moriceau.free.fr/)
 - Chinese
+- Russian (a preliminary version was kindly shared by Elena Klyachko)
 
 Additionally, whilst expanding the set of domains that HeidelTime can recognize temporal 
 expressions in, English resources for colloquial as well as scientific style documents were 
@@ -102,7 +103,7 @@ contains:
       
     * HeidelTime: Possible parameter values are:
     	- languages: english, englishcoll, englishsci, german, spanish, italian, vietnamese, arabic,
-    			   dutch, chinese, french
+    			   dutch, chinese, french, russian
     	- types: news, narratives, colloquial (for use with englishcoll), scientific (englishsci)
     	- locale: the locale to use for date calculation. Leave it empty to use en_GB.
     	- Debugging: to output verbose debugging information to stderr.
@@ -171,7 +172,6 @@ set the environment variables.
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tree-tagger-linux-3.2.tar.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tagger-scripts.tar.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/install-tagger.sh
-      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/german-par-linux-3.2.bin.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/german-par-linux-3.2-utf8.bin.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/english-par-linux-3.2.bin.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/dutch-par-linux-3.1.bin.gz
@@ -187,7 +187,12 @@ set the environment variables.
 	  Extract the Tokenizer into a new directory and TreeTagger parameter files like this:
 	  - mkdir chinese-tokenizer
 	  - tar -xzvf tt-lcmc.tgz
-	  - tar -xzvf zh-tokenise.tgz -C chinese-tokenizer 
+	  - tar -xzvf zh-tokenise.tgz -C chinese-tokenizer
+	*  (OPTIONAL) For Russian documents, please grab a copy of the Russian parameter file from
+	  Serge Sharoff's page at http://corpus.leeds.ac.uk/mocky/:
+	  - wget http://corpus.leeds.ac.uk/mocky/russian.par.gz
+	  Extract the parameter file into the TreeTagger's lib/-folder:
+	  - tar -xzvf russian.par.gz -C /path/to/treetagger/lib/
     * Install the TreeTagger
 		- sh install-tagger.sh 
 	* Set environment variables (you can set variables permanently, e.g., in your $HOME/.bashrc)
@@ -312,7 +317,7 @@ http://code.google.com/p/heideltime/wiki/ReproduceEvaluationResults
 ##############
 # 9. License #
 ##############
-Copyright (c) 2012, Database Research Group, Institute of Computer Science, University of Heidelberg. 
+Copyright (c) 2012-2014, Database Research Group, Institute of Computer Science, University of Heidelberg. 
 All rights reserved. This program and the accompanying materials 
 are made available under the terms of the GNU General Public License.
 
