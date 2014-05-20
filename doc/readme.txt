@@ -244,8 +244,8 @@ set the environment variables.
 	* source $HEIDELTIME_HOME/metadata/setenv
     * cd $HEIDELTIME_HOME/resources && sh printResourceInformation.sh
 
-2. run cpeGUI.sh and create a workflow
-	* cpeGUI.sh
+2. run cpeGui.sh and create a workflow
+	* cpeGui.sh
 	* create a workflow with the following components:
 		Collection reader:
 		- UIMA's file system collection reader:
