@@ -12,7 +12,7 @@ RULENAME="date_lrec1a-BCADhint",EXTRACTION="([ال]?سن[هة]|[ال]?عام) %r
 RULENAME="date_lrec1b",EXTRACTION="([ال]?سن[هة]|[ال]?عام) %reYearBC",NORM_VALUE="%normYearBC(group(2))",OFFSET="group(2)-group(2)"
 RULENAME="date_lrec1c-BCADhint",EXTRACTION="(%reApproximate )?%reYearBC[ ]?%reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
 RULENAME="date_lrec1d-BCADhint",EXTRACTION="(%reApproximate )?%reYearBC[ ]?(-|–)[ ]?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(6))%normYearBC(group(3))",NORM_MOD="%normApprox4Dates(group(2))",OFFSET="group(0)-group(3)"
-RULENAME="date_lrec1e-BCADhint",EXTRACTION="(%reApproximate )?%reYearBC[ ]?(-|–)[ ]?%reYearBC",NORM_VALUE="%normYearBC(group(3))",NORM_MOD="%normApprox4Dates(group(2))",OFFSET="group(0)-group(3)"
+RULENAME="date_lrec1e",EXTRACTION="(%reApproximate )?%reYearBC[ ]?(-|–)[ ]?%reYearBC",NORM_VALUE="%normYearBC(group(3))",NORM_MOD="%normApprox4Dates(group(2))",OFFSET="group(0)-group(3)"
 
 RULENAME="date_lrec2a-BCADhint",EXTRACTION="([اأ]ل%reWeekday[\s]?[,]?[\s]?)?(الموافق )?(%reDayWordTh|%reDayNumber)( من| من شهر)? (%reMonthLong|%reMonthNumber)([\s]?[,/]?[\s]?)(%reMonthLong([\s]?[,]?[\s]?))?((عام|سن[هة]|من|من العام|من عام|من سن[هة]|من السن[هة]|,|للعام|لسن[هة])[\s]?)?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(18))%normYearBC(group(17))-%normMonth(group(8))-%normDay(group(4))"
 RULENAME="date_lrec2b",EXTRACTION="([اأ]ل%reWeekday[\s]?[,]?[\s]?)?(الموافق )?(%reDayWordTh|%reDayNumber)( من| من شهر)? (%reMonthLong|%reMonthNumber)([\s]?[,/]?[\s]?)(%reMonthLong([\s]?[,]?[\s]?))?((عام|سن[هة]|من|من العام|من عام|من سن[هة]|من السن[هة]|,|للعام|لسن[هة])[\s]?)?%reYearBC",NORM_VALUE="%normYearBC(group(17))-%normMonth(group(8))-%normDay(group(4))"
@@ -206,6 +206,7 @@ RULENAME="date_r12a_2_2_arNum",EXTRACTION="(في |و)?((ال|ل|لل)?(سن[هة
 
 // EXAMPLE r12b_1: 1850-58 (find: 1858)
 RULENAME="date_r12b",EXTRACTION="%reYear4Digit(-|–| and )%reYear2Digit",NORM_VALUE="%SUBSTRING%(group(1),0,2)group(3)",OFFSET="group(3)-group(3)"
+RULENAME="date_r12b_2",EXTRACTION="%reYear2Digit(-|–| and )%reYear4Digit",NORM_VALUE="%SUBSTRING%(group(3),0,2)group(1)",OFFSET="group(1)-group(1)"
 // EXAMPLE r12c_1:  a thousand nineteen hundereds and ninety-one
 RULENAME="date_r12c_1",EXTRACTION="[اأ]لف([\s]?[و]?[\s]?)%reNumWordHundreds([\s]?[و]?[\s]?)%reNumWord1D",NORM_VALUE="1%normDateNumber(group(2))%normDateNumber(group(4))"
 RULENAME="date_r12c_2",EXTRACTION="[اأ]لف([\s]?[و]?[\s]?)%reNumWordHundreds([\s]?[و]?[\s]?)%reNumWord2D",NORM_VALUE="1%normDateNumber(group(2))%normDateNumber(group(4))"
