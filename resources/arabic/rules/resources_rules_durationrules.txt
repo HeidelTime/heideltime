@@ -14,7 +14,7 @@ RULENAME="duration_r1a_1",EXTRACTION="(%reApproximate[\s])?(ال)?(%reNumWord2D|
 // EXAMPLE r1a_1: less than sixty days , arabic numbers
 RULENAME="duration_r1a_1_arNum",EXTRACTION="(%reApproximate[\s]?)?(ال)?(%reArabicDigit(%reArabicDigit)?(%reArabicDigit)?(%reArabicDigit)?) (%reUnitOnce|%reUnit)( %reThisNextLast)?",NORM_VALUE="P%normArabicDigit(group(5))%normArabicDigit(group(7))%normArabicDigit(group(9))%normArabicDigit(group(11))%normUnit4Duration(group(12))",NORM_MOD="%normApprox4Durations(group(2))"
 // EXAMPLE r1a_2: less one day
-RULENAME="duration_r1a_2",EXTRACTION="(%reApproximate[\s]?)?%reUnitOnce( واحد[هة]?)?( %reThisNextLast)?( !%reYearBC)",NORM_VALUE="P1%normUnit4Duration(group(3))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r1a_2",EXTRACTION="(%reApproximate[\s]?)?%reUnitOnce( واحد[هة]?)?( %reThisNextLast)?(?!( %reYearBC))",NORM_VALUE="P1%normUnit4Duration(group(3))",NORM_MOD="%normApprox4Durations(group(2))"
 // EXAMPLE r1a_3: less two days
 RULENAME="duration_r1a_3",EXTRACTION="(%reApproximate[\s]?)?(ال)?%reUnitTwice( %reThisNextLastTwice)?",NORM_VALUE="P2%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
 // EXAMPLE r1b-1: less than 60 days
@@ -125,4 +125,5 @@ RULENAME="date_r1h_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%re
 RULENAME="date_r1i_negative",EXTRACTION="((?!في).)* (%reYear2Digit|%reYear4Digit) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(5):JJ:"
 RULENAME="date_r1i_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%reArabicDigit) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(6):JJ:"
 
-
+  
+RULENAME="date_r1j_negative",EXTRACTION="في شهر كذا وكذا",NORM_VALUE="REMOVE"
