@@ -162,8 +162,8 @@ set the environment variables.
    imports in HeidelTime.java itself. Furthermore, if a differing tag set is used, all rules
    containing part-of-speech information have to be adapted).
    
-   To process English, German, Dutch, Spanish, Italian, French or Chinese documents, the TreeTaggerWrapper
-   can be used for pre-processing: 
+   To process English, German, Dutch, Spanish, Italian, French, Chinese or Russian documents, 
+   the TreeTaggerWrapper can be used for pre-processing: 
     * Download the TreeTagger and its tagging scripts, installation scripts, as well as 
       English, German, and Dutch (or any other) parameter files into one directory from:
       http://www.ims.uni-stuttgart.de/projekte/corplex/TreeTagger/
@@ -188,7 +188,7 @@ set the environment variables.
 	  - mkdir chinese-tokenizer
 	  - tar -xzvf tt-lcmc.tgz
 	  - tar -xzvf zh-tokenise.tgz -C chinese-tokenizer
-	*  (OPTIONAL) For Russian documents, please grab a copy of the Russian parameter file from
+	* (OPTIONAL) For Russian documents, please grab a copy of the Russian parameter file from
 	  Serge Sharoff's page at http://corpus.leeds.ac.uk/mocky/:
 	  - wget http://corpus.leeds.ac.uk/mocky/russian.par.gz
 	  Extract the parameter file into the TreeTagger's lib/-folder:
