@@ -125,5 +125,5 @@ RULENAME="date_r1h_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%re
 RULENAME="date_r1i_negative",EXTRACTION="((?!في).)* (%reYear2Digit|%reYear4Digit) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(5):JJ:"
 RULENAME="date_r1i_arNum_negative",EXTRACTION="((?!في).)* (%reArabicDigit)(%reArabicDigit) ([\w]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(6):JJ:"
 
-  
+
 RULENAME="date_r1j_negative",EXTRACTION="في شهر كذا وكذا",NORM_VALUE="REMOVE"

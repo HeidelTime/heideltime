@@ -50,7 +50,7 @@ RULENAME="date_historic_4a-BCADhint",EXTRACTION="(%reApproximate )?(the )?%reSea
 RULENAME="date_historic_5a-BCADhint",EXTRACTION="([Tt]he )?(%reDayNumberTh|%reDayWordTh) [Cc]entur(y|ies)( %reYearPrefix)",NORM_VALUE="%normYearPrefix(group(7))%normDay(%SUM%(%normDay(group(2)),-1))"
 RULENAME="date_historic_5b-BCADhint",EXTRACTION="%rePartWords( the)? (%reDayNumberTh|%reDayWordTh) [Cc]entur(y|ies)( %reYearPrefix)",NORM_VALUE="%normYearPrefix(group(8))%normDay(%SUM%(%normDay(group(3)),-1))",NORM_MOD="%normPartWords(group(1))"
 RULENAME="date_historic_5c-BCADhint",EXTRACTION="(([Tt]he )?(%reDayNumberTh|%reDayWordTh))%reAndOrTo(the )?(%reDayNumberTh|%reDayWordTh) [Cc]entur(y|ies)( %reYearPrefix)",NORM_VALUE="%normYearPrefix(group(13))%normDay(%SUM%(%normDay(group(3)),-1))",OFFSET="group(1)-group(1)"
-RULENAME="date_historic_5d-BCADhint",EXTRACTION="(%rePartWords( the)? (%reDayNumberTh|%reDayWordTh))%reAndOrTo(the )?(%reDayNumberTh|%reDayWordTh) [Cc]entur(y|ies)( %reYearPrefix)",NORM_VALUE="%normYearPrefix(group(14))%normDay(%SUM%(%normDay(group(4)),-1))",OFFSET="group(1)-group(1)",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_historic_5d-BCADhint",EXTRACTION="(%rePartWords( the)? (%reDayNumberTh|%reDayWordTh))%reAndOrTo(the )?(%reDayNumberTh|%reDayWordTh) [Cc]entur(y|ies)( %reYearPrefix)",NORM_VALUE="%normYearPrefix(group(14))%normDay(%SUM%(%normDay(group(4)),-1))",OFFSET="group(1)-group(1)",NORM_MOD="%normPartWords(group(2))"
 
 // historic dates; decade granularity
 // EXAMPLE date_historic_6a-BCADhint: 1990s BC
@@ -257,7 +257,7 @@ RULENAME="date_r14d",EXTRACTION="([Tt]he )?%rePartWords[\s]?%reNumWordTeen %reDe
 RULENAME="date_r15a",EXTRACTION="([Tt]he )?(%reDayNumberTh|%reDayWordTh) [Cc]entur(y|ies)",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))"
 RULENAME="date_r15b",EXTRACTION="%rePartWords( the)? (%reDayNumberTh|%reDayWordTh) [Cc]entur(y|ies)",NORM_VALUE="%normDay(%SUM%(%normDay(group(3)),-1))",NORM_MOD="%normPartWords(group(1))"
 RULENAME="date_r15c",EXTRACTION="(([Tt]he )?(%reDayNumberTh|%reDayWordTh))%reAndOrTo(the )?(%reDayNumberTh|%reDayWordTh) [Cc]entur(y|ies)",NORM_VALUE="%normDay(%SUM%(%normDay(group(3)),-1))",OFFSET="group(1)-group(1)"
-RULENAME="date_r15d",EXTRACTION="(%rePartWords( the)? (%reDayNumberTh|%reDayWordTh))%reAndOrTo(the )?(%reDayNumberTh|%reDayWordTh) [Cc]entur(y|ies)?",NORM_VALUE="%normDay(%SUM%(%normDay(group(4)),-1))",OFFSET="group(1)-group(1)",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r15d",EXTRACTION="(%rePartWords( the)? (%reDayNumberTh|%reDayWordTh))%reAndOrTo(the )?(%reDayNumberTh|%reDayWordTh) [Cc]entur(y|ies)?",NORM_VALUE="%normDay(%SUM%(%normDay(group(4)),-1))",OFFSET="group(1)-group(1)",NORM_MOD="%normPartWords(group(2))"
 
 ///////////////////////////////////
 // GRANULARITY INDEPENDENT RULES //

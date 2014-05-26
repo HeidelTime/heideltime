@@ -33,7 +33,8 @@ RULENAME="time_r2b",EXTRACTION="%reMonthLong %reDayNumber, %reYear4Digit %reTime
 // NEW for ACE Tern 2005 training
 RULENAME="time_r2c",EXTRACTION="((Mon|Tue|Wed|Thu|Fri|Sat|Sun), )?%reDayNumber (%reMonthLong|%reMonthShort) %reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute (\+|-)0000",NORM_VALUE="group(7)-%normMonth(group(4))-%normDay(group(3))Tgroup(8):group(9):group(10)"
 RULENAME="time_r2d",EXTRACTION="((Mon|Tue|Wed|Thu|Fri|Sat|Sun), )?%reDayNumber (%reMonthLong|%reMonthShort) %reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute (\+|-)(\d\d)00",NORM_VALUE="group(7)-%normMonth(group(4))-%normDay(group(3))Tgroup(8):group(9):group(10)group(11)group(12)"
-
+RULENAME="time_r2e",EXTRACTION="(%reMonthLong %reDayNumber, %reTimeHour %reTimezone) in %reYear4Digit",NORM_VALUE="group(6)-%normMonth(group(2))-%normDay(group(3))T%normMinute(group(4)):00",OFFSET="group(1)-group(1)"
+RULENAME="time_r2f",EXTRACTION="(%reMonthLong %reDayNumber, %reTimeHour:%reTimeMinute%reTimezone) in %reYear4Digit",NORM_VALUE="group(7)-%normMonth(group(2))-%normDay(group(3))T%normMinute(group(4)):%normMinute(group(5))",OFFSET="group(1)-group(1)"
 
 
 /////////////////////////////
