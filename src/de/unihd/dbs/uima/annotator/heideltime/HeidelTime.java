@@ -276,7 +276,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// disambiguate historic dates
 		// check dates without explicit hints to AD or BC if they might refer to BC dates
 		if (flagHistoricDates)
-			disambiguateHistoricDates(jcas);
+			try {
+				disambiguateHistoricDates(jcas);
+			} catch(Exception e) {
+				Logger.printError("Something went wrong disambiguating historic dates.");
+				e.printStackTrace();
+			}
 
 		/*
 		 * kick out the rest of the overlapping expressions
