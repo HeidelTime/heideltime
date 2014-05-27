@@ -11,26 +11,28 @@ eMail:  stroetgen@uni-hd.de, zell@informatik.uni-heidelberg.de
 ###################################
 HeidelTime was used in the TempEval-2 challenge as described in:
 Jannik Strötgen and Michael Gertz.
-HeidelTime: High Quality Rule-based Extraction and Normalization of Temporal Expressions.
-In: SemEval-2010: Proceedings of the 5th International Workshop on Semantic Evaluation. 
-Pages 321-324, Uppsala, Sweden, July 15-16, 2010. ACL.
-http://www.aclweb.org/anthology/S/S10
+  HeidelTime: High Quality Rule-based Extraction and Normalization of Temporal Expressions.
+  In: SemEval-2010: Proceedings of the 5th International Workshop on Semantic Evaluation. 
+  Pages 321-324, Uppsala, Sweden, July 15-16, 2010. ACL.
+  http://www.aclweb.org/anthology/S/S10
 
 In "Language Resources and Evaluation", we have published a paper on "Multilingual and 
 Cross-domain Temporal Tagging". In addition, we detail the features and architecture of 
 HeidelTime:
-Jannik Strötgen and Michael Gertz.
-Multilingual and Cross-domain Temporal Tagging.
-In: Language Resources and Evaluation, 2012, Springer.
+  Jannik Strötgen and Michael Gertz.
+  Multilingual and Cross-domain Temporal Tagging.
+  In: Language Resources and Evaluation, 47(2), pages 269-298, 2013, Springer.
+  http://link.springer.com/article/10.1007%2Fs10579-012-9179-y
 
 Please cite one of these papers if you use HeidelTime. 
 
 If you use HeidelTime for processing colloquial text such as SMS or tweets or scientific 
 publications (e.g., biomedical studies), you may want to cite the following paper instead:
-Jannik Strötgen and Michael Gertz:
-Temporal Tagging on Different Domains: Challenges, Strategies, and Gold Standards.
-In: LREC 2012: Proceedings of the 8th International Conference on Language Resources 
-and Evaluation. Pages 3746--3753, Istanbul, Turkey, May 21-27, 2012. ELRA.
+  Jannik Strötgen and Michael Gertz:
+  Temporal Tagging on Different Domains: Challenges, Strategies, and Gold Standards.
+  In: LREC 2012: Proceedings of the 8th International Conference on Language Resources 
+  and Evaluation. Pages 3746-3753, Istanbul, Turkey, May 21-27, 2012. ELRA.
+  http://www.lrec-conf.org/proceedings/lrec2012/pdf/425_Paper.pdf
 
 ###################
 # 2. Introduction #
@@ -39,7 +41,7 @@ HeidelTime is a multilingual temporal tagger that extracts temporal expressions 
 and normalizes them according to the TIMEX3 annotation standard, which is part of the mark-up
 language TimeML. HeidelTime uses different normalization strategies depending on the domain of 
 the documents that are to be processed (news, narratives, scientific or colloquial texts). It 
-is a rule-based system and due  to its architectural feature that the source code and the 
+is a rule-based system and due to its architectural feature that the source code and the 
 resources (patterns, normalization information, and rules) are strictly separated, one can 
 simply develop resources for additional languages using HeidelTime's well-defined rule syntax.
 
@@ -77,8 +79,7 @@ contains:
 
     * ACE Tern Reader: This Collection Reader reads corpora of the ACE Tern style and annotates 
       the document creation time. Using the corpora preparation script (for details, see below), 
-      the following corpora can be processed: ACE Tern 2004 training, TimeBank, WikiWars, and 
-      WikiWars_DE.
+      several corpora can be processed, e.g.: ACE Tern 2004 training, WikiWars, and WikiWars_DE.
       
     * TempEval-2 Reader: This Collection Reader reads the TempEval-2 input data of the training 
       and the evaluation sets and annotates the document creation time as well as token and 
@@ -89,14 +90,13 @@ contains:
       meta information.
       
     * TreeTaggerWrapper: This Analysis Engine produces Token, Sentence and Part-of-Speech annotations
-      required by HeidelTime by using the language independent TreeTagger tool.
+      required by HeidelTime by using the multilingual TreeTagger tool.
       
     * StanfordPOSTaggerWrapper: This Analysis Engine produces Token, Sentence and Part-of-Speech
-      annotations required by HeidelTime by using the language independent Stanford POS Tagger.
+      annotations required by HeidelTime by using the multilingual Stanford POS Tagger.
       
     * JVnTextProWrapper: This Analysis Engine produces Token, Sentence and Part-of-Speech annotations
-      required by HeidelTime by using the language independent JVnTextPro tool for documents
-      in Vietnamese.
+      required by HeidelTime by using the JVnTextPro tool for documents in Vietnamese.
     
     * Annotation Translator: This Analysis Engine translates Sentence, Token, and Part-of-Speech 
       annotations of one type system into HeidelTime's type system.
@@ -133,9 +133,9 @@ set the environment variables.
    To be able to use HeidelTime, you have to install UIMA:
 	* Download UIMA:
 		- either from http://uima.apache.org/downloads.cgi or
-		- wget http://archive.apache.org/dist/uima/uimaj-2.3.1-bin.tar.gz
+		- wget http://archive.apache.org/dist/uima/uimaj-2.6.0/uimaj-2.6.0-bin.tar.gz
 	* Extract UIMA:
-		- tar xvfz uimaj-2.3.1-bin.tar.gz
+		- tar xvfz uimaj-2.6.0-bin.tar.gz
 	* Set environment variable (you can set variables globally, e.g., in your $HOME/.bashrc)
 		- set UIMA_HOME to the path of your "apache-uima" folder
 			* export UIMA_HOME="$(pwd)/apache-uima"
