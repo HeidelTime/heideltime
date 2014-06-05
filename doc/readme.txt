@@ -148,7 +148,7 @@ set the environment variables.
 
 2. Download and install the UIMA HeidelTime kit
 	* download the latest heideltime-kit from
-	  https://code.google.com/p/heideltime/downloads/list
+	  https://code.google.com/p/heideltime
 	* unzip or untar the heideltime-kit into a path called HEIDELTIME_HOME from hereon out.
 	* set the environment variable HEIDELTIME_HOME (you can set these variables globally, 
 	  e.g., in your $HOME/.bashrc):
