@@ -27,7 +27,11 @@ RULENAME="set_r1h",EXTRACTION="(%reApproximate )?([Tt]utt[eio]) (\bgli|\bi|\ble)
 RULENAME="set_r1i",EXTRACTION="%reUnit (dopo) %reUnit",NORM_VALUE="P1%normUnit4Duration(group(1))",NORM_QUANT="EVERY"
 RULENAME="set_r1j",EXTRACTION="(%reApproximate )?([Tt]utt[eio]) (\bgli|\bi|\ble) %rePartOfDay",NORM_VALUE="PT1%normPartOfDay(group(5))",NORM_QUANT="EVERY"
 
-
+RULENAME="set_r1k",EXTRACTION="[Dd]i (%reUnit in \2)",NORM_VALUE="P1%normUnit4Duration(group(2))",OFFSET="group(1)-group(1)"
+RULENAME="set_r1l",EXTRACTION="[Dd]i (%reUnitTime in \2)",NORM_VALUE="PT1%normUnit4Duration(group(2))",OFFSET="group(1)-group(1)"
+RULENAME="set_r1m",EXTRACTION="%reUnit dopo \1",NORM_VALUE="P1%normUnit4Duration(group(1))"
+RULENAME="set_r1n",EXTRACTION="%reUnitTime dopo \1",NORM_VALUE="PT1%normUnit4Duration(group(1))"
+RULENAME="set_r1o",EXTRACTION="(24|[Vv]entiquattr[o'])\s?ore su (24|ventiquattro)",NORM_VALUE="PT1H"
 // set_r2
 // EXAMPLE r2a-1: los fines de semana
 //RULENAME="set_r2a",EXTRACTION="(los) fines de semana",NORM_VALUE="XXXX-WXX-WE"

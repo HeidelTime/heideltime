@@ -1,0 +1,7 @@
+// This file contains "season words" and their normalized expressions
+// according to TIMEX3 format.
+
+"[Qq]uinquennio","5"
+"[Bb]iennio","2"
+"[Ll]ustro","5"
+"[Tt]riennio","3"

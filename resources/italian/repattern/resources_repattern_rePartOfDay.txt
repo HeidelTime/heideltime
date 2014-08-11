@@ -6,18 +6,21 @@
 // ITALIAN
 // MORNING
 [Mm]attin[aoe]
+[Mm]attinata
 // MIDDAY
-[Mm]eridione
 [Mm]ezzod(ì|i'|i)
 [Mm]ezzogiorno
 // AFTERNOON
-[Dd]opopranzo
-[Pp]omeriggio
+[Dd]opo[\s]?pranzo
+[Pp]omeriggi[oi]
 // EVENING
-[Ss]era(ta)?
+[Ss]er[ae]
+[Ss]erat[ae]
 // NIGHT
-[Nn]ottata
+[Nn]ottat[ae]
 [Mm]ezzanotte
 [Nn]ott[ei]
 // DAYTIME
-[Gg]iornata
+[Gg]iornat[ae]
+[Gg]iornat[ae] lavorativ[ae]
+[Gg]iorn[oi] lavorativ[oi]

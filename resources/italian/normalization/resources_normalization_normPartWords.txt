@@ -5,27 +5,7 @@
 // according to TIMEX3 format. 
 // For example, the normalized value of "the middle of" is "MID"
 // FORMAT: "part word","normalized-part-word"
-// START
-"[Cc]omienzo del?","START"
-"[Ii]nicio del?","START"
-"[Mm]ás temprano","START"
-"[Pp]rincipios? del?","START"
-"[Tt]emprano","START"
-// MID
-"[Mm]ediados","MID"
-"[Mm]edio del?","MID"
-"[Mm]edio","MID"
-"[Mm]itad del?","MID"
-// END
-"[Ff]inal(es)? del?","END"
-"[Ff]in(es?)? del?","END"
-"[Tt]arde","END"
-"[Mm]ás tarde","END"
-// OTHER
-"[Ff]iscal\-?",""
 
-
-// ITALIAN
 // START
 "[Ll]'( )?inizio( di| della| dell'| del)?","START"
 "[Ii]nizio( di| della| dell'| del)?","START"
@@ -33,7 +13,7 @@
 "[Pp]rimi( di| della| dell'| del)?","START"
 "[Ll]'( )?alba( di| della| dell'| del)?","START"
 "[Aa]lba( di| della| dell'| del)?","START"
-"[Pp]rimera met(à|a'|a)","START"
+"[Pp]rima met(à|a'|a)","START"
 "[Pp]rincipio","START"
 // MID
 "[Mm]et(à|a'|a)","MID"
@@ -43,4 +23,7 @@
 "[Tt]ard[oa]","END"
 "[Uu]ltimi","END"
 "[Ss]econda met(à|a'|a)","END"
+
+"[Ii]l termine( di| della| dell'| del)?","END"
+"[Tt]ermine( di| della| dell'| del)?","END"
 

@@ -8,7 +8,7 @@
 [Aa]utunno
 [Ii]nverno
 [Vv]erno
-[Ii]nvernale
-[Aa]utunnale
-[Ee]stiv[oa]
-[Pp]rimaverile
+[Ii]nvernal[ei]
+[Aa]utunnal[ei]
+[Ee]stiv[oaei]
+[Pp]rimaveril[ei]

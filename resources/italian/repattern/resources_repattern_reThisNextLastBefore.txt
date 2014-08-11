@@ -1,24 +1,18 @@
-// author: Jannik Strötgen
-// email:  stroetgen@uni-hd.de
-// date:   2012-07-16
 // This file contains regular expression patterns for "this/next/last" words.
 // FORMAT: one line is one disjunction of the pattern
 // THIS
 //[Ff]ollowing and similar expressions -> handled differently using UNDEF-REF
 // ITALIAN
 // THIS
-[Qq]uest[oa']
-[Ii]n cors[oa]
-[Cc]orrent[ei]
+[Qq]uest[oaei']
 // NEXT
-[Pp]rossim[oa]
+[Pp]rossim[oaei]
 // LAST
-[Ss]cors[oa]
-[Qq]uest[oa'][\s]?ultim[oa]
-[Uu]ltim[oa]
-[Pp]assat[oa]
-[Pp]recedente
-[Pp]rim[oa]
+[Ss]cors[oaei]
+[Qq]uest[oaei'][\s]?ultim[oaei]
+[Uu]ltim[oaei]
+[Pp]recedent[ei]
+[Pp]rim[oaei]
 
 
 

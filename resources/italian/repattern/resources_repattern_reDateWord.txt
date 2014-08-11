@@ -4,30 +4,65 @@
 // This file contains regular expression patterns for date words.
 // FORMAT: one line is one disjunction of the pattern
 // THESE EXPRESSIONS ARE ALL IMPLICITS
-\b[Aa] questo punto
-[Aa]ttualmente
-//[Aa]ttuale
-[Aa]desso
-[Aa]vantieri
-[Aa]vant'ieri
-[Ii]eri l'altro
-[Ll]'altro ieri
+// Resolvable
+[Aa]vant'?[\s]?ieri
+[Ii]eri l'[\s]?altro
+[Ll]'[\s]altro ieri
 [Ii]eri
+
+[Oo]ggi
+
+[Dd]opodomani
+[Pp]osdomani
+[Dd]omani
+
+
+// Fuzzy dates
+
+// PAST_REF according to specificheEvalita_1-27_03_2014.pdf page 39
+[Ii]n passato
+[Rr]ecentemente
+[Pp]oco fa
+//[Ii]l passato
+[Tt]empo fa
+[Gg]iorni fa
+
+// PAST_REF continued
+[Rr]ecent[ei](ssim[oaie])?
+[Dd]i fresco
+[Dd]i recente
+[Uu]ltimamente
+[FfSs]inora
+(?<=[FfSs]ino[\s]ad?[\s])ora
+//[Pp]assat[oaei]
+
+// PRESENT_REF according to specificheEvalita_1-27_03_2014.pdf page 39
+[Aa]desso
+[Pp]er ora
+[Aa]l momento
+[Ii]n questi gironi
+[Tt]uttora
+//[Ii]l presente
+//[Nn]el presente
+\b[Aa] oggi
+
+// PRESENT_REF continued
+[Aa]ttualmente
+[Aa]ttual[ei](ssim[oaei])?
 [Aa]l giorno d'oggi
 [Oo]diern[ae]
 [Oo]ggi come oggi
 [Oo]ggid(ì|i'|i)
 [Oo]ggigiorno
-[Oo]ggi
-[Dd]opodomani
-[Pp]er ora
 [Pp]er il momento
-[Pp]osdomani
-[Dd]omani
-[Rr]ecentemente
-[Dd]i fresco
-[Dd]i recente
-[Uu]ltimamente
-\b[Uu]n domani
-//[Ff]inora
+\b[Aa] questo punto
+//[Pp]resent[ei]
 
+// FUTURE_REF according to specificheEvalita_1-27_03_2014.pdf page 39
+[Ii]n futuro
+//[IiAa]l futuro
+//[Ii]l domani
+// FUTURE_REF continued
+\b[Uu]n domani
+(?<=[Dd]'[\s]?)ora in avanti
+//[Ff]utur[oaei]

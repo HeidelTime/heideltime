@@ -1,0 +1,7 @@
+// This file contains regular expression patterns for short months.
+// FORMAT: one line is one disjunction of the pattern
+
+[Qq]uinquennio
+[Bb]iennio
+[Ll]ustro
+[Tt]riennio

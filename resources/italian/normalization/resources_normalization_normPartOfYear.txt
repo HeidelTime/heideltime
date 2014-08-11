@@ -5,12 +5,28 @@
 // according to TIMEX3 format.
 // For example, the normalized value of "first quarter" is "Q1"
 // FORMAT: "parts-of-year-word","normalized-parts-of-year-word"
+
+// bimestre
+"[Pp]rimo bimestre","B1"
+"[Ss]econdo bimestre","B2"
+"[Tt]erzo bimestre","B3"
+"[Qq]uarto bimestre","B4"
+"[Qq]uinto bimestre","B5"
+"[Ss]esto bimestre","B6"
+
+// trimestre
 "[Pp]rimo trimestre","Q1"
 "[Ss]econdo trimestre","Q2"
 "[Tt]erzo trimestre","Q3"
 "[Qq]uarto trimestre","Q4"
-"[Pp]rima met(à|a'|a)","H1"
-"[Ss]econda met(à|a'|a)","H2"
-"[Pp]rima quadrimestre","Qu1"
-"[Ss]econda quadrimestre","Qu2"
-"[Tt]erza quadrimestre","Qu3"
+
+// quadrimestre
+"[Pp]rimo quadrimestre","Qu1"
+"[Ss]econdo quadrimestre","Qu2"
+"[Tt]erzo quadrimestre","Qu3"
+
+// semestre
+"[Pp]rimo semestre","H1"
+"[Ss]econdo semestre","H2"
+"[Pp]rima met(à|a')","H1"
+"[Ss]econda met(à|a')","H2"

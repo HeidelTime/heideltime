@@ -17,7 +17,7 @@
 [Vv]entuno
 [Vv]entidue
 [Vv]entitr(é|e)
-[Vv]entiquattro
+[Vv]entiquattr[o']
 [Vv]enticinque
 [Vv]entisei
 [Vv]entisette
@@ -27,7 +27,7 @@
 [Tt]rentuno
 [Tt]rentadue
 [Tt]rentatr(é|e)
-[Tt]rentaquattro
+[Tt]rentaquattr[o']
 [Tt]rentacinque
 [Tt]rentasei
 [Tt]rentasette
@@ -37,7 +37,7 @@
 [Qq]uarantuno
 [Qq]uarantadue
 [Qq]uarantatr(é|e)
-[Qq]uarantaquattro
+[Qq]uarantaquattr[o']
 [Qq]uarantacinque
 [Qq]uarantasei
 [Qq]uarantasette
@@ -47,7 +47,7 @@
 [Cc]inquantuno
 [Cc]inquantadue
 [Cc]inquantatr(é|e)
-[Cc]inquantaquattro
+[Cc]inquantaquattr[o']
 [Cc]inquantacinque
 [Cc]inquantasei
 [Cc]inquantasette
@@ -57,7 +57,7 @@
 [Ss]essantuno
 [Ss]essantadue
 [Ss]essantatr(é|e)
-[Ss]essantaquattro
+[Ss]essantaquattr[o']
 [Ss]essantacinque
 [Ss]essantasei
 [Ss]essantasette
@@ -67,7 +67,7 @@
 [Ss]ettantuno
 [Ss]ettantadue
 [Ss]ettantatr(é|e)
-[Ss]ettantaquattro
+[Ss]ettantaquattr[o']
 [Ss]ettantacinque
 [Ss]ettantasei
 [Ss]ettantasette
@@ -77,7 +77,7 @@
 [Oo]ttantuno
 [Oo]ttantadue
 [Oo]ttantatr(é|e)
-[Oo]ttantaquattro
+[Oo]ttantaquattr[o']
 [Oo]ttantacinque
 [Oo]ttantasei
 [Oo]ttantasette
@@ -87,7 +87,7 @@
 [Nn]ovantuno
 [Nn]ovantadue
 [Nn]ovantatr(é|e)
-[Nn]ovantaquattro
+[Nn]ovantaquattr[o']
 [Nn]ovantacinque
 [Nn]ovantasei
 [Nn]ovantasette

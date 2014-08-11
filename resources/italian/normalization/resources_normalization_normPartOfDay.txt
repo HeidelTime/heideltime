@@ -5,35 +5,23 @@
 // according to TIMEX3 format.
 // For example, the normalized value of "morning" is "MO"
 // FORMAT: "part-of-day-word","normalized-part-of-day-word"
-// MORNING
-"[Mm]añanas?","MO"
-"[Mm]edia mañanas?","MO"
-"[Mm]adrugada","MO"
-// MIDDAY
-"[Mm]ediodía","MI"
-// AFTERNOON
-"[Tt]ardes?","AF"
-"[Mm]edia tardes?","AF"
-// NIGHT
-"[Nn]oches?","NI"
-"[Mm]edianoche","24:00"
-"[Mm]edias noches","24:00"
 
-// ITALIAN
 // MORNING
-"[Mm]attin[aoe]","MO"
+"[Mm]attin(at)?[aoe]","MO"
 // MIDDAY
 "[Mm]eridione","MI"
 "[Mm]ezzod(ì|i')","MI"
 "[Mm]ezzogiorno","MI"
 // AFTERNOON
-"[Dd]opopranzo","AF"
-"[Pp]omeriggio","AF"
+"[Dd]opo[\s]?pranzo","AF"
+"[Pp]omeriggi[oi]","AF"
 // EVENING
-"[Ss]era(ta)?","EV"
+"[Ss]er(at)?[ae]","EV"
 // NIGHT
 "[Nn]ott[ei]","NI"
-"[Nn]ottata","NI"
+"[Nn]ottat[ae]","NI"
 "[Mm]ezzanotte","00:00"
 // DAYTIME
-"[Gg]iornata","DT"
+"[Gg]iornat[ae]","DT"
+"[Gg]iornat[ae] lavorativ[ae]","DT"
+"[Gg]iorn[oi] lavorativ[oi]","DT"

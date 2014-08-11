@@ -1,0 +1,17 @@
+// FORMAT: one line is one disjunction of the pattern
+// Postmodifiers reffering to the present
+
+esaminat[oa]
+in esame
+in analisi
+analizzat[oa]
+pres[oa] in esame
+considerat[oa]
+in questione
+in discussione
+di che trattasi
+sotto esame
+pres[oa] in considerazione
+in argomento
+di cui si (parla|tratta|discute)
+de qu[oa]

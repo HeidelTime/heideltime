@@ -5,19 +5,20 @@
 // FORMAT: one line is one disjunction of the pattern
 [Aa]ll'( )?anno
 //[Ll]'( )?anno
-[Aa]nnuale
+annual[ei]
 [Aa]nnualmente
-[Aa]nnu[oa]
+annualizzat[oaei]
+annu[oaie]
 [Pp]er anno
-[Mm]ensile
-[Cc]otidian[oa]
-[Dd]i ogni giorno
-[Dd]i tutti i giorni
-[Gg]iornalier[oa]
+mensil[ei]
+cotidian[oaie]
+di ogni giorno
+di tutti i giorni
+giornalier[oaie]
 [Gg]iornalmente
 [Qq]uotidianamente
-//[Qq]uotidian[aeo]
+//[Qq]uotidian[aeoi]
 [Aa](lla)? settimana	 
-[Ee]bdomadari[oa]
+ebdomadari[oaie]?
 [Ss]ettimanale
 [Ss]ettimanalmente

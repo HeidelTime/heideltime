@@ -80,7 +80,7 @@ RULENAME="date_r1c",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[
 RULENAME="date_r1d",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?(%reDayNumber|%reDayWordTh|%reDayWord) (%reMonthLong|%reMonthShort)( del? | )%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(13)-%normMonth(group(9))-%normDay(group(5))",NORM_MOD="%normPartWords(group(2))"
 
 // date_r2
-// EXAMPLE r2a_1: el 5 de abril
+// EXAMPLE r2a_1: el 5 de abril/il 5 di aprile
 // EXAMPLE r2a_2: el primero de abril
 // EXAMPLE r2b_1: el 5 o 6 de abril (find: abril 5)
 // EXAMPLE r2c_1: el día 5 y el día 6 de abril (find: abril 5)
@@ -92,19 +92,25 @@ RULENAME="date_r2c",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[
 // date_r3
 // EXAMPLE r3a_1: el lunes tres de abril del 2010
 // EXAMPLE r3a_1: el lunes tres de abril
-RULENAME="date_r3a",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reWeekday (%reDayNumber|%reDayWordTh|%reDayWord)( di | )(%reMonthLong|%reMonthShort)( del? | )%reYear4Digit",NORM_VALUE="group(15)-%normMonth(group(11))-%normDay(group(6))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r3a",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reWeekday (%reDayNumber|%reDayWordTh|%reDayWord)( di | )(%reMonthLong|%rheMonthShort)( del? | )%reYear4Digit",NORM_VALUE="group(15)-%normMonth(group(11))-%normDay(group(6))",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_r3b",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reWeekday (%reDayNumber|%reDayWordTh|%reDayWord)( di | )(%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(11))-%normDay(group(6))",NORM_MOD="%normPartWords(group(2))"
 
 
 // date_r4
-// EXAMPLE r4a_1: hoy
+// EXAMPLE r4a_1: oggi
 // EXAMPLE r4a_2: hoy mismo
 // EXAMPLE r4b_1: al día de hoy
 // EXAMPLE r4c_1: hoy, lunes
 // EXAMPLE r4d_1: el lunes
+// EXAMPLE r4f: ora
 RULENAME="date_r4a",EXTRACTION="(%reApproximate )?%reDateWord",NORM_VALUE="%normDateWord(group(3))"
 RULENAME="date_r4d",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(5))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r4e",EXTRACTION="[Gg]ià (allora)",NORM_VALUE="UNDEF-REFDATE",OFFSET="group(1)-group(1)"
 
+RULENAME="date_r4f",EXTRACTION="\b([Oo]ra)\b",NORM_VALUE="%normDateWord(group(1))",POS_CONSTRAINT="group(1):ADV:"
+RULENAME="date_r4g",EXTRACTION="%reTemporalAdjective",NORM_VALUE="%normDateWord(group(1))",POS_CONSTRAINT="group(1):ADJ:"
+RULENAME="date_r4h",EXTRACTION="[Nn]el (presente|passato|futuro)",NORM_VALUE="%normDateWord(group(1))",OFFSET="group(1)-group(1)",POS_CONSTRAINT="group(1):NOM:"
+RULENAME="date_r4i",EXTRACTION="%rePP (presente|passato|futuro)",NORM_VALUE="%normDateWord(group(2))",OFFSET="group(2)-group(2)",POS_CONSTRAINT="group(2):NOM:"
 
 //////////////////////
 // WEEK GRANULARITY //
@@ -129,10 +135,10 @@ RULENAME="date_r6c",EXTRACTION="(%reMonthLong|%reMonthShort)%reAndOrTo(%reMonthL
 RULENAME="date_r6d",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?(mese d[i'][\s]?|mensile d[i'][\s]?)?(%reMonthLong)",NORM_VALUE="UNDEF-year-%normMonth(group(6))",NORM_MOD="%normPartWords(group(2))"
 
 // date_r7
-// EXAMPLE r7a_1: abril del año anterior
-// EXAMPLE r7a_2: mayo del año pasado
-RULENAME="date_r7a",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?(mese d[i'][\s]?|mensile d[i'][\s]?)?%reMonthLong (d[ae]ll'[\s]?anno) %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(8))-year-%normMonth(group(6))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r7b",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?(mese d[i'][\s]?|mensile d[i'][\s]?)?%reMonthLong (d[ae]ll[o']) %reThisNextLast anno",NORM_VALUE="UNDEF-%normThisNextLast(group(8))-year-%normMonth(group(6))",NORM_MOD="%normPartWords(group(2))"
+// EXAMPLE r7a_1: metà del mese di aprile dell'anno scorso
+// EXAMPLE r7a_2: metà del mese di aprile dello scorso anno
+RULENAME="date_r7a",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?(mese d[i'][\s]?|mensile d[i'][\s]?)?%reMonthLong (d[ae]ll'[\s]?anno) %reThisNextLastAfter",NORM_VALUE="UNDEF-%normThisNextLast(group(8))-year-%normMonth(group(6))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r7b",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?(mese d[i'][\s]?|mensile d[i'][\s]?)?%reMonthLong (d[ae]ll[o']) %reThisNextLastBefore anno",NORM_VALUE="UNDEF-%normThisNextLast(group(8))-year-%normMonth(group(6))",NORM_MOD="%normPartWords(group(2))"
 
 
 ////////////////////////
@@ -144,24 +150,26 @@ RULENAME="date_r7b",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[
 // EXAMPLE r8c_1: todo el verano pasado
 RULENAME="date_r8a",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reSeason( d[ae]ll'[\s]?| del | di | il? | la | )%reYear4Digit",NORM_VALUE="group(7)-%normSeason(group(5))",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_r8b",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reSeason",NORM_VALUE="UNDEF-year-%normSeason(group(5))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r8c",EXTRACTION="(\b[Dd][ae]ll'[\s]?|\b[Dd]el |\b[Dd]i |\b[Ii]l? |\b[Ll][oa'][\s]?)?%reSeason %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(3))-year-%normSeason(group(2))"
-RULENAME="date_r8d",EXTRACTION="(\b[Dd][ae]ll'[\s]?|\b[Dd]el |\b[Dd]i |\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLast %reSeason",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-year-%normSeason(group(3))"
+RULENAME="date_r8c",EXTRACTION="(\b[Dd][ae]ll'[\s]?|\b[Dd]el |\b[Dd]i |\b[Ii]l? |\b[Ll][oa'][\s]?)?%reSeason %reThisNextLastAfter",NORM_VALUE="UNDEF-%normThisNextLast(group(3))-year-%normSeason(group(2))"
+RULENAME="date_r8d",EXTRACTION="(\b[Dd][ae]ll'[\s]?|\b[Dd]el |\b[Dd]i |\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLastBefore %reSeason",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-year-%normSeason(group(3))"
 
 
 //////////////////////////////
 // PART-OF-YEAR GRANULARITY //
 //////////////////////////////
 // date_r9
-// EXAMPLE r9a_1: el último trimestre de 1999
+// EXAMPLE r9a_1: el último trimestre de 1999\primo trimestre 1994
 // EXAMPLE r9b_1: el último trimestre
-RULENAME="date_r9a",EXTRACTION="(\b[Ii]l |\b[Ll][oa'][\s]?)?%rePartOfYear( d[ae]ll'[\s]?| del | di | degli | )%reYear4Digit",NORM_VALUE="group(4)-%normPartOfYear(group(2))"
-RULENAME="date_r9b",EXTRACTION="(\b[Ii]l |\b[Ll][oa'][\s]?)?%rePartOfYear",NORM_VALUE="UNDEF-year-%normPartOfYear(group(2))"
+//RULENAME="date_r9a",EXTRACTION="(\b[Ii]l |\b[Ll][oa'][\s]?)?%rePartOfYear( dell'[\s]?| del | )([']?%reYear2Digit|%reYear4Digit)",NORM_VALUE="UNDEF-centurygroup(4)-%normPartOfYear(group(2))"
+RULENAME="date_r9a",EXTRACTION="(\b[Ii]l |\b[Ll][oa'][\s]?)?%rePartOfYear( dell'[\s]?| del | )%reYear4Digit",NORM_VALUE="group(4)-%normPartOfYear(group(2))"
+RULENAME="date_r9b",EXTRACTION="(\b[Ii]l |\b[Ll][oa'][\s]?)?%rePartOfYear( dell'[\s]?| del | )[']?%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(4)-%normPartOfYear(group(2))"
+RULENAME="date_r9c",EXTRACTION="(\b[Ii]l |\b[Ll][oa'][\s]?)?%rePartOfYear",NORM_VALUE="UNDEF-year-%normPartOfYear(group(2))"
 
 // date_r10
 // EXAMPLE r10a_1: el primer trimestre del presente año
 // EXAMPLE r10b_1: el primer trimestre del año pasado
-RULENAME="date_r10a",EXTRACTION="(\b[Ii]l |\b[Ll][oa'][\s]?)?%rePartOfYear( d[ae]ll'[\s]?| del | di | degli | )%reThisNextLast anno",NORM_VALUE="UNDEF-%normThisNextLast(group(4))-year-%normPartOfYear(group(2))"
-RULENAME="date_r10b",EXTRACTION="(\b[Ii]l |\b[Ll][oa'][\s]?)?%rePartOfYear( d[ae]ll'[\s]?| del | di | degli | )anno %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(4))-year-%normPartOfYear(group(2))"
+RULENAME="date_r10a",EXTRACTION="(\b[Ii]l |\b[Ll][oa'][\s]?)?%rePartOfYear( dell'[\s]?| del | )%reThisNextLastBefore anno",NORM_VALUE="UNDEF-%normThisNextLast(group(4))-year-%normPartOfYear(group(2))"
+RULENAME="date_r10b",EXTRACTION="(\b[Ii]l |\b[Ll][oa'][\s]?)?%rePartOfYear dell'[\s]?anno %reThisNextLastAfter",NORM_VALUE="UNDEF-%normThisNextLast(group(4))-year-%normPartOfYear(group(2))"
 
 
 //////////////////////
@@ -175,8 +183,8 @@ RULENAME="date_r10b",EXTRACTION="(\b[Ii]l |\b[Ll][oa'][\s]?)?%rePartOfYear( d[ae
 // EXAMPLE r11d_1: millenovecentosettantatre
 // EXAMPLE r11f_1: duemiladue
 // EXAMPLE r11g_1: Duemileundici
-RULENAME="date_r11a",EXTRACTION="(%rePartWords )?(\b[Ii]l |\b[Ll]'[\s]?)?(mism[oa] )?([Aa]nno )?%reYear4Digit",NORM_VALUE="group(6)",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r11b",EXTRACTION="(\b[Ii]l )?%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]egli )?([Ii]l )?(anno )?%reYear4Digit",NORM_VALUE="group(6)",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r11a",EXTRACTION="(%rePartWords )?(\b[Ii]l |\b[Ll]'[\s]?)?(medesimo |stesso| solo)?([Aa]nno )?%reYear4Digit",NORM_VALUE="group(6)",NORM_MOD="%normPartWords(group(2))"
+//
 RULENAME="date_r11c",EXTRACTION="%reYear4Digit%reAndOrTo%reYear2Digit",NORM_VALUE="%SUBSTRING%(group(1),0,2)group(3)",OFFSET="group(3)-group(3)"
 RULENAME="date_r11d",EXTRACTION="[Mm]ille[\\s]?(%reNumWord1D)centos?[\\s]?%reNumWord2D",NORM_VALUE="1%normDurationNumber(group(1))%normDurationNumber(group(3))"
 RULENAME="date_r11e",EXTRACTION="[Mm]ille[\\s]?(%reNumWord1D)centos?[\\s]?%reNumWord1D",NORM_VALUE="1%normDurationNumber(group(1))0%normDurationNumber(group(3))"
@@ -187,11 +195,16 @@ RULENAME="date_r11h",EXTRACTION="(\b[Tt]ra|[Dd]all?[oa']?) ((l'[\s]?)?%reYear2Di
 RULENAME="date_r11i",EXTRACTION="(\b[Tt]ra|[Dd]all?[oa']?) ((l'[\s]?)?%reYear2Digit) (e|all?[oa']?) ((l'[\s]?)?%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(8)",OFFSET="group(6)-group(6)"
 
 RULENAME="date_r11j",EXTRACTION="([Nn]el |[Dd]al |[Dd]el )(%reYear4Digit)",NORM_VALUE="group(3)",OFFSET="group(2)-group(2)"
-RULENAME="date_r11k",EXTRACTION="([Nn]el |[Dd]al |[Dd]el )([']?%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(3)",OFFSET="group(2)-group(2)"
+RULENAME="date_r11k",EXTRACTION="([Nn]el|[Dd]al|[Dd]el)( |l'[\s]?)([']?%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(4)",OFFSET="group(3)-group(3)"
 RULENAME="date_r11l",EXTRACTION="([Nn]el |[Dd]al |[Dd]el )?([Aa]nno )([']?%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(4)",OFFSET="group(2)-group(3)"
 RULENAME="date_r11m",EXTRACTION="((%rePartWords[\s]?)?([Nn]el |[Dd]al |[Dd][ae]ll'|[Dd]el )?([Aa]nno )([']?%reYear2Digit))",NORM_VALUE="UNDEF-centurygroup(7)",NORM_MOD="%normPartWords(group(3))"
 
+RULENAME="date_r11n",EXTRACTION="([Bb]ilancio|[Ee]sercizio) [']?%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)",OFFSET="group(2)-group(2)"
+RULENAME="date_r11o",EXTRACTION="([Bb]ilancio|[Ee]sercizio) %reYear4Digit",NORM_VALUE="group(2)",OFFSET="group(2)-group(2)"
+RULENAME="date_r11p",EXTRACTION="[Ee]ntro (l'[\s]?anno)",NORM_VALUE="UNDEF-this-year-PLUS-0",OFFSET="group(1)-group(1)"
 
+RULENAME="date_r11q",EXTRACTION="(\b[Ii]l )?%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]egli )?([Ii]l )?(anno )?[']?%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(6)",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r11r",EXTRACTION="(\b[Ii]l )?%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]egli )?([Ii]l )?(anno )?%reYear4Digit",NORM_VALUE="group(6)",NORM_MOD="%normPartWords(group(2))"
 
 ////////////////////////
 // DECADE GRANULARITY //
@@ -221,7 +234,7 @@ RULENAME="date_r13a",EXTRACTION="(%rePartWords )?(\[Dd]el |\b[Ee]l )?%reDayRoman
 // GRANULARITY INDEPENDENT RULES //
 ///////////////////////////////////
 // date_r15
-// EXAMPLE r15a_1: la última semana
+// EXAMPLE r15a_1: la última semana - l'ultima settimana/il primo fine settimana
 // EXAMPLE r15b_1: la semana pasada
 // EXAMPLE r15c_1: el pasado octubre
 // EXAMPLE r15d_1: septiembre próximo
@@ -234,26 +247,36 @@ RULENAME="date_r13a",EXTRACTION="(%rePartWords )?(\[Dd]el |\b[Ee]l )?%reDayRoman
 // EXAMPLE r15k_1: al 28 de abril próximos
 // EXAMPLE r15l_1: el día
 // EXAMPLE r15m_1: principios de siglo
-RULENAME="date_r15a",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLast %reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normUnit(group(6))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r15b",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reUnit %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(6))-%normUnit(group(5))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r15c",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLast (mese d[i'][\s]?|mensile d[i'][\s]?)?%reMonthLong",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normMonthToEnglish(group(7))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r15d",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?(mese d[i'][\s]?|mensile d[i'][\s]?)?%reMonthLong %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(7))-%normMonthToEnglish(group(6))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r15e",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLast %reDayNumber( di | )%reMonthLong",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normMonthToEnglish(group(8))-%normDay(group(6))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r15k",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?(%reDayNumber)( di | )%reMonthLong %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(9))-%normMonthToEnglish(group(8))-%normDay(group(5))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r15f",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLast %reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normWeekday(group(6))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r15g",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reWeekday %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(6))-%normWeekday(group(5))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r15h",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLast %reSeason",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normSeason(group(6))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r15i",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reSeason %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(6))-%normSeason(group(5))",NORM_MOD="%normPartWords(group(2))"
+// EXAMPLE r15p: il prossimo anno fiscale
+RULENAME="date_r15a",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLastBefore %reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normUnit(group(6))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r15b",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reUnit %reThisNextLastAfter",NORM_VALUE="UNDEF-%normThisNextLast(group(6))-%normUnit(group(5))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r15c",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLastBefore (mese d[i'][\s]?|mensile d[i'][\s]?)?%reMonthLong",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normMonthToEnglish(group(7))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r15d",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?(mese d[i'][\s]?|mensile d[i'][\s]?)?%reMonthLong %reThisNextLastAfter",NORM_VALUE="UNDEF-%normThisNextLast(group(7))-%normMonthToEnglish(group(6))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r15e",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLastBefore %reDayNumber( di | )%reMonthLong",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normMonthToEnglish(group(8))-%normDay(group(6))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r15k",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?(%reDayNumber)( di | )%reMonthLong %reThisNextLastAfter",NORM_VALUE="UNDEF-%normThisNextLast(group(9))-%normMonthToEnglish(group(8))-%normDay(group(5))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r15f",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLastBefore %reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normWeekday(group(6))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r15g",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reWeekday %reThisNextLastAfter",NORM_VALUE="UNDEF-%normThisNextLast(group(6))-%normWeekday(group(5))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r15h",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLastBefore %reSeason",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normSeason(group(6))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r15i",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reSeason %reThisNextLastAfter",NORM_VALUE="UNDEF-%normThisNextLast(group(6))-%normSeason(group(5))",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_r15j",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?([Ss]tess[oa]) %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(6))-PLUS-0",NORM_MOD="%normPartWords(group(2))"
 //RULENAME="date_r15l",EXTRACTION="(%rePartWords )([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )%reUnit",NORM_VALUE="UNDEF-this-%normUnit(group(4))",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_r15l",EXTRACTION="(%rePartWords )([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?%reUnit",NORM_VALUE="UNDEF-this-%normUnit(group(4))",NORM_MOD="%normPartWords(group(2))"
 
+
 // NOT VERY GOOD AT ALL
 //RULENAME="date_r15m",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?([Pp]recedente) %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(6))-MINUS-1",NORM_MOD="%normPartWords(group(2))"
 //RULENAME="date_r15n",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reUnit ([Pp]recedente)",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-MINUS-1",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r15o",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLastBefore %reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normUnit(group(6))",NORM_MOD="%normPartWords(group(2))"
+
+RULENAME="date_r15p",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLastBefore anno fiscale",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-year-FY",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r15p",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)? anno fiscale %reThisNextLastAfter",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-year-FY",NORM_MOD="%normPartWords(group(2))"
+
+RULENAME="date_r15q",EXTRACTION="%reArticle %reUnit %rePostmodifiers",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-PLUS-0"
+RULENAME="date_r15r",EXTRACTION="%reArticle %reUnit (seguente|successiv[oa]|che segue|che verrà)",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-PLUS-1"
+RULENAME="date_r15s",EXTRACTION="%reArticle %reUnit precedente",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-MINUS-1"
 
 // date_r16 (después) --> annotated in Italian TempEval like this?
-// EXAMPLE r16a_1: dos meses después
+// EXAMPLE r16a_1: dos meses después (dopo)
 // EXAMPLE r16b_1: 2 meses después
 // EXAMPLE r16c_1: un mes después
 //RULENAME="date_r16a",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) (%reUnit|minutos|horas) después",NORM_VALUE="UNDEF-this-%normUnit(group(6))-PLUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
@@ -261,7 +284,7 @@ RULENAME="date_r15l",EXTRACTION="(%rePartWords )([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i 
 //RULENAME="date_r16c",EXTRACTION="(%reApproximate )?([Uu]na?) (%reUnit|minutos|horas) después",NORM_VALUE="UNDEF-this-%normUnit(group(4))-PLUS-1",NORM_MOD="%normApprox4Dates(group(2))"
 
 // date_r17 (atrás) --> annotated in Italian TempEval like this?
-// EXAMPLE r17a_1: dos meses atrás
+// EXAMPLE r17a_1: dos meses atrás (addietro)
 // EXAMPLE r17b_1: 2 meses atrás
 // EXAMPLE r17c_1: un mes atrás
 //RULENAME="date_r17a",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) (%reUnit|minutos|horas) atrás",NORM_VALUE="UNDEF-this-%normUnit(group(6))-MINUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
@@ -274,12 +297,12 @@ RULENAME="date_r24b",EXTRACTION="%reHolidayFix %reYear4Digit",NORM_VALUE="group(
 RULENAME="date_r24c",EXTRACTION="%reHolidayFix %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayFix(group(1))"
 RULENAME="date_r24d",EXTRACTION="%reHolidayFix '%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayFix(group(1))"
 
-
+RULENAME="date_r25a",EXTRACTION="vigilia",NORM_VALUE="UNDEF-this-year-XX-XX"
 
 ////////////////////
 // NEGATIVE RULES //
 ////////////////////
-RULENAME="date_r1a_negative",EXTRACTION="[Aa]hora que",NORM_VALUE="REMOVE"
+//RULENAME="date_r1a_negative",EXTRACTION="[Aa]hora que",NORM_VALUE="REMOVE"
 
 // EXAMPLE r3a_negative_1: 2000 soldiers (four digit number followed by a plural noun)
 // EXAMPLE r3b_negative_1: 2000 dead soldiers (four digit number followed by an adjective and a plural noun)
@@ -287,10 +310,13 @@ RULENAME="date_r1a_negative",EXTRACTION="[Aa]hora que",NORM_VALUE="REMOVE"
 RULENAME="date_r3a_negative",EXTRACTION="(%reYear4Digit a )?%reYear4Digit (\b\S+i\b)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(4):NOM:"
 RULENAME="date_r3b_negative",EXTRACTION="(%reYear4Digit a )?%reYear4Digit (\b\S+s\b)[\s]?",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(4):NPR:"
 
-
 // EXAMPLE r4a_negative: W2000.1920
 RULENAME="date_r4a_negative",EXTRACTION="[\S]+%reYear4Digit\.%reYear4Digit",NORM_VALUE="REMOVE"
 
 // ITALIAN 
-RULENAME="date_r5a_negative",EXTRACTION=", (di )?%reYear2Digit anni(,| ,|\\.| \\.)",NORM_VALUE="REMOVE"
+RULENAME="date_r5a_negative",EXTRACTION=", (di )?\d{1,3} anni(,| ,|\.| \.)",NORM_VALUE="REMOVE"
+RULENAME="date_r5c_negative",EXTRACTION="(\d{1,4}|%reNumWord2D|%reNumWord1D) (al?|allo|alle|agli|ai) (\d{1,4}|%reNumWord2D|%reNumWord1D)(%| per cento| miliardi| milioni| [Ll]ire| [Ee]uro| dollari)",NORM_VALUE="REMOVE"
+RULENAME="date_r5d_negative",EXTRACTION="(\d{1,4}|%reNumWord2D|%reNumWord1D)(%| per cento| miliardi| milioni| [Ll]ire| [Ee]uro| dollari)",NORM_VALUE="REMOVE"
+RULENAME="date_r5e_negative",EXTRACTION="\b([Dd]i|[Aa]|[Dd]a|[Ii]n|[Cc]on|[Ss]u|[Pp]er|[FfTt]ra) \d{4}",NORM_VALUE="REMOVE"
 
+RULENAME="date_r6a_negative",EXTRACTION="\b[Vv]ia \w{1,3} %reMonthLong",NORM_VALUE="REMOVE"

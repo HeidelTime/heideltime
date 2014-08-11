@@ -3,15 +3,19 @@
 // date:   2012-07-24
 // This file contains regular expression patterns for unit words.
 // FORMAT: one line is one disjunction of the pattern
-[Gg]iornata lavorativa
-[Gg]iorn[oi] lavorativ[oi]
-[Gg]iorn[oi] feriale
+[Gg]iorn[oi] ferial[ei]
+[Gg]iorn[oi] festiv[oi]
 [Gg]iorn[oi]
 [Ff]ine settimana
+[Ww]eek[\s]?-?[\s]?end
 [Ss]ettiman[ae]
 [Mm]es[ei]
-[Tt]rimestre
 [Aa]nn[oi]
-[Dd]ecennio
-[Dd]ecade
+[Dd]ecennio?
+[Dd]ecad[ei]
 [Ss]ecol[io]
+
+//[Bb]imestr[ei]
+[Tt]rimestr[ei]
+//[Qq]uadrimestr[ei]
+//[Ss]emestr[ei]
