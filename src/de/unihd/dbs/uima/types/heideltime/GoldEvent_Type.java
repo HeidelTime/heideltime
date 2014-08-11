@@ -11,7 +11,7 @@ import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
 
 /** 
- * Updated by JCasGen Thu Sep 20 15:38:13 CEST 2012
+ * Updated by JCasGen Sun Aug 10 18:42:22 CEST 2014
  * @generated */
 public class GoldEvent_Type extends Event_Type {
   /** @generated */

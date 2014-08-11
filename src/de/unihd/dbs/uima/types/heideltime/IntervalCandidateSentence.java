@@ -10,7 +10,7 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** 
- * Updated by JCasGen Thu Sep 20 15:38:13 CEST 2012
+ * Updated by JCasGen Sun Aug 10 18:42:22 CEST 2014
  * XML source: /home/julian/heideltime/heideltime-kit/desc/type/HeidelTime_TypeSystem.xml
  * @generated */
 public class IntervalCandidateSentence extends Sentence {
@@ -51,10 +51,13 @@ public class IntervalCandidateSentence extends Sentence {
     readObject();
   }   
 
-  /** <!-- begin-user-doc -->
+  /** 
+   * <!-- begin-user-doc -->
     * Write your own initialization here
     * <!-- end-user-doc -->
-  @generated modifiable */
+  *
+   * @generated modifiable 
+   */
   private void readObject() {/*default - does nothing empty block */}
      
 }

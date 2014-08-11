@@ -67,6 +67,12 @@ public class RuleManager extends GenericResourceManager {
 	HashMap<String, String> hmTimePosConstraint = new HashMap<String, String>();
 	HashMap<String, String> hmDurationPosConstraint = new HashMap<String, String>();
 	HashMap<String, String> hmSetPosConstraint = new HashMap<String, String>();
+	
+	// EMPTYVALUE part of rules
+	HashMap<String, String> hmDateEmptyValue = new HashMap<String, String>();
+	HashMap<String, String> hmTimeEmptyValue = new HashMap<String, String>();
+	HashMap<String, String> hmDurationEmptyValue = new HashMap<String, String>();
+	HashMap<String, String> hmSetEmptyValue = new HashMap<String, String>();
 
 	/**
 	 * Constructor calls the parent constructor that sets language/resource
@@ -136,6 +142,7 @@ public class RuleManager extends GenericResourceManager {
 						String rule_freq = "";
 						String rule_mod = "";
 						String pos_constraint = "";
+						String rule_empty_value = "";
 
 						// //////////////////////////////////////////////////////////////////
 						// RULE EXTRACTION PARTS ARE TRANSLATED INTO REGULAR
@@ -210,6 +217,14 @@ public class RuleManager extends GenericResourceManager {
 									pos_constraint = rp.group(1);
 								}
 							}
+							if (r.group(4).contains("EMPTY_VALUE")) {
+								Pattern paEmpty = Pattern
+										.compile("EMPTY_VALUE=\"(.*?)\"");
+								for (MatchResult rp : Toolbox.findMatches(
+										paEmpty, line)) {
+									rule_empty_value = rp.group(1);
+								}
+							}
 						}
 
 						// ///////////////////////////////////////////
@@ -241,6 +256,11 @@ public class RuleManager extends GenericResourceManager {
 							if (!(pos_constraint.equals(""))) {
 								hmDatePosConstraint.put(rule_name,
 										pos_constraint);
+							}
+							// get empty value part
+							if (!(rule_empty_value.equals(""))) {
+								hmDateEmptyValue.put(rule_name,
+										rule_empty_value);
 							}
 						}
 
@@ -274,6 +294,11 @@ public class RuleManager extends GenericResourceManager {
 								hmDurationPosConstraint.put(rule_name,
 										pos_constraint);
 							}
+							// get empty value part
+							if (!(rule_empty_value.equals(""))) {
+								hmDurationEmptyValue.put(rule_name,
+										rule_empty_value);
+							}
 						}
 
 						// //////////////////////////////////////////
@@ -306,6 +331,11 @@ public class RuleManager extends GenericResourceManager {
 								hmSetPosConstraint.put(rule_name,
 										pos_constraint);
 							}
+							// get empty value part
+							if (!(rule_empty_value.equals(""))) {
+								hmSetEmptyValue.put(rule_name,
+										rule_empty_value);
+							}
 						}
 
 						// ///////////////////////////////////////////
@@ -337,6 +367,11 @@ public class RuleManager extends GenericResourceManager {
 							if (!pos_constraint.equals("")) {
 								hmTimePosConstraint.put(rule_name,
 										pos_constraint);
+							}
+							// get empty value part
+							if (!(rule_empty_value.equals(""))) {
+								hmTimeEmptyValue.put(rule_name,
+										rule_empty_value);
 							}
 						} else {
 							Logger.printDetail(component, "Resource not recognized by HeidelTime: "	+ resource);
@@ -468,6 +503,22 @@ public class RuleManager extends GenericResourceManager {
 
 	public final HashMap<String, String> getHmSetPosConstraint() {
 		return hmSetPosConstraint;
+	}
+
+	public final HashMap<String, String> getHmDateEmptyValue() {
+		return hmDateEmptyValue;
+	}
+
+	public final HashMap<String, String> getHmTimeEmptyValue() {
+		return hmTimeEmptyValue;
+	}
+
+	public final HashMap<String, String> getHmDurationEmptyValue() {
+		return hmDurationEmptyValue;
+	}
+
+	public final HashMap<String, String> getHmSetEmptyValue() {
+		return hmSetEmptyValue;
 	}
 
 }

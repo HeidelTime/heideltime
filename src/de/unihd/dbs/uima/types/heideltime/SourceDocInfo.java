@@ -11,7 +11,7 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Thu Sep 20 15:38:13 CEST 2012
+ * Updated by JCasGen Sun Aug 10 18:42:22 CEST 2014
  * XML source: /home/julian/heideltime/heideltime-kit/desc/type/HeidelTime_TypeSystem.xml
  * @generated */
 public class SourceDocInfo extends Annotation {
@@ -51,10 +51,13 @@ public class SourceDocInfo extends Annotation {
     readObject();
   }   
 
-  /** <!-- begin-user-doc -->
+  /** 
+   * <!-- begin-user-doc -->
     * Write your own initialization here
     * <!-- end-user-doc -->
-  @generated modifiable */
+  *
+   * @generated modifiable 
+   */
   private void readObject() {}
      
  
@@ -63,14 +66,18 @@ public class SourceDocInfo extends Annotation {
   //* Feature: uri
 
   /** getter for uri - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public String getUri() {
     if (SourceDocInfo_Type.featOkTst && ((SourceDocInfo_Type)jcasType).casFeat_uri == null)
       jcasType.jcas.throwFeatMissing("uri", "de.unihd.dbs.uima.types.heideltime.SourceDocInfo");
     return jcasType.ll_cas.ll_getStringValue(addr, ((SourceDocInfo_Type)jcasType).casFeatCode_uri);}
     
   /** setter for uri - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setUri(String v) {
     if (SourceDocInfo_Type.featOkTst && ((SourceDocInfo_Type)jcasType).casFeat_uri == null)
       jcasType.jcas.throwFeatMissing("uri", "de.unihd.dbs.uima.types.heideltime.SourceDocInfo");
@@ -81,14 +88,18 @@ public class SourceDocInfo extends Annotation {
   //* Feature: offsetInSource
 
   /** getter for offsetInSource - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public int getOffsetInSource() {
     if (SourceDocInfo_Type.featOkTst && ((SourceDocInfo_Type)jcasType).casFeat_offsetInSource == null)
       jcasType.jcas.throwFeatMissing("offsetInSource", "de.unihd.dbs.uima.types.heideltime.SourceDocInfo");
     return jcasType.ll_cas.ll_getIntValue(addr, ((SourceDocInfo_Type)jcasType).casFeatCode_offsetInSource);}
     
   /** setter for offsetInSource - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setOffsetInSource(int v) {
     if (SourceDocInfo_Type.featOkTst && ((SourceDocInfo_Type)jcasType).casFeat_offsetInSource == null)
       jcasType.jcas.throwFeatMissing("offsetInSource", "de.unihd.dbs.uima.types.heideltime.SourceDocInfo");

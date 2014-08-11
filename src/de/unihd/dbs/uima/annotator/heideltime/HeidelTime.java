@@ -315,7 +315,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 * @param jcas
 	 */
 	public void addTimexAnnotation(String timexType, int begin, int end, Sentence sentence, String timexValue, String timexQuant,
-			String timexFreq, String timexMod, String timexId, String foundByRule, JCas jcas) {
+			String timexFreq, String timexMod, String emptyValue, String timexId, String foundByRule, JCas jcas) {
 		
 		Timex3 annotation = new Timex3(jcas);
 		annotation.setBegin(begin);
@@ -323,6 +323,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 		annotation.setFilename(sentence.getFilename());
 		annotation.setSentId(sentence.getSentenceId());
+		
+		annotation.setEmptyValue(emptyValue);
 
 		FSIterator iterToken = jcas.getAnnotationIndex(Token.type).subiterator(sentence);
 		String allTokIds = "";
@@ -462,7 +464,6 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			Logger.printDetail(timex3.getTimexId()+" REMOVING PHASE: "+"found by:"+timex3.getFoundByRule()+" text:"+timex3.getCoveredText()+" value:"+timex3.getTimexValue());
 		}
 	}
-
 	
 	/**
 	 * Under-specified values are disambiguated here. Only Timexes of types "date" and "time" can be under-specified.
@@ -2134,18 +2135,18 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					
 					// Normalization Parameter
 					if (hmNormalization.containsKey(hmPattern.get(p))) {
-						String[] attributes = new String[4];
+						String[] attributes = new String[5];
 						if (timexType.equals("DATE")) {
-							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmDateNormalization(), rm.getHmDateQuant(), rm.getHmDateFreq(), rm.getHmDateMod(), r, jcas);
+							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmDateNormalization(), rm.getHmDateQuant(), rm.getHmDateFreq(), rm.getHmDateMod(), rm.getHmDateEmptyValue(), r, jcas);
 						} else if (timexType.equals("DURATION")) {
-							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmDurationNormalization(), rm.getHmDurationQuant(), rm.getHmDurationFreq(), rm.getHmDurationMod(), r, jcas);
+							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmDurationNormalization(), rm.getHmDurationQuant(), rm.getHmDurationFreq(), rm.getHmDurationMod(), rm.getHmDurationEmptyValue(), r, jcas);
 						} else if (timexType.equals("TIME")) {
-							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmTimeNormalization(), rm.getHmTimeQuant(), rm.getHmTimeFreq(), rm.getHmTimeMod(), r, jcas);
+							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmTimeNormalization(), rm.getHmTimeQuant(), rm.getHmTimeFreq(), rm.getHmTimeMod(), rm.getHmTimeEmptyValue(), r, jcas);
 						} else if (timexType.equals("SET")) {
-							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmSetNormalization(), rm.getHmSetQuant(), rm.getHmSetFreq(), rm.getHmSetMod(), r, jcas);
+							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmSetNormalization(), rm.getHmSetQuant(), rm.getHmSetFreq(), rm.getHmSetMod(), rm.getHmSetEmptyValue(), r, jcas);
 						}
 						addTimexAnnotation(timexType, timexStart + s.getBegin(), timexEnd + s.getBegin(), s, 
-								attributes[0], attributes[1], attributes[2], attributes[3],"t" + timexID++, hmPattern.get(p), jcas);
+								attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], "t" + timexID++, hmPattern.get(p), jcas);
 					}
 					else {
 						Logger.printError("SOMETHING REALLY WRONG HERE: "+hmPattern.get(p));
@@ -2300,13 +2301,15 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 													HashMap<String, String> hmQuant,
 													HashMap<String, String> hmFreq,
 													HashMap<String, String> hmMod,
+													HashMap<String, String> hmEmptyValue,
 													MatchResult m, 
 													JCas jcas) {
-		String[] attributes = new String[4];
+		String[] attributes = new String[5];
 		String value = "";
 		String quant = "";
 		String freq = "";
 		String mod = "";
+		String emptyValue = "";
 		
 		// Normalize Value
 		String value_normalization_pattern = hmNormalization.get(rule);
@@ -2330,6 +2333,13 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			mod = applyRuleFunctions(mod_normalization_pattern, m);
 		}
 		
+		// get emptyValue
+		if (hmEmptyValue.containsKey(rule)) {
+			String emptyValue_normalization_pattern = hmEmptyValue.get(rule);
+			emptyValue = applyRuleFunctions(emptyValue_normalization_pattern, m);
+			emptyValue = correctDurationValue(emptyValue);
+		}
+		
 		// For example "P24H" -> "P1D"
 		value = correctDurationValue(value);
 		
@@ -2337,6 +2347,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		attributes[1] = quant;
 		attributes[2] = freq;
 		attributes[3] = mod;
+		attributes[4] = emptyValue;
 		
 		return attributes;
 	}

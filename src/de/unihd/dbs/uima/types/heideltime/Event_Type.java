@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Thu Sep 20 15:38:13 CEST 2012
+ * Updated by JCasGen Sun Aug 10 18:42:22 CEST 2014
  * @generated */
 public class Event_Type extends Annotation_Type {
   /** @generated */

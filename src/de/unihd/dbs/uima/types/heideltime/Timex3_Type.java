@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Thu Sep 20 15:38:14 CEST 2012
+ * Updated by JCasGen Sun Aug 10 18:42:22 CEST 2014
  * @generated */
 public class Timex3_Type extends Annotation_Type {
   /** @generated */
@@ -256,6 +256,30 @@ public class Timex3_Type extends Annotation_Type {
     ll_cas.ll_setStringValue(addr, casFeatCode_timexMod, v);}
     
   
+ 
+  /** @generated */
+  final Feature casFeat_emptyValue;
+  /** @generated */
+  final int     casFeatCode_emptyValue;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public String getEmptyValue(int addr) {
+        if (featOkTst && casFeat_emptyValue == null)
+      jcas.throwFeatMissing("emptyValue", "de.unihd.dbs.uima.types.heideltime.Timex3");
+    return ll_cas.ll_getStringValue(addr, casFeatCode_emptyValue);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setEmptyValue(int addr, String v) {
+        if (featOkTst && casFeat_emptyValue == null)
+      jcas.throwFeatMissing("emptyValue", "de.unihd.dbs.uima.types.heideltime.Timex3");
+    ll_cas.ll_setStringValue(addr, casFeatCode_emptyValue, v);}
+    
+  
 
 
 
@@ -312,6 +336,10 @@ public class Timex3_Type extends Annotation_Type {
  
     casFeat_timexMod = jcas.getRequiredFeatureDE(casType, "timexMod", "uima.cas.String", featOkTst);
     casFeatCode_timexMod  = (null == casFeat_timexMod) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_timexMod).getCode();
+
+ 
+    casFeat_emptyValue = jcas.getRequiredFeatureDE(casType, "emptyValue", "uima.cas.String", featOkTst);
+    casFeatCode_emptyValue  = (null == casFeat_emptyValue) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_emptyValue).getCode();
 
   }
 }
