@@ -438,7 +438,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 				// modified (Aug 29, 2011): Handle empty tokens (such as empty lines) in input file
 				while (token.getCoveredText().equals("")){
 					// if part of the configuration, also add sentences to the jcas document
-					if ((annotate_sentences) && (!(token.getPos().equals(null))) && (token.getPos().equals("EMPTYLINE"))) {
+					if ((annotate_sentences) && token.getPos().equals("EMPTYLINE")) {
 						// Establish sentence structure
 						if (sentence == null) {
 							sentence = new Sentence(jcas);
@@ -491,7 +491,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 					sentence.addToIndexes();
 				}
 				Token token = tokens.get(i++);
-				if ((!(token.getPos().equals(null))) && (token.getPos().equals("EMPTYLINE"))){
+				if (token.getPos().equals("EMPTYLINE")){
 					token.removeFromIndexes();
 				}
 			}
