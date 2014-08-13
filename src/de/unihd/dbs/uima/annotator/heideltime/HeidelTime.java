@@ -1817,6 +1817,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			if (timex.getTimexType().equals("DATE") || timex.getTimexType().equals("TIME")) {
 				linearDates.add(timex);
 			}
+			
+			if(timex.getTimexType().equals("DURATION") && !timex.getEmptyValue().equals("")) {
+				linearDates.add(timex);
+			}
 		}
 		
 		//////////////////////////////////////////////
@@ -1826,10 +1830,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			Timex3 t_i = (Timex3) linearDates.get(i);
 			String value_i = t_i.getTimexValue();
 			
-			// handle the value attribute
-			String valueNew = specifyAmbiguousValuesString(value_i, t_i, i, linearDates, jcas);
+			String valueNew = value_i;
+			// handle the value attribute only if we have a TIME or DATE
+			if(t_i.getTimexType().equals("TIME") || t_i.getTimexType().equals("DATE"))
+					valueNew = specifyAmbiguousValuesString(value_i, t_i, i, linearDates, jcas);
 			
-			// handle the emptyValue attribute
+			// handle the emptyValue attribute for any type
 			if(t_i.getEmptyValue() != null && t_i.getEmptyValue().length() > 0) {
 				String emptyValueNew = specifyAmbiguousValuesString(t_i.getEmptyValue(), t_i, i, linearDates, jcas);
 				t_i.setEmptyValue(emptyValueNew);
