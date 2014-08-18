@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
@@ -186,6 +187,8 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 	 * @author Manuel Dewald
 	 */
 	private void findSentenceIntervals(JCas jcas){
+		HashSet<Timex3Interval> timexesToRemove = new HashSet<Timex3Interval>();
+		
 		FSIterator iterSentence = jcas.getAnnotationIndex(Sentence.type).iterator();
 		while (iterSentence.hasNext()) {
 			Sentence s=(Sentence)iterSentence.next();
@@ -257,11 +260,19 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 								annotation.setFoundByRule(name);
 								annotation.addToIndexes();
 								sentenceTxes.add(annotation);
+								
+								// prepare tx3intervals to remove
+								timexesToRemove.add(startTx);
+								timexesToRemove.add(endTx);
 							}
 						}
 					}
 				}
 			}
+		}
+		
+		for(Timex3Interval txi : timexesToRemove) {
+			txi.removeFromIndexes();
 		}
 	}
 	
