@@ -8,14 +8,14 @@
 [Uu]ndici
 [Dd]odici
 [Tt]redici
-[Qq]uattrodici
+[Qq]uattordici
 [Qq]uindici
 [Ss]edici
 [Dd]iciassette
 [Dd]iciott[o']
 [Dd]iciannove
 // 21 - 29, 20
-[Vv]entuno
+[Vv]entun[o']
 [Vv]entidue
 [Vv]entitré
 [Vv]entiquattr[o']
@@ -27,7 +27,7 @@
 [Vv]enti
 // 31, 30
 [Tt]renta
-[Tt]rentuno
+[Tt]rentun[o']
 // 1 - 9
 [Uu]n[oa]?
 [Dd]ue

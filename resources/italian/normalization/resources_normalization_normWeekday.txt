@@ -11,4 +11,5 @@
 "[Vv]enerd(ì|i'|i)","friday"
 "[Ss]abato","saturday"
 "[Dd]omenica","sunday"
+"domenical[ei]","sunday"
 

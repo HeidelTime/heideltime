@@ -7,7 +7,7 @@
 // FORMAT: "approximate-word","normalized-approximate-word"
 // ITALIAN
 // LESS, BEFORE
-"[Pp]i(ù|u'|u) di","BEFORE"
+"([Pp]oco )?[Pp]i(ù|u'|u) di","BEFORE"
 "[Nn]on meno di","ON_OR_BEFORE"
 "([Aa]l|[Uu]n) massimo( di| de)?","ON_OR_BEFORE"
 "[Oo]ltre","BEFORE"

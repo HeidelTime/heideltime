@@ -5,3 +5,10 @@
 [Bb]iennio
 [Ll]ustro
 [Tt]riennio
+[Vv]entennio
+
+triennal[ei]
+decennal[ei]
+quinquennal[ei]
+biennal[ei]
+ventennal[ei]

@@ -11,12 +11,5 @@
 [Ss]cors[oaei]
 [Qq]uest[oaei'][\s]?ultim[oaei]
 [Uu]ltim[oaei]
-[Pp]recedent[ei]
+//[Pp]recedent[ei]
 [Pp]rim[oaei]
-
-
-
-
-
-
-

@@ -1,0 +1,7 @@
+[1-5]?[0-9]'( pt| st)
+(?<=[Dd]a\s)un giorno all'\s?altro
+(\b[Ii]l )?[Mm]edioevo
+stagional[ei]
+(\b[Ll]e )?giornate
+(\b[Ll]a )?mezza stagione
+(\b[Ll]'\s?)?anno scolastico

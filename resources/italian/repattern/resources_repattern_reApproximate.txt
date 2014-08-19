@@ -15,8 +15,9 @@
 [Nn]on pi(ù|u'|u) di
 [Oo]ltre
 [Pp]i(ù|u'|u) di
+[Pp]oco pi(ù|u'|u) di
 [Uu]n paio di
-[Vv]erso
+\b[Vv]erso
 
 // ADDITIONAL LEXICALS
 [Tt]utt'( )?al pi(ù|u'|u)
@@ -29,6 +30,3 @@
 [Qq]uantomeno
 [Qq]uanto meno
 [Qq]uasi
-
-
-

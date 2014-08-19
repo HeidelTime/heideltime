@@ -12,7 +12,7 @@
 [Mm]ezzogiorno
 // AFTERNOON
 [Dd]opo[\s]?pranzo
-[Pp]omeriggi[oi]
+[Pp]omeriggio?
 // EVENING
 [Ss]er[ae]
 [Ss]erat[ae]

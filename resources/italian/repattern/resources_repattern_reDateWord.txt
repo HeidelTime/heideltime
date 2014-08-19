@@ -5,6 +5,9 @@
 // FORMAT: one line is one disjunction of the pattern
 // THESE EXPRESSIONS ARE ALL IMPLICITS
 // Resolvable
+
+//[Aa]llora
+
 [Aa]vant'?[\s]?ieri
 [Ii]eri l'[\s]?altro
 [Ll]'[\s]altro ieri
@@ -25,44 +28,54 @@
 [Pp]oco fa
 //[Ii]l passato
 [Tt]empo fa
-[Gg]iorni fa
+//[Gg]iorni fa
 
 // PAST_REF continued
 [Rr]ecent[ei](ssim[oaie])?
-[Dd]i fresco
-[Dd]i recente
+(?<=[Dd]i\s)fresco
+//[Dd]i recente
 [Uu]ltimamente
-[FfSs]inora
-(?<=[FfSs]ino[\s]ad?[\s])ora
 //[Pp]assat[oaei]
+[Ee]x
+[Aa] suo tempo
+(?<=[Ii]n\s)tempi recenti
+[Qq]ualche tempo fa
 
 // PRESENT_REF according to specificheEvalita_1-27_03_2014.pdf page 39
 [Aa]desso
 [Pp]er ora
 [Aa]l momento
-[Ii]n questi gironi
-[Tt]uttora
+[Tt]utt'?\s?ora
 //[Ii]l presente
 //[Nn]el presente
-\b[Aa] oggi
+\b[Aa]d? oggi
 
 // PRESENT_REF continued
+\b[Aa] questo punto
 [Aa]ttualmente
 [Aa]ttual[ei](ssim[oaei])?
+[FfSs]in('[\s]?)?ora
 [Aa]l giorno d'oggi
 [Oo]diern[ae]
 [Oo]ggi come oggi
 [Oo]ggid(ì|i'|i)
 [Oo]ggigiorno
+[Oo]ra come ora
 [Pp]er il momento
-\b[Aa] questo punto
 //[Pp]resent[ei]
+[Ff]in d(a |'[\s])?ora
+(?<=[Ii]n\s)questo momento
+
 
 // FUTURE_REF according to specificheEvalita_1-27_03_2014.pdf page 39
 [Ii]n futuro
 //[IiAa]l futuro
 //[Ii]l domani
+
 // FUTURE_REF continued
 \b[Uu]n domani
-(?<=[Dd]'[\s]?)ora in avanti
+(?<=[Dd]'[\s]?)ora in(nanzi| avanti| poi)
+//[Dd][a']\s?ora in (avanti|poi)
+//[TtFf]ra qualche (mese|giorno|anno)
+
 //[Ff]utur[oaei]

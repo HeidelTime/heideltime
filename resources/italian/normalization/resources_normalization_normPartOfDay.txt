@@ -10,18 +10,29 @@
 "[Mm]attin(at)?[aoe]","MO"
 // MIDDAY
 "[Mm]eridione","MI"
-"[Mm]ezzod(ì|i')","MI"
+"[Mm]ezzod(ì|i'?)","MI"
 "[Mm]ezzogiorno","MI"
+"[Oo]ra di pranzo","MI"
 // AFTERNOON
 "[Dd]opo[\s]?pranzo","AF"
-"[Pp]omeriggi[oi]","AF"
+"[Pp]omeriggio?","AF"
 // EVENING
 "[Ss]er(at)?[ae]","EV"
 // NIGHT
 "[Nn]ott[ei]","NI"
 "[Nn]ottat[ae]","NI"
 "[Mm]ezzanotte","00:00"
+"'a nuttata","NI"
+"[Cc]uore della notte","NI"
 // DAYTIME
 "[Gg]iornat[ae]","DT"
 "[Gg]iornat[ae] lavorativ[ae]","DT"
 "[Gg]iorn[oi] lavorativ[oi]","DT"
+"[Gg]iorno","DT"
+
+// Adjectives
+"[Nn]otturn[oaei]","NI"
+"[Ss]eral[ei]","EV"
+"[Mm]attutin[oaei]","MO"
+"[Pp]omeridian[oaei]","AF"
+"[Gg]iornalier[oaei]","DT"

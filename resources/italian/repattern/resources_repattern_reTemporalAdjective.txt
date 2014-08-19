@@ -4,6 +4,6 @@
 // as temporal expressions."
 
 passat[oaei]
-present[ei]
+//present[ei]
 futur[oaei]
 corrent[ei]

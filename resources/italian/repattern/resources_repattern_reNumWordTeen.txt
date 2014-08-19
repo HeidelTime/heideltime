@@ -6,7 +6,7 @@
 [Uu]ndici
 [Dd]odici
 [Tt]redici
-[Qq]uattrodici
+[Qq]uattordici
 [Qq]uindici
 [Ss]edici
 [Dd]iciassette

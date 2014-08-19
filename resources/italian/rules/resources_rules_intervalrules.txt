@@ -5,6 +5,8 @@
 //INTERVAL(RANGE) RULES //
 //////////////////////////
 
+// DATE RANGES
+
 //EXAMPLE interval_01: from 1999 to 2012 - dal 1999 al 2012
 //EXAMPLE interval_02: between March and May - fra marzo e maggio/Tra il 1992 e 1993
 //EXAMPLE interval_03: 20.3.2003 - 1.5.2003 - 20/3/2003 - 1/5/2003
@@ -46,19 +48,8 @@ RULENAME="interval_10",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)> e <TX3_([0-9]+
 //RULENAME="interval_11",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)>, <TX3_([0-9]+)> and <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(4)"
 RULENAME="interval_11",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)>, <TX3_([0-9]+)> e <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(4)"
 
-//////////////////////
-//ANCHORED DURATIONS//
-//////////////////////
+// TIME RANGES
 
-//EXAMPLE emptytag_01: un mese fa
-//EXAMPLE emptytag_02: 2 anni fa
-//EXAMPLE emptytag_03: alcuni mesi fa
-//fra qualche mese
+//EXAMPLE empty tag_12: dalle 2 alle 5
 
-//RULENAME="emptytag_01",EXTRACTION="(%reNumWord1D|%reNumWord2D) %reUnit fa",NORM_VALUE="UNDEF-this-%normUnit(group(4))-MINUS-%normDurationNumber(group(1))"
-//RULENAME="emptytag_02",EXTRACTION="(\d+) %reUnit fa",NORM_VALUE="UNDEF-this-%normUnit(group(2))-MINUS-%normDurationNumber(group(1))"
-//RULENAME="emptytag_03",EXTRACTION="(alcun[ei]|qualche|poch[ei]|molt[ei]|tant[ei]) %reUnit fa",NORM_VALUE="PAST_REF"
-
-////////////////////
-//FRAMED DURATIONS//
-////////////////////
+RULENAME="emptytag_12",EXTRACTION="dalle <TX3_([0-9]+)> alle <TX3_([0-9]+)>",NORM_VALUE="P3TH" // temp

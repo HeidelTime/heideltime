@@ -240,6 +240,7 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 							Timex3Interval annotation=new Timex3Interval(jcas);
 							annotation.setBegin(startTx.getBegin()>endTx.getBegin()?endTx.getBegin():startTx.getBegin());
 							annotation.setEnd(startTx.getEnd()>endTx.getEnd()?startTx.getEnd():endTx.getEnd());
+							
 							//Does the interval already exist,
 							//found by another pattern?
 							boolean duplicate=false;
@@ -259,7 +260,16 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 								annotation.setTimexType(startTx.getTimexType());
 								annotation.setFoundByRule(name);
 								annotation.addToIndexes();
-								sentenceTxes.add(annotation);
+								
+								// create emptyvalue value
+								annotation.setEmptyValue(createEmptyValue(startTx, endTx, jcas));
+								
+								try {
+									sentenceTxes.add(annotation);
+								} catch(NumberFormatException e) {
+									Logger.printError(component, "Couldn't do emptyValue calculation on accont of a faulty normalization in " 
+											+ annotation.getTimexValueEB() + " or " + annotation.getTimexValueEE());
+								}
 								
 								// prepare tx3intervals to remove
 								timexesToRemove.add(startTx);
@@ -276,6 +286,129 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 		}
 	}
 	
+	private String createEmptyValue(Timex3Interval startTx, Timex3Interval endTx, JCas jcas) throws NumberFormatException {
+		String dateStr = "", timeStr = "";
+
+		// find granularity for start/end timex values
+		Pattern p = Pattern.compile("(\\d{1,4})?-?(\\d{2})?-?(\\d{2})?(T)?(\\d{2})?:?(\\d{2})?:?(\\d{2})?");
+		//							 1            2          3        4   5          6          7
+		Matcher mStart = p.matcher(startTx.getTimexValue());
+		Matcher mEnd = p.matcher(endTx.getTimexValue());
+		Integer granularityStart = -1;
+		Integer granularityEnd = -2;
+		Integer granularity = -1;
+		
+		// find the highest granularity in each timex
+		if(mStart.find() && mEnd.find()) {
+			for(Integer i = 1; i <= mStart.groupCount(); i++) {
+				if(mStart.group(i) != null)
+					granularityStart = i;
+				if(mEnd.group(i) != null)
+					granularityEnd = i;
+			}
+		}
+		
+		// if granularities aren't the same, we can't do anything here.
+		if(granularityEnd != granularityStart) {
+			return "";
+		} else { // otherwise, set maximum granularity
+			granularity = granularityStart;
+		}
+
+		// check all the different granularities, starting with seconds, calculate differences, add carries
+		Integer myYears = 0,
+				myMonths = 0,
+				myDays = 0,
+				myHours = 0,
+				myMinutes = 0,
+				mySeconds = 0;
+		
+		if(granularity >= 7 && mStart.group(7) != null && mEnd.group(7) != null) {
+			mySeconds = Integer.parseInt(mEnd.group(7)) - Integer.parseInt(mStart.group(7));
+			if(mySeconds < 0) {
+				mySeconds += 60;
+				myMinutes -= 1;
+			}
+		}
+		
+		if(granularity >= 6 && mStart.group(6) != null && mEnd.group(6) != null) {
+			myMinutes += Integer.parseInt(mEnd.group(6)) - Integer.parseInt(mStart.group(6));
+			if(myMinutes < 0) {
+				myMinutes += 60;
+				myHours -= 1;
+			}
+		}
+		
+		if(granularity >= 5 && mStart.group(5) != null && mEnd.group(5) != null) {
+			myHours += Integer.parseInt(mEnd.group(5)) - Integer.parseInt(mStart.group(5));
+			if(myHours < 0) {
+				myMinutes += 24;
+				myDays -= 1;
+			}
+		}
+		
+		if(granularity >= 3 && mStart.group(3) != null && mEnd.group(3) != null) {
+			myDays += Integer.parseInt(mEnd.group(3)) - Integer.parseInt(mStart.group(3));
+			if(myDays < 0) {
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.YEAR, Integer.parseInt(mStart.group(1)));
+				cal.set(Calendar.MONTH, Integer.parseInt(mStart.group(2)));
+
+				myMonths = myMonths - 1;
+				myDays += cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			}
+		}
+		
+		if(granularity >= 2 && mStart.group(2) != null && mEnd.group(2) != null) {
+			myMonths += Integer.parseInt(mEnd.group(2)) - Integer.parseInt(mStart.group(2));
+			if(myMonths < 0) {
+				myMonths += Integer.parseInt(mStart.group(2));
+				myYears -= 1;
+			}
+		}
+		
+		String myYearUnit = "";
+		if(granularity >= 1 && mStart.group(1) != null && mEnd.group(1) != null) {
+			String year1str = mStart.group(1), year2str = mEnd.group(1);
+			
+			// trim year strings to same length (NNNN year, NNN decade, NN century)
+			while(year2str.length() > year1str.length())
+				year2str = year2str.substring(0, year2str.length()-1);
+			while(year1str.length() > year2str.length())
+				year1str = year1str.substring(0, year1str.length()-1);
+			
+			// check for year unit
+			switch(year1str.length()) {
+				case 2:
+					myYearUnit = "CE";
+					myYears = Integer.parseInt(year2str) - Integer.parseInt(year1str);
+					break;
+				case 3:
+					myYearUnit = "DE";
+					myYears = Integer.parseInt(year2str) - Integer.parseInt(year1str);
+					break;
+				case 4:
+					myYearUnit = "Y";
+					myYears += Integer.parseInt(year2str) - Integer.parseInt(year1str);
+					break;
+				default:
+					break;
+			}
+		}
+
+		// assemble strings
+		dateStr += (myYears > 0 ? myYears + myYearUnit : "");
+		dateStr += (myMonths > 0 ? myMonths + "M" : "");
+		dateStr += (myDays > 0 ? myDays + "D" : "");
+
+		timeStr += (myHours > 0 ? myHours + "H" : "");
+		timeStr += (myMinutes > 0 ? myMinutes + "M" : "");
+		timeStr += (mySeconds > 0 ? mySeconds + "S" : "");
+
+		// output
+		return "P" + dateStr + (timeStr.length() > 0 ? "T" + timeStr : "");
+	}
+
 	/**
 	 * Build Timex3Interval-Annotations out of Timex3Annotations in jcas.
 	 * @author Manuel Dewald
@@ -290,9 +423,9 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 			Timex3 timex3 = (Timex3) iterTimex3.next();
 			
 			//DATE Pattern
-			Pattern pDate = Pattern.compile("(\\d+)(-(\\d+)(-(\\d+(T(\\d+)(:(\\d+)(:(\\d+))?)?)?))?)?");
-			Pattern pCentury = Pattern.compile("(\\d\\d)XX");
-			Pattern pDecate = Pattern.compile("(\\d\\d\\d)X");
+			Pattern pDate = Pattern.compile("(\\d+)(-(\\d+))?(-(\\d+))?(T(\\d+))?(:(\\d+))?(:(\\d+))?");
+			Pattern pCentury = Pattern.compile("(\\d\\d)");
+			Pattern pDecate = Pattern.compile("(\\d\\d\\d)");
 			Pattern pQuarter = Pattern.compile("(\\d+)-Q([1-4])");
 			Pattern pHalf = Pattern.compile("(\\d+)-H([1-2])");
 			Pattern pSeason = Pattern.compile("(\\d+)-(SP|SU|FA|WI)");

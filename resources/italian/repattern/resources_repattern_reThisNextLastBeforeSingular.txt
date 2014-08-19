@@ -4,17 +4,12 @@
 //[Ff]ollowing and similar expressions -> handled differently using UNDEF-REF
 // ITALIAN
 // THIS
-[Ii]n corso
+[Qq]uest[oa']
 // NEXT
-[Pp]rossim[oaei]
+[Pp]rossim[oa]
 // LAST
-[Ss]cors[oaei]
-[Pp]assat[oaei]
-//[Pp]recedent[ei]
-
-
-
-
-
-
-
+[Ss]cors[oa]
+[Qq]uest[oa'][\s]?ultim[oa]
+[Uu]ltim[oa]
+//[Pp]recedente
+[Pp]rim[oa]

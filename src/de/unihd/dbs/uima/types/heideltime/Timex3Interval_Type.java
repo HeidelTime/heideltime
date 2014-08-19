@@ -13,7 +13,7 @@ import org.apache.uima.cas.impl.FeatureImpl;
 import org.apache.uima.cas.Feature;
 
 /** 
- * Updated by JCasGen Sun Aug 10 18:42:22 CEST 2014
+ * Updated by JCasGen Mon Aug 18 14:39:53 CEST 2014
  * @generated */
 public class Timex3Interval_Type extends Timex3_Type {
   /** @generated */
@@ -112,6 +112,78 @@ public class Timex3Interval_Type extends Timex3_Type {
     ll_cas.ll_setStringValue(addr, casFeatCode_TimexValueLB, v);}
     
   
+ 
+  /** @generated */
+  final Feature casFeat_emptyValue;
+  /** @generated */
+  final int     casFeatCode_emptyValue;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public String getEmptyValue(int addr) {
+        if (featOkTst && casFeat_emptyValue == null)
+      jcas.throwFeatMissing("emptyValue", "de.unihd.dbs.uima.types.heideltime.Timex3Interval");
+    return ll_cas.ll_getStringValue(addr, casFeatCode_emptyValue);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setEmptyValue(int addr, String v) {
+        if (featOkTst && casFeat_emptyValue == null)
+      jcas.throwFeatMissing("emptyValue", "de.unihd.dbs.uima.types.heideltime.Timex3Interval");
+    ll_cas.ll_setStringValue(addr, casFeatCode_emptyValue, v);}
+    
+  
+ 
+  /** @generated */
+  final Feature casFeat_beginTimex;
+  /** @generated */
+  final int     casFeatCode_beginTimex;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public String getBeginTimex(int addr) {
+        if (featOkTst && casFeat_beginTimex == null)
+      jcas.throwFeatMissing("beginTimex", "de.unihd.dbs.uima.types.heideltime.Timex3Interval");
+    return ll_cas.ll_getStringValue(addr, casFeatCode_beginTimex);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setBeginTimex(int addr, String v) {
+        if (featOkTst && casFeat_beginTimex == null)
+      jcas.throwFeatMissing("beginTimex", "de.unihd.dbs.uima.types.heideltime.Timex3Interval");
+    ll_cas.ll_setStringValue(addr, casFeatCode_beginTimex, v);}
+    
+  
+ 
+  /** @generated */
+  final Feature casFeat_endTimex;
+  /** @generated */
+  final int     casFeatCode_endTimex;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public String getEndTimex(int addr) {
+        if (featOkTst && casFeat_endTimex == null)
+      jcas.throwFeatMissing("endTimex", "de.unihd.dbs.uima.types.heideltime.Timex3Interval");
+    return ll_cas.ll_getStringValue(addr, casFeatCode_endTimex);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setEndTimex(int addr, String v) {
+        if (featOkTst && casFeat_endTimex == null)
+      jcas.throwFeatMissing("endTimex", "de.unihd.dbs.uima.types.heideltime.Timex3Interval");
+    ll_cas.ll_setStringValue(addr, casFeatCode_endTimex, v);}
+    
+  
 
 
 
@@ -136,6 +208,18 @@ public class Timex3Interval_Type extends Timex3_Type {
  
     casFeat_TimexValueLB = jcas.getRequiredFeatureDE(casType, "TimexValueLB", "uima.cas.String", featOkTst);
     casFeatCode_TimexValueLB  = (null == casFeat_TimexValueLB) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_TimexValueLB).getCode();
+
+ 
+    casFeat_emptyValue = jcas.getRequiredFeatureDE(casType, "emptyValue", "uima.cas.String", featOkTst);
+    casFeatCode_emptyValue  = (null == casFeat_emptyValue) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_emptyValue).getCode();
+
+ 
+    casFeat_beginTimex = jcas.getRequiredFeatureDE(casType, "beginTimex", "uima.cas.String", featOkTst);
+    casFeatCode_beginTimex  = (null == casFeat_beginTimex) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_beginTimex).getCode();
+
+ 
+    casFeat_endTimex = jcas.getRequiredFeatureDE(casType, "endTimex", "uima.cas.String", featOkTst);
+    casFeatCode_endTimex  = (null == casFeat_endTimex) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_endTimex).getCode();
 
   }
 }

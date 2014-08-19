@@ -12,11 +12,11 @@
 [Aa]pr\.?
 [Mm]ag\.?
 [Mm]agg\.?
-[Gg]iu\.?
+[Gg]iu\.
 [Ll]ug\.?
-[Aa]go\.?
+[Aa]go\.
 [Ss]ett\.?
-[Ss]et\.?
+[Ss]et\.
 [Oo]tt\.?
 [Nn]ov\.?
 [Dd]ic\.?

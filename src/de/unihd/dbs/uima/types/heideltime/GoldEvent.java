@@ -10,7 +10,7 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** 
- * Updated by JCasGen Sun Aug 10 18:42:22 CEST 2014
+ * Updated by JCasGen Mon Aug 18 14:39:53 CEST 2014
  * XML source: /home/julian/heideltime/heideltime-kit/desc/type/HeidelTime_TypeSystem.xml
  * @generated */
 public class GoldEvent extends Event {

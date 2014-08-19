@@ -88,11 +88,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private String PARAM_DURATION  = "Duration";
 	private String PARAM_SET       = "Set";
 	private String PARAM_DEBUG	   = "Debugging";
+	private String PARAM_GROUP     = "GroupSmallerGranularities";
 	private Boolean find_dates     = true;
 	private Boolean find_times     = true;
 	private Boolean find_durations = true;
 	private Boolean find_sets      = true;
-	
+	private Boolean group_gran     = true;
 	// FOR DEBUGGING PURPOSES (IF FALSE)
 	private Boolean deleteOverlapped = true;
 
@@ -141,7 +142,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		find_times     = (Boolean) aContext.getConfigParameterValue(PARAM_TIME);
 		find_durations = (Boolean) aContext.getConfigParameterValue(PARAM_DURATION);
 		find_sets      = (Boolean) aContext.getConfigParameterValue(PARAM_SET);
-
+		group_gran	   = (Boolean) aContext.getConfigParameterValue(PARAM_GROUP);
 		////////////////////////////////////////////////////////////
 		// READ NORMALIZATION RESOURCES FROM FILES AND STORE THEM //
 		////////////////////////////////////////////////////////////
@@ -1890,6 +1891,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							else if ((t1.getFoundByRule().endsWith("explicit")) && (!(t2.getFoundByRule().endsWith("explicit")))) {
 								hsTimexesToRemove.add(t2);
 							}
+							// remove timexes that are identical, but one has an emptyvalue
+							else if(t2.getEmptyValue().equals("") && !t1.getEmptyValue().equals("")) {
+								hsTimexesToRemove.add(t2);
+							}
 							// REMOVE REAL DUPLICATES (the one with the lower timexID)
 							else if ((Integer.parseInt(t1.getTimexId().substring(1)) < Integer.parseInt(t2.getTimexId().substring(1)))) {
 								hsTimexesToRemove.add(t1);
@@ -2367,10 +2372,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			emptyValue = applyRuleFunctions(emptyValue_normalization_pattern, m);
 			emptyValue = correctDurationValue(emptyValue);
 		}
-		
-		// For example "P24H" -> "P1D"
-		value = correctDurationValue(value);
-		
+		// For example "PT24H" -> "P1D"
+		if (group_gran)
+			value = correctDurationValue(value);
+
 		attributes[0] = value;
 		attributes[1] = quant;
 		attributes[2] = freq;

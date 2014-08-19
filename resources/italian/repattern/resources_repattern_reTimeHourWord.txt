@@ -3,27 +3,27 @@
 // date:   2012-07-24
 // This file contains regular expression patterns for time hours.
 // FORMAT: one line is one disjunction of the pattern
-[Uu]n[oa]?
+[Uu]n[oa']?
 [Dd]ue
 [Tt]re
-[Qq]uattro
+[Qq]uattr[o']
 [Cc]inque
 [Ss]ei
 [Ss]ette
-[Oo]tto
+[Oo]tt[o']
 [Nn]ove
 [Uu]ndici
 [Dd]odici
 [Tt]redici
-[Qq]uattrodici
+[Qq]uatt[o']rdici
 [Qq]uindici
 [Ss]edici
 [Dd]iciassette
-[Dd]iciotto
+[Dd]iciott[o']
 [Dd]iciannove
 [Dd]ieci
-[Vv]entuno
+[Vv]entun[o']
 [Vv]entidue
 [Vv]entitr(é|e)
-[Vv]entiquattro
+[Vv]entiquattr[o']
 [Vv]enti

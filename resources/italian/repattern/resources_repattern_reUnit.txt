@@ -16,6 +16,6 @@
 [Ss]ecol[io]
 
 //[Bb]imestr[ei]
-[Tt]rimestr[ei]
+//[Tt]rimestr[ei]
 //[Qq]uadrimestr[ei]
 //[Ss]emestr[ei]

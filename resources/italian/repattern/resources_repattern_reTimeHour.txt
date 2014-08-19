@@ -3,10 +3,7 @@
 // date:   2012-07-24
 // This file contains regular expression patterns for time hours.
 // FORMAT: one line is one disjunction of the pattern
-1[1-9]
-20
-21
-22
-23
-24
+
+1[0-9]
+2[0-4]
 0?[0-9]

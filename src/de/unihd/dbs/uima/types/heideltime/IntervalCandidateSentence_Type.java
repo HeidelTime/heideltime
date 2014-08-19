@@ -11,7 +11,7 @@ import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
 
 /** 
- * Updated by JCasGen Sun Aug 10 18:42:22 CEST 2014
+ * Updated by JCasGen Mon Aug 18 14:39:53 CEST 2014
  * @generated */
 public class IntervalCandidateSentence_Type extends Sentence_Type {
   /** @generated */

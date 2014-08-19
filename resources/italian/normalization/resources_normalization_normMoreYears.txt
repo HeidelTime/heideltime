@@ -5,3 +5,10 @@
 "[Bb]iennio","2"
 "[Ll]ustro","5"
 "[Tt]riennio","3"
+"[Vv]entennio","20"
+
+"triennal[ei]","3"
+"decennal[ei]","10"
+"quinquennal[ei]","5"
+"biennal[ei]","2"
+"ventennal[ei]","20"

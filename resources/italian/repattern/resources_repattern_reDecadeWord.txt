@@ -3,7 +3,7 @@
 // date:   2012-07-14
 // This file contains regular expression patterns for decade words.
 // FORMAT: one line is one disjunction of the pattern
-// ITALIN
+// ITALIAN
 [Aa]nni [Vv]enti
 [Aa]nni [Tt]renta
 [Aa]nni [Qq]uaranta
@@ -12,7 +12,7 @@
 [Aa]nni [Ss]ettanta
 [Aa]nni [Oo]ttanta
 [Aa]nni [Nn]ovanta
-[Aa]nni [2-9]0
+[Aa]nni '?[2-9]0
 //[Aa]nni [Zz]ero
 //--> used outside of DecadeWord
 //[Aa]nni [Dd]uemiladieci 

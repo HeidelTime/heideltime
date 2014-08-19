@@ -1,0 +1,7 @@
+// Preposition "di" and contracted forms
+[Dd]i[\s]
+[Dd]ell[oae][\s]
+[Dd]ell'[\s]?
+[Dd]el[\s]
+[Dd]egli[\s]
+[Dd]ei[\s]

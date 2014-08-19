@@ -15,3 +15,4 @@
 "[Ii]nverno","WI"
 "[Vv]erno","WI"
 "[Ii]nvernal[ei]","WI"
+"stagional[ei]","XXXX-XX-XX"
