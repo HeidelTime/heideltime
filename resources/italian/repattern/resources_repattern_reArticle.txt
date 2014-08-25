@@ -1,3 +1,0 @@
-\b[Ii]l?
-\b[Ll][eao']
-\b[Gg]li

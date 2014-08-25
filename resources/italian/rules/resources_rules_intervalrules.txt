@@ -7,49 +7,24 @@
 
 // DATE RANGES
 
-//EXAMPLE interval_01: from 1999 to 2012 - dal 1999 al 2012
-//EXAMPLE interval_02: between March and May - fra marzo e maggio/Tra il 1992 e 1993
-//EXAMPLE interval_03: 20.3.2003 - 1.5.2003 - 20/3/2003 - 1/5/2003
-//EXAMPLE interval_04: 20.3.2003 to 1.5.2003 
-//EXAMPLE interval_05: on 20.3.2003 the war began and it lastet until 1.5.2003 - la guerra  cominciò il 20/3/2003 e durò fino al 1/5/2003/ cominciò a Mrazo e durò fino a Giugno
-//EXAMPLE interval_06: for December after leaving in February - ???
-//EXAMPLE interval_07: began on March 20 in 2003 and ended on May 1 - cominciò il 20 marzo del 2003 e finì il primo maggio
-//EXAMPLE interval_08: in 1999/2000 - ???
-//EXAMPLE interval_09: War ended in May, after fighting from March on - ???
-//EXAMPLE interval_10: March, April and May - marzo, aprile e maggio
-//EXAMPLE interval_11: Monday, Tuesday, Wednesday and Thursday - lunedì, martedì, mercoledì e giovedì
+//EXAMPLE interval_01: dal 1999 al 2012
+//EXAMPLE interval_02: fra marzo e maggio/Tra il 1992 e il 1993
+//EXAMPLE interval_03: 20.3.2003 - 1.5.2003 - 20/3/2003 - 1/5/2003 
+//EXAMPLE interval_05: la guerra  cominciò il 20/3/2003 e durò fino al 1/5/2003/ cominciò a Mrazo e durò fino a Giugno
+//EXAMPLE interval_07: cominciò il 20 marzo del 2003 e finì il primo maggio
+//EXAMPLE interval_10: marzo, aprile e maggio
+//EXAMPLE interval_11: lunedì, martedì, mercoledì e giovedì
 
-//RULENAME="interval_01",EXTRACTION="([fF]rom|over)? <TX3_([0-9]+)> (to|until|right up to) <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(4)"
-RULENAME="interval_01",EXTRACTION="([dD]al) <TX3_([0-9]+)> (fino )?(al) <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(5)"
-
-//RULENAME="interval_02",EXTRACTION="([bB]etween|[dD]uring|[Oo]n|[iI]n|[iI]n the|of|on|on the|throughout the) <TX3_([0-9]+)> and <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(3)"
-RULENAME="interval_02",EXTRACTION="([fFtT]ra)( [iI]l)? <TX3_([0-9]+)> e( [iI]l)? <TX3_([0-9]+)>",NORM_VALUE="group(3)-group(5)"
-
-//RULENAME="interval_03",EXTRACTION="([iI]n)?<TX3_([0-9]+)>( )?-( )?<TX3_([0-9]+)>",NORM_VALUE="group(2)-group(5)"
-RULENAME="interval_03",EXTRACTION="([iI]n )?<TX3_([0-9]+)>( )?-( )?<TX3_([0-9]+)>",NORM_VALUE="group(2)-group(5)"
-
-//RULENAME="interval_04",EXTRACTION="<TX3_([0-9]+)> (to|through) <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(3)"
-
-//RULENAME="interval_05",EXTRACTION="(in|on|began) <TX3_([0-9]+)> .* until <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(3)"
-RULENAME="interval_05",EXTRACTION="([iI]l|[iI]n|a) <TX3_([0-9]+)> .* fino al? <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(3)"
-
-RULENAME="interval_06",EXTRACTION="[fF]or <TX3_([0-9]+)> after .* in <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(1)"
-
-//RULENAME="interval_07",EXTRACTION="began on <TX3_([0-9]+)>, and (was completed by|ended on) <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(3)"
+RULENAME="interval_01",EXTRACTION="[Dd]al <TX3_([0-9]+)> (fino )?(al) <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(4)"
+RULENAME="interval_02",EXTRACTION="[TtFf]ra( [iI]l)? <TX3_([0-9]+)> e( [iI]l)? <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(4)"
+RULENAME="interval_03",EXTRACTION="<TX3_([0-9]+)>\s?-\s?<TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"
+RULENAME="interval_05",EXTRACTION="([Ii]l|[Ii]n|a) <TX3_([0-9]+)> .* fino al? <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(3)"
 RULENAME="interval_07",EXTRACTION="(cominciò|iniziò|ebbe inizio) il <TX3_([0-9]+)>,? e (finì|terminò|ebbe fine) il <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(4)"
-
-//RULENAME="interval_08",EXTRACTION="[Ii]n <TX3_([0-9]+)>/<TX3_([0-9]+)>,",NORM_VALUE="group(1)-group(2)"
-
-//RULENAME="interval_09",EXTRACTION="in <TX3_([0-9]+)>, .* from <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(1)"
-
-//RULENAME="interval_10",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)> and <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(3)"
 RULENAME="interval_10",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)> e <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(3)"
-
-//RULENAME="interval_11",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)>, <TX3_([0-9]+)> and <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(4)"
 RULENAME="interval_11",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)>, <TX3_([0-9]+)> e <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(4)"
 
 // TIME RANGES
 
-//EXAMPLE empty tag_12: dalle 2 alle 5
+//EXAMPLE interval_12: dalle 2 alle 5
 
-RULENAME="emptytag_12",EXTRACTION="dalle <TX3_([0-9]+)> alle <TX3_([0-9]+)>",NORM_VALUE="P3TH" // temp
+RULENAME="interval_12",EXTRACTION="dalle <TX3_([0-9]+)> alle <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"

@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,6 +34,7 @@ import org.apache.uima.resource.ResourceProcessException;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 import de.unihd.dbs.uima.types.heideltime.Dct;
 import de.unihd.dbs.uima.types.heideltime.Timex3;
+import de.unihd.dbs.uima.types.heideltime.Timex3Interval;
 import de.unihd.dbs.uima.types.heideltime.Token;
 
 public class Eventi2014Writer extends CasConsumer_ImplBase {
@@ -134,12 +134,15 @@ public class Eventi2014Writer extends CasConsumer_ImplBase {
 		
 		// collection for timexes which have an emptyValue attribute
 		HashMap<Timex3, Integer> emptyValueTimexes = new HashMap<Timex3, Integer>();
+		// association for HeidelTime-internal Timex3 IDs -> markable_ids
+		HashMap<String, String> idTranslation = new HashMap<String, String>();
 		
 		// get the timex3s and add them to fullDocument
 		int markableCounter = 1;
 		FSIterator itTimex = jcas.getAnnotationIndex(Timex3.type).iterator();
 		while (itTimex.hasNext()){
 			Timex3 t = (Timex3) itTimex.next();
+			if(t instanceof Timex3Interval) continue;
 			
 			if(t.getEmptyValue() != null && !t.getEmptyValue().equals(""))
 				emptyValueTimexes.put(t, markableCounter);
@@ -177,6 +180,7 @@ public class Eventi2014Writer extends CasConsumer_ImplBase {
 			
 			fullDocument = fullDocument + close;
 			
+			idTranslation.put(t.getTimexId(), markableCounter+"");
 			
 			markableCounter++;
 		}
@@ -188,11 +192,22 @@ public class Eventi2014Writer extends CasConsumer_ImplBase {
 			dctTag = dctTag.substring(0, m.start(1)) + (markableCounter++) + dctTag.substring(m.end(1), dctTag.length());
 		fullDocument = fullDocument + dctTag + "\n";
 		
-		// add empty tags++
+		// add empty tags
 		for(Entry<Timex3, Integer> entry : emptyValueTimexes.entrySet()) {
 			String open  = "<TIMEX3 m_id=\""+(markableCounter++)+"\" TAG_DESCRIPTOR=\"Empty_Mark\" anchorTimeID=\""+entry.getValue()+"\" value=\""+entry.getKey().getEmptyValue()+"\" type=\"DATE\" />\n";
 
 			fullDocument = fullDocument + open;
+		}
+		
+		// add empty tags from timex3intervals
+		FSIterator tx3intIt = jcas.getAnnotationIndex(Timex3Interval.type).iterator();
+		while(tx3intIt.hasNext()) {
+			Timex3Interval tx3i = (Timex3Interval) tx3intIt.next();
+			if(tx3i.getEmptyValue() != null && !tx3i.getEmptyValue().equals("")) {
+				String beginMarkable = idTranslation.get(tx3i.getBeginTimex());
+				String endMarkable = idTranslation.get(tx3i.getEndTimex());
+				fullDocument += "<TIMEX3 m_id=\""+(markableCounter++)+"\" beginPoint=\""+beginMarkable+"\" endPoint=\""+endMarkable+"\" anchorTimeID=\""+beginMarkable+"\" TAG_DESCRIPTOR=\"Empty_Mark\" value=\""+tx3i.getEmptyValue()+"\" type=\"DURATION\" />\n";
+			}
 		}
 		
 		// add closing tag for markables

@@ -263,6 +263,8 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 								
 								// create emptyvalue value
 								annotation.setEmptyValue(createEmptyValue(startTx, endTx, jcas));
+								annotation.setBeginTimex(startTx.getBeginTimex());
+								annotation.setEndTimex(endTx.getEndTimex());
 								
 								try {
 									sentenceTxes.add(annotation);
@@ -604,6 +606,8 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 				annotation.setEnd(timex3.getEnd());
 				annotation.setAllTokIds(timex3.getAllTokIds());
 				annotation.setFilename(timex3.getFilename());
+				annotation.setBeginTimex(timex3.getTimexId());
+				annotation.setEndTimex(timex3.getTimexId());
 				
 				// remember this one for addition to indexes later
 				newAnnotations.add(annotation);
