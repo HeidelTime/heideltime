@@ -3,37 +3,27 @@
 // date:   2012-07-24
 // This file contains regular expression patterns for short months.
 // FORMAT: one line is one disjunction of the pattern
-[Gg]en\.?
-[Gg]enn\.?
-[Ff]ebbr\.?
-[Ff]ebr\.?
-[Ff]eb\.?
+[Gg]enn?\.?
+[Ff]ebb?r?\.?
 [Mm]ar\.?
 [Aa]pr\.?
-[Mm]ag\.?
-[Mm]agg\.?
+[Mm]agg?\.?
 [Gg]iu\.
 [Ll]ug\.?
 [Aa]go\.
 [Ss]ett\.?
-[Ss]et\.
 [Oo]tt\.?
 [Nn]ov\.?
 [Dd]ic\.?
-GEN\.?
-GENN\.?
-FEBBR\.?
-FEBR\.?
-FEB\.?
+GENN?\.?
+FEBB?R?\.?
 MAR\.?
 APR\.?
-MAG\.?
-MAGG\.?
+MAGG?\.?
 GIU\.?
 LUG\.?
 AGO\.?
-SETT\.?
-SET\.?
+SETT?\.?
 OTT\.?
 NOV\.?
 DIC\.?

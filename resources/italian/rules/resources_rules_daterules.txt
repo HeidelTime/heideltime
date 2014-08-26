@@ -92,7 +92,7 @@ RULENAME="date_r2d",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i )?
 // EXAMPLE r3a: domenica 10 agosto del 2014
 // EXAMPLE r3b: domenica 10 agosto
 // EXAMPLE r3c: domenica 10
-RULENAME="date_r3a",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]ella )?)?(\b[Ii]l? |\b[Ll]a )?%reWeekday (%reDayNumber|%reDayWordTh|%reDayWord)( di | )(%reMonthLong|%rheMonthShort)( del? | )%reYear4Digit",NORM_VALUE="group(15)-%normMonth(group(11))-%normDay(group(6))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r3a",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]ella )?)?(\b[Ii]l? |\b[Ll]a )?%reWeekday (%reDayNumber|%reDayWordTh|%reDayWord)( di | )(%reMonthLong|%reMonthShort)( del? | )%reYear4Digit",NORM_VALUE="group(15)-%normMonth(group(11))-%normDay(group(6))",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_r3b",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]ella )?)?(\b[Ii]l? |\b[Ll]a )?%reWeekday (%reDayNumber|%reDayWordTh|%reDayWord)( di | )(%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(11))-%normDay(group(6))",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_r3c",EXTRACTION="(%rePartWords ([Dd][ae]ll'[\s]?|[Dd]el |[Dd]i |[Dd]ella )?)?(\b[Ii]l? |\b[Ll]a )?%reWeekday (%reDayNumber|%reDayWordTh|%reDayWord)(?!\s?[-/]\s?(%reTimeHourWord|%reTimeHour))",NORM_VALUE="UNDEF-REF-month-PLUS-0-%normDay(group(6))",NORM_MOD="%normPartWords(group(2))"
 
