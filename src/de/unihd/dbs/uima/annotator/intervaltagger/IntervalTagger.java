@@ -204,7 +204,8 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 				count++;
 				txes.add(t);
 			}
-			if(count>1){
+
+			if(count>0){
 
 				if (find_interval_candidates){
 					IntervalCandidateSentence sI=new IntervalCandidateSentence(jcas);
@@ -259,10 +260,11 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 								annotation.setTimexValueLE(endTx.getTimexValueEE());
 								annotation.setTimexType(startTx.getTimexType());
 								annotation.setFoundByRule(name);
-								annotation.addToIndexes();
+								
 								
 								// create emptyvalue value
-								annotation.setEmptyValue(createEmptyValue(startTx, endTx, jcas));
+								String emptyValue = createEmptyValue(startTx, endTx, jcas);
+								annotation.setEmptyValue(emptyValue);
 								annotation.setBeginTimex(startTx.getBeginTimex());
 								annotation.setEndTimex(endTx.getEndTimex());
 								
@@ -276,6 +278,9 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 								// prepare tx3intervals to remove
 								timexesToRemove.add(startTx);
 								timexesToRemove.add(endTx);
+								
+								annotation.addToIndexes();
+//								System.out.println(emptyValue);
 							}
 						}
 					}
@@ -420,6 +425,7 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 		ArrayList<Timex3Interval> newAnnotations = new ArrayList<Timex3Interval>();
 		
 		FSIterator iterTimex3 = jcas.getAnnotationIndex(Timex3.type).iterator();
+		int countOnlyTime=0;
 		while (iterTimex3.hasNext()) {
 			Timex3Interval annotation=new Timex3Interval(jcas);
 			Timex3 timex3 = (Timex3) iterTimex3.next();
@@ -434,6 +440,7 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 			Pattern pWeek = Pattern.compile("(\\d+)-W(\\d+)");
 			Pattern pWeekend = Pattern.compile("(\\d+)-W(\\d+)-WE");
 			Pattern pTimeOfDay = Pattern.compile("(\\d+)-(\\d+)-(\\d+)T(AF|DT|MI|MO|EV|NI)");
+			Pattern pOnlyTime = Pattern.compile("(XXXX-XX-XX)?T(\\d+)(:(\\d+))?(:(\\d+))?");
 			
 			Matcher mDate   = pDate.matcher(timex3.getTimexValue());
 			Matcher mCentury= pCentury.matcher(timex3.getTimexValue());
@@ -444,6 +451,7 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 			Matcher mWeek   = pWeek.matcher(timex3.getTimexValue());
 			Matcher mWeekend= pWeekend.matcher(timex3.getTimexValue());
 			Matcher mTimeOfDay= pTimeOfDay.matcher(timex3.getTimexValue());
+			Matcher mOnlyTime = pOnlyTime.matcher(timex3.getTimexValue());
 			
 			boolean matchesDate=mDate.matches();
 			boolean matchesCentury=mCentury.matches();
@@ -454,6 +462,7 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 			boolean matchesWeek=mWeek.matches();
 			boolean matchesWeekend=mWeekend.matches();
 			boolean matchesTimeOfDay=mTimeOfDay.matches();
+			boolean matchesOnlyTime=mOnlyTime.matches();
 			
 			String beginYear, endYear;
 			String beginMonth, endMonth;
@@ -585,6 +594,8 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 				beginYear=endYear=mTimeOfDay.group(1);
 				beginMonth=endMonth=mTimeOfDay.group(2);
 				beginDay=endDay=mTimeOfDay.group(3);
+			}else if(matchesOnlyTime){
+				countOnlyTime++;
 			}
 			if(!beginYear.equals("UNDEF") && !endYear.equals("UNDEF")){
 				annotation.setTimexValueEB(beginYear+"-"+beginMonth+"-"+beginDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);

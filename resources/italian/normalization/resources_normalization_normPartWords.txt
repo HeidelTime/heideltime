@@ -7,23 +7,18 @@
 // FORMAT: "part word","normalized-part-word"
 
 // START
-"[Ll]'( )?inizio( di| della| dell'| del)?","START"
-"[Ii]nizio( di| della| dell'| del)?","START"
-"[Ii] primi( di| della| dell'| del)?","START"
-"[Pp]rimi( di| della| dell'| del)?","START"
-"[Ll]'( )?alba( di| della| dell'| del)?","START"
-"[Aa]lba( di| della| dell'| del)?","START"
-"[Pp]rima met(à|a'|a)","START"
-"[Pp]rincipio","START"
+"([Ll]'\s)?[Ii]nizio( di| della| dell'| del)?","START"
+"([Ii] )?[Pp]rimi( di| della| dell'| del)?","START"
+"([Ll]'\s?)?[Aa]lba( di| della| dell'| del)?","START"
+"([Ll]a )?[Pp]rima met(à|a'|a)( di| della| dell'| del)?","START"
+"([Ii]l )?[Pp]rincipio( di| della| dell'| del)?","START"
+
 // MID
-"[Mm]et(à|a'|a)","MID"
+"([Ll]a )?[Mm]et(à|a'|a)( di| della| dell'| del)?","MID"
+
 // END
-"[Ll]a fine( di| della| dell'| del)?","END"
-"[Ff]ine( di| della| dell'| del)?","END"
+"([Ll]a )?[Ff]ine( di| della| dell'| del)?","END"
 "[Tt]ard[oa]","END"
 "[Uu]ltimi","END"
-"[Ss]econda met(à|a'|a)","END"
-
-"[Ii]l termine( di| della| dell'| del)?","END"
-"[Tt]ermine( di| della| dell'| del)?","END"
-
+"([Ll]a )?[Ss]econda met(à|a'|a)( di| della| dell'| del)?","END"
+"([Ii]l )?[Tt]ermine( di| della| dell'| del)?","END"

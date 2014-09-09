@@ -1,3 +1,6 @@
+// This file contains regular expression patterns for definite articles (masculine, feminine, singular and plural).
+// ATTENTION: when used in a rule, do not add space afterwards
+// FORMAT: one line is one disjunction of the pattern
 \b[Ii]l?[\s]
 \b[Ll][eao'][\s]?
 \b[Gg]li[\s]

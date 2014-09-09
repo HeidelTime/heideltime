@@ -1,0 +1,10 @@
+// This file contains regular expression patterns for the preposition "di" and its 
+// contracted forms (masculine, feminine, singular and plural).
+// ATTENTION: when used in a rule, do not add space afterwards
+// FORMAT: one line is one disjunction of the pattern
+[Dd]i[\s]
+[Dd]ell[oae][\s]
+[Dd]ell'[\s]?
+[Dd]el[\s]
+[Dd]egli[\s]
+[Dd]ei[\s]

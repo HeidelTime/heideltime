@@ -3,22 +3,22 @@
 // date:   2012-07-24
 // This file contains regular expression patterns for set words.
 // FORMAT: one line is one disjunction of the pattern
-[Aa]ll'( )?anno
+//[Aa]ll'( )?anno
 //[Ll]'( )?anno
-annual[ei]
 [Aa]nnualmente
-annualizzat[oaei]
+[Aa]nnualizzat[oaei]
+annual[ei]
 annu[oaie]
 [Pp]er anno
-mensil[ei]
+//mensil[ei]
 cotidian[oaie]
-di ogni giorno
-di tutti i giorni
+//di ogni giorno
+//di tutti i giorni
 giornalier[oaie]
 [Gg]iornalmente
 [Qq]uotidianamente
-//[Qq]uotidian[aeoi]
+[Qq]uotidian[ae]
 [Aa](lla)? settimana	 
 ebdomadari[oaie]?
-[Ss]ettimanale
+//[Ss]ettimanale
 [Ss]ettimanalmente

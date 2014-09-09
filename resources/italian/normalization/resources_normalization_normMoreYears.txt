@@ -7,6 +7,12 @@
 "[Tt]riennio","3"
 "[Vv]entennio","20"
 
+"[Dd]ue lustri","10"
+"[Tt]re lustri","15"
+"[Qq]uattro lustri","20"
+"[Cc]inque lustri","25"
+"[Ss]ei lustri","30"
+
 "triennal[ei]","3"
 "decennal[ei]","10"
 "quinquennal[ei]","5"

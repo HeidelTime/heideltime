@@ -195,7 +195,7 @@ public class Eventi2014Reader extends CollectionReader_ImplBase {
 			
 			// get the document creation time
 			if (line.startsWith("<TIMEX3")){
-				Pattern paConstraint = Pattern.compile("(<TIMEX3 .*? functionInDocument=\"PUBLICATION_TIME\" .*? value=\"(.*?)\".*?/>)");
+				Pattern paConstraint = Pattern.compile("(<TIMEX3 .*? TAG_DESCRIPTOR=\"D[CP]T\" .*? value=\"(.*?)\".*?/>)");
 				for (MatchResult mr : Toolbox.findMatches(paConstraint,line)) {
 					fullDctTag = mr.group(1); 
 					dct = mr.group(2);

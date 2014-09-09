@@ -5,26 +5,20 @@
 //INTERVAL(RANGE) RULES //
 //////////////////////////
 
-// DATE RANGES
-
 //EXAMPLE interval_01: dal 1999 al 2012
 //EXAMPLE interval_02: fra marzo e maggio/Tra il 1992 e il 1993
-//EXAMPLE interval_03: 20.3.2003 - 1.5.2003 - 20/3/2003 - 1/5/2003 
+//EXAMPLE interval_03 date: 20.3.2003 - 1.5.2003 - 20/3/2003 - 1/5/2003 
+//EXAMPLE interval_03 time: 15 - 17
 //EXAMPLE interval_05: la guerra  cominciò il 20/3/2003 e durò fino al 1/5/2003/ cominciò a Mrazo e durò fino a Giugno
 //EXAMPLE interval_07: cominciò il 20 marzo del 2003 e finì il primo maggio
 //EXAMPLE interval_10: marzo, aprile e maggio
 //EXAMPLE interval_11: lunedì, martedì, mercoledì e giovedì
+//EXAMPLE interval_12: dalle 2 alle 5
 
-RULENAME="interval_01",EXTRACTION="[Dd]al <TX3_([0-9]+)> (fino )?(al) <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(4)"
+RULENAME="interval_01",EXTRACTION="([Dd]al? |[Dd]all'\s?|[Dd]all[ae] )<TX3_([0-9]+)> (fino )?(ad? |al |all'\s|all[ae] )<TX3_([0-9]+)>",NORM_VALUE="group(2)-group(5)"
 RULENAME="interval_02",EXTRACTION="[TtFf]ra( [iI]l)? <TX3_([0-9]+)> e( [iI]l)? <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(4)"
-RULENAME="interval_03",EXTRACTION="<TX3_([0-9]+)>\s?-\s?<TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"
+RULENAME="interval_03",EXTRACTION="(?<!anni\s)<TX3_([0-9]+)>\s?-\s?<TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"
 RULENAME="interval_05",EXTRACTION="([Ii]l|[Ii]n|a) <TX3_([0-9]+)> .* fino al? <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(3)"
 RULENAME="interval_07",EXTRACTION="(cominciò|iniziò|ebbe inizio) il <TX3_([0-9]+)>,? e (finì|terminò|ebbe fine) il <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(4)"
 RULENAME="interval_10",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)> e <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(3)"
 RULENAME="interval_11",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)>, <TX3_([0-9]+)> e <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(4)"
-
-// TIME RANGES
-
-//EXAMPLE interval_12: dalle 2 alle 5
-
-RULENAME="interval_12",EXTRACTION="dalle <TX3_([0-9]+)> alle <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(2)"

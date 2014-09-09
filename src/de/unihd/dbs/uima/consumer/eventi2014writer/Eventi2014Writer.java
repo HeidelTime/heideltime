@@ -84,6 +84,7 @@ public class Eventi2014Writer extends CasConsumer_ImplBase {
 			filename = parts[0];
 			dctTag = parts[1];
 		} catch(Exception e) {
+			e.printStackTrace();
 			filename = "doc_" + Eventi2014Writer.getOutCount();
 		}
 		
@@ -206,12 +207,12 @@ public class Eventi2014Writer extends CasConsumer_ImplBase {
 			if(tx3i.getEmptyValue() != null && !tx3i.getEmptyValue().equals("")) {
 				String beginMarkable = idTranslation.get(tx3i.getBeginTimex());
 				String endMarkable = idTranslation.get(tx3i.getEndTimex());
-				fullDocument += "<TIMEX3 m_id=\""+(markableCounter++)+"\" beginPoint=\""+beginMarkable+"\" endPoint=\""+endMarkable+"\" anchorTimeID=\""+beginMarkable+"\" TAG_DESCRIPTOR=\"Empty_Mark\" value=\""+tx3i.getEmptyValue()+"\" type=\"DURATION\" />\n";
+				fullDocument += "<TIMEX3 m_id=\""+(markableCounter++)+"\" TAG_DESCRIPTOR=\"Empty_Mark\" beginPoint=\""+beginMarkable+"\" endPoint=\""+endMarkable+"\" anchorTimeID=\""+beginMarkable+"\" value=\""+tx3i.getEmptyValue()+"\" type=\"DURATION\" />\n";
 			}
 		}
 		
 		// add closing tag for markables
-		fullDocument = "\n" + fullDocument + "</Markables>\n<Relations>\n</Relations>\n</Document>";
+		fullDocument += "</Markables>\n<Relations>\n</Relations>\n</Document>";
 		
 		writeDocument(fullDocument, filename);
 	}

@@ -14,7 +14,7 @@
 // APPROX
 "[Cc]irca","APPROX"
 "[Vv]erso","APPROX"
-"[Ii]ntorno a(l|ll[aeo']|gli|i)","APPROX"
+"[Ii]ntorno( a(l|ll[aeo']|gli|i))?","APPROX"
 "[Uu]n paio di","APPROX"
 // MORE, AFTER
 "[Aa]ppena","AFTER"

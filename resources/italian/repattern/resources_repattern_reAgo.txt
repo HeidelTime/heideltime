@@ -1,0 +1,6 @@
+// This file contains regular expression patterns for words meaning "ago".
+// FORMAT: one line is one disjunction of the pattern
+fa
+a questa parte
+or sono
+addietro

@@ -68,6 +68,9 @@
 "59","59"
 "60","60"
 // minute number words
+"[Uu]n quarto","15"
+"[Tt]re quarti","45"
+"[Mm]ezz[ao]","30"
 "[Zz]ero","00"
 "[Uu]no?","01"
 "[Dd]ue","02"

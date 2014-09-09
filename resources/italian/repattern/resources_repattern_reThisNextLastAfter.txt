@@ -1,5 +1,7 @@
-// This file contains regular expression patterns for "this/next/last" words.
+// This file contains regular expression patterns for "this/next/last" adjectives occurring
+// after the noun they refer to.
 // FORMAT: one line is one disjunction of the pattern
+
 // THIS
 //[Ff]ollowing and similar expressions -> handled differently using UNDEF-REF
 // ITALIAN

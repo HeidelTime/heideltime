@@ -1,3 +1,6 @@
+// This file contains regular expression patterns for date words which can't be 
+// resolved and are normalized as XXXX-XX-XX.
+// FORMAT: one line is one disjunction of the pattern
 [1-5]?[0-9]'( pt| st)
 (?<=[Dd]a\s)un giorno all'\s?altro
 (\b[Ii]l )?[Mm]edioevo

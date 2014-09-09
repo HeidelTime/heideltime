@@ -9,7 +9,7 @@
 [Aa]lmeno
 [Aa]ppena
 [Cc]irca
-[Ii]ntorno a(l|ll[aeo']|gli|i)
+[Ii]ntorno( a(l|ll[aeo']|gli|i))?
 [Nn]on meno di
 [Mm]eno di
 [Nn]on pi(ù|u'|u) di

@@ -863,12 +863,21 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		////////////////////////////////////////////////////
 		else if (ambigString.startsWith("UNDEF")) {
 			valueNew = ambigString;
-			
-			//////////////////
-			// TO CALCULATE //
-			//////////////////
-			// year to calculate
-			if (ambigString.matches("^UNDEF-(this|REFUNIT|REF)-(.*?)-(MINUS|PLUS)-([0-9]+).*")) {
+			if (ambigString.matches("^UNDEF-REFDATE$")){
+				if (i > 0){
+					Timex3 anyDate = linearDates.get(i-1);
+					String lmDate = anyDate.getTimexValue();
+					valueNew = lmDate;
+				}
+				else{
+					valueNew = "XXXX-XX-XX";
+				}
+
+				//////////////////
+				// TO CALCULATE //
+				//////////////////
+				// year to calculate
+			} else if (ambigString.matches("^UNDEF-(this|REFUNIT|REF)-(.*?)-(MINUS|PLUS)-([0-9]+).*")) {
 				for (MatchResult mr : Toolbox.findMatches(Pattern.compile("^(UNDEF-(this|REFUNIT|REF)-(.*?)-(MINUS|PLUS)-([0-9]+)).*"), ambigString)) {
 					String checkUndef = mr.group(1);
 					String ltn  = mr.group(2);
@@ -1238,6 +1247,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						valueNew = valueNew.replace(checkUndef, lmYear);
 					}
 				}
+				if (valueNew.endsWith("-FY")){					
+					valueNew = "FY" + valueNew.substring(0, Math.min(valueNew.length(), 4));
+				}
 			} else if (ambigString.startsWith("UNDEF-this-year")) {
 				String checkUndef = "UNDEF-this-year";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
@@ -1249,6 +1261,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					} else {
 						valueNew = valueNew.replace(checkUndef, lmYear);
 					}
+				}
+				if (valueNew.endsWith("-FY")){					
+					valueNew = "FY" + valueNew.substring(0, Math.min(valueNew.length(), 4));
 				}
 			} else if (ambigString.startsWith("UNDEF-next-year")) {
 				String checkUndef = "UNDEF-next-year";
@@ -1262,6 +1277,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						lmYear = DateCalculator.getXNextYear(lmYear, 1);
 						valueNew = valueNew.replace(checkUndef, lmYear);
 					}
+				}
+				if (valueNew.endsWith("-FY")){					
+					valueNew = "FY" + valueNew.substring(0, Math.min(valueNew.length(), 4));
 				}
 			}
 			

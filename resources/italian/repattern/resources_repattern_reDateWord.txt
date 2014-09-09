@@ -10,7 +10,7 @@
 
 [Aa]vant'?[\s]?ieri
 [Ii]eri l'[\s]?altro
-[Ll]'[\s]altro ieri
+([Ll]'[\s]?)?altro ieri
 [Ii]eri
 
 [Oo]ggi

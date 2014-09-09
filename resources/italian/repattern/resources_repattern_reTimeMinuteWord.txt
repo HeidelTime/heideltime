@@ -3,6 +3,9 @@
 // date:   2012-07-24
 // This file contains regular expression patterns for time minutes.
 // FORMAT: one line is one disjunction of the pattern
+[Uu]n quarto
+[Tt]re quarti
+[Mm]ezz[ao]
 [Uu]n[oa']?
 [Dd]ue
 [Tt]re

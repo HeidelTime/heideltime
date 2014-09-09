@@ -21,6 +21,6 @@
 "[Dd]ecad[ei]","decade"
 "[Ss]ecol[io]","century"
 "[Bb]imestre","B"
-//"[Tt]rimestre","Q"
+"[Tt]rimestre","Q"
 "[Qq]uadrimestre","Qu"
 "[Ss]emestre","H"

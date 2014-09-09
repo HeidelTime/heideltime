@@ -8,59 +8,46 @@
 // EVERY UNIT //
 ////////////////
 // set_r1
-// EXAMPLE r1a-1: cada año
-// EXAMPLE r1b-1: cada seis meses
-// EXAMPLE r1c-1: cada 6 meses
-// EXAMPLE r1d-1: cada lunes
-// EXAMPLE r1e-1: cada noche
-// EXAMPLE r1f-1: cada abril
-RULENAME="set_r1a",EXTRACTION="([Oo]gni|\b[Aa]lla|\b[Aa]l) %reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))",NORM_QUANT="EVERY"
-RULENAME="set_r1b",EXTRACTION="([Oo]gni|\b[Aa]l) (%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(2))%normUnit4Duration(group(5))",NORM_QUANT="EVERY"
-RULENAME="set_r1c",EXTRACTION="([Oo]gni|\b[Aa]l) ([\d]+) %reUnit",NORM_VALUE="Pgroup(2)%normUnit4Duration(group(3))",NORM_QUANT="EVERY"
+// EXAMPLE r1a: ogni anno
+// EXAMPLE r1b: ogni sei mesi
+// EXAMPLE r1c: ogni 6 mesi
+// EXAMPLE r1d: ogni lunedì
+// EXAMPLE r1e: ogni notte
+// EXAMPLE r1f: ogni agosto
+// EXAMPLE r1g: ogni inverno
+// EXAMPLE r1h: tutti gli anni
+// EXAMPLE r1j: tutte le mattine
+// EXAMPLE r1k: di giorno in giorno
+// EXAMPLE r1l: di ora in ora
+// EXAMPLE r1m: anno dopo anno
+// EXMAPLE r1n: ora dopo ora
+// EXAMPLE r1o: ventiquattr'ore su ventiquattro
+
+RULENAME="set_r1a",EXTRACTION="([Oo]gni |\b[Aa]lla |\b[Aa]l \b[Aa]ll'\s?)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))",NORM_QUANT="EVERY"
+RULENAME="set_r1b",EXTRACTION="([Oo]gni) (%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(2))%normUnit4Duration(group(5))",NORM_QUANT="EVERY"
+RULENAME="set_r1c",EXTRACTION="([Oo]gni) ([\d]+) %reUnit",NORM_VALUE="Pgroup(2)%normUnit4Duration(group(3))",NORM_QUANT="EVERY"
 RULENAME="set_r1d",EXTRACTION="([Oo]gni|\b[Aa]l) %reWeekday",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1W"
 RULENAME="set_r1e",EXTRACTION="([Oo]gni|\b[Aa]l) %rePartOfDay",NORM_VALUE="PT%normPartOfDay(group(2))",NORM_QUANT="EVERY"
 RULENAME="set_r1f",EXTRACTION="([Oo]gni) (%reMonthLong|%reMonthShort)",NORM_VALUE="XXXX-%normMonth(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1M"
-RULENAME="set_r1g",EXTRACTION="([Oo]gni|\b[Aa]l) %reSeason",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1S"
-
-// ITALIAN
-RULENAME="set_r1h",EXTRACTION="(%reApproximate )?([Tt]utt[eio]) (\bgli|\bi|\ble) %reUnit",NORM_VALUE="P1%normUnit4Duration(group(5))",NORM_QUANT="EVERY"
-RULENAME="set_r1i",EXTRACTION="%reUnit (dopo) %reUnit",NORM_VALUE="P1%normUnit4Duration(group(1))",NORM_QUANT="EVERY"
-RULENAME="set_r1j",EXTRACTION="(%reApproximate )?([Tt]utt[eio]) (\bgli|\bi|\ble) %rePartOfDay",NORM_VALUE="PT1%normPartOfDay(group(5))",NORM_QUANT="EVERY"
-
+RULENAME="set_r1g",EXTRACTION="([Oo]gni) %reSeason",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1S"
+RULENAME="set_r1h",EXTRACTION="(%reApproximate )?([Tt]utt[ei]) (gli|i|le) %reUnit",NORM_VALUE="P1%normUnit4Duration(group(5))",NORM_QUANT="EVERY"
+RULENAME="set_r1i",EXTRACTION="(%reApproximate )?([Tt]utt[ei]) (gli|i|le) %reWeekday",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(5))",NORM_QUANT="EVERY",NORM_FREQ="1W"
+RULENAME="set_r1j",EXTRACTION="(%reApproximate )?([Tt]utt[ei]) (gli|i|le) %rePartOfDay",NORM_VALUE="PT1%normPartOfDay(group(5))",NORM_QUANT="EVERY"
 RULENAME="set_r1k",EXTRACTION="[Dd]i (%reUnit in \2)",NORM_VALUE="P1%normUnit4Duration(group(2))",OFFSET="group(1)-group(1)"
 RULENAME="set_r1l",EXTRACTION="[Dd]i (%reUnitTime in \2)",NORM_VALUE="PT1%normUnit4Duration(group(2))",OFFSET="group(1)-group(1)"
 RULENAME="set_r1m",EXTRACTION="%reUnit dopo \1",NORM_VALUE="P1%normUnit4Duration(group(1))"
 RULENAME="set_r1n",EXTRACTION="%reUnitTime dopo \1",NORM_VALUE="PT1%normUnit4Duration(group(1))"
-RULENAME="set_r1o",EXTRACTION="(24|[Vv]entiquattr[o'])\s?ore su (24|ventiquattro)",NORM_VALUE="PT1H"
-// set_r2
-// EXAMPLE r2a-1: los fines de semana
-//RULENAME="set_r2a",EXTRACTION="(los) fines de semana",NORM_VALUE="XXXX-WXX-WE"
+RULENAME="set_r1o",EXTRACTION="(24 |[Vv]entiquattr[o']\s?)ore su (24|ventiquattro)",NORM_VALUE="PT1H"
 
+// set_r2
 RULENAME="set_r2a",EXTRACTION="%reSetWords",NORM_VALUE="%normSetWords(group(1))"
+RULENAME="set_r2b",EXTRACTION="([Qq]uotidian[oi]|[Ss]ettimanal[ei]|[Mm]ensil[ei])",NORM_VALUE="%normSetWords(group(1))",POS_CONSTRAINT="group(1):ADJ:"
 
 // set_r3
-// EXAMPLE r3a-1: una vez al año
-// EXAMPLE r3b-1: dos veces por semana
-//RULENAME="set_r3a",EXTRACTION="[Uu]n[oa] vez (por|al|a la) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_FREQ="1"
-//RULENAME="set_r3b",EXTRACTION="[Dd]os veces (por|al|a la) %reUnit",NORM_VALUE="P%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_FREQ="2"
-
-
-// set_r4
-// EXAMPLE r4a-1: todos los 5 años
-// EXAMPLE r4b-1: todos los diez días
-//RULENAME="set_r4a",EXTRACTION="([Tt]od[oa]s l[oa]s|[Cc]ada) ([\d]+) %reUnit",NORM_VALUE="Pgroup(2)%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_QUANT="EVERY"
-//RULENAME="set_r4b",EXTRACTION="([Tt]od[oa]s l[oa]s|[Cc]ada) (%reNumWord1D|%reNumWord2D) %reUnit",NORM_VALUE="P%normDurationNumber(group(2))%UPPERCASE%(%SUBSTRING%(%normUnit(group(5)),0,1))",NORM_QUANT="EVERY"
+// EXAMPLE r3a-1: due volte all'anno
+RULENAME="set_r3a",EXTRACTION="(%reNumWord1D|%reNumWord2D) volt[ae] (ogni |la |alla |al? |all'\s?|l'\s?)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(5))",NORM_FREQ="%normDurationNumber(group(1))"
 
 // set_r5
-// EXAMPLE r5a-1: 2 days each week
-//RULENAME="set_r5a",EXTRACTION="([\d]+) %reUnit (cada|por|al|a la) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(4)),0,1))",NORM_QUANT="EACH",NORM_FREQ="group(1)%normUnit4Duration(group(2))"
-//RULENAME="set_r5b",EXTRACTION="(%reNumWord2D|%reNumWord1D) %reUnit (cada|por|al|a la) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(6)),0,1))",NORM_QUANT="EACH",NORM_FREQ="%normDurationNumber(group(1))%normUnit4Duration(group(4))"
-
-// set_r5 
-// EXAMPLE r6a-1: anualmente
-// EXAMPLE r6b-1: diarios (if adjective)
-// EXAMPLE r6c-2: semanales (if adjective)
-RULENAME="set_r6a",EXTRACTION="%reSetWords",NORM_VALUE="%normSetWords(group(1))"
-//RULENAME="set_r6b",EXTRACTION="(diari[oa][s]?|mensual(es)?)",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(group(1),0,1))",POS_CONSTRAINT="group(1):ADJ:"
-//RULENAME="set_r6c",EXTRACTION="(semanal(es)?)",NORM_VALUE="P1W",POS_CONSTRAINT="group(1):ADJ:"
-
+// EXAMPLE r5a-1: 2 giorni a settimana
+RULENAME="set_r5a",EXTRACTION="([\d]+) %reUnit (ogni |la |alla |al? |all'\s?|l'\s?)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))",NORM_QUANT="EACH",NORM_FREQ="group(1)%normUnit4Duration(group(2))"
+RULENAME="set_r5b",EXTRACTION="(%reNumWord2D|%reNumWord1D) %reUnit (ogni |la |alla |al |all'\s?|l'\s?)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))",NORM_QUANT="EACH",NORM_FREQ="%normDurationNumber(group(1))%normUnit4Duration(group(4))"
