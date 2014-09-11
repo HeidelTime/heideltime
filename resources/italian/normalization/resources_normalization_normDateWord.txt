@@ -8,9 +8,9 @@
 
 "[Aa]llora","UNDEF-REFDATE"
 
-"[Aa]vant'?[\s]?ieri","UNDEF-this-day-LESS-2"
-"[Ii]eri l'\s?altro","UNDEF-this-day-LESS-2"
-"([Ll]'\s?)?altro ieri","UNDEF-this-day-LESS-2"
+"[Aa]vant'?[\s]?ieri","UNDEF-this-day-MINUS-2"
+"[Ii]eri l'\s?altro","UNDEF-this-day-MINUS-2"
+"([Ll]'\s?)?altro ieri","UNDEF-this-day-MINUS-2"
 "[Ii]eri","UNDEF-last-day"
 
 "[Oo]ggi","UNDEF-this-day"
