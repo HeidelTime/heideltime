@@ -9,4 +9,5 @@
 [Gg]ioved(ì|i'|i)
 [Vv]enerd(ì|i'|i)
 [Ss]abato
+domenical[ei]
 [Dd]omenica

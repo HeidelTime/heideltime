@@ -1,0 +1,9 @@
+// FORMAT: one line is one disjunction of the pattern
+// "Notice that the tokens “presente/passato/futuro” are considered as instances of temporal expressions
+// only when they are adjectives or complement of a PP. In case they are nouns, they are never marked up
+// as temporal expressions."
+
+passat[oaei]
+//present[ei]
+futur[oaei]
+corrent[ei]

@@ -1,0 +1,29 @@
+// ITALIAN
+// MORNING
+[Mm]attinata
+[Mm]attin[ao]
+// MIDDAY
+[Mm]ezzod(ì|i'?)
+[Mm]ezzogiorno
+[Oo]ra di pranzo
+// AFTERNOON
+[Dd]opo[\s]?pranzo
+[Pp]omeriggio
+// EVENING
+[Ss]er(at)?a
+// NIGHT
+[Nn]ottata
+[Cc]uore della notte
+[Nn]otte
+'a nuttata
+// DAYTIME
+[Gg]iornata lavorativa
+[Gg]iornata
+[Gg]iorno lavorativo
+
+// Adjectives
+[Nn]otturn[oaei]
+[Ss]eral[ei]
+[Mm]attutin[oaei]
+[Pp]omeridian[oaei]
+[Gg]iornalier[oaei]

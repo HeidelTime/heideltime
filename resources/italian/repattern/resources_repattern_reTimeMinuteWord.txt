@@ -1,0 +1,67 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-24
+// This file contains regular expression patterns for time minutes.
+// FORMAT: one line is one disjunction of the pattern
+[Uu]n quarto
+[Tt]re quarti
+[Mm]ezz[ao]
+[Uu]n[oa']?
+[Dd]ue
+[Tt]re
+[Qq]uattro
+[Cc]inque
+[Ss]ei
+[Ss]ette
+[Oo]tto
+[Nn]ove
+[Uu]ndici
+[Dd]odici
+[Tt]redici
+[Qq]uattordici
+[Qq]uindici
+[Ss]edici
+[Dd]iciassette
+[Dd]iciott[o']
+[Dd]iciannove
+[Dd]ieci
+[Vv]entuno
+[Vv]entidue
+[Vv]entitr(é|e)
+[Vv]entiquattr[o']
+[Vv]enticinque
+[Vv]entisei
+[Vv]entisette
+[Vv]entott[o']
+[Vv]entinove
+[Vv]ent[i']
+[Tt]rentuno
+[Tt]rentadue
+[Tt]rentatr(é|e)
+[Tt]rentaquattr[o']
+[Tt]rentacinque
+[Tt]rentasei
+[Tt]rentasette
+[Tt]rentott[o']
+[Tt]rentanove
+[Tt]rent[a']
+[Qq]uarantuno
+[Qq]uarantadue
+[Qq]uarantatr(é|e)
+[Qq]uarantaquattr[o']
+[Qq]uarantacinque
+[Qq]uarantasei
+[Qq]uarantasette
+[Qq]uarantott[o']
+[Qq]uarantanove
+[Qq]uarant[a']
+[Cc]inquantuno
+[Cc]inquantadue
+[Cc]inquantatr(é|e)
+[Cc]inquantaquattr[o']
+[Cc]inquantacinque
+[Cc]inquantasei
+[Cc]inquantasette
+[Cc]inquantott[o']
+[Cc]inquantanove
+[Cc]inquant[a']

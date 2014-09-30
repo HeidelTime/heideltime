@@ -8,7 +8,11 @@
 [\s]?–[\s]?
 [\s]?/[\s]?
  ed? 
- od? 
+ o 
  ai? 
- alla 
+ all[ae] 
  al 
+ ad 
+ agli 
+ oppure 
+ sia 

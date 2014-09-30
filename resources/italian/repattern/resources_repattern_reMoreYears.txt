@@ -1,0 +1,20 @@
+// This file contains regular expression patterns for words identifying sets of years.
+// FORMAT: one line is one disjunction of the pattern
+
+[Qq]uinquennio
+[Bb]iennio
+[Ll]ustro
+[Tt]riennio
+[Vv]entennio
+
+[Dd]ue lustri
+[Tt]re lustri
+[Qq]uattro lustri
+[Cc]inque lustri
+[Ss]ei lustri
+
+triennal[ei]
+decennal[ei]
+quinquennal[ei]
+biennal[ei]
+ventennal[ei]

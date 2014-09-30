@@ -5,19 +5,22 @@
 // FORMAT: one line is one disjunction of the pattern
 // ITALIAN
 // MORNING
+[Mm]attinata
 [Mm]attin[aoe]
 // MIDDAY
-[Mm]eridione
 [Mm]ezzod(ì|i'|i)
 [Mm]ezzogiorno
 // AFTERNOON
-[Dd]opopranzo
-[Pp]omeriggio
+[Dd]opo[\s]?pranzo
+[Pp]omeriggio?
 // EVENING
-[Ss]era(ta)?
+[Ss]erat[ae]
+[Ss]er[ae]
 // NIGHT
-[Nn]ottata
+[Nn]ottat[ae]
 [Mm]ezzanotte
 [Nn]ott[ei]
 // DAYTIME
-[Gg]iornata
+[Gg]iornat[ae]
+[Gg]iornat[ae] lavorativ[ae]
+[Gg]iorn[oi] lavorativ[oi]

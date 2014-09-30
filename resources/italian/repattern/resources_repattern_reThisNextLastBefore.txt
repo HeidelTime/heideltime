@@ -1,0 +1,16 @@
+// This file contains regular expression patterns for "this/next/last" adjectives occurring
+// before the noun they refer to.
+// FORMAT: one line is one disjunction of the pattern
+// THIS
+//[Ff]ollowing and similar expressions -> handled differently using UNDEF-REF
+// ITALIAN
+// THIS
+[Qq]uest[oaei']
+// NEXT
+[Pp]rossim[oaei]
+// LAST
+[Ss]cors[oaei]
+[Qq]uest[oaei'][\s]?ultim[oaei]
+[Uu]ltim[oaei]
+//[Pp]recedent[ei]
+[Pp]rim[oaei]

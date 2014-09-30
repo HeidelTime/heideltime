@@ -4,12 +4,28 @@
 // This file contains regular expression patterns for parts of year.
 // FORMAT: one line is one disjunction of the pattern
 // ITALIAN
+
+// bimestre
+[Pp]rimo bimestre
+[Ss]econdo bimestre
+[Tt]erzo bimestre
+[Qq]uarto bimestre
+[Qq]uinto bimestre
+[Ss]esto bimestre
+
+// trimestre
 [Pp]rimo trimestre
 [Ss]econdo trimestre
 [Tt]erzo trimestre
 [Qq]uarto trimestre
-[Pp]rima quadrimestre
-[Ss]econda quadrimestre
-[Tt]erza quadrimestre
-[Pp]rima met(à|a'|a)
-[Ss]econda met(à|a'|a)
+
+//  quadrimestre
+[Pp]rimo quadrimestre
+[Ss]econdo quadrimestre
+[Tt]erzo quadrimestre
+
+// semestre
+[Pp]rimo semestre
+[Ss]econdo semestre
+[Pp]rima met(à|a')
+[Ss]econda met(à|a')

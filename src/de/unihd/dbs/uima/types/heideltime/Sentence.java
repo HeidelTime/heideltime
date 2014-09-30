@@ -11,7 +11,7 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Thu Sep 20 15:38:13 CEST 2012
+ * Updated by JCasGen Mon Aug 18 14:39:53 CEST 2014
  * XML source: /home/julian/heideltime/heideltime-kit/desc/type/HeidelTime_TypeSystem.xml
  * @generated */
 public class Sentence extends Annotation {
@@ -51,10 +51,13 @@ public class Sentence extends Annotation {
     readObject();
   }   
 
-  /** <!-- begin-user-doc -->
+  /** 
+   * <!-- begin-user-doc -->
     * Write your own initialization here
     * <!-- end-user-doc -->
-  @generated modifiable */
+  *
+   * @generated modifiable 
+   */
   private void readObject() {}
      
  
@@ -63,14 +66,18 @@ public class Sentence extends Annotation {
   //* Feature: filename
 
   /** getter for filename - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public String getFilename() {
     if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_filename == null)
       jcasType.jcas.throwFeatMissing("filename", "de.unihd.dbs.uima.types.heideltime.Sentence");
     return jcasType.ll_cas.ll_getStringValue(addr, ((Sentence_Type)jcasType).casFeatCode_filename);}
     
   /** setter for filename - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setFilename(String v) {
     if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_filename == null)
       jcasType.jcas.throwFeatMissing("filename", "de.unihd.dbs.uima.types.heideltime.Sentence");
@@ -81,14 +88,18 @@ public class Sentence extends Annotation {
   //* Feature: sentenceId
 
   /** getter for sentenceId - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public int getSentenceId() {
     if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_sentenceId == null)
       jcasType.jcas.throwFeatMissing("sentenceId", "de.unihd.dbs.uima.types.heideltime.Sentence");
     return jcasType.ll_cas.ll_getIntValue(addr, ((Sentence_Type)jcasType).casFeatCode_sentenceId);}
     
   /** setter for sentenceId - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setSentenceId(int v) {
     if (Sentence_Type.featOkTst && ((Sentence_Type)jcasType).casFeat_sentenceId == null)
       jcasType.jcas.throwFeatMissing("sentenceId", "de.unihd.dbs.uima.types.heideltime.Sentence");

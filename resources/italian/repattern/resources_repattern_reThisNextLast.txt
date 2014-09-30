@@ -9,6 +9,7 @@
 // THIS
 [Qq]uest[oa']
 [Ii]n cors[oa]
+[Cc]orrent[ei]
 // NEXT
 [Pp]rossim[oa]
 // LAST

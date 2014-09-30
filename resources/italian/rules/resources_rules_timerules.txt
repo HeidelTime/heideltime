@@ -29,57 +29,111 @@ RULENAME="time_r2a",EXTRACTION="(%reMonthNumber-%reDayNumber-%reYear2Digit)( %re
 // PART-OF-DAY GRANULARITY //
 /////////////////////////////
 // time_r3
-// EXAMPLE r3a-1: esta tarde
-// EXAMPLE r3a-2: esta noche
-// EXAMPLE r3b-1: anoche
+// EXAMPLE r3a: questa sera
+// EXAMPLE r3b: domattina
+// EXAMPLE r3c: stamattina
+// EXAMPLE r3d: stasera
+// EXAMPLE r3e: stanotte
+// EXAMPLE r3f: in serata
+// EXAMPLE r3i: venerdì mattina
+// EXAMPLE r3j: ieri mattina
+// EXAMPLE r3k: la mattina di sabato
+// EXAMPLE r3l: la mattina dell'altro ieri
+// EXAMPLE r3m: tutto il pomeriggio
+// EXAMPLE r3n: l'altra sera
+// EXAMPLE r3o: ore notturne
+// EXAMPLE r3p: la mattina di sabato scorso
+// EXMAPLE r3q: la mattina dello scorso sabato
+
+// EXAMPLE r15a: questa mattina
+// EXAMPLE r15b: la notte prossima
+
 // EXAMPLE r3c-1: la noche
-// EXAMPLE r3d-1: la noche del pasado viernes
-// EXAMPLE r3e-1: la noche del viernes pasado
-// EXAMPLE r3f-1: la mañana del miércoles
+
+
 RULENAME="time_r3a",EXTRACTION="%reThisNextLast %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normPartOfDay(group(2))"
 RULENAME="time_r3b",EXTRACTION="([Dd]omattina)",NORM_VALUE="UNDEF-next-dayTMO"
 RULENAME="time_r3c",EXTRACTION="([Ss]taman[ei]|[Ss]tamattina)",NORM_VALUE="UNDEF-this-dayTMO"
 RULENAME="time_r3d",EXTRACTION="([Ss]tasera)",NORM_VALUE="UNDEF-this-dayTEV"
 RULENAME="time_r3e",EXTRACTION="([Ss]tanotte)",NORM_VALUE="UNDEF-last-dayTNI"
+RULENAME="time_r3f",EXTRACTION="[Ii]n ((tarda |prima )?(mattinata|serata))",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(3))",OFFSET="group(1)-group(1)"
+RULENAME="time_r3i",EXTRACTION="(%rePartWords %reOf?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reWeekday %reOf?%rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(5))T%normPartOfDay(group(7))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="time_r3j",EXTRACTION="(%rePartWords %reOf?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reDateWord %reOf?%rePartOfDay",NORM_VALUE="%normDateWord(group(5))T%normPartOfDay(group(7))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="time_r3k",EXTRACTION="(%rePartWords %reOf?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%rePartOfDay %reOf?%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(7))T%normPartOfDay(group(5))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="time_r3l",EXTRACTION="(%rePartWords %reOf?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%rePartOfDay %reOf?%reDateWord",NORM_VALUE="%normDateWord(group(7))T%normPartOfDay(group(5))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="time_r3m",EXTRACTION="([Tt]utt[oa] )?(%reDefiniteArticle|[Qq]uel |[Qq]uell([oa] |'\s?)|\b[Uu]n([oa] |'\s?))?%reTimeOfDay",NORM_VALUE="T%normPartOfDay(group(6))"
+RULENAME="time_r3n",EXTRACTION="([Tt]utt[oa] )?(%reDefiniteArticle|[Qq]uel |[Qq]uell([oa] |'\s?)|\b[Uu]n([oa] |'\s?))?(\w+) %reTimeOfDay",NORM_VALUE="T%normPartOfDay(group(7))",POS_CONSTRAINT="group(6):ADJ:"
+RULENAME="time_r3o",EXTRACTION="([Tt]utte )?(\b[Ll]e |[Qq]ueste |[Qq]uelle )?(ore) %reTimeOfDay",NORM_VALUE="T%normPartOfDay(group(4))",POS_CONSTRAINT="group(4):ADJ:",OFFSET="group(3)-group(4)"
+RULENAME="time_r3p",EXTRACTION="(%rePartWords %reOf?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%rePartOfDay %reOf?%reWeekday %reThisNextLastAfter",NORM_VALUE="UNDEF-%normThisNextLast(group(8))-%normWeekday(group(7))T%normPartOfDay(group(5))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="time_r3q",EXTRACTION="(%rePartWords %reOf?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%rePartOfDay %reOf?%reThisNextLastBefore %reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(7))-%normWeekday(group(8))T%normPartOfDay(group(5))",NORM_MOD="%normPartWords(group(2))"
+
+RULENAME="time_r15a",EXTRACTION="(%rePartWords %reOf?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLast %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-dayT%normPartOfDay(group(6))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="time_r15b",EXTRACTION="(%rePartWords %reOf?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%rePartOfDay %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(6))-dayT%normPartOfDay(group(5))",NORM_MOD="%normPartWords(group(2))"
+
+// SPANISH
 //RULENAME="time_r3c",EXTRACTION="([Ee]l|[Ll]a) %rePartOfDay",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normPartOfDay(group(2))"
-//RULENAME="time_r3d",EXTRACTION="([Dd]el |[Ee]l |[Ll]a |[Aa]l )?%rePartOfDay ([Dd]e la|[Dd]el|[Ee]l|[Ll]a|[Aa]l) %reThisNextLast %reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(4))-%normWeekday(group(5))T%normPartOfDay(group(2))"
-//RULENAME="time_r3e",EXTRACTION="([Dd]el |[Ee]l |[Ll]a |[Aa]l )?%rePartOfDay ([Dd]e la|[Dd]el|[Ee]l|[Ll]a|[Aa]l) %reWeekday %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normWeekday(group(4))T%normPartOfDay(group(2))"
-//RULENAME="time_r3f",EXTRACTION="([Dd]el |[Ee]l |[Ll]a |[Aa]l )?%rePartOfDay ([Dd]e la|[Dd]el|[Ee]l|[Ll]a|[Aa]l) %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(4))T%normPartOfDay(group(2))"
-
-// ITALIAN
-//RULENAME="time_r3g",EXTRACTION="([Dd]omattina)",NORM_VALUE="UNDEF-next-dayTMO"
-// ITALIAN
-//RULENAME="time_r3h",EXTRACTION="([Ss]taman[ei]|[Ss]tamattina)",NORM_VALUE="UNDEF-this-dayTMO"
-// ITALIAN
-RULENAME="time_r3i",EXTRACTION="(%rePartWords ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reWeekday ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?%rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(5))T%normPartOfDay(group(7))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="time_r3j",EXTRACTION="(%rePartWords ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reDateWord ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?%rePartOfDay",NORM_VALUE="%normDateWord(group(5))T%normPartOfDay(group(7))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="time_r3k",EXTRACTION="(%rePartWords ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%rePartOfDay ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(7))T%normPartOfDay(group(5))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="time_r3l",EXTRACTION="(%rePartWords ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%rePartOfDay ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?%reDateWord",NORM_VALUE="%normDateWord(group(7))T%normPartOfDay(group(5))",NORM_MOD="%normPartWords(group(2))"
-
-
-RULENAME="time_r15a",EXTRACTION="(%rePartWords ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%reThisNextLast %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-dayT%normPartOfDay(group(6))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="time_r15b",EXTRACTION="(%rePartWords ([Dd]ell'[\s]?|[Dd]el |[Dd]i |[Dd]egli )?)?(\b[Ii]l? |\b[Ll][oa'][\s]?)?%rePartOfDay %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(6))-dayT%normPartOfDay(group(5))",NORM_MOD="%normPartWords(group(2))"
 
 ///////////////////////////
 // TIMEPOINT GRANULARITY //
 ///////////////////////////
-// time_r4
-// EXAMPLE r4a-1: las 11 de la mañana 
-// EXAMPLE r4b-1: las 11 5 la tarde 
-// EXAMPLE r4c-1: las 9 de la noche
-// EXAMPLE r4d-1: las 1 de la noche
-// EXAMPLE r4e-1: las 12 de la noche
-//RULENAME="time_r4a",EXTRACTION="(%reApproximate )?([Oo]re) %reTimeHour[\.:]%reTimeMinute",NORM_VALUE="UNDEF-this-dayT%normDay(group(4)):group(5)",NORM_MOD="%normApprox4Dates(group(2))"
-//RULENAME="time_r4b",EXTRACTION="(%reApproximate )?([Oo]re) %reTimeHour",NORM_VALUE="UNDEF-this-dayT%normDay(group(4)):00",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r4a",EXTRACTION="(%reApproximate )?([Oo]re) %reTimeHour[\.:]%reTimeMinute",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(4)):group(5)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r4b",EXTRACTION="(%reApproximate )?([Oo]re) %reTimeHour",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(4)):00",NORM_MOD="%normApprox4Dates(group(2))"
-//RULENAME="time_r4b",EXTRACTION="(%reApproximate )?([Ll]as) %reTimeHour de la tarde",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(4)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
-//RULENAME="time_r4c",EXTRACTION="(%reApproximate )?([Ll]as) (8|9|10|11) de la noche",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(4)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
-//RULENAME="time_r4d",EXTRACTION="(%reApproximate )?([Ll]as) (1|2|3|4|5) de la noche",NORM_VALUE="UNDEF-this-dayT%normDay(group(4)):00",NORM_MOD="%normApprox4Dates(group(2))"
-//RULENAME="time_r4e",EXTRACTION="(%reApproximate )?([Ll]as) (12) de la noche",NORM_VALUE="UNDEF-this-dayT00:00",NORM_MOD="%normApprox4Dates(group(2))"
 
 // time_r5
-// EXAMPLE r5a-1: las 8.15 hora local
-//RULENAME="time_r5a",EXTRACTION="(%reApproximate )?([Ll]as) %reTimeHour[\.:]%reTimeMinute hora(s)?( local(es)?)?",NORM_VALUE="UNDEF-this-dayT%normDay(group(4)):group(5)",NORM_MOD="%normApprox4Dates(group(2))"
+// EXAMPLE r5b: verso le 4
+// EXAMPLE r5c: verso le dieci e venti
+// EXAMPLE r5d: verso le 12:50
+// EXAMPLE r5e: le 2 di pomeriggio
+// EXAMPLE r5f: le 7 di sera
+// EXAMPLE r5g: verso le ore 8 meno 20
+// EXAMPLE r5i: all'una
+// EXAMPLE r5j: alle 4
+// EXAMPLE r5k: alle 4 e 20
+// EXAMPLE r5l: ore due
+// EXMAPLE r5m: mezzogiorno e venti
+// EXMAPLE r5n: mezzogiorno meno venti
+// EXMAPLE r5o: mezzanotte e venti
+// EXMAPLE r5p: mezzanotte meno venti
+// EXAMPLE r5q: all'una (find: una)
+// EXAMPLE r5r: all'una e mezza (find: una e mezza)
+// EXAMPLE r5s: all'una meno un quarto (find: una meno un quarto)
+// EXAMPLE r5t: verso l'una
+// EXAMPLE r5u: verso l'una e mezza
+// EXAMPLE r5v: verso l'una meno un quarto
 
+RULENAME="time_r5b",EXTRACTION="(%reApproximate )?(\b[Ll]e )(ore )?%reTimeHour( ora italiana| italiane| di mattina| di notte)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(5)):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5c",EXTRACTION="(%reApproximate )?(\b[Ll]e )(ore )?(%reTimeHourWord|%reTimeHour) e (%reTimeMinuteWord|%reTimeMinute)( ora italiana| italiane| di mattina| di notte)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(5)):%normMinute(group(8))",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5d",EXTRACTION="(?<!\d\s?-\s)(%reApproximate )?(\b[Ll]e )?(ore )?%reTimeHour[\.:]%reTimeMinute(?!\s-\s?\d)( ora italiana| italiane| di mattina| di notte)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(5)):%normMinute(group(6))",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5e",EXTRACTION="(%reApproximate )?(\b[Ll]e )?([Oo]re )?([2-7]) (di pomeriggio|pomeridiane)",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(%SUM%(%normDay(group(5)),12)):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5f",EXTRACTION="(%reApproximate )?(\b[Ll]e )?([Oo]re )?([7-9]|1[01]) di sera",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(%SUM%(%normDay(group(5)),12)):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5g",EXTRACTION="(%reApproximate )?(\b[Ll]e )?(ore )?(%reTimeHourWord|%reTimeHour) meno (%reTimeMinuteWord|%reTimeMinute)( ora italiana| italiane| di mattina| di notte)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(%SUM%(%normDay(group(5)),-1)):%normMinute(%SUM%(60,-%normMinute(group(8))))",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5j",EXTRACTION="(%reApproximate )?\b[Dd]?[Aa]lle ((ore )?(%reTimeHourWord|%reTimeHour)( ora italiana| italiane| di mattina| di notte)?)",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(5)):00",NORM_MOD="%normApprox4Dates(group(2))",OFFSET="group(3)-group(3)"
+RULENAME="time_r5k",EXTRACTION="(%reApproximate )?\b[Dd]?[Aa]lle ((ore )?(%reTimeHourWord|%reTimeHour) e (%reTimeMinuteWord|%reTimeMinute)( ora italiana| italiane| di mattina| di notte)?)",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(5)):%normMinute(group(8))",NORM_MOD="%normApprox4Dates(group(2))",OFFSET="group(3)-group(3)"
+RULENAME="time_r5l",EXTRACTION="(%reApproximate )?(\b[Oo]re) (%reTimeHourWord|%reTimeHour)( ora italiana| italiane| di mattina| di notte)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(4)):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5m",EXTRACTION="(%reApproximate )?[Mm]ezzogiorno e (%reTimeMinuteWord|%reTimeMinute)( ora italiana| italiane| di mattina| di notte)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T12:%normMinute(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5n",EXTRACTION="(%reApproximate )?[Mm]ezzogiorno meno (%reTimeMinuteWord|%reTimeMinute)( ora italiana| italiane| di mattina| di notte)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T11:%normMinute(%SUM%(60,-%normMinute(group(3))))",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5o",EXTRACTION="(%reApproximate )?[Mm]ezzanotte e (%reTimeMinuteWord|%reTimeMinute)( ora italiana| italiane| di mattina| di notte)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T00:%normMinute(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5p",EXTRACTION="(%reApproximate )?[Mm]ezzanotte meno (%reTimeMinuteWord|%reTimeMinute)( ora italiana| italiane| di mattina| di notte)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T23:%normMinute(%SUM%(60,-%normMinute(group(3))))",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r5q",EXTRACTION="(%reApproximate )?([Dd]?[Aa]ll'[\s]?)((una|1)( ora italiana| italiana)?| di notte)",NORM_VALUE="UNDEF-REF-day-PLUS-0T01:00",NORM_MOD="%normApprox4Dates(group(2))",OFFSET="group(4)-group(4)"
+RULENAME="time_r5r",EXTRACTION="(%reApproximate )?([Dd]?[Aa]ll'[\s]?)((una|1) e (%reTimeMinuteWord|%reTimeMinute)( ora italiana| italian[ae])?| di notte)",NORM_VALUE="UNDEF-REF-day-PLUS-0T01:%normMinute(group(6))",NORM_MOD="%normApprox4Dates(group(2))",OFFSET="group(4)-group(4)"
+RULENAME="time_r5s",EXTRACTION="(%reApproximate )?([Dd]?[Aa]ll'[\s]?)((una|1) meno (%reTimeMinuteWord|%reTimeMinute)( ora italiana| italian[ae])?| di notte)",NORM_VALUE="UNDEF-REF-day-PLUS-0T00:%normMinute(%SUM%(60,-%normMinute(group(6))))",NORM_MOD="%normApprox4Dates(group(2))",OFFSET="group(4)-group(4)"
+RULENAME="time_r5t",EXTRACTION="\b([Vv]erso) l'\s?(una|1)( ora italiana| italiana| di notte)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T01:00",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r5u",EXTRACTION="\b([Vv]erso) l'\s?(una|1) e (%reTimeMinuteWord|%reTimeMinute)( ora italiana| italian[ae]| di notte)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T01:%normMinute(group(3))",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r5v",EXTRACTION="\b([Vv]erso) l'\s?(una|1) meno (%reTimeMinuteWord|%reTimeMinute)( ora italiana| italian[ae]| di notte)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T00:%normMinute(%SUM%(60,-%normMinute(group(3))))",NORM_MOD="%normApprox4Dates(group(1))"
 
+// time_r6
+// EXAMPLE r6a: 15 - 18.30 (find: 15)
+// EXAMPLE r6b: 15.30 - 18 (find: 18)
+// EXAMPLE r6c: 15.30 - 18 (find: 15.30)
+// EXAMPLE r6d: 15 - 18.30 (find: 18.30)
+// EXAMPLE r6e: ore 15 - 18 (find: ore 15)
+// EXAMPLE r6f: ore 15 - 18 (find: 18)
+// EXAMPLE r6g: venerdì 15 - 18 (find: 15)
+// EXAMPLE r6q: venerdì 15 - 18 (find: 18)
+
+RULENAME="time_r6a",EXTRACTION="%reTimeHour\s?[-/]\s?(%reTimeHour[\.:,]%reTimeMinute)",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(1)):00",OFFSET="group(1)-group(1)"
+RULENAME="time_r6b",EXTRACTION="(%reTimeHour[\.:,]%reTimeMinute)\s?[-/]\s?%reTimeHour",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(4)):00",OFFSET="group(4)-group(4)"
+RULENAME="time_r6c",EXTRACTION="(%reTimeHour[\.:,]%reTimeMinute)\s?[-/]\s?(%reTimeHour|%reTimeHour[\.:,]%reTimeMinute)",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):%normMinute(group(3))",OFFSET="group(1)-group(1)"
+RULENAME="time_r6d",EXTRACTION="(%reTimeHour|%reTimeHour[\.:,]%reTimeMinute)\s?[-/]\s?(%reTimeHour[\.:,]%reTimeMinute)",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(6)):%normMinute(group(7))",OFFSET="group(5)-group(5)"
+RULENAME="time_r6e",EXTRACTION="([Oo]re) (%reTimeHourWord|%reTimeHour)\s?[-/]\s?(%reTimeHourWord|%reTimeHour)",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):00",OFFSET="group(1)-group(2)"
+RULENAME="time_r6f",EXTRACTION="([Oo]re) (%reTimeHourWord|%reTimeHour)\s?[-/]\s?(%reTimeHourWord|%reTimeHour)",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(5)):00",OFFSET="group(5)-group(5)"
+RULENAME="time_r6g",EXTRACTION="(%reWeekday|[Oo]rario) (%reTimeHourWord|%reTimeHour)\s?[-/]\s?(%reTimeHourWord|%reTimeHour)",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(3)):00",OFFSET="group(3)-group(3)"
+RULENAME="time_r6h",EXTRACTION="(%reWeekday|[Oo]rario) (%reTimeHourWord|%reTimeHour)\s?[-/]\s?(%reTimeHourWord|%reTimeHour)",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(6)):00",OFFSET="group(6)-group(6)"

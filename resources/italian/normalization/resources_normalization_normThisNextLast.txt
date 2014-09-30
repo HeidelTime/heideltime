@@ -3,32 +3,17 @@
 // date:   2012-07-16
 // This file contains "this/next/last words" and their normalized expressions.
 // FORMAT: "this/next/last-word","normalized-this/next/last-word"
+
 // THIS
-"[Aa]ctual","this"
-"[Ee]n curs[oa]s?","this"
-"[Ee]st[ea]s?","this"
-"[Ee]stos","this"
-"[Pp]resente","this"
+"[Qq]uest[oaei']","this"
+"[Ii]n corso","this"
+"[Cc]orrent[ei]","this"
 // NEXT
-"[Pp]osterior","next"
-"[Pp]róxim[oa]s?","next"
-"[Ss]iguiente","next"
-"[Vv]enider[oa]s?","next"
+"[Pp]rossim[oaei]","next"
 // LAST
-"[Aa]nterior","last"
-"[Pp]asad[oa]s?","last"
-"[Pp]revi[oa]s?","last"
-"[Úú]ltim[oa]s?","last"
-// ITALIAN
-// THIS
-"[Qq]uest[oa']","this"
-"[Ii]n cors[oa]","this"
-// NEXT
-"[Pp]rossim[oa]","next"
-// LAST
-"[Ss]cors[oa]","last"
-"[Qq]uest[oa'][\s]?ultim[oa]","last"
-"[Uu]ltim[oa]","last"
-"[Pp]assat[oa]","last"
-"[Pp]recedente","last"
-"[Pp]rim[oa]","last"
+"[Ss]cors[oaei]","last"
+"[Qq]uest[oaei'][\s]?ultim[oaei]","last"
+"[Uu]ltim[oaei]","last"
+"[Pp]assat[oaei]","last"
+"[Pp]recedent[ei]","last"
+"[Pp]rim[oaei]","last"

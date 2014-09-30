@@ -1,0 +1,12 @@
+// This file contains regular expression patterns for one-digit numbers which can be found
+// at the beginning of century words. The main difference with reNumWord1D is that here they
+// only start with capital letters.
+// FORMAT: one line is one disjunction of the pattern
+Due
+Tre
+Quattro
+Cinque
+Sei
+Sette
+Otto
+Nove

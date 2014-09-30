@@ -1,0 +1,6 @@
+// This file contains regular expression patterns for adjectives referring to seasons.
+// FORMAT: one line is one disjunction of the pattern
+[Ii]nvernal[ei]
+[Aa]utunnal[ei]
+[Ee]stiv[oaei]
+[Pp]rimaveril[ei]

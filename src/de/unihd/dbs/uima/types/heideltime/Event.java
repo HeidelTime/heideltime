@@ -11,7 +11,7 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Thu Sep 20 15:38:13 CEST 2012
+ * Updated by JCasGen Mon Aug 18 14:39:53 CEST 2014
  * XML source: /home/julian/heideltime/heideltime-kit/desc/type/HeidelTime_TypeSystem.xml
  * @generated */
 public class Event extends Annotation {
@@ -52,10 +52,13 @@ public class Event extends Annotation {
     readObject();
   }   
 
-  /** <!-- begin-user-doc -->
+  /** 
+   * <!-- begin-user-doc -->
     * Write your own initialization here
     * <!-- end-user-doc -->
-  @generated modifiable */
+  *
+   * @generated modifiable 
+   */
   private void readObject() {/*default - does nothing empty block */}
      
  
@@ -64,14 +67,18 @@ public class Event extends Annotation {
   //* Feature: filename
 
   /** getter for filename - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public String getFilename() {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_filename == null)
       jcasType.jcas.throwFeatMissing("filename", "de.unihd.dbs.uima.types.heideltime.Event");
     return jcasType.ll_cas.ll_getStringValue(addr, ((Event_Type)jcasType).casFeatCode_filename);}
     
   /** setter for filename - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setFilename(String v) {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_filename == null)
       jcasType.jcas.throwFeatMissing("filename", "de.unihd.dbs.uima.types.heideltime.Event");
@@ -82,14 +89,18 @@ public class Event extends Annotation {
   //* Feature: sentId
 
   /** getter for sentId - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public int getSentId() {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_sentId == null)
       jcasType.jcas.throwFeatMissing("sentId", "de.unihd.dbs.uima.types.heideltime.Event");
     return jcasType.ll_cas.ll_getIntValue(addr, ((Event_Type)jcasType).casFeatCode_sentId);}
     
   /** setter for sentId - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setSentId(int v) {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_sentId == null)
       jcasType.jcas.throwFeatMissing("sentId", "de.unihd.dbs.uima.types.heideltime.Event");
@@ -100,14 +111,18 @@ public class Event extends Annotation {
   //* Feature: tokId
 
   /** getter for tokId - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public int getTokId() {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_tokId == null)
       jcasType.jcas.throwFeatMissing("tokId", "de.unihd.dbs.uima.types.heideltime.Event");
     return jcasType.ll_cas.ll_getIntValue(addr, ((Event_Type)jcasType).casFeatCode_tokId);}
     
   /** setter for tokId - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setTokId(int v) {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_tokId == null)
       jcasType.jcas.throwFeatMissing("tokId", "de.unihd.dbs.uima.types.heideltime.Event");
@@ -118,14 +133,18 @@ public class Event extends Annotation {
   //* Feature: eventId
 
   /** getter for eventId - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public String getEventId() {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_eventId == null)
       jcasType.jcas.throwFeatMissing("eventId", "de.unihd.dbs.uima.types.heideltime.Event");
     return jcasType.ll_cas.ll_getStringValue(addr, ((Event_Type)jcasType).casFeatCode_eventId);}
     
   /** setter for eventId - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setEventId(String v) {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_eventId == null)
       jcasType.jcas.throwFeatMissing("eventId", "de.unihd.dbs.uima.types.heideltime.Event");
@@ -136,14 +155,18 @@ public class Event extends Annotation {
   //* Feature: eventInstanceId
 
   /** getter for eventInstanceId - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public int getEventInstanceId() {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_eventInstanceId == null)
       jcasType.jcas.throwFeatMissing("eventInstanceId", "de.unihd.dbs.uima.types.heideltime.Event");
     return jcasType.ll_cas.ll_getIntValue(addr, ((Event_Type)jcasType).casFeatCode_eventInstanceId);}
     
   /** setter for eventInstanceId - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setEventInstanceId(int v) {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_eventInstanceId == null)
       jcasType.jcas.throwFeatMissing("eventInstanceId", "de.unihd.dbs.uima.types.heideltime.Event");
@@ -154,14 +177,18 @@ public class Event extends Annotation {
   //* Feature: aspect
 
   /** getter for aspect - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public String getAspect() {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_aspect == null)
       jcasType.jcas.throwFeatMissing("aspect", "de.unihd.dbs.uima.types.heideltime.Event");
     return jcasType.ll_cas.ll_getStringValue(addr, ((Event_Type)jcasType).casFeatCode_aspect);}
     
   /** setter for aspect - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setAspect(String v) {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_aspect == null)
       jcasType.jcas.throwFeatMissing("aspect", "de.unihd.dbs.uima.types.heideltime.Event");
@@ -172,14 +199,18 @@ public class Event extends Annotation {
   //* Feature: modality
 
   /** getter for modality - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public String getModality() {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_modality == null)
       jcasType.jcas.throwFeatMissing("modality", "de.unihd.dbs.uima.types.heideltime.Event");
     return jcasType.ll_cas.ll_getStringValue(addr, ((Event_Type)jcasType).casFeatCode_modality);}
     
   /** setter for modality - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setModality(String v) {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_modality == null)
       jcasType.jcas.throwFeatMissing("modality", "de.unihd.dbs.uima.types.heideltime.Event");
@@ -190,14 +221,18 @@ public class Event extends Annotation {
   //* Feature: polarity
 
   /** getter for polarity - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public String getPolarity() {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_polarity == null)
       jcasType.jcas.throwFeatMissing("polarity", "de.unihd.dbs.uima.types.heideltime.Event");
     return jcasType.ll_cas.ll_getStringValue(addr, ((Event_Type)jcasType).casFeatCode_polarity);}
     
   /** setter for polarity - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setPolarity(String v) {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_polarity == null)
       jcasType.jcas.throwFeatMissing("polarity", "de.unihd.dbs.uima.types.heideltime.Event");
@@ -208,14 +243,18 @@ public class Event extends Annotation {
   //* Feature: tense
 
   /** getter for tense - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public String getTense() {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_tense == null)
       jcasType.jcas.throwFeatMissing("tense", "de.unihd.dbs.uima.types.heideltime.Event");
     return jcasType.ll_cas.ll_getStringValue(addr, ((Event_Type)jcasType).casFeatCode_tense);}
     
   /** setter for tense - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setTense(String v) {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_tense == null)
       jcasType.jcas.throwFeatMissing("tense", "de.unihd.dbs.uima.types.heideltime.Event");
@@ -226,14 +265,18 @@ public class Event extends Annotation {
   //* Feature: token
 
   /** getter for token - gets 
-   * @generated */
+   * @generated
+   * @return value of the feature 
+   */
   public Token getToken() {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_token == null)
       jcasType.jcas.throwFeatMissing("token", "de.unihd.dbs.uima.types.heideltime.Event");
     return (Token)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((Event_Type)jcasType).casFeatCode_token)));}
     
   /** setter for token - sets  
-   * @generated */
+   * @generated
+   * @param v value to set into the feature 
+   */
   public void setToken(Token v) {
     if (Event_Type.featOkTst && ((Event_Type)jcasType).casFeat_token == null)
       jcasType.jcas.throwFeatMissing("token", "de.unihd.dbs.uima.types.heideltime.Event");
