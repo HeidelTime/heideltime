@@ -61,12 +61,6 @@
         <multiValued>false</multiValued>
         <mandatory>false</mandatory>
       </configurationParameter>
-    <configurationParameter>
-        <name>GroupSmallerGranularities</name>
-        <type>Boolean</type>
-        <multiValued>false</multiValued>
-        <mandatory>false</mandatory>
-      </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
@@ -109,12 +103,6 @@
         <name>Language</name>
         <value>
           <string>english</string>
-        </value>
-      </nameValuePair>
-    <nameValuePair>
-        <name>GroupSmallerGranularities</name>
-        <value>
-          <boolean>false</boolean>
         </value>
       </nameValuePair>
     </configurationParameterSettings>
