@@ -1,0 +1,26 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-12
+// This file contains "season words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "summer" is "SU"
+// FORMAT: "season-word","normalized-season-word"
+// spring
+"Proljeć[aeu]","SP"
+"proljeć[aeu]","SP"
+"[Pp]roljećem",SP"
+"[Pp]roljetn[iaoe]","SP"
+//summer
+"Ljet(a|i|u|o[ms]?)","SU"
+"ljet(a|i|u|o[ms]?)","SU"
+"[Ll]jetn[iaoe]","SU"
+// fall
+"Jeseni?","FA"
+"jeseni?","FA"
+"[Jj]esen(ju|as)","FA"
+"[Jj]esensk[iaoe]","FA"
+// winter
+"Zim[aei]","WI"
+"zim[aei]","WI"
+"[Zz]im(om|os)","WI"
+"[Zz]imsk[iaoe]","WI"

@@ -40,4 +40,9 @@ public interface PartOfSpeechTagger extends UIMAAnnotator {
 	public static final String STANFORDPOSTAGGER_ANNOTATE_POS = "annotate_partofspeech";
 	public static final String STANFORDPOSTAGGER_MODEL_PATH = "model_path";
 	public static final String STANFORDPOSTAGGER_CONFIG_PATH = "config_path";
+	
+	public static final String HUNPOS_LANGUAGE = "language";
+	public static final String HUNPOS_ANNOTATE_TOKENS = "anotate_tokens";
+	public static final String HUNPOS_ANNOTATE_SENTENCES = "anotate_sentences";
+	public static final String HUNPOS_ANNOTATE_POS = "anotate_pos";
 }

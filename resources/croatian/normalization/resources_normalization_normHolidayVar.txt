@@ -1,0 +1,73 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-03
+// 
+// FORMAT: "holiday","funcDateCalc(<function>(<arguments>))"
+//
+// the reference of the values is given in the repattern file
+//
+
+// http://en.wikipedia.org/wiki/Ash_Wednesday
+"Pepelnica","00-00 funcDateCalc(EasterSunday(YEAR, -46))"
+"Čista Srijeda","00-00 funcDateCalc(EasterSunday(YEAR, -46))"
+"Čista srijeda","00-00 funcDateCalc(EasterSunday(YEAR, -46))"
+
+// http://en.wikipedia.org/wiki/Palm_Sunday
+"Cvjetnica","00-00 funcDateCalc(EasterSunday(YEAR, -7))"
+"Nedjelja Muke Gospodnje","00-00 funcDateCalc(EasterSunday(YEAR, -7))"
+
+// http://en.wikipedia.org/wiki/Maundy_Thursday
+"Veliki Četvrtak","00-00 funcDateCalc(EasterSunday(YEAR, -3))"
+"Veliki četvrtak","00-00 funcDateCalc(EasterSunday(YEAR, -3))"
+
+// http://en.wikipedia.org/wiki/Good_Friday
+"Veliki Petak","00-00 funcDateCalc(EasterSunday(YEAR, -2))" 
+"Veliki petak","00-00 funcDateCalc(EasterSunday(YEAR, -2))"
+
+// http://en.wikipedia.org/wiki/Holy_Saturday
+"Velika Subota","00-00 funcDateCalc(EasterSunday(YEAR, -1))"
+"Velika subota","00-00 funcDateCalc(EasterSunday(YEAR, -1))"
+
+// http://en.wikipedia.org/wiki/Easter
+"Uskrs","00-00 funcDateCalc(EasterSunday(YEAR, 0))"
+
+// http://en.wikipedia.org/wiki/Easter_Monday
+"Uskrsni Ponedjeljak","00-00 funcDateCalc(EasterSunday(YEAR, 1))"
+"Uskrsni ponedjeljak","00-00 funcDateCalc(EasterSunday(YEAR, 1))"
+
+
+// http://en.wikipedia.org/wiki/Feast_of_the_Ascension
+"Uzašašće","00-00 funcDateCalc(EasterSunday(YEAR, 39))"
+"Spasovo","00-00 funcDateCalc(EasterSunday(YEAR, 39))" 
+
+// http://en.wikipedia.org/wiki/Father%27s_Day
+"Očev Dan","06-00 funcDateCalc(EasterSunday(YEAR, 39))"
+"Očev dan","06-00 funcDateCalc(EasterSunday(YEAR, 39))"
+
+// http://en.wikipedia.org/wiki/Pentecost
+"Duhovi","00-00 funcDateCalc(EasterSunday(YEAR, 49))" 
+"Silazak Duha Svetoga","00-00 funcDateCalc(EasterSunday(YEAR, 49))"
+
+// http://en.wikipedia.org/wiki/Corpus_Christi_%28feast%29
+"Tijelovo","00-00 funcDateCalc(EasterSunday(YEAR, 60))"
+"Tjelovo","00-00 funcDateCalc(EasterSunday(YEAR, 60))"
+"Svetkovina Presvetog Tijela i Krvi Kristove","00-00 funcDateCalc(EasterSunday(YEAR, 60))"
+
+// advent sundays: the four sundays before christmas(12-24)
+"1. [Aa]dvent","00-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
+"[Pp]rvi [Aa]dvent","00-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
+
+"2. [Aa]dvent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
+"[Dd]rugi [Aa]dvent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
+
+"3. [Aa]dvent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
+"[Tt]rećo [Aa]dvent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
+
+"4. [Aa]dvent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"
+"[Čč]etvrti [Aa]dvent","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"
+
+// http://en.wikipedia.org/wiki/Black_Friday_%28shopping%29
+"Black Friday","11-00 funcDateCalc(WeekdayRelativeTo(YEAR-11-01, 6, 4, true))"
+
+// http://en.wikipedia.org/wiki/Mother%27s_Day
+"Majčin dan","05-00 funcDateCalc(WeekdayRelativeTo(YEAR-05-01, 1, 2, true))"

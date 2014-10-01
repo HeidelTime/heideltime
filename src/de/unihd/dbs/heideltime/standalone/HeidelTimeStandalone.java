@@ -39,6 +39,7 @@ import org.apache.uima.util.XMLInputSource;
 import de.unihd.dbs.heideltime.standalone.components.JCasFactory;
 import de.unihd.dbs.heideltime.standalone.components.ResultFormatter;
 import de.unihd.dbs.heideltime.standalone.components.PartOfSpeechTagger;
+import de.unihd.dbs.heideltime.standalone.components.impl.HunPosTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.IntervalTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.JCasFactoryImpl;
 import de.unihd.dbs.heideltime.standalone.components.impl.JVnTextProWrapper;
@@ -347,6 +348,13 @@ public class HeidelTimeStandalone {
 		PartOfSpeechTagger partOfSpeechTagger = null;
 		Properties settings = new Properties();
 		switch (language) {
+			case CROATIAN:
+				partOfSpeechTagger = new HunPosTaggerWrapper();
+				settings.put(PartOfSpeechTagger.HUNPOS_LANGUAGE, language);
+				settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_TOKENS, true);
+				settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_POS, true);
+				settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_SENTENCES, true);
+				break;
 			case ARABIC:
 				partOfSpeechTagger = new StanfordPOSTaggerWrapper();
 				settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_ANNOTATE_TOKENS, true);

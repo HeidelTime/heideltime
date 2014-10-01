@@ -1,0 +1,38 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-10
+// This file contains "part-of-day words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "morning" is "MO"
+// FORMAT: "part-of-day-word","normalized-part-of-day-word"
+// morning
+"Jutro","MO"
+"jutro","MO"
+"Jutra","MO"
+"jutra","MO"
+"Ujutro","MO"
+"ujutro","MO"
+// mid-day
+"Podne","12:00"
+"podne","12:00"
+//"mid-day","MD"
+//"Mid-day","MD"
+"Popodne","AF"
+"popodne","AF"
+"Poslijepodne","AF"
+"poslijepodne","AF"
+"Večer","EV"
+"večer","EV"
+"Večeri","EV"
+"večeri","EV"
+"Večeras","EV"
+"večeras","EV"
+// night
+"Noć","NI"
+"noć","NI"
+"Noćas","NI"
+"noćas","NI"
+"Noći","NI"
+"noći","NI"
+"Ponoć","24:00"
+"ponoć","24:00"

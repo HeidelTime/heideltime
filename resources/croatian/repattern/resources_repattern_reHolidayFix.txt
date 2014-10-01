@@ -1,0 +1,37 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-05-11
+// This file contains regular expression patterns for holidays on a fix date.
+// FORMAT: one line is one disjunction of the pattern
+
+Nov[aeu] [Gg]odin[aeu]
+Star[aeu] [Gg]odin[aeu]
+//Sveta tri kralja == Bogojavljanje
+Bogojavlj[ea]nje
+Sveta [Tt]ri [Kk]ralja
+Praznik rada
+Prvi [Mm]aj
+Dan antifašističke borbe
+Dan državnosti
+Dan pobjede i domovinske zahvalnosti
+Dan [Hh]rvatskih branitelja
+Velika Gospa
+Mala Gospa
+Dan [Nn]eovisnosti
+Svi [Ss]veti
+Sisvet[ie]
+Božić[aeiu]?
+Badnjak
+Badnja večer
+Badnje veče
+Badnj[au] noć
+Sv. Stjepan
+Sveti Stjepan
+Dan Oružanih snaga Republike Hrvatske
+Dan Hrvatske kopnene vojske
+Dan Sv. Patrika
+Dan Svetog Patrika
+St. Patrick's Day
+Noć Vi?ještica
+Halloween
+[Dd]an [Žž]ena

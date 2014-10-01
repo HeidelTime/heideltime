@@ -1,0 +1,14 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-12
+// This file contains regular expression patterns for "this/next/last" words.
+// FORMAT: one line is one disjunction of the pattern
+[Pp]rošl[aio]
+[Zz]adnj[aei]
+[Ii]duć[aei]
+[Ss]lijedeć[aei]
+[Pp]osljednj[aei]
+[Tt]renutn[aio]
+[Tt](aj?|o[gm]?)
+[Oo]v(o|aj?)
+[Ii]st([aeiou]|og)

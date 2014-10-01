@@ -1,0 +1,11 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-12
+// This file contains regular expression patterns for set words.
+// FORMAT: one line is one disjunction of the pattern
+[Gg]odišnj[ea]
+[Gg]odišnjoj
+//Keeping typos in mind
+[Mm]i?jesečn[oa]
+[Dd]nevn[aio]
+[Tt]jedn[aio]

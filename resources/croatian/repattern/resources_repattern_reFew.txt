@@ -1,0 +1,8 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-05-11
+// This file contains regular expression patterns for words like "few", "couple".
+// FORMAT: one line is one disjunction of the pattern
+[Nn]ekoliko
+[Nn]ešto
+[Pp]ar

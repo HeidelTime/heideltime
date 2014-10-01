@@ -1,0 +1,18 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-12
+// This file contains "decade words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "twenties" is "2X"
+// FORMAT: "decade-word","normalized-decade-word"
+// Changed in the context of TempEval-3 
+// (there shouldn't be any "X" or "XX" at 
+// the end of decade and century expressions
+"[Dd]vadeset(e|ih)","2"
+"[Tt]rideset(e|ih)","3"
+"[Čč]trdeset(e|ih)","4"
+"[Pp]edeset(e|ih)","5"
+"[Šš]ezdeset(e|ih)","6"
+"[Ss]edamdeset(e|ih)","7"
+"[Oo]samdeset(e|ih)","8"
+"[Dd]evedeset(e|ih)","9"

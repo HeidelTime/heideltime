@@ -1,0 +1,73 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-10
+// This file contains "month words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "2" is "02"
+// FORMAT: "month-word","normalized-month-word"
+"[Ss]i?ječ(anj|nj[au])","01"
+"[Vv]eljač[aeiou]","02"
+"[Oo]žuj(ak|k[aeu])","03"
+"[Tt]rav(anj|nj[aeiu])","04"
+"[Ss]vib(anj|nj[aeiu])","05"
+"[Ll]ip(anj|nj[aeiu])","06"
+"[Ss]rp(anj|nj[aeiu])","07"
+"[Kk]olovoz[aeiu]?","08"
+"[Rr]uj(an|na|ne|nu|ni)","09"
+"[Ll]istopad[aeiu]?","10"
+"Studeni","11"
+"Studenog","11"
+"Studenoga","11"
+"Studenom","11"
+"Studenome","11"
+"studeni","11"
+"studenog","11"
+"studenoga","11"
+"studenom","11"
+"studenome","11"
+"[Pp]rosin(ac|c[aeiu])","12"
+"[Ss]i?ječnjom","01"
+"[Vv]eljačom","02"
+"[Oo]žujkom","03"
+"[Tt]ravnjem","04"
+"[Ss]vibnjem","05"
+"[Ll]ipnjem","06"
+"[Ss]rpnjom","07"
+"[Kk]olovozom","08"
+"[Rr]ujnom","09"
+"[Ll]istopadom","10"
+"[Ss]tudenim","11"
+"[Pp]rosincem","12"
+// January
+"1","01"
+"01","01"
+// February
+"2","02"
+"02","02"
+// March
+"3","03"
+"03","03"
+// April
+"4","04"
+"04","04"
+// May
+"5","05"
+"05","05"
+// June
+"6","06"
+"06","06"
+// July
+"7","07"
+"07","07"
+// August
+"8","08"
+"08","08"
+// September
+"9","09"
+"09","09"
+// October
+"10","10"
+// November
+"11","11"
+// December
+"12","12"

@@ -29,6 +29,7 @@ public enum Language {
 	FRENCH		("french", "french", "french", "-f"),
 	CHINESE		("chinese", "chinese", "zh", ""),
     RUSSIAN		("russian", "russian", "russian", ""),
+    CROATIAN	("croatian", "croatian", "croatian", ""),
 	WILDCARD	("", "", "", ""), // if no match was found, this gets filled with parameter
 	; // ends the enum element list
 	

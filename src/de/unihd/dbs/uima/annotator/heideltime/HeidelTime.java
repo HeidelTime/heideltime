@@ -162,6 +162,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// SUBPROCESSOR CONFIGURATION. REGISTER YOUR OWN PROCESSORS HERE FOR EXECUTION //
 		/////////////////////////////////////////////////////////////////////////////////
 		procMan.registerProcessor("de.unihd.dbs.uima.annotator.heideltime.processors.HolidayProcessor");
+		procMan.registerProcessor("de.unihd.dbs.uima.annotator.heideltime.processors.DecadeProcessor");
 		procMan.initializeAllProcessors(aContext);
 		
 		/////////////////////////////

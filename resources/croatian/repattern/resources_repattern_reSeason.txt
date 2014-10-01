@@ -1,0 +1,13 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-11
+// This file contains regular expression patterns for seasons.
+// FORMAT: one line is one disjunction of the pattern
+[Ll]jet(i|u|a|o[ms]?)
+//[Ll]jetn[iaoe]
+[Jj]esen(ju|i|as)?
+//[Jj]esensk[iaoe]
+[Zz]im(i|e|a|om|os)
+//[Zz]imsk[iaoe]
+[Pp]roljeć(e|u|a|em?)
+//[Pp]roljetn[iaoe]

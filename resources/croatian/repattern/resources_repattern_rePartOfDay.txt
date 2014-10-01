@@ -1,0 +1,11 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-11
+// This file contains regular expression patterns for parts of days.
+// FORMAT: one line is one disjunction of the pattern
+([Uu]j|[Jj])utr[oa]
+[Pp]o(po)?dne
+[Pp]oslijepodne
+[Vv]ečer(i|as)?
+[Nn]oć(i|as)?
+[Pp]onoć

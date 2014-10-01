@@ -1,0 +1,13 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-05-12
+// This file contains "weekday words" and their normalized expressions.
+// For example, the normalized value of "Monday" is "monday"
+// FORMAT: "weekday-word","normalized-weekday-word"
+"[Pp]onedjelj(ak|kom)","monday"
+"[Uu]tor(ak|ku|kom)","tuesday"
+"[Ss]rijed(a|u|om)","wednesday"
+"[Čč]etvrt(ak|ku|kom)","thursday"
+"[Pp]et(ak|ku|kom)","friday"
+"[Ss]ubot(a|e|om)","saturday"
+"[Nn]edjelj(a|u|om)","sunday"

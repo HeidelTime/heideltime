@@ -1,0 +1,29 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-04-22
+// This file contains contains "part words" and their normalized expressions
+// according to TIMEX3 format. 
+// For example, the normalized value of "the middle of" is "MID"
+// FORMAT: "part word","normalized-part-word"
+"Sredina","MID"
+"Sredine","MID"
+"sredina","MID"
+"sredine","MID"
+"Sredinom","MID"
+"sredinom","MID"
+"[Kk]raj(a|em|evima)","END"
+"Početak","START"
+"početak","START"
+"[Pp]očetka","START"
+"Početkom","START"
+"početkom","START"
+"[Pp]o[dt]kraj","END"
+"Kasn[aeiou]","END"
+"kasn[aeiou]","END"
+"Kasnijeg?","END"
+"kasnijeg?","END"
+"[Rr]an(a|e|i|o|u|og|om)","START"
+"Ranije","START"
+"ranije","START"
+"Fiskalna",""
+"fiskalna",""
