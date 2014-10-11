@@ -88,7 +88,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private String PARAM_DURATION  = "Duration";
 	private String PARAM_SET       = "Set";
 	private String PARAM_DEBUG	   = "Debugging";
-	private String PARAM_GROUP     = "GroupSmallerGranularities";
+	private String PARAM_GROUP     = "ConvertDurations";
 	private Boolean find_dates     = true;
 	private Boolean find_times     = true;
 	private Boolean find_durations = true;
