@@ -3,6 +3,7 @@ package hr.fer.zemris.takelab.uima.annotator.hunpos;
 import hr.fer.zemris.takelab.splitter.TokenSplitter;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -40,6 +41,7 @@ import de.unihd.dbs.uima.types.heideltime.Token;
 public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 	
 	public static final String PARAM_LANGUAGE = "language";
+	public static final String PARAM_MODEL_PATH = "model_path";
 	public static final String PARAM_ANNOTATE_TOKENS = "anotate_tokens";
 	public static final String PARAM_ANNOTATE_SENTENCES = "anotate_sentences";
 	public static final String PARAM_ANNOTATE_POS = "anotate_pos";
@@ -83,9 +85,9 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 		annotate_sentences = (Boolean) aContext.getConfigParameterValue(PARAM_ANNOTATE_SENTENCES);
 		annotate_pos = (Boolean) aContext.getConfigParameterValue(PARAM_ANNOTATE_POS);
 		this.language = Language.getLanguageFromString((String) aContext.getConfigParameterValue(PARAM_LANGUAGE));
-		
+		String modelPath = (String) aContext.getConfigParameterValue(PARAM_MODEL_PATH);
 
-		HunPosWrapper.initialize(language);
+		HunPosWrapper.initialize(modelPath);
 	}
 
 	@Override
@@ -146,21 +148,19 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 		
 		public static final String HUNPOS_HOME = "HUNPOS_HOME";
 		
-		public static void initialize(Language language) {
+		public static void initialize(String modelPath) {
 			
 			String hunposRoot = System.getenv(HUNPOS_HOME);
 			
 			command = new ArrayList<String>();
 			command.add(hunposRoot + "/hunpos-tag"); //Constructing a tagger call
 			
-			switch(language) {
-				case CROATIAN:
-					//Trained model for the Croatian language
-					command.add(hunposRoot + "/model.hunpos.mte5.defnpout");
-					break;
-				default:
-					Logger.printError(HunPosWrapper.class, "HunPos currently does not support language " + language.getName() + ". Something went wrong");
-					System.exit(-1);
+			File modelFile = new File(new File(hunposRoot), modelPath);
+			if(modelFile.exists()) {
+				command.add(modelFile.getAbsolutePath());
+			} else {
+				Logger.printError(HunPosWrapper.class, "The supplied model path " + modelPath + " does not exist.");
+				System.exit(-1);
 			}
 		}
 		
