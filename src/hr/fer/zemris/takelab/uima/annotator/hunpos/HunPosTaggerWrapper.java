@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.sound.midi.SysexMessage;
+
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -42,9 +44,9 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 	
 	public static final String PARAM_LANGUAGE = "language";
 	public static final String PARAM_MODEL_PATH = "model_path";
-	public static final String PARAM_ANNOTATE_TOKENS = "anotate_tokens";
-	public static final String PARAM_ANNOTATE_SENTENCES = "anotate_sentences";
-	public static final String PARAM_ANNOTATE_POS = "anotate_pos";
+	public static final String PARAM_ANNOTATE_TOKENS = "annotate_tokens";
+	public static final String PARAM_ANNOTATE_SENTENCES = "annotate_sentences";
+	public static final String PARAM_ANNOTATE_POS = "annotate_pos";
 	
 	/**
 	 * The language used by the instance of the wrapper
@@ -149,13 +151,18 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 		public static final String HUNPOS_HOME = "HUNPOS_HOME";
 		
 		public static void initialize(String modelPath) {
-			
 			String hunposRoot = System.getenv(HUNPOS_HOME);
+			
+			if(hunposRoot == null || !new File(hunposRoot).exists()) {
+				Logger.printError(HunPosWrapper.class, "The environment variable HUNPOS_HOME was not set, or set to \"" + hunposRoot + "\", which does not exist.");
+				System.exit(-1);
+			}
+			File hunPosRootFile = new File(hunposRoot);
 			
 			command = new ArrayList<String>();
 			command.add(hunposRoot + "/hunpos-tag"); //Constructing a tagger call
 			
-			File modelFile = new File(new File(hunposRoot), modelPath);
+			File modelFile = new File(hunPosRootFile, modelPath);
 			if(modelFile.exists()) {
 				command.add(modelFile.getAbsolutePath());
 			} else {
