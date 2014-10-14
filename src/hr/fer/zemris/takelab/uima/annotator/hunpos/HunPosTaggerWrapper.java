@@ -15,8 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.sound.midi.SysexMessage;
-
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
