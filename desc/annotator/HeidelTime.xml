@@ -61,6 +61,13 @@
         <multiValued>false</multiValued>
         <mandatory>false</mandatory>
       </configurationParameter>
+    <configurationParameter>
+        <name>ConvertDurations</name>
+        <description>sets whether or not durations with a smaller granularity can be losslessly converted to a larger granularity, e.g. P24H =&gt; P1D</description>
+        <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+      </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
@@ -103,6 +110,12 @@
         <name>Language</name>
         <value>
           <string>english</string>
+        </value>
+      </nameValuePair>
+    <nameValuePair>
+        <name>ConvertDurations</name>
+        <value>
+          <boolean>true</boolean>
         </value>
       </nameValuePair>
     </configurationParameterSettings>

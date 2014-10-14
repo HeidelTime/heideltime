@@ -88,7 +88,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private String PARAM_DURATION  = "Duration";
 	private String PARAM_SET       = "Set";
 	private String PARAM_DEBUG	   = "Debugging";
-	private String PARAM_GROUP     = "GroupSmallerGranularities";
+	private String PARAM_GROUP     = "ConvertDurations";
 	private Boolean find_dates     = true;
 	private Boolean find_times     = true;
 	private Boolean find_durations = true;
@@ -2411,29 +2411,41 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 * @param value 
      * @return
      */
-	public static String correctDurationValue(String value) {
+	public String correctDurationValue(String value) {
 		if (value.matches("PT[0-9]+H")){
 			for (MatchResult mr : Toolbox.findMatches(Pattern.compile("PT([0-9]+)H"), value)){
-				int hours = Integer.parseInt(mr.group(1));
-				if ((hours % 24) == 0){
-					int days = hours / 24;
-					value = "P"+days+"D";
+				try {
+					int hours = Integer.parseInt(mr.group(1));
+					if ((hours % 24) == 0){
+						int days = hours / 24;
+						value = "P"+days+"D";
+					}
+				} catch(NumberFormatException e) {
+					Logger.printDetail(component, "Couldn't do granularity conversion for " + value);
 				}
 			}
 		} else if (value.matches("PT[0-9]+M")){
 			for (MatchResult mr : Toolbox.findMatches(Pattern.compile("PT([0-9]+)M"), value)){
-				int minutes = Integer.parseInt(mr.group(1));
-				if ((minutes % 60) == 0){
-					int hours = minutes / 60;
-					value = "PT"+hours+"H";
+				try {
+					int minutes = Integer.parseInt(mr.group(1));
+					if ((minutes % 60) == 0){
+						int hours = minutes / 60;
+						value = "PT"+hours+"H";
+					}
+				} catch(NumberFormatException e) {
+					Logger.printDetail(component, "Couldn't do granularity conversion for " + value);
 				}
 			}
 		} else if (value.matches("P[0-9]+M")){
 			for (MatchResult mr : Toolbox.findMatches(Pattern.compile("P([0-9]+)M"), value)){
-				int months = Integer.parseInt(mr.group(1));
-				if ((months % 12) == 0){
-					int years = months / 12;
-					value = "P"+years+"Y";
+				try {
+					int months = Integer.parseInt(mr.group(1));
+					if ((months % 12) == 0){
+						int years = months / 12;
+						value = "P"+years+"Y";
+					}
+				} catch(NumberFormatException e) {
+					Logger.printDetail(component, "Couldn't do granularity conversion for " + value);
 				}
 			}
 		}
