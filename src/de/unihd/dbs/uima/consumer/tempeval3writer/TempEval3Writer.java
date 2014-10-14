@@ -69,7 +69,7 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 		String filename = null;
 		try {
 			dct = (Dct) jcas.getAnnotationIndex(Dct.type).iterator().next();
-			filename = dct.getFilename();
+			filename = new File(dct.getFilename()).getName();
 		} catch(Exception e) {
 			filename = "doc_" + TempEval3Writer.getOutCount() + ".tml";
 		}
@@ -87,6 +87,7 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 	 * @param dct the document's DCT
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	private Document buildTimeMLDocument(JCas jcas, Dct dct, String filename) {
 		DocumentBuilderFactory dbf = null;
 		DocumentBuilder db = null;
@@ -147,6 +148,9 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 			while(it.hasNext()) {
 				thisT = (Timex3) it.next();
 				
+				if((Class) thisT.getClass() != (Class) Timex3.class) // disregard types that inherit from Timex3
+					continue;
+				
 				// check for whether this and the previous timex overlap. ex: [early (friday] morning)
 				if(prevT != null && prevT.getEnd() > thisT.getBegin()) {
 					
@@ -179,6 +183,8 @@ public class TempEval3Writer extends CasConsumer_ImplBase {
 			// iterate over timexes to write the DOM tree.
 			while(it.hasNext()) {
 				Timex3 t = (Timex3) it.next();
+				if((Class) t.getClass() != (Class) Timex3.class) // disregard types that inherit from Timex3
+					continue;
 				
 				// if this timex was marked to be removed, skip it entirely and go to the next one.
 				if(timexesToSkip.contains(t))
