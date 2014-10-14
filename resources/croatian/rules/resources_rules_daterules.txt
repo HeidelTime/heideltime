@@ -22,9 +22,8 @@ RULENAME="date_r0c",EXTRACTION="%reDayNumber\.\s*%reMonthNumber\.\s*%reYear4Digi
 RULENAME="date_r0d",EXTRACTION="%reDayNumber\.\s*%reMonthNumber\.",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(1))",OFFSET="group(2)-group(1)"
 
 // date_r1
-// EXAMPLE r1b_1: 25. Siječanj, 2009.
-// EXAMPLE r1b_2: 26. Vel., 2010
-// EXAMPLE r1b_3: 27. Vel, 2010., Ponedjeljak
+// EXAMPLE r1a_1: 25. Siječanj 2009.
+// EXAMPLE r1b_1: 27. Vel. 2010. Ponedjeljak
 RULENAME="date_r1a",EXTRACTION="%reDayNumber\. (%reMonthLong|%reMonthShort) %reYear4Digit\.?",NORM_VALUE="group(5)-%normMonth(group(2))-%normDay(group(1))"
 RULENAME="date_r1b",EXTRACTION="%reDayNumber\. (%reMonthLong|%reMonthShort) %reYear4Digit\.?, %reWeekday",NORM_VALUE="group(5)-%normMonth(group(2))-%normDay(group(1))"
 
@@ -141,7 +140,7 @@ RULENAME="date_r12d",EXTRACTION="([Gg]odin[ae] )?Tisuću %reHundred ?%reNumWord2
 RULENAME="date_r12e",EXTRACTION="%reNumWord2D\. godin[ae]",NORM_VALUE="19%normDurationNumber(group(1))"
 RULENAME="date_r12f",EXTRACTION="(\d\d)[\.]?[-]?e",NORM_VALUE="19group(1)"
 RULENAME="date_r12g1",EXTRACTION="%reYear4Digit(-| - | do )%reYear4Digit",NORM_VALUE="group(1)",OFFSET="group(0)-group(1)"
-RULENAME="date_r12g2",EXTRACTION="%reYear4Digit(-| - | do )%reYear4Digit",NORM_VALUE="group(2)",OFFSET="group(3)-group(3)"
+RULENAME="date_r12g2",EXTRACTION="%reYear4Digit(-| - | do )%reYear4Digit",NORM_VALUE="group(3)",OFFSET="group(3)-group(3)"
 
 
 ////////////////////////
