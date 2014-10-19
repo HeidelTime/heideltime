@@ -70,6 +70,9 @@ public class UimaContextImpl extends RootUimaContext_impl {
 		configManager.setConfigParameterValue(
 				makeQualifiedName(Config.get(Config.UIMAVAR_TYPETOPROCESS)),
 				typeToProcess.toString());
+		configManager.setConfigParameterValue(
+				makeQualifiedName(Config.UIMAVAR_CONVERTDURATIONS),
+				new Boolean(true));
 	}
 
 }
