@@ -1,6 +1,6 @@
-// author: Luka Skukan
-// email:  luka.skukan@fer.hr
-// date:   2014-03-03
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
 // This file contains regular expression patterns for day numbers.
 // FORMAT: one line is one disjunction of the pattern
 [12][0-9]

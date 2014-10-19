@@ -36,7 +36,7 @@ RULENAME="duration_r2c",EXTRACTION="%reThisNextLast (nekoliko|par|nekolicin[au])
 // duration_r3
 // EXAMPLE r3a-1: trogodišnji period
 // EXAMPLE r3b-1: 20-dnevno razdoblje
-RULENAME="duration_r3a",EXTRACTION="(%reNumWord2D|%reNumWord1D)-?(%reUnit|satn[oi]|minutn[oi]|sekundn[oi]) (period|razdoblje)",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(2))"
+RULENAME="duration_r3a",EXTRACTION="(%reNumWord2D|%reNumWord1D)-?(%reUnit|satn[oi]|minutn[oi]|sekundn[oi]) (period|razdoblje)",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(4))"
 RULENAME="duration_r3b",EXTRACTION="([\d]+)-?(%reUnit|satn[oi]|minutn[oi]|sekundn[oi])( (period|razdoblje))?",NORM_VALUE="Pgroup(1)%normUnit4Duration(group(2))"
 
 // duration_r5

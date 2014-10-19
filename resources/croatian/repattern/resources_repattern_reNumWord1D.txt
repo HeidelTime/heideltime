@@ -1,14 +1,25 @@
 // author: Luka Skukan
 // email:  luka.skukan@fer.hr
-// date:   2014-03-13
+// date:   2014-10-15
 // This file contains regular expression patterns for number word 1 digits.
 // FORMAT: one line is one disjunction of the pattern
+//Cardinal
 [Jj]ed(an|na|ni|no)
-[Dd]v(o|a|ije)
+[Dd]v([aeo]|ije)
 [Tt]r[io]
-[Čč]et(iri|voro)
-[Pp]eto?
-[Šš]esto?
-[Ss]ed(am|mo)
-[Oo]s(am|mo)
-[Dd]eveto?
+[Čč]et(i?ri|voro)
+[Pp]et
+[Šš]est
+[Ss]edam
+[Oo]sam
+[Dd]evet
+//Ordinal
+[Pp]rv([aeiou]|o[gm])
+[Dd]rug([aeiou]|o[gm])
+[Tt]reć([aeiu]|e[gm])
+[Čč]etvrt([aeiou]|o[gm])
+[Pp]et([aieou]|o[gm])
+[Šš]est([aeiou]|o[gm])
+[Ss]edm([aeiou]|o[gm])
+[Oo]sm([aeiou]|o[gm])
+[Dd]evet([aeiou]|o[gm])

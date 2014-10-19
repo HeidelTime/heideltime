@@ -11,7 +11,7 @@
 "sredine","MID"
 "Sredinom","MID"
 "sredinom","MID"
-"[Kk]raj(a|em|evima)","END"
+"[Kk]raj(a|em|evima)?","END"
 "Početak","START"
 "početak","START"
 "[Pp]očetka","START"

@@ -19,7 +19,7 @@
 RULENAME="date_r0a",EXTRACTION="(%reYear4Digit\-%reMonthNumber\-%reDayNumber)",NORM_VALUE="group(1)"
 RULENAME="date_r0b",EXTRACTION="%reDayNumber\.\s*%reMonthNumber\.\s*%reYear2Digit\.",NORM_VALUE="UNDEF-centurygroup(3)-group(2)-group(1)"
 RULENAME="date_r0c",EXTRACTION="%reDayNumber\.\s*%reMonthNumber\.\s*%reYear4Digit\.",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))"
-RULENAME="date_r0d",EXTRACTION="%reDayNumber\.\s*%reMonthNumber\.",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(1))",OFFSET="group(2)-group(1)"
+RULENAME="date_r0d",EXTRACTION="%reDayNumber\.\s*%reMonthNumber\.",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(1))"
 
 // date_r1
 // EXAMPLE r1a_1: 25. Siječanj 2009.

@@ -10,7 +10,7 @@
 // the end of decade and century expressions
 "[Dd]vadeset(e|ih)","2"
 "[Tt]rideset(e|ih)","3"
-"[Čč]trdeset(e|ih)","4"
+"[Čč]etrdeset(e|ih)","4"
 "[Pp]edeset(e|ih)","5"
 "[Šš]ezdeset(e|ih)","6"
 "[Ss]edamdeset(e|ih)","7"

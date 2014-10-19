@@ -1,19 +1,9 @@
-// author: Luka Skukan
-// email:  luka.skukan@fer.hr
-// date:   2014-03-04
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
 // This file contains regular expression patterns for day digit th.
 // FORMAT: one line is one disjunction of the pattern
 0?[1-9]\.?
 [123]0\.?
-[23]1\.?
-[2]2\.?
-[2]3\.?
-[12]4\.?
-[12]5\.?
-[12]6\.?
-[12]7\.?
-[12]8\.?
-[12]9\.?
-11\.?
-12\.?
-13\.?
+[123]1\.?
+[12][2-9]\.?

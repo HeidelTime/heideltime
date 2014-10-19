@@ -26,7 +26,7 @@ RULENAME="set_r1d",EXTRACTION=""([Ss]vak(i[hm]?|e|og?)) %reSeason",NORM_VALUE="X
 RULENAME="set_r2a",EXTRACTION="[Jj]ednom (po )?%reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_FREQ="1"
 RULENAME="set_r2b",EXTRACTION="(%reNumWord1D|%reNumWord2D)( |-)?puta? (po )?%reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(6)),0,1))",NORM_FREQ="%normDurationNumber(group(1))"
 RULENAME="set_r2c",EXTRACTION="([\d]+) puta? (po?)%reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_FREQ="group(1)"
-RULENAME="set_r2d",EXTRACTION="po %reUnit",NORM_VALUE="P1%normUnit4Duration(group(3))",NORM_FREQ="1"
+RULENAME="set_r2d",EXTRACTION="po %reUnit",NORM_VALUE="P1%normUnit4Duration(group(1))",NORM_FREQ="1"
 RULENAME="set_r2e",EXTRACTION="po (sat(u|ima)?|minut(u|i|ama))",NORM_VALUE="PT1%normUnit4Duration(group(2))",NORM_FREQ="1"
 
 // set_r3

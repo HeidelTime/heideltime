@@ -1,32 +1,19 @@
 // author: Luka Skukan
 // email:  luka.skukan@fer.hr
-// date:   2014-03-13
+// date:   2014-10-15
 // This file contains regular expression patterns for 
 // number word 2 digits: reNumWord2D
 // FORMAT: one line is one disjunction of the pattern
-[Jj]ed(an|na|no)
-[Dd]v(o|a|ije)
-[Tt]r[io]
-[Čč]eti?ri
-[Pp]et[iao]?
-[Šš]est[iao]?
-[Ss]edam[iao]?
-[Oo]sam[iao]?
-[Dd]evet[iao]?
-[Pp]rv[iao]
-[Dd]rug[iao]
-[Tr]reć[iae]
-[Čč]etvrt[iao]
-[Dd]eset[iaeo]?
-[Jj]edaniaest[iaeo]?
-[Dd]vaniaest[iaeo]?
-[Tt]riniaest[iaeo]?
-[Čč]etrniaest[iaeo]?
-[Pp]etniaest[iaeo]?
-[Šš]esnaest[iaeo]?
-[Ss]edamniaest[iaeo]?
-[Oo]samniaest[iaeo]?
-[Dd]evetniaest[iaeo]?
+[Dd]eset[iaeou]?
+[Jj]edaniaest[iaeou]?
+[Dd]vaniaest[iaeou]?
+[Tt]riniaest[iaeou]?
+[Čč]etrniaest[iaeou]?
+[Pp]etniaest[iaeou]?
+[Šš]esnaest[iaeou]?
+[Ss]edamniaest[iaeou]?
+[Oo]samniaest[iaeou]?
+[Dd]evetniaest[iaeou]?
 [Dd]vadeset (i )?jed(an|na|no)
 [Tt]rideset (i )?jed(an|na|no)
 [Čč]etrdeset (i )?jed(an|na|no)
@@ -99,83 +86,83 @@
 [Ss]edamdeset (i )?deveto?
 [Oo]samdeset (i )?deveto?
 [Dd]evedeset (i )?deveto?
-[Dd]vadeset (i )?prv[iaeo]
-[Tt]rideset (i )?prv[iaeo]
-[Čč]etrdeset (i )?prv[iaeo]
-[Pp]edeset (i )?prv[iaeo]
-[Šš]ezdeset (i )?prv[iaeo]
-[Ss]edamdeset (i )?prv[iaeo]
-[Oo]samdeset (i )?prv[iaeo]
-[Dd]evedeset (i )?prv[iaeo]
-[Dd]vadeset (i )?drug[iaeo]
-[Tt]rideset (i )?drug[iaeo]
-[Čč]etrdeset (i )?drug[iaeo]
-[Pp]edeset (i )?drug[iaeo]
-[Šš]ezdeset (i )?drug[iaeo]
-[Ss]edamdeset (i )?drug[iaeo]
-[Oo]samdeset (i )?drug[iaeo]
-[Dd]evedeset (i )?drug[iaeo]
-[Dd]vadeset (i )?treć[iae]
-[Tt]rideset (i )?treć[iae]
-[Čč]etrdeset (i )?treć[iae]
-[Pp]edeset (i )?treć[iae]
-[Šš]ezdeset (i )?treć[iae]
-[Ss]edamdeset (i )?treć[iae]
-[Oo]samdeset (i )?treć[iae]
-[Dd]evedeset (i )?treć[iae]
-[Dd]vadeset (i )?četvrt[iaeo]
-[Tt]rideset (i )?četvrt[iaeo]
-[Čč]etrdeset (i )?četvrt[iaeo]
-[Pp]edeset (i )?četvrt[iaeo]
-[Šš]ezdeset (i )?četvrt[iaeo]
-[Ss]edamdeset (i )?četvrt[iaeo]
-[Oo]samdeset (i )?četvrt[iaeo]
-[Dd]evedeset (i )?četvrt[iaeo]
-[Dd]vadeset (i )?pet[iaeo]
-[Tt]rideset (i )?pet[iaeo]
-[Čč]etrdeset (i )?pet[iaeo]
-[Pp]edeset (i )?pet[iaeo]
-[Šš]ezdeset (i )?pet[iaeo]
-[Ss]edamdeset (i )?pet[iaeo]
-[Oo]samdeset (i )?pet[iaeo]
-[Dd]evedeset (i )?pet[iaeo]
-[Dd]vadeset (i )?šest[iaeo]
-[Tt]rideset (i )?šest[iaeo]
-[Čč]etrdeset (i )?šest[iaeo]
-[Pp]edeset (i )?šest[iaeo]
-[Šš]ezdeset (i )?šest[iaeo]
-[Ss]edamdeset (i )?šest[iaeo]
-[Oo]samdeset (i )?šest[iaeo]
-[Dd]evedeset (i )?šest[iaeo]
-[Dd]vadeset (i )?sedm[iaeo]
-[Tt]rideset (i )?sedm[iaeo]
-[Čč]etrdeset (i )?sedm[iaeo]
-[Pp]edeset (i )?sedm[iaeo]
-[Šš]ezdeset (i )?sedm[iaeo]
-[Ss]edamdeset (i )?sedm[iaeo]
-[Oo]samdeset (i )?sedm[iaeo]
-[Dd]evedeset (i )?sedm[iaeo]
-[Dd]vadeset (i )?osm[iaeo]
-[Tt]rideset (i )?osm[iaeo]
-[Čč]etrdeset (i )?osm[iaeo]
-[Pp]edeset (i )?osm[iaeo]
-[Šš]ezdeset (i )?osm[iaeo]
-[Ss]edamdeset (i )?osm[iaeo]
-[Oo]samdeset (i )?osm[iaeo]
-[Dd]evedeset (i )?osm[iaeo]
-[Dd]vadeset (i )?devet[iaeo]
-[Tt]rideset (i )?devet[iaeo]
-[Čč]etrdeset (i )?devet[iaeo]
-[Pp]edeset (i )?devet[iaeo]
-[Šš]ezdeset (i )?devet[iaeo]
+[Dd]vadeset (i )?prv[aeiou]
+[Tt]rideset (i )?prv[aeiou]
+[Čč]etrdeset (i )?prv[aeiou]
+[Pp]edeset (i )?prv[aeiou]
+[Šš]ezdeset (i )?prv[aeiou]
+[Ss]edamdeset (i )?prv[aeiou]
+[Oo]samdeset (i )?prv[aeiou]
+[Dd]evedeset (i )?prv[aeiou]
+[Dd]vadeset (i )?drug[aeiou]
+[Tt]rideset (i )?drug[aeiou]
+[Čč]etrdeset (i )?drug[aeiou]
+[Pp]edeset (i )?drug[aeiou]
+[Šš]ezdeset (i )?drug[aeiou]
+[Ss]edamdeset (i )?drug[aeiou]
+[Oo]samdeset (i )?drug[aeiou]
+[Dd]evedeset (i )?drug[aeiou]
+[Dd]vadeset (i )?treć[iaeu]
+[Tt]rideset (i )?treć[iaeu]
+[Čč]etrdeset (i )?treć[iaeu]
+[Pp]edeset (i )?treć[iaeu]
+[Šš]ezdeset (i )?treć[iaeu]
+[Ss]edamdeset (i )?treć[iaeu]
+[Oo]samdeset (i )?treć[iaeu]
+[Dd]evedeset (i )?treć[iaeu]
+[Dd]vadeset (i )?četvrt[aeiou]
+[Tt]rideset (i )?četvrt[aeiou]
+[Čč]etrdeset (i )?četvrt[aeiou]
+[Pp]edeset (i )?četvrt[aeiou]
+[Šš]ezdeset (i )?četvrt[aeiou]
+[Ss]edamdeset (i )?četvrt[aeiou]
+[Oo]samdeset (i )?četvrt[aeiou]
+[Dd]evedeset (i )?četvrt[aeiou]
+[Dd]vadeset (i )?pet[aeiou]
+[Tt]rideset (i )?pet[aeiou]
+[Čč]etrdeset (i )?pet[aeiou]
+[Pp]edeset (i )?pet[aeiou]
+[Šš]ezdeset (i )?pet[aeiou]
+[Ss]edamdeset (i )?pet[aeiou]
+[Oo]samdeset (i )?pet[aeiou]
+[Dd]evedeset (i )?pet[aeiou]
+[Dd]vadeset (i )?šest[aeiou]
+[Tt]rideset (i )?šest[aeiou]
+[Čč]etrdeset (i )?šest[aeiou]
+[Pp]edeset (i )?šest[aeiou]
+[Šš]ezdeset (i )?šest[aeiou]
+[Ss]edamdeset (i )?šest[aeiou]
+[Oo]samdeset (i )?šest[aeiou]
+[Dd]evedeset (i )?šest[aeiou]
+[Dd]vadeset (i )?sedm[aeiou]
+[Tt]rideset (i )?sedm[aeiou]
+[Čč]etrdeset (i )?sedm[aeiou]
+[Pp]edeset (i )?sedm[aeiou]
+[Šš]ezdeset (i )?sedm[aeiou]
+[Ss]edamdeset (i )?sedm[aeiou]
+[Oo]samdeset (i )?sedm[aeiou]
+[Dd]evedeset (i )?sedm[aeiou]
+[Dd]vadeset (i )?osm[aeiou]
+[Tt]rideset (i )?osm[aeiou]
+[Čč]etrdeset (i )?osm[aeiou]
+[Pp]edeset (i )?osm[aeiou]
+[Šš]ezdeset (i )?osm[aeiou]
+[Ss]edamdeset (i )?osm[aeiou]
+[Oo]samdeset (i )?osm[aeiou]
+[Dd]evedeset (i )?osm[aeiou]
+[Dd]vadeset (i )?devet[aeiou]
+[Tt]rideset (i )?devet[aeiou]
+[Čč]etrdeset (i )?devet[aeiou]
+[Pp]edeset (i )?devet[aeiou]
+[Šš]ezdeset (i )?devet[aeiou]
 [Ss]edamdeset (i )?devet[iaoe]
-[Oo]samdeset (i )?devet[iaeo]
-[Dd]evedeset (i )?devet[iaeo]
-[Dd]vadeset[iaeo]?
-[Tt]rideset[iaeo]?
-[Čč]etrdeset[iaeo]?
-[Pp]edeset[iaeo]?
-[Šš]ezdeset[iaeo]?
-[Ss]edamdeset[iaeo]?
-[Oo]samdeset[iaeo]?
-[Dd]evedeset[iaeo]?
+[Oo]samdeset (i )?devet[aeiou]
+[Dd]evedeset (i )?devet[aeiou]
+[Dd]vadeset[iaeou]?
+[Tt]rideset[iaeou]?
+[Čč]etrdeset[iaeou]?
+[Pp]edeset[iaeou]?
+[Šš]ezdeset[iaeou]?
+[Ss]edamdeset[iaeou]?
+[Oo]samdeset[iaeou]?
+[Dd]evedeset[iaeou]?

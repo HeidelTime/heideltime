@@ -15,16 +15,14 @@
 [Čč]im prije
 [Šš]to prije
 [Uu]skoro
-[Nn]edavn[aio]
-[Tt]renutn[aio]
-[Oo]vaj tren
-[Oo]vaj čas
-[Oo]vaj dan
+[Nn]edavn[aeiou]
+[Tt]renutn[aeiou]
+[Oo]vaj (tren|čas|dan)
 [Tt]renutn[oi]
 [Ss]vaki (tren|čas)
-[Pp]rošli
+[Pp]rošl[aeiou]
 [Rr]anije
-[Ii]stovremeno
+[Ii]stovremen[aeiou]
 [Pp]oslije
 [Tt]ada
 [Nn]akon nekog vremena

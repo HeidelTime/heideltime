@@ -3,14 +3,14 @@
 // date:   2014-03-11
 // This file contains regular expression patterns for number words 10 to 20.
 // FORMAT: one line is one disjunction of the pattern
-[Dd]eset
-[Jj]edanaest
-[Dd]vanaest
-[Tt]rinaest
-[Čč]etrnaest
-[Pp]etnaest
-[Šš]esnaest
-[Ss]edamnaest
-[Oo]samnaest
-[Dd]evetnaest
-[Dd]vadeset
+[Dd]eset[iaeou]?
+[Jj]edaniaest[iaeou]?
+[Dd]vaniaest[iaeou]?
+[Tt]riniaest[iaeou]?
+[Čč]etrniaest[iaeou]?
+[Pp]etniaest[iaeou]?
+[Šš]esnaest[iaeou]?
+[Ss]edamniaest[iaeou]?
+[Oo]samniaest[iaeou]?
+[Dd]evetniaest[iaeou]?
+[Dd]vadeset[iaeou]?
