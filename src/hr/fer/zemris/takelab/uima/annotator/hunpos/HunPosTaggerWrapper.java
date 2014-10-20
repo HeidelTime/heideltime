@@ -238,7 +238,11 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 								token = tokens.get(i++);
 							}
 
-							s = s.split("\\s+")[1];
+							String[] splits = s.split("\\s+"); 
+							if(splits.length >= 2) {
+								s = splits[1];
+							}
+							
 							token.removeFromIndexes(); 
 
 							token.setPos(trans.translate(s));
