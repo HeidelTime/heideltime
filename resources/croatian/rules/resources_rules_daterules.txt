@@ -136,7 +136,7 @@ RULENAME="date_r12a2",EXTRACTION="%reYear4Digit:",NORM_VALUE="group(1)",OFFSET="
 RULENAME="date_r12b1",EXTRACTION="%reYear4Digit[\.]?(-| - | na | \/ |\/| do | i | ili )(%reYear2Digit\.?)",NORM_VALUE="group(1)",OFFSET="group(0)-group(1)"
 RULENAME="date_r12b2",EXTRACTION="%reYear4Digit[\.]?(-| - | na | \/ |\/| do | i | ili )(%reYear2Digit\.?)",NORM_VALUE="%SUBSTRING%(group(1),0,2)group(4)",OFFSET="group(3)-group(3)"
 RULENAME="date_r12c",EXTRACTION="([Gg]odin[ae] )?Dvije tisuće (i )?%reNumWord2D",NORM_VALUE="20%normDurationNumber(group(3))"
-RULENAME="date_r12d",EXTRACTION="([Gg]odin[ae] )?Tisuću %reHundred ?%reNumWord2D",NORM_VALUE="1%SUBSTRING(%normHundred(group(2)), 0, 1)%normDurationNumber(group(3))"
+RULENAME="date_r12d",EXTRACTION="([Gg]odin[ae] )?Tisuću %reHundred ?%reNumWord2D",NORM_VALUE="1%SUBSTRING%(%normHundred(group(2)),0,1)%normDurationNumber(group(3))"
 RULENAME="date_r12e",EXTRACTION="%reNumWord2D\. godin[ae]",NORM_VALUE="19%normDurationNumber(group(1))"
 RULENAME="date_r12f",EXTRACTION="(\d\d)[\.]?[-]?e",NORM_VALUE="19group(1)"
 RULENAME="date_r12g1",EXTRACTION="%reYear4Digit(-| - | do )%reYear4Digit",NORM_VALUE="group(1)",OFFSET="group(0)-group(1)"
@@ -156,7 +156,7 @@ RULENAME="date_r13b",EXTRACTION="%reYear2Digit\.?[-]?(e|ih)",NORM_VALUE="UNDEF-y
 //RULENAME="date_r13b",EXTRACTION="%reYear2Digit[-]?(e|ih)",NORM_VALUE="19%SUBSTRING%(group(1),0,1)"
 RULENAME="date_r13c",EXTRACTION="%reDecadeWord",NORM_VALUE="UNDEF-year-00-00 decadeCalc(%normDecadeWord(group(1))"
 //RULENAME="date_r13c",EXTRACTION="%reDecadeWord",NORM_VALUE="19%normDecadeWord(group(1))"
-RULENAME="date_r13d",EXTRACTION="([Tt]isuću )?%reHundred %reDecadeWord",NORM_VALUE="1%SUBSTRING(%normHundred(group(2)),0,1)%normDecadeWord(group(3))"
+RULENAME="date_r13d",EXTRACTION="([Tt]isuću )?%reHundred %reDecadeWord",NORM_VALUE="1%SUBSTRING%(%normHundred(group(2)),0,1)%normDecadeWord(group(3))"
 
 // date_r14
 // EXAMPLE r14a_1: the early 1990s 
@@ -166,7 +166,7 @@ RULENAME="date_r13d",EXTRACTION="([Tt]isuću )?%reHundred %reDecadeWord",NORM_VA
 RULENAME="date_r14a",EXTRACTION="%rePartWords (\d\d\d0)\.?-?(e|ih)",NORM_VALUE="%SUBSTRING%(group(2),0,3)",NORM_MOD="%normPartWords(group(1))"
 RULENAME="date_r14b",EXTRACTION="%rePartWords %reYear2Digit\.?-?(e|ih)",NORM_VALUE="UNDEF-year-00-00 decadeCalc(%SUBSTRING%(group(2),0,1))",NORM_MOD="%normPartWords(group(1))"
 RULENAME="date_r14c",EXTRACTION="%rePartWords %reDecadeWord",NORM_VALUE="UNDEF-year-00-00 decadeCalc(%normDecadeWord(group(2))",NORM_MOD="%normPartWords(group(1))"
-RULENAME="date_r14d",EXTRACTION="%rePartWords ([Tt]isuću )?%reHundred %reDecadeWord",NORM_VALUE="1%SUBSTRING(%normHundred(group(3)),0,1)%normDecadeWord(group(4))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r14d",EXTRACTION="%rePartWords ([Tt]isuću )?%reHundred %reDecadeWord",NORM_VALUE="1%SUBSTRING%(%normHundred(group(3)),0,1)%normDecadeWord(group(4))",NORM_MOD="%normPartWords(group(1))"
 
 /////////////////////////
 // CENTURY GRANULARITY //

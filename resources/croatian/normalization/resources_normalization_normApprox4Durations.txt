@@ -17,6 +17,7 @@
 "Gotovo","LESS_THAN"
 "gotovo","LESS_THAN"
 "[Nn]ajmanje","EQUAL_OR_MORE"
+"[Nn]ajkasnije( do)?","ON_OR_BEFORE"
 //"Skoro","APPROX"
 //"skoro","APPROX"
 "Najviše","EQUAL_OR_LESS"

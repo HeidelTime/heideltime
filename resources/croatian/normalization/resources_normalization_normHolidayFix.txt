@@ -7,23 +7,15 @@
 // 
 // the reference of the values is given in the repattern file
 
-"Nova Godina","01-01"
-"Novu Godinu","01-01"
-"Nove Godine","01-01"
-"Nova godina","01-01"
-"Novu godinu","01-01"
-"Nove godine","01-01"
-"Stara Godina","12-31"
-"Staru Godinu","12-31"
-"Stare Godine","12-31"
-"Stara godina","12-31"
-"Staru godinu","12-31"
-"Stare godine","12-31"
+"Nov[aeu] [Gg]odin[aeu]","01-01"
+"Star[aeu] [Gg]odin[aeu]","12-31"
 
 "Bogojavlj[ea]nje","01-06"
 "Sveta [Tt]ri [Kk]ralja","01-06"
 
 "Praznik rada","05-01"
+
+"Prvi [Mm]aj","05-01"
 
 "Dan antifašističke borbe","06-22"
 
