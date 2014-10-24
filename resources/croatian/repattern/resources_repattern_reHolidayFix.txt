@@ -11,9 +11,10 @@ Bogojavlj[ea]nje
 Sveta [Tt]ri [Kk]ralja
 Praznik rada
 Prvi [Mm]aj
-Dan antifašističke borbe
-Dan državnosti
-Dan pobjede i domovinske zahvalnosti
+Prvog [Mm]aja
+Dan [Aa]ntifašističke [Bb]orbe
+Dan [Dd]ržavnosti
+Dan [Pp]objede i [Dd]omovinske [Zz]ahvalnosti
 Dan [Hh]rvatskih branitelja
 Velika Gospa
 Mala Gospa
@@ -21,7 +22,7 @@ Dan [Nn]eovisnosti
 Svi [Ss]veti
 Sisvet[ie]
 Božić[aeiu]?
-Badnjak
+Badnjaka?
 Badnja večer
 Badnje veče
 Badnj[au] noć

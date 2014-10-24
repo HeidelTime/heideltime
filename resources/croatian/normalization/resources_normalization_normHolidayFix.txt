@@ -16,13 +16,14 @@
 "Praznik rada","05-01"
 
 "Prvi [Mm]aj","05-01"
+"Prvog [Mm]aja","05-01"
 
-"Dan antifašističke borbe","06-22"
+"Dan [Aa]ntifašističke [Bb]orbe","06-22"
 
-"Dan državnosti","06-25"
+"Dan [Dd]ržavnosti","06-25"
 
-"Dan pobjede i domovinske zahvalnosti","08-05"
-"Dan [Hh]rvatskih branitelja","08-05"
+"Dan [Pp]objede i [Dd]omovinske [Zz]ahvalnosti","08-05"
+"Dan [Hh]rvatskih [Bb]ranitelja","08-05"
 
 "Velika Gospa","08-15"
 "Mala Gospa","09-08"
@@ -36,9 +37,7 @@
 "Badnjaka?","12-25"
 "Badnja večer","12-24"
 "Badnje veče","12-24"
-"Badnja noć","12-24"
-"Badnju noć","12-24"
-"badnju noć","12-24"
+"Badnj[au] noć","12-24"
 "Sv. Stjepan","12-26"
 "Sveti Stjepan","12-26"
 

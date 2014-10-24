@@ -6,8 +6,7 @@
 // about
 [Oo]tprilike
 [Oo]ko
-[Cc]irka
-[Cc]irca
+[Cc]ir[ck]a
 // less
 [Nn]ajkasnije( do)?
 [Nn]ajviše
@@ -18,11 +17,14 @@
 [Mm]anje n(eg)?o
 [Zz]amalo
 [Gg]otovo
+[Kk]raće (od|nego)
 //  more
 [Nn]ajmanje
-[Bb]arem
+[Bb]ar(em)?
 [Vv]iše od
 [Vv]iše n(eg)?o
 [Dd]ulje od
 [Dd]ulje n(eg)?o
 [Pp]reko
+[Kk]asnije n(eg)?o
+[Nn]ajranije

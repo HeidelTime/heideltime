@@ -35,9 +35,12 @@
 "[Ss]toljeća","CE"
 // not in reUnit
 "[Ss]at[aeiou]?","H"
+"[Ss]atima","H"
 "[Ss]atn[oi]","H"
 "[Mm]inut[aeiou]","M"
 "[Mm]inutn[oi]","M"
+"[Mm]inutama","M"
+"[Ss]ekundama","S"
 "[Ss]ekund[aei]","S"
 "[Ss]ekundn[oi]","S"
 
