@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
@@ -196,6 +198,8 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 			
 			class TaggingJob implements Runnable {
 				
+				private final Pattern HUNPOS_PATTERN = Pattern.compile("^(.+)\t([^\t]+)$");
+				
 				private JCas jCas;
 				
 				private List<Token> tokens;
@@ -231,18 +235,25 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 							s = scan.nextLine().trim();
 							if(s.isEmpty()) continue;
 							Token token = tokens.get(i++);
-							
+							//System.out.println(token.getCoveredText()); // TODO
 							while (token.getCoveredText().isEmpty()){
 								token.setPos("");
 								token.addToIndexes();
 								token = tokens.get(i++);
 							}
 
-							String[] splits = s.split("\\s+"); 
+							Matcher m = HUNPOS_PATTERN.matcher(s);
+							if(m.find()) {
+								s = m.group(2);
+							} else {
+								i--;
+							}
+							/*
+							String[] splits = s.split("\\t+");
 							if(splits.length >= 2) {
 								s = splits[1];
-							}
-							
+							} else { System.out.println("\"" + s + "\""); System.exit(-1);}
+							*/
 							token.removeFromIndexes(); 
 
 							token.setPos(trans.translate(s));
