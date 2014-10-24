@@ -235,7 +235,7 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 							s = scan.nextLine().trim();
 							if(s.isEmpty()) continue;
 							Token token = tokens.get(i++);
-							//System.out.println(token.getCoveredText()); // TODO
+							
 							while (token.getCoveredText().isEmpty()){
 								token.setPos("");
 								token.addToIndexes();
@@ -248,12 +248,7 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 							} else {
 								i--;
 							}
-							/*
-							String[] splits = s.split("\\t+");
-							if(splits.length >= 2) {
-								s = splits[1];
-							} else { System.out.println("\"" + s + "\""); System.exit(-1);}
-							*/
+							
 							token.removeFromIndexes(); 
 
 							token.setPos(trans.translate(s));
