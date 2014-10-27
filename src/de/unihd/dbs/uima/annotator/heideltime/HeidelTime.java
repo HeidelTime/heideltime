@@ -2225,7 +2225,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			int tokenEnd   = s.getBegin() + m.end(groupNumber);
 			String pos = mr.group(2);
 			String pos_as_is = getPosFromMatchResult(tokenBegin, tokenEnd ,s, jcas);
-			if (pos.equals(pos_as_is)) {
+			if (pos_as_is.matches(pos)) {
 				Logger.printDetail("POS CONSTRAINT IS VALID: pos should be "+pos+" and is "+pos_as_is);
 			} else {
 				return false;

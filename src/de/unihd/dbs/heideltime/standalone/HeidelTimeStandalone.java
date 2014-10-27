@@ -14,14 +14,15 @@
 
 package de.unihd.dbs.heideltime.standalone;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.RandomAccessFile;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -716,32 +717,51 @@ public class HeidelTimeStandalone {
 		
 
 		// Run HeidelTime
+		RandomAccessFile aFile = null;
+		MappedByteBuffer buffer = null;
+		FileChannel inChannel = null;
+		PrintWriter pwOut = null;
 		try {
-			
 			logger.log(Level.INFO, "Reading document using charset: " + encodingType);
 			
-			BufferedReader fileReader = new BufferedReader(
-					new InputStreamReader(new FileInputStream(docPath), encodingType));
+			aFile = new RandomAccessFile(docPath, "r");
+			inChannel = aFile.getChannel();
+			buffer = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, inChannel.size());
+			buffer.load();
+			byte[] inArr = new byte[(int) inChannel.size()];
 			
-			StringBuilder sb = new StringBuilder();
-			String line = null;
-			while ((line = fileReader.readLine()) != null) {
-				sb.append(System.getProperty("line.separator")+line);
+			for(int i = 0; i < buffer.limit(); i++) {
+				inArr[i] = buffer.get();
 			}
-			String input = sb.toString();
-			// should not be necessary, but without this, it's not running on Windows (?)
-			input = new String(input.getBytes("UTF-8"), "UTF-8");
+			
+			// double-newstring should not be necessary, but without this, it's not running on Windows (?)
+			String input = new String(new String(inArr, encodingType).getBytes("UTF-8"), "UTF-8");
 			
 			HeidelTimeStandalone standalone = new HeidelTimeStandalone(language, type, outputType, null, posTagger, doIntervalTagging);
 			String out = standalone.process(input, dct);
 			
 			// Print output always as UTF-8
-			PrintWriter pwOut = new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"));
+			pwOut = new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"));
 			pwOut.println(out);
-			pwOut.close();
-			fileReader.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if(pwOut != null) {
+				pwOut.close();
+			}
+			if(buffer != null) {
+				buffer.clear();
+			}
+			if(inChannel != null) {
+				try {
+					inChannel.close();
+				} catch (IOException e) { }
+			}
+			if(aFile != null) {
+				try {
+					aFile.close();
+				} catch (IOException e) { }
+			}
 		}
 	}
 	

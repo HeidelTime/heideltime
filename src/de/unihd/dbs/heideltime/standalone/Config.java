@@ -55,6 +55,7 @@ public abstract class Config {
 	public static final String UIMAVAR_SET = "uimaVarSet";
 	public static final String UIMAVAR_TIME = "uimaVarTime";
 	public static final String UIMAVAR_TYPETOPROCESS = "uimaVarTypeToProcess";
+	public static final String UIMAVAR_CONVERTDURATIONS = "ConvertDurations";
 
 	/**
 	 * 
