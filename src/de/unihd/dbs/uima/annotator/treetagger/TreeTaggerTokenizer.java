@@ -146,8 +146,8 @@ public class TreeTaggerTokenizer {
 					String[] lines = line.split(" ");
 					
 					for(String token : lines) {
-						/*if(token.equals(""))
-							continue;*/
+						if(token.equals(""))
+							continue;
 						
 						String suffix = "";
 						
