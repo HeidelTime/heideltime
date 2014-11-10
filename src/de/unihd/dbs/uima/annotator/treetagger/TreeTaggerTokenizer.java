@@ -141,7 +141,7 @@ public class TreeTaggerTokenizer {
 					// insert missing blanks after punctuation
 					line = line.replaceAll("\\.\\.\\.", " ... ");
 					line = line.replaceAll("([;\\!\\?])([^ ])", "$1 $2");
-					line = line.replaceAll("([\\.,:])([^ 0-9\\.])", "$1 $2");
+					line = line.replaceAll("([.,:])([^ 0-9.])", "$1 $2");
 					
 					String[] lines = line.split(" ");
 					
@@ -174,9 +174,9 @@ public class TreeTaggerTokenizer {
 							}
 							
 							// cut off trailing periods if punctuation precedes
-							m = Pattern.compile("([" + FChar + "])\\.").matcher(token);
+							m = Pattern.compile("([" + FChar + "])\\.$").matcher(token);
 							if(m.find()) {
-								token = token.replaceAll("([" + FChar + "])\\.", "");
+								token = token.replaceAll("([" + FChar + "])\\.$", "");
 								suffix = ".\n" + suffix;
 								
 								if(token.equals("")) {
