@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashSet;
 
 import org.apache.uima.UimaContext;
@@ -31,6 +32,7 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Token;
+import de.unihd.dbs.uima.annotator.treetagger.TreeTaggerTokenizer.Flag;
 
 /**
  * @author Andreas Fay, Julian Zell
@@ -242,81 +244,44 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	 * @param jcas JCas object supplied by the pipeline
 	 */
 	private void tokenize(JCas jcas) {
-		File tmpDocument = null;
-		BufferedWriter tmpFileWriter = null;
-		BufferedReader in = null;
+		// read tokenized text to add tokens to the jcas
+		Logger.printDetail(component, "TreeTagger (tokenization) with: " + ttprops.abbFileName);
+		
+		EnumSet<Flag> flags = Flag.getSet(ttprops.languageSwitch);
+		TreeTaggerTokenizer ttt = new TreeTaggerTokenizer(ttprops.rootPath + ttprops.fileSeparator + "lib" + ttprops.fileSeparator + ttprops.abbFileName, flags);
+		
+		String docText = jcas.getDocumentText().replaceAll("\n\n", "\nEMPTYLINE\n");
+		String tokenized = ttt.tokenize(docText);
+		
+		int tokenOffset = 0;
+		// loop through all the lines in the treetagger output
+		for(String s : tokenized.split("\n")) {
+			// charset missmatch fallback: signal (invalid) s
+			if ((!(s.equals("EMPTYLINE"))) && (jcas.getDocumentText().indexOf(s, tokenOffset) < 0))
+				throw new RuntimeException("Opps! Could not find token "+s+
+						" in JCas after tokenizing with TreeTagger." +
+						" Hmm, there may exist a charset missmatch!" +
+						" Default encoding is " + Charset.defaultCharset().name() + 
+						" and should always be UTF-8 (use -Dfile.encoding=UTF-8)." +
+						" If input document is not UTF-8 use -e option to set it according to the input, additionally.");
 
-		try {
-			// Create temp file containing the document text
-			tmpDocument = File.createTempFile("pos", null);
-			tmpFileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tmpDocument), "UTF-8"));
-//			tmpFileWriter.write(jcas.getDocumentText());
-			tmpFileWriter.write(jcas.getDocumentText().replaceAll("\n\n", "\nEMPTYLINE\n"));
-			tmpFileWriter.close();
-			
-			// read tokenized text to add tokens to the jcas
-			Process proc = ttprops.getTokenizationProcess(tmpDocument);
-			Logger.printDetail(component, "TreeTagger (tokenization) with: " + ttprops.tokScriptName + " and " + ttprops.abbFileName);
-			
-			in = new BufferedReader(new InputStreamReader(proc.getInputStream(), "UTF-8"));
-			String s;
-			int tokenOffset = 0;
-			// loop through all the lines in the treetagger output
-			while ((s = in.readLine()) != null) {
-				// charset missmatch fallback: signal (invalid) s
-				if ((!(s.equals("EMPTYLINE"))) && (jcas.getDocumentText().indexOf(s, tokenOffset) < 0))
-//				if (jcas.getDocumentText().indexOf(s, tokenOffset) < 0)
-					throw new RuntimeException("Opps! Could not find token "+s+
-							" in JCas after tokenizing with TreeTagger." +
-							" Hmm, there may exist a charset missmatch!" +
-							" Default encoding is " + Charset.defaultCharset().name() + 
-							" and should always be UTF-8 (use -Dfile.encoding=UTF-8)." +
-							" If input document is not UTF-8 use -e option to set it according to the input, additionally.");
-
-				// create tokens and add them to the jcas's indexes.
-				Token newToken = new Token(jcas);
-				if (s.equals("EMPTYLINE")){
-					newToken.setBegin(tokenOffset);
-					newToken.setEnd(tokenOffset);
-					newToken.setPos("EMPTYLINE");
-					if (annotate_partofspeech){
-						newToken.addToIndexes();
-					}
-				}
-				else{
-					newToken.setBegin(jcas.getDocumentText().indexOf(s, tokenOffset));
-					newToken.setEnd(newToken.getBegin() + s.length());
+			// create tokens and add them to the jcas's indexes.
+			Token newToken = new Token(jcas);
+			if (s.equals("EMPTYLINE")){
+				newToken.setBegin(tokenOffset);
+				newToken.setEnd(tokenOffset);
+				newToken.setPos("EMPTYLINE");
+				if (annotate_partofspeech){
 					newToken.addToIndexes();
-					tokenOffset = newToken.getEnd();
-				}
-				
-			}
-			// clean up
-			in.close();
-			proc.destroy();
-			tmpDocument.delete();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			// I/O Housekeeping
-			if (tmpFileWriter != null) {
-				try {
-					tmpFileWriter.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-				// Delete temp files
-				tmpDocument.delete();
-			}
-
-			if (in != null) {
-				try {
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
 				}
 			}
+			else{
+				newToken.setBegin(jcas.getDocumentText().indexOf(s, tokenOffset));
+				newToken.setEnd(newToken.getBegin() + s.length());
+				newToken.addToIndexes();
+				tokenOffset = newToken.getEnd();
+			}
+			
 		}
 	}
 	

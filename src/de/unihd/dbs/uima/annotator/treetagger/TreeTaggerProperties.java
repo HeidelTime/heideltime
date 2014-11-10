@@ -42,6 +42,17 @@ public class TreeTaggerProperties {
 	// chinese tokenizer path
 	public File chineseTokenizerPath = null;
 	
+	
+	/**
+	 * This method creates a process with some parameters for the tokenizer script.
+	 * 
+	 * Deprecated: We use TreeTaggerTokenizer in the same package nowadays which implements the utf8-tokenize.perl
+	 * script from the TreeTagger package. This fixes some issues with Perl's Unicode handling.
+	 * @param inputFile
+	 * @return
+	 * @throws IOException
+	 */
+	@Deprecated
 	public Process getTokenizationProcess(File inputFile) throws IOException {
 		// assemble a command line for the tokenization script and execute it
 		ArrayList<String> command = new ArrayList<String>();

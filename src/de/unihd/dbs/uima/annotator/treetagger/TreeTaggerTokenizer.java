@@ -23,14 +23,34 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
  */
 public class TreeTaggerTokenizer {
 	public static enum Flag {
-		ENGLISH, FRENCH, ITALIAN, GALICIAN, Z
+		ENGLISH, FRENCH, ITALIAN, GALICIAN, Z;
+		
+		public static EnumSet<Flag> getSet(String flagName) {
+			EnumSet<Flag> set = EnumSet.noneOf(Flag.class);
+			
+			if(flagName == null)
+				return set;
+			
+			if(flagName.contains("-e"))
+				set.add(ENGLISH);
+			if(flagName.contains("-f"))
+				set.add(FRENCH);
+			if(flagName.contains("-i"))
+				set.add(ITALIAN);
+			if(flagName.contains("-g"))
+				set.add(GALICIAN);
+			if(flagName.contains("-z"))
+				set.add(Z);
+			
+			return set;
+		}
 	}
 	EnumSet<Flag> flags = null;
 	
 	private File abbreviationsFile = null;
 	
 	private String PChar = "\\[¿¡\\{\\(\\`\"‚„†‡‹‘’“”•–—›'";
-	private String FChar = "]}\\'\\`\\\"\\),;:\\!\\?\\%‚„…†‡‰‹‘’“”•–—›";
+	private String FChar = "\\]\\}\\'\\`\"\\),;:\\!\\?\\%‚„…†‡‰‹‘’“”•–—›";
 	private String FClitic = "";
 	private String PClitic = "";
 	
@@ -140,7 +160,7 @@ public class TreeTaggerTokenizer {
 							// cut off preceding punctuation
 							m = Pattern.compile("^([" + PChar + "])(.)").matcher(token);
 							if(m.find()) {
-								token.replaceAll("^([" + PChar + "])(.)", "$2");
+								token = token.replaceAll("^([" + PChar + "])(.)", "$2");
 								outBuf.append(m.group(1) + "\n");
 								finished = false;
 							}
@@ -148,7 +168,7 @@ public class TreeTaggerTokenizer {
 							// cut off trailing punctuation
 							m = Pattern.compile("(.)([" + FChar + "])$").matcher(token);
 							if(m.find()) {
-								token.replaceAll("(.)([" + FChar + "])$", "$1");
+								token = token.replaceAll("(.)([" + FChar + "])$", "$1");
 								suffix = m.group(2) + "\n" + suffix;
 								finished = false;
 							}
@@ -156,7 +176,7 @@ public class TreeTaggerTokenizer {
 							// cut off trailing periods if punctuation precedes
 							m = Pattern.compile("([" + FChar + "])\\.").matcher(token);
 							if(m.find()) {
-								token.replaceAll("([" + FChar + "])\\.", "");
+								token = token.replaceAll("([" + FChar + "])\\.", "");
 								suffix = ".\n" + suffix;
 								
 								if(token.equals("")) {
@@ -182,7 +202,7 @@ public class TreeTaggerTokenizer {
 						// disambiguate periods
 						m = Pattern.compile("^(..*)\\.$").matcher(token);
 						if(m.matches() && !line.equals("...") 
-								&& !( flags.contains(Flag.GALICIAN) && token.matches("^[0-9]+\\.$"))) {
+								&& !(flags.contains(Flag.GALICIAN) && token.matches("^[0-9]+\\.$"))) {
 							token = m.group(1);
 							suffix = ".\n" + suffix;
 							if(abbreviations.contains(token)) {
