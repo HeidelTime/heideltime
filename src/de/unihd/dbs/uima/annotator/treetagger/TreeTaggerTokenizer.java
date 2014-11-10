@@ -146,8 +146,8 @@ public class TreeTaggerTokenizer {
 					String[] lines = line.split(" ");
 					
 					for(String token : lines) {
-						if(token.equals(""))
-							continue;
+						/*if(token.equals(""))
+							continue;*/
 						
 						String suffix = "";
 						
@@ -180,6 +180,8 @@ public class TreeTaggerTokenizer {
 								suffix = ".\n" + suffix;
 								
 								if(token.equals("")) {
+									token = m.group(1);
+								} else {
 									suffix = m.group(1) + "\n" + suffix;
 								}
 								
@@ -260,7 +262,6 @@ public class TreeTaggerTokenizer {
 						outBuf.append(token + "\n" + suffix);
 					}
 				}
-				
 			}
 		}
 		
