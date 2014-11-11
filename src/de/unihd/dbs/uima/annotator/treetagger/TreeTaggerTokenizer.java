@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -109,7 +111,7 @@ public class TreeTaggerTokenizer {
 		}
 	}
 	
-	public String tokenize(String in) {
+	public List<String> tokenize(String in) {
 		StringBuilder outBuf = new StringBuilder();
 		
 		for(String text : in.split("\n")) {
@@ -266,6 +268,12 @@ public class TreeTaggerTokenizer {
 			}
 		}
 		
-		return outBuf.toString();
+		LinkedList<String> outList = new LinkedList<String>();
+		
+		for(String s : outBuf.toString().split("\n")) {
+			outList.add(s);
+		}
+		
+		return outList;
 	}
 }

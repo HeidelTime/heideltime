@@ -16,6 +16,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.List;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
@@ -251,11 +252,11 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		TreeTaggerTokenizer ttt = new TreeTaggerTokenizer(ttprops.rootPath + ttprops.fileSeparator + "lib" + ttprops.fileSeparator + ttprops.abbFileName, flags);
 		
 		String docText = jcas.getDocumentText().replaceAll("\n\n", "\nEMPTYLINE\n");
-		String tokenized = ttt.tokenize(docText);
+		List<String> tokenized = ttt.tokenize(docText);
 		
 		int tokenOffset = 0;
 		// loop through all the lines in the treetagger output
-		for(String s : tokenized.split("\n")) {
+		for(String s : tokenized) {
 			// charset missmatch fallback: signal (invalid) s
 			if ((!(s.equals("EMPTYLINE"))) && (jcas.getDocumentText().indexOf(s, tokenOffset) < 0))
 				throw new RuntimeException("Opps! Could not find token "+s+
