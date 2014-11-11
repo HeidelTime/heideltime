@@ -114,7 +114,7 @@ public class TreeTaggerTokenizer {
 		
 		for(String text : in.split("\n")) {
 			// replace newlines and tab characters with blanks
-			text = text.replaceAll("[\n\t]", " ");
+			text = text.replaceAll("[\r\n\t]", " ");
 			// replace blanks within SGML tags
 			text = text.replaceAll("(<[^<> ]*) ([^<>]*>)", "$1\377$2");
 			// replace whitespace with a special character
