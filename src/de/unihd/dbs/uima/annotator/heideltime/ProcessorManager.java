@@ -21,8 +21,6 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
  *
  */
 public class ProcessorManager {
-	// singleton instance
-	private static final ProcessorManager INSTANCE = new ProcessorManager();
 	// list of processes' package names
 	private EnumMap<Priority, String> processorNames;
 	// array of instantiated processors
@@ -35,7 +33,7 @@ public class ProcessorManager {
 	/**
 	 * Private constructor, only to be called by the getInstance() method.
 	 */
-	private ProcessorManager() {
+	public ProcessorManager() {
 		this.processorNames = new EnumMap<Priority, String>(Priority.class);
 		this.component = this.getClass();
 		this.processors = new EnumMap<Priority, GenericProcessor>(Priority.class);
@@ -110,14 +108,6 @@ public class ProcessorManager {
 				}
 			}
 		}
-	}
-	
-	/**
-	 * getInstance method of the singleton pattern
-	 * @return ProcessorManager
-	 */
-	public static ProcessorManager getInstance() {
-		return ProcessorManager.INSTANCE;
 	}
 	
 	public enum Priority {

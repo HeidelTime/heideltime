@@ -60,7 +60,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private Class<?> component = this.getClass();
 	
 	// PROCESSOR MANAGER
-	ProcessorManager procMan = ProcessorManager.getInstance();
+	private ProcessorManager procMan = new ProcessorManager();
 
 	// COUNTER (how many timexes added to CAS? (finally)
 	public int timex_counter        = 0;
