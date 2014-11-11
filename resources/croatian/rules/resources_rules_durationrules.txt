@@ -1,0 +1,61 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-25
+// This file contains rules for the temporal expressions of the type duration: durationrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+/////////////////////
+// POSITIVE RULES //
+/////////////////////
+// duration_r1
+// EXAMPLE r1a1-1: manje nego deset sati
+// EXAMPLE r1a2-1: tri mjeseca
+// EXAMPLE r1b-1: još otprilike 20 dana
+// EXAMPLE r1c-1: several days
+// EXAMPLE r1d-1: less than sixty minutes
+// EXAMPLE r1e-1: less than 60 minutes
+// EXAMPLE r1f-1: several minutes
+RULENAME="duration_r1a1",EXTRACTION="%reApproximate (%reNumWord2D|%reNumWord1D) (%reUnit|sat[ai]|minut[ae])",NORM_VALUE="P%normDurationNumber(group(2))%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(1))"
+RULENAME="duration_r1a2",EXTRACTION="(%reNumWord2D|%reNumWord1D) (%reUnit|sat[ai]|minut[ae])",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(4))"
+RULENAME="duration_r1a3",EXTRACTION="(\d+) (%reUnit|sat[ai]|minut[ae])",NORM_VALUE="Pgroup(1)%normUnit4Duration(group(2))"
+RULENAME="duration_r1a4",EXTRACTION="(%reNumWord2D|%reNumWord1D)( | se | je | dug[ae] | kratk[ae] )%reUnit",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(5))"
+RULENAME="duration_r1b1",EXTRACTION="([Jj]oš )?%reApproximate ([\d]+) (%reUnit|sat[ai]|minut[aei]|sekund[aei])",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
+RULENAME="duration_r1b2",EXTRACTION="([Jj]oš )?([\d]+) %reUnit",NORM_VALUE="Pgroup(2)%normUnit4Duration(group(3))"
+RULENAME="duration_r1c",EXTRACTION="([Nn]ekoliko|[Pp]ar|[Nn]ekolicin[ua]|[Ii]dućih?) %reUnit",NORM_VALUE="PX%normUnit4Duration(group(2))"
+RULENAME="duration_r1d",EXTRACTION="%reApproximate %reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))",NORM_MOD="%normApprox4Durations(group(1))"
+RULENAME="duration_r1e",EXTRACTION="%reFew %reUnit",NORM_VALUE="PX%normUnit4Duration(group(2))"
+
+// duration_r2
+// EXAMPLE r2a-1: at least the last twenty years
+// EXAMPLE r2b-1: at least the last 20 years
+// EXAMPLE r2c-1: at least the last several years
+RULENAME="duration_r2a",EXTRACTION="%reThisNextLast (%reNumWord2D|%reNumWord1D) (%reUnit|sat[ia]|minut[aei]|sekundi[aei])",NORM_VALUE="P%normDurationNumber(group(2))%normUnit4Duration(group(5))"
+RULENAME="duration_r2b",EXTRACTION="%reThisNextLast (\d+) (%reUnit|sat[ia]|minut[aei]|sekundi[aei])",NORM_VALUE="Pgroup(2)%normUnit4Duration(group(3))"
+RULENAME="duration_r2c",EXTRACTION="%reThisNextLast (nekoliko|par|nekolicin[au]) (%reUnit|sat[ia]|minut[aei]|sekundi[aei])",NORM_VALUE="PX%normUnit4Duration(group(3))"
+
+// duration_r3
+// EXAMPLE r3a-1: trogodišnji period
+// EXAMPLE r3b-1: 20-dnevno razdoblje
+RULENAME="duration_r3a",EXTRACTION="(%reNumWord2D|%reNumWord1D)-?(%reUnit|satn[oi]|minutn[oi]|sekundn[oi]) (period|razdoblje)",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(4))"
+RULENAME="duration_r3b",EXTRACTION="([\d]+)-?(%reUnit|satn[oi]|minutn[oi]|sekundn[oi])( (period|razdoblje))?",NORM_VALUE="Pgroup(1)%normUnit4Duration(group(2))"
+
+// duration_r5
+// EXAMPLE: r5_a: dva i pet dana (find "dva")
+// EXAMPLE: r5_b: dva i pet dana (find "pet")
+RULENAME="duration_r5a1",EXTRACTION="%reApproximate (%reNumWord2D|%reNumWord1D)( do | ili | i |-| - )(%reNumWord2D|%reNumWord1D) (%reUnit|sat[ai]|minut[ae]|sekund[ei])",NORM_VALUE="P%normDurationNumber(group(2))%normUnit4Duration(group(9))",NORM_MOD="%normApprox4Durations(group(1))",OFFSET="group(1)-group(2)"
+RULENAME="duration_r5a2",EXTRACTION="(%reNumWord2D|%reNumWord1D)( do | ili | i |-| - )(%reNumWord2D|%reNumWord1D) (%reUnit|sat[ai]|minut[ae]|sekund[ei])",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(8))",OFFSET="group(1)-group(1)"
+RULENAME="duration_r5a3",EXTRACTION="%reApproximate (\d+)( do | ili | i |-| - )(\d+) (%reUnit|sat[ai]|minut[ae]|sekund[ei])",NORM_VALUE="Pgroup(2)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(1))",OFFSET="group(1)-group(2)"
+RULENAME="duration_r5a4",EXTRACTION="(\d+)( do | ili | i |-| - )(\d+) (%reUnit|sat[ai]|minut[ae]|sekund[ei])",NORM_VALUE="Pgroup(1)%normUnit4Duration(group(4))",OFFSET="group(1)-group(1)"
+RULENAME="duration_r5b1",EXTRACTION="%reApproximate (%reNumWord2D|%reNumWord1D)( do | ili | i |-| - )(%reNumWord2D|%reNumWord1D) (%reUnit|sat[ai]|minut[ae]|sekund[ei])",NORM_VALUE="P%normDurationNumber(group(6))%normUnit4Duration(group(9))",NORM_MOD="%normApprox4Durations(group(1))",OFFSET="group(6)-group(9)"
+RULENAME="duration_r5b2",EXTRACTION="(%reNumWord2D|%reNumWord1D)( do | ili | i |-| - )(%reNumWord2D|%reNumWord1D) (%reUnit|sat[ai]|minut[ae]|sekund[ei])",NORM_VALUE="P%normDurationNumber(group(5))%normUnit4Duration(group(8))",OFFSET="group(5)-group(8)"
+RULENAME="duration_r5b3",EXTRACTION="%reApproximate (\d+)( do | ili | i |-| - )(\d+) (%reUnit|sat[ai]|minut[ae]|sekund[ei])",NORM_VALUE="Pgroup(4)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(1))",OFFSET="group(4)-group(5)"
+RULENAME="duration_r5b4",EXTRACTION="(\d+)( do | ili | i |-| - )(\d+) (%reUnit|sat[ai]|minut[ae]|sekund[ei])",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(4))",OFFSET="group(3)-group(4)"
+
+// duration_r6
+// EXAMPLE : r6_a: tjedan dana
+RULENAME="duration_r6a",EXTRACTION="[Tt]jedan dana",NORM_VALUE="P1W"
+RULENAME="duration_r6b",EXTRACTION="[Vv]išetjedn[aeiou]",NORM_VALUE="P1W",NORM_MOD="MORE_THAN"
+////////////////////
+// NEGATIVE RULES //
+////////////////////
+// Add as appropriate

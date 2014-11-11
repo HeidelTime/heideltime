@@ -1,0 +1,10 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-04-04
+// This file contains regular expression patterns for words indicating future.
+// FORMAT: one line is one disjunction of the pattern
+bi(smo|ste)
+ć[ue]
+ćete
+ćeš
+ćemo

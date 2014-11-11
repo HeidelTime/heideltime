@@ -1,0 +1,27 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-21
+// This file contains normalization rules
+// for hundred words
+"Sto","100"
+"sto","100"
+"Dvjesto","200"
+"dvjesto","200"
+"Dvijesto","200"
+"dvijest","200"
+"Tristo","300"
+"tristo","300"
+"Četiristo","400"
+"četiristo","400"
+"Četristo","400"
+"četristo","400"
+"Petsto","500"
+"petsto","500"
+"Šesto","600"
+"šesto","600"
+"Sedamsto","700"
+"sedamsto","700"
+"Osamsto","800"
+"osamsto","800"
+"Devetsto","900"
+"devetsto","900"

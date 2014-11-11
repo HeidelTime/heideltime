@@ -1,0 +1,21 @@
+// author: Luka Skukan
+// email:  luka.skukan@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for unit words.
+// FORMAT: one line is one disjunction of the pattern
+[Dd]an[iae]?
+[Dd]nevn[aoi]
+[Vv]ikend([aei]|om)?
+[Tt]jed(ana?|n[ia]|nom?)
+[Mm]jesec[ai]?
+[Mm]jesečn[aeiou]
+[Čč]etvrti?
+[Ff]isklan[aeu] godin[aeu]
+[Gg]odin[aeiu]
+[Gg]odišnj[aeiou]
+[Gg]odišnjoj
+[Dd]ekad[aiue]
+[Dd]esetljeć[ea]
+[Dd]esetljetn[aeoiu]
+[Ss]toljeć[ea]
+[Ss]toljetn[aeuoi]

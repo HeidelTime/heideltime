@@ -1,0 +1,29 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-11
+// This file contains regular expression patterns for date words.
+// FORMAT: one line is one disjunction of the pattern
+// THESE EXPRESSIONS ARE ALL IMPLICITS
+// SHOULD ONLY BE UPPER CASE IF AT THE BEGINNING OF A SENTENCE
+[Pp]reko?jučer
+[Pp]reko?sutra
+[Jj]učer
+[Dd]anas
+[Dd]an-danas
+[Ss]utra
+[Ss]ada?
+[Čč]im prije
+[Šš]to prije
+[Uu]skoro
+[Nn]edavn[aeiou]
+[Tt]renutn[aeiou]
+[Oo]vaj (tren|čas|dan)
+[Tt]renutn[oi]
+[Ss]vaki (tren|čas)
+[Pp]rošl[aeiou]
+[Rr]anije
+[Ii]stovremen[aeiou]
+[Pp]oslije
+[Tt]ada
+[Nn]akon nekog vremena
+[Uu] isto vrijeme

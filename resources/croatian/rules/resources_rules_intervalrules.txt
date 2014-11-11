@@ -1,0 +1,31 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-05-20
+// This file contains rules for the temporal expressions of the type interval: intervalrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""
+
+///////////////////
+//INTERVAL RULES //
+///////////////////
+
+//EXAMPLE interval_01: Od 2000. do 2001.
+//EXAMPLE interval_02: Tijekom svibnja i lipnja
+//EXAMPLE interval_03: 20.3.2003. - 1.5.2003.
+//EXAMPLE interval_04: 20.3.2003. do 1.5.2003.
+//EXAMPLE interval_05: Sukob započinje 20.3.2003. i traje do 14.6.2004.
+//EXAMPLE interval_06: Do petka, nakon što započne u ponedjeljak
+//EXAMPLE interval_07: u 1999./2000.
+//EXAMPLE interval_08: Radnji dan završava u 5, počevši od 8.
+//EXAMPLE interval_09: Ponedjeljak, utorak i srijeda
+//EXAMPLE interval_10: Siječanj, Veljača, Ožujak i Travanj
+
+RULENAME="interval_01",EXTRACTION="([Oo]d )?<TX3_([0-9]+)> ((sve)? do) <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(5)"
+RULENAME="interval_02",EXTRACTION="([Ii]zmeđu|[Tt]ijekom|[Kk]roz|[Tt]okom) <TX3_([0-9]+)> i <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(3)"
+RULENAME="interval_03",EXTRACTION="<TX3_([0-9]+)>( )?-( )?<TX3_([0-9]+)>",NORM_VALUE="group(1)-group(4)"
+RULENAME="interval_04",EXTRACTION="<TX3_([0-9]+)> (do) <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(3)"
+RULENAME="interval_05",EXTRACTION="([Jj]e poče(o|la|lo)|[Pp]očinje|[Zz]apočinje) <TX3_([0-9]+)> .* do <TX3_([0-9]+)>",NORM_VALUE="group(3)-group(4)"
+RULENAME="interval_06",EXTRACTION="[Dd]o <TX3_([0-9]+)>,? nakon što .* u <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(1)"
+RULENAME="interval_07",EXTRACTION="[Uu] <TX3_([0-9]+)>/<TX3_([0-9]+)>,",NORM_VALUE="group(1)-group(2)"
+RULENAME="interval_08",EXTRACTION="u <TX3_([0-9]+)>, .* od <TX3_([0-9]+)>",NORM_VALUE="group(2)-group(1)"
+RULENAME="interval_09",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)> i <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(3)"
+RULENAME="interval_10",EXTRACTION="<TX3_([0-9]+)>, <TX3_([0-9]+)>, <TX3_([0-9]+)> i <TX3_([0-9]+)>",NORM_VALUE="group(1)-group(4)"

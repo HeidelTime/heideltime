@@ -1,0 +1,9 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-05-02
+// This file contains normalization patterns for before and after words
+// FORMAT: "term","normalization"
+"[Pp]rije","BEFORE"
+"[Pp]red","BEFORE"
+"[Nn]akon","AFTER"
+"[Ii]za","AFTER"

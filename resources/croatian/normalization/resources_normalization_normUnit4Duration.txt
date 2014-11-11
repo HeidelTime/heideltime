@@ -1,0 +1,46 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-10-15
+// This file contains "unit words for duration" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "week" is "W"
+// FORMAT: "unit-word","normalized-unit-word"
+"[Dd]an[iae]?","D"
+"[Dd]nevn[aoi]","D"
+"[Vv]ikenda?","WE"
+"[Tt]jed(ana?|n[ia]|nom?)","WE"
+"[Mm]jeseca?","M"
+"[Mm]jesečn[aeoiu]","M"
+"[Čč]etvrt","Q"
+"[Ff]iskaln[au] godin[au]","Y"
+"[Gg]odin[iau]","Y"
+"[Gg]odišnj[aeiou]","Y"
+"[Gg]odišnjoj","Y"
+"[Dd]ekad[aiu]","DE"
+"[Dd]esetljetn[aeoiu]","DE"
+"[Dd]esetljeće","DE"
+"[Ss]toljeće","CE"
+"[Ss]toljetn[oaeui]","CE"
+// Plurals
+"[Dd]an[iae]","D"
+"[Vv]ikend[ei]","WE"
+"[Vv]ikendom","WE"
+"[Tt]jedni","WE"
+"[Mm]jeseci","M"
+"[Čč]etvrti","Q"
+"[Ff]iskalne godine","Y"
+"[Gg]odine","Y"
+"[Dd]ekade","DE"
+"[Dd]esetljeća","DE"
+"[Ss]toljeća","CE"
+// not in reUnit
+"[Ss]at[aeiou]?","H"
+"[Ss]atima","H"
+"[Ss]atn[oi]","H"
+"[Mm]inut[aeiou]","M"
+"[Mm]inutn[oi]","M"
+"[Mm]inutama","M"
+"[Ss]ekundama","S"
+"[Ss]ekund[aei]","S"
+"[Ss]ekundn[oi]","S"
+

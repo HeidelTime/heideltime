@@ -1,0 +1,33 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-11
+// This file contains "approximate words" and their normalized expressions
+// for dates/times according to TIMEX3 format.
+// For example, the normalized value of "about" is "APPROX"
+// FORMAT: "approximate-word","normalized-approximate-word"
+// about
+"[Oo]tprilike","APPROX"
+"[Oo]ko","APPROX"
+"[Cc]ir[ck]a","APPROX"
+
+// less or equal or less
+"[Nn]ajkasnije( do)?","ON_OR_BEFORE"
+"[Nn]ajviše","EQUAL_OR_LESS"
+"[Nn]e (više|dulje) od","EQUAL_OR_LESS"
+"[Dd]o","EQUAL_OR_LESS"
+"[Mm]anje od","LESS_THAN"
+"[Mm]anje n(eg)?o","LESS_THAN"
+"[Zz]amalo,"LESS_THAN"
+"[Gg]otovo","LESS_THAN"
+"[Kk]raće (od|nego)","LESS_THAN"
+
+//more or equal or more
+"[Nn]ajranije","ON_OR_AFTER"
+"[Nn]ajmanje","EQUAL_OR_MORE"
+"[Bb]ar(em)?","EQUAL_OR_MORE"
+"[Vv]iše n(eg)?o","MORE_THAN"
+"[Vv]iše od","MORE_THAN"
+"[Dd]ulje n(eg)?o","MORE_THAN"
+"[Dd]ulje od","MORE_THAN"
+"[Pp]reko","MORE_THAN"
+"[Kk]asnije n(eg)?o","MORE_THAN"

@@ -1,0 +1,16 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-12
+// This file contains "set words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "daily" is "XXXX-XX-XX"
+// FORMAT: "set-word","normalized-set-word"
+"Godišnj[aie]","XXXX"
+"godišnj[aie]","XXXX"
+"[Gg]odišnjoj","P1Y"
+"Mjesečn[aio]","XXXX-XX"
+"mjesečn[aio]","XXXX-XX"
+"Dnevn[aio]","XXXX-XX-XX"
+"dnevn[aio]","XXXX-XX-XX"
+"Tjedn[aio]","XXXX-WXX"
+"tjedn[aio]","XXXX-WXX"

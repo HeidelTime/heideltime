@@ -1,0 +1,318 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-19
+// This file contains rules for the temporal expressions of the type date: daterules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////////
+// POSITIVE RULES //
+////////////////////
+
+/////////////////////
+// Day Granularity //
+/////////////////////
+// date_r0 (Timestamp style)
+// EXAMPLE r0a_1: 2010-01-29 - ISO
+// EXAMPLE r0b_1: 29.01.99.
+// EXAMPLE r0c_1: 29.01.1999.
+// EXAMPLE r0d_1: 25.12.
+RULENAME="date_r0a",EXTRACTION="(%reYear4Digit\-%reMonthNumber\-%reDayNumber)",NORM_VALUE="group(1)"
+RULENAME="date_r0b",EXTRACTION="%reDayNumber\.\s*%reMonthNumber\.\s*%reYear2Digit\.",NORM_VALUE="UNDEF-centurygroup(3)-group(2)-group(1)"
+RULENAME="date_r0c",EXTRACTION="%reDayNumber\.\s*%reMonthNumber\.\s*%reYear4Digit\.",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))"
+RULENAME="date_r0d",EXTRACTION="%reDayNumber\.\s*%reMonthNumber\.",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(1))"
+
+// date_r1
+// EXAMPLE r1a_1: 25. Siječanj 2009.
+// EXAMPLE r1b_1: 27. Vel. 2010. Ponedjeljak
+RULENAME="date_r1a",EXTRACTION="%reDayNumber\. (%reMonthLong|%reMonthShort) %reYear4Digit\.?",NORM_VALUE="group(5)-%normMonth(group(2))-%normDay(group(1))"
+RULENAME="date_r1b",EXTRACTION="%reDayNumber\. (%reMonthLong|%reMonthShort) %reYear4Digit\.?, %reWeekday",NORM_VALUE="group(5)-%normMonth(group(2))-%normDay(group(1))"
+
+// date_r2
+// EXAMPLE r2a_1: Ožujak 10.
+// EXAMPLE r2a_2: Ožu. 10.
+// EXAMPLE r2a_3: Ožu. 10
+// EXAMPLE r2a_3: Ožujak deseti
+// EXAMPLE r2a_4: Ožujak desetog
+// EXAMPLE r2b_1: 10. Siječnja
+// EXAMPLE r2b_2: Desetog Veljače
+// EXAMPLE r2b_3: Desetog Tra.
+RULENAME="date_r2a",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayWordTh|%reDayNumberTh)",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(4))"
+RULENAME="date_r2b",EXTRACTION="(%reDayWordTh|%reDayNumberTh\.?) (%reMonthLong|%reMonthShort)( iste godine)?",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(1))"
+
+// date_r3
+// EXAMPLE r3a_1: Petak 10. Siječnja
+// EXAMPLE r3a_2: Subota dvanaestog siječnja
+// EXAMPLE r3b_1: Petak 10. Siječnja 2011.
+// EXAMPLE r3b_2: Petak 10. Siječnja, 2010.
+RULENAME="date_r3a",EXTRACTION="%reWeekday[,]? (%reDayWordTh|%reDayNumberTh) (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(5))-%normDay(group(2))"
+RULENAME="date_r3b",EXTRACTION="%reWeekday[,]? (%reDayWordTh|%reDayNumberTh) (%reMonthLong|%reMonthShort)[,]? %reYear4Digit\.?",NORM_VALUE="group(8)-%normMonth(group(5))-%normDay(group(2))"
+
+// date_r4
+// EXAMPLE r4a_1: 18.-19. Siječnja, 2010. (find 2010-01-18)
+// EXAMPLE r4b_1: 18.-19. Siječnja, 2010. (find 2010-01-19)
+RULENAME="date_r4a1",EXTRACTION="(%reDayNumber\.)(-| - | na | \/ |\/| do | i | ili )(%reDayNumber\.) (%reMonthLong|%reMonthShort)( ?,)? %reYear4Digit\.?",NORM_VALUE="group(10)-%normMonth(group(6))-%normDay(group(1))",OFFSET="group(0)-group(1)"
+RULENAME="date_r4a2",EXTRACTION="(%reDayNumber\.)(-| - | na | \/ |\/| do | i | ili )(%reDayNumber\.) (%reMonthLong|%reMonthShort)( ?,)? %reYear4Digit\.?",NORM_VALUE="group(10)-%normMonth(group(6))-%normDay(group(4))",OFFSET="group(4)-group(10)"
+RULENAME="date_r4b1",EXTRACTION="(%reDayNumber\.)(-| - | na | \/ |\/| do | i | ili )(%reDayNumber\.) (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-this-year-%normMonth(group(6))-%normDay(group(1))",OFFSET="group(0)-group(1)"
+RULENAME="date_r4b2",EXTRACTION="(%reDayNumber\.)(-| - | na | \/ |\/| do | i | ili )(%reDayNumber\.) (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-this-year-%normMonth(group(6))-%normDay(group(4))",OFFSET="group(4)-group(6)"
+RULENAME="date_r4c",EXTRACTION="%reDayNumberTh\.? %(reMonthLong|%reMonthShort)[\s]?(-| - | na | \/ |\/| do | i | ili )[\s]?%reDayNumberTh\.? %(reMonthLong|%reMonthShort)([\s]?,)? %reYear4Digit\.?",NORM_VALUE="group(10)-%normMonth(group(2))-%normDay(group(1))",OFFSET="group(0)-group(4)"
+RULENAME="date_r4d",EXTRACTION="%reDayNumberTh\.? %(reMonthLong|%reMonthShort)[\s]?(-| - | na | \/ |\/| do | i | ili )[\s]?%reDayNumberTh\.? %(reMonthLong|%reMonthShort)([\s]?,)? %reYear4Digit\.?",NORM_VALUE="group(10)-%normMonth(group(7))-%normDay(group(6))",OFFSET="group(6)-group(10)"
+RULENAME="date_r4e",EXTRACTION="%reDayNumberTh\.? %(reMonthLong|%reMonthShort) %reYear4Digit\.?[\s]?(-| - | na | \/ |\/| do | i | ili )[\s]?%reDayNumberTh\.? %(reMonthLong|%reMonthShort)([\s]?,)? %reYear4Digit\.?",NORM_VALUE="group(5)-%normMonth(group(2))-%normDay(group(1))",OFFSET="group(0)-group(5)"
+RULENAME="date_r4f",EXTRACTION="%reDayNumberTh\.? %(reMonthLong|%reMonthShort) %reYear4Digit\.?[\s]?(-| - | na | \/ |\/| do | i | ili )[\s]?%reDayNumberTh\.? %(reMonthLong|%reMonthShort)([\s]?,)? %reYear4Digit\.?",NORM_VALUE="group(11)-%normMonth(group(8))-%normDay(group(7))",OFFSET="group(7)-group(11)"
+
+// date_r5
+// EXAMPLE r5a_1: sutra
+// EXAMPLE r5b_1: kasnije danas
+// EXAMPLE r5c_1: Ponedjeljak
+// EXAMPLE r5d_1: kasnije ponedjeljkom 
+RULENAME="date_r5a",EXTRACTION="%reDateWord",NORM_VALUE="%normDateWord(group(1))"
+RULENAME="date_r5b",EXTRACTION="%rePartWords %reDateWord",NORM_VALUE="%normDateWord(group(2))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r5c",EXTRACTION="%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(1))"
+RULENAME="date_r5d",EXTRACTION="%rePartWords %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(2))",NORM_MOD="%normPartWords(group(1))"
+
+//////////////////////
+// WEEK GRANULARITY //
+//////////////////////
+// date_r6
+// EXAMPLE r6a_1: prošli vikend
+// EXAMPLE r6b_1: ovog vikenda
+RULENAME="date_r6a",EXTRACTION="(prošli|zadnji) vikend",NORM_VALUE="UNDEF-last-week-WE"
+RULENAME="date_r6b",EXTRACTION="ov(aj|og) vikenda?",NORM_VALUE="UNDEF-this-week-WE"
+
+///////////////////////
+// MONTH GRANULARITY //
+///////////////////////
+//date_r7
+// EXAMPLE r7a_1: Srpanj 2001.
+// EXAMPLE r7a_2: Srp. 2008.
+// EXAMPLE r7b_1: Veljača i Ožujak 2011 (find Feb 2001)
+RULENAME="date_r7a",EXTRACTION="(%reMonthLong|%reMonthShort)( godine)? %reYear4Digit\.?",NORM_VALUE="group(5)-%normMonth(group(1))"
+RULENAME="date_r7b",EXTRACTION="(%reMonthLong|%reMonthShort)(-| - | na | \/ |\/| do | i | ili )(%reMonthLong|%reMonthShort)( godine)? %reYear4Digit\.?",NORM_VALUE="group(9)-%normMonth(group(1))",OFFSET="group(1)-group(1)"
+
+// date_r8
+// EXAMPLE r8a_1: Veljača ove godine
+// EXAMPLE r8a_2: Vel. prošle godine
+// EXAMPLE r8b_1: Ovaj svibanj
+// EXAMPLE r8c_1: Početkom listopada
+RULENAME="date_r8a",EXTRACTION="(%reMonthLong|%reMonthShort) %reThisNextLast godine",NORM_VALUE="UNDEF-%normThisNextLast(group(4))-year-%normMonth(group(1))"
+RULENAME="date_r8b",EXTRACTION="%reThisNextLast (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonth(group(2))"
+RULENAME="date_r8c",EXTRACTION="%rePartWords (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(2))",NORM_MOD="%normPartWords(group(1))"
+////////////////////////
+// SEASON GRANULARITY //
+////////////////////////
+// date_r9
+// EXAMPLE r9a_1: ljeto
+// EXAMPLE r9b_1: zima 2001.
+// EXAMPLE r9c_1: jesen 93.
+RULENAME="date_r9a",EXTRACTION="%reSeason",NORM_VALUE="UNDEF-year-%normSeason(group(1))"
+RULENAME="date_r9b",EXTRACTION="%rePartWords %reSeason",NORM_VALUE="UNDEF-year-%normSeason(group(2))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r9c1",EXTRACTION="%reSeason %reYear4Digit\.(-?e)?",NORM_VALUE="group(2)-%normSeason(group(1))"
+RULENAME="date_r9c2",EXTRACTION="%reSeason %reYear4Digit(-?e)?",NORM_VALUE="group(2)-%normSeason(group(1))"
+RULENAME="date_r9d1",EXTRACTION="%reSeason %reYear2Digit\.(-?e)?",NORM_VALUE="UNDEF-centurygroup(2)-%normSeason(group(1))"
+RULENAME="date_r9d2",EXTRACTION="%reSeason %reYear2Digit(-?e)?",NORM_VALUE="UNDEF-centurygroup(2)-%normSeason(group(1))"
+RULENAME="date_r9e",EXTRACTION="%rePartWords %reSeason %reYear4Digit\.?",NORM_VALUE="group(3)-%normSeason(group(2))",NORM_MOD="%normPartWords(group(1))"
+
+
+//////////////////////////////
+// PART-OF-YEAR GRANULARITY //
+//////////////////////////////
+// date_r10
+// EXAMPLE r10a_1: treći dio 2001.
+// EXAMPLE r10b_1: druga polovica
+RULENAME="date_r10a",EXTRACTION="%rePartOfYear %reYear4Digit\.?",NORM_VALUE="group(2)-%normPartOfYear(group(1))"
+//RULENAME="date_r10b",EXTRACTION="%rePartOfYear",NORM_VALUE="UNDEF-year-%normPartOfYear(group(1))"
+
+//////////////////////
+// YEAR GRANULARITY //
+//////////////////////
+// date_r12
+// EXAMPLE r12a_1: 2004.
+// EXAMPLE r12b_1: 1850-58. (find: 1858.)
+// EXAMPLE r12c_1: Dvije tisuće i dvanaesta
+// EXAMPLE r12d_1: Tisuću sedamsto dvadeset i treća
+// EXAMPLE r12e_1: 95-e (finds 1995)
+// EXAMPLE r12f_1:  (finds 1993)
+RULENAME="date_r12a1",EXTRACTION="%reYear4Digit\.",NORM_VALUE="group(1)"
+RULENAME="date_r12a2",EXTRACTION="%reYear4Digit:",NORM_VALUE="group(1)",OFFSET="group(1)-group(1)"
+RULENAME="date_r12b1",EXTRACTION="%reYear4Digit[\.]?(-| - | na | \/ |\/| do | i | ili )(%reYear2Digit\.?)",NORM_VALUE="group(1)",OFFSET="group(0)-group(1)"
+RULENAME="date_r12b2",EXTRACTION="%reYear4Digit[\.]?(-| - | na | \/ |\/| do | i | ili )(%reYear2Digit\.?)",NORM_VALUE="%SUBSTRING%(group(1),0,2)group(4)",OFFSET="group(3)-group(3)"
+RULENAME="date_r12c",EXTRACTION="([Gg]odin[ae] )?Dvije tisuće (i )?%reNumWord2D",NORM_VALUE="20%normDurationNumber(group(3))"
+RULENAME="date_r12d",EXTRACTION="([Gg]odin[ae] )?Tisuću %reHundred ?%reNumWord2D",NORM_VALUE="1%SUBSTRING%(%normHundred(group(2)),0,1)%normDurationNumber(group(3))"
+RULENAME="date_r12e",EXTRACTION="%reNumWord2D\. godin[ae]",NORM_VALUE="19%normDurationNumber(group(1))"
+RULENAME="date_r12f",EXTRACTION="(\d\d)[\.]?[-]?e",NORM_VALUE="19group(1)"
+RULENAME="date_r12g1",EXTRACTION="%reYear4Digit(-| - | do )%reYear4Digit",NORM_VALUE="group(1)",OFFSET="group(0)-group(1)"
+RULENAME="date_r12g2",EXTRACTION="%reYear4Digit(-| - | do )%reYear4Digit",NORM_VALUE="group(3)",OFFSET="group(3)-group(3)"
+
+
+////////////////////////
+// DECADE GRANULARITY //
+////////////////////////
+// date_r13
+// EXAMPLE r13a_1: the 1990-e 
+// EXAMPLE r13b_1: 90e
+// EXAMPLE r13c_1: Osamdesete
+// EXAMPLE r13d_1: Tisuću osamsto pedesete
+RULENAME="date_r13a",EXTRACTION="(\d\d\d0)\.?[-]?(e|ih)",NORM_VALUE="%SUBSTRING%(group(1),0,3)"
+RULENAME="date_r13b",EXTRACTION="%reYear2Digit\.?[-]?(e|ih)",NORM_VALUE="UNDEF-year-00-00 decadeCalc(%SUBSTRING%(group(1),0,1))"
+//RULENAME="date_r13b",EXTRACTION="%reYear2Digit[-]?(e|ih)",NORM_VALUE="19%SUBSTRING%(group(1),0,1)"
+RULENAME="date_r13c",EXTRACTION="%reDecadeWord",NORM_VALUE="UNDEF-year-00-00 decadeCalc(%normDecadeWord(group(1))"
+//RULENAME="date_r13c",EXTRACTION="%reDecadeWord",NORM_VALUE="19%normDecadeWord(group(1))"
+RULENAME="date_r13d",EXTRACTION="([Tt]isuću )?%reHundred %reDecadeWord",NORM_VALUE="1%SUBSTRING%(%normHundred(group(2)),0,1)%normDecadeWord(group(3))"
+
+// date_r14
+// EXAMPLE r14a_1: the early 1990s 
+// EXAMPLE r14b_1: the mid-90s
+// EXAMPLE r14c_1: the late seventies
+// EXAMPLE r14d_1: the early nineteen seventies
+RULENAME="date_r14a",EXTRACTION="%rePartWords (\d\d\d0)\.?-?(e|ih)",NORM_VALUE="%SUBSTRING%(group(2),0,3)",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r14b",EXTRACTION="%rePartWords %reYear2Digit\.?-?(e|ih)",NORM_VALUE="UNDEF-year-00-00 decadeCalc(%SUBSTRING%(group(2),0,1))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r14c",EXTRACTION="%rePartWords %reDecadeWord",NORM_VALUE="UNDEF-year-00-00 decadeCalc(%normDecadeWord(group(2))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r14d",EXTRACTION="%rePartWords ([Tt]isuću )?%reHundred %reDecadeWord",NORM_VALUE="1%SUBSTRING%(%normHundred(group(3)),0,1)%normDecadeWord(group(4))",NORM_MOD="%normPartWords(group(1))"
+
+/////////////////////////
+// CENTURY GRANULARITY //
+/////////////////////////
+// date_r15
+// EXAMPLE r15a_1: 19. stoljeće
+// EXAMPLE r15a_2: Dvadeseto stoljeće
+// EXAMPLE r15b_1: Početkom 19. stoljeća
+RULENAME="date_r15a",EXTRACTION="(%reDayNumberTh|%reDayWordTh)\.? stoljeć[aeu]",NORM_VALUE="%normDay(%SUM%(%normDay(group(1)),-1))"
+RULENAME="date_r15b",EXTRACTION="%rePartWords (%reDayNumberTh|%reDayWordTh) [Ss]toljeć[aeu]",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r15c",EXTRACTION="%rePartOfYear (%reDayNumberTh|%reDayWordTh) [Ss]toljeć[aeu]",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))-%normPartOfYear(group(1))"
+
+///////////////////////////////////
+// GRANULARITY INDEPENDENT RULES //
+///////////////////////////////////
+// date_r16
+// EXAMPLE r16a_1: Lipanj
+// EXAMPLE r16b_1: Early 2001
+// EXAMPLE r16c_1: the beginning of November 1999
+// EXAMPLE r16d_1: the middle of September
+RULENAME="date_r16a",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
+RULENAME="date_r16b",EXTRACTION="%rePartWords %reYear4Digit\.?",NORM_VALUE="group(2)",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r16c",EXTRACTION="%rePartWords (%reMonthLong|%reMonthShort) %reYear4Digit\.?",NORM_VALUE="group(5)-%normMonth(group(2))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r16d",EXTRACTION="%rePartWords (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(2))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r16e",EXTRACTION="%rePartWords godine",NORM_VALUE="UNDEF-this-year",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r16f",EXTRACTION="%reBeforeAfter (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(2))",NORM_MOD="%normBeforeAfter(group(1))"
+
+// date_r17
+// EXAMPLE r17a_1: Ovaj tjedan
+// EXAMPLE r17b_1: Ova Veljača
+// EXAMPLE r17c_1: Ovaj 16. Svibanj
+// EXAMPLE r17d_1: Ovaj Ponedjeljak
+// EXAMPLE r17e_1: Ovo ljeto
+// EXAMPLE r17f_1: Danas (using UNDEF-REF normalization)
+// EXAMPLE r17g_1: Iduća fiskalna godina
+RULENAME="date_r17a",EXTRACTION="%reThisNextLast %reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normUnit(group(2))"
+RULENAME="date_r17b",EXTRACTION="%reThisNextLast %reMonthLong",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%LOWERCASE%(group(2))"
+RULENAME="date_r17c",EXTRACTION="%reThisNextLast %reDayNumber\.? %reMonthLong",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%LOWERCASE%(group(3))-%normDay(group(2))"
+RULENAME="date_r17d",EXTRACTION="%reThisNextLast %reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%LOWERCASE%(group(2))"
+RULENAME="date_r17e",EXTRACTION="%reThisNextLast %reSeason",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normSeason(group(2))"
+RULENAME="date_r17f",EXTRACTION="[Dd]anas",NORM_VALUE="UNDEF-REF-day-PLUS-0"
+RULENAME="date_r17g",EXTRACTION="([Ii]duć[aei]|[Ss]lijedeć[aei]) %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-PLUS-1"
+
+// date_r18
+// EXAMPLE r18a_1: početak iduće godine
+// EXAMPLE r18b_1: kraj ovog Lipnja
+// EXAMPLE r18c_1: početak ovog 13. Ožujka
+// EXAMPLE r18d_1: krajem ovog utorka
+// EXAMPLE r18e_1: početak prošlog ljeta
+RULENAME="date_r18a",EXTRACTION="%rePartWords %reThisNextLast %reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-%normUnit(group(3))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r18b",EXTRACTION="%rePartWords %reThisNextLast %reMonthLong",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-%LOWERCASE%(group(3))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r18c",EXTRACTION="%rePartWords %reThisNextLast %reDayNumber %reMonthLong",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-%LOWERCASE%(group(4))-%normDay(group(3))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r18d",EXTRACTION="%rePartWords %reThisNextLast %reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-%LOWERCASE%(group(3))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r18e",EXTRACTION="%rePartWords %reThisNextLast %reSeason",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-%normSeason(group(3))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r18f",EXTRACTION="%rePartWords %reSeason %reYear4Digit\.?",NORM_VALUE="group(3)-%normSeason(group(2))",NORM_MOD="%normPartWords(group(1))"
+
+// date_r19 (prije|pred|ranije)
+// EXAMPLE r19a_1: Prije otprilike sat
+// EXAMPLE r19b_1: Pred deset dana
+// EXAMPLE r19c_1: Circa pet minuta ranije
+// EXAMPLE r19d_1: Prije 10 minuta
+// EXAMPLE r19e_1: 2 tjedna ranije
+// EXAMPLE r19f_1: Nedavne srijede
+RULENAME="date_r19a",EXTRACTION="[Pp]r(ije|ed) (%reApproximate )?(%reUnit|minut[aeiou]|sat[aeiou]??|sekund[eiu])",NORM_VALUE="PAST_REF"
+RULENAME="date_r19b1",EXTRACTION="[Pp]r(ije|ed) %reApproximate (%reNumWord2D|%reNumWord1D) (%reUnit|minut[aeiou]|sat[aeiou]?)",NORM_VALUE="UNDEF-this-%normUnit(group(6))-MINUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="date_r19b2",EXTRACTION="[Pp]r(ije|ed) (%reNumWord2D|%reNumWord1D) (%reUnit|minut[aeiou]|sat[aeiou]?)",NORM_VALUE="UNDEF-this-%normUnit(group(5))-MINUS-%normDurationNumber(group(2))"
+RULENAME="date_r19b3",EXTRACTION="%reFew (%reUnit|minut[aeiou]|sat[aeiou]?) prije",NORM_VALUE="PAST_REF"
+RULENAME="date_r19c1",EXTRACTION="%reApproximate (%reNumWord2D|%reNumWord1D) (%reUnit|minute|sat[aeiou]?) (ranije|prije)",NORM_VALUE="UNDEF-this-%normUnit(group(6))-MINUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="date_r19c2",EXTRACTION="(%reNumWord2D|%reNumWord1D) (%reUnit|minute|sat[aeiou]?) ranije",NORM_VALUE="UNDEF-this-%normUnit(group(5))-MINUS-%normDurationNumber(group(2))"
+RULENAME="date_r19d1",EXTRACTION="[Pp]rije %reApproximate ([\d]+) (%reUnit|minut[aeiou]|sat[aeiou]?)",NORM_VALUE="UNDEF-this-%normUnit(group(3))-MINUS-group(2)",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="date_r19d2",EXTRACTION="[Pp]rije ([\d]+) (%reUnit|minut[aeiou]|sat[aeiou]?)",NORM_VALUE="UNDEF-this-%normUnit(group(2))-MINUS-group(1)"
+RULENAME="date_r19e",EXTRACTION="%reApproximate ([\d]+) (%reUnit|minute|sat[aeiou]?) (ranije|prije)",NORM_VALUE="UNDEF-this-%normUnit(group(3))-MINUS-group(2)",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="date_r19f",EXTRACTION="([\d]+) (%reUnit|minute|sat[aeiou]?) (ranije|prije)",NORM_VALUE="UNDEF-this-%normUnit(group(2))-MINUS-group(1)"
+RULENAME="date_r19g",EXTRACTION="[Nn]edavn(a|e|i|o[gm]) %reUnit",NORM_VALUE="PAST_REF"
+RULENAME="date_r19h",EXTRACTION="%reUnit (prije|ranije)",NORM_VALUE="UNDEF-this-%normUnit(group(1))-MINUS-group(1)"
+
+// date_r20 (later)
+// EXAMPLE r20a_1: Za minutu
+// EXAMPLE r20b_1: Otprilike sat kasnije
+// EXAMPLE r20c_1: Nakon sedam dana
+// EXAMPLE r20d_1: Devet mjeseci kasnije
+// EXAMPLE r20e_1  Za 15 sekundi
+// EXAMPLE r20e_1: 50 godina kasnije
+RULENAME="date_r20a1",EXTRACTION="([Zz]a|[Nn]akon) (%reApproximate )?(%reUnit|minut[aeiou]|sat[aeiou]?)( dana)?",NORM_VALUE="FUTURE_REF"
+RULENAME="date_r20a2",EXTRACTION="(%reApproximate )?(%reUnit|minut[aeiou]|sat[aeiou]?) kasnije",NORM_VALUE="FUTURE_REF"
+RULENAME="date_r20a3",EXTRACTION="%reFew (%reUnit|minut[aeiou]|sat[aeiou]?) kasnije",NORM_VALUE="FUTURE_REF"
+RULENAME="date_r20b1",EXTRACTION="([Zz]a|[Nn]akon) (%reNumWord2D|%reNumWord1D) (%reUnit|minut[aeiou]|sat[aeiou]?)",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-PLUS-%normDurationNumber(group(2))"
+RULENAME="date_r20b2",EXTRACTION="([Zz]a|[Nn]akon) %reApproximate (%reNumWord2D|%reNumWord1D) (%reUnit|minut[aeiou]|sat[aeiou])",NORM_VALUE="UNDEF-REF-%normUnit(group(6))-PLUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="date_r20c1",EXTRACTION="(%reNumWord2D|%reNumWord1D) (%reUnit|minut[aeiou]|sat[aeiou]?) kasnije",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-%normDurationNumber(group(1))"
+RULENAME="date_r20c2",EXTRACTION="%reApproximate (%reNumWord2D|%reNumWord1D) (%reUnit|minut[aeiou]|sat[aeiou]?) kasnije",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-PLUS-%normDurationNumber(group(2))",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="date_r20d1",EXTRACTION="([Zz]a|[Nn]akon) ([\d]+) (%reUnit|minut[aeiou]|sat[aeiou]?)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-group(2)"
+RULENAME="date_r20d2",EXTRACTION="([Zz]a|[Nn]akon) %reApproximate ([\d]+) (%reUnit|minut[aeiou]|sat[aeiou]?)",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="date_r20e1",EXTRACTION="(\d+) (%reUnit|minut[aeiou]|sat[aeiou]?) kasnije",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-PLUS-group(1)"
+RULENAME="date_r20e2",EXTRACTION="%reApproximate ([\d]+) (%reUnit|minut[aeiou]|sat[aeiou]?) kasnije",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-group(2)",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="date_r20f1",EXTRACTION="[Tt]jedan dana kasnije",NORM_VALUE="UNDEF-REFUNIT-week-PLUS-1"
+RULENAME="date_r20f2",EXTRACTION="[Mm]jesec dana kasnije",NORM_VALUE="UNDEF-REFUNIT-month-PLUS-1"
+
+// date_r24 (x and a half later)
+RULENAME="date_r24a",EXTRACTION="([Zz]a|[Nn]akon) (%reNumWord2D|%reNumWord1D) i pol (%reUnit|minut[aeiou]|sat[aeiou]?)",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-PLUS-%normDurationNumber(group(2))",NORM_MOD="MORE_THAN"
+RULENAME="date_r24b",EXTRACTION="(%reNumWord2D|%reNumWord1D) i pol (%reUnit|minut[aeiou]|sat[aeiou]?) kasnije",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-%normDurationNumber(group(1))",NORM_MOD="MORE_THAN"
+RULENAME="date_r24c",EXTRACTION="([Zz]a|[Nn]akon) ([\d]+) i pol (%reUnit|minut[aeiou]|sat[aeiou]?)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-group(2)",NORM_MOD="MORE_THAN"
+RULENAME="date_r24d",EXTRACTION="(\d+) i pol (%reUnit|minut[aeiou]|sat[aeiou]?) kasnije",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-PLUS-group(1)",NORM_MOD="MORE_THAN"
+
+
+// date_r21 (ago/earlier/later normalizing with REFUNIT)
+// EXAMPLE r21a_1: Godinu ranije
+// EXAMPLE r21b_1: Prije godinu dana
+// EXAMPLE r21c_1: Godinu dana kasnije
+RULENAME="date_r21a",EXTRACTION="[Gg]odinu (dana )?(ranije|prije)",NORM_VALUE="UNDEF-REFUNIT-year-MINUS-1"
+RULENAME="date_r21b",EXTRACTION="([Pp]rije )?godinu (dana )?",NORM_VALUE="UNDEF-REFUNIT-year-MINUS-1"
+RULENAME="date_r21c",EXTRACTION="[Gg]odinu (dana )?(kasnije)",NORM_VALUE="UNDEF-REFUNIT-year-PLUS-1"
+RULENAME="date_r20d",EXTRACTION="[Tt]jedan dana ranije",NORM_VALUE="UNDEF-REFUNIT-week-MINUS-1"
+RULENAME="date_r20e",EXTRACTION="[Mm]jesec dana ranije",NORM_VALUE="UNDEF-REFUNIT-month-MINUS-1"
+
+///////////////////
+// HOLIDAY RULES //
+///////////////////
+
+//date_r22
+//EXAMPLE r22a_1: Christmas
+//EXAMPLE r22b_1: Christmas 2010
+//EXAMPLE r22c_1: Christmas 87
+//EXAMPLE r22d_1: Christmas '87
+
+RULENAME="date_r22a",EXTRACTION="%reHolidayFix",NORM_VALUE="UNDEF-year-%normHolidayFix(group(1))"
+RULENAME="date_r22b",EXTRACTION="%reHolidayFix %reYear4Digit\.(-?e)?",NORM_VALUE="group(2)-%normHolidayFix(group(1))"
+RULENAME="date_r22c",EXTRACTION="%reHolidayFix %reYear2Digit\.(-?e)?",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayFix(group(1))"
+RULENAME="date_r22d",EXTRACTION="%reHolidayFix '?%reYear2Digit\.(-?e)?",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayFix(group(1))"
+RULENAME="date_r22e",EXTRACTION="%reBeforeAfter %reHolidayFix",NORM_VALUE="UNDEF-this-year-%normHolidayFix(group(2))",NORM_MOD="%normBeforeAfter(group(1))"
+
+//date_r23
+//EXAMPLE r23a_1: Eastersunday
+//EXAMPLE r23b_1: Eastersunday 2010
+//EXAMPLE r23c_1: Eastersunday 87
+//EXAMPLE r23d_1: Eastersunday '87
+
+RULENAME="date_r23a",EXTRACTION="%reHolidayVar",NORM_VALUE="UNDEF-year-%normHolidayVar(group(1))"
+RULENAME="date_r23b",EXTRACTION="%reHolidayVar %reYear4Digit\.(-?e)?",NORM_VALUE="group(2)-%normHolidayVar(group(1))"
+RULENAME="date_r23c",EXTRACTION="%reHolidayVar %reYear2Digit\.(-?e)?",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayVar(group(1))"
+RULENAME="date_r23d",EXTRACTION="%reHolidayVar '?%reYear2Digit\.(-?e)?",NORM_VALUE="UNDEF-centurygroup(2)-%normHolidayVar(group(1))"
+RULENAME="date_r23e",EXTRACTION="%reBeforeAfter %reHolidayVar",NORM_VALUE="UNDEF-this-year-%normHolidayVar(group(2))",NORM_MOD="%normBeforeAfter(group(1))"
+
+////////////////////
+// NEGATIVE RULES //
+////////////////////
+RULENAME="date_r1_negative",EXTRACTION="[Pp]ro-",NORM_VALUE="REMOVE"
+RULENAME="date_r2_negative",EXTRACTION="\d+ godina života",NORM_VALUE="REMOVE"
+RULENAME="date_r3_negative",EXTRACTION="\d+(-| - | \/ |\/| do | i | ili )\d+ godina života",NORM_VALUE="REMOVE"
+RULENAME="date_r4_negative",EXTRACTION="[Uu]skoro",NORM_VALUE="REMOVE"

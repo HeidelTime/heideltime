@@ -1,0 +1,54 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-03
+// This file contains fix holiday and their normalized expressions.
+// For example, the normalized value of "New Year" is "01-01"
+// FORMAT: "hoilday_name","month-year"
+// 
+// the reference of the values is given in the repattern file
+
+"Nov[aeu] [Gg]odin[aeu]","01-01"
+"Star[aeu] [Gg]odin[aeu]","12-31"
+
+"Bogojavlj[ea]nje","01-06"
+"Sveta [Tt]ri [Kk]ralja","01-06"
+
+"Praznik rada","05-01"
+
+"Prvi [Mm]aj","05-01"
+"Prvog [Mm]aja","05-01"
+
+"Dan [Aa]ntifašističke [Bb]orbe","06-22"
+
+"Dan [Dd]ržavnosti","06-25"
+
+"Dan [Pp]objede i [Dd]omovinske [Zz]ahvalnosti","08-05"
+"Dan [Hh]rvatskih [Bb]ranitelja","08-05"
+
+"Velika Gospa","08-15"
+"Mala Gospa","09-08"
+
+"Dan [Nn]eovisnosti","10-08"
+
+"Svi [Ss]veti","11-01"
+"Sisvet[ie]","11-01"
+
+"Božić[aeiu]?","12-25"
+"Badnjaka?","12-25"
+"Badnja večer","12-24"
+"Badnje veče","12-24"
+"Badnj[au] noć","12-24"
+"Sv. Stjepan","12-26"
+"Sveti Stjepan","12-26"
+
+"Dan Oružanih snaga Republike Hrvatske","05-28"
+"Dan Hrvatske kopnene vojske","05-28"
+
+"Dan Sv. Patrika","03-17"
+"Dan Svetog Patrika","03-17"
+"St. Patrick's Day","03-17"
+
+"Noć Vi?ještica","10-31"
+"Halloween","10-31"
+
+"[Dd]an [Žž]ena","03-08"

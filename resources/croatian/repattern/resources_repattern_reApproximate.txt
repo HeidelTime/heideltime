@@ -1,0 +1,30 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-04-11
+// This file contains regular expression patterns for "approximate" words.
+// FORMAT: one line is one disjunction of the pattern
+// about
+[Oo]tprilike
+[Oo]ko
+[Cc]ir[ck]a
+// less
+[Nn]ajkasnije( do)?
+[Nn]ajviše
+[Nn]e više od
+[Nn]e dulje od
+[Dd]o
+[Mm]anje od
+[Mm]anje n(eg)?o
+[Zz]amalo
+[Gg]otovo
+[Kk]raće (od|nego)
+//  more
+[Nn]ajmanje
+[Bb]ar(em)?
+[Vv]iše od
+[Vv]iše n(eg)?o
+[Dd]ulje od
+[Dd]ulje n(eg)?o
+[Pp]reko
+[Kk]asnije n(eg)?o
+[Nn]ajranije

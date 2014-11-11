@@ -1,0 +1,29 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-13
+// This file contains regular expression patterns for short months.
+// FORMAT: one line is one disjunction of the pattern
+[Ss]je\.
+[Vv]elj\.
+[Oo]žu\.
+[Tt]ra\.
+[Ss]vi\.
+[Ll]ip\.
+[Ss]rp\.
+[Kk]ol\.
+[Rr]uj\.
+[Ll]ist?\.
+[Ss]tu\.
+[Pp]ro\.
+SJE\.?
+VELJ\.?
+OŽU\.?
+TRA\.?
+SVI\.?
+LIP\.?
+SRP\.?
+KOL\.?
+RUJ\.?
+LIST?\.?
+STU\.?
+PRO\.?

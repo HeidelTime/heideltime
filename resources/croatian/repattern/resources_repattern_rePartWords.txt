@@ -1,0 +1,14 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-11
+// This file contains regular expression patterns for "part" words.
+// FORMAT: one line is one disjunction of the pattern
+[Ss]redin(a|e|om)
+[Kk]raj(a|em|evima)?
+[Pp]o[dt]kraj
+[Pp]očet(ak|ka|kom|cima)
+[Rr]an(a|e|i|o|u|og|om)
+[Kk]asn[aeiou]
+[Kk]asnijeg?
+[Rr]an(a|o|i(je)?)
+[Ff]iskaln[aio]

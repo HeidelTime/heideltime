@@ -1,0 +1,31 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains "date words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "tomorrow" is "UNDEF-next-day"
+// FORMAT: "date-word","normalized-date-word"
+"[Pp]reko?jučer","UNDEF-this-day-MINUS-2"
+"[Pp]reko?sutra","UNDEF-this-day-PLUS-2"
+"[Jj]učer","UNDEF-last-day"
+"[Dd]anas","UNDEF-this-day"
+"[Dd]an-danas","PRESENT_REF"
+"[Ss]utra","UNDEF-next-day"
+"[Ss]ada?","PRESENT_REF"
+"[Čč]im prije","FUTURE_REF"
+"[Šš]to prije","FUTURE_REF"
+"[Uu]skoro","FUTURE_REF"
+"[Nn]edavn[aeiou]","PAST_REF"
+"[Tt]renutn[aeiou]","PRESENT_REF"
+"[Oo]vaj tren","PRESENT_REF"
+"[Oo]vaj čas","PRESENT_REF"
+"[Oo]vaj dan","UNDEF-this-day"
+"[Tt]renutn[oi]","PRESENT_REF"
+"[Ss]vaki (tren|čas)","FUTURE_REF"
+"[Pp]rošl[aeiou]","PAST_REF"
+"[Rr]anije","PAST_REF"
+"[Ii]stovremen[aeiou]","PRESENT_REF"
+"[Pp]oslije","FUTURE_REF"
+"[Tt]ada","PRESENT_REF"
+"[Nn]akon nekog vremena","FUTURE_REF"
+"[Uu] isto vrijeme","PRESENT_REF"

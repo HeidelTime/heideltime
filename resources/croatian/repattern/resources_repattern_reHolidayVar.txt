@@ -1,0 +1,60 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-05-11
+// This file contains regular expression patterns for holidays on a moveable date.
+// FORMAT: one line is one disjunction of the pattern
+//
+
+// http://en.wikipedia.org/wiki/Ash_Wednesday
+Čista [Ss]rijeda
+Pepelnica
+
+// http://en.wikipedia.org/wiki/Palm_Sunday
+Cvjetnica
+Nedjelja Muke Gospodnje
+
+// http://en.wikipedia.org/wiki/Maundy_Thursday
+Veliki [Čč]etvrtak
+
+// http://en.wikipedia.org/wiki/Good_Friday
+Veliki [Pp]etak
+
+// http://en.wikipedia.org/wiki/Holy_Saturday
+Velika [Ss]ubota
+
+// http://en.wikipedia.org/wiki/Easter
+Uskrs
+
+// http://en.wikipedia.org/wiki/Easter_Monday
+Uskrsni [Pp]onedjeljak
+
+// http://en.wikipedia.org/wiki/Feast_of_the_Ascension
+Uzašašće
+Spasovo
+
+// http://en.wikipedia.org/wiki/Father%27s_Day
+Očev [Dd]an
+
+// http://en.wikipedia.org/wiki/Pentecost
+Duhovi
+Silazak Duha Svetoga
+
+// http://en.wikipedia.org/wiki/Corpus_Christi_%28feast%29
+Ti?jelovo
+Svetkovina Presvetog Tijela i Krvi Kristove
+
+// advent sundays: the four sundays before christmas(12-24)
+1\. [Aa]dvent
+[Pp]rvi [Aa]dvent
+
+2\. [Aa]dvent
+[Dd]rugi [Aa]dvent
+
+3\. [Aa]dvent
+[Tt]reći [Aa]dvent
+
+4\. [Aa]dvent
+[Čč]etvrti [Aa]dvent
+
+// http://en.wikipedia.org/wiki/Mother%27s_Day
+Majčin Dan

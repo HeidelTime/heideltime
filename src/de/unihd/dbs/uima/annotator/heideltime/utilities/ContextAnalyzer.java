@@ -159,6 +159,9 @@ public class ContextAnalyzer {
 							if (value.matches("^[0-9][0-9][0-9][0-9]-[0-9][0-9].*")) {
 								String month   = value.substring(5,7);
 								String quarter = nm.getFromNormMonthInQuarter(month);
+								if(quarter == null) {
+									quarter = "1";
+								}	
 								xValue = value.substring(0,4)+"-Q"+quarter;
 								break;
 							}

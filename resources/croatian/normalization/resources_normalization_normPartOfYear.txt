@@ -1,0 +1,16 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-11
+// This file contains "parts-of-year words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "first quarter" is "Q1"
+// FORMAT: "parts-of-year-word","normalized-parts-of-year-word"
+// First Quarter
+"[Pr]v([aeu]|oj) polovi[cn][aieu]","H1"
+"[Dd]rug([aeu]|oj) polovi[cn][aieu]","H2"
+"[Pr]v([aeu]|oj) četvrtin[aieu]","Q1"
+"[Dd]rug([aeu]|oj) četvrtin[aieu]","Q2"
+"[Tt]reć([aeu]|oj) četvrtin[aieu]","Q3"
+"[Čč]etvrt([aeu]|oj) četvrtin[aieu]","Q4"
+"[Zz]adnj([aeu]|oj) polovi[cn][aieu]","H2"
+"[Zz]adnj([aeu]|oj) četvrin[aieu]","Q4"

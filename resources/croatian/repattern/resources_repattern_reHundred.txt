@@ -1,0 +1,14 @@
+// author: Luka Skukan
+// email:  luka.skukan@fer.hr
+// date:   2014-03-21
+// This file contains regular expression patterns for 
+// hundred words (eg. for years)
+[Ss]to
+[Dd]vi?jesto
+[Tt]risto
+[Čč]eti?risto
+[Pp]etsto
+[Šš]esto
+[Ss]edamsto
+[Oo]samsto
+[Dd]evetsto
