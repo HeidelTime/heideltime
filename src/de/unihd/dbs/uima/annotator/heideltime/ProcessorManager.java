@@ -1,8 +1,7 @@
 package de.unihd.dbs.uima.annotator.heideltime;
 
 import java.util.EnumMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
+import java.util.LinkedList;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.jcas.JCas;
@@ -22,9 +21,9 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
  */
 public class ProcessorManager {
 	// list of processes' package names
-	private EnumMap<Priority, String> processorNames;
+	private EnumMap<Priority, LinkedList<String>> processorNames;
 	// array of instantiated processors
-	private EnumMap<Priority, GenericProcessor> processors;
+	private EnumMap<Priority, LinkedList<GenericProcessor>> processors;
 	// self-identifying component for logging purposes
 	private Class<?> component; 
 	// flag for whether the processors have been initialized
@@ -34,9 +33,14 @@ public class ProcessorManager {
 	 * Private constructor, only to be called by the getInstance() method.
 	 */
 	public ProcessorManager() {
-		this.processorNames = new EnumMap<Priority, String>(Priority.class);
+		this.processorNames = new EnumMap<Priority, LinkedList<String>>(Priority.class);
 		this.component = this.getClass();
-		this.processors = new EnumMap<Priority, GenericProcessor>(Priority.class);
+		this.processors = new EnumMap<Priority, LinkedList<GenericProcessor>>(Priority.class);
+		
+		for(Priority prio : Priority.values()) {
+			processorNames.put(prio, new LinkedList<String>());
+			processors.put(prio, new LinkedList<GenericProcessor>());
+		}
 	}
 	
 	/**
@@ -45,7 +49,7 @@ public class ProcessorManager {
 	 * @param p priority for the process to take
 	 */
 	public void registerProcessor(String processor, Priority prio) {
-		this.processorNames.put(prio, processor);
+		this.processorNames.get(prio).add(processor);
 	}
 	
 	/**
@@ -62,20 +66,18 @@ public class ProcessorManager {
 	 * @param jcas
 	 */
 	public void initializeAllProcessors(UimaContext aContext) {
-		Iterator<Entry<Priority, String>> it = processorNames.entrySet().iterator();
-		Entry<Priority, String> e;
-		while(it.hasNext()) {
-			e = it.next();
-			
-			try {
-				Class<?> c = Class.forName(e.getValue());
-				GenericProcessor p = (GenericProcessor) c.newInstance();
-				p.initialize(aContext);
-				processors.put(e.getKey(), p);
-			} catch (Exception exception) {
-				exception.printStackTrace();
-				Logger.printError(component, "Unable to initialize registered Processor "+e.getValue()+", got: "+exception.toString());
-				System.exit(-1);
+		for(Priority prio : processorNames.keySet()) {
+			for(String pn : processorNames.get(prio)) {
+				try {
+					Class<?> c = Class.forName(pn);
+					GenericProcessor p = (GenericProcessor) c.newInstance();
+					p.initialize(aContext);
+					processors.get(prio).add(p);
+				} catch (Exception exception) {
+					exception.printStackTrace();
+					Logger.printError(component, "Unable to initialize registered Processor " + pn + ", got: " + exception.toString());
+					System.exit(-1);
+				}
 			}
 		}
 		
@@ -93,19 +95,14 @@ public class ProcessorManager {
 			System.exit(-1);
 		}
 		
-		Iterator<Entry<Priority, GenericProcessor>> it = processors.entrySet().iterator();
-		Entry<Priority, GenericProcessor> e;
-		while(it.hasNext()) {
-			e = it.next();
-			
-			if(prio.equals(e.getKey())) {
-				try {
-					e.getValue().process(jcas);
-				} catch (Exception exception) {
-					exception.printStackTrace();
-					Logger.printError(component, "Unable to process registered Processor "+e.getValue().getClass().getName()+", got: "+exception.toString());
-					System.exit(-1);
-				}
+		LinkedList<GenericProcessor> myList = processors.get(prio);
+		for(GenericProcessor gp : myList) {
+			try {
+				gp.process(jcas);
+			} catch (Exception exception) {
+				exception.printStackTrace();
+				Logger.printError(component, "Unable to process registered Processor " + gp.getClass().getName() + ", got: " + exception.toString());
+				System.exit(-1);
 			}
 		}
 	}
