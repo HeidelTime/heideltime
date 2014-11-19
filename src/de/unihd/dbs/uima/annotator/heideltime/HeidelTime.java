@@ -400,7 +400,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			Boolean change = false;
 			if (!(t_i.getFoundByRule().contains("-BCADhint"))){
 				if (value_i.startsWith("0")){
-					Integer offset = 1;
+					Integer offset = 1, counter = 1;
 					do {
 						if ((i == 1 || (i > 1 && !change)) && linearDates.get(i-offset).getTimexValue().startsWith("BC")){
 							if (value_i.length()>1){
@@ -424,7 +424,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 								}
 							}               
 						}
-					} while (offset++ < 5 && offset < i);
+						
+						if ((linearDates.get(i-offset).getTimexType().equals("TIME") || linearDates.get(i-offset).getTimexType().equals("DATE")) &&
+								(linearDates.get(i-offset).getTimexValue().matches("^\\d.*"))) {
+							counter++;
+						}
+					} while (counter < 5 && ++offset < i);
 				}
 			}
 			if (!(newValue.equals(value_i))){
