@@ -3,7 +3,7 @@
 #######################
 
 Author: Jannik Strötgen, Julian Zell
-Date:   May 20th, 2014
+Date:   November 25th, 2014
 eMail:  stroetgen@uni-hd.de, zell@informatik.uni-heidelberg.de
 
 ###################################
@@ -64,6 +64,7 @@ HeidelTime with resources for several languages is one component of our UIMA Hei
 - French (kindly provided by Véronique Moriceau, LIMSI - CNRS, http://vero.moriceau.free.fr/)
 - Chinese
 - Russian (a preliminary version was kindly shared by Elena Klyachko)
+- Croatian (kindly provided by Luka Skukan) 
 
 Additionally, whilst expanding the set of domains that HeidelTime can recognize temporal 
 expressions in, English resources for colloquial as well as scientific style documents were 
@@ -89,8 +90,14 @@ contains:
       training and the evaluation sets and annotates the document creation time as well as some
       meta information.
       
+    * Eventi 2014 Reader: This Collection Reader reads the Eventi 2014 input data of the
+      training and the evaluation sets and annotates the tokenization information.
+      
     * TreeTaggerWrapper: This Analysis Engine produces Token, Sentence and Part-of-Speech annotations
       required by HeidelTime by using the multilingual TreeTagger tool.
+      
+    * HunPosTaggerWrapper: This Analysis Engine produces Token, Sentence and Part-of-Speech annotations
+      required by HeidelTime by using the HunPosTagger tool.
       
     * StanfordPOSTaggerWrapper: This Analysis Engine produces Token, Sentence and Part-of-Speech
       annotations required by HeidelTime by using the multilingual Stanford POS Tagger.
@@ -103,7 +110,7 @@ contains:
       
     * HeidelTime: Possible parameter values are:
     	- languages: english, englishcoll, englishsci, german, spanish, italian, vietnamese, arabic,
-    			   dutch, chinese, french, russian
+    			   dutch, chinese, french, russian, croatian
     	- types: news, narratives, colloquial (for use with englishcoll), scientific (englishsci)
     	- locale: the locale to use for date calculation. Leave it empty to use en_GB.
     	- Debugging: to output verbose debugging information to stderr.
@@ -121,6 +128,10 @@ contains:
     * TempEval-3 Writer: This CAS Consumer writes annotated TimeML files that were read in by
       the TempEval-3 Reader and processed by HeidelTime in the format required by the TempEval-3
       evaluation scripts.
+      
+    * Eventi 2014 Writer: This CAS Consumer writes annotated Eventi 2014 files that were read in by
+      the Eventi 2014 Reader and processed by HeidelTime in the format required by the Eventi 2014
+      evaluation script.
       
 ######################
 # 3. Getting started #
@@ -183,7 +194,7 @@ set the environment variables.
 	* (OPTIONAL) For Chinese documents, please get the Tokenizer and TreeTagger parameter file
 	  from Serge Sharoff's page http://corpus.leeds.ac.uk/tools/zh/:
 	  - wget http://corpus.leeds.ac.uk/tools/zh/tt-lcmc.tgz
-	  - wget http://corpus.leeds.ac.uk/tools/zh/zh-tokenise.tgz
+	  - wget https://drive.google.com/uc?id=0BwqFBQjz9NUiZ3kybkc4YTliMzA -O zh-tokenise.tgz
 	  Extract the Tokenizer into a new directory and TreeTagger parameter files like this:
 	  - mkdir chinese-tokenizer
 	  - tar -xzvf tt-lcmc.tgz
@@ -194,7 +205,7 @@ set the environment variables.
 	  Extract the parameter file into the TreeTagger's lib/-folder:
 	  - tar -xzvf russian.par.gz -C /path/to/treetagger/lib/
     * Install the TreeTagger
-		- sh install-tagger.sh 
+		- sh install-tagger.sh
 	* Set environment variables (you can set variables permanently, e.g., in your $HOME/.bashrc)
       and then source the environment.
     	- export TREETAGGER_HOME='path to TreeTagger'
@@ -229,6 +240,20 @@ set the environment variables.
        - source $HEIDELTIME_HOME/metadata/setenv
      For more information on the Stanford POS Tagger Wrapper, see our Wiki page:
      	https://code.google.com/p/heideltime/wiki/StanfordPOSTaggerWrapper
+     	
+    
+    To process Croatian documents, Luka Skukan has developed a Wrapper for the 
+    HunPosTagger. You will need to get a copy of the HunPos tagger as well
+    as a Croatian model file for it: 
+    From https://code.google.com/p/hunpos/downloads/list, download hunpos-1.0:
+    - wget https://hunpos.googlecode.com/files/hunpos-1.0-linux.tgz
+    From http://nlp.ffzg.hr/resources/models/tagging/, download the model file:
+    - wget http://nlp.ffzg.hr/data/tagging/model.hunpos.mte5.defnpout.tar.gz
+    Extract both of the files into the same directory
+    - tar -xzvf hunpos-1.0-linux.tgz
+    - tar -xzvf model.hunpos.mte5.defnpout.tar.gz -C hunpos-1.0-linux/
+    You will need to enter the full path of the hunpos-1.0-linux directory in the
+    HunPosTaggerWrapper.
      
      
     For sample UIMA workflows for any of the supported languages, please take a look
