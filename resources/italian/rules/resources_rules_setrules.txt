@@ -23,7 +23,7 @@
 // EXMAPLE r1n: ora dopo ora
 // EXAMPLE r1o: ventiquattr'ore su ventiquattro
 
-RULENAME="set_r1a",EXTRACTION="([Oo]gni |\b[Aa]lla |\b[Aa]l \b[Aa]ll'\s?)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))",NORM_QUANT="EVERY"
+RULENAME="set_r1a",EXTRACTION="([Oo]gni |\b[Aa]lla |\b[Aa]l |\b[Aa]ll'\s?)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))",NORM_QUANT="EVERY"
 RULENAME="set_r1b",EXTRACTION="([Oo]gni) (%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(2))%normUnit4Duration(group(5))",NORM_QUANT="EVERY"
 RULENAME="set_r1c",EXTRACTION="([Oo]gni) ([\d]+) %reUnit",NORM_VALUE="Pgroup(2)%normUnit4Duration(group(3))",NORM_QUANT="EVERY"
 RULENAME="set_r1d",EXTRACTION="([Oo]gni|\b[Aa]l) %reWeekday",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1W"
