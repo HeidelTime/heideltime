@@ -43,6 +43,7 @@ import de.unihd.dbs.uima.types.heideltime.Token;
 public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 	
 	public static final String PARAM_LANGUAGE = "language";
+	public static final String PARAM_PATH = "hunpos_path";
 	public static final String PARAM_MODEL_PATH = "model_path";
 	public static final String PARAM_ANNOTATE_TOKENS = "annotate_tokens";
 	public static final String PARAM_ANNOTATE_SENTENCES = "annotate_sentences";
@@ -75,8 +76,8 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 	 * @param annotateSentences Are sentences to be annotated?
 	 * @param annotatePOS Is POS to be annotated?
 	 */
-	public void initialize(Language language, Boolean annotateTokens, Boolean annotateSentences, Boolean annotatePOS) {
-		this.initialize(new HunPosTaggerContext(language, annotateTokens, annotateSentences, annotatePOS));
+	public void initialize(Language language, String hunpos_path, String hunpos_model_path, Boolean annotateTokens, Boolean annotateSentences, Boolean annotatePOS) {
+		this.initialize(new HunPosTaggerContext(language, hunpos_path, hunpos_model_path, annotateTokens, annotateSentences, annotatePOS));
 	}
 	
 	/**
@@ -87,9 +88,10 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 		annotate_sentences = (Boolean) aContext.getConfigParameterValue(PARAM_ANNOTATE_SENTENCES);
 		annotate_pos = (Boolean) aContext.getConfigParameterValue(PARAM_ANNOTATE_POS);
 		this.language = Language.getLanguageFromString((String) aContext.getConfigParameterValue(PARAM_LANGUAGE));
+		String hunposPath = (String) aContext.getConfigParameterValue(PARAM_PATH);
 		String modelPath = (String) aContext.getConfigParameterValue(PARAM_MODEL_PATH);
 
-		HunPosWrapper.initialize(modelPath);
+		HunPosWrapper.initialize(modelPath, hunposPath);
 	}
 
 	@Override
@@ -150,8 +152,16 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 		
 		public static final String HUNPOS_HOME = "HUNPOS_HOME";
 		
+		@SuppressWarnings("unused")
 		public static void initialize(String modelPath) {
-			String hunposRoot = System.getenv(HUNPOS_HOME);
+			initialize(modelPath, null);
+		}
+		
+		public static void initialize(String modelPath, String hunposPath) {
+			String hunposRoot = hunposPath;
+			if(hunposRoot == null) {
+				hunposRoot = System.getenv(HUNPOS_HOME);
+			}
 			
 			if(hunposRoot == null || !new File(hunposRoot).exists()) {
 				Logger.printError(HunPosWrapper.class, "The environment variable HUNPOS_HOME was not set, or set to \"" + hunposRoot + "\", which does not exist.");
@@ -371,8 +381,8 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 
 	
 	private class HunPosTaggerContext extends RootUimaContext_impl {
-		public HunPosTaggerContext(Language language, Boolean annotateTokens, Boolean annotateSentences, 
-				Boolean annotatePartOfSpeech) {
+		public HunPosTaggerContext(Language language, String hunpos_path, String hunpos_model_path, 
+				Boolean annotateTokens, Boolean annotateSentences, Boolean annotatePartOfSpeech) {
 			super();
 
 			// Initialize config
@@ -386,6 +396,8 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 			
 			// Set necessary variables
 			configManager.setConfigParameterValue(makeQualifiedName(PARAM_LANGUAGE), language.getName());
+			configManager.setConfigParameterValue(makeQualifiedName(PARAM_MODEL_PATH), hunpos_model_path);
+			configManager.setConfigParameterValue(makeQualifiedName(PARAM_PATH), hunpos_path);
 			configManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_TOKENS), annotateTokens);
 			configManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_POS), annotatePartOfSpeech);
 			configManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_SENTENCES), annotateSentences);

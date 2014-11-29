@@ -349,13 +349,6 @@ public class HeidelTimeStandalone {
 		PartOfSpeechTagger partOfSpeechTagger = null;
 		Properties settings = new Properties();
 		switch (language) {
-			case CROATIAN:
-				partOfSpeechTagger = new HunPosTaggerWrapper();
-				settings.put(PartOfSpeechTagger.HUNPOS_LANGUAGE, language);
-				settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_TOKENS, true);
-				settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_POS, true);
-				settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_SENTENCES, true);
-				break;
 			case ARABIC:
 				partOfSpeechTagger = new StanfordPOSTaggerWrapper();
 				settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_ANNOTATE_TOKENS, true);
@@ -372,6 +365,14 @@ public class HeidelTimeStandalone {
 				settings.put(PartOfSpeechTagger.JVNTEXTPRO_WORD_MODEL_PATH, Config.get(Config.JVNTEXTPRO_WORD_MODEL_PATH));
 				settings.put(PartOfSpeechTagger.JVNTEXTPRO_SENT_MODEL_PATH, Config.get(Config.JVNTEXTPRO_SENT_MODEL_PATH));
 				settings.put(PartOfSpeechTagger.JVNTEXTPRO_POS_MODEL_PATH, Config.get(Config.JVNTEXTPRO_POS_MODEL_PATH));
+				break;
+			case CROATIAN:
+				partOfSpeechTagger = new HunPosTaggerWrapper();
+				settings.put(PartOfSpeechTagger.HUNPOS_LANGUAGE, language);
+				settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_TOKENS, true);
+				settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_POS, true);
+				settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_SENTENCES, true);
+				settings.put(PartOfSpeechTagger.HUNPOS_MODEL_PATH, Config.get(Config.HUNPOS_MODEL_PATH));
 				break;
 			default:
 				if(POSTagger.STANFORDPOSTAGGER.equals(posTagger)) {
