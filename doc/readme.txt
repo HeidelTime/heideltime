@@ -2,9 +2,10 @@
 # UIMA HEIDELTIME KIT #
 #######################
 
-Author: Jannik Strötgen, Julian Zell
-Date:   November 25th, 2014
-eMail:  stroetgen@uni-hd.de, zell@informatik.uni-heidelberg.de
+Author:  Jannik Strötgen, Julian Zell
+Date:    November 25th, 2014
+Version: 1.8
+eMail:   stroetgen@uni-hd.de, zell@informatik.uni-heidelberg.de
 
 ###################################
 # 1. Papers describing HeidelTime #
