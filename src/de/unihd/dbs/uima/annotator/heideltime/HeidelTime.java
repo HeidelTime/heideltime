@@ -223,7 +223,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					 *  check for historic dates/times starting with BC
 					 *  to check if post-processing step is required
 					 */
-					if (typeToProcess.equals("narratives") || typeToProcess.equals("narratives")){
+					if (typeToProcess.equals("narrative") || typeToProcess.equals("narratives")){
 						FSIterator iterDates = jcas.getAnnotationIndex(Timex3.type).iterator();
 						while (iterDates.hasNext()){
 							Timex3 t = (Timex3) iterDates.next();
