@@ -610,12 +610,20 @@ public class HeidelTimeStandalone {
 		// Check type
 		DocumentType type = null;
 		if(CLISwitch.DOCTYPE.getIsActive()) {
-			type = DocumentType.valueOf(CLISwitch.DOCTYPE.getValue().toString().toUpperCase());
+			try {
+				if(CLISwitch.DOCTYPE.getValue().equals("narrative")) { // redirect "narrative" to "narratives"
+					CLISwitch.DOCTYPE.setValue("narratives");
+				}
+				type = DocumentType.valueOf(CLISwitch.DOCTYPE.getValue().toString().toUpperCase());
+			} catch(IllegalArgumentException e) {
+				logger.log(Level.WARNING, "Type '-t': NOT RECOGNIZED. These are the available options: " + Arrays.asList(DocumentType.values()));
+				System.exit(-1);
+			}
 			logger.log(Level.INFO, "Type '-t': "+type.toString().toUpperCase());
 		} else {
 			// Type not found
 			type = (DocumentType) CLISwitch.DOCTYPE.getValue();
-			logger.log(Level.INFO, "Type '-t': NOT FOUND OR RECOGNIZED; set to "+type.toString().toUpperCase());
+			logger.log(Level.INFO, "Type '-t': NOT FOUND; set to "+type.toString().toUpperCase());
 		}
 
 		// Check document creation time

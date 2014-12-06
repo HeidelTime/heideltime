@@ -47,7 +47,7 @@ public abstract class Config {
 	public static final String STANFORDPOSTAGGER_CONFIG_PATH = "config_path";
 	
 	public static final String HUNPOS_PATH = "hunpos_path";
-	public static final String HUNPOS_MODEL_PATH = "hunpos_model_path";
+	public static final String HUNPOS_MODEL_PATH = "hunpos_model_name";
 	
 	public static final String TYPESYSTEMHOME = "typeSystemHome";
 	public static final String TYPESYSTEMHOME_DKPRO = "typeSystemHome_DKPro";
