@@ -14,6 +14,8 @@
 
 package de.unihd.dbs.heideltime.standalone;
 
+import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 /**
@@ -98,5 +100,12 @@ public abstract class Config {
 	 */
 	public static void setProps(Properties prop) {
 		properties = prop;
+		
+		Iterator propIt = properties.entrySet().iterator();
+		while(propIt.hasNext()) {
+			Entry<String, String> entry = (Entry<String, String>) propIt.next();
+			
+			properties.setProperty(entry.getKey(), entry.getValue().trim());
+		}
 	}
 }
