@@ -157,10 +157,11 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			ttprops.parFileName = ttprops.languageName + "-utf8.par";
 		
 		// abbreviation file
-		if(!(new File(ttprops.rootPath+ttprops.fileSeparator+"lib", ttprops.languageName + "-abbreviations-utf8").exists())) // get UTF8 version if it exists
-			ttprops.abbFileName = ttprops.languageName + "-abbreviations";
-		else
+		if(new File(ttprops.rootPath+ttprops.fileSeparator+"lib", ttprops.languageName + "-abbreviations-utf8").exists()) { // get UTF8 version if it exists
 			ttprops.abbFileName = ttprops.languageName + "-abbreviations-utf8";
+		} else {
+			ttprops.abbFileName = ttprops.languageName + "-abbreviations";
+		}
 		
 		ttprops.languageSwitch = language.getTreeTaggerSwitch();
 		if(cnTokPath != null && !cnTokPath.equals(""))
@@ -182,10 +183,12 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		File parFile = new File(ttprops.rootPath+ttprops.fileSeparator+"lib", ttprops.parFileName);
 		File tokFile = new File(ttprops.rootPath+ttprops.fileSeparator+"cmd", ttprops.tokScriptName);
 		if (!(abbFileFlag = abbFile.exists())) {
-			if(language.equals(Language.CHINESE) || language.equals(Language.RUSSIAN))
+			if(language.equals(Language.CHINESE) || language.equals(Language.RUSSIAN)) {
 				abbFileFlag = true;
-			else
+				ttprops.abbFileName = null;
+			} else {
 				Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.abbFileName);
+			}
 		}
 		if (!(parFileFlag = parFile.exists())) {
 			Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.parFileName);
@@ -249,7 +252,12 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		Logger.printDetail(component, "TreeTagger (tokenization) with: " + ttprops.abbFileName);
 		
 		EnumSet<Flag> flags = Flag.getSet(ttprops.languageSwitch);
-		TreeTaggerTokenizer ttt = new TreeTaggerTokenizer(ttprops.rootPath + ttprops.fileSeparator + "lib" + ttprops.fileSeparator + ttprops.abbFileName, flags);
+		TreeTaggerTokenizer ttt; ttprops.abbFileName = "english-abbreviations";
+		if(ttprops.abbFileName != null) {
+			ttt = new TreeTaggerTokenizer(ttprops.rootPath + ttprops.fileSeparator + "lib" + ttprops.fileSeparator + ttprops.abbFileName, flags);
+		} else {
+			ttt = new TreeTaggerTokenizer(null, flags);
+		}
 		
 		String docText = jcas.getDocumentText().replaceAll("\n\n", "\nEMPTYLINE\n");
 		List<String> tokenized = ttt.tokenize(docText);
