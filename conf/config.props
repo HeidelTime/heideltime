@@ -15,9 +15,9 @@ considerSet = true
 considerTime = true
 
 
-###################################################
-# Path to TreeTagger (Uni Stuttgart) home directory
-###################################################
+###################################
+# Path to TreeTagger home directory
+###################################
 # Ensure there is no white space in path (try to escape white spaces)
 treeTaggerHome = SET ME IN CONFIG.PROPS!
 # This one is only necessary if you want to process chinese documents.
@@ -36,6 +36,12 @@ pos_model_path = SET ME IN CONFIG.PROPS!
 model_path = SET ME IN CONFIG.PROPS!
 # leave this unset if you do not need one
 config_path = 
+
+########################################
+## paths to hunpos and its tagger files:
+########################################
+hunpos_path = SET ME IN CONFIG.PROPS!
+hunpos_model_name = SET ME IN CONFIG.PROPS!
 
 
 
