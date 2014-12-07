@@ -98,6 +98,7 @@ public abstract class Config {
 	 * @param prop
 	 *            Properties
 	 */
+	@SuppressWarnings({"unchecked","rawtypes"})
 	public static void setProps(Properties prop) {
 		properties = prop;
 		
