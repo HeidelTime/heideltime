@@ -51,13 +51,14 @@ expressions from documents in the TempEval-2 challenge in 2010. Furthermore, it 
 several additional corpora, as described in our paper "Multilingual Cross-domain Temporal 
 Tagging" (http://www.springerlink.com/content/64767752451075k8/). In TempEval-3, HeidelTime 
 achieved the best results for the combination of extraction and normalization for English and
-Spanish.
+Spanish. In the EVENTI competition of EVALITA 2014, HeidelTime (version 1.8) achieved the best
+results for Italian temporal tagging.
 
 HeidelTime with resources for several languages is one component of our UIMA HeidelTime kit.
 - German
 - English
 - Dutch (kindly provided by Matje van de Camp, Tilburg University, 
-	http://www.tilburguniversity.edu/webwijs/show/?uid=m.m.v.d.camp)
+    http://www.tilburguniversity.edu/webwijs/show/?uid=m.m.v.d.camp)
 - Arabic
 - Vietnamese
 - Spanish
@@ -110,11 +111,11 @@ contains:
       annotations of one type system into HeidelTime's type system.
       
     * HeidelTime: Possible parameter values are:
-    	- languages: english, englishcoll, englishsci, german, spanish, italian, vietnamese, arabic,
-    			   dutch, chinese, french, russian, croatian
-    	- types: news, narratives, colloquial (for use with englishcoll), scientific (englishsci)
-    	- locale: the locale to use for date calculation. Leave it empty to use en_GB.
-    	- Debugging: to output verbose debugging information to stderr.
+        - languages: english, englishcoll, englishsci, german, spanish, italian, vietnamese, arabic,
+                   dutch, chinese, french, russian, croatian
+        - types: news, narratives, colloquial (for use with englishcoll), scientific (englishsci)
+        - locale: the locale to use for date calculation. Leave it empty to use en_GB.
+        - Debugging: to output verbose debugging information to stderr.
     
     * IntervalTagger: This Analysis Engine in conjunction with HeidelTime recognizes
       temporal intervals in documents.
@@ -143,28 +144,28 @@ set the environment variables.
 
 1. UIMA (if you already use UIMA, you can skip this step):
    To be able to use HeidelTime, you have to install UIMA:
-	* Download UIMA:
-		- either from http://uima.apache.org/downloads.cgi or
-		- wget http://archive.apache.org/dist/uima/uimaj-2.6.0/uimaj-2.6.0-bin.tar.gz
-	* Extract UIMA:
-		- tar xvfz uimaj-2.6.0-bin.tar.gz
-	* Set environment variable (you can set variables globally, e.g., in your $HOME/.bashrc)
-		- set UIMA_HOME to the path of your "apache-uima" folder
-			* export UIMA_HOME="$(pwd)/apache-uima"
-		- make sure that JAVA_HOME is set correctly
-		- add the "$UIMA_HOME/bin" to your PATH
-			* export PATH=$PATH:$UIMA_HOME/bin
-	* Adjust the UIMA's example paths:
-		- $UIMA_HOME/bin/adjustExamplePaths.sh
-	* For further information about UIMA, see http://uima.apache.org/
+    * Download UIMA:
+        - either from http://uima.apache.org/downloads.cgi or
+        - wget http://archive.apache.org/dist/uima/uimaj-2.6.0/uimaj-2.6.0-bin.tar.gz
+    * Extract UIMA:
+        - tar xvfz uimaj-2.6.0-bin.tar.gz
+    * Set environment variable (you can set variables globally, e.g., in your $HOME/.bashrc)
+        - set UIMA_HOME to the path of your "apache-uima" folder
+            * export UIMA_HOME="$(pwd)/apache-uima"
+        - make sure that JAVA_HOME is set correctly
+        - add the "$UIMA_HOME/bin" to your PATH
+            * export PATH=$PATH:$UIMA_HOME/bin
+    * Adjust the UIMA's example paths:
+        - $UIMA_HOME/bin/adjustExamplePaths.sh
+    * For further information about UIMA, see http://uima.apache.org/
 
 2. Download and install the UIMA HeidelTime kit
-	* download the latest heideltime-kit from
-	  https://code.google.com/p/heideltime
-	* unzip or untar the heideltime-kit into a path called HEIDELTIME_HOME from hereon out.
-	* set the environment variable HEIDELTIME_HOME (you can set these variables globally, 
-	  e.g., in your $HOME/.bashrc):
-		- export HEIDELTIME_HOME='/path/to/heideltime/'
+    * download the latest heideltime-kit from
+      https://code.google.com/p/heideltime
+    * unzip or untar the heideltime-kit into a path called HEIDELTIME_HOME from hereon out.
+    * set the environment variable HEIDELTIME_HOME (you can set these variables globally, 
+      e.g., in your $HOME/.bashrc):
+        - export HEIDELTIME_HOME='/path/to/heideltime/'
 
 3. HeidelTime requires sentence, token, and part-of speech annotations. We have developed
    our own wrapper for the popular TreeTagger tool that will support any language for which
@@ -186,30 +187,32 @@ set the environment variables.
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/install-tagger.sh
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/german-par-linux-3.2-utf8.bin.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/english-par-linux-3.2-utf8.bin.gz
-      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/dutch-par-linux-3.1.bin.gz
+      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/dutch-par-linux-3.2-utf8.bin.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/italian-par-linux-3.2-utf8.bin.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/spanish-par-linux-3.2-utf8.bin.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/french-par-linux-3.2-utf8.bin.gz
       Attention: If you do not use Linux, please download all TreeTagger files directly from
                  http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
-	* (OPTIONAL) For Chinese documents, please get the Tokenizer and TreeTagger parameter file
-	  from Serge Sharoff's page http://corpus.leeds.ac.uk/tools/zh/:
-	  - wget http://corpus.leeds.ac.uk/tools/zh/tt-lcmc.tgz
-	  - wget https://drive.google.com/uc?id=0BwqFBQjz9NUiZ3kybkc4YTliMzA -O zh-tokenise.tgz
-	  Extract the Tokenizer into a new directory and TreeTagger parameter files like this:
-	  - mkdir chinese-tokenizer
-	  - tar -xzvf tt-lcmc.tgz
-	  - tar -xzvf zh-tokenise.tgz -C chinese-tokenizer
-	* (OPTIONAL) For Russian documents, please grab a copy of the Russian parameter file from
-	  Serge Sharoff's page at http://corpus.leeds.ac.uk/mocky/:
-	  - wget http://corpus.leeds.ac.uk/mocky/russian.par.gz
-	  Extract the parameter file into the TreeTagger's lib/-folder:
-	  - tar -xzvf russian.par.gz -C /path/to/treetagger/lib/
+    * (OPTIONAL) For Chinese documents, please get the Tokenizer and TreeTagger parameter file
+      from Serge Sharoff's page http://corpus.leeds.ac.uk/tools/zh/:
+      - wget http://corpus.leeds.ac.uk/tools/zh/tt-lcmc.tgz
+      - wget https://drive.google.com/uc?id=0BwqFBQjz9NUiZ3kybkc4YTliMzA -O zh-tokenise.tgz
+      Extract the Tokenizer into a new directory and TreeTagger parameter files like this:
+      - mkdir chinese-tokenizer
+      - tar -xzvf tt-lcmc.tgz
+      - tar -xzvf zh-tokenise.tgz -C chinese-tokenizer
+    * (OPTIONAL) For Russian documents, please grab a copy of the Russian parameter file from
+      Serge Sharoff's page at http://corpus.leeds.ac.uk/mocky/ and extract it into TreeTagger's
+      lib/-folder:
+      - cd /path/to/treetagger/
+      - mkdir lib && cd lib
+      - wget http://corpus.leeds.ac.uk/mocky/russian.par.gz
+      - gunzip russian.par.gz
     * Install the TreeTagger
-		- sh install-tagger.sh
-	* Set environment variables (you can set variables permanently, e.g., in your $HOME/.bashrc)
+        - sh install-tagger.sh
+    * Set environment variables (you can set variables permanently, e.g., in your $HOME/.bashrc)
       and then source the environment.
-    	- export TREETAGGER_HOME='path to TreeTagger'
+        - export TREETAGGER_HOME='path to TreeTagger'
         - source $HEIDELTIME_HOME/metadata/setenv
    For further information on the TreeTagger, take a look at its documentation and our wiki
    page for it: https://code.google.com/p/heideltime/wiki/TreeTaggerWrapper.
@@ -225,7 +228,7 @@ set the environment variables.
       - export JVNTEXTPRO_HOME='<path to JVnTextPro>/bin'
       - source $HEIDELTIME_HOME/metadata/setenv
     Further information about JVnTextPro can be found on our Wiki page for the Engine:
-    	https://code.google.com/p/heideltime/wiki/JVnTextProWrapper
+        https://code.google.com/p/heideltime/wiki/JVnTextProWrapper
     
     
     To process Arabic documents, we have developed the Stanford POS Tagger Wrapper
@@ -240,8 +243,8 @@ set the environment variables.
        - export STANFORDTAGGER='path to stanford-postagger-<version>.jar'
        - source $HEIDELTIME_HOME/metadata/setenv
      For more information on the Stanford POS Tagger Wrapper, see our Wiki page:
-     	https://code.google.com/p/heideltime/wiki/StanfordPOSTaggerWrapper
-     	
+         https://code.google.com/p/heideltime/wiki/StanfordPOSTaggerWrapper
+         
     
     To process Croatian documents, Luka Skukan has developed a Wrapper for the 
     HunPosTagger. You will need to get a copy of the HunPos tagger as well
@@ -259,7 +262,7 @@ set the environment variables.
      
     For sample UIMA workflows for any of the supported languages, please take a look
     at our evaluation results reproduction Wiki page:
-    	https://code.google.com/p/heideltime/wiki/ReproduceEvaluationResults
+        https://code.google.com/p/heideltime/wiki/ReproduceEvaluationResults
     and select a workflow description for a corpus of the language of your choice.
 
 
@@ -267,48 +270,48 @@ set the environment variables.
 # 4. Testing HeidelTime #
 #########################
 1. source the environment and copy the resources into the CLASSPATH
-	* source $HEIDELTIME_HOME/metadata/setenv
+    * source $HEIDELTIME_HOME/metadata/setenv
     * cd $HEIDELTIME_HOME/resources && sh printResourceInformation.sh
 
 2. run cpeGui.sh and create a workflow
-	* cpeGui.sh
-	* create a workflow with the following components:
-		Collection reader:
-		- UIMA's file system collection reader:
-			$UIMA_HOME/examples/descriptors/collection_reader/FileSystemCollectionReader.xml
-			set "Input directory" to $HEIDELTIME_HOME/doc/
-		Analysis Engines
-		- TreeTaggerWrapper located at
-			HEIDELTIME_HOME/desc/annotator/TreeTaggerWrapper.xml
-			set "Language" to "english"
-			set "Annotate_tokens" to "true"
-			set "Annotate_partofspeech" to "true"
-			set "Annotate_sentences" to "true"
-			set "Improvegermansentences" to "false"
-		- HeidelTime located at
-			HEIDELTIME_HOME/desc/annotator/HeidelTime.xml
-			set "Date" to "true"
-			set "Time" to "true"
-			set "Duration" to "true"
-			set "Set" to "true"
-			set "Language" to "english"
-			set "Type" to "narratives"
-		CAS Consumer
-		- UIMA's XMI Writer CAS Consumer located at
-			$UIMA_HOME/examples/descriptors/cas_consumer/XmiWriterCasConsumer.xml
-			set "Output Directory" to OUTPUT
-	* (save the workflow) 
-	* run the workflow
-	
+    * cpeGui.sh
+    * create a workflow with the following components:
+        Collection reader:
+        - UIMA's file system collection reader:
+            $UIMA_HOME/examples/descriptors/collection_reader/FileSystemCollectionReader.xml
+            set "Input directory" to $HEIDELTIME_HOME/doc/
+        Analysis Engines
+        - TreeTaggerWrapper located at
+            HEIDELTIME_HOME/desc/annotator/TreeTaggerWrapper.xml
+            set "Language" to "english"
+            set "Annotate_tokens" to "true"
+            set "Annotate_partofspeech" to "true"
+            set "Annotate_sentences" to "true"
+            set "Improvegermansentences" to "false"
+        - HeidelTime located at
+            HEIDELTIME_HOME/desc/annotator/HeidelTime.xml
+            set "Date" to "true"
+            set "Time" to "true"
+            set "Duration" to "true"
+            set "Set" to "true"
+            set "Language" to "english"
+            set "Type" to "narratives"
+        CAS Consumer
+        - UIMA's XMI Writer CAS Consumer located at
+            $UIMA_HOME/examples/descriptors/cas_consumer/XmiWriterCasConsumer.xml
+            set "Output Directory" to OUTPUT
+    * (save the workflow) 
+    * run the workflow
+    
 ###########################################################
 # 5. Analyze the results using the UIMA annotation viewer #
 ###########################################################
 To analyze the annotations produced by HeidelTime you may use UIMA's annotation viewer:
-	* annotationViewer.sh
-		set "Input Directory" to "OUTPUT"
-		set TypeSystem or AE Descriptor File" to "$HEIDELTIME_HOME/desc/type/HeidelTime_TypeSystem.xml"
-		
-	* focus the analysis on Section 6 of the "readme.txt" file.
+    * annotationViewer.sh
+        set "Input Directory" to "OUTPUT"
+        set TypeSystem or AE Descriptor File" to "$HEIDELTIME_HOME/desc/type/HeidelTime_TypeSystem.xml"
+        
+    * focus the analysis on Section 6 of the "readme.txt" file.
 
 ####################################################################
 # 6. What kind of temporal expressions can be found and normalized #
@@ -329,8 +332,8 @@ HeidelTime's Google Code Project contains a lot of valuable information on how t
 HeidelTime or its components, as well as additional resources, an always up-to-date
 code repository and issue tracker in case you spot a bug.
 Visit the project at
-	
-	http://code.google.com/p/heideltime/
+    
+    http://code.google.com/p/heideltime/
 
 
 #######################################################################
