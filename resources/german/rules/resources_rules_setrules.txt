@@ -27,6 +27,6 @@ RULENAME="set_r2a",EXTRACTION="%reSetWords",NORM_VALUE="%normSetWords(group(1))"
 // set_r3
 // EXAMPLE r3a_1: Montag vormittags
 // EXAMPLE r3a_1: Montag und Samstag nachts (find: Montag nachts)
-RULENAME="set_r3a",EXTRACTION="%reWeekday %rePartOfDay[s]",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(1))T%normPartOfDay(group(2))",NORM_FREQ="1W"
+RULENAME="set_r3a",EXTRACTION="%reWeekday ?%rePartOfDay[s]?",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(1))T%normPartOfDay(group(2))",NORM_FREQ="1W"
 RULENAME="set_r3b",EXTRACTION="%reWeekday (und|oder) %reWeekday %rePartOfDay[s]",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(1))T%normPartOfDay(group(4))",NORM_FREQ="1W",OFFSET="group(1)-group(1)"
 
