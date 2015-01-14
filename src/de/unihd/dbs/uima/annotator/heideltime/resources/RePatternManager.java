@@ -2,8 +2,10 @@ package de.unihd.dbs.uima.annotator.heideltime.resources;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeMap;
 
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
@@ -35,7 +37,8 @@ public class RePatternManager extends GenericResourceManager {
 		//////////////////////////////////////////////////////
 		// READ PATTERN RESOURCES FROM FILES AND STORE THEM //
 		//////////////////////////////////////////////////////
-		HashMap<String, String> hmResourcesRePattern = readResourcesFromDirectory();
+		ResourceScanner rs = ResourceScanner.getInstance();
+		Map<String, InputStream> hmResourcesRePattern = rs.getRepatterns(language);
 		for (String which : hmResourcesRePattern.keySet()) {
 			hmAllRePattern.put(which, "");
 		}
@@ -60,7 +63,7 @@ public class RePatternManager extends GenericResourceManager {
 	 * READ THE REPATTERN FROM THE FILES. The files have to be defined in the HashMap hmResourcesRePattern.
 	 * @param hmResourcesRePattern RePattern resources to be interpreted
 	 */
-	private void readRePatternResources(HashMap<String, String> hmResourcesRePattern) {
+	private void readRePatternResources(Map<String, InputStream> hmResourcesRePattern) {
 		
 		//////////////////////////////////////
 		// READ REGULAR EXPRESSION PATTERNS //
@@ -69,8 +72,7 @@ public class RePatternManager extends GenericResourceManager {
 			for (String resource : hmResourcesRePattern.keySet()) {
 				Logger.printDetail(component, "Adding pattern resource: "+resource);
 				// create a buffered reader for every repattern resource file
-				BufferedReader in = new BufferedReader(new InputStreamReader 
-						(this.getClass().getClassLoader().getResourceAsStream(hmResourcesRePattern.get(resource)),"UTF-8"));
+				BufferedReader in = new BufferedReader(new InputStreamReader(hmResourcesRePattern.get(resource),"UTF-8"));
 				for (String line; (line=in.readLine()) != null; ) {
 					if (!line.startsWith("//")) {
 						boolean correctLine = false;

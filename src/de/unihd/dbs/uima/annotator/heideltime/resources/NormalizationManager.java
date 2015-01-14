@@ -2,8 +2,10 @@ package de.unihd.dbs.uima.annotator.heideltime.resources;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
@@ -55,7 +57,8 @@ public class NormalizationManager extends GenericResourceManager {
 		////////////////////////////////////////////////////////////
 		// READ NORMALIZATION RESOURCES FROM FILES AND STORE THEM //
 		////////////////////////////////////////////////////////////
-		HashMap<String, String> hmResourcesNormalization = readResourcesFromDirectory();
+		ResourceScanner rs = ResourceScanner.getInstance();
+		Map<String, InputStream> hmResourcesNormalization = rs.getNormalizations(language);
 		
 		for (String which : hmResourcesNormalization.keySet()) {
 			hmAllNormalization.put(which, new RegexHashMap<String>());
@@ -82,13 +85,12 @@ public class NormalizationManager extends GenericResourceManager {
 	 * fill the HashMaps used for normalization tasks.
 	 * @param hmResourcesNormalization normalization patterns to be interpreted
 	 */
-	public void readNormalizationResources(HashMap<String, String> hmResourcesNormalization) {
+	public void readNormalizationResources(Map<String, InputStream> hmResourcesNormalization) {
 		try {
 			for (String resource : hmResourcesNormalization.keySet()) {
 				Logger.printDetail(component, "Adding normalization resource: "+resource);
 				// create a buffered reader for every normalization resource file
-				BufferedReader in = new BufferedReader(new InputStreamReader
-						(this.getClass().getClassLoader().getResourceAsStream(hmResourcesNormalization.get(resource)),"UTF-8"));
+				BufferedReader in = new BufferedReader(new InputStreamReader(hmResourcesNormalization.get(resource),"UTF-8"));
 				for ( String line; (line=in.readLine()) != null; ) {
 					if (line.startsWith("//")) continue; // ignore comments
 					

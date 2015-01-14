@@ -22,6 +22,24 @@ import java.util.regex.Pattern;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 
 public class ResourceScanner {
+	private static ResourceScanner INSTANCE = null;
+
+	/**
+	 * singleton producer.
+	 * @return singleton instance of ResourceScanner
+	 */
+	public static ResourceScanner getInstance() {
+		if(INSTANCE == null) {
+			synchronized(ResourceScanner.class) {
+				if(INSTANCE == null) {
+					INSTANCE = new ResourceScanner();
+				}
+			}
+		}
+		
+		return INSTANCE;
+	}
+	
 	private final String path = "resources";
 	
 	private Set<String> languages = new HashSet<String>();
@@ -30,7 +48,7 @@ public class ResourceScanner {
 	private Map<String, Map<String, InputStream>> normalizations = new HashMap<String, Map<String, InputStream>>();
 	private Map<String, Map<String, InputStream>> rules = new HashMap<String, Map<String, InputStream>>();
 
-	public ResourceScanner() {
+	private ResourceScanner() {
 		// scan the interior of a jar file
 		File jarFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
 		if (jarFile.isFile()) { // run from inside a .jar file
@@ -259,5 +277,17 @@ public class ResourceScanner {
 				}
 			}
 		}
+	}
+	
+	public Map<String, InputStream> getRepatterns(String language) {
+		return repatterns.get(language);
+	}
+	
+	public Map<String, InputStream> getNormalizations(String language) {
+		return normalizations.get(language);
+	}
+	
+	public Map<String, InputStream> getRules(String language) {
+		return rules.get(language);
 	}
 }

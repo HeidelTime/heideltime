@@ -2,8 +2,10 @@ package de.unihd.dbs.uima.annotator.heideltime.resources;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
@@ -23,8 +25,7 @@ public class RuleManager extends GenericResourceManager {
 	protected static HashMap<Language, RuleManager> instances = new HashMap<Language, RuleManager>();
 
 	// PATTERNS TO READ RESOURCES "RULES" AND "NORMALIZATION"
-	Pattern paReadRules = Pattern
-			.compile("RULENAME=\"(.*?)\",EXTRACTION=\"(.*?)\",NORM_VALUE=\"(.*?)\"(.*)");
+	Pattern paReadRules = Pattern.compile("RULENAME=\"(.*?)\",EXTRACTION=\"(.*?)\",NORM_VALUE=\"(.*?)\"(.*)");
 
 	// EXTRACTION PARTS OF RULES (patterns loaded from files)
 	HashMap<Pattern, String> hmDatePattern = new HashMap<Pattern, String>();
@@ -88,7 +89,8 @@ public class RuleManager extends GenericResourceManager {
 		// /////////////////////////////////////////////////
 		// READ RULE RESOURCES FROM FILES AND STORE THEM //
 		// /////////////////////////////////////////////////
-		HashMap<String, String> hmResourcesRules = readResourcesFromDirectory();
+		ResourceScanner rs = ResourceScanner.getInstance();
+		Map<String, InputStream> hmResourcesRules = rs.getRules(language);
 		readRules(hmResourcesRules, language);
 	}
 
@@ -113,14 +115,10 @@ public class RuleManager extends GenericResourceManager {
 	 * @param hmResourcesRules
 	 *            rules to be interpreted
 	 */
-	public void readRules(HashMap<String, String> hmResourcesRules, String language) {
+	public void readRules(Map<String, InputStream> hmResourcesRules, String language) {
 		try {
 			for (String resource : hmResourcesRules.keySet()) {
-				BufferedReader br = new BufferedReader(new InputStreamReader(
-						this.getClass()
-								.getClassLoader()
-								.getResourceAsStream(
-										hmResourcesRules.get(resource))));
+				BufferedReader br = new BufferedReader(new InputStreamReader(hmResourcesRules.get(resource), "UTF-8"));
 				
 				Logger.printDetail(component, "Adding rule resource: " + resource);
 				for (String line; (line = br.readLine()) != null;) {
