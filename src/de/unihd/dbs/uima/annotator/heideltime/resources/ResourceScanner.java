@@ -83,6 +83,8 @@ public class ResourceScanner {
 			try {
 				this.scanValidOutsideResourcesFolder(new File(url.toURI()));
 			} catch (URISyntaxException ex) {  }
+		} else if(jarFile.isDirectory()) {
+			this.scanValidOutsideResourcesFolder(jarFile);
 		}
 		
 		// populate languages list
