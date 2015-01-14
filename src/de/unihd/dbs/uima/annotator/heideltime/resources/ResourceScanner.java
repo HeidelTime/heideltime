@@ -90,6 +90,11 @@ public class ResourceScanner {
 		
 		for (Entry<String, JarEntry> entry : topLevelEntries.entrySet()) {
 			String language = entry.getKey().substring(0, entry.getKey().length() - 1);
+			
+			Pattern repatternPattern = Pattern.compile(language + "/repattern/resources_repattern_(re.+)\\.txt$");
+			Pattern normalizationPattern = Pattern.compile(language + "/normalization/resources_normalization_(norm.+)\\.txt$");
+			Pattern rulePattern = Pattern.compile(language + "/rules/resources_rules_(.+)\\.txt$");
+			
 			if (entry.getValue().isDirectory()) {
 				Logger.printDetail(ResourceScanner.class, "Testing " + entry.getKey());
 				/*
@@ -101,10 +106,7 @@ public class ResourceScanner {
 				 * |- normalization 
 				 * |- rules
 				 */
-		
-				Pattern repatternPattern = Pattern.compile(language + "/repattern/resources_repattern_(re.+)\\.txt$");
-				Pattern normalizationPattern = Pattern.compile(language + "/normalization/resources_normalization_(norm.+)\\.txt$");
-				Pattern rulePattern = Pattern.compile(language + "/rules/resources_rules_(.+)\\.txt$");
+				
 				Boolean repatternExists = false;
 				Boolean normalizationExists = false;
 				Boolean ruleExists = false;
@@ -125,8 +127,6 @@ public class ResourceScanner {
 					Logger.printDetail(ResourceScanner.class, "We need at least one readable resource file of each type to run.");
 					continue;
 				}
-				
-				// TODO:WRITE
 		
 				Logger.printDetail(ResourceScanner.class, "Valid resource folder.");
 
@@ -153,6 +153,10 @@ public class ResourceScanner {
 	}
 
 	private void scanValidOutsideResourcesFolder(File resourcePath) {
+		Pattern repatternPattern = Pattern.compile("resources_repattern_(re.+)\\.txt$");
+		Pattern normalizationPattern = Pattern.compile("resources_normalization_(norm.+)\\.txt$");
+		Pattern rulePattern = Pattern.compile("resources_rules_(.+)\\.txt$");
+	
 		File[] pathContents = resourcePath.listFiles();
 
 		for (File supposedLanguagePath : pathContents) {
@@ -221,7 +225,10 @@ public class ResourceScanner {
 				this.repatterns.put(language, new HashMap<String, InputStream>());
 				for(File f : repatternFiles) {
 					try {
-						this.repatterns.get(language).put(f.getName(), new FileInputStream(f));
+						Matcher m = repatternPattern.matcher(f.getName());
+						if(m.matches()) {
+							this.repatterns.get(language).put(m.group(1), new FileInputStream(f));
+						}
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 					}
@@ -230,7 +237,10 @@ public class ResourceScanner {
 				this.normalizations.put(language, new HashMap<String, InputStream>());
 				for(File f : normalizationFiles) {
 					try {
-						this.normalizations.get(language).put(f.getName(), new FileInputStream(f));
+						Matcher m = normalizationPattern.matcher(f.getName());
+						if(m.matches()) {
+							this.normalizations.get(language).put(m.group(1), new FileInputStream(f));
+						}
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 					}
@@ -239,7 +249,10 @@ public class ResourceScanner {
 				this.rules.put(language, new HashMap<String, InputStream>());
 				for(File f : ruleFiles) {
 					try {
-						this.rules.get(language).put(f.getName(), new FileInputStream(f));
+						Matcher m = rulePattern.matcher(f.getName());
+						if(m.matches()) {
+							this.rules.get(language).put(m.group(1), new FileInputStream(f));
+						}
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 					}
