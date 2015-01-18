@@ -66,8 +66,8 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 		config_path = (String) aContext.getConfigParameterValue(PARAM_CONFIG_PATH);
 
 		// check if the model file exists
-		if(model_path == null || (new File(model_path)).exists() == false) {
-			Logger.printError(component, "The supplied model file for the Stanford Tagger could not be found.");
+		if(model_path == null) {
+			Logger.printError(component, "The model file for the Stanford Tagger was not correctly specified.");
 			System.exit(-1);
 		}
 		
