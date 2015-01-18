@@ -49,9 +49,9 @@ public class ResourceScanner {
 	private Map<String, Map<String, InputStream>> rules = new HashMap<String, Map<String, InputStream>>();
 
 	private ResourceScanner() {
-		// scan the interior of a jar file
 		File jarFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
-		if (jarFile.isFile()) { // run from inside a .jar file
+		if (jarFile.isFile()) {
+			// scan the interior of a jar file
 			JarFile jar = null;
 			try {
 				jar = new JarFile(jarFile);
@@ -75,16 +75,19 @@ public class ResourceScanner {
 			}
 			
 			this.scanValidInsideResourcesFolder(jarContents);
-		}
-		
-		// scan the exterior of the jar/class
-		URL url = ResourceScanner.class.getResource("/" + path);
-		if (url != null) {
-			try {
-				this.scanValidOutsideResourcesFolder(new File(url.toURI()));
-			} catch (URISyntaxException ex) {  }
-		} else if(jarFile.isDirectory()) {
+			
+			// scan the "resources" folder outside of a jar file
+
+			File outFolder = jarFile.getParentFile();
+			this.scanValidOutsideResourcesFolder(outFolder);
+		} else {
+			// scan the immediate folders of the local classpath
 			this.scanValidOutsideResourcesFolder(jarFile);
+			// scan the folder "../resources" if it exists
+			File outFolder = new File(jarFile.getParentFile(), path);
+			if(outFolder.exists()) {
+				this.scanValidOutsideResourcesFolder(outFolder);
+			}
 		}
 		
 		// populate languages list
