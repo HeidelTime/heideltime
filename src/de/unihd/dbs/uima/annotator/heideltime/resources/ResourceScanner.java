@@ -111,8 +111,8 @@ public class ResourceScanner {
 		for (Entry<String, JarEntry> entry : topLevelEntries.entrySet()) {
 			String language = entry.getKey().substring(0, entry.getKey().length() - 1);
 			
-			Pattern repatternPattern = Pattern.compile(language + "/repattern/resources_repattern_(re.+)\\.txt$");
-			Pattern normalizationPattern = Pattern.compile(language + "/normalization/resources_normalization_(norm.+)\\.txt$");
+			Pattern repatternPattern = Pattern.compile(language + "/repattern/resources_repattern_(.+)\\.txt$");
+			Pattern normalizationPattern = Pattern.compile(language + "/normalization/resources_normalization_(.+)\\.txt$");
 			Pattern rulePattern = Pattern.compile(language + "/rules/resources_rules_(.+)\\.txt$");
 			
 			if (entry.getValue().isDirectory()) {
@@ -173,8 +173,8 @@ public class ResourceScanner {
 	}
 
 	private void scanValidOutsideResourcesFolder(File resourcePath) {
-		Pattern repatternPattern = Pattern.compile("resources_repattern_(re.+)\\.txt$");
-		Pattern normalizationPattern = Pattern.compile("resources_normalization_(norm.+)\\.txt$");
+		Pattern repatternPattern = Pattern.compile("resources_repattern_(.+)\\.txt$");
+		Pattern normalizationPattern = Pattern.compile("resources_normalization_(.+)\\.txt$");
 		Pattern rulePattern = Pattern.compile("resources_rules_(.+)\\.txt$");
 	
 		File[] pathContents = resourcePath.listFiles();
