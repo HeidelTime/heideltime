@@ -85,11 +85,18 @@ public class TreeTaggerProperties {
 		
 		// this dirty hack is to force the script to autoflush its buffers. thanks, PERL
 		while((buf = br.readLine()) != null) {
+			// we omit comments
+			if(buf.startsWith("#"))
+				continue;
+			
 			// set the lexicon files
 			if(buf.startsWith("$lexicon="))
-				buf = "$lexicon=\"" + new File(this.chineseTokenizerPath, "lcmc-uni2.dat").getAbsolutePath() + "\";";
+				buf = "$lexicon=\"" + new File(this.chineseTokenizerPath, "lcmc-uni2.dat").getAbsolutePath().replaceAll("\\\\", "/") + "\";";
 			if(buf.startsWith("$lexicon2=")) 
-				buf = "$lexicon2=\"" + new File(this.chineseTokenizerPath, "lcmc-bigrams2.dat").getAbsolutePath() + "\";";
+				buf = "$lexicon2=\"" + new File(this.chineseTokenizerPath, "lcmc-bigrams2.dat").getAbsolutePath().replaceAll("\\\\", "/") + "\";";
+			
+			buf.replaceAll("\"", "'");
+			buf.replaceAll("'\\\\n'", "chr(10)");
 			
 			// add the autoflush variable
 			if(firstLine) {
@@ -97,9 +104,7 @@ public class TreeTaggerProperties {
 				firstLine = false;
 			}
 			
-			// we omit comments
-			if(!buf.startsWith("#"))
-				segmenterScript += buf;
+			segmenterScript += buf;
 		}
 		br.close();
 		
