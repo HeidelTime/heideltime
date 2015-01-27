@@ -5,7 +5,6 @@
  */
 package de.unihd.dbs.uima.annotator.stanfordtagger;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.StringReader;
 import java.util.List;
