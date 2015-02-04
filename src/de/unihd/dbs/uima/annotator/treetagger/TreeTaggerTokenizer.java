@@ -120,7 +120,7 @@ public class TreeTaggerTokenizer {
 			// replace blanks within SGML tags
 			text = text.replaceAll("(<[^<> ]*) ([^<>]*>)", "$1\377$2");
 			// replace whitespace with a special character
-			text = text.replaceAll("[\\u2000-\\u200A ]", "\376");
+			text = text.replaceAll("[\\u2000-\\u200A \\u202F\\u205F\\u3000\\u00A0\\u1680\\u180E]", "\376");
 			// restore SGML tags
 			text = text.replaceAll("\377", " ");
 			text = text.replaceAll("\376", "\377");
