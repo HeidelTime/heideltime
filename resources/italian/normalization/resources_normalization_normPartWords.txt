@@ -7,7 +7,7 @@
 // FORMAT: "part word","normalized-part-word"
 
 // START
-"([Ll]'\s)?[Ii]nizio( di| della| dell'| del)?","START"
+"([Ll]'\s?)?[Ii]nizio( di| della| dell'| del)?","START"
 "([Ii] )?[Pp]rimi( di| della| dell'| del)?","START"
 "([Ll]'\s?)?[Aa]lba( di| della| dell'| del)?","START"
 "([Ll]a )?[Pp]rima met(à|a'|a)( di| della| dell'| del)?","START"
