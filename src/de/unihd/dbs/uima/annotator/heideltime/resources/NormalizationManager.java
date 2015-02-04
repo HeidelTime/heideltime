@@ -98,7 +98,7 @@ public class NormalizationManager extends GenericResourceManager {
 					boolean correctLine = false;
 					for (MatchResult r : Toolbox.findMatches(paReadNormalizations, line)) {
 						correctLine = true;
-						String resource_word   = r.group(1);
+						String resource_word   = replaceSpaces(r.group(1));
 						String normalized_word = r.group(2);
 						for (String which : hmAllNormalization.keySet()) {
 							if (resource.equals(which)) {

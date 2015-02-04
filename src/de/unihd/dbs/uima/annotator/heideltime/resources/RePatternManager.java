@@ -81,7 +81,7 @@ public class RePatternManager extends GenericResourceManager {
 							for (String which : hmAllRePattern.keySet()) {
 								if (resource.equals(which)) {
 									String devPattern = hmAllRePattern.get(which);
-									devPattern = devPattern + "|" + line;
+									devPattern = devPattern + "|" + replaceSpaces(line);
 									hmAllRePattern.put(which, devPattern);
 								}
 							}

@@ -133,7 +133,7 @@ public class RuleManager extends GenericResourceManager {
 					for (MatchResult r : Toolbox.findMatches(paReadRules, line)) {
 						correctLine = true;
 						String rule_name = r.group(1);
-						String rule_extraction = r.group(2);
+						String rule_extraction = replaceSpaces(r.group(2));
 						String rule_normalization = r.group(3);
 						String rule_offset = "";
 						String rule_quant = "";
@@ -158,7 +158,8 @@ public class RuleManager extends GenericResourceManager {
 							}
 							rule_extraction = rule_extraction.replaceAll("%" + mr.group(1), rpm.get(mr.group(1)));
 						}
-						rule_extraction = rule_extraction.replaceAll(" ", "[\\\\s]+");
+						//rule_extraction = rule_extraction.replaceAll(" ", "[\\\\s]+");
+						if(rule_name.equals("date_r1b")) System.out.println(rule_extraction);//TODO:DEBUGGING
 						Pattern pattern = null;
 						try {
 							pattern = Pattern.compile(rule_extraction);

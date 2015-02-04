@@ -23,4 +23,14 @@ public abstract class GenericResourceManager {
 		this.LANGUAGE = language;
 		this.component = this.getClass();
 	}
+	
+	protected String replaceSpaces(String inText) {
+		String outText = inText.replaceAll(" ", "[\\\\u2000-\\\\u200A \\\\u202F\\\\u205F\\\\u3000\\\\u00A0\\\\u1680\\\\u180E]");
+		/*if(!inText.equals(outText)) {
+			System.out.println("IN:  " + inText);
+			System.out.println("OUT: " + outText);
+		}*///TODO:DEBUG
+		
+		return outText;
+	}
 }
