@@ -158,8 +158,7 @@ public class RuleManager extends GenericResourceManager {
 							}
 							rule_extraction = rule_extraction.replaceAll("%" + mr.group(1), rpm.get(mr.group(1)));
 						}
-						//rule_extraction = rule_extraction.replaceAll(" ", "[\\\\s]+");
-						if(rule_name.equals("date_r1b")) System.out.println(rule_extraction);//TODO:DEBUGGING
+						rule_extraction = rule_extraction.replaceAll(" ", "[\\\\s]+");
 						Pattern pattern = null;
 						try {
 							pattern = Pattern.compile(rule_extraction);
