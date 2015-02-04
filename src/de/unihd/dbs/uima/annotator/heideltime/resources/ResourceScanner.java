@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -95,6 +93,7 @@ public class ResourceScanner {
 	}
 
 	public static void main(String[] args) {
+		@SuppressWarnings("unused")
 		ResourceScanner rs = null;
 		try {
 			rs = new ResourceScanner();
