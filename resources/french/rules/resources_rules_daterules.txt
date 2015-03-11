@@ -240,8 +240,9 @@ RULENAME="date_r6a",EXTRACTION="le (weekend|week-end) %reThisNextLast",NORM_VALU
 
 
 ////////////// date_r7
-// EXAMPLE r7a_1: Novembre 
-RULENAME="date_r7a",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
+// EXAMPLE r7a_1: Novembre
+// 09.03.2015: we removed %reMonthShort from the following rule since it's unlikely and produces false positives
+RULENAME="date_r7a",EXTRACTION="%reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
 
 // EXAMPLE r7b_1: Novembre 2001
 // EXAMPLE r7b_2: Nov. 2001

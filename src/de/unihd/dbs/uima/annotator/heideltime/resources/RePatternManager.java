@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -72,26 +75,41 @@ public class RePatternManager extends GenericResourceManager {
 			for (String resource : hmResourcesRePattern.keySet()) {
 				Logger.printDetail(component, "Adding pattern resource: "+resource);
 				// create a buffered reader for every repattern resource file
-				BufferedReader in = new BufferedReader(new InputStreamReader(hmResourcesRePattern.get(resource),"UTF-8"));
-				for (String line; (line=in.readLine()) != null; ) {
-					if (!line.startsWith("//")) {
-						boolean correctLine = false;
-						if (!(line.equals(""))) {
-							correctLine = true;
-							for (String which : hmAllRePattern.keySet()) {
-								if (resource.equals(which)) {
-									String devPattern = hmAllRePattern.get(which);
-									devPattern = devPattern + "|" + replaceSpaces(line);
-									hmAllRePattern.put(which, devPattern);
-								}
-							}
-						}
-						if ((correctLine == false) && (!(line.matches("")))) {
-							Logger.printError(component, "Cannot read one of the lines of pattern resource "+resource);
-							Logger.printError(component, "Line: "+line);
-						}
+				BufferedReader in = new BufferedReader(new InputStreamReader(hmResourcesRePattern.get(resource), "UTF-8"));
+				LinkedList<String> patterns = new LinkedList<String>();
+				for (String line; (line = in.readLine()) != null; ) {
+					// disregard comments
+					if (!line.startsWith("//") && !line.equals("")) {
+						patterns.add(replaceSpaces(line));
 					}
 				}
+				
+				// sort the repatterns by length in ascending order
+				Collections.sort(patterns, new Comparator<String>() {
+					@Override
+					public int compare(String o1, String o2) {
+						String o1effective = o1.replaceAll("\\[[^\\]]*\\]", "X")
+								.replaceAll("\\?", "")
+								.replaceAll("\\\\.(?:\\{([^\\}])+\\})?", "X$1");
+						String o2effective = o2.replaceAll("\\[[^\\]]*\\]", "X")
+								.replaceAll("\\?", "")
+								.replaceAll("\\\\.(?:\\{([^\\}])+\\})?", "X$1");
+						
+						if(o1effective.length() < o2effective.length())
+							return 1;
+						else if(o1effective.length() > o2effective.length())
+							return -1;
+						else
+							return 0;
+					}
+				});
+				
+				String devPattern = "";
+				for(String pat : patterns) {
+					devPattern += "|" + pat;
+				}
+				
+				hmAllRePattern.put(resource, devPattern);
 			}
 			////////////////////////////
 			// FINALIZE THE REPATTERN //
