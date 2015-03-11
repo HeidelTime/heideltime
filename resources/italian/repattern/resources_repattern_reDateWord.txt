@@ -24,14 +24,14 @@
 
 // PAST_REF according to specificheEvalita_1-27_03_2014.pdf page 39
 [Ii]n passato
-[Rr]ecentemente
+//[Rr]ecentemente
 [Pp]oco fa
 //[Ii]l passato
 [Tt]empo fa
 //[Gg]iorni fa
 
 // PAST_REF continued
-[Rr]ecent[ei](ssim[oaie])?
+[Rr]ecent[ei](mente|ssim[oaie])?
 (?<=[Dd]i\s)fresco
 //[Dd]i recente
 [Uu]ltimamente

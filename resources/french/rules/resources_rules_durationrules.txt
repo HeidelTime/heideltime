@@ -74,16 +74,16 @@ RULENAME="duration_r4e",EXTRACTION="[CcLlDd]es (quelques )?%reThisNextLast (minu
 
 // duration_r5
 // EXAMPLE r5a-1: deux à/et trois ans
-RULENAME="duration_r5a",EXTRACTION="(%reNumWord2D|%reNumWord1D) (à|et) (%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(8))",OFFSET="group(1)-group(1)"
+RULENAME="duration_r5a",EXTRACTION="(%reNumWord2D|%reNumWord1D)%reAndOrTo(%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(8))",OFFSET="group(1)-group(1)"
 
 // EXAMPLE r5b-1: deux à/et trois heures
-RULENAME="duration_r5b",EXTRACTION="(%reNumWord2D|%reNumWord1D) (à|et) (%reNumWord2D|%reNumWord1D) (minutes?|heures?)",NORM_VALUE="PT%normDurationNumber(group(1))%normUnit4Duration(group(8))",OFFSET="group(1)-group(1)"
+RULENAME="duration_r5b",EXTRACTION="(%reNumWord2D|%reNumWord1D)%reAndOrTo(%reNumWord2D|%reNumWord1D) (minutes?|heures?)",NORM_VALUE="PT%normDurationNumber(group(1))%normUnit4Duration(group(8))",OFFSET="group(1)-group(1)"
 
 // EXAMPLE r5c-1: 2 à/et 3 ans
-RULENAME="duration_r5c",EXTRACTION="([\d]+) (à|et) ([\d]+) %reUnit",NORM_VALUE="Pgroup(1)%normUnit4Duration(group(4))",OFFSET="group(1)-group(1)"
+RULENAME="duration_r5c",EXTRACTION="([\d]+)%reAndOrTo([\d]+) %reUnit",NORM_VALUE="Pgroup(1)%normUnit4Duration(group(4))",OFFSET="group(1)-group(1)"
 
 // EXAMPLE r5d-1: 2 à/et 3 heures
-RULENAME="duration_r5d",EXTRACTION="([\d]+) (à|et) ([\d]+) (minutes?|heures?)",NORM_VALUE="PTgroup(1)%normUnit4Duration(group(4))",OFFSET="group(1)-group(1)"
+RULENAME="duration_r5d",EXTRACTION="([\d]+)%reAndOrTo([\d]+) (minutes?|heures?)",NORM_VALUE="PTgroup(1)%normUnit4Duration(group(4))",OFFSET="group(1)-group(1)"
 
 
 
