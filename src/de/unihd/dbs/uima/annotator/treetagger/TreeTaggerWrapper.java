@@ -57,7 +57,6 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	private Boolean annotate_tokens = false;
 	private Boolean annotate_sentences = false;
 	private Boolean annotate_partofspeech = false;
-	private Boolean improve_german_sentences = false;
 	
 	// local treetagger properties container, see below
 	private TreeTaggerProperties ttprops = new TreeTaggerProperties();
@@ -95,7 +94,6 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			configManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_TOKENS), annotateTokens);
 			configManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_PARTOFSPEECH), annotatePartOfSpeech);
 			configManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_SENTENCES), annotateSentences);
-			configManager.setConfigParameterValue(makeQualifiedName(PARAM_IMPROVE_GERMAN_SENTENCES), improveGermanSentences);
 			configManager.setConfigParameterValue(makeQualifiedName(PARAM_CHINESE_TOKENIZER_PATH), cnTokPath);
 		}
 	}
@@ -141,7 +139,6 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		annotate_tokens = (Boolean) aContext.getConfigParameterValue(PARAM_ANNOTATE_TOKENS);
 		annotate_sentences = (Boolean) aContext.getConfigParameterValue(PARAM_ANNOTATE_SENTENCES);
 		annotate_partofspeech = (Boolean) aContext.getConfigParameterValue(PARAM_ANNOTATE_PARTOFSPEECH);
-		improve_german_sentences = (Boolean) aContext.getConfigParameterValue(PARAM_IMPROVE_GERMAN_SENTENCES);
 		String cnTokPath = (String) aContext.getConfigParameterValue(PARAM_CHINESE_TOKENIZER_PATH);
 		
 		// set some configuration based upon these values
@@ -233,11 +230,11 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			doTreeTag(jcas);
 		
 		// if the improve_german_sentences flag is set, improve the sentence tokens made by the treetagger
-		if(improve_german_sentences) 
+		if(this.language == Language.GERMAN)
 			improveGermanSentences(jcas);
 		
 		// if French, improve the sentence tokens made by the TreeTagger with settings for French
-		if (this.language.getTreeTaggerLangName().equals("french"))
+		if (this.language == Language.FRENCH)
 			improveFrenchSentences(jcas);
 		
 	}
