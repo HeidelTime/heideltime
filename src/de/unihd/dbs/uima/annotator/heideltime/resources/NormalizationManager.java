@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
@@ -58,7 +57,7 @@ public class NormalizationManager extends GenericResourceManager {
 		// READ NORMALIZATION RESOURCES FROM FILES AND STORE THEM //
 		////////////////////////////////////////////////////////////
 		ResourceScanner rs = ResourceScanner.getInstance();
-		Map<String, InputStream> hmResourcesNormalization = rs.getNormalizations(language);
+		ResourceMap hmResourcesNormalization = rs.getNormalizations(language);
 		
 		for (String which : hmResourcesNormalization.keySet()) {
 			hmAllNormalization.put(which, new RegexHashMap<String>());
@@ -85,13 +84,18 @@ public class NormalizationManager extends GenericResourceManager {
 	 * fill the HashMaps used for normalization tasks.
 	 * @param hmResourcesNormalization normalization patterns to be interpreted
 	 */
-	public void readNormalizationResources(Map<String, InputStream> hmResourcesNormalization) {
+	public void readNormalizationResources(ResourceMap hmResourcesNormalization) {
+		InputStream is = null;
+		InputStreamReader isr = null;
+		BufferedReader br = null;
 		try {
 			for (String resource : hmResourcesNormalization.keySet()) {
 				Logger.printDetail(component, "Adding normalization resource: "+resource);
 				// create a buffered reader for every normalization resource file
-				BufferedReader in = new BufferedReader(new InputStreamReader(hmResourcesNormalization.get(resource),"UTF-8"));
-				for ( String line; (line=in.readLine()) != null; ) {
+				is = hmResourcesNormalization.getInputStream(resource);
+				isr = new InputStreamReader(is, "UTF-8");
+				br = new BufferedReader(isr);
+				for ( String line; (line=br.readLine()) != null; ) {
 					if (line.startsWith("//")) continue; // ignore comments
 					
 					// check each line for the normalization format (defined in paReadNormalizations)
@@ -114,6 +118,20 @@ public class NormalizationManager extends GenericResourceManager {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(br != null) {
+					br.close();
+				}
+				if(isr != null) {
+					isr.close();
+				}
+				if(is != null) {
+					is.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

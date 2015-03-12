@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
@@ -90,7 +89,7 @@ public class RuleManager extends GenericResourceManager {
 		// READ RULE RESOURCES FROM FILES AND STORE THEM //
 		// /////////////////////////////////////////////////
 		ResourceScanner rs = ResourceScanner.getInstance();
-		Map<String, InputStream> hmResourcesRules = rs.getRules(language);
+		ResourceMap hmResourcesRules = rs.getRules(language);
 		readRules(hmResourcesRules, language);
 	}
 
@@ -115,10 +114,15 @@ public class RuleManager extends GenericResourceManager {
 	 * @param hmResourcesRules
 	 *            rules to be interpreted
 	 */
-	public void readRules(Map<String, InputStream> hmResourcesRules, String language) {
+	public void readRules(ResourceMap hmResourcesRules, String language) {
+		InputStream is = null;
+		InputStreamReader isr = null;
+		BufferedReader br = null;
 		try {
 			for (String resource : hmResourcesRules.keySet()) {
-				BufferedReader br = new BufferedReader(new InputStreamReader(hmResourcesRules.get(resource), "UTF-8"));
+				is = hmResourcesRules.getInputStream(resource);
+				isr = new InputStreamReader(is, "UTF-8");
+				br = new BufferedReader(isr);
 				
 				Logger.printDetail(component, "Adding rule resource: " + resource);
 				for (String line; (line = br.readLine()) != null;) {
@@ -388,6 +392,20 @@ public class RuleManager extends GenericResourceManager {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(br != null) {
+					br.close();
+				}
+				if(isr != null) {
+					isr.close();
+				}
+				if(is != null) {
+					is.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
