@@ -145,6 +145,15 @@ public class RuleManager extends GenericResourceManager {
 						String rule_mod = "";
 						String pos_constraint = "";
 						String rule_empty_value = "";
+						
+						// throw an error if the rule's name already exists
+						if(hmDatePattern.containsValue(rule_name) ||
+								hmDurationPattern.containsValue(rule_name) ||
+								hmSetPattern.containsValue(rule_name) ||
+								hmTimePattern.containsValue(rule_name)) {
+							Logger.printError("WARNING: Duplicate rule name detected. This rule is being ignored:");
+							Logger.printError(line);
+						}
 
 						// //////////////////////////////////////////////////////////////////
 						// RULE EXTRACTION PARTS ARE TRANSLATED INTO REGULAR
