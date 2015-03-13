@@ -95,6 +95,6 @@ RULENAME="time_r6d",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*
 
 // time_r7 (Night from x to y)
 RULENAME="time_r7a",EXTRACTION="[Nn]oći? sa %reDayNumberTh(-| - | do | na )%reDayNumberTh (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(1))TNI",OFFSET="group(0)-group(1)"
-RULENAME="time_r7a",EXTRACTION="[Nn]oći? sa %reDayNumberTh(-| - | do | na )%reDayNumberTh (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(3))TNI",OFFSET="group(3)-group(4)"
-RULENAME="time_r7a",EXTRACTION="[Nn]oći? sa %reDayNumberTh(-| - | do | na )%reDayNumberTh (%reMonthLong|%reMonthShort) %reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(1))TNI",OFFSET="group(0)-group(1)"
-RULENAME="time_r7a",EXTRACTION="[Nn]oći? sa %reDayNumberTh(-| - | do | na )%reDayNumberTh (%reMonthLong|%reMonthShort) %reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(3))TNI",OFFSET="group(3)-group(5)"
+RULENAME="time_r7b",EXTRACTION="[Nn]oći? sa %reDayNumberTh(-| - | do | na )%reDayNumberTh (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(3))TNI",OFFSET="group(3)-group(4)"
+RULENAME="time_r8a",EXTRACTION="[Nn]oći? sa %reDayNumberTh(-| - | do | na )%reDayNumberTh (%reMonthLong|%reMonthShort) %reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(1))TNI",OFFSET="group(0)-group(1)"
+RULENAME="time_r8b",EXTRACTION="[Nn]oći? sa %reDayNumberTh(-| - | do | na )%reDayNumberTh (%reMonthLong|%reMonthShort) %reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(3))TNI",OFFSET="group(3)-group(5)"
