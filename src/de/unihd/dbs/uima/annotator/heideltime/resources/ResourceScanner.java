@@ -1,11 +1,8 @@
 package de.unihd.dbs.uima.annotator.heideltime.resources;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,11 +39,11 @@ public class ResourceScanner {
 	
 	private Set<String> languages = new HashSet<String>();
 	
-	private Map<String, Map<String, InputStream>> repatterns = new HashMap<String, Map<String, InputStream>>();
-	private Map<String, Map<String, InputStream>> normalizations = new HashMap<String, Map<String, InputStream>>();
-	private Map<String, Map<String, InputStream>> rules = new HashMap<String, Map<String, InputStream>>();
+	private Map<String, ResourceMap> repatterns = new HashMap<String, ResourceMap>();
+	private Map<String, ResourceMap> normalizations = new HashMap<String, ResourceMap>();
+	private Map<String, ResourceMap> rules = new HashMap<String, ResourceMap>();
 
-	private ResourceScanner() {
+	private ResourceScanner() { 
 		File jarFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
 		if (jarFile.isFile()) {
 			// scan the interior of a jar file
@@ -91,6 +88,7 @@ public class ResourceScanner {
 		// populate languages list
 		languages.addAll(repatterns.keySet());
 	}
+	
 
 	public static void main(String[] args) {
 		@SuppressWarnings("unused")
@@ -153,21 +151,21 @@ public class ResourceScanner {
 				Logger.printDetail(ResourceScanner.class, "Valid resource folder.");
 
 				// at this point, the folder is obviously a language resource folder => collect streams
-				this.repatterns.put(language, new HashMap<String, InputStream>());
-				this.normalizations.put(language, new HashMap<String, InputStream>());
-				this.rules.put(language, new HashMap<String, InputStream>());
+				this.repatterns.put(language, new ResourceMap());
+				this.normalizations.put(language, new ResourceMap());
+				this.rules.put(language, new ResourceMap());
 				for(Entry<String, JarEntry> je : jarContents.entrySet()) {
 					Matcher m1 = repatternPattern.matcher(je.getKey());
 					Matcher m2 = normalizationPattern.matcher(je.getKey());
 					Matcher m3 = rulePattern.matcher(je.getKey()); 
 					if(m1.matches()) {
-						this.repatterns.get(language).put(m1.group(1), this.getClass().getClassLoader().getResourceAsStream(je.getKey()));
+						this.repatterns.get(language).putInnerFile(m1.group(1), je.getKey());
 					} 
 					if(m2.matches()) {
-						this.normalizations.get(language).put(m2.group(1), this.getClass().getClassLoader().getResourceAsStream(je.getKey()));
+						this.normalizations.get(language).putInnerFile(m2.group(1), je.getKey());
 					} 
 					if(m3.matches()) {
-						this.rules.get(language).put(m3.group(1), this.getClass().getClassLoader().getResourceAsStream(je.getKey()));
+						this.rules.get(language).putInnerFile(m3.group(1), je.getKey());
 					}
 				}
 			}
@@ -244,54 +242,42 @@ public class ResourceScanner {
 				Logger.printDetail(ResourceScanner.class, "Valid resource folder.");
 
 				// at this point, the folder is obviously a language resource folder => collect streams
-				this.repatterns.put(language, new HashMap<String, InputStream>());
+				this.repatterns.put(language, new ResourceMap());
 				for(File f : repatternFiles) {
-					try {
-						Matcher m = repatternPattern.matcher(f.getName());
-						if(m.matches()) {
-							this.repatterns.get(language).put(m.group(1), new FileInputStream(f));
-						}
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
+					Matcher m = repatternPattern.matcher(f.getName());
+					if(m.matches()) {
+						this.repatterns.get(language).putOuterFile(m.group(1), f);
 					}
 				}
 				
-				this.normalizations.put(language, new HashMap<String, InputStream>());
+				this.normalizations.put(language, new ResourceMap());
 				for(File f : normalizationFiles) {
-					try {
-						Matcher m = normalizationPattern.matcher(f.getName());
-						if(m.matches()) {
-							this.normalizations.get(language).put(m.group(1), new FileInputStream(f));
-						}
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
+					Matcher m = normalizationPattern.matcher(f.getName());
+					if(m.matches()) {
+						this.normalizations.get(language).putOuterFile(m.group(1), f);
 					}
 				}
 				
-				this.rules.put(language, new HashMap<String, InputStream>());
+				this.rules.put(language, new ResourceMap());
 				for(File f : ruleFiles) {
-					try {
-						Matcher m = rulePattern.matcher(f.getName());
-						if(m.matches()) {
-							this.rules.get(language).put(m.group(1), new FileInputStream(f));
-						}
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
+					Matcher m = rulePattern.matcher(f.getName());
+					if(m.matches()) {
+						this.rules.get(language).putOuterFile(m.group(1), f);
 					}
 				}
 			}
 		}
 	}
 	
-	public Map<String, InputStream> getRepatterns(String language) {
+	public ResourceMap getRepatterns(String language) {
 		return repatterns.get(language);
 	}
 	
-	public Map<String, InputStream> getNormalizations(String language) {
+	public ResourceMap getNormalizations(String language) {
 		return normalizations.get(language);
 	}
 	
-	public Map<String, InputStream> getRules(String language) {
+	public ResourceMap getRules(String language) {
 		return rules.get(language);
 	}
 }

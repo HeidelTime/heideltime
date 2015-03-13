@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.TreeMap;
 
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
@@ -41,7 +40,7 @@ public class RePatternManager extends GenericResourceManager {
 		// READ PATTERN RESOURCES FROM FILES AND STORE THEM //
 		//////////////////////////////////////////////////////
 		ResourceScanner rs = ResourceScanner.getInstance();
-		Map<String, InputStream> hmResourcesRePattern = rs.getRepatterns(language);
+		ResourceMap hmResourcesRePattern = rs.getRepatterns(language);
 		for (String which : hmResourcesRePattern.keySet()) {
 			hmAllRePattern.put(which, "");
 		}
@@ -66,18 +65,23 @@ public class RePatternManager extends GenericResourceManager {
 	 * READ THE REPATTERN FROM THE FILES. The files have to be defined in the HashMap hmResourcesRePattern.
 	 * @param hmResourcesRePattern RePattern resources to be interpreted
 	 */
-	private void readRePatternResources(Map<String, InputStream> hmResourcesRePattern) {
+	private void readRePatternResources(ResourceMap hmResourcesRePattern) {
 		
 		//////////////////////////////////////
 		// READ REGULAR EXPRESSION PATTERNS //
 		//////////////////////////////////////
+		InputStream is = null;
+		InputStreamReader isr = null;
+		BufferedReader br = null;
 		try {
 			for (String resource : hmResourcesRePattern.keySet()) {
 				Logger.printDetail(component, "Adding pattern resource: "+resource);
 				// create a buffered reader for every repattern resource file
-				BufferedReader in = new BufferedReader(new InputStreamReader(hmResourcesRePattern.get(resource), "UTF-8"));
+				is = hmResourcesRePattern.getInputStream(resource);
+				isr = new InputStreamReader(is, "UTF-8");
+				br = new BufferedReader(isr);
 				LinkedList<String> patterns = new LinkedList<String>();
-				for (String line; (line = in.readLine()) != null; ) {
+				for (String line; (line = br.readLine()) != null; ) {
 					// disregard comments
 					if (!line.startsWith("//") && !line.equals("")) {
 						patterns.add(replaceSpaces(line));
@@ -119,6 +123,20 @@ public class RePatternManager extends GenericResourceManager {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(br != null) {
+					br.close();
+				}
+				if(isr != null) {
+					isr.close();
+				}
+				if(is != null) {
+					is.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

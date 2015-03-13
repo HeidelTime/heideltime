@@ -2,6 +2,7 @@ package de.unihd.dbs.uima.annotator.intervaltagger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,6 +22,8 @@ import org.apache.uima.resource.ResourceInitializationException;
 
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
+import de.unihd.dbs.uima.annotator.heideltime.resources.ResourceMap;
+import de.unihd.dbs.uima.annotator.heideltime.resources.ResourceScanner;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
 import de.unihd.dbs.uima.types.heideltime.IntervalCandidateSentence;
@@ -61,7 +64,8 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 		find_intervals = (Boolean) aContext.getConfigParameterValue(PARAM_INTERVALS);
 		find_interval_candidates = (Boolean) aContext.getConfigParameterValue(PARAM_INTERVAL_CANDIDATES);
 		
-		readResources(readResourcesFromDirectory("rules"));
+		ResourceScanner rs = ResourceScanner.getInstance();
+		readResources(rs.getRules(language.getName()));
 	}
 	
 	/**
@@ -78,69 +82,65 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 	 * reads in heideltime's resource files.
 	 * @throws ResourceInitializationException
 	 */
-	private void readResources(HashMap<String, String> hmResourcesRules) throws ResourceInitializationException {
+	private void readResources(ResourceMap hmResourcesRules) throws ResourceInitializationException {
 		Pattern paReadRules = Pattern.compile("RULENAME=\"(.*?)\",EXTRACTION=\"(.*?)\",NORM_VALUE=\"(.*?)\"(.*)");
+		Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]*)");
+		
 		// read normalization data
+		InputStream is = null;
+		InputStreamReader isr = null;
+		BufferedReader br = null;
 		try {
 			for (String resource : hmResourcesRules.keySet()) {
-				BufferedReader br = new BufferedReader(new InputStreamReader (this.getClass().getClassLoader().getResourceAsStream(hmResourcesRules.get(resource))));
-				Logger.printDetail(component, "Adding rule resource: "+resource);
-				for ( String line; (line=br.readLine()) != null; ) {
-					if (!(line.startsWith("//"))) {
-						boolean correctLine = false;
-						if (!(line.equals(""))) {
-							Logger.printDetail("DEBUGGING: reading rules..."+ line);
-							// check each line for the name, extraction, and normalization part
-							for (MatchResult r : Toolbox.findMatches(paReadRules, line)) {
-								correctLine = true;
-								String rule_name          = r.group(1);
-								String rule_extraction    = r.group(2);
-								String rule_normalization = r.group(3);
-								
-								////////////////////////////////////////////////////////////////////
-								// RULE EXTRACTION PARTS ARE TRANSLATED INTO REGULAR EXPRESSSIONS //
-								////////////////////////////////////////////////////////////////////
-								// create pattern for rule extraction part
-								Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]*)");
-								RePatternManager rpm = RePatternManager.getInstance(language);
-								for (MatchResult mr : Toolbox.findMatches(paVariable,rule_extraction)) {
-									Logger.printDetail("DEBUGGING: replacing patterns..."+ mr.group());
-									if (!(rpm.containsKey(mr.group(1)))) {
-										Logger.printError("Error creating rule:"+rule_name);
-										Logger.printError("The following pattern used in this rule does not exist, does it? %"+mr.group(1));
-										System.exit(-1);
-									}
-									rule_extraction = rule_extraction.replaceAll("%"+mr.group(1), rpm.get(mr.group(1)));
-								}
-								rule_extraction = rule_extraction.replaceAll(" ", "[\\\\s]+");
-								Pattern pattern = null;
-								try{
-									pattern = Pattern.compile(rule_extraction);
-								}
-								catch (java.util.regex.PatternSyntaxException e) {
-									Logger.printError("Compiling rules resulted in errors.");
-									Logger.printError("Problematic rule is "+rule_name);
-									Logger.printError("Cannot compile pattern: "+rule_extraction);
-									e.printStackTrace();
-									System.exit(-1);
-								}
-								
-								/////////////////////////////////////////////////
-								// READ INTERVAL RULES AND MAKE THEM AVAILABLE //
-								/////////////////////////////////////////////////
-								if(resource.equals("intervalrules")){
-									hmIntervalPattern.put(pattern,rule_name);
-									hmIntervalNormalization.put(rule_name, rule_normalization);
-								}
+				is = hmResourcesRules.getInputStream(resource);
+				isr = new InputStreamReader(is, "UTF-8");
+				br = new BufferedReader(isr);
+				Logger.printDetail(component, "Adding rule resource: " + resource);
+				for(String line; (line = br.readLine()) != null; ) {
+					if(line.startsWith("//") || line.equals("")) {
+						continue;
+					}
+					
+					Logger.printDetail("DEBUGGING: reading rules..."+ line);
+					// check each line for the name, extraction, and normalization part
+					for (MatchResult r : Toolbox.findMatches(paReadRules, line)) {
+						String rule_name          = r.group(1);
+						String rule_extraction    = r.group(2);
+						String rule_normalization = r.group(3);
+						
+						////////////////////////////////////////////////////////////////////
+						// RULE EXTRACTION PARTS ARE TRANSLATED INTO REGULAR EXPRESSSIONS //
+						////////////////////////////////////////////////////////////////////
+						// create pattern for rule extraction part
+						RePatternManager rpm = RePatternManager.getInstance(language);
+						for (MatchResult mr : Toolbox.findMatches(paVariable,rule_extraction)) {
+							Logger.printDetail("DEBUGGING: replacing patterns..."+ mr.group());
+							if (!(rpm.containsKey(mr.group(1)))) {
+								Logger.printError("Error creating rule:"+rule_name);
+								Logger.printError("The following pattern used in this rule does not exist, does it? %"+mr.group(1));
+								System.exit(-1);
 							}
+							rule_extraction = rule_extraction.replaceAll("%"+mr.group(1), rpm.get(mr.group(1)));
+						}
+						rule_extraction = rule_extraction.replaceAll(" ", "[\\\\s]+");
+						Pattern pattern = null;
+						try{
+							pattern = Pattern.compile(rule_extraction);
+						}
+						catch (java.util.regex.PatternSyntaxException e) {
+							Logger.printError("Compiling rules resulted in errors.");
+							Logger.printError("Problematic rule is "+rule_name);
+							Logger.printError("Cannot compile pattern: "+rule_extraction);
+							e.printStackTrace();
+							System.exit(-1);
 						}
 						
-						///////////////////////////////////////////
-						// CHECK FOR PROBLEMS WHEN READING RULES //
-						///////////////////////////////////////////
-						if ((correctLine == false) && (!(line.matches("")))) {
-							Logger.printError(component, "Cannot read the following line of rule resource "+resource);
-							Logger.printError(component, "Line: "+line);
+						/////////////////////////////////////////////////
+						// READ INTERVAL RULES AND MAKE THEM AVAILABLE //
+						/////////////////////////////////////////////////
+						if(resource.equals("intervalrules")){
+							hmIntervalPattern.put(pattern,rule_name);
+							hmIntervalNormalization.put(rule_name, rule_normalization);
 						}
 					}
 				}
@@ -148,37 +148,23 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new ResourceInitializationException();
-		}
-	}
-
-	/**
-	 * Reads resource files of the type resourceType from the "used_resources.txt" file and returns a HashMap
-	 * containing information to access these resources.
-	 * @return HashMap containing filename/path tuples
-	 */
-	protected HashMap<String, String> readResourcesFromDirectory(String resourceType) {
-
-		HashMap<String, String> hmResources = new HashMap<String, String>();
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream("used_resources.txt")));
-		try {
-			for (String line; (line=br.readLine()) != null; ) {
-				String pathDelim = System.getProperty("file.separator");
-				Pattern paResource = Pattern.compile(".(?:\\"+pathDelim+"|/)?(\\"+pathDelim+"|/)"+language.getResourceFolder()+"(?:\\"+pathDelim+"|/)"+resourceType+"(?:\\"+pathDelim+"|/)"+"resources_"+resourceType+"_"+"(.*?)\\.txt");
-				for (MatchResult ro : Toolbox.findMatches(paResource, line)){
-					pathDelim = ro.group(1);
-					String foundResource  = ro.group(2);
-					String pathToResource = language.getResourceFolder()+ro.group(1)+resourceType+ro.group(1)+"resources_"+resourceType+"_"+foundResource+".txt";
-					hmResources.put(foundResource, pathToResource);
+		} finally {
+			try {
+				if(br != null) {
+					br.close();
 				}
+				if(isr != null) {
+					isr.close();
+				}
+				if(is != null) {
+					is.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			Logger.printError(component, "Failed to read a resource from used_resources.txt.");
-			System.exit(-1);
 		}
-		return hmResources;
 	}
+	
 	
 	/**
 	 * Extract Timex3Intervals, delimited by two Timex3Intervals in a sentence.
