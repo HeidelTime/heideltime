@@ -115,7 +115,7 @@ RULENAME="date_r2b_negative",EXTRACTION="\d-\d\d ans",NORM_VALUE="REMOVE"
 RULENAME="date_r2c_negative",EXTRACTION="\d\d-\d\d ans",NORM_VALUE="REMOVE"
 
 // EXAMPLE r3a_1: , 35 ans,
-RULENAME="date_r3a_negative",EXTRACTION="[^\s]*, \d ans,",NORM_VALUE="REMOVE"
+RULENAME="date_r3a2_negative",EXTRACTION="[^\s]*, \d ans,",NORM_VALUE="REMOVE"
 RULENAME="date_r3b_negative",EXTRACTION="[^\s]*, \d\d ans,",NORM_VALUE="REMOVE"
 
 
