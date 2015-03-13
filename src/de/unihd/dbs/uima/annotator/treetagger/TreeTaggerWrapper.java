@@ -542,88 +542,119 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	 * @param jcas JCas object supplied by the pipeline
 	 */
 	private void improveGermanSentences(JCas jcas) {
-		HashSet<String> hsSentenceBeginnings = new HashSet<String>();
-		hsSentenceBeginnings.add("Januar");
-		hsSentenceBeginnings.add("Februar");
-		hsSentenceBeginnings.add("März");
-		hsSentenceBeginnings.add("April");
-		hsSentenceBeginnings.add("Mai");
-		hsSentenceBeginnings.add("Juni");
-		hsSentenceBeginnings.add("Juli");
-		hsSentenceBeginnings.add("August");
-		hsSentenceBeginnings.add("September");
-		hsSentenceBeginnings.add("Oktober");
-		hsSentenceBeginnings.add("November");
-		hsSentenceBeginnings.add("Dezember");
-		hsSentenceBeginnings.add("Jahrhundert");
-		hsSentenceBeginnings.add("Jh");
-		hsSentenceBeginnings.add("Jahr");
-		hsSentenceBeginnings.add("Monat");
-		hsSentenceBeginnings.add("Woche");
+		/* 
+		 * these POS tag sequences will decide whether we want to merge two sentences
+		 * that have (supposedly wrongfully) been split.
+		 */
+		HashSet<String[]> posRules = new HashSet<String[]>();
+		posRules.add(new String[] {"CARD", "\\$.", "NN"});
+		posRules.add(new String[] {"CARD", "\\$.", "NE"});
 		
-		HashSet<de.unihd.dbs.uima.types.heideltime.Sentence> hsRemoveAnnotations = new HashSet<de.unihd.dbs.uima.types.heideltime.Sentence>();
-		HashSet<de.unihd.dbs.uima.types.heideltime.Sentence> hsAddAnnotations    = new HashSet<de.unihd.dbs.uima.types.heideltime.Sentence>();
+		FSIterator sentIter = jcas.getAnnotationIndex(Sentence.type).iterator();
 		
-		Boolean changes = true;
-		while (changes) {
-			changes = false;
-			FSIndex annoHeidelSentences = jcas.getAnnotationIndex(de.unihd.dbs.uima.types.heideltime.Sentence.type);
-			FSIterator iterHeidelSent   = annoHeidelSentences.iterator();
-			while (iterHeidelSent.hasNext()){
-				de.unihd.dbs.uima.types.heideltime.Sentence s1 = (de.unihd.dbs.uima.types.heideltime.Sentence) iterHeidelSent.next();
-				int substringOffset = java.lang.Math.max(s1.getCoveredText().length()-4,1);
-				if (s1.getCoveredText().substring(substringOffset).matches(".*[\\d]+\\.[\\s\\n]*$")){
-					if (iterHeidelSent.hasNext()){
-						de.unihd.dbs.uima.types.heideltime.Sentence s2 = (de.unihd.dbs.uima.types.heideltime.Sentence) iterHeidelSent.next();
-						iterHeidelSent.moveToPrevious();
-						boolean newBoundary = false;
-						for (String beg : hsSentenceBeginnings){
-							if (s2.getCoveredText().startsWith(beg)){
-								de.unihd.dbs.uima.types.heideltime.Sentence s3 = new de.unihd.dbs.uima.types.heideltime.Sentence(jcas);
-								s3.setBegin(s1.getBegin());
-								s3.setEnd(s2.getEnd());
-								hsAddAnnotations.add(s3);
-								hsRemoveAnnotations.add(s1);
-								hsRemoveAnnotations.add(s2);
-								newBoundary = true;
-								changes = true;
-								break;
-							}
-						}
-						if (newBoundary == false){
-							if (s2.getCoveredText().matches("^([a-z]).*")){
-								de.unihd.dbs.uima.types.heideltime.Sentence s3 = new de.unihd.dbs.uima.types.heideltime.Sentence(jcas);
-								s3.setBegin(s1.getBegin());
-								s3.setEnd(s2.getEnd());
-								hsAddAnnotations.add(s3);
-								hsRemoveAnnotations.add(s1);
-								hsRemoveAnnotations.add(s2);
-								newBoundary = true;
-								changes = true;
-							}
-						}
-						if (newBoundary == false){
-							if (s2.getCoveredText().matches("^[/].*")){
-								de.unihd.dbs.uima.types.heideltime.Sentence s3 = new de.unihd.dbs.uima.types.heideltime.Sentence(jcas);
-								s3.setBegin(s1.getBegin());
-								s3.setEnd(s2.getEnd());
-								hsAddAnnotations.add(s3);
-								hsRemoveAnnotations.add(s1);
-								hsRemoveAnnotations.add(s2);
-								changes = true;
-							}
+		// compare two sentences at a time in order to have access to all POS tags
+		HashSet<HashSet<Sentence>> toMerge = new HashSet<HashSet<Sentence>>();
+		Sentence prevSent = null, thisSent = null;
+		while(sentIter.hasNext()) {
+			if(thisSent == null) {
+				thisSent = (Sentence) sentIter.next();
+				continue;
+			}
+			
+			prevSent = thisSent;
+			thisSent = (Sentence) sentIter.next();
+			/* 
+			 * select the last two tokens within the previous sentence as well as the
+			 * first of the current one and check for matches.
+			 */
+			Token penultimateToken = null, ultimateToken = null, firstToken = null;
+			FSIterator tokIter = jcas.getAnnotationIndex(Token.type).subiterator(thisSent);
+			if(tokIter.hasNext()) {
+				firstToken = (Token) tokIter.next();
+			}
+			
+			tokIter = jcas.getAnnotationIndex(Token.type).subiterator(prevSent);
+			while(tokIter.hasNext()) {
+				if(ultimateToken == null) {
+					ultimateToken = (Token) tokIter.next();
+					continue;
+				}
+				penultimateToken = ultimateToken;
+				ultimateToken = (Token) tokIter.next();
+			}
+			
+			// check that all tokens for further analysis are present. if not: skip
+			if(penultimateToken == null || ultimateToken == null || firstToken == null) {
+				continue;
+			}
+			
+			// check rules, memorize sentences to be merged
+			for(String[] posRule : posRules) {
+				/* 
+				 * either one of the pre-defined POS rules fit, or the first token's 
+				 * covered text begins with lower case characters.
+				 */
+				if((penultimateToken.getPos() != null && penultimateToken.getPos().matches(posRule[0]) &&
+						ultimateToken.getPos() != null && ultimateToken.getPos().matches(posRule[1]) &&
+						firstToken.getPos() != null && firstToken.getPos().matches(posRule[2]))
+						||
+						(firstToken.getCoveredText().matches("^[a-z/].*"))) {
+					/* 
+					 * check whether one of the previous candidate pairs already 
+					 * contains one of our sentences.
+					 */
+					Boolean candidateExisted = false;
+					for(HashSet<Sentence> mergeCandidate : toMerge) {
+						if(mergeCandidate.contains(thisSent) || mergeCandidate.contains(prevSent)) {
+							// we add both here because sets ignore duplicates
+							mergeCandidate.add(prevSent);
+							mergeCandidate.add(thisSent);
+							
+							candidateExisted = true;
+							break;
 						}
 					}
+					
+					/* 
+					 * if one of the sentences was not already to be merged with another,
+					 * create a new merge candidate set
+					 */
+					if(!candidateExisted) {
+						HashSet<Sentence> newCandidate = new HashSet<Sentence>();
+						newCandidate.add(prevSent);
+						newCandidate.add(thisSent);
+						
+						toMerge.add(newCandidate);
+					}
+					
+					break; // don't need to do the next rules; already merging.
 				}
 			}
-			for (de.unihd.dbs.uima.types.heideltime.Sentence s : hsRemoveAnnotations){
-				s.removeFromIndexes(jcas);
+		}
+		
+		// iterate over the previously collected merge candidates
+		
+		for(HashSet<Sentence> mergeCandidate : toMerge) {
+			// find the earliest beginning and latest end for the set of sentences
+			Integer beginIndex = Integer.MAX_VALUE, endIndex = Integer.MIN_VALUE;
+
+			Sentence mergedSent = new Sentence(jcas);
+			for(Sentence s : mergeCandidate) {
+				if(s.getBegin() < beginIndex) {
+					beginIndex = s.getBegin();
+				}
+				
+				if(s.getEnd() > endIndex) {
+					endIndex = s.getEnd();
+				}
+				
+				s.removeFromIndexes();
 			}
-			hsRemoveAnnotations.clear();
-			for (de.unihd.dbs.uima.types.heideltime.Sentence s : hsAddAnnotations){
-				s.addToIndexes(jcas);
-			}
-			hsAddAnnotations.clear();
+			
+			// set values, add to jcas
+			mergedSent.setBegin(beginIndex);
+			mergedSent.setEnd(endIndex);
+			mergedSent.addToIndexes();
 		}
 	}
 }
