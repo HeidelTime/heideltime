@@ -385,7 +385,6 @@ RULENAME="x_date_r2a_negative",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VA
 RULENAME="x_date_r2b_negative",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(1):VVP:"
 RULENAME="x_date_r2c_negative",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(1):MD:"
 RULENAME="x_date_r2d_negative",EXTRACTION="(may|march|fall)",NORM_VALUE="REMOVE"
-RULENAME="x_date_r2d_negative",EXTRACTION="(may|march|fall)",NORM_VALUE="REMOVE"
 RULENAME="x_date_r2e_negative",EXTRACTION="(March) ([Ff]or|[Aa]gainst) ([A-Z][\S]+)",NORM_VALUE="REMOVE"
 
 // EXAMPLE r3a_negative_1: 2000 soldiers (four digit number followed by a plural noun)
