@@ -301,4 +301,23 @@ RULENAME="date_r28c",EXTRACTION="%reHolidayVar %reYear2Digit",NORM_VALUE="UNDEF-
 RULENAME="date_r1a_negative",EXTRACTION="(2[3456789]\d\d)",NORM_VALUE="REMOVE"
 RULENAME="date_r1b_negative",EXTRACTION="%reYear4Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NN:"
 RULENAME="date_r1c_negative",EXTRACTION="%reYear4Digit ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ADJA:group(3):NN:"
-RULENAME="date_r1f_negative",EXTRACTION="%reYear4Digit (m\b|km\b|ft\b|yr\b|dg\b|cm\b|ha\b|sq\b)",NORM_VALUE="REMOVE"
+RULENAME="date_r1d_negative",EXTRACTION="%reYear4Digit (m\b|km\b|ft\b|yr\b|dg\b|cm\b|ha\b|sq\b|PS\b)",NORM_VALUE="REMOVE"
+
+// Further negative rules (March 2015)
+// in particular 4-digit numbers are often critical   
+RULENAME="date_r1e1_negative",EXTRACTION="Märchen aus 1001 Nacht",NORM_VALUE="REMOVE"
+RULENAME="date_r1e2_negative",EXTRACTION="1001(-| )Nacht",NORM_VALUE="REMOVE"
+
+RULENAME="date_r2a_negative",EXTRACTION="([A-Z][\S]+)(straße|strasse|gasse|weg) (\d)+, %reYear4Digit ([A-Z][\S]+\b)",NORM_VALUE="REMOVE"
+RULENAME="date_r2b_negative",EXTRACTION="%reYear4Digit (Wien|Graz|Linz|Salzburg|Innsbruck)",NORM_VALUE="REMOVE"
+// 1600 Pennsylvania Avenue
+RULENAME="date_r2c_negative",EXTRACTION="%reYear4Digit [A-Z]([\S]+) (Avenue|Street)",NORM_VALUE="REMOVE"
+// Sitzungssaal 1901
+RULENAME="date_r2d_negative",EXTRACTION="([A-Z][\S]+)(saal|raum|zimmer) %reYear4Digit",NORM_VALUE="REMOVE"
+
+RULENAME="date_r4a_negative",EXTRACTION="[Rr]esolution %reYear4Digit",NORM_VALUE="REMOVE"
+
+RULENAME="date_r3a_negative",EXTRACTION="%reYear4Digit (davon)",NORM_VALUE="REMOVE"
+RULENAME="date_r3b_negative",EXTRACTION="([Kk]napp|[Ww]eniger als|[Mm]ehr als|[Rr]und|[Mm]indestens|[Hh]öchstens|[Mm]aximal) %reYear4Digit",NORM_VALUE="REMOVE"
+RULENAME="date_r3c_negative",EXTRACTION="(von|um) (%reYear4Digit|[\d]+) (auf) (%reYear4Digit|[\d]+)",NORM_VALUE="REMOVE"
+
