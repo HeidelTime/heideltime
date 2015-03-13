@@ -104,7 +104,7 @@ RULENAME="duration_r8c",EXTRACTION="([0-5]?[0-9])\s?'\s([0-5]?[0-9])\s?\"\s?[0-9
 RULENAME="duration_r8d",EXTRACTION="([0-5]?[0-9])\s?'\s([0-5]?[0-9])[.,][0-9][0-9]?\s?\"",NORM_VALUE="PTgroup(1)Mgroup(2)S"
 RULENAME="duration_r8e",EXTRACTION="(\d+)\s?[Hh]\s?([0-5]?[0-9])\s?'\s([0-5]?[0-9])\s?\"\s?[0-9]?[0-9]?",NORM_VALUE="PTgroup(1)Hgroup(2)Mgroup(3)S"
 RULENAME="duration_r8f",EXTRACTION="(\d+)\s?[Hh]\s?([0-5]?[0-9])\s?'\s([0-5]?[0-9])[.,][0-9][0-9]?\s?\"",NORM_VALUE="PTgroup(1)Hgroup(2)Mgroup(3)S"
-RULENAME="duration_r8e",EXTRACTION="(\d+)\s?[Hh]\s?([0-5]?[0-9])\s?'",NORM_VALUE="PTgroup(1)Hgroup(2)M"
+RULENAME="duration_r8g",EXTRACTION="(\d+)\s?[Hh]\s?([0-5]?[0-9])\s?'",NORM_VALUE="PTgroup(1)Hgroup(2)M"
 
 //////////////////////
 // FUZZY UNIT RULES //
