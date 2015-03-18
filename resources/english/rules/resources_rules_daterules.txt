@@ -392,10 +392,15 @@ RULENAME="x_date_r2e_negative",EXTRACTION="(March) ([Ff]or|[Aa]gainst) ([A-Z][\S
 // EXAMPLE r3c_negative_1: 2000 kilometer (four digit number followed a non-temporal unit)
 RULENAME="x_date_r3a_negative",EXTRACTION="%reYear4Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NNS:"
 RULENAME="x_date_r3b_negative",EXTRACTION="%reYear4Digit ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):JJ:group(3):NNS:"
-RULENAME="x_date_r3c_negative",EXTRACTION="%reYear4Digit (kilometers?|miles?|foot|feet|dollars?)",NORM_VALUE="REMOVE"
+RULENAME="x_date_r3c_negative",EXTRACTION="%reYear4Digit(-| )(mi|ft|km|kilometers?|miles?|foot|feet|dollars?)",NORM_VALUE="REMOVE"
 
 // EXAMPLE r4a_negative: W2000.1920
 RULENAME="x_date_r4a_negative",EXTRACTION="[\S]+%reYear4Digit\.%reYear4Digit",NORM_VALUE="REMOVE"
 
 // Telephone numbers
 RULENAME="x_date_r5a_negative",EXTRACTION="(\()?\d\d\d(\))? \d\d\d-\d\d\d\d",NORM_VALUE="REMOVE"
+
+
+
+// NEW NEGATIVE RULES: 2015-03-18 (jannik)
+RULENAME="x_date_r6a_negative",EXTRACTION="([Dd]ocument|[Nn]umber|[Ss]ection|[Rr]esolution|HR|UNSCR) %reYear4Digit",NORM_VALUE="REMOVE"
