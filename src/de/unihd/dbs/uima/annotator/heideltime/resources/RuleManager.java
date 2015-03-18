@@ -81,7 +81,7 @@ public class RuleManager extends GenericResourceManager {
 	 * @param language
 	 *            language of resources to be used
 	 */
-	private RuleManager(String language) {
+	protected RuleManager(String language) {
 		// Process Generic constructor with rules parameter
 		super("rules", language);
 
