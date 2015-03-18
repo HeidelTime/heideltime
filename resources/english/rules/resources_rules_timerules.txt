@@ -97,5 +97,5 @@ RULENAME="time_r6d",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*
 // time_r7
 // added 2015-03-18 (jannik)
 RULENAME="time_r7a",EXTRACTION="(%reApproximate )?%reTimeHour%reTimeMinute %reTimezone",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r7b",EXTRACTION="((%reApproximate )?%reTimeHour%reTimeMinute %reTimezone) on %reMonthLong %reDayNumber",NORM_VALUE="UNDEF-year-%normMonth(group(7))-%normDay(group(8))T%normDay(group(4)):group(5)",NORM_MOD="%normApprox4Dates(group(3))",OFFSET="group(1):group(1)"
+RULENAME="time_r7b",EXTRACTION="((%reApproximate )?%reTimeHour%reTimeMinute %reTimezone) on %reMonthLong %reDayNumber",NORM_VALUE="UNDEF-year-%normMonth(group(7))-%normDay(group(8))T%normDay(group(4)):group(5)",NORM_MOD="%normApprox4Dates(group(3))",OFFSET="group(1)-group(1)"
 

@@ -403,4 +403,10 @@ RULENAME="x_date_r5a_negative",EXTRACTION="(\()?\d\d\d(\))? \d\d\d-\d\d\d\d",NOR
 
 
 // NEW NEGATIVE RULES: 2015-03-18 (jannik)
-RULENAME="x_date_r6a_negative",EXTRACTION="([Dd]ocument|[Nn]umber|[Ss]ection|[Rr]esolution|HR|UNSCR) %reYear4Digit",NORM_VALUE="REMOVE"
+RULENAME="x_date_r6a_negative",EXTRACTION="([Aa]ssociation|[Dd]ocument|[Nn]umber|[Ss]ection|[Rr]esolution|HR|UNSCR|[Rr]oom|[Cc]all|[Ss]ervice at|[Pp]lan) (%reYear2Digit-)?%reYear4Digit",NORM_VALUE="REMOVE"
+
+// address
+RULENAME="x_date_r7a_negative",EXTRACTION="%reYear4Digit [A-Z]([\S]+) (Avenue|Street)",NORM_VALUE="REMOVE"
+
+// abbreviations
+RULENAME="x_date_r8a_negative",EXTRACTION="(\b[A-Z]|\b[A-Z][A-Z][A-Z])(-| )%reYear4Digit",NORM_VALUE="REMOVE"
