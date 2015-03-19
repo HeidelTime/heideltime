@@ -267,7 +267,9 @@ RULENAME="date_r15d",EXTRACTION="(%rePartWords( the)? (%reDayNumberTh|%reDayWord
 // EXAMPLE r16b_1: Early 2001
 // EXAMPLE r16c_1: the beginning of November 1999
 // EXAMPLE r16d_1: the middle of September
-RULENAME="date_r16a",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
+RULENAME="date_r16a",EXTRACTION="(%reMonthLong)",NORM_VALUE="UNDEF-year-%normMonth(group(1))"
+// 2015-03, Jannik: abbreviated month name on its own is quite dangerous
+//RULENAME="date_r16a",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(1))" 
 RULENAME="date_r16b",EXTRACTION="%rePartWords([ ]?)%reYear4Digit",NORM_VALUE="group(3)",NORM_MOD="%normPartWords(group(1))"
 RULENAME="date_r16c",EXTRACTION="%rePartWords([ ]?)(%reMonthLong|%reMonthShort) %reYear4Digit",NORM_VALUE="group(6)-%normMonth(group(3))",NORM_MOD="%normPartWords(group(1))"
 RULENAME="date_r16d",EXTRACTION="%rePartWords([ ]?)(%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(3))",NORM_MOD="%normPartWords(group(1))"
@@ -409,4 +411,6 @@ RULENAME="x_date_r6a_negative",EXTRACTION="([Aa]ssociation|[Dd]ocument|[Nn]umber
 RULENAME="x_date_r7a_negative",EXTRACTION="%reYear4Digit [A-Z]([\S]+) (Avenue|Street)",NORM_VALUE="REMOVE"
 
 // abbreviations
-RULENAME="x_date_r8a_negative",EXTRACTION="(\b[A-Z]|\b[A-Z][A-Z][A-Z])(-| )%reYear4Digit",NORM_VALUE="REMOVE"
+// NOT ONLY an "A" because this is likely to be a determiner
+RULENAME="x_date_r8a_negative",EXTRACTION="(\b[B-Z]|\b[A-Z][A-Z][A-Z])(-| )%reYear4Digit",NORM_VALUE="REMOVE"
+RULENAME="x_date_r8b_negative",EXTRACTION="(\bA)(-)%reYear4Digit",NORM_VALUE="REMOVE"
