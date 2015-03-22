@@ -92,6 +92,7 @@ RULENAME="time_r6a",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*[Aa][\.]?[Mm][
 RULENAME="time_r6b",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*[Pp][\.]?[Mm][\.]? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(4))T%SUM%(%normDay(group(3)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
 RULENAME="time_r6c",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*[Aa][\.]?[Mm][\.]? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(5))T%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
 RULENAME="time_r6d",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*[Pp][\.]?[Mm][\.]? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(5))T%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r6e",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(5))T%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
 
 
 // time_r7

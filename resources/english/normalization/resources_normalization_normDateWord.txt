@@ -35,4 +35,5 @@
 "previously","PAST_REF"
 "The day before yesterday","UNDEF-this-day-MINUS-2"
 "the day before yesterday","UNDEF-this-day-MINUS-2"
+"[Tt]he day after tomorrow","UNDEF-this-day-PLUS-2"
 

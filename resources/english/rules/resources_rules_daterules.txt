@@ -189,9 +189,9 @@ RULENAME="date_r8a",EXTRACTION="%reMonthLong (the )?%reThisNextLast year",NORM_V
 // EXAMPLE r9b_1: winter of 2001
 // EXAMPLE r9c_1: summer of 69
 RULENAME="date_r9a",EXTRACTION="%reSeason",NORM_VALUE="UNDEF-year-%normSeason(group(1))"
-RULENAME="date_r9b",EXTRACTION="%reSeason( of | )%reYear4Digit",NORM_VALUE="group(3)-%normSeason(group(1))"
-RULENAME="date_r9c",EXTRACTION="%reSeason( of | )%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normSeason(group(1))"
-RULENAME="date_r9d",EXTRACTION="%reSeason( of | )%reNumWordTeen( |-)%reNumWord2D",NORM_VALUE="%normDurationNumber(group(3))%normDurationNumber(group(5))-%normSeason(group(1))"
+RULENAME="date_r9b",EXTRACTION="([Tt]he )?%reSeason( of | )%reYear4Digit",NORM_VALUE="group(4)-%normSeason(group(2))"
+RULENAME="date_r9c",EXTRACTION="([Tt]he )?%reSeason( of | )%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(4)-%normSeason(group(2))"
+RULENAME="date_r9d",EXTRACTION="([Tt]he )?%reSeason( of | )%reNumWordTeen( |-)%reNumWord2D",NORM_VALUE="%normDurationNumber(group(4))%normDurationNumber(group(6))-%normSeason(group(2))"
 
 //////////////////////////////
 // PART-OF-YEAR GRANULARITY //
@@ -225,6 +225,7 @@ RULENAME="date_r12a",EXTRACTION="(the year )?%reYear4Digit",NORM_VALUE="group(2)
 RULENAME="date_r12b",EXTRACTION="%reYear4Digit%reAndOrTo%reYear2Digit",NORM_VALUE="%SUBSTRING%(group(1),0,2)group(3)",OFFSET="group(3)-group(3)"
 RULENAME="date_r12c",EXTRACTION="%reNumWordTeen( |-)%reNumWord2D",NORM_VALUE="%normDurationNumber(group(1))%normDurationNumber(group(3))"
 RULENAME="date_r12d",EXTRACTION="two( |-)thousand( and)? (%reNumWord2D|%reNumWord1D)",NORM_VALUE="20%normDurationNumber(group(3))"
+RULENAME="date_r12e",EXTRACTION="[Tt]he year two( |-)thousand",NORM_VALUE="2000"
 
 ////////////////////////
 // DECADE GRANULARITY //
@@ -377,7 +378,8 @@ RULENAME="date_r25d",EXTRACTION="%reHolidayVar '%reYear2Digit",NORM_VALUE="UNDEF
 // NEGATIVE RULES //
 ////////////////////
 // EXAMPLE r1a_negative_1: as soon as (do not match soon if it is in "as soon as")
-RULENAME="x_date_r1_negative",EXTRACTION="as soon as",NORM_VALUE="REMOVE"
+// "soon" should not be matched at all (2015-03-22, Jannik); removed from pattern
+//RULENAME="x_date_r1_negative",EXTRACTION="as soon as",NORM_VALUE="REMOVE"
 
 // EXAMPLE r2a_negative_1: they march the way (if it is a verb)
 // EXAMPLE r2b_negative_1: they march the way (if it is a verb)
@@ -387,7 +389,8 @@ RULENAME="x_date_r2a_negative",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VA
 RULENAME="x_date_r2b_negative",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(1):VVP:"
 RULENAME="x_date_r2c_negative",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(1):MD:"
 RULENAME="x_date_r2d_negative",EXTRACTION="(may|march|fall)",NORM_VALUE="REMOVE"
-RULENAME="x_date_r2e_negative",EXTRACTION="(March) ([Ff]or|[Aa]gainst) ([A-Z][\S]+)",NORM_VALUE="REMOVE"
+RULENAME="x_date_r2e_negative",EXTRACTION="(March) ([Ff]or|[Aa]gainst|[Tt]o) (the )?([A-Z][\S]+)",NORM_VALUE="REMOVE"
+RULENAME="x_date_r2f_negative",EXTRACTION="(Fall) ([Oo]f) (the )?([A-Z][\S]+)",NORM_VALUE="REMOVE"
 
 // EXAMPLE r3a_negative_1: 2000 soldiers (four digit number followed by a plural noun)
 // EXAMPLE r3b_negative_1: 2000 dead soldiers (four digit number followed by an adjective and a plural noun)
@@ -414,3 +417,9 @@ RULENAME="x_date_r7a_negative",EXTRACTION="%reYear4Digit [A-Z]([\S]+) (Avenue|St
 // NOT ONLY an "A" because this is likely to be a determiner
 RULENAME="x_date_r8a_negative",EXTRACTION="(\b[B-Z]|\b[A-Z][A-Z][A-Z])(-| )%reYear4Digit",NORM_VALUE="REMOVE"
 RULENAME="x_date_r8b_negative",EXTRACTION="(\bA)(-)%reYear4Digit",NORM_VALUE="REMOVE"
+
+// Money
+RULENAME="x_date_r9a_negative",EXTRACTION="([Ee]uro|EUR|Dollar|\$) [\d]+(-[\d]+)?",NORM_VALUE="REMOVE"
+
+// Unlikely (PAST|PRESENT|FUTURE)_REF expressions
+//RULENAME="x_date_r10a_negative",EXTRACTION="([Ss]oon after)",NORM_VALUE="REMOVE"
