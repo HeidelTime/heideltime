@@ -23,9 +23,9 @@ RULENAME="duration_r1e1",EXTRACTION="(%reApproximate |[Tt]he )?([\d]+)( more | )
 RULENAME="duration_r1e2",EXTRACTION="(%reApproximate )?([\d]+)( more | |-)(seconds?|minutes?|hours?)",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
 RULENAME="duration_r1f",EXTRACTION="(%reApproximate )?([Ss]everal|[Aa] couple of|[Ss]ome|[Mm]any|[Aa] few|[Rr]ecent|[Cc]oming) (seconds?|minutes?|hours?)",NORM_VALUE="PTX%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
 RULENAME="duration_r1g1",EXTRACTION="(%reApproximate )(an?)( )%reUnit",NORM_VALUE="P1%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
-RULENAME="duration_r1g2",EXTRACTION="(An?)( )%reUnit",NORM_VALUE="P1%normUnit4Duration(group(3))"
+RULENAME="duration_r1g2",EXTRACTION="([Aa]n?)( )%reUnit",NORM_VALUE="P1%normUnit4Duration(group(3))"
 RULENAME="duration_r1h1",EXTRACTION="(%reApproximate )(an?)( )(second|minute|hour)",NORM_VALUE="PT1%normUnit4Duration(group(5))"
-RULENAME="duration_r1h2",EXTRACTION="(An?)( )(second|minute|hour)",NORM_VALUE="PT1%normUnit4Duration(group(3))"
+RULENAME="duration_r1h2",EXTRACTION="([Aa]n?)( )(second|minute|hour)",NORM_VALUE="PT1%normUnit4Duration(group(3))",POS_CONSTRAINT="group(3):NN:"
 RULENAME="duration_r1i1",EXTRACTION="(%reApproximate )?a (hundred) %reUnit",NORM_VALUE="P100%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
 RULENAME="duration_r1i2",EXTRACTION="(%reApproximate )?%reNumWord1D (hundred) %reUnit",NORM_VALUE="P%normDurationNumber(group(3))00%normUnit4Duration(group(5))",NORM_MOD="%normApprox4Durations(group(2))"
 

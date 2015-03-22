@@ -116,8 +116,8 @@ RULENAME="date_r0f",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber",NORM_VA
 // EXAMPLE r1b_1: 25 February 2009
 // EXAMPLE r1c_1: 25 of February 2009
 RULENAME="date_r1a",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayNumberTh|%reDayNumber)[\s]?,? %reYear4Digit(, %reWeekday)?",NORM_VALUE="group(7)-%normMonth(group(1))-%normDay(group(4))"
-RULENAME="date_r1b",EXTRACTION="%reDayNumber (%reMonthLong|%reMonthShort)([\s]?,)? %reYear4Digit",NORM_VALUE="group(6)-%normMonth(group(2))-%normDay(group(1))"
-RULENAME="date_r1c",EXTRACTION="(%reDayWordTh|%reDayNumberTh|%reDayNumber) (of) (%reMonthLong|%reMonthShort) %reYear4Digit",NORM_VALUE="group(9)-%normMonth(group(6))-%normDay(group(1))"
+RULENAME="date_r1b",EXTRACTION="([Tt]he )?%reDayNumber (%reMonthLong|%reMonthShort)([\s]?,)? %reYear4Digit",NORM_VALUE="group(7)-%normMonth(group(3))-%normDay(group(2))"
+RULENAME="date_r1c",EXTRACTION="([Tt]he )?(%reDayWordTh|%reDayNumberTh|%reDayNumber) (of) (%reMonthLong|%reMonthShort) %reYear4Digit",NORM_VALUE="group(10)-%normMonth(group(7))-%normDay(group(2))"
 RULENAME="date_r1d",EXTRACTION="%reDayNumber[‐–-]%reMonthShort[‐–-]%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(2))-%normDay(group(1))"
 // date_r2
 // EXAMPLE r2a_1: November 19
@@ -130,7 +130,12 @@ RULENAME="date_r1d",EXTRACTION="%reDayNumber[‐–-]%reMonthShort[‐–-]%reYe
 // EXAMPLE r2c_3: 19th of November
 RULENAME="date_r2a",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayWordTh|%reDayNumberTh|%reDayNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(4))"
 RULENAME="date_r2b",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayWordTh|%reDayNumberTh|%reDayNumber)%reAndOrTo(%reDayWordTh|%reDayNumberTh|%reDayNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(9))",OFFSET="group(9)-group(9)"
-RULENAME="date_r2c",EXTRACTION="(%reDayWordTh|%reDayNumberTh|%reDayNumber)( of | )(%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(6))-%normDay(group(1))"
+RULENAME="date_r2c",EXTRACTION="([Tt]he )?(%reDayWordTh|%reDayNumberTh|%reDayNumber)( of | )(%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(7))-%normDay(group(2))"
+// EXAMPLE r2a2_1: January 19th of that year
+// EXAMPLE r2b2_1: 19th of January of the same year
+RULENAME="date_r2a2",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayWordTh|%reDayNumberTh|%reDayNumber) of (that|the same) year",NORM_VALUE="UNDEF-REF-year-PLUS-0-%normMonth(group(1))-%normDay(group(4))"
+RULENAME="date_r2c2",EXTRACTION="([Tt]he )?(%reDayWordTh|%reDayNumberTh|%reDayNumber)( of | )(%reMonthLong|%reMonthShort) of (that|the same) year",NORM_VALUE="UNDEF-REF-year-PLUS-0-%normMonth(group(7))-%normDay(group(2))"
+
 
 // date_r3
 // EXAMPLE r3a_1: Friday October 13
@@ -178,7 +183,9 @@ RULENAME="date_r7c",EXTRACTION="(%reMonthLong|%reMonthShort) (and|or|to|until) (
 // date_r8
 // EXAMPLE r8a_1: November next year
 // EXAMPLE r8a_2: May last year
+// EXAMPLE 
 RULENAME="date_r8a",EXTRACTION="%reMonthLong (the )?%reThisNextLast year",NORM_VALUE="UNDEF-%normThisNextLast(group(3))-year-%normMonth(group(1))"
+RULENAME="date_r8b",EXTRACTION="%reMonthLong of (that|the same) year",NORM_VALUE="UNDEF-REF-year-MINUS-0-%normMonth(group(1))"
 
 ////////////////////////
 // SEASON GRANULARITY //
@@ -188,10 +195,11 @@ RULENAME="date_r8a",EXTRACTION="%reMonthLong (the )?%reThisNextLast year",NORM_V
 // EXAMPLE r9b_1: winter 2001
 // EXAMPLE r9b_1: winter of 2001
 // EXAMPLE r9c_1: summer of 69
-RULENAME="date_r9a",EXTRACTION="%reSeason",NORM_VALUE="UNDEF-year-%normSeason(group(1))"
-RULENAME="date_r9b",EXTRACTION="([Tt]he )?%reSeason( of | )%reYear4Digit",NORM_VALUE="group(4)-%normSeason(group(2))"
-RULENAME="date_r9c",EXTRACTION="([Tt]he )?%reSeason( of | )%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(4)-%normSeason(group(2))"
-RULENAME="date_r9d",EXTRACTION="([Tt]he )?%reSeason( of | )%reNumWordTeen( |-)%reNumWord2D",NORM_VALUE="%normDurationNumber(group(4))%normDurationNumber(group(6))-%normSeason(group(2))"
+RULENAME="date_r9a",EXTRACTION="(%rePartWords |[Tt]he )?%reSeason",NORM_VALUE="UNDEF-year-%normSeason(group(3))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r9b",EXTRACTION="(%rePartWords |[Tt]he )?%reSeason( of | )%reYear4Digit",NORM_VALUE="group(5)-%normSeason(group(3))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r9c",EXTRACTION="(%rePartWords |[Tt]he )?%reSeason( of | )%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(5)-%normSeason(group(3))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r9d",EXTRACTION="(%rePartWords |[Tt]he )?%reSeason( of | )%reNumWordTeen( |-)%reNumWord2D",NORM_VALUE="%normDurationNumber(group(5))%normDurationNumber(group(7))-%normSeason(group(3))",NORM_MOD="%normPartWords(group(2))"
+
 
 //////////////////////////////
 // PART-OF-YEAR GRANULARITY //
@@ -289,6 +297,8 @@ RULENAME="date_r17d",EXTRACTION="([Tt]he )?%reThisNextLast %reWeekday",NORM_VALU
 RULENAME="date_r17e",EXTRACTION="([Tt]he )?%reThisNextLast %reSeason",NORM_VALUE="UNDEF-%normThisNextLast(group(2))-%normSeason(group(3))"
 RULENAME="date_r17f",EXTRACTION="[Tt]his day",NORM_VALUE="UNDEF-REF-day-PLUS-0"
 RULENAME="date_r17g",EXTRACTION="([Tt]he )?following %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-PLUS-1"
+RULENAME="date_r17h",EXTRACTION="([Tt]he |[Tt]hat |[Tt]his )?same (day|month|year)",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-PLUS-0"
+//RULENAME="date_r17i",EXTRACTION="([Tt]he )?previous %reUnit",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-MINUS-1"
 
 // date_r18
 // EXAMPLE r18a_1: the beginning of this year
@@ -388,9 +398,10 @@ RULENAME="date_r25d",EXTRACTION="%reHolidayVar '%reYear2Digit",NORM_VALUE="UNDEF
 RULENAME="x_date_r2a_negative",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(1):VBP:"
 RULENAME="x_date_r2b_negative",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(1):VVP:"
 RULENAME="x_date_r2c_negative",EXTRACTION="(%reMonthLong|%reMonthShort)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(1):MD:"
-RULENAME="x_date_r2d_negative",EXTRACTION="(may|march|fall)",NORM_VALUE="REMOVE"
+RULENAME="x_date_r2d1_negative",EXTRACTION="(may|march|fall)",NORM_VALUE="REMOVE"
+RULENAME="x_date_r2d2_negative",EXTRACTION="[Tt]he fall",NORM_VALUE="REMOVE"
 RULENAME="x_date_r2e_negative",EXTRACTION="(March) ([Ff]or|[Aa]gainst|[Tt]o) (the )?([A-Z][\S]+)",NORM_VALUE="REMOVE"
-RULENAME="x_date_r2f_negative",EXTRACTION="(Fall) ([Oo]f) (the )?([A-Z][\S]+)",NORM_VALUE="REMOVE"
+RULENAME="x_date_r2f_negative",EXTRACTION="([Tt]he )?(Fall) ([Oo]f) (the )?([A-Z][\S]+)",NORM_VALUE="REMOVE"
 
 // EXAMPLE r3a_negative_1: 2000 soldiers (four digit number followed by a plural noun)
 // EXAMPLE r3b_negative_1: 2000 dead soldiers (four digit number followed by an adjective and a plural noun)
