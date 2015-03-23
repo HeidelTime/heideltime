@@ -48,6 +48,8 @@ RULENAME="duration_r3d",EXTRACTION="([\d]+)( |-)stündige?[ns]?",NORM_VALUE="PTg
 // reUnitPlural
 RULENAME="duration_r4a",EXTRACTION="[Dd](ie|en) ([\S]+) %reUnitPlural",NORM_VALUE="PX%normUnit4Duration(group(3))","POS_CONSTRAINT="group(2):ADJA:"
 RULENAME="duration_r4b",EXTRACTION="[Dd](ie|en) %reUnitPlural",NORM_VALUE="PX%normUnit4Duration(group(2))"
+RULENAME="duration_r4c",EXTRACTION="([Ee]inigen?|[Ww]enigen?|[Vv]ielen?) %reUnitPlural",NORM_VALUE="PX%normUnit4Duration(group(2))"
+RULENAME="duration_r4d",EXTRACTION="([Ss]eit) %reUnitPlural",NORM_VALUE="PX%normUnit4Duration(group(2))",OFFSET="group(2)-group(2)"
 
 ////////////////////
 // NEGATIVE RULES //

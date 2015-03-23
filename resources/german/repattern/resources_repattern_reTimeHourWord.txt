@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for time hours.
+// FORMAT: one line is one disjunction of the pattern
+[Ee]ins
+[Zz]wei
+[Dd]rei
+[Vv]ier
+[Ff]ünf
+[Ss]echs
+[Ss]ieben
+[Aa]cht
+[Nn]eun
+[Zz]ehn
+[Ee]lf
+[ZZ]wölf

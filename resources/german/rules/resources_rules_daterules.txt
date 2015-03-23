@@ -294,6 +294,12 @@ RULENAME="date_r28a",EXTRACTION="%reHolidayVar",NORM_VALUE="UNDEF-year-00-00 %no
 RULENAME="date_r28b",EXTRACTION="%reHolidayVar %reYear4Digit",NORM_VALUE="group(2)-00-00 %normHolidayVar(group(1))"
 RULENAME="date_r28c",EXTRACTION="%reHolidayVar %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-00-00 %normHolidayVar(group(1))"
 
+
+// PAST, PRESENT, FUTURE expressions
+RULENAME="date_r29a",EXTRACTION="([Ee]inigen?|[Ww]enigen?|[Vv]ielen?) %reUnit (später)",NORM_VALUE="FUTURE_REF"
+RULENAME="date_r29b",EXTRACTION="([Ee]inigen?|[Ww]enigen?|[Vv]ielen?) %reUnit (früher)",NORM_VALUE="PAST_REF"
+
+
 ////////////////////
 // NEGATIVE RULES //
 ////////////////////
