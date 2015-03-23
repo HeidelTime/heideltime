@@ -4,34 +4,37 @@
 // This file contains rules for the temporal expressions of the type date: daterules
 // RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
 
+// Note: rule with "-BCADhint" in the rule name contain explicit BC or AD information.
+//       This information is important during the normalization process.
+
 ///////////////////
 // History RULES //
 ///////////////////
 
 // historic dates; year granularity; with explicit AD / BC hints
-// EXAMPLE date_historic_1a-BCADhint:   190 BC        (1- to 4-digit year)
-// EXAMPLE date_historic_1b-BCADhint:   BC 190        (1- to 4-digit year)
-// EXAMPLE x_date_historic_1c-BCADhint: 190 or 180 BC (find "190 BC"; 1- to 4-digit year)
+// EXAMPLE historic_1a-BCADhint:   190 BC        (1- to 4-digit year)
+// EXAMPLE historic_1b-BCADhint:   BC 190        (1- to 4-digit year)
+// EXAMPLE historic_1c-BCADhint:   190 or 180 BC (find "190 BC"; 1- to 4-digit year)
 RULENAME="date_historic_1a-BCADhint",EXTRACTION="(%reApproximate )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
 RULENAME="date_historic_1b-BCADhint",EXTRACTION="(%reApproximate )?%reYearPrefix %reYearBC",NORM_VALUE="%normYearPrefix(group(3))%normYearBC(group(4))",NORM_MOD="%normApprox4Dates(group(2))"
 RULENAME="x_date_historic_1c-BCADhint",EXTRACTION="(%reApproximate )?%reYearBC%reAndOrTo%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(6))%normYearBC(group(3))",NORM_MOD="%normApprox4Dates(group(2))",OFFSET="group(0)-group(3)"
 
 // historic dates; month granularity
-// EXAMPLE date_historic_2a-BCADhint: March 190 BC  (1- to 4-digit year)
-// EXAMPLE date_historic_2b:          March 190     (3-digit year)
-// EXAMPLE date_historic_2c:          (in) March 90 (2-digit year)
-// EXAMPLE date_historic_2d:          March of 90   (2-digit year)
+// EXAMPLE historic_2a-BCADhint:   March 190 BC  (1- to 4-digit year)
+// EXAMPLE historic_2b:            March 190     (3-digit year)
+// EXAMPLE historic_2c:            (in) March 90 (2-digit year)
+// EXAMPLE historic_2d:            March of 90   (2-digit year)
 RULENAME="date_historic_2a-BCADhint",EXTRACTION="(%reApproximate )?(%reMonthLong|%reMonthShort)( of | )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(8))%normYearBC(group(7))-%normMonth(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
 RULENAME="date_historic_2b",EXTRACTION="(%reApproximate )?(%reMonthLong|%reMonthShort)( of | )([\d][\d][\d])",NORM_VALUE="%normYearBC(group(7))-%normMonth(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
 RULENAME="date_historic_2c",EXTRACTION="([Ii]n )(%reMonthLong|%reMonthShort)( of | )%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(6)-%normMonth(group(2))",OFFSET="group(2)-group(6)"
 RULENAME="date_historic_2d",EXTRACTION="(%reMonthLong|%reMonthShort)( of )%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(5)-%normMonth(group(1))"
 
 // historic dates; day granularity
-// EXAMPLE date_historic_3a-BCADhint: March 29, 190 BC        (1- to 4-digit year)
-// EXAMPLE date_historic_3b-BCADhint: 29 March 190 BC         (1- to 4-digit year)
-// EXAMPLE date_historic_3c-BCADhint: 29th of March 29 190 BC (1- to 4-digit year)
-// EXAMPLE date_historic_3d-BCADhint: March 29, 190           (3-digit year)
-// EXAMPLE date_historic_3e-BCADhint: March 29, 90            (2-digit year)
+// EXAMPLE historic_3a-BCADhint:   March 29, 190 BC     (1- to 4-digit year)
+// EXAMPLE historic_3b-BCADhint:   29 March 190 BC      (1- to 4-digit year)
+// EXAMPLE historic_3c-BCADhint:   29th of March 190 BC (1- to 4-digit year)
+// EXAMPLE historic_3d-BCADhint:   March 29, 190        (3-digit year)
+// EXAMPLE historic_3e-BCADhint:   March 29, 90         (2-digit year)
 RULENAME="date_historic_3a-BCADhint",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayNumberTh|%reDayNumber)[\s]?,? %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(8))%normYearBC(group(7))-%normMonth(group(1))-%normDay(group(4))"
 RULENAME="date_historic_3b-BCADhint",EXTRACTION="%reDayNumber (%reMonthLong|%reMonthShort)([\s]?,)? %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))-%normMonth(group(2))-%normDay(group(1))"
 RULENAME="date_historic_3c-BCADhint",EXTRACTION="(%reDayWordTh|%reDayNumberTh|%reDayNumber) (of) (%reMonthLong|%reMonthShort) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(10))%normYearBC(group(9))-%normMonth(group(6))-%normDay(group(1))"
@@ -39,7 +42,7 @@ RULENAME="date_historic_3d",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayNumb
 RULENAME="date_historic_3e",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayNumberTh|%reDayNumber)(,)? ([\d\d])",NORM_VALUE="UNDEF-centurygroup(8)-%normMonth(group(1))-%normDay(group(4))"
 
 // historic dates; season granularity
-// EXAMPLE date_historic_4a-BCADhint: summer of 190 BC (1- to 4-digit year)
+// EXAMPLE historic_4a-BCADhint:   summer of 190 BC (1- to 4-digit year)
 RULENAME="date_historic_4a-BCADhint",EXTRACTION="(%reApproximate )?(the )?%reSeason( of | )%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(7))%normYearBC(group(6))-%normSeason(group(4))",NORM_MOD="%normApprox4Dates(group(2))"
 
 // historic dates; century granularity
@@ -73,8 +76,8 @@ RULENAME="date_historic_7d",EXTRACTION="([Tt]he )?(year) (of) (\d\d)",NORM_VALUE
 RULENAME="date_historic_7e",EXTRACTION="([Tt]he )?(year) (of) (\d\d\d)",NORM_VALUE="%normYearBC(group(4))"
 
 // historic dates; 2-digit year granularity (no AD / BC hints)
-// EXAMPLE date_historic_8a: (in) 90(,) (3-digit year)
-// EXAMPLE date_historic_8b: (in) 90    (3-digit year)
+// EXAMPLE date_historic_8a: (in) 90(,) (2-digit year)
+// EXAMPLE date_historic_8b: (in) 90    (2-digit year)
 RULENAME="date_historic_8a",EXTRACTION="(\b[Ii]n) (\d\d)(,)",NORM_VALUE="UNDEF-centurygroup(2)",OFFSET="group(2)-group(2)"
 RULENAME="date_historic_8b",EXTRACTION="(\b[Ii]n) (\d\d)",NORM_VALUE="UNDEF-centurygroup(2)",OFFSET="group(2)-group(2)"
 
@@ -86,7 +89,7 @@ RULENAME="date_historic_8b",EXTRACTION="(\b[Ii]n) (\d\d)",NORM_VALUE="UNDEF-cent
 RULENAME="date_historic_0a_negative",EXTRACTION="(\b[Ii]n) (%reYearBC )([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(4):NNS:",OFFSET="group(2)-group(2)"
 RULENAME="date_historic_0b_negative",EXTRACTION="(\b[Ii]n) (%reYearBC )([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(4):JJ:group(5):NNS:",OFFSET="group(2)-group(2)"
 RULENAME="date_historic_0c_negative",EXTRACTION="(\b[Ii]n) (%reYearBC )([\S]+) ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(4):JJ:group(5):NN:group(6):NNS:",OFFSET="group(2)-group(2)"
-RULENAME="date_historic_0d_negative",EXTRACTION="(\b[Ii]n) (%reYearBC )(kilometers?|miles?|foot|feet|dollars?|percents?|millions?)",NORM_VALUE="REMOVE"
+RULENAME="date_historic_0d_negative",EXTRACTION="(\b[Ii]n) (%reYearBC )(kilometers?|miles?|foot|feet|dollars?|percents?|millions?|mi|ft|km|%|\$)",NORM_VALUE="REMOVE"
 
 ////////////////////
 // POSITIVE RULES //
@@ -408,7 +411,7 @@ RULENAME="x_date_r2f_negative",EXTRACTION="([Tt]he )?(Fall) ([Oo]f) (the )?([A-Z
 // EXAMPLE r3c_negative_1: 2000 kilometer (four digit number followed a non-temporal unit)
 RULENAME="x_date_r3a_negative",EXTRACTION="%reYear4Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NNS:"
 RULENAME="x_date_r3b_negative",EXTRACTION="%reYear4Digit ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):JJ:group(3):NNS:"
-RULENAME="x_date_r3c_negative",EXTRACTION="%reYear4Digit(-| )(mi|ft|km|kilometers?|miles?|foot|feet|dollars?)",NORM_VALUE="REMOVE"
+RULENAME="x_date_r3c_negative",EXTRACTION="%reYear4Digit(-| )(kilometers?|miles?|foot|feet|dollars?|percents?|millions?|mi|ft|km|%|\$)",NORM_VALUE="REMOVE"
 
 // EXAMPLE r4a_negative: W2000.1920
 RULENAME="x_date_r4a_negative",EXTRACTION="[\S]+%reYear4Digit\.%reYear4Digit",NORM_VALUE="REMOVE"
