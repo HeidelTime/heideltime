@@ -104,13 +104,17 @@ RULENAME="date_historic_0d_negative",EXTRACTION="(\b[Ii]n) (%reYearBC )(kilomete
 // EXAMPLE r0c_1: 09/26/1999
 // EXAMPLE r0d_1: 09/26/99
 // EXAMPLE r0e_1: 7-14 (AP) (find 7-14)
+// EXAMPLE r0g_1: 1.3.99
+// EXAMPLE r0h_1: 1.3.1999
 RULENAME="date_r0a",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)",NORM_VALUE="group(1)"
 RULENAME="date_r0b",EXTRACTION="(%reMonthNumber-%reDayNumber-%reYear2Digit)",NORM_VALUE="UNDEF-centurygroup(4)-group(2)-group(3)"
 RULENAME="date_r0c",EXTRACTION="%reMonthNumber/%reDayNumber/%reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(1))-%normDay(group(2))"
 RULENAME="date_r0d",EXTRACTION="%reMonthNumber/%reDayNumber/%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(1))-%normDay(group(2))"
 RULENAME="date_r0e",EXTRACTION="%reMonthNumber-%reDayNumber( \(.*?\))",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(2))",OFFSET="group(1)-group(2)"
-// NEW for ACE Tern 2005 training
 RULENAME="date_r0f",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber",NORM_VALUE="group(1)-group(2)-group(3)"
+RULENAME="date_r0g",EXTRACTION="%reDayNumber[\.]%reMonthNumber[\.]%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(2))-%normDay(group(1))"
+RULENAME="date_r0h",EXTRACTION="%reDayNumber[\.]%reMonthNumber[\.]%reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))"
+
 
 // date_r1
 // EXAMPLE r1a_1: February 25, 2009
@@ -119,9 +123,10 @@ RULENAME="date_r0f",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber",NORM_VA
 // EXAMPLE r1b_1: 25 February 2009
 // EXAMPLE r1c_1: 25 of February 2009
 RULENAME="date_r1a",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayNumberTh|%reDayNumber)[\s]?,? %reYear4Digit(, %reWeekday)?",NORM_VALUE="group(7)-%normMonth(group(1))-%normDay(group(4))"
-RULENAME="date_r1b",EXTRACTION="([Tt]he )?%reDayNumber (%reMonthLong|%reMonthShort)([\s]?,)? %reYear4Digit",NORM_VALUE="group(7)-%normMonth(group(3))-%normDay(group(2))"
+RULENAME="date_r1b",EXTRACTION="([Tt]he )?(%reDayWordTh|%reDayNumberTh|%reDayNumber) (%reMonthLong|%reMonthShort)([\s]?,)? %reYear4Digit",NORM_VALUE="group(10)-%normMonth(group(6))-%normDay(group(2))"
 RULENAME="date_r1c",EXTRACTION="([Tt]he )?(%reDayWordTh|%reDayNumberTh|%reDayNumber) (of) (%reMonthLong|%reMonthShort) %reYear4Digit",NORM_VALUE="group(10)-%normMonth(group(7))-%normDay(group(2))"
 RULENAME="date_r1d",EXTRACTION="%reDayNumber[‐–-]%reMonthShort[‐–-]%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(2))-%normDay(group(1))"
+
 // date_r2
 // EXAMPLE r2a_1: November 19
 // EXAMPLE r2a_2: Nov 19
@@ -131,9 +136,13 @@ RULENAME="date_r1d",EXTRACTION="%reDayNumber[‐–-]%reMonthShort[‐–-]%reYe
 // EXAMPLE r2c_1: 19 November
 // EXAMPLE r2c_2: 19 Nov
 // EXAMPLE r2c_3: 19th of November
+// EXAMPLE r2d_1: 3 to 6 May (find May 3)
+// EXAMPLE r2e_2: 3 to 6 May 2004 (find May 3, 2004)
 RULENAME="date_r2a",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayWordTh|%reDayNumberTh|%reDayNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(4))"
 RULENAME="date_r2b",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayWordTh|%reDayNumberTh|%reDayNumber)%reAndOrTo(%reDayWordTh|%reDayNumberTh|%reDayNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(9))",OFFSET="group(9)-group(9)"
 RULENAME="date_r2c",EXTRACTION="([Tt]he )?(%reDayWordTh|%reDayNumberTh|%reDayNumber)( of | )(%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(7))-%normDay(group(2))"
+RULENAME="date_r2d",EXTRACTION="(%reDayWordTh|%reDayNumberTh|%reDayNumber[\.]?)%reAndOrTo(%reDayWordTh|%reDayNumberTh|%reDayNumber[.]?) (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(10))-%normDay(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="date_r2e",EXTRACTION="(%reDayWordTh|%reDayNumberTh|%reDayNumber[\.]?)%reAndOrTo(%reDayWordTh|%reDayNumberTh|%reDayNumber[.]?) (%reMonthLong|%reMonthShort) %reYear4Digit",NORM_VALUE="group(13)-%normMonth(group(10))-%normDay(group(1))",OFFSET="group(1)-group(1)"
 // EXAMPLE r2a2_1: January 19th of that year
 // EXAMPLE r2b2_1: 19th of January of the same year
 RULENAME="date_r2a2",EXTRACTION="(%reMonthLong|%reMonthShort) (%reDayWordTh|%reDayNumberTh|%reDayNumber) of (that|the same) year",NORM_VALUE="UNDEF-REF-year-PLUS-0-%normMonth(group(1))-%normDay(group(4))"
@@ -219,9 +228,10 @@ RULENAME="date_r10c",EXTRACTION="([Tt]he )?%reYear4Digit %rePartOfYear",NORM_VAL
 // EXAMPLE r11a_1: this year's third quarter
 // EXAMPLE r11a_2: next year's first quarter
 // EXAMPLE r11b_1: the year-earlier first half
+// EXAMPLE r11c_1: the second half of this year
 RULENAME="date_r11a",EXTRACTION="%reThisNextLast year's %rePartOfYear",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normPartOfYear(group(2))"
 RULENAME="date_r11b",EXTRACTION="[Tt]he (year-earlier|year-ago) %rePartOfYear",NORM_VALUE="UNDEF-last-year-%normPartOfYear(group(2))"
-
+RULENAME="date_r11c",EXTRACTION="([Tt]he )?%rePartOfYear of %reThisNextLast year",NORM_VALUE="UNDEF-%normThisNextLast(group(3))-year-%normPartOfYear(group(2))"
 
 //////////////////////
 // YEAR GRANULARITY //
