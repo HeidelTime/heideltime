@@ -1,13 +1,23 @@
 // author: Jannik Strötgen
 // email:  stroetgen@uni-hd.de
-// date:   2011-06-10
+// date:   2015-03-25 (adapted)
 // This file contains regular expression patterns for parts of year.
 // FORMAT: one line is one disjunction of the pattern
+// Quartale
 [Ee]rste[ns]? Quartals?
 [Zz]weite[ns]? Quartals?
 [Dd]ritte[ns]? Quartals?
 [Vv]ierte[ns]? Quartals?
 [Ll]etzte[ns]? Quartals?
-[Ee]rste[n]? Hälfte
-[Zz]weite[n]? Hälfte
-[Ll]etzte[n]? Hälfte
+1\. Quartals?
+2\. Quartals?
+3\. Quartals?
+4\. Quartals?
+// Jahreshälften
+[Ee]rste[ns]? Hälfte
+[Zz]weite[ns]? Hälfte
+[Ll]etzte[ns]? Hälfte
+[Ee]rste[ns]? Halbjahr(es)?
+[Zz]weite[ns]? Halbjahr(es)?
+[Ee]rste[ns]? Jahreshälfte
+[Zz]weite[ns]? Jahreshälfte

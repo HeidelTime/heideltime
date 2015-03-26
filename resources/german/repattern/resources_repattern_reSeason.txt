@@ -3,13 +3,13 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for seasons.
 // FORMAT: one line is one disjunction of the pattern
-[Ff]rühling
-[Ff]rühjahr
-[Hh]ochsommer
-[Ss]pätsommer
-[Ff]rühsommer
-[Ss]ommer
-[Ss]pätherbst
-[Ff]rühherbst
-[Hh]erbst
-[Ww]inter
+[Ff]rühlings?
+[Ff]rühjahre?s?
+[Hh]ochsommers?
+[Ss]pätsommers?
+[Ff]rühsommers?
+[Ss]ommers?
+[Ss]pätherbsts?
+[Ff]rühherbsts?
+[Hh]erbsts?
+[Ww]inters?

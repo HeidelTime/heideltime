@@ -1,6 +1,6 @@
 // author: Jannik Strötgen
 // email:  stroetgen@uni-hd.de
-// date:   2014-03-14
+// date:   2015-03-25 (adapted)
 // This file contains rules for the temporal expressions of the type date: daterules
 // RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
 
@@ -168,8 +168,9 @@ RULENAME="date_r12c",EXTRACTION="%reSeason( des Jahres | )%reYear2Digit",NORM_VA
 // date_r13
 // EXAMPLE r13a_1: das erste Quartal 2001
 // EXAMPLE r13a_1: das erste Quartal
-RULENAME="date_r13a",EXTRACTION="([Dd]as |[Dd]er |[Dd]ie )?%rePartOfYear of %reYear4Digit",NORM_VALUE="group(3)-%normPartOfYear(group(2))"
-RULENAME="date_r13b",EXTRACTION="([Tt]he )?%rePartOfYear",NORM_VALUE="UNDEF-year-%normPartOfYear(group(2))"
+RULENAME="date_r13a",EXTRACTION="([Dd]as |[Dd]er |[Dd]ie )?%rePartOfYear (des Jahres )?%reYear4Digit",NORM_VALUE="group(4)-%normPartOfYear(group(2))"
+RULENAME="date_r13b",EXTRACTION="([Dd]as |[Dd]er |[Dd]ie )?%rePartOfYear",NORM_VALUE="UNDEF-year-%normPartOfYear(group(2))"
+RULENAME="date_r13c",EXTRACTION="([Dd]as |[Dd]er |[Dd]ie )?%rePartOfYear des Vorjahres",NORM_VALUE="UNDEF-REF-year-MINUS-1%normPartOfYear(group(2))"
 
 //////////////////////
 // Year Granularity //
@@ -220,7 +221,8 @@ RULENAME="date_r19a",EXTRACTION="([Dd]ie |[Dd]en )?%reYear4Digit(ern|er)( Jahren
 RULENAME="date_r19b",EXTRACTION="([Dd]ie |[Dd]en )?%reYear2Digit(ern|er)( Jahren?|-Jahren?)?",NORM_VALUE="UNDEF-century%SUBSTRING%(group(2),0,1)"
 RULENAME="date_r19c",EXTRACTION="([Dd]ie |[Dd]en )?%rePartWords([ ]?)%reYear4Digit(ern|er)( Jahren?|-Jahren?)?",NORM_VALUE="%SUBSTRING%(group(4),0,3)",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_r19d",EXTRACTION="([Dd]ie |[Dd]en )?%rePartWords([ ]?)%reYear2Digit(ern|er)( Jahren?|-Jahren?)?",NORM_VALUE="UNDEF-century%SUBSTRING%(group(4),0,1)",NORM_MOD="%normPartWords(group(2))"
-
+RULENAME="date_r19e",EXTRACTION="([Dd]ie |[Dd]en )?%reDecadeWord( [Jj]ahren?|jahren?)?",NORM_VALUE="UNDEF-century%normDecadeWord(group(2))"
+RULENAME="date_r19f",EXTRACTION="([Dd]ie |[Dd]en )?%rePartWords der %reDecadeWord( [Jj]ahren?|jahren?)?",NORM_VALUE="UNDEF-century%normDecadeWord(group(3))",NORM_MOD="%normPartWords(group(2))"
 
 // date_r20
 // EXAMPLE r20a_1: dieses Jahr

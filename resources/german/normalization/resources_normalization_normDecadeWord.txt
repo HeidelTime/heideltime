@@ -1,24 +1,15 @@
 // author: Jannik Strötgen
 // email:  stroetgen@uni-hd.de
-// date:   2011-06-10
+// date:   2015-03-25 (adapted)
 // This file contains "decade words" and their normalized expressions
 // according to TIMEX3 format.
 // For example, the normalized value of "Zwanziger" is "2"
 // FORMAT: "decade-word","normalized-decade-word"
-"zwanziger","2"
-"dreißiger","3"
-"vierziger","4"
-"fünfziger","5"
-"sechziger","6"
-"siebziger","7"
-"achtziger","8"
-"neunziger","9"
-// UPPER CASE
-"Zwanziger","2"
-"Dreißiger","3"
-"Vierziger","4"
-"Fünfziger","5"
-"Sechziger","6"
-"Siebziger","7"
-"Achtziger","8"
-"Neunziger","9"
+"[Zz]wanzigern?","2"
+"[Dd]reißigern?","3"
+"[Vv]ierzigern?","4"
+"[Ff]ünfzigern?","5"
+"[Ss]echzigern?","6"
+"[Ss]iebzigern?","7"
+"[Aa]chtzigern?","8"
+"[Nn]eunzigern?","9"
