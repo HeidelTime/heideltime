@@ -8,16 +8,17 @@
 [Tt]he day before yesterday
 [Yy]esterday
 [Tt]oday
+[Tt]he day after tomorrow
 [Tt]omorrow
 [Rr]ight now
 [Nn]ow
 [Aa]s soon as possible
-[Ss]oon
 [Rr]ecently
 [Rr]ecent
 [Cc]urrently
 [Cc]urrent
+// [Ss]oon
 // [Pp]reviously
 // [Yy]et
-//[Ff]ormerly
-//[Ff]ormer
+// [Ff]ormerly
+// [Ff]ormer

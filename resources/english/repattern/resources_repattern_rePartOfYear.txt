@@ -55,3 +55,9 @@
 [Ll]ast half
 [Ll]ast-quarter
 [Ll]ast-half
+1st quarter
+2nd quarter
+3rd quarter
+4th quarter
+1st half
+2nd half
