@@ -6,17 +6,16 @@
 // For example, the normalized value of "Sommer" is "SU"
 // FORMAT: "season-word","normalized-season-word"
 // spring
-"[Ff]rühling","SP"
-"[Ff]rühjahr","SP"
+"[Ff]rühlings?","SP"
+"[Ff]rühjahre?s?","SP"
 //summer
-"[Hh]ochsommer","SU"
-"[Ss]pätsommer","SU"
-"[Ff]rühsommer","SU"
-"[Ss]ommer","SU"
+"[Hh]ochsommers?","SU"
+"[Ss]pätsommers?","SU"
+"[Ff]rühsommers?","SU"
+"[Ss]ommers?","SU"
 // fall
-"[Ss]pätherbst","FA"
-"[Ff]rühherbst","FA"
-"[Hh]erbst","FA"
+"[Ss]pätherbsts?","FA"
+"[Ff]rühherbsts?","FA"
+"[Hh]erbsts?","FA"
 // winter
-"winter","WI"
-"Winter","WI"
+"[Ww]inters?","WI"

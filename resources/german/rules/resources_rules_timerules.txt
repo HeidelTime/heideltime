@@ -46,9 +46,24 @@ RULENAME="time_r3a",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute( Uhr
 RULENAME="time_r3b",EXTRACTION="(%reApproximate )?%reTimeHour (Uhr) %reTimeMinute",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):group(5)"
 RULENAME="time_r3c",EXTRACTION="(%reApproximate )?%reTimeHour Uhr",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):00"
 
+RULENAME="time_r3d1",EXTRACTION="(%reApproximate )?%reTimeHourWord Uhr( morgens)?",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):00"
+RULENAME="time_r3d2",EXTRACTION="(%reApproximate )?%reTimeHourWord Uhr (abends|nachmittags)",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):00"
+RULENAME="time_r3d3",EXTRACTION="(%reApproximate )?%reTimeHourWordAll Uhr",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):00"
+
+
 
 // time_r4
 // EXAMPLE r4a_1: Morgen des 1. August 2000
 // EXAMPLE r4b_1: Morgen des 1. August
 RULENAME="time_r4a",EXTRACTION="(%reApproximate )?%rePartOfDay (des) (%reDayNumber)([\.]? |[\.])(%reMonthLong|%reMonthShort|%reMonthNumber[\.]?),? %reYear4Digit",NORM_VALUE="group(12)-%normMonth(group(8))-%normDay(group(5))T%normPartOfDay(group(3))"
 RULENAME="time_r4b",EXTRACTION="(%reApproximate )?%rePartOfDay (des) (%reDayNumber)([\.]? |[\.])(%reMonthLong|%reMonthShort|%reMonthNumber[\.]?)",NORM_VALUE="UNDEF-year-%normMonth(group(8))-%normDay(group(5))T%normPartOfDay(group(3))"
+
+// time_r5
+// EXAMPLE r5a-1: (am) Morgen 
+// EXAMPLE r5b-1: nächsten Morgen
+// EXAMPLE r5c-1: (am) Morgen desselben Tages
+RULENAME="time_r5a",EXTRACTION="(\b[Aa]m) %rePartOfDay",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(2))",OFFSET="group(2)-group(2)"
+RULENAME="time_r5b",EXTRACTION="%reThisNextLast %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normPartOfDay(group(2))"
+RULENAME="time_r5c",EXTRACTION="(de[rm]selben?) %rePartOfDay",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normPartOfDay(group(2))"
+RULENAME="time_r5d",EXTRACTION="%rePartOfDay (desselben|dieses) (Tages)",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normPartOfDay(group(1))"
+

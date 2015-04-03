@@ -1,6 +1,6 @@
 // author: Jannik Strötgen
 // email:  stroetgen@uni-hd.de
-// date:   2014-03-14
+// date:   2015-03-25 (adapted)
 // This file contains rules for the temporal expressions of the type date: daterules
 // RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
 
@@ -168,8 +168,9 @@ RULENAME="date_r12c",EXTRACTION="%reSeason( des Jahres | )%reYear2Digit",NORM_VA
 // date_r13
 // EXAMPLE r13a_1: das erste Quartal 2001
 // EXAMPLE r13a_1: das erste Quartal
-RULENAME="date_r13a",EXTRACTION="([Dd]as |[Dd]er |[Dd]ie )?%rePartOfYear of %reYear4Digit",NORM_VALUE="group(3)-%normPartOfYear(group(2))"
-RULENAME="date_r13b",EXTRACTION="([Tt]he )?%rePartOfYear",NORM_VALUE="UNDEF-year-%normPartOfYear(group(2))"
+RULENAME="date_r13a",EXTRACTION="([Dd]as |[Dd]er |[Dd]ie )?%rePartOfYear (des Jahres )?%reYear4Digit",NORM_VALUE="group(4)-%normPartOfYear(group(2))"
+RULENAME="date_r13b",EXTRACTION="([Dd]as |[Dd]er |[Dd]ie )?%rePartOfYear",NORM_VALUE="UNDEF-year-%normPartOfYear(group(2))"
+RULENAME="date_r13c",EXTRACTION="([Dd]as |[Dd]er |[Dd]ie )?%rePartOfYear des Vorjahres",NORM_VALUE="UNDEF-REF-year-MINUS-1%normPartOfYear(group(2))"
 
 //////////////////////
 // Year Granularity //
@@ -220,7 +221,8 @@ RULENAME="date_r19a",EXTRACTION="([Dd]ie |[Dd]en )?%reYear4Digit(ern|er)( Jahren
 RULENAME="date_r19b",EXTRACTION="([Dd]ie |[Dd]en )?%reYear2Digit(ern|er)( Jahren?|-Jahren?)?",NORM_VALUE="UNDEF-century%SUBSTRING%(group(2),0,1)"
 RULENAME="date_r19c",EXTRACTION="([Dd]ie |[Dd]en )?%rePartWords([ ]?)%reYear4Digit(ern|er)( Jahren?|-Jahren?)?",NORM_VALUE="%SUBSTRING%(group(4),0,3)",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_r19d",EXTRACTION="([Dd]ie |[Dd]en )?%rePartWords([ ]?)%reYear2Digit(ern|er)( Jahren?|-Jahren?)?",NORM_VALUE="UNDEF-century%SUBSTRING%(group(4),0,1)",NORM_MOD="%normPartWords(group(2))"
-
+RULENAME="date_r19e",EXTRACTION="([Dd]ie |[Dd]en )?%reDecadeWord( [Jj]ahren?|jahren?)?",NORM_VALUE="UNDEF-century%normDecadeWord(group(2))"
+RULENAME="date_r19f",EXTRACTION="([Dd]ie |[Dd]en )?%rePartWords der %reDecadeWord( [Jj]ahren?|jahren?)?",NORM_VALUE="UNDEF-century%normDecadeWord(group(3))",NORM_MOD="%normPartWords(group(2))"
 
 // date_r20
 // EXAMPLE r20a_1: dieses Jahr
@@ -294,11 +296,50 @@ RULENAME="date_r28a",EXTRACTION="%reHolidayVar",NORM_VALUE="UNDEF-year-00-00 %no
 RULENAME="date_r28b",EXTRACTION="%reHolidayVar %reYear4Digit",NORM_VALUE="group(2)-00-00 %normHolidayVar(group(1))"
 RULENAME="date_r28c",EXTRACTION="%reHolidayVar %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(2)-00-00 %normHolidayVar(group(1))"
 
+
+// PAST, PRESENT, FUTURE expressions
+RULENAME="date_r29a",EXTRACTION="([Ee]inigen?|[Ww]enigen?|[Vv]ielen?) %reUnit (später)",NORM_VALUE="FUTURE_REF"
+RULENAME="date_r29b",EXTRACTION="([Ee]inigen?|[Ww]enigen?|[Vv]ielen?) %reUnit (früher)",NORM_VALUE="PAST_REF"
+
+
 ////////////////////
 // NEGATIVE RULES //
 ////////////////////
 // CHECK THESE RULES (the German tag set is not equal to the English tag set)
 RULENAME="date_r1a_negative",EXTRACTION="(2[3456789]\d\d)",NORM_VALUE="REMOVE"
-RULENAME="date_r1b_negative",EXTRACTION="%reYear4Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NN:"
-RULENAME="date_r1c_negative",EXTRACTION="%reYear4Digit ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ADJA:group(3):NN:"
-RULENAME="date_r1f_negative",EXTRACTION="%reYear4Digit (m\b|km\b|ft\b|yr\b|dg\b|cm\b|ha\b|sq\b)",NORM_VALUE="REMOVE"
+RULENAME="date_r1b1_negative",EXTRACTION="%reYear4Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NN:"
+RULENAME="date_r1b2_negative",EXTRACTION="%reYear4Digit (respektive|von|oder) (%reYear4Digit|[\d]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(5):NN:"
+RULENAME="date_r1c1_negative",EXTRACTION="%reYear4Digit ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ADJA:group(3):NN:"
+RULENAME="date_r1c2_negative",EXTRACTION="%reYear4Digit ([\S]+) ([\S]+) ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ADJA:group(3):KON:group(4):ADJA:group(5):NN:"
+RULENAME="date_r1d_negative",EXTRACTION="%reYear4Digit (m\b|km\b|ft\b|yr\b|dg\b|cm\b|ha\b|sq\b|PS\b)",NORM_VALUE="REMOVE"
+
+// Further negative rules (March 2015, Jannik Strötgen)
+// typical fairy tail expression    
+// EXAMPLE r1e1_negative: Märchen aus 1001 Nacht
+// EXAMPLE r1e2_negative: 1001-Nacht
+RULENAME="date_r1e1_negative",EXTRACTION="Märchen aus 1001 Nacht",NORM_VALUE="REMOVE"
+RULENAME="date_r1e2_negative",EXTRACTION="1001(-| )Nacht",NORM_VALUE="REMOVE"
+
+// Further negative rules (March 2015, Jannik Strötgen)
+// Addresses and room numbers
+// EXAMPLE r2a_negative: Sonnenfelsgasse 19, 1010 Wien
+// EXAMPLE r2b_negative: 1010 Wien
+// EXAMPLE r2c_negative: 1600 Pennsylvania Avenue
+// EXAMPLE r2d_negative: Sitzungssaal 1901
+RULENAME="date_r2a_negative",EXTRACTION="([A-Z][\S]+)?([Ss]traße|[Ss]trasse|[Gg]asse|[Ww]eg) (\d)+, %reYear4Digit ([A-Z][\S]+\b)",NORM_VALUE="REMOVE"
+RULENAME="date_r2b_negative",EXTRACTION="%reYear4Digit (Wien|Graz|Linz|Salzburg|Innsbruck)",NORM_VALUE="REMOVE"
+RULENAME="date_r2c_negative",EXTRACTION="%reYear4Digit [A-Z]([\S]+) (Avenue|Street)",NORM_VALUE="REMOVE"
+RULENAME="date_r2d_negative",EXTRACTION="([A-Z][\S]+)?([Ss]aal|[Rr]aum|[Zz]immer) %reYear4Digit",NORM_VALUE="REMOVE"
+
+// Further negative rules (March 2015, Jannik Strötgen)
+// EXAMPLE r3a_negative: 1200 davon [sind tot]
+// EXAMPLE r3b_negative: mindestens 2000 [sind tot]
+// EXAMPLE r3c_negative: von 2000 auf 1800 [reduziert] 
+RULENAME="date_r3a_negative",EXTRACTION="%reYear4Digit (davon)",NORM_VALUE="REMOVE"
+RULENAME="date_r3b_negative",EXTRACTION="([Üü]ber|[Dd]arunter|[Dd]avon|[Kk]napp|[Ww]eniger als|[Mm]ehr als|[Rr]und|[Mm]indestens|[Hh]öchstens|[Mm]aximal|[Ww]eitere) %reYear4Digit",NORM_VALUE="REMOVE"
+RULENAME="date_r3c_negative",EXTRACTION="(von|um) (%reYear4Digit|[\d]+) (auf) (%reYear4Digit|[\d]+)",NORM_VALUE="REMOVE"
+
+// Further negative rules (March 2015, Jannik Strötgen)
+// EXAMPLE r4a_negative: UN Resolution 1441
+RULENAME="date_r4a_negative",EXTRACTION="([Rr]esolution|[Ee]ntschließung) %reYear4Digit",NORM_VALUE="REMOVE"
+
