@@ -179,6 +179,13 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 * @see JCasAnnotator_ImplBase#process(JCas)
 	 */
 	public void process(JCas jcas) {
+		// check whether a given DCT (if any) is of the correct format and if not, skip this call
+		if(!isValidDCT(jcas)) {
+			Logger.printError(component, "The reader component of this workflow has set an incorrect DCT."
+					+ " HeidelTime expects either \"YYYYMMDD\" or \"YYYY-MM-DD...\". This document was skipped.");
+			return;
+		}
+		
 		// run preprocessing processors
 		procMan.executeProcessors(jcas, Priority.PREPROCESSING);
 		
@@ -2456,5 +2463,32 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		}
 		return value;
 	}
+	
+	/**
+	 * Check whether or not a jcas object has a correct DCT value.
+	 * If there is no DCT present, we canonically return true since
+	 * fallback calculation takes care of that scenario.
+	 * @param jcas
+	 * @return Whether or not the given jcas contains a valid DCT
+	 */
+	private Boolean isValidDCT(JCas jcas) {
+		FSIterator dctIter = jcas.getAnnotationIndex(Dct.type).iterator();
 		
+		if(!dctIter.hasNext()) {
+			return true;
+		} else {
+			Dct dct = (Dct) dctIter.next();
+			String dctVal = dct.getValue();
+			
+			if(dctVal == null)
+				return false;
+			
+			if(dctVal.matches("\\d{8}") // Something like 20041224
+					|| dctVal.matches("\\d{4}.\\d{2}.\\d{2}.*")) { // Something like 2004-12-24
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
 }
