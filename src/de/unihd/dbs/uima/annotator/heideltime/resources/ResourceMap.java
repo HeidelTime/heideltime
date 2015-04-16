@@ -5,9 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 
@@ -66,7 +68,24 @@ public class ResourceMap implements Map<String, String> {
 
 	@Override
 	public Set<String> keySet() {
-		Set<String> set = outerFiles.keySet();
+		Set<String> set = new TreeSet<String>(new Comparator<String>() {
+			@Override
+			public int compare(String arg0, String arg1) {
+				// identical strings are deemed identical
+				if(arg0.equals(arg1))
+					return 0;
+				
+				/* 
+				 * => Sort by length of string in descending order.
+				 * We cannot allow a 0 because TreeSet uses compareTo()
+				 * to detect identical values instead of using equals().
+				 */
+				Integer lengthDiff = arg1.length() - arg0.length();
+				return lengthDiff == 0 ? -1 : lengthDiff;
+			}
+		});
+		
+		set.addAll(outerFiles.keySet());
 		set.addAll(innerFiles.keySet());
 		
 		return set;
