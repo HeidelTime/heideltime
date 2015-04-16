@@ -416,7 +416,7 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 			Timex3 timex3 = (Timex3) iterTimex3.next();
 			
 			//DATE Pattern
-			Pattern pDate = Pattern.compile("(\\d+)(-(\\d+))?(-(\\d+))?(T(\\d+))?(:(\\d+))?(:(\\d+))?");
+			Pattern pDate = Pattern.compile("(?:BC)?(\\d+)(-(\\d+))?(-(\\d+))?(T(\\d+))?(:(\\d+))?(:(\\d+))?");
 			Pattern pCentury = Pattern.compile("(\\d\\d)");
 			Pattern pDecate = Pattern.compile("(\\d\\d\\d)");
 			Pattern pQuarter = Pattern.compile("(\\d+)-Q([1-4])");
