@@ -55,7 +55,7 @@ public class ResourceMap implements Map<String, String> {
 				Logger.printError("File " + key + " disppeared while loading resources.");
 			}
 		} else if(innerFiles.containsKey(key)) {
-			is = this.getClass().getClassLoader().getResourceAsStream(key);
+			is = this.getClass().getClassLoader().getResourceAsStream(innerFiles.get(key));
 		}
 		
 		return is;
