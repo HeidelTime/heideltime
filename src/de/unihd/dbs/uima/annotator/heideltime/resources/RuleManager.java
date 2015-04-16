@@ -4,7 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
@@ -118,8 +124,28 @@ public class RuleManager extends GenericResourceManager {
 		InputStream is = null;
 		InputStreamReader isr = null;
 		BufferedReader br = null;
+		
+		LinkedList<String> resourceKeys = new LinkedList<String>(hmResourcesRules.keySet());
+		
+		// sort DATE > TIME > DURATION > SET > rest
+		Collections.sort(resourceKeys, new Comparator<String>() {
+			@Override
+			public int compare(String arg0, String arg1) {
+				if("daterules".equals(arg0)) {
+					return -1;
+				} else if("timerules".equals(arg0) && !"daterules".equals(arg1)) {
+					return -1;
+				} else if("durationrules".equals(arg0) && !"daterules".equals(arg1) && !"timerules".equals(arg1)) {
+					return -1;
+				} else if("setrules".equals(arg0) && !"daterules".equals(arg1) && !"timerules".equals(arg1) && !"durationrules".equals(arg1)) {
+					return -1;
+				}
+				return 1;
+			}
+		});
+		
 		try {
-			for (String resource : hmResourcesRules.keySet()) {
+			for (String resource : resourceKeys) {
 				is = hmResourcesRules.getInputStream(resource);
 				isr = new InputStreamReader(is, "UTF-8");
 				br = new BufferedReader(isr);
