@@ -1,0 +1,13 @@
+// author: Zunsik Lim, Antonio Cancela Diaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains regular expression patterns for parts of year.
+// FORMAT: one line is one disjunction of the pattern
+[Pp]rimeiro trimestre( d[eo] ano fiscal)?
+[Pp]rimeira metade( d[eo] ano fiscal)?
+[Ss]egundo trimestre( d[eo] ano fiscal)?
+[Ss]egunda metade( d[eo] ano fiscal)?
+[Tt]erceiro trimestre( d[eo] ano fiscal)?
+[Qq]uarto trimestre( d[eo] ano fiscal)?
+[Úú]ltimo trimestre( d[eo] ano fiscal)?
+[Úú]ltima metade

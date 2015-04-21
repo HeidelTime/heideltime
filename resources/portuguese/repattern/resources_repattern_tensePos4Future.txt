@@ -1,0 +1,14 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2012-07-16
+// This file contains regular expression patterns for POS tags indicating future.
+// It has to be this pos and in addition the token has to be listed in tenseWord4Future
+// FORMAT: one line is one disjunction of the pattern
+// These tags have to be matched for "future tense" and in addition
+// the token with such a tag has to be included in tenseWord4Future
+VLfin
+VEfin
+VHfin
+VSfin
+VCLIfin
+ADV

@@ -1,0 +1,35 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains contains "part words" and their normalized expressions
+// according to TIMEX3 format. 
+// For example, the normalized value of "the middle of" is "MID"
+// FORMAT: "part word","normalized-part-word"
+// START
+//"[Cc]omienzo del?","START"
+//"[Ii]nicio del?","START"
+//"[Mm]ás temprano","START"
+//"[Pp]rincipios? del?","START"
+//"[Tt]emprano","START"
+"[Cc]omeço d[eo]","START"
+"[Ii]nício d[eo]","START"
+"[Mm]ais cedo","START"
+"[Cc]edo","START"
+// MID
+//"[Mm]ediados","MID"
+//"[Mm]edio del?","MID"
+//"[Mm]edio","MID"
+//"[Mm]itad del?","MID"
+"[Mm]eios? d[eo]","MID"
+"[Me]etade","MID"
+"[Me]etade d[eo]","MID"
+// END
+//"[Ff]inal(es)? del?","END"
+//"[Ff]in(es)? del?","END"
+//"[Tt]arde","END"
+//"[Mm]ás tarde","END"
+"[Ff]im d[eo]","END"
+"[Tt]arde","END"
+"[Mm]ais tarde","END"
+// OTHER
+"[Ff]iscal\-?",""

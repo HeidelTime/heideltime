@@ -1,0 +1,12 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains "set words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "daily" is "XXXX-XX-XX"
+// FORMAT: "set-word","normalized-set-word"
+"[Aa]nualmente","P1Y"
+"[Aa]nual(es)?","P1Y"
+"[Mm]ensalmente","P1M"
+"[Dd]iáriamente","P1D"
+"[Ss]emanalmente","P1W"

@@ -1,0 +1,15 @@
+// author: Zunsik Lim, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains regular expression patterns for words indicating future.
+// FORMAT: one line is one disjunction of the pattern
+// We have not a word which indicates the "future" tense, but
+// the verb has another conjugation. For example: 
+// The tags in tensePos4Future have to be matched for "future tense" and in addition
+// the token with such a tag has to be included in tenseWord4Future:
+[A-Z]?[a-z]+[eai]rei
+[A-Z]?[a-z]+[eai]rás
+[A-Z]?[a-z]+[eai]rá
+[A-Z]?[a-z]+[eai]remos
+[A-Z]?[a-z]+[eai]reis
+[A-Z]?[a-z]+[eai]rão

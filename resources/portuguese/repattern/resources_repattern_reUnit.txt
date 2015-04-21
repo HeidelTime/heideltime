@@ -1,0 +1,15 @@
+// author: Zunsik Lim, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains regular expression patterns for unit words.
+// FORMAT: one line is one disjunction of the pattern
+[Dd]dias? comu[mn]s?
+[Dd]ias? de negociação
+[Dd]ias?
+[Ff]in(s)? de semana
+[Ss]emanas?
+[Mm][eê]s(es)?
+[Tt]rimestres?
+[Aa]nos?
+[Dd]écadas?
+[Ss]éculos?

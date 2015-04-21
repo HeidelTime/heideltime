@@ -1,0 +1,16 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains regular expression patterns for number words 10 to 20.
+// FORMAT: one line is one disjunction of the pattern
+[Dd]ez
+[Oo]nze
+[Dd]oze
+[Tt]reze
+[Cc]atorze
+[Qq]uinze
+[Dd]ez[ae]sseis
+[Dd]ez[ae]ssete
+[Dd]ezoito
+[Dd]ez[ae]nove
+[Vv]inte
