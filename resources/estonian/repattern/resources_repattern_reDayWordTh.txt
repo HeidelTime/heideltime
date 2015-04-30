@@ -1,0 +1,38 @@
+// author: Annika Boldt
+// email:  a.boldt@stud.uni-heidelberg.de
+// date:   2014-11-17
+// This file contains regular expression patterns for day word th.
+// FORMAT: one line is one disjunction of the pattern
+[Ee]simine
+[Tt]eine
+[Kk]olmas
+[Nn]eljas
+[Vv]iies
+[Kk]uues
+[Ss]eitsmes
+[Kk]aheksas
+[Üü]heksas
+[Kk]ümmnes
+[Kk]ümne
+[Üü]heteistkümnes
+[Kk]aheteistkümnes
+[Kk]olmeteistkümnes
+[Nn]eljateistkümnes
+[Vv]iieteistkümnes
+[Kk]uueteistkümnes
+[Ss]eitsmeteistkümnes
+[Kk]aheksateistkümnes
+[Üü]heksateistkümnes
+[Kk]ahekümnes
+[Kk]ahekümne esimene
+[Kk]ahekümne teine
+[Kk]ahekümne kolmas
+[Kk]ahekümne neljas
+[Kk]ahekümne viies
+[Kk]ahekümne kuues
+[Kk]ahekümne seitsmes
+[Kk]ahekümne kaheksas
+[Kk]ahekümne üheksas
+[Kk]olmekümnes
+[Kk]olmekümne esimene
+[Kk]olmekümne teine

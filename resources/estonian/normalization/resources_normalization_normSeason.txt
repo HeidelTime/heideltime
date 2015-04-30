@@ -1,0 +1,29 @@
+// author: Annika Boldt
+// email:  aboldt@uni-heidelberg.de
+// date:   2014-12-10
+// This file contains "season words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "summer" is "SU"
+// FORMAT: "season-word","normalized-season-word"
+// spring
+"kevade","SP"
+"Kevade","SP"
+"kevad","SP"
+"Kevad","SP"
+"kevadel","SP"
+"Kevadel","SP"
+//summer
+"suvi","SU"
+"Suvi","SU"
+"suvel","SU"
+"Suvel","SU"
+// fall
+"sügis","FA"
+"Sügis","FA"
+"Sügisel","FA"
+"sügisel","FA"
+// winter
+"talv","WI"
+"Talv","WI"
+"talvel","WI"
+"Talvel","WI"

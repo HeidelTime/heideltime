@@ -1,0 +1,29 @@
+// author: Annika Boldt
+// email:  aboldt@stud.uni-heidelberg.de
+// date:   2014-12-10
+// This file contains regular expression patterns for holidays on a moveable date.
+// FORMAT: one line is one disjunction of the pattern
+//
+
+[Ss]uure?l?e? [Rr]eedel?e?
+[Üü]lestõusmispüha
+[Mm]unadepühad 
+[Ll]ihavõtted
+[Ll]ihavõttepühad
+[Nn]elipühad
+
+[Ee]madepäev
+[Ii]sadepäev
+
+// advent sundays: the four sundays before christmas(12-24)
+1\. [Aa]dvent
+[Ee]simene [Aa]dvent
+
+2\. [Aa]dvent
+[Tt]eine [Aa]dvent
+
+3\. [Aa]dvent
+[Kk]olmas [Aa]dvent
+
+4\. [Aa]dvent
+[Nn]eljas [Aa]dvent

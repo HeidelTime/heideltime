@@ -1,0 +1,16 @@
+// author: Annika Boldt
+// email:  a.boldt@uni-heidelberg.de
+// date:   2014-11-24
+// This file contains regular expression patterns for number words 10 to 20.
+// FORMAT: one line is one disjunction of the pattern
+[Kk]ümme
+[Üü]ksteist
+[Kk]aksteist
+[Kk]olmteist
+[Nn]eliteist
+[Vv]iisteist
+[Kk]uusteist
+[Ss]eitseteist
+[Kk]aheksateist
+[Üü]heksateist
+[Kk]akskümmend

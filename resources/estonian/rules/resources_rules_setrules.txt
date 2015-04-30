@@ -1,0 +1,20 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-13
+// This file contains rules for the temporal expressions of the type set: setrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////
+// EVERY UNIT //
+////////////////
+
+// set_r1
+// EXAMPLE set_r1a: iga päev
+// EXAMPLE set_r2a: iga esmaspäev
+// EXAMPLE set_r3a: iga suvi
+// EXAMPLE set_r4a: iga jaanuar
+
+RULENAME="set_r1a",EXTRACTION="%reSetWords %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_QUANT="EVERY"
+RULENAME="set_r2a",EXTRACTION="%reSetWords %reWeekday",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1W"
+RULENAME="set_r3a",EXTRACTION="%reSetWords %reSeason",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1S"
+RULENAME="set_r4a",EXTRACTION="%reSetWords $reMonthLong",NORM_VALUE="XXXX-%normMonth(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1M"

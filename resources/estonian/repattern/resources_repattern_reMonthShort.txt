@@ -1,0 +1,17 @@
+// author: Annika Boldt
+// email:  aboldt@uni-heidelberg.de	
+// date:   2014-12-10
+// This file contains regular expression patterns for short months.
+// FORMAT: one line is one disjunction of the pattern
+[Jj]aan\.
+[Vv]eebr\.
+[Mm]ärts
+[Aa]pr\.
+[Mm]ai
+[Jj]uuni
+[Jj]uuli
+[Aa]ug\.
+[Ss]ept\.
+[Oo]kt\.
+[Nn]ov\.
+[Dd]ets\.

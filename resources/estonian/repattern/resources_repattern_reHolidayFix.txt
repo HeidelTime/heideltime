@@ -1,0 +1,14 @@
+// author: Annika Boldt
+// email:  aboldt@uni-heidelberg.de
+// date:   2014-12-10
+// This file contains regular expression patterns for holidays on a fix date.
+// FORMAT: one line is one disjunction of the pattern
+
+[Uu]usaastal?
+[Ii]seseisvuspäeva?l?
+[Kk]evadpühal?
+[Vv]õidupühal?
+[Jj]aanipäeva?l?
+[Tt]aasiseseisvumispäeva?l?
+[Jj]õulude?l?
+[Ss]õprapäev

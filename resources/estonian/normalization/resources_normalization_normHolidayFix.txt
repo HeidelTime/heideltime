@@ -1,0 +1,56 @@
+// author: Hans-Peter Pfeiffer
+// email:  H.Pfeiffer@stud.uni-heidelberg.de
+// date:   2012-02-11
+// This file contains fix holiday and their normalized expressions.
+// For example, the normalized value of "Newyear" is "01-01"
+// FORMAT: "hoilday_name","month-year"
+// 
+i// the reference of the values is given in the repattern file
+
+// [Uu]usaasta or [Uu]usaastal
+"Uusaasta","01-01"
+"uusaasta","01-01"
+"Uusaastal","01-01"
+"uusaastal","01-01"
+
+// [Ss]õprapäev or [Ss]õprapäeval
+"Sõprapäev","02-14"
+"sõprapäev","02-14"
+"Sõprapäeval","02-14"
+"sõprapäeval","02-14"
+
+// [Ii]seseisvuspäev or [Ii]seseisvuspäeval
+"Iseseisvuspäev","02-24"
+"iseseisvuspäev","02-24"
+"Iseseisvuspäeval","02-24"
+"iseseisvuspäeval","02-24"
+
+// [Kk]evadpüha or [Kk]evadpühal
+"Kevadpüha","05-01"
+"kevadpüha","05-01"
+"Kevadpühal","05-01"
+"kevadpühal","05-01"
+
+// [Vv]õidupüha or [Vv]õidupühal
+"Võidupüha","06-23"
+"võidupüha","06-23"
+"Võidupühal","06-23"
+"võidupühal","06,23"
+
+// [Jj]aanipäev [Jj]aanipäeval
+"Jaanipäev","06-24"
+"jaanipäev","06-24"
+"Jaanipäeval","06-24"
+"jaanipäeval","06-24"
+
+// [Tt]aasiseseisvumispäev [Tt]aasiseseisvumispäeval
+"Taasiseseisvumispäev","08-20"
+"taasiseseisvumispäev","08-20"
+"Taasiseseisvumispäeval","08-20"
+"taasiseseisvumispäeval","08-20"
+
+// [Jj]õulud or [Jj]õuludel
+"Jõulud","12-24"
+"jõulud","12-24"
+"Jõuludel","12-24"
+"jõuludel","12-24"

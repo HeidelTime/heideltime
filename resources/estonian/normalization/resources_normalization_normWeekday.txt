@@ -1,0 +1,21 @@
+// author: Annika Boldt
+// email:  aboldt@uni-heidelberg.de
+// date:   2014-12-10
+// This file contains "weekday words" and their normalized expressions.
+// For example, the normalized value of "Monday" is "monday"
+// FORMAT: "weekday-word","normalized-weekday-word"
+"esmaspäev.?.?.?","monday"
+"teisipäev.?.?.?","tuesday"
+"kolmapäev.?.?.?","wednesday"
+"neljapäev.?.?.?","thursday"
+"reede.?.?.?","friday"
+"laupäev.?.?.?","saturday"
+"pühapäev.?.?.?","sunday"
+"Esmaspäev.?.?.?","monday"
+"Teisipäev.?.?.?","tuesday"
+"Kolmapäev.?.?.?","wednesday"
+"Neljapäev.?.?.?","thursday"
+"Reede.?.?.?","friday"
+"Laupäev.?.?.?","saturday"
+"Pühapäev.?.?.?","sunday"
+

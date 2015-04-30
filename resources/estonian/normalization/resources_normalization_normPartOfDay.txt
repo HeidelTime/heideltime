@@ -1,0 +1,30 @@
+// author: Annika Boldt
+// email:  aboldt@uni-heidelberg.de
+// date:   2014-12-10
+// This file contains "part-of-day words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "morning" is "MO"
+// FORMAT: "part-of-day-word","normalized-part-of-day-word"
+// morning
+"hommik","MO"
+"Hommik","MO"
+"ennelõuna","MO"
+"Ennelõuna","MO"
+// mid-day
+"lõuna","12:00"
+"Lõuna","12:00"
+"keskpäev","MD"
+"Keskpäev","MD"
+"pärastlõuna","AF"
+"Pärastlõuna","AF"
+"pealelõuna","AF"
+"Pealelõuna","AF"
+"õhtu","EV"
+"Õhtu","EV"
+// night
+"öö","NI"
+"Öö","NI"
+"südaöö","24:00"
+"Südaöö","24:00"
+"kesköö","24:00"
+"Kesköö","24:00"

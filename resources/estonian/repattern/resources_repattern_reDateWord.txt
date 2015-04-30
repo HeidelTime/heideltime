@@ -1,0 +1,23 @@
+// author: Annika Bold
+// email:  a.boldt@stud.uni-heidelberg.de
+// date:   2014-11-14
+// This file contains regular expression patterns for date words
+// FORMAT: one line is one disjunction of the patter
+// THESE EXPRESSIONS ARE ALL IMPLICIT
+// SHOULD ONLY BE UPPER CASE IF AT THE BEGINNING OF A SENTENC
+[Nn]ii varsti kui saab
+[Jj]ust nüüd
+[Üü]lehomme
+[Tt]änaseks
+[Vv]iimati
+[Tt]änasel
+[Üü]leeile
+[Tt]änavu
+[Vv]arsti
+[Rr]raegu
+[Tt]änane
+[Hh]omme
+[Ee]ile
+[Tt]äna
+[Nn]üüd
+[Kk]ohe

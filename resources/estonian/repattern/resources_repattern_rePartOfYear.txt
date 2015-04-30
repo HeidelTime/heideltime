@@ -1,0 +1,105 @@
+// author: Annika Boldt
+// email:  a.boldt@uni-heidelberg.de
+// date:   2014-11-24
+// This file contains regular expression patterns for parts of year.
+// FORMAT: one line is one disjunction of the pattern
+//[Ee]simene kvartal
+//[Ee]simese kvartali
+//[Ee]simest kvartalit
+//[Ee]simesse kvartalisse
+//[Ee]simeses kvartalis
+//[Ee]simesest kvartalist
+//[Ee]simesele kvartalile
+//[Ee]simesel kvartalil
+//[Ee]simeselt kvartalilt
+//[Ee]simeseks kvartaliks
+//[Ee]simese kvartalini
+//[Ee]simese kvartalina
+//[Ee]simese kvartalita
+//[Ee]simese kvartaliga
+
+[Ee]sime[ns]es?t? kvartali?s?t?
+[Ee]simest kvartalit
+[Ee]simesse kvartalisse
+[Ee]simesel[et]? kvartalil[et]?
+[Ee]simeseks kvartaliks
+[Ee]simese kvartalin[ia]
+[Ee]simese kvartali[tg]a
+
+[Tt]eine kvartal
+[Tt]eise kvartali
+[Tt]eist kvartalit
+[Tt]eise kvartalisse
+[Tt]eisesse kvartalisse
+[Tt]eises kvartalis
+[Tt]eisest kvartalist
+[Tt]eisele kvartalile
+[Tt]eisel kvartalil
+[Tt]eiselt kvartalilt
+[Tt]eiseks kvartaliks
+[Tt]eise kvartalini
+[Tt]eise kvartalina
+[Tt]eise kvartalita
+[Tt]eise kvartaliga
+
+[Kk]olmas kvartal
+[Kk]olmanda kvartali
+[Kk]olmandat kvartalit
+[Kk]olmandasse kvartalisse
+[Kk]olmandas kvartalis
+[Kk]kolmandast kvartalist
+[Kk]olmandale kvartalile
+[Kk]olmandal kvartalil
+[Kk]olmandalt kvartalilt
+[Kk]olmandaks kvartaliks
+[Kk]olmanda kvartalini
+[Kk]olmanda kvartalina
+[Kk]olmanda kvartalita
+[Kk]olmanda kvartaliga
+
+[Nn]eljas kvartal
+[Nn]eljanda kvartali
+[Nn]eljandat kvartlit
+[Nn]eljandasse kvartalisse
+[Nn]eljandas kvartalis
+[Nn]eljandast kvartalist
+[Nn]eljandale kvartalile
+[Nn]eljandal kvartalil
+[Nn]eljandalt kvartalilt
+[Nn]eljandaks kvartaliks
+[Nn]eljanda kvartalini
+[Nn]eljanda kvartalina
+[Nn]eljanda kvartalita
+[Nn]eljanda kvartaliga
+
+[Ee]simene pool
+[Ee]simese poole
+[Ee]simest poolt
+[Ee]simesse poolde
+[Ee]simesesse poolde
+[Ee]simeses pooles
+[Ee]simesest poolest
+[Ee]simesele poolele
+[Ee]simesel poolel
+[Ee]simeselt poolelt
+[Ee]simeseks pooleks
+[Ee]simese pooleni
+[Ee]simese poolena
+[Ee]simese pooleta
+[Ee]simese poolega
+
+[Tt]eine pool
+[Tt]eise poole
+[Tt]eist poolt
+[Tt]eise poolde
+[Tt]eisesse poolde
+[Tt]eises pooles
+[Tt]eisest poolest
+[Tt]eisele poolele
+[Tt]eisel poolel
+[Tt]eiselt poolelt
+[Tt]eiseks pooleks
+[Tt]eise pooleni
+[Tt]eise poolena
+[Tt]eise pooleta
+[Tt]eise poolega

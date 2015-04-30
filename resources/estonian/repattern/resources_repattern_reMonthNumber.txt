@@ -1,0 +1,17 @@
+// author: Annika Boldt
+// email:  aboldt@uni-heidelberg.de
+// date:   2014-11-20
+// This file contains regular expression patterns for long months.
+// FORMAT: one line is one disjunction of the pattern
+[Jj]aanuari?([ls])?t?
+[Vv]eebruari?([ls])?t?
+[Mm]ärtsi?([ls])?t?
+[Aa]prilli?([ls])?t?
+[Mm]ai([ls])?t?
+[Jj]uuni([ls])?t?
+[Jj]uuli([ls])?t?
+[Aa]ugusti?([ls])?t?
+[Ss]eptemb[er][ri]([ls])?t?
+[Oo]ktoob[er][ri]([ls])?t?
+[Nn]ovemb[er][ri]([ls])?t?
+[Dd]etsemb[er][ri]([ls])?t?

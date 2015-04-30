@@ -1,0 +1,32 @@
+// author: Annika Boldt
+// email:  aboldt@uni-heidelberg.de
+// date:   2014-12-10
+// This file contains "unit words for duration" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "week" is "W"
+// FORMAT: "unit-word","normalized-unit-word"
+"[Pp]äev","D"
+"[Nn]ädalalõpp","WE"
+"[Nn]ädalavahetus","WE"
+"[Nn]ädal","W"
+"[Kk]uu","M"
+"[Kk]vartal","Q"
+"[Ff]iscal years?","Y"
+"[Aa]asta","Y"
+"[Kk]ümmnendik","DE"
+"[Ss]ajand","CE"
+// Plurals (not in reUnit)
+"[Pp]äevad","D"
+"[Nn]ädalalõpud","WE"
+"[Nn]ädalavahetused","WE"
+"[Nn]ädalad","W"
+"[Kk]uud","M"
+"[Kk]vartalid","Q"
+"[Aa]astad","Y"
+"[Kk]ümmendikud","DE"
+// not in reUnit
+"[Ss]ajandikud","CE"
+"[Tt]unnid","H"
+"[Mm]inutit","M"
+"[Ss]ekundit","S"
+

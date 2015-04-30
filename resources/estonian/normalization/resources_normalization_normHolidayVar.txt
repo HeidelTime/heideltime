@@ -1,0 +1,66 @@
+// author: Annika Boldt
+// email:  aboldt@stud.uni-heidelberg.de
+// date:   2015-04-18
+// This file contains "moveable holidays". They can be calculated realtive to the Eastersunday like many christian holidays or relative to a date.
+// The german "Buß- und Bettag" is the first wednesday before YEAR-11-23. The placeholders are replaced with the value from the ruleset.
+// available functions: EasterSunday(<YEAR>, <numberOfDaysToAdd>), WeekdayRelativeTo(<DateToBeRelativeTo>, <Weekday>, <numberOfWeekdays>, <countItself>)
+// available placeholder: DATE, YEAR, MONTH, DAY 
+// sunday=1, monday=2, tuesday=3, wednesday=4, thursday=5, friday=6, saturday=7
+// 
+// FORMAT: "holiday","funcDateCalc(<function>(<arguments>))"
+//
+// the reference of the values is given in the repattern file
+//
+
+// [Ss]uur [Rr]eede
+"Suur Reede","funcDateCalc(EasterSunday(YEAR, -2))"
+"suur reede","funcDateCalc(EasterSunday(YEAR, -2))"
+"Suur reede","funcDateCalc(EasterSunday(YEAR, -2))"
+"Suurel Reedel","funcDateCalc(EasterSunday(YEAR, -2))"
+"suurel reedel","funcDateCalc(EasterSunday(YEAR, -2))"
+"Suurel reedel","funcDateCalc(EasterSunday(YEAR, -2))"
+"Suurele Reedele","funcDateCalc(EasterSunday(YEAR, -2))"
+"suurele reedele","funcDateCalc(EasterSunday(YEAR, -2))"
+"Suurele reedele","funcDateCalc(EasterSunday(YEAR, -2))"
+
+// [Mm]unadepühad or [Ll]ihavõtted or [Ll]ihavõttepühad or [Üü]lestõusmispüha
+"Munadepühad","funcDateCalc(EasterSunday(YEAR, 0))"
+"munadepühad","funcDateCalc(EasterSunday(YEAR, 0))"
+"Lihavõtted","funcDateCalc(EasterSunday(YEAR, 0))"
+"lihavõtted","funcDateCalc(EasterSunday(YEAR, 0))"
+"Lihavõttepühad","funcDateCalc(EasterSunday(YEAR, 0))"
+"lihavõttepühad","funcDateCalc(EasterSunday(YEAR, 0))"
+"Ülestõusmispüha","funcDateCalc(EasterSunday(YEAR, 0))"
+"ülestõusmispüha","funcDateCalc(EasterSunday(YEAR, 0))"
+
+// [Nn]elipühad 
+"Nelipühad","funcDateCalc(EasterSunday(YEAR, 49))"
+"nelipühad","funcDateCalc(EasterSunday(YEAR, 49))"
+
+// [Ee]madepäev
+"Emadepäev","funcDateCalc(WeekdayRelativeTo(YEAR-05-01, 1, 2, true))"
+"emadepäev","funcDateCalc(WeekdayRelativeTo(YEAR-05-01, 1, 2, true))"
+
+// [Ii]sadepäev
+"Isadepäev","funcDateCalc(WeekdayRelativeTo(YEAR-11-01, 1, 2, true))"
+"isadepäev","funcDateCalc(WeekdayRelativeTo(YEAR-11-01, 1, 2, true))"
+
+// 1. [Advent]
+"Esimene Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
+"esimene advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
+"Esimene advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
+ 
+// 2. [Advent]
+"Teine Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
+"teine advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
+"Teine advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
+
+// 3. [Advent]
+"Kolmas Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
+"kolmas advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
+"Kolmas advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
+
+// 4. [Advent]
+"Neljas Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"
+"neljas advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"
+"Neljas advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"

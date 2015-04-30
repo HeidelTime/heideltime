@@ -1,0 +1,31 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-13
+// This file contains rules for the temporal expressions of the type time: timerules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+/////////////////////
+// TIMESTAMP STYLE //
+/////////////////////
+
+/////////////////////////////
+// TIMEPOINT GRANULATRITY //
+////////////////////////////
+
+// time_r1: Kell 16
+RULENAME="time_r1",EXTRACTION="[Kk]ella? %reTimeHour",NORM_VALUE="UNDEF-this-dayT%normDay(group(1))h"
+
+// time_r2a: 16:20
+// time_r2b: Kell 16:20
+// time_r2c: 16:20:45
+// time_r2d: Kell 16:20:45
+RULENAME="time_r2a",EXTRACTION="%reTimeHour:%reTimeMinute",NORM_VALUE="UNDEF-this-dayT%normDay(group(1)):group(2)"
+RULENAME="time_r2b",EXTRACTION="[Kk]ella? %reTimeHour:%reTimeMinute",NORM_VALUE="UNDEF-this-dayT%normDay(group(1)):group(2)"
+RULENAME="time_r2c",EXTRACTION="%reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="UNDEF-this-dayT%normDay(group(1)):group(2):group(3)"
+RULENAME="time_r2d",EXTRACTION="[Kk]ella? %reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="UNDEF-this-dayT%normDay(group(1)):group(2):group(3)"
+
+// time_r3a: Hommikul
+// time_r3b: Eile hommikul
+RULENAME="time_r3a",EXTRACTION="%rePartOfDay",NORM_VALUE="UNDEF-day-T%normPartOfDay(group(1))"
+RULENAME="time_r3b",EXTRACTION="%reDateWord %rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
+RULENAME="time_r3c",EXTRACTION="%reWeekday %rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normPartOfDay(group(2))"
