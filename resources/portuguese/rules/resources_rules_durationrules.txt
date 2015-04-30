@@ -69,7 +69,7 @@ RULENAME="duration_r4d",EXTRACTION="([\d]+) ou (%reNumWord2D|%reNumWord1D|([\d]+
 
 // duration_r5
 // EXAMPLE r5a: toda a semana
-RULENAME="duration_r5a",EXTRACTION="[Tt]od[oa] [oa] %reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))"
+RULENAME="duration_r5a",EXTRACTION="[Tt]od[oa] [oa] %reUnit",NORM_VALUE="P1%normUnit4Duration(group(1))"
 
 ////////////////////////////
 // RANDOM ADJECTIVE RULES //

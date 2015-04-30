@@ -17,4 +17,4 @@
 // NIGHT
 "[Mm]eia-noite","24:00"
 "[Mm]eias-noites","24:00"
-"[Nn]oites?,"NI"
+"[Nn]oit(es?)?","NI"

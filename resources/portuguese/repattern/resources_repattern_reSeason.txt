@@ -4,7 +4,7 @@
 // This file contains regular expression patterns for seasons.
 // FORMAT: one line is one disjunction of the pattern
 [Pp]rimavera
-[Vv]erão 
+[Vv]erão
 [Ee]stío
 [Oo]utono
 [Ii]nverno

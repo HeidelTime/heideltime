@@ -11,3 +11,4 @@
 "[Cc]erca( de)?","APPROX"
 "[Pp]raticamente","APPROX"
 "[Pp]róximo ( de)?","APPROX"
+"[Ee]m torno de","APPROX"
