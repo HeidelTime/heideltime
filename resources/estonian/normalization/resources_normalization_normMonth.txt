@@ -54,6 +54,7 @@
 "Märtsil?e?","03"
 "märtsil","03"
 "Märtsil","03"
+"[Mm]ärtsl","03"
 "märtsist","03"
 "Märtsist","03"
 "märtsis","03"

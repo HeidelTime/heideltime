@@ -92,7 +92,7 @@ RULENAME="date_r8c",EXTRACTION="([Ss]ellel?|[Ss]el) %reUnit %reDayNumberTh %reMo
 // EXAMPLE r9b: Pähapäev
 
 RULENAME="date_r9a",EXTRACTION="%reWeekday\,? (%reDayNumberTh|%reDayWordTh) %reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(5))-%normDay(group(2))" 
-RULENAME="date_r9b",EXTRACTION="%reWeekday",NORM_VALUE="UNDEF-year-%normWeeday(group(1))"
+RULENAME="date_r9b",EXTRACTION="%reWeekday",NORM_VALUE="UNDEF-year-%normWeekday(group(1))"
 
 // date_r10
 // EXAMPLE r10a: suvel 1862
@@ -105,7 +105,7 @@ RULENAME="date_r10b",EXTRACTION="%reSeason",NORM_VALUE="%normSeason(group(1))"
 // EXAMPLE r11a: Suurel reedel
 // EXAMPLE r12a: Suurel reedel 2010
 RULENAME="date_r11a",EXTRACTION="%reHolidayVar",NORM_VALUE="UNDEF-year-%normHolidayVar(group(1))"
-RULENAME="date_r12a",EXTRACTION="%reHolidayVar %reYear4Digit",NORM_VALUE="group(2)-%normHolidayVar(group(1))"
+RULENAME="date_r11b",EXTRACTION="%reHolidayVar %reYear4Digit",NORM_VALUE="group(2)-%normHolidayVar(group(1))"
 
 // date_r12
 // EXAMPLE r12a: Jaanipäev

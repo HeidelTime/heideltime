@@ -17,16 +17,18 @@
 "[Ss]ajand","CE"
 // Plurals (not in reUnit)
 "[Pp]äevad?","D"
+"[Tt]ööpäeva?d?","D"
 "[Nn]ädalalõpud?","WE"
 "[Nn]ädalavahetused?","WE"
 "[Nn]ädalad?","W"
 "[Kk]uud","M"
 "[Kk]vartalid","Q"
 "[Aa]astad","Y"
+"[Aa]astalt?","Y"
+"[Aa]astaga","Y"
 "[Kk]ümmendikud","DE"
 // not in reUnit
 "[Ss]ajandikud","CE"
 "[Tt]unnid","H"
 "[Mm]inutit","M"
 "[Ss]ekundit","S"
-

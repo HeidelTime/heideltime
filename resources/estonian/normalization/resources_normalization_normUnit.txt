@@ -5,6 +5,7 @@
 // For example, the normalized value of "week" is "week"
 // FORMAT: "unit-word","normalized-unit-word"
 "[Pp]äev","day"
+"[Tt]ööpäeva?d?","day"
 "[Nn]ädalalõpp","week-WE"
 "[Nn]ädalavahetus","week-WE"
 "[Nn]ädal","week"

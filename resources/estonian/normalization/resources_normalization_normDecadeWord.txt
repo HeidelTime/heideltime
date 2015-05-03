@@ -15,4 +15,4 @@
 "[Kk]uuekümnendad","6"
 "[Ss]eitsmekümnendad","7"
 "[Kk]aheksakümnendad","8"
-„[Üü]heksakümnendad","9"
+"[Üü]heksakümnendad","9"
