@@ -107,7 +107,7 @@ RULENAME="date_r1c",EXTRACTION="(%rePartWords )?(%reMonthLong|%reMonthShort) (%r
 // EXAMPLE r2d_1: El día cinco
 RULENAME="date_r2a",EXTRACTION="(%rePartWords )?(D[eo] | d[eo] |[OA] | [oa] |[Aa]o )?(dias? )?(%reDayNumber|%reDayWordTh|%reDayWord) de (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(9))-%normDay(group(5))",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_r2b",EXTRACTION="(%reDayNumber|%reDayWordTh|%reDayWord)%reAndOrTo(%reDayNumber|%reDayWordTh|%reDayWord) de (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(10))-%normDay(group(1))",OFFSET="group(1)-group(1)"
-RULENAME="date_r2c",EXTRACTION="(D[eo] | d[eo] |[OA]s? | [oa]s? |[Aa]o )?(dias? )?(%reDayNumber|%reDayWordTh|%reDayWord)%reAndOrTo([Dd][eo] |[OoAa]s? |[Aa]o )?(dias? )?(%reDayNumber|%reDayWordTh|%reDayWord) de (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(14))-%normDay(group(3))",OFFSET="group(1)-group(3)"
+RULENAME="date_r2c",EXTRACTION="(D[eo] | d[eo] |[OA]s? | [oa]s? |[Aa]o )?(dias? )?(%reDayNumber|%reDayWordTh|%reDayWord)%reAndOrTo([Dd][eo] |[OoAa]s? |[Aa]o )?(dias? )?(%reDayNumber|%reDayWordTh|%reDayWord) de (%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(14))-%normDay(group(3))",OFFSET="group(0)-group(0)"
 RULENAME="date_r2d",EXTRACTION="(%rePartWords )?([Dd]?[Ooe] dia) (%reDayNumber|%reDayWordTh|%reDayWord)",NORM_VALUE="UNDEF-this-month-%normDay(group(4))",NORM_MOD="%normPartWords(group(2))"
 
 // date_r3
