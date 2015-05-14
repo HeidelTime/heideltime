@@ -7,7 +7,7 @@
 "letzter","last"
 "letztes","last"
 "letzten","last"
-"letzten","last"
+"letztem","last"
 "Letzte","last"
 "Letzter","last"
 "Letztes","last"
