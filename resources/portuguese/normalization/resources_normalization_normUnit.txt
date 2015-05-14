@@ -1,0 +1,23 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains "unit words" and their normalized expressions.
+// For example, the normalized value of "week" is "week"
+// FORMAT: "unit-word","normalized-unit-word"
+// minute and hours are not in the pattern file 
+// since they have to be normalized in another way than the other expressions
+// but they are needed here
+"[Mm]inutos?","minute"
+"[Hh]oras?","hour"
+"[Dd]ias? de negociação","day"
+"[Dd]ias? comu[mn]s?","day"
+"[Dd]ias?","day"
+"[Ff]i[mn]s? de semana","weekend"
+"[Ss]emanas?","week"
+"[Mm][eê]s(es)?","month"
+"[Qq]uartos?","quarter"
+"[Tt]rimestres?","quarter"
+"[Aa]nos?","year"
+"[Dd]écadas?","decade"
+"[Ss]éculos?","century"
+

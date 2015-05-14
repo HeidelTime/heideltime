@@ -1,0 +1,32 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains regular expression patterns for "part" words.
+// FORMAT: one line is one disjunction of the pattern
+// START
+//[Cc]omienzo del?
+[Cc]omeço d[eo]
+//[Ii]nicio del?
+[Ii]nício d[eo]
+//[Mm]ás temprano
+[Mm]ais cedo
+//[Pp]rincipios? del?
+//[Tt]emprano
+[Cc]edo
+// MID
+//[Mm]ediados
+[Mm]eios? d[eo]
+[Me]etade
+[Me]etade d[eo]
+//[Mm]edio del?
+//[Mm]edio
+//[Mm]itad del?
+// END
+//[Ff]inal(es)? del?
+//[Ff]in(es)? del?
+[Ff]im d[eo]
+[Tt]arde
+//[Mm]ás tarde
+[Mm]ais tarde
+// OTHER
+[Ff]iscal\-?

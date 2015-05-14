@@ -1,0 +1,38 @@
+// author: Zunsik Lim, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains regular expression patterns for day word th.
+// FORMAT: one line is one disjunction of the pattern
+[Dd]écimo primeir[ao]?
+[Dd]uodécim[oa]
+[Dd]écimo terceir[oa]
+[Dd]écimo quart[oa]
+[Dd]écimo quint[oa]
+[Dd]écimo sext[oa]
+[Dd]écimo sétim[oa]
+[Dd]écimo oitav[oa]
+[Dd]ecimonónic[oa]
+[Dd]écimo non[oa]
+[Vv]ig[ée]sim[oa]( )?primeir[oa]
+[Vv]ig[ée]sim[oa]( )?segund[oa]
+[Vv]ig[ée]sim[oa]( )?terceir[oa]
+[Vv]ig[ée]sim[oa]( )?quart[oa]
+[Vv]ig[ée]sim[oa]( )?quint[oa]
+[Vv]ig[ée]sim[oa]( )?sext[oa]
+[Vv]ig[ée]sim[oa]( )?sétim[oa]
+[Vv]ig[ée]sim[oa]( )?oitav[oa]
+[Vv]ig[ée]sim[oa]( )?non[oa]
+[Vv]igésim[oa]
+[Tt]rig[ée]sim[oa]( )?primeir[oa]
+[Tt]rig[ée]sim[oa]
+[Pp]rimeir[oa]?
+[Uu]n[oa]
+[Ss]egund[oa]
+[Tt]erceir[oa]?
+[Qq]uart[oa]
+[Qq]uint[oa]
+[Ss]ext[oa]
+[Ss]étim[oa]
+[Oo]oitav[oa]
+[Nn]on[oa]
+[Dd]écim[oa]

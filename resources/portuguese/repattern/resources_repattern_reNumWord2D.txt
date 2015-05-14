@@ -1,0 +1,96 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains regular expression patterns for 
+// number word 2 digits: reNumWord2D
+// FORMAT: one line is one disjunction of the pattern
+[Dd]ez
+[Oo]nze
+[Dd]oze
+[Tt]reze
+[Qu]uatorze
+[Qq]uinze
+[Dd]ezesseis
+[Dd]ezessete
+[Dd]ezoito
+[Dd]ezenove
+[Vv]inte e um
+[Tt]rinta e um
+[Qq]uarenta e um
+[Cc]inqüenta e um
+[Ss]essenta e um
+[Ss]etenta e um
+[Oo]itenta e um
+[Nn]oventa e um
+[Vv]inte e dois
+[Tt]rinta e dois
+[Qq]uarenta e dois
+[Cc]inqüenta e dois
+[Ss]essenta e dois
+[Ss]etenta e dois
+[Oo]itenta e dois
+[Nn]oventa e dois
+[Vv]inte e três
+[Tt]rinta e três
+[Cc]uarenta e três
+[Cc]inqüenta e três
+[Ss]essenta e três
+[Ss]etenta e três
+[Oo]itenta e três
+[Nn]oventa e três
+[Vv]inte e quatro
+[Tt]rinta e quatro
+[Qq]uarenta e quatro
+[Cc]inqüenta e quatro
+[Ss]essenta e quatro
+[Ss]etenta e quatro
+[Oo]itenta e quatro
+[Nn]oventa e quatro
+[Vv]inte e cinco
+[Tt]rinta e cinco
+[Qq]uarenta e cinco
+[Cc]inqüenta e cinco
+[Ss]essenta e cinco
+[Ss]etenta e cinco
+[Oo]itenta e cinco
+[Nn]oventa e cinco
+[Vv]inte e seis
+[Tt]rinta e seis
+[Qq]uarenta e seis
+[Cc]inqüenta e seis
+[Ss]essenta e seis
+[Ss]etenta e seis
+[Oo]itenta e seis
+[Nn]oventa e seis
+[Vv]inte e sete
+[Tt]rinta e sete
+[Cc]uarenta e sete
+[Cc]inqüenta e sete
+[Ss]essenta e sete
+[Ss]etenta e sete
+[Oo]itenta e sete
+[Nn]oventa e sete
+[Vv]inte e oito
+[Tt]rinta e oito
+[Qq]uarenta e oito
+[Cc]inqüenta e oito
+[Ss]essenta e oito
+[Ss]etenta e oito
+[Oo]itenta e oito
+[Nn]oventa e oito
+[Vv]inte e nove
+[Tt]rinta e nove
+[Qq]uarenta e nove
+[Cc]inqüenta e nove
+[Ss]essenta e nove
+[Ss]etenta e nove
+[Oo]itenta e nove
+[Nn]oventa e nove
+[Vv]inte
+[Tt]rinta
+[Qq]uarenta
+[Cc]inqüenta
+[Ss]essenta
+[Ss]etenta
+[Oo]itenta
+[Nn]oventa
