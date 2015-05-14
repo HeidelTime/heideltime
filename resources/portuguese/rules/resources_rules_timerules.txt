@@ -1,0 +1,65 @@
+// author: Zunsik Lim, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains rules for the temporal expressions of the type time: timerules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+/////////////////////
+// TIMESTAMP STYLE //
+/////////////////////
+// time_r1 (Timestamp style)
+// EXAMPLE r1a-1: 2009-12-19T17:00:00
+// EXAMPLE r1a-2: 2009-12-19 17:00:00
+// EXAMPLE r1b-1: 2009-12-19T17:00
+// EXAMPLE r1c-1: 12/29/2000 20:29
+// EXAMPLE r1d-1: 12/29/2000 20:29:29
+// EXAMPLE r1e-1: 12/29/2000 20:29:29.79
+RULENAME="time_r1a",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )%reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7):group(8)"
+RULENAME="time_r1b",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )%reTimeHour:%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7)"
+RULENAME="time_r1c",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6)"
+RULENAME="time_r1d",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6):group(7)"
+RULENAME="time_r1e",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute:%reTimeMinute\.%reYear2Digit",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6):group(7).group(8)"
+
+// time_r2
+// EXAMPLE r2a-1: 09-24-99 1145EST (TimeStamp style with timezone information)
+RULENAME="time_r2a",EXTRACTION="(%reMonthNumber-%reDayNumber-%reYear2Digit)( %reTimeHour(:)?%reTimeMinute)%reTimezone",NORM_VALUE="UNDEF-centurygroup(4)-group(2)-group(3)T%normMinute(group(6)):%normMinute(group(8))%normTimezone(group(9))"
+
+
+/////////////////////////////
+// PART-OF-DAY GRANULARITY //
+/////////////////////////////
+// time_r3
+// EXAMPLE r3a-1: esta tarde
+// EXAMPLE r3a-2: esta noite
+// EXAMPLE r3b-1: ontem à noite
+// EXAMPLE r3c-1: a noite
+// EXAMPLE r3d-1: a noite de passada sexta-feira
+// EXAMPLE r3e-1: a noite de sexta-feira passada
+// EXAMPLE r3f-1: la mañana del miércoles
+RULENAME="time_r3a",EXTRACTION="%reThisNextLast %rePartOfDay( mesm[oa])?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normPartOfDay(group(2))"
+RULENAME="time_r3b",EXTRACTION="([Oo]ntem à noite)",NORM_VALUE="UNDEF-last-dayTNI"
+RULENAME="time_r3c",EXTRACTION="([OA]| [oa]) %rePartOfDay",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normPartOfDay(group(2))"
+RULENAME="time_r3d",EXTRACTION="(De | de |[OA] | [oa] |[Aa]o )?%rePartOfDay ([Dd]e|[OAoa]|[Aa]o) %reThisNextLast %reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(4))-%normWeekday(group(5))T%normPartOfDay(group(2))"
+RULENAME="time_r3e",EXTRACTION="(De | de |[OA] | [oa] |[Aa]o )?%rePartOfDay ([Dd]e|[OAoa]|[Aa]o) %reWeekday %reThisNextLast",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normWeekday(group(4))T%normPartOfDay(group(2))"
+RULENAME="time_r3f",EXTRACTION="(De | de |[OA] | [oa] |[Aa]o )?%rePartOfDay ([Dd]e|[OAoa]|[Aa]o) %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(4))T%normPartOfDay(group(2))"
+
+///////////////////////////
+// TIMEPOINT GRANULARITY //
+///////////////////////////
+// time_r4
+// EXAMPLE r4a-1: 11 da manhã
+// EXAMPLE r4b-1: 11 da tarde 
+// EXAMPLE r4c-1: 9 da noite
+// EXAMPLE r4d-1: 1 da noite
+// EXAMPLE r4e-1: 12 da noite
+RULENAME="time_r4a",EXTRACTION="(%reApproximate )? %reTimeHour da manhã",NORM_VALUE="UNDEF-this-dayT%normDay(group(2)):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r4b",EXTRACTION="(%reApproximate )? %reTimeHour da tarde",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r4c",EXTRACTION="(%reApproximate )?(8|9|10|11) da noite",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(3)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r4d",EXTRACTION="(%reApproximate )?(1|2|3|4|5) da noite",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):00",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r4e",EXTRACTION="(%reApproximate )? (12) da noite",NORM_VALUE="UNDEF-this-dayT00:00",NORM_MOD="%normApprox4Dates(group(2))"
+
+// time_r5
+// EXAMPLE r5a-1: 8.15 hora local
+RULENAME="time_r5a",EXTRACTION="(%reApproximate )? %reTimeHour[\.:]%reTimeMinute hora(s)?( local(es)?)?",NORM_VALUE="UNDEF-this-dayT%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+
+

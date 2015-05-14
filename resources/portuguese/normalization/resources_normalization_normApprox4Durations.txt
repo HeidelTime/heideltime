@@ -1,0 +1,14 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains "approximate words" and their normalized expressions
+// for dates/times according to TIMEX3 format.
+// For example, the normalized value of "about" is "APPROX"
+// FORMAT: "approximate-word","normalized-approximate-word"
+"[Aa]cêrca( de)?","APPROX"
+"[Aa]proximadamente","APPROX"
+"[Qq]uase","APPROX"
+"[Cc]erca( de)?","APPROX"
+"[Pp]raticamente","APPROX"
+"[Pp]róximo ( de)?","APPROX"
+"[Ee]m torno de","APPROX"

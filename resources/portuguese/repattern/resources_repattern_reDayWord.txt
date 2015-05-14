@@ -1,0 +1,40 @@
+// author: Zunsik Lim, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains regular expression patterns for day number words (e.g., cinco)
+// FORMAT: one line is one disjunction of the pattern
+// 10 - 19
+[Dd]ez
+[Oo]nze
+[Dd]oze
+[Tt]reze
+[Cc]atorze
+[Qq]uinze
+[Dd]ezesseis
+[Dd]ezessete
+[Dd]ezoito
+[Dd]ezenove
+// 21 - 29, 20
+[Vv]inte e um
+[Vv]inte e dois
+[Vv]inte e três
+[Vv]inte e quatro
+[Vv]inte e cinco
+[Vv]vinte e seis
+[Vv]vinte e sete
+[Vv]inte e oito
+[Vv]inte e nove
+[Vv]inte
+// 31, 30
+[Tt]rinta e um
+[Tt]rinta
+// 1 - 9
+[Uu]m?
+[Dd]ois
+[Tt]rês
+[Qq]uatro
+[Cc]inco
+[Ss]eis
+[Ss]ete
+[Oo]ito
+[Nn]ove

@@ -1,0 +1,29 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains regular expression patterns for short months.
+// FORMAT: one line is one disjunction of the pattern
+[Jj]an\.?
+[Ff]ev\.?
+[Mm]ar\.?
+[Aa]br\.?
+[Mm]ai\.?
+[Jj]un\.?
+[Jj]ul\.?
+[Aa]go\.?
+[Ss]et\.?
+[Oo]ut\.?
+[Nn]ov\.?
+[Dd]ez\.?
+JAN\.?
+FEV\.?
+MAR\.?
+ABR\.?
+MAI\.?
+JUN\.?
+JUL\.?
+AGO\.?
+SET\.?
+OUT\.?
+NOV\.?
+DEZ\.?

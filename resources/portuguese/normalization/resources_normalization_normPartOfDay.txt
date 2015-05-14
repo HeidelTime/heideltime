@@ -1,0 +1,20 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains "part-of-day words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "morning" is "MO"
+// FORMAT: "part-of-day-word","normalized-part-of-day-word"
+// MORNING
+"[Mm]adrugada","MO"
+"[Mm]eias? manhãs?","MO"
+"[Mm]anhãs?","MO"
+// MIDDAY
+"[Mm]eio-dia","MI"
+//AFTERNOON
+"[Mm]eias? tardes?","AF"
+"[Tt]ardes?","AF"
+// NIGHT
+"[Mm]eia-noite","24:00"
+"[Mm]eias-noites","24:00"
+"[Nn]oit(es?)?","NI"

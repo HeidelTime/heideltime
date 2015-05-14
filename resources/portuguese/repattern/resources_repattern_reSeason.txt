@@ -1,0 +1,14 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains regular expression patterns for seasons.
+// FORMAT: one line is one disjunction of the pattern
+[Pp]rimavera
+[Vv]erão
+[Ee]stío
+[Oo]utono
+[Ii]nverno
+[Tt]emporada primaveral
+[Tt]emporada estival
+[Tt]emporada outonal
+[Tt]emporada invernal

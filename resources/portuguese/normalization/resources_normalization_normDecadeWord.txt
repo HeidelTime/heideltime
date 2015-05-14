@@ -1,0 +1,32 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains "decade words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "twenties" is "2"
+// FORMAT: "decade-word","normalized-decade-word"
+"[Vv]inte","2"
+"[Tt]rinta","3"
+"[Qq]uarenta","4"
+"[Cc]inqüenta","5"
+"[Ss]essenta","6"
+"[Ss]etenta","7"
+"[Oo]itenta","8"
+"[Nn]oventa","9"
+// expressions with "anos"
+"[Aa]nos veinte","2"
+"[Aa]nos trinta","3"
+"[Aa]nos quarenta","4"
+"[Aa]nos cinqüenta","5"
+"[Aa]nos sessenta","6"
+"[Aa]nos setenta","7"
+"[Aa]nos oitenta","8"
+"[Aa]nos noventa","9"
+"[Aa]nos 20","2"
+"[Aa]nos 30","3"
+"[Aa]nos 40","4"
+"[Aa]nos 50","5"
+"[Aa]nos 60","6"
+"[Aa]nos 70","7"
+"[Aa]nos 80","8"
+"[Aa]nos 90","9"

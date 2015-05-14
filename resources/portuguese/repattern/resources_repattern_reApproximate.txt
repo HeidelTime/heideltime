@@ -1,0 +1,14 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains regular expression patterns for "approximate" words.
+// FORMAT: one line is one disjunction of the pattern
+// about
+// PREGUNTAR si dejar el "de", poner 2 patrones diferentes, o generalizar?
+[Aa]cêrca( de)?
+[Cc]erca de
+[Qq]uase
+[Ee]m torno de
+[Aa]proximadamente
+[Pp]róximo ( de)?
+[Pp]raticamente

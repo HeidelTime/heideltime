@@ -1,0 +1,14 @@
+// author: Zunsik Lim, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains "day words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "sunday" is "1"
+// FORMAT: "day-word","normalized-day-word"
+"[Ss]egunda([ -]feira)?","1"
+"[Tt]erça([ -]feira)?","2"
+"[Qq]uarta([ -]feira)?","3"
+"[Qq]uinta([ -]feira)?","4"
+"[Ss]exta([ -]feira)?","5"
+"[Ss]ábados?","6"
+"[Dd]omingos?","7"

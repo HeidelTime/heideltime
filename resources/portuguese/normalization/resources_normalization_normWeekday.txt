@@ -1,0 +1,13 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains "weekday words" and their normalized expressions.
+// For example, the normalized value of "Monday" is "monday"
+// FORMAT: "weekday-word","normalized-weekday-word"
+"[Ss]egunda([ -]feira)?","monday"
+"[Tt]erça([ -]feira)?","tuesday"
+"[Qq]uarta([ -]feira)?","wednesday"
+"[Qq]uinta([ -]feira)?","thursday"
+"[Ss]exta([ -]feira)?","friday"
+"[Ss]ábados?","saturday"
+"[Dd]omingos?","sunday"

@@ -1,0 +1,16 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains "season words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "summer" is "SU"
+// FORMAT: "season-word","normalized-season-word"
+"[Pp]rimavera","SP"
+"[Vv]erão","SU"
+"[Ee]stío","SU"
+"[Oo]utono","FA"
+"[Ii]nverno","WI"
+"[Tt]emporada primaveral","SP"
+"[Tt]emporada estival","SU"
+"[Tt]emporada outonal","FA"
+"[Tt]emporada invernal","WI"

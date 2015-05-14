@@ -1,0 +1,15 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains regular expression patterns for number word 1 digits.
+// FORMAT: one line is one disjunction of the pattern
+[Uu]m par de
+[Uu]m[a]?
+[Dd]ois
+[Tt]três
+[Qu]uatro
+[Cc]inco
+[Ss]eis
+[Ss]ete
+[Oo]ito
+[Nn]ove

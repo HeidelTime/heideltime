@@ -1,0 +1,23 @@
+// author: Zunsik Lim, Antonio Cancela Díaz, Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-04-08
+// This file contains "this/next/last words" and their normalized expressions.
+// FORMAT: "this/next/last-word","normalized-this/next/last-word"
+// THIS
+"[Aa]tual","this"
+//"[Ee]n curs[oa]s?","this"
+"[Ee]st[ea]s?","this"
+//"[Ee]stos","this"
+"[Pp]resente","this"
+// NEXT
+"[Pp]osterior","next"
+"[Pp]róxim[oa]s?","next"
+"[Ss]eguinte","next"
+//"[Vv]enider[oa]s?","next"
+//"que viene","next"
+// LAST
+"[Aa]nterior","last"
+//"[Pp]asad[oa]s?","last"
+//"[Pp]revi[oa]s?","last"
+"[Úú]ltim[oa]s?","last"
+

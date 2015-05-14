@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2013-10-10
+// This file contains "BCyears" and their normalized expressions.
+// For example, the normalized value of "BC" is "BC"
+// FORMAT: "yearPrefix","normalized-yearPrefix"
+//"B[\.]?C[\.]?","BC"
+//"A[\.]?D[\.]?",""
+//"BCE","BC"
+//"CE",""
+"d[\.]? C[\.]?",""
+"d[\.]?C[\.]?",""
+"a[\.]? C[\.]?","BC"
+"a[\.]?C[\.]?","BC"
+
