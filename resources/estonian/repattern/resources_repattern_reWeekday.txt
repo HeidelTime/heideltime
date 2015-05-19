@@ -1,12 +1,12 @@
 // author: Annika Boldt
-// email:  a.boldt@uni-heidelberg.de
+// email:  a.boldt@stud.uni-heidelberg.de
 // date:   2014-12-12
 // This file contains regular expression patterns for weekdays.
 // FORMAT: one line is one disjunction of the pattern
-[Ee]smaspäev.?.?.?
-[Tt]eisipäev.?.?.?
-[Kk]olmapäev.?.?.?
-[Nn]eljapäev.?.?.?
-[Rr]eede.?.?.?
-[Ll]aupäev.?.?.?
-[Pp]ühapäev.?.?.?
+[Ee]smaspäeva?[nl]?[ks]?[si]?[te]?
+[Tt]eisipäeva?[nl]?[ks]?[si]?[te]?
+[Kk]olmapäeva?[nl]?[ks]?[si]?[te]?
+[Nn]eljapäeva?[nl]?[ks]?[si]?[te]?
+[Rr]eedet?[nl]?[ks]?[si]?[te]?
+[Ll]aupäeva?[nl]?[ks]?[si]?[te]?
+[Pp]ühapäeva?[nl]?[ks]?[si]?[te]?

@@ -3,12 +3,21 @@
 // date:   2014-12-12
 // This file contains regular expression patterns for unit words.
 // FORMAT: one line is one disjunction of the pattern
+[Aa]astat?e?l?g?a?s?t?d?
+[Nn]ädalavahetus(ed)?
+[Kk]vartal(id?)?
+[Ss]ajand(il?)?
 [Tt]ööpäeva?d?
-[Pp]äeva?d?
-[Nn]ädalavahetus
-[Nn]ädala?d?
-[Kk]uud?
-[Kk]vartali?d?
-[Aa]astat?e?l?g?a?s?t?
+[Kk]ümmnendikud
+[Nn]ädalalõpud?
+[Ss]ajandikud
 [Aa]astakümme
-[Aa]astasadad?
+[Kk]ümmnendik
+[Nn]ädal(ad)?
+[Nn]ädalalõpp
+[Pp]äev(ad)?
+[Ss]ekundit
+[Mm]inutit
+[Tt]unnid
+[Aa]astad
+[Kk]uud?

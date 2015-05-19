@@ -9,12 +9,13 @@ i// the reference of the values is given in the repattern file
 
 // [Uu]usaasta or [Uu]usaastal
 "[Uu]usaastal?","01-01"
+"[Uu]uel aastal","01-01"
 
 // [Ss]õprapäev or [Ss]õprapäeval
-"[Ss]õprapäev","02-14"
+"[Ss]õprapäev(al)?","02-14"
 
 // [Ii]seseisvuspäev or [Ii]seseisvuspäeval
-"[Ii]seseisvuspäeva?l?","02-24"
+"[Ii]seseisvuspäev(al)?","02-24"
 
 
 // [Kk]evadpüha or [Kk]evadpühal
@@ -24,10 +25,10 @@ i// the reference of the values is given in the repattern file
 "[Vv]õidupühal?","06-23"
 
 // [Jj]aanipäev [Jj]aanipäeval
-"[Jj]aanipäeva?l?","06-24"
+"[Jj]aanipäev(al)?","06-24"
 
 // [Tt]aasiseseisvumispäev [Tt]aasiseseisvumispäeval
-"[Tt]aasiseseisvumispäeva?l?","08-20"
+"[Tt]aasiseseisvumispäev(al)?","08-20"
 
 // [Jj]õulud or [Jj]õuludel
-"[Jj]õulude?l?","12-24"
+"[Jj]õulud(el)?","12-24"

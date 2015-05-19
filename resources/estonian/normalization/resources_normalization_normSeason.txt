@@ -6,24 +6,10 @@
 // For example, the normalized value of "summer" is "SU"
 // FORMAT: "season-word","normalized-season-word"
 // spring
-"kevade","SP"
-"Kevade","SP"
-"kevad","SP"
-"Kevad","SP"
-"kevadel","SP"
-"Kevadel","SP"
+"[Kk]evad(el?)?","SP"
 //summer
-"suvi","SU"
-"Suvi","SU"
-"suvel","SU"
-"Suvel","SU"
+"[Ss]uv[ie]l?","SU"
 // fall
-"sügis","FA"
-"Sügis","FA"
-"Sügisel","FA"
-"sügisel","FA"
+"[Ss]ügis(el)?","FA"
 // winter
-"talv","WI"
-"Talv","WI"
-"talvel","WI"
-"Talvel","WI"
+"[Tt]alv(el)?","WI"

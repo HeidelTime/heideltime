@@ -1,36 +1,24 @@
 // author: Annika Boldt
-// email:  aboldt@uni-heidelberg.de
+// email:  aboldt@stud.uni-heidelberg.de
 // date:   2015-04-29
 // This file contains "approximate words" and their normalized expressions
 // for dates/times according to TIMEX3 format.
 // For example, the normalized value of "about" is "APPROX"
 // FORMAT: "approximate-word","normalized-approximate-word"
 // about
-"Peaaegu","APPROX"
-"peaaegu","APPROX"
-"Umbes","APPROX"
-"umbes","APPROX"
-"Paiku","APPROX"
-"paiku","APPROX"
+"[Pp]eaaegu","APPROX"
+"[Uu]mbes","APPROX"
+"[Pp]aiku","APPROX"
+"[Jj]ooksul","APPROX"
 // less
-"Vähem kui","EQUAL_OR_LESS"
-"vähem kui","EQUAL_OR_LESS"
-"Enne","EQUAL_OR_LESS"
-"enne","EQUAL_OR_LESS"
-"Kuni","EQUAL_OR_LESS"
-"kuni","EQUAL_OR_LESS"
+"[Vv]ähem kui","EQUAL_OR_LESS"
+"[Ee]nne","EQUAL_OR_LESS"
+"[Kk]uni","EQUAL_OR_LESS"
 //  more
-"Vähemalt","APPROX"
-"vähemalt","APPROX"
-"Peale","MORE_THAN"
-"peale","MORE_THAN"
-"Rohkem kui","MORE_THAN"
-"rohkem kui","MORE_THAN"
-"Üle","MORE_THAN"
-"üle","MORE_THAN"
-"Kauem kui","MORE_THAN"
-"kaume kui","MORE_THAN"
-"Pärast","MORE_THAN"
-"pärast","MORE_THAN"
-"Alates","MORE_THAN"
-"alates","MORE_THAN"
+"[Vv]ähemalt","APPROX"
+"[Pp]eale","MORE_THAN"
+"[Rr]ohkem kui","MORE_THAN"
+"[Üü]le","MORE_THAN"
+"[Kk]auem kui","MORE_THAN"
+"[Pp]ärast","MORE_THAN"
+"[Aa]lates","MORE_THAN"

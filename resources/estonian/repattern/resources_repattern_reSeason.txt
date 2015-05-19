@@ -3,11 +3,7 @@
 // date:   2014-11-24
 // This file contains regular expression patterns for seasons.
 // FORMAT: one line is one disjunction of the pattern
-[Kk]evade?
-[Kk]evadel
-[Ss]uvi
-[Ss]uvel
-[Ss]ügis
-[Ss]ügisel
-[Tt]alv
-[Tt]alvel
+[Kk]evad(el?)?
+[Ss]uv[ie]l?
+[Ss]ügis(el)?
+[Tt]alv(el)?

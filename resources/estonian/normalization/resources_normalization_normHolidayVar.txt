@@ -13,54 +13,31 @@
 //
 
 // [Ss]uur [Rr]eede
-"Suur Reede","funcDateCalc(EasterSunday(YEAR, -2))"
-"suur reede","funcDateCalc(EasterSunday(YEAR, -2))"
-"Suur reede","funcDateCalc(EasterSunday(YEAR, -2))"
-"Suurel Reedel","funcDateCalc(EasterSunday(YEAR, -2))"
-"suurel reedel","funcDateCalc(EasterSunday(YEAR, -2))"
-"Suurel reedel","funcDateCalc(EasterSunday(YEAR, -2))"
-"Suurele Reedele","funcDateCalc(EasterSunday(YEAR, -2))"
-"suurele reedele","funcDateCalc(EasterSunday(YEAR, -2))"
-"Suurele reedele","funcDateCalc(EasterSunday(YEAR, -2))"
+"[Ss]uur(ele?)? [Rr]eede(le?)?","funcDateCalc(EasterSunday(YEAR,-2)"
 
 // [Mm]unadepühad or [Ll]ihavõtted or [Ll]ihavõttepühad or [Üü]lestõusmispüha
-"Munadepühad","funcDateCalc(EasterSunday(YEAR, 0))"
-"munadepühad","funcDateCalc(EasterSunday(YEAR, 0))"
-"Lihavõtted","funcDateCalc(EasterSunday(YEAR, 0))"
-"lihavõtted","funcDateCalc(EasterSunday(YEAR, 0))"
-"Lihavõttepühad","funcDateCalc(EasterSunday(YEAR, 0))"
-"lihavõttepühad","funcDateCalc(EasterSunday(YEAR, 0))"
-"Ülestõusmispüha","funcDateCalc(EasterSunday(YEAR, 0))"
-"ülestõusmispüha","funcDateCalc(EasterSunday(YEAR, 0))"
+"[Mm]unadepühad","funcDateCalc(EasterSunday(YEAR, 0))"
+"[Ll]ihavõtted","funcDateCalc(EasterSunday(YEAR, 0))"
+"[Ll]ihavõttepühad","funcDateCalc(EasterSunday(YEAR, 0))"
+"[Üü]lestõusmispüha","funcDateCalc(EasterSunday(YEAR, 0))"
 
 // [Nn]elipühad 
-"Nelipühad","funcDateCalc(EasterSunday(YEAR, 49))"
-"nelipühad","funcDateCalc(EasterSunday(YEAR, 49))"
+"[Nn]elipühad","funcDateCalc(EasterSunday(YEAR, 49))"
 
 // [Ee]madepäev
-"Emadepäev","funcDateCalc(WeekdayRelativeTo(YEAR-05-01, 1, 2, true))"
-"emadepäev","funcDateCalc(WeekdayRelativeTo(YEAR-05-01, 1, 2, true))"
+"[Ee]madepäev","funcDateCalc(WeekdayRelativeTo(YEAR-05-01, 1, 2, true))"
 
 // [Ii]sadepäev
-"Isadepäev","funcDateCalc(WeekdayRelativeTo(YEAR-11-01, 1, 2, true))"
-"isadepäev","funcDateCalc(WeekdayRelativeTo(YEAR-11-01, 1, 2, true))"
+"[Ii]sadepäev","funcDateCalc(WeekdayRelativeTo(YEAR-11-01, 1, 2, true))"
 
 // 1. [Advent]
-"Esimene Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
-"esimene advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
-"Esimene advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
+"[Ee]simene [Aa]dvent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -4, false))"
  
 // 2. [Advent]
-"Teine Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
-"teine advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
-"Teine advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
+"[Tt]eine [Aa]dvent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -3, false))"
 
 // 3. [Advent]
-"Kolmas Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
-"kolmas advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
-"Kolmas advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
+"[Kk]olmas [Aa]dvent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -2, false))"
 
 // 4. [Advent]
-"Neljas Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"
-"neljas advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"
-"Neljas advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"
+"[Nn]eljas Advent","funcDateCalc(WeekdayRelativeTo(YEAR-12-24, 1, -1, false))"

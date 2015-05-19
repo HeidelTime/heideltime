@@ -3,13 +3,13 @@
 // date:   2014-11-24
 // This file contains regular expression patterns for parts of days.
 // FORMAT: one line is one disjunction of the pattern
-[Ee]nnelõuna
 [Pp]ärastlõuna
 [Pp]ealelõuna
-[Ll]õuna
+[Ee]nnelõuna
+[Kk]eskpäev
+[Hh]ommik
 [Kk]esköö
 [Ss]üdaöö
-[Kk]eskpäev
-[Öö]ö
-[Hh]ommik
+[Ll]õuna
 [Õõ]htu
+[Öö]ö

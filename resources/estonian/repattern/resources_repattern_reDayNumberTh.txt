@@ -1,9 +1,9 @@
 // author: Annika Boldt
-// email:  a.boldt@uni-heidelberg.de
+// email:  a.boldt@stud.uni-heidelberg.de
 // date:   2014-12-10
 // This file contains regular expression patterns for day digit th.
 // FORMAT: one line is one disjunction of the pattern
 
-[12][0-9].
-3[01].
-0?[1-9].
+[12][0-9]\.
+3[01]\.
+0?[1-9]\.

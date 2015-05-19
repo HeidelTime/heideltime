@@ -5,7 +5,6 @@
 // FORMAT: one line is one disjunction of the patter
 // THESE EXPRESSIONS ARE ALL IMPLICIT
 // SHOULD ONLY BE UPPER CASE IF AT THE BEGINNING OF A SENTENC
-[Nn]ii varsti kui saab
 [Jj]ust nüüd
 [Üü]lehomme
 [Tt]änaseks
@@ -17,6 +16,7 @@
 [Rr]raegu
 [Tt]änane
 [Hh]omme
+[Mm]ullu
 [Ee]ile
 [Tt]äna
 [Nn]üüd

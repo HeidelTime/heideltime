@@ -4,14 +4,14 @@
 // This file contains regular expression patterns for holidays on a moveable date.
 // FORMAT: one line is one disjunction of the pattern
 //
-
-[Ss]uure?l?e? [Rr]eedel?e?
+// easter
+[Ss]uur(ele?)? [Rr]eede(le?)?
 [Üü]lestõusmispüha
 [Mm]unadepühad 
 [Ll]ihavõtted
 [Ll]ihavõttepühad
 [Nn]elipühad
-
+// mother and father day
 [Ee]madepäev
 [Ii]sadepäev
 

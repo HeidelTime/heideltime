@@ -4,11 +4,12 @@
 // This file contains regular expression patterns for holidays on a fix date.
 // FORMAT: one line is one disjunction of the pattern
 
-[Uu]usaastal?
-[Ii]seseisvuspäeva?l?
+[Tt]aasiseseisvumispäev(al)?
+[Ii]seseisvuspäev(al)?
+[Ss]õprapäev(al)?
+[Jj]aanipäev(al)?
+[Uu]uel aastal
 [Kk]evadpühal?
 [Vv]õidupühal?
-[Jj]aanipäeva?l?
-[Tt]aasiseseisvumispäeva?l?
-[Jj]õulude?l?
-[Ss]õprapäev
+[Jj]õulud(el)?
+[Uu]usaastal?

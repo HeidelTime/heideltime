@@ -29,3 +29,4 @@ RULENAME="time_r2d",EXTRACTION="[Kk]ella? %reTimeHour:%reTimeMinute:%reTimeMinut
 RULENAME="time_r3a",EXTRACTION="%rePartOfDay",NORM_VALUE="UNDEF-day-T%normPartOfDay(group(1))"
 RULENAME="time_r3b",EXTRACTION="%reDateWord %rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
 RULENAME="time_r3c",EXTRACTION="%reWeekday %rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normPartOfDay(group(2))"
+

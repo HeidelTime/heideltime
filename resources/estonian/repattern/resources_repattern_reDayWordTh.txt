@@ -3,7 +3,7 @@
 // date:   2014-11-17
 // This file contains regular expression patterns for day word th.
 // FORMAT: one line is one disjunction of the pattern
-[Ee]simine
+[Ee]simene
 [Tt]eine
 [Kk]olmas
 [Nn]eljas
@@ -35,4 +35,3 @@
 [Kk]ahekümne üheksas
 [Kk]olmekümnes
 [Kk]olmekümne esimene
-[Kk]olmekümne teine
