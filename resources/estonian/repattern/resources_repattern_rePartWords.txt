@@ -1,0 +1,12 @@
+// author: Annika Boldt
+// email:  a.boldt@stud.uni-heidelberg.de
+// date:   2014-11-24
+// This file contains regular expression patterns for "part" words.
+// FORMAT: one line is one disjunction of the pattern
+[Aa]lgu[sl][et]?[sl]?[kn]?g?[st]?[ei]?a?
+[Ll]õp[pu]k?[us]?[lt]?(ni)?g?a?
+[Kk]eskpai[kg]a?s?[nk]?[ts]?i?
+[Vv]ara[sj]?a?[ns]?[et]?
+[Hh]il[ij][an]?k?s?[et]?
+[Kk]eskel[et]?
+[Aa]lates

@@ -1,0 +1,15 @@
+// author: Annika Boldt
+// email:  aboldt@uni-heidelberg.de
+// date:   2014-12-10
+// This file contains "season words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "summer" is "SU"
+// FORMAT: "season-word","normalized-season-word"
+// spring
+"[Kk]evad(el?)?","SP"
+//summer
+"[Ss]uv[ie]l?","SU"
+// fall
+"[Ss]ügis(el)?","FA"
+// winter
+"[Tt]alv(el)?","WI"

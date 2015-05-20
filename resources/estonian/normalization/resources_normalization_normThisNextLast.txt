@@ -1,0 +1,13 @@
+// author: Annika Boldt
+// email:  aboldt@stud.uni-heidelberg.de
+// date:   2014-12-10
+// This file contains "this/next/last words" and their normalized expressions.
+// FORMAT: "this/next/last-word","normalized-this/next/last-word"
+"[Vv]iimane","last"
+"[Vv]arem","last"
+"[Mm]öödunud","last"
+"[Ee]elmi[ns]e","last"
+"[Jj]ärgmine","next"
+"[Tt]ulev(al)?","next"
+"[Ss]ama","this"
+"[Ss]ee","this"

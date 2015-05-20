@@ -31,6 +31,7 @@ public enum Language {
     RUSSIAN		("russian", "russian", "russian", ""),
     CROATIAN	("croatian", "croatian", "croatian", ""),
 	PORTUGUESE	("portuguese", "portuguese", "pt", ""),
+    ESTONIAN	("estonian", "estonian", "estonian", ""),
 	WILDCARD	("", "", "", ""), // if no match was found, this gets filled with parameter
 	; // ends the enum element list
 	

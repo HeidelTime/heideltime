@@ -1,0 +1,14 @@
+// author: Annika Boldt
+// email:  aboldt@uni-heidelberg.de
+// date:   2014-12-10
+// This file contains contains "part words" and their normalized expressions
+// according to TIMEX3 format. 
+// For example, the normalized value of "the middle of" is "MID"
+// FORMAT: "part word","normalized-part-word"
+"[Kk]eskel[et]?","MID"
+"[Kk]eskpai[kg]a?s?[nk]?[ts]?i?","MID"
+"[Ll]õp[pu]k?[us]?[lt]?(ni)?g?a?","END"
+"[Aa]lgu[sl][et]?[sl]?[kn]?g?[st]?[ei]?a?","START"
+"[Hh]il[ij][an]?k?s?[et]?","END"
+"[Vv]ara[sj]?a?[ns]?[et]?","START"
+"[Aa]lates","START"

@@ -1,0 +1,18 @@
+// author: Annika Boldt
+// email:  a.boldt@uni-heidelberg.de
+// date:   2014-11-25
+// This file contains "decade words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "twenties" is "2X"
+// FORMAT: "decade-word","normalized-decade-word"
+// Changed in the context of TempEval-3 
+// (there shouldn't be any "X" or "XX" at 
+// the end of decade and century expressions
+"[Kk]ahekümnendad","2"
+"[Kk]olmekümnendad","3"
+"[Nn]eljakümnendad","4"
+"[Vv]iiekümnendad","5"
+"[Kk]uuekümnendad","6"
+"[Ss]eitsmekümnendad","7"
+"[Kk]aheksakümnendad","8"
+"[Üü]heksakümnendad","9"

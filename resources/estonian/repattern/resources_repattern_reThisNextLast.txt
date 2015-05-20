@@ -1,0 +1,13 @@
+// author: Annika Boldt
+// email:  aboldt@stud.uni-heidelberg.de
+// date:   2014-12-10
+// This file contains regular expression patterns for "this/next/last" words.
+// FORMAT: one line is one disjunction of the pattern
+[Tt]ulev(al)?
+[Ee]elmi[ns]e
+[Mm]öödunud
+[Jj]ärgmine
+[Vv]iimane
+[Vv]arem
+[Ss]ama
+[Ss]ee

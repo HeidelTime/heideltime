@@ -1,0 +1,34 @@
+// author: Hans-Peter Pfeiffer
+// email:  H.Pfeiffer@stud.uni-heidelberg.de
+// date:   2012-02-11
+// This file contains fix holiday and their normalized expressions.
+// For example, the normalized value of "Newyear" is "01-01"
+// FORMAT: "hoilday_name","month-year"
+// 
+i// the reference of the values is given in the repattern file
+
+// [Uu]usaasta or [Uu]usaastal
+"[Uu]usaastal?","01-01"
+"[Uu]uel aastal","01-01"
+
+// [Ss]õprapäev or [Ss]õprapäeval
+"[Ss]õprapäev(al)?","02-14"
+
+// [Ii]seseisvuspäev or [Ii]seseisvuspäeval
+"[Ii]seseisvuspäev(al)?","02-24"
+
+
+// [Kk]evadpüha or [Kk]evadpühal
+"[Kk]evadpühal?","05-01"
+
+// [Vv]õidupüha or [Vv]õidupühal
+"[Vv]õidupühal?","06-23"
+
+// [Jj]aanipäev [Jj]aanipäeval
+"[Jj]aanipäev(al)?","06-24"
+
+// [Tt]aasiseseisvumispäev [Tt]aasiseseisvumispäeval
+"[Tt]aasiseseisvumispäev(al)?","08-20"
+
+// [Jj]õulud or [Jj]õuludel
+"[Jj]õulud(el)?","12-24"

@@ -1,0 +1,15 @@
+// author: Annika Boldt
+// email:  a.boldt@uni-heidelberg.de
+// date:   2014-11-25
+// This file contains "day words" and their normalized expressions 
+// according to TIMEX3 format.
+// For example, the normalized value of "sunday" is "1"
+// FORMAT: "day-word","normalized-day-word"
+"[Ee]smaspäev","1"
+"[Tt]eisipäev","2"
+"[Kk]olmapäev","3"
+"[Nn]eljapäev","4"
+"[Rr]eede","5"
+"[Ll]aupäev","6"
+"[Pp]ühapäev","7"
+

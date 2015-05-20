@@ -1,0 +1,22 @@
+// author: Annika Boldt
+// email:  aboldt@uni-heidelberg.de
+// date:   2015-04-28
+// This file contains rules for the temporal expressions of the type duration: durationrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+/////////////////////
+// POSITIVE RULES //
+/////////////////////
+// duration_r1
+// EXAMPLE r1a: 3 aastat
+// EXAMPLE r1b: kuus kuud
+// EXAMPLE r1c: kümne aasta
+
+RULENAME="duration_r1a",EXTRACTION="(%reApproximate )?([\d]+) %reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(4))"
+RULENAME="duration_r1b",EXTRACTION="(%reApproximate )?(%reNumWord1D|%reNumWord2D) %reUnit",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(6))"
+RULENAME="duration_r1c",EXTRACTION="%reDayWordTh %reUnit",NORM_VALUE="P%normDay(group(1))%normUnit(group(2))"
+
+// duration_r2
+// EXAMPLE r2a: 15 päeva jooksul
+
+RULENAME="duration_r2a",EXTRACTION="([\d]+) %reUnit %reApproximate",NORM_VALUE="Pgroup(1)%normUnit4Duration(group(2))" 

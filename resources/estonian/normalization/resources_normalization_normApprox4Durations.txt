@@ -1,0 +1,25 @@
+// author: Annika Boldt
+// email:  aboldt@stud.uni-heidelberg.de
+// date:   2015-04-27
+// This file contains "approximate words" and their normalized expressions
+// for dates/times according to TIMEX3 format.
+// For example, the normalized value of "about" is "APPROX"
+// FORMAT: "approximate-word","normalized-approximate-word"
+// about
+"[Jj]ooksul","APPROX"
+"[Pp]eaaegu","APPROX"
+"[Uu]mbes","APPROX"
+"[Pp]aiku","APPROX"
+// less
+"[Kk]uni","EQUAL_OR_LESS"
+"[Vv]ähemalt","EQUAL_OR_LESS"
+"[Aa]lates","EQUAL_OR_LESS"
+"[Vv]ähem kui","LESS_THAN"
+"[Ee]nne","LESS_THAN"
+//  more
+"[Vv]ähemalt","EQUAL_OR_MORE"
+"[Rr]ohkem kui","MORE_THAN"
+"[Kk]auem kui","MORE_THAN"
+"[Pp]ärast","MORE_THAN"
+"[Pp]eale","MORE_THAN"
+"[Üü]le","MORE_THAN"

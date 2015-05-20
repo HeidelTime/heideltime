@@ -1,0 +1,9 @@
+// author: Annika Boldt
+// email:  a.boldt@uni-heidelberg.de
+// date:   2014-11-24
+// This file contains regular expression patterns for set words.
+// FORMAT: one line is one disjunction of the pattern
+[Ii]gal? aastal?
+[Ii]gal? kuul?
+[Ii]gal? päev(al)?
+[Ii]gal? nädal(al)?

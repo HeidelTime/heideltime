@@ -1,0 +1,96 @@
+// author: Annika Boldt
+// email: aboldt@uni-heidelberg.de
+// date:   2014-12-10
+// This file contains regular expression patterns for 
+// number word 2 digits: reNumWord2D
+// FORMAT: one line is one disjunction of the pattern
+[Kk]ümme
+[Üü]ksteist
+[Kk]aksteist
+[Kk]olmteist
+[Nn]eliteist
+[Vv]iisteist
+[Kk]uusteist
+[Ss]eitseteist
+[Kk]aheksateist
+[Üü]heksateist
+[Kk]akskümmend üks
+[Kk]olmkümmend üks
+[Nn]elikümmend üks
+[Vv]iiskümmend üks
+[Kk]uuskümmend üks
+[Ss]eitsekümmend üks
+[Kk]aheksakümmend üks
+[Üü]heksakümmend üks
+[Kk]akskümmend kaks
+[Kk]olmkümmend kaks
+[Nn]elikümmend kaks
+[Vv]iiskümmend kaks
+[Kk]uuskümmend kaks
+[Ss]eitsekümmend kaks
+[Kk]aheksakümmend kaks
+[Üü]heksakümmend kaks
+[Kk]akskümmend kolm
+[Kk]olmkümmend kolm
+[Nn]elikümmend kolm
+[Vv]iiskümmend kolm
+[Kk]uuskümmend kolm
+[Ss]eitsekümmend kolm
+[Kk]aheksakümmend kolm
+[Üü]heksakümmend kolm
+[Kk]akskümmend neli
+[Kk]olmkümmend neli
+[Nn]elikümmend neli
+[Vv]iiskümmend neli
+[Kk]uuskümmend neli
+[Ss]eitsekümmend neli
+[Kk]aheksakümmend neli
+[Üü]heksakümmend neli
+[Kk]akskümmend viis
+[Kk]olmkümmend viis
+[Nn]elikümmend viis
+[Vv]iiskümmend viis
+[Kk]uuskümmend viis
+[Ss]eitsekümmend viis
+[Kk]aheksakümmend viis
+[Üü]heksakümmend viis
+[Kk]akskümmend kuus
+[Kk]olmkümmend kuus
+[Nn]elikümmend kuus
+[Vv]iiskümmend kuus
+[Kk]uusk¸mmend kuus
+[Ss]eitsekümmend kuus
+[Kk]aheksakümmend kuus
+[Üü]heksakümmend kuus
+[Kk]akskümmend seitse
+[Kk]olmkümmend seitse
+[Nn]elikümmend seitse
+[Vv]iiskümmend seitse
+[Kk]uuskümmend seitse
+[Ss]eitsekümmend seitse
+[Kk]aheksakümmend seitse
+[Üü]heksakümmend seitse
+[Kk]akskümmend kaheksa
+[Kk]olmkümmend kaheksa
+[Nn]elikümmend kaheksa
+[Vv]iiskümmend kaheksa
+[Kk]uuskümmend kaheksa
+[Ss]eitsekümmend kaheksa
+[Kk]aheksakümmend kaheksa
+[Üü]heksakümmend kaheksa
+[Kk]akskümmend üheksa
+[Kk]olmkümmend üheksa
+[Nn]elikümmend üheksa
+[Vv]iiskümmend üheksa
+[Kk]uuskümmend üheksa
+[Ss]eitsekümmend üheksa
+[Kk]aheksakümmend üheksa
+[Üü]heksakümmend üheksa
+[Kk]akskümmend
+[Kk]olmkümmend
+[Nn]elikümmend
+[Vv]iiskümmend
+[Kk]uuskümmend
+[Ss]eitsekümmend
+[Kk]aheksakümmend
+[Üü]heksakümmend

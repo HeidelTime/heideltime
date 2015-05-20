@@ -1,0 +1,20 @@
+// author: Annika Boldt
+// email:  aboldt@stud.uni-heidelberg.de
+// date:   2014-12-10
+// This file contains regular expression patterns for "approximate" words.
+// FORMAT: one line is one disjunction of the pattern
+// about
+[Rr]ohkem kui
+[Vv]ähem kui
+[Kk]auem kui
+[Vv]ähemalt
+[Jj]ooksul
+[Pp]eaaegu
+[Pp]ärast
+[Aa]lates
+[Uu]mbes
+[Pp]aiku
+[Pp]eale
+[Ee]nne
+[Kk]uni
+[Üü]le

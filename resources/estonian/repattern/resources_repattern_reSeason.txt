@@ -1,0 +1,9 @@
+// author: Annika Boldt
+// email:  a.boldt@uni-heidelberg.de
+// date:   2014-11-24
+// This file contains regular expression patterns for seasons.
+// FORMAT: one line is one disjunction of the pattern
+[Kk]evad(el?)?
+[Ss]uv[ie]l?
+[Ss]ügis(el)?
+[Tt]alv(el)?

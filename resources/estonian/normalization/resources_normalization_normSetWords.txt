@@ -1,0 +1,15 @@
+// author: Annika Boldt
+// email:  aboldt@uni-heidelberg.de
+// date:   2014-12-10
+// This file contains "set words" and their normalized expressions
+// according to TIMEX3 format.
+// For example, the normalized value of "daily" is "XXXX-XX-XX"
+// FORMAT: "set-word","normalized-set-word"
+"Iga aasta","XXXX"
+"iga aasta","XXXX"
+"Iga kuu","XXXX-XX"
+"iga kuu","XXXX-XX"
+"Iga päev","XXXX-XX-XX"
+"iga päev","XXXX-XX-XX"
+"Iga nädal","XXXX-WXX"
+"iga nädal","XXXX-WXX"
