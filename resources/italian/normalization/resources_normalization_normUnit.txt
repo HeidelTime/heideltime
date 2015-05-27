@@ -10,6 +10,7 @@
 "[Mm]inut[oi]","minute"
 "[Oo]r[ea]","hour"
 "[Gg]iorn[oi] feriale","day"
+"[Gg]iorn[oi] festiv[oi]","day"
 "[Gg]iorn[oi]","day"
 "[Ff]ine settimana","week-WE"
 "[Ww]eek[\s]?-?[\s]?end","week-WE"

@@ -72,7 +72,7 @@
 "[Tt]re quarti","45"
 "[Mm]ezz[ao]","30"
 "[Zz]ero","00"
-"[Uu]no?","01"
+"[Uu]n[oa]?","01"
 "[Dd]ue","02"
 "[Tt]re","03"
 "[Qq]uattr[o']","04"

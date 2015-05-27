@@ -9,6 +9,7 @@
 "[Gg]iornat[ae]","DT"
 "[Gg]iorn[oi] lavorativ[oi]","D"
 "[Gg]iorn[oi] ferial[ei]","D"
+"[Gg]iorn[oi] festiv[oi]","D"
 "[Gg]iorn[oi]","D"
 "[Ff]ine settimana","WE"
 "[Ww]eek[\s]?-?[\s]?end","WE"

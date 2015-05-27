@@ -50,4 +50,4 @@ RULENAME="set_r3a",EXTRACTION="(%reNumWord1D|%reNumWord2D) volt[ae] (ogni |la |a
 // set_r5
 // EXAMPLE r5a-1: 2 giorni a settimana
 RULENAME="set_r5a",EXTRACTION="([\d]+) %reUnit (ogni |la |alla |al? |all'\s?|l'\s?)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))",NORM_QUANT="EACH",NORM_FREQ="group(1)%normUnit4Duration(group(2))"
-RULENAME="set_r5b",EXTRACTION="(%reNumWord2D|%reNumWord1D) %reUnit (ogni |la |alla |al |all'\s?|l'\s?)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(2))",NORM_QUANT="EACH",NORM_FREQ="%normDurationNumber(group(1))%normUnit4Duration(group(4))"
+RULENAME="set_r5b",EXTRACTION="(%reNumWord2D|%reNumWord1D) %reUnit (ogni |la |alla |al |all'\s?|l'\s?)%reUnit",NORM_VALUE="P1%normUnit4Duration(group(4))",NORM_QUANT="EACH",NORM_FREQ="%normDurationNumber(group(1))%normUnit4Duration(group(4))"
