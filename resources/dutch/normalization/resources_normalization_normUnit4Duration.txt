@@ -23,6 +23,7 @@
 "decennia","DE"
 "eeuwen","CE"
 "uur","H"
+"[Uu]ren","H"
 "minuut","M"
 "minuten","M"
 "seconde","S"

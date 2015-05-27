@@ -56,7 +56,7 @@ RULENAME="duration_r2f",EXTRACTION="(%reApproximate )?(de |het )?%reThisNextLast
 RULENAME="duration_r3a",EXTRACTION="((een|de) )?(periode van |gedurende |duur van )(%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(4))%normUnit4Duration(group(7))"
 RULENAME="duration_r3b",EXTRACTION="((een|de) )?(%reNumWord2D|%reNumWord1D) %reUnit( durende)?( periode| tijd)?",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(6))"
 RULENAME="duration_r3c",EXTRACTION="((een|de) )?(periode van |gedurende |duur van )([\d]+) %reUnit",NORM_VALUE="Pgroup(4)%normUnit4Duration(group(5))"
-RULENAME="duration_r3d",EXTRACTION="((een|de) )?([\d]+) (%reUnit durende?|%reUnit)( periode| tijd)?",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(4))"
+RULENAME="duration_r3d",EXTRACTION="((een|de) )?([\d]+) %reUnit (durende)?( periode| tijd)?",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(4))"
 RULENAME="duration_r3e",EXTRACTION="((een|de) )?(periode van |gedurende |duur van )(%reNumWord2D|%reNumWord1D) (minuut|minuten|uur)",NORM_VALUE="P%normDurationNumber(group(4))%normUnit4Duration(group(7))"
 RULENAME="duration_r3f",EXTRACTION="((een|de) )?(%reNumWord2D|%reNumWord1D) (minuut|minuten|uur) durende?( periode| tijd)?",NORM_VALUE="PT%normDurationNumber(group(3))%normUnit4Duration(group(6))"
 RULENAME="duration_r3g",EXTRACTION="((een|de) )?(periode van |gedurende |duur van )([\d]+) (minuut|minuten|uur|uren)",NORM_VALUE="PTgroup(4)%normUnit4Duration(group(5))"

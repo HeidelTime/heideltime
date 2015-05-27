@@ -22,6 +22,7 @@
 "decennia","decade"
 "eeuwen","century"
 "uur","hour"
+"[Uu]ren","hour"
 "minuut","minute"
 "minuten","minute"
 "Dag","day"

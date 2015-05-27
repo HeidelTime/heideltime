@@ -32,6 +32,7 @@
 "MRT.","03"
 "Maart","03"
 "maart","03"
+"[Mm][Aa][Rr]\.?","03"
 // April
 "Apr","04"
 "apr","04"
@@ -91,12 +92,12 @@
 "September","09"
 "september","09"
 // Oktober
-"Okt","10"
-"okt","10"
-"Okt.","10"
-"okt.","10"
-"OKT","10"
-"OKT.","10"
+"O[kc]t","10"
+"o[kc]t","10"
+"O[kc]t.","10"
+"o[kc]t.","10"
+"O[KC]T","10"
+"O[KC]T.","10"
 "Oktober","10"
 "oktober","10"
 // November
