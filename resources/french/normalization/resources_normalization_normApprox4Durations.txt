@@ -13,7 +13,7 @@
 // about
 "[Aa]pproximativement","APPROX"
 "[Aa]u moins","APPROX"
-"[Aa]utour de","APPROX"
+"[Aa]utour( de)?","APPROX"
 "[Ee]nviron","APPROX"
 "[Pp]resque","APPROX"
 "[Pp]rès de","APPROX"
