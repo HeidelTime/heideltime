@@ -241,12 +241,12 @@ public class TreeTaggerTokenizer {
 						}
 	
 						while(true) {
-							m = Pattern.compile("^(.)(--)").matcher(token);
+							m = Pattern.compile("(.)(--)$").matcher(token);
 							
 							if(!m.find()) {
 								break;
 							}
-							token = token.replaceAll("^(.)(--)", "$1");
+							token = token.replaceAll("(.)(--)$", "$1");
 							suffix = m.group(2) + "\n" + suffix;
 						}
 						if(!FClitic.equals("")) {
