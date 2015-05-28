@@ -55,6 +55,7 @@
 //
 "[Pp]remier","01"
 "[Dd]euxième","02"
+"[Ss]econde?","02"
 "[Tt]roisième","03"
 "[Qq]uatrième","04"
 "[Cc]inquième","05"

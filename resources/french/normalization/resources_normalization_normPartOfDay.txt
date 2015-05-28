@@ -11,7 +11,7 @@
 // mid-day
 "[Mm]idi","12:00"
 "[Mm]i-journée","MD"
-"[Aa]près-midi","AF"
+"[Aa]près-midis?","AF"
 "[Ss]oirs?","EV"
 "[Ss]oirées?","EV"
 // night

@@ -30,7 +30,7 @@
 
 
 // http://en.wikipedia.org/wiki/Assumption_of_Mary
-"assomption","08-15"
+"[Aa]ssomption","08-15"
 "Toussaint","11-01"
 
 

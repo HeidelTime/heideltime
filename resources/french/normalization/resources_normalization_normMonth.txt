@@ -45,7 +45,7 @@
 "[Jj]uillet","07"
 // August
 "[Aa]oût","08"
-"AOUT","08"
+"AOUT?","08"
 // September
 "[Ss]ep\.?","09"
 "SEP\.?","09"
