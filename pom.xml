@@ -66,8 +66,8 @@
   </build>
   <url>https://github.com/HeidelTime/heideltime/</url>
   <issueManagement>
-  	<system>Google Code</system>
   	<url>https://github.com/HeidelTime/heideltime/issues</url>
+  	<system>GitHub</system>
   </issueManagement>
   <repositories>
   	<repository>
