@@ -452,9 +452,9 @@ public class ContextAnalyzer {
 			for (Integer tokEnd : tmToken.keySet()) {
 				if (tokEnd < timex.getBegin()) {
 					Token token = tmToken.get(tokEnd);
-					if ((prevPos.equals("VHZ")) || (prevPos.equals("VBZ")) || (prevPos.equals("VHP")) || (prevPos.equals("VBP"))
+					if (("VHZ".equals(prevPos)) || ("VBZ".equals(prevPos)) || ("VHP".equals(prevPos)) || ("VBP".equals(prevPos))
 							|| (prevPos.equals("VER:pres"))) {
-						if (token.getPos().equals("VVN") || token.getPos().equals("VER:pper")) {
+						if ("VVN".equals(token.getPos()) || "VER:pper".equals(token.getPos())) {
 							if ((!(token.getCoveredText().equals("expected"))) && (!(token.getCoveredText().equals("scheduled")))) {
 								lastTense = "PAST";
 								longTense = "PAST";
@@ -467,9 +467,9 @@ public class ContextAnalyzer {
 				if (longTense.equals("")) {
 					if (tokEnd > timex.getEnd()) {
 						Token token = tmToken.get(tokEnd);
-						if ((prevPos.equals("VHZ")) || (prevPos.equals("VBZ")) || (prevPos.equals("VHP")) || (prevPos.equals("VBP"))
-								|| (prevPos.equals("VER:pres"))) {
-							if (token.getPos().equals("VVN") || token.getPos().equals("VER:pper")) {
+						if (("VHZ".equals(prevPos)) || ("VBZ".equals(prevPos)) || ("VHP".equals(prevPos)) || ("VBP".equals(prevPos))
+								|| ("VER:pres".equals(prevPos))) {
+							if ("VVN".equals(token.getPos()) || "VER:pper".equals(token.getPos())) {
 								if ((!(token.getCoveredText().equals("expected"))) && (!(token.getCoveredText().equals("scheduled")))) {
 									lastTense = "PAST";
 									longTense = "PAST";
@@ -487,7 +487,7 @@ public class ContextAnalyzer {
 			for (Integer tokEnd : tmToken.keySet()) { 
 				if (tokEnd < timex.getBegin()) {
 					Token token = tmToken.get(tokEnd);
-					if ((prevPos.equals("VER:pres")) && (token.getPos().equals("VER:pper"))) {
+					if (("VER:pres".equals(prevPos)) && ("VER:pper".equals(token.getPos()))) {
 							if (((token.getCoveredText().matches("^prévue?s?$"))) || ((token.getCoveredText().equals("^envisagée?s?$")))) {
 								lastTense = "FUTURE";
 								longTense = "FUTURE";
@@ -499,7 +499,7 @@ public class ContextAnalyzer {
 				if (longTense.equals("")) {
 					if (tokEnd > timex.getEnd()) {
 						Token token = tmToken.get(tokEnd);
-						if ((prevPos.equals("VER:pres")) && (token.getPos().equals("VER:pper"))) {
+						if (("VER:pres".equals(prevPos)) && ("VER:pper".equals(token.getPos()))) {
 							if (((token.getCoveredText().matches("^prévue?s?$"))) || ((token.getCoveredText().equals("^envisagée?s?$")))) {
 								lastTense = "FUTURE";
 								longTense = "FUTURE";
