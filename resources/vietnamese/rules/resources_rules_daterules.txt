@@ -443,8 +443,8 @@ RULENAME="vn_date_r19e",EXTRACTION="(Trước |trước |Sớm |sớm)([\w]+ )?%
 // EXAMPLE vn_date_r20e: 	sau|muộn (đos,hơn một thoi gian khoảng) hai năm 
 
 RULENAME="vn_date_r20a",EXTRACTION="(%reApproximate )?(%reUnit|phút|giờ) (tới|sau|tiếp theo|sau đó)",NORM_VALUE="FUTURE_REF"
-RULENAME="vn_date_r20a1",EXTRACTION="(sau |Sau ) một thời gian",NORM_VALUE="FUTURE_REF"
-RULENAME="vn_date_r20a1",EXTRACTION="(sau |Sau ) đó một thời gian",NORM_VALUE="FUTURE_REF"
+RULENAME="vn_date_r20a1a",EXTRACTION="(sau |Sau ) một thời gian",NORM_VALUE="FUTURE_REF"
+RULENAME="vn_date_r20a1b",EXTRACTION="(sau |Sau ) đó một thời gian",NORM_VALUE="FUTURE_REF"
 RULENAME="vn_date_r20a2",EXTRACTION="Ngay sau đó",NORM_VALUE="FUTURE_REF"
 RULENAME="vn_date_r20a3",EXTRACTION="ngay sau đó",NORM_VALUE="FUTURE_REF"
 RULENAME="vn_date_r20b",EXTRACTION="(%reApproximate )?([\d]+) (%reUnit) (tới|sau|tiếp theo|sau đó)",NORM_VALUE="UNDEF-REF-%normUnit(group(5))-PLUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))"
