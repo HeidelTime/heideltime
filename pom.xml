@@ -64,10 +64,10 @@
       </plugin>
     </plugins>
   </build>
-  <url>https://code.google.com/p/heideltime/</url>
+  <url>https://github.com/HeidelTime/heideltime/</url>
   <issueManagement>
-  	<system>Google Code</system>
-  	<url>https://code.google.com/p/heideltime/issues/list</url>
+  	<url>https://github.com/HeidelTime/heideltime/issues</url>
+  	<system>GitHub</system>
   </issueManagement>
   <repositories>
   	<repository>

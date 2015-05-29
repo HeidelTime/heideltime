@@ -161,7 +161,7 @@ set the environment variables.
 
 2. Download and install the UIMA HeidelTime kit
     * download the latest heideltime-kit from
-      https://code.google.com/p/heideltime
+      https://github.com/HeidelTime/heideltime/releases
     * unzip or untar the heideltime-kit into a path called HEIDELTIME_HOME from hereon out.
     * set the environment variable HEIDELTIME_HOME (you can set these variables globally, 
       e.g., in your $HOME/.bashrc):
@@ -215,7 +215,7 @@ set the environment variables.
         - export TREETAGGER_HOME='path to TreeTagger'
         - source $HEIDELTIME_HOME/metadata/setenv
    For further information on the TreeTagger, take a look at its documentation and our wiki
-   page for it: https://code.google.com/p/heideltime/wiki/TreeTaggerWrapper.
+   page for it: https://github.com/HeidelTime/heideltime/wiki/TreeTaggerWrapper
    
    
    To process Vietnamese documents, we have developed the JVnTextProWrapper Analysis 
@@ -228,7 +228,7 @@ set the environment variables.
       - export JVNTEXTPRO_HOME='<path to JVnTextPro>/bin'
       - source $HEIDELTIME_HOME/metadata/setenv
     Further information about JVnTextPro can be found on our Wiki page for the Engine:
-        https://code.google.com/p/heideltime/wiki/JVnTextProWrapper
+        https://github.com/HeidelTime/heideltime/wiki/JVnTextProWrapper
     
     
     To process Arabic documents, we have developed the Stanford POS Tagger Wrapper
@@ -243,7 +243,7 @@ set the environment variables.
        - export STANFORDTAGGER='path to stanford-postagger-<version>.jar'
        - source $HEIDELTIME_HOME/metadata/setenv
      For more information on the Stanford POS Tagger Wrapper, see our Wiki page:
-         https://code.google.com/p/heideltime/wiki/StanfordPOSTaggerWrapper
+         https://github.com/HeidelTime/heideltime/wiki/StanfordPOSTaggerWrapper
          
     
     To process Croatian documents, Luka Skukan has developed a Wrapper for the 
@@ -262,7 +262,7 @@ set the environment variables.
      
     For sample UIMA workflows for any of the supported languages, please take a look
     at our evaluation results reproduction Wiki page:
-        https://code.google.com/p/heideltime/wiki/ReproduceEvaluationResults
+        https://github.com/HeidelTime/heideltime/wiki/Reproducing-Evaluation-Results
     and select a workflow description for a corpus of the language of your choice.
 
 
@@ -328,12 +328,12 @@ these temporal expressions: January 22, 2001 or twice a week.
 ##########################################
 # 7. Additional HeidelTime documentation #
 ##########################################
-HeidelTime's Google Code Project contains a lot of valuable information on how to use
+HeidelTime's GitHub Project contains a lot of valuable information on how to use
 HeidelTime or its components, as well as additional resources, an always up-to-date
 code repository and issue tracker in case you spot a bug.
 Visit the project at
     
-    http://code.google.com/p/heideltime/
+    https://github.com/HeidelTime/heideltime
 
 
 #######################################################################
@@ -341,7 +341,7 @@ Visit the project at
 #######################################################################
 To reproduce HeidelTime's evaluation results reported in in our paper "Multilingual 
 Cross-domain Temporal Tagging", follow the instructions on:
-http://code.google.com/p/heideltime/wiki/ReproduceEvaluationResults
+https://github.com/HeidelTime/heideltime/wiki/Reproducing-Evaluation-Results
 
 ##############
 # 9. License #
