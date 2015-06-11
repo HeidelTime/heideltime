@@ -391,6 +391,13 @@ public class HeidelTimeStandalone {
 					settings.put(PartOfSpeechTagger.TREETAGGER_ANNOTATE_POS, true);
 					settings.put(PartOfSpeechTagger.TREETAGGER_IMPROVE_GERMAN_SENTENCES, (language == Language.GERMAN));
 					settings.put(PartOfSpeechTagger.TREETAGGER_CHINESE_TOKENIZER_PATH, Config.get(Config.CHINESE_TOKENIZER_PATH));
+				} else if(POSTagger.HUNPOS.equals(posTagger)) {
+					partOfSpeechTagger = new HunPosTaggerWrapper();
+					settings.put(PartOfSpeechTagger.HUNPOS_LANGUAGE, language);
+					settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_TOKENS, true);
+					settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_POS, true);
+					settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_SENTENCES, true);
+					settings.put(PartOfSpeechTagger.HUNPOS_MODEL_PATH, Config.get(Config.HUNPOS_MODEL_PATH));
 				} else {
 					logger.log(Level.FINEST, "Sorry, but you can't use that tagger.");
 				}
@@ -602,12 +609,12 @@ public class HeidelTimeStandalone {
 		if(CLISwitch.LANGUAGE.getIsActive()) {
 			language = Language.getLanguageFromString((String) CLISwitch.LANGUAGE.getValue());
 			
-			if(language == Language.WILDCARD) {
+			if(language == Language.WILDCARD && !ResourceScanner.getInstance().getDetectedResourceFolders().contains(language.getName())) {
 				logger.log(Level.SEVERE, "Language '-l': "+CLISwitch.LANGUAGE.getValue()+" NOT RECOGNIZED; aborting.");
 				printHelp();
 				System.exit(-1);
 			} else {
-				logger.log(Level.INFO, "Language '-l': "+language.toString().toUpperCase());	
+				logger.log(Level.INFO, "Language '-l': "+language.getName());	
 			}
 		} else {
 			// Language not found
