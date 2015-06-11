@@ -3,8 +3,8 @@
 #######################
 
 Author:  Jannik Strötgen, Julian Zell
-Date:    November 25th, 2014
-Version: 1.8
+Date:    June 12th, 2015
+Version: 1.9
 eMail:   stroetgen@uni-hd.de, zell@informatik.uni-heidelberg.de
 
 ###################################
@@ -346,7 +346,7 @@ https://github.com/HeidelTime/heideltime/wiki/Reproducing-Evaluation-Results
 ##############
 # 9. License #
 ##############
-Copyright (c) 2012-2014, Database Research Group, Institute of Computer Science, University of Heidelberg. 
+Copyright (c) 2012-2015, Database Research Group, Institute of Computer Science, University of Heidelberg. 
 All rights reserved. This program and the accompanying materials 
 are made available under the terms of the GNU General Public License.
 
