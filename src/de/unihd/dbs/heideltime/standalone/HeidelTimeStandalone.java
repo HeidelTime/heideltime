@@ -52,6 +52,7 @@ import de.unihd.dbs.heideltime.standalone.components.impl.XMIResultFormatter;
 import de.unihd.dbs.heideltime.standalone.exceptions.DocumentCreationTimeMissingException;
 import de.unihd.dbs.uima.annotator.heideltime.HeidelTime;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
+import de.unihd.dbs.uima.annotator.heideltime.resources.ResourceScanner;
 import de.unihd.dbs.uima.annotator.intervaltagger.IntervalTagger;
 import de.unihd.dbs.uima.types.heideltime.Dct;
 
@@ -559,6 +560,13 @@ public class HeidelTimeStandalone {
 		if(CLISwitch.VERBOSITY2.getIsActive()) {
 			logger.setLevel(Level.ALL);
 			logger.log(Level.INFO, "Verbosity: '-vv'; Logging level set to ALL.");
+			
+			// output the found language resource folders
+			String languagesList = "";
+			for(String language : ResourceScanner.getInstance().getDetectedResourceFolders()) {
+				languagesList += System.getProperty("line.separator") + "- " + language;
+			}
+			logger.log(Level.INFO, "Listing detected language folders:" + languagesList);
 		} else if(CLISwitch.VERBOSITY.getIsActive()) {
 			logger.setLevel(Level.INFO);
 			logger.log(Level.INFO, "Verbosity: '-v'; Logging level set to INFO and above.");

@@ -43,7 +43,7 @@ public class ResourceScanner {
 	private Map<String, ResourceMap> normalizations = new HashMap<String, ResourceMap>();
 	private Map<String, ResourceMap> rules = new HashMap<String, ResourceMap>();
 
-	private ResourceScanner() { 
+	private ResourceScanner() {
 		File jarFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
 		if (jarFile.isFile()) {
 			// scan the interior of a jar file
@@ -279,5 +279,9 @@ public class ResourceScanner {
 	
 	public ResourceMap getRules(String language) {
 		return rules.get(language);
+	}
+	
+	public final Set<String> getDetectedResourceFolders() {
+		return languages;
 	}
 }
