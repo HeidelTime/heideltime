@@ -66,7 +66,9 @@ HeidelTime with resources for several languages is one component of our UIMA Hei
 - French (kindly provided by Véronique Moriceau, LIMSI - CNRS, http://vero.moriceau.free.fr/)
 - Chinese
 - Russian (a preliminary version was kindly shared by Elena Klyachko)
-- Croatian (kindly provided by Luka Skukan) 
+- Croatian (kindly provided by Luka Skukan)
+- Estonian
+- Portuguese (kindly provided by Zunsik Lim)
 
 Additionally, whilst expanding the set of domains that HeidelTime can recognize temporal 
 expressions in, English resources for colloquial as well as scientific style documents were 
@@ -112,7 +114,7 @@ contains:
       
     * HeidelTime: Possible parameter values are:
         - languages: english, englishcoll, englishsci, german, spanish, italian, vietnamese, arabic,
-                   dutch, chinese, french, russian, croatian
+                   dutch, chinese, french, russian, croatian, estonian, portuguese
         - types: news, narratives, colloquial (for use with englishcoll), scientific (englishsci)
         - locale: the locale to use for date calculation. Leave it empty to use en_GB.
         - Debugging: to output verbose debugging information to stderr.

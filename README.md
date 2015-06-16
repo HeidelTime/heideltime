@@ -1,7 +1,7 @@
 ## About HeidelTime
 **HeidelTime** is a multilingual, cross-domain temporal tagger developed at the [Database Systems Research Group](http://dbs.ifi.uni-heidelberg.de/) at [Heidelberg University](http://www.uni-heidelberg.de/index_e.html). It extracts temporal expressions from documents and normalizes them according to the TIMEX3 annotation standard. HeidelTime is available as [UIMA](http://uima.apache.org/) annotator and as standalone version.
 
-**HeidelTime** currently understands documents in **11 languages**: English, German, Dutch, Vietnamese, Arabic, Spanish, Italian, French, Chinese, Russian, and Croatian.
+**HeidelTime** currently understands documents in **13 languages**: English, German, Dutch, Vietnamese, Arabic, Spanish, Italian, French, Chinese, Russian, Croatian, Estonian and Portuguese.
 
 **HeidelTime** distinguishes between **news-style** documents and **narrative-style documents** (e.g., Wikipedia articles) in all languages. In addition, English colloquial (e.g., Tweets and SMS) and scientific articles (e.g., clinical trails) are supported.
 
@@ -37,6 +37,7 @@ We want to thank the following researchers for their efforts to develop HeidelTi
 2. [French resources](http://www.lrec-conf.org/proceedings/lrec2014/pdf/45_Paper.pdf): [Véronique Moriceau, LIMSI - CNRS](http://vero.moriceau.free.fr/)
 3. Russian resources: Elena Klyachko
 4. [Croatian resources](http://nl.ijs.si/isjt14/proceedings/isjt2014_17.pdf): Luka Skukan, University of Zagreb
+5. Portuguese resources: Zunsik Lim
 
 ---
 
