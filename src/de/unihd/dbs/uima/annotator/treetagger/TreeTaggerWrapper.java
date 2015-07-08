@@ -263,14 +263,13 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		// loop through all the lines in the treetagger output
 		for(String s : tokenized) {
 			// charset missmatch fallback: signal (invalid) s
-			if ((!(s.equals("EMPTYLINE"))) && (jcas.getDocumentText().indexOf(s, tokenOffset) < 0))
-				throw new RuntimeException("Opps! Could not find token "+s+
-						" in JCas after tokenizing with TreeTagger." +
-						" Hmm, there may exist a charset missmatch!" +
-						" Default encoding is " + Charset.defaultCharset().name() + 
-						" and should always be UTF-8 (use -Dfile.encoding=UTF-8)." +
-						" If input document is not UTF-8 use -e option to set it according to the input, additionally.");
-
+			if ((!(s.equals("EMPTYLINE"))) && (jcas.getDocumentText().indexOf(s, tokenOffset) < 0)) {
+				Logger.printError(component, "Tokenization was interrupted because the token \"" + s 
+						+ "\" could not be found in the original text. The reason for this might be "
+						+ "that the encoding of the document is not UTF-8. This token was skipped and "
+						+ "if it was part of a temporal expression, will not be extracted.");
+				continue;
+			}
 			// create tokens and add them to the jcas's indexes.
 			Token newToken = new Token(jcas);
 			if (s.equals("EMPTYLINE")){
