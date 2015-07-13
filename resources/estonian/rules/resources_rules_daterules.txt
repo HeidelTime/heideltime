@@ -13,15 +13,13 @@
 // EXAMPLE r1b: 25. veebruar
 // EXAMPLE r1c: 2014. aasta 14. septembril
 // EXAMPLE r1d: 2013. aasta novembris
-// EXAMPLE r1e: 20.maile
-// EXAMPLE r1e_2: 25 aprillil
+// EXAMPLE r1e: 2013. augustis
 
-RULENAME="date_r1a",EXTRACTION="%reDayNumberTh %reMonthLong %reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))"
-RULENAME="date_r1b",EXTRACTION="%reDayNumberTh %reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(1))"
+RULENAME="date_r1a",EXTRACTION="%reDayNumberTh\s?%reMonthLong %reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))"
+RULENAME="date_r1b",EXTRACTION="%reDayNumberTh\s?%reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(1))"
 RULENAME="date_r1c",EXTRACTION="%reYear4Digit\. %reUnit %reDayNumberTh %reMonthLong",NORM_VALUE="group(1)-%normMonth(group(4))-%normDay(group(3))"
 RULENAME="date_r1d",EXTRACTION="%reYear4Digit\. %reUnit %reMonthLong",NORM_VALUE="group(1)-%normMonth(group(3))"
-RULENAME="date_r1e",EXTRACTION="%reDayNumberTh%reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(1))"
-RULENAME="date_r1e_2",EXTRACTION="%reDayNumberTh %reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(1))"
+RULENAME="date_r1e",EXTRACTION="%reYear4Digit\.\s?%reMonthLong",NORM_VALUE="group(1)-%normMonth(group(2))"
 
 // date_r2
 // EXAMPLE r2a: sama aasta 26. märtsil
@@ -48,7 +46,7 @@ RULENAME="date_r3b",EXTRACTION="%reUnit %reYear4Digit%reAndOrTo%reYear4Digit",NO
 //RULENAME="date_r3c",EXTRACTION="%reYear4Digit%reAndOrTo%reYear4Digit",NORM_VALUE="group(1)-group(3)"
 RULENAME="date_r3d",EXTRACTION="%reUnit %reYear4Digit%reAndOrTo%reYear2Digit",NORM_VALUE="%normUnit(group(1))-%SUBSTRING%(group(2),0,2)group(4)"
 RULENAME="date_r3e",EXTRACTION="%reYear4Digit\.",NORM_VALUE="group(1)"
-RULENAME="date_r3f",EXTRACTION="%reYear4Digit\. (%reUnit)?",NORM_VALUE="group(1)"
+RULENAME="date_r3f",EXTRACTION="%reYear4Digit\.( %reUnit)?",NORM_VALUE="group(1)"
 //RULENAME="date_r3g",EXTRACTION="%reDayNumberTh %reAndOrTo %reDayNumberTh %reMonthLong %reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(1))-group(5)-%normMonth(group(4))-%normDay(group(3))"
 
 // date_r4
@@ -67,7 +65,7 @@ RULENAME="date_r5a",EXTRACTION="%reThisNextLast %reUnit",NORM_VALUE="UNDEF-%norm
 // EXAMPLE r6b: Aprilli alguses
 // EXAMPLE r6c: 2010. aasta alguseks
 
-RULENAME="date_r6a",EXTRACTION="%reApproximate %reWeekday",NORM_VALUE="%normWeekday(group(2))",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="date_r6a",EXTRACTION="%reApproximate %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(2))",NORM_MOD="%normApprox4Dates(group(1))"
 RULENAME="date_r6b",EXTRACTION="%reMonthLong %rePartWords",NORM_VALUE="UNDEF-year-%normMonth(group(1))",NORM_MOD="%normPartWords(group(2))"
 RULENAME="date_r6c",EXTRACTION="%reYear4Digit\. %reUnit %rePartWords",NORM_VALUE="group(1)",NORM_MOD="%normPartWords(group(3))"
 
@@ -92,14 +90,14 @@ RULENAME="date_r8c",EXTRACTION="([Ss]ellel?|[Ss]el) %reUnit %reDayNumberTh %reMo
 // EXAMPLE r9b: Pähapäev
 
 RULENAME="date_r9a",EXTRACTION="%reWeekday\,? (%reDayNumberTh|%reDayWordTh) %reMonthLong",NORM_VALUE="UNDEF-year-%normMonth(group(5))-%normDay(group(2))" 
-RULENAME="date_r9b",EXTRACTION="%reWeekday",NORM_VALUE="UNDEF-year-%normWeekday(group(1))"
+RULENAME="date_r9b",EXTRACTION="%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(1))"
 
 // date_r10
 // EXAMPLE r10a: suvel 1862
 // EXAMPLE r10b: suvi
 
 RULENAME="date_r10a",EXTRACTION="%reSeason %reYear4Digit",NORM_VALUE="group(2)-%normSeason(group(1))"
-RULENAME="date_r10b",EXTRACTION="%reSeason",NORM_VALUE="%normSeason(group(1))"
+RULENAME="date_r10b",EXTRACTION="%reSeason",NORM_VALUE="UNDEF-year-%normSeason(group(1))"
 
 // date_r11
 // EXAMPLE r11a: Suurel reedel

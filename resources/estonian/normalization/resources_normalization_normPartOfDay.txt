@@ -6,14 +6,14 @@
 // For example, the normalized value of "morning" is "MO"
 // FORMAT: "part-of-day-word","normalized-part-of-day-word"
 // morning
-"[Hh]ommik","MO"
+"[Hh]ommik(ul)?","MO"
 "[Ee]nnelõuna","MO"
 // mid-day
 "[Ll]õuna","12:00"
 "[Kk]eskpäev","MD"
 "[Pp]ärastlõuna","AF"
 "[Pp]ealelõuna","AF"
-"[Õõ]htu","EV"
+"[Õõ]htul?","EV"
 // night
 "[Öö]ö","NI"
 "[Ss]üdaöö","24:00"

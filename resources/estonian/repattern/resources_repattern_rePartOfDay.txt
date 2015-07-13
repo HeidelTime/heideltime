@@ -7,9 +7,9 @@
 [Pp]ealelõuna
 [Ee]nnelõuna
 [Kk]eskpäev
-[Hh]ommik
+[Hh]ommik(ul)?
 [Kk]esköö
 [Ss]üdaöö
 [Ll]õuna
-[Õõ]htu
+[Õõ]htul?
 [Öö]ö
