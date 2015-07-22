@@ -1475,7 +1475,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							valueNew = valueNew.replace(checkUndef, lmYearOnly+1+"-Q1");
 						} else {
 							int newQuarter = lmQuarterOnly+1;
-							valueNew = valueNew.replace(checkUndef, dctYear+"-Q"+newQuarter);
+							valueNew = valueNew.replace(checkUndef, lmYearOnly+"-Q"+newQuarter);
 						}
 					}
 				}
