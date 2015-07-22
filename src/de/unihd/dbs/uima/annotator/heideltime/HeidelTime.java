@@ -1904,33 +1904,24 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					hsTimexesToRemove.add(t2);
 				}
 				// identical length
-				if ((t1.getBegin() == t2.getBegin()) && (t1.getEnd() == t2.getEnd())) {
-					if ((t1.getTimexType().equals("SET")) || (t2.getTimexType().equals("SET"))) {
-						// REMOVE REAL DUPLICATES (the one with the lower timexID)
-						if ((Integer.parseInt(t1.getTimexId().substring(1)) < Integer.parseInt(t2.getTimexId().substring(1)))) {
-							hsTimexesToRemove.add(t1);
-						}
-					} else {
-						if (!(t1.equals(t2))) {
-							if ((t1.getTimexValue().startsWith("UNDEF")) && (!(t2.getTimexValue().startsWith("UNDEF")))) {
-								hsTimexesToRemove.add(t1);
-							} 
-							else if ((!(t1.getTimexValue().startsWith("UNDEF"))) && (t2.getTimexValue().startsWith("UNDEF"))) {
-								hsTimexesToRemove.add(t2);
-							}
-							// t1 is explicit, but t2 is not
-							else if ((t1.getFoundByRule().endsWith("explicit")) && (!(t2.getFoundByRule().endsWith("explicit")))) {
-								hsTimexesToRemove.add(t2);
-							}
-							// remove timexes that are identical, but one has an emptyvalue
-							else if(t2.getEmptyValue().equals("") && !t1.getEmptyValue().equals("")) {
-								hsTimexesToRemove.add(t2);
-							}
-							// REMOVE REAL DUPLICATES (the one with the lower timexID)
-							else if ((Integer.parseInt(t1.getTimexId().substring(1)) < Integer.parseInt(t2.getTimexId().substring(1)))) {
-								hsTimexesToRemove.add(t1);
-							}
-						}
+				if (!t1.equals(t2) && (t1.getBegin() == t2.getBegin()) && (t1.getEnd() == t2.getEnd())) {
+					if ((t1.getTimexValue().startsWith("UNDEF")) && (!(t2.getTimexValue().startsWith("UNDEF")))) {
+						hsTimexesToRemove.add(t1);
+					} 
+					else if ((!(t1.getTimexValue().startsWith("UNDEF"))) && (t2.getTimexValue().startsWith("UNDEF"))) {
+						hsTimexesToRemove.add(t2);
+					}
+					// t1 is explicit, but t2 is not
+					else if ((t1.getFoundByRule().endsWith("explicit")) && (!(t2.getFoundByRule().endsWith("explicit")))) {
+						hsTimexesToRemove.add(t2);
+					}
+					// remove timexes that are identical, but one has an emptyvalue
+					else if(t2.getEmptyValue().equals("") && !t1.getEmptyValue().equals("")) {
+						hsTimexesToRemove.add(t2);
+					}
+					// REMOVE REAL DUPLICATES (the one with the lower timexID)
+					else if ((Integer.parseInt(t1.getTimexId().substring(1)) < Integer.parseInt(t2.getTimexId().substring(1)))) {
+						hsTimexesToRemove.add(t1);
 					}
 				}
 			}
