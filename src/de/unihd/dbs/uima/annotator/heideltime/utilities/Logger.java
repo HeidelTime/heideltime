@@ -31,7 +31,10 @@ public class Logger {
 				preamble = "["+c.getSimpleName()+"]";
 			else
 				preamble = "";
-			System.out.println(preamble+" "+msg);
+			
+			synchronized(System.err) {
+				System.err.println(preamble+" "+msg);
+			}
 		}
 	}
 	
@@ -51,10 +54,13 @@ public class Logger {
 	public static void printError(Class<?> c, String msg) {
 		String preamble;
 		if(c != null)
-			preamble = "["+c.getSimpleName()+"] ";
+			preamble = "["+c.getSimpleName()+"]";
 		else
 			preamble = "";
-		System.err.println(preamble+msg);
+		
+		synchronized(System.err) {
+			System.err.println(preamble+" "+msg);
+		}
 	}
 
 	/**
