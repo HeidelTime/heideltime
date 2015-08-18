@@ -198,7 +198,7 @@ set the environment variables.
     * (OPTIONAL) For Chinese documents, please get the Tokenizer and TreeTagger parameter file
       from Serge Sharoff's page http://corpus.leeds.ac.uk/tools/zh/:
       - wget http://corpus.leeds.ac.uk/tools/zh/tt-lcmc.tgz
-      - wget https://drive.google.com/uc?id=0BwqFBQjz9NUiZ3kybkc4YTliMzA -O zh-tokenise.tgz
+      - wget https://drive.google.com/uc?id=0B1ZoOwaeRsbva2F3NThLd3ptRWM -O zh-tokenise.tgz
       Extract the Tokenizer into a new directory and TreeTagger parameter files like this:
       - mkdir chinese-tokenizer
       - tar -xzvf tt-lcmc.tgz
