@@ -447,3 +447,7 @@ RULENAME="x_date_r9a_negative",EXTRACTION="([Ee]uro|EUR|Dollar|\$) [\d]+(-[\d]+)
 
 // Unlikely (PAST|PRESENT|FUTURE)_REF expressions
 //RULENAME="x_date_r10a_negative",EXTRACTION="([Ss]oon after)",NORM_VALUE="REMOVE"
+
+// Issue # 29 - addressed Sept 16, 2015 (heideltime 2.0)
+// EXAMPLE"in his 20s"
+RULENAME="x_date_r11a_negative",EXTRACTION="\b[Ii]n (his|her|their) \d\ds",NORM_VALUE="REMOVE"
