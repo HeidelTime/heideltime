@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+صَبَاح
+صْباح
+// english: "noon","MD"
+ظُهْر
+ظهر
+ضهر
+// english: "afternoon","AF"
+بَعْدَ الزّوَال
+زَوَالِي
+هاجِرِي
+بعد ظهر
+// english: "evening","EV"
+مساء
+ليل
+آخر النهار
+// english: "night","NI"
+لَيلة
+لَيل
+ليل
+ليلة
+عشية
+// english: "midnight","24:00"
+منتصف الليل

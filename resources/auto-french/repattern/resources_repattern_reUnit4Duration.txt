@@ -1,0 +1,30 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","D"
+[Jj]our
+[Jj]ournée
+[Jj]or
+// english: "weekend","WE"
+[Ff]in de semaine
+[Ww]eekend
+// english: "week","W"
+[Ss]emaine
+// english: "month","M"
+[Mm]ois
+// english: "quarter","Q"
+[Tt]rimestre
+// english: "fiscal year","Y"
+[Aa]nnée fiscale
+[Aa]nnée financière
+[Ee]xercice fiscal
+// english: "year","Y"
+[Aa]nnée
+[Aa]n
+// english: "decade","DE"
+[Dd]écennie
+// english: "century","CE"
+[Ss]iècle
+// english: "days","D" - no translation found

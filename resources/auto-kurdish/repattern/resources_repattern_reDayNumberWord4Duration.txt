@@ -1,0 +1,81 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+[Yy]ek
+êk
+یەک
+// english: "two","2"
+[Dd]u
+دوو
+// english: "three","3"
+[Ss]ê
+سێ
+// english: "four","4"
+çar
+چوار
+// english: "five","5"
+[Pp]ênc
+پێنج
+// english: "six","6"
+şeş
+شەش
+// english: "seven","7"
+[Hh]eft
+حەوت
+// english: "eight","8"
+[Hh]eşt
+ھەشت
+// english: "nine","9"
+[Nn]eh
+نۆ
+// english: "ten","10"
+[Dd]eh
+دە
+// english: "eleven","11"
+[Yy]azde
+یانزە
+// english: "twelve","12"
+[Dd]azde
+دوانزە
+دوازدە
+// english: "thirteen","13"
+[Ss]êzde
+سیانزە
+// english: "fourteen","14"
+çarde
+چواردە
+// english: "fifteen","15"
+[Pp]azde
+[Pp]azdeh
+پانزە
+// english: "sixteen","16"
+şazde
+شانزە
+// english: "seventeen","17"
+[Hh]evde
+حەڤدە
+// english: "eighteen","18"
+[Hh]ejde
+ھەژدە
+// english: "nineteen","19"
+[Nn]ozde
+نۆزدە
+// english: "twenty","20"
+[Bb]îst
+بیست
+// english: "twenty-one","21"
+بیست و یەک
+// english: "thirty","30"
+سی
+// english: "twenty-two","22" - no translation found
+// english: "twenty-three","23" - no translation found
+// english: "twenty-four","24" - no translation found
+// english: "twenty-five","25" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found
+// english: "twenty-eight","28" - no translation found
+// english: "twenty-nine","29" - no translation found
+// english: "thirty-one","31" - no translation found

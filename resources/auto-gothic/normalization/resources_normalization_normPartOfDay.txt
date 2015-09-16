@@ -1,0 +1,10 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "evening","EV"
+"𐌰𐌽𐌳𐌰𐌽𐌰𐌷𐍄𐌹","EV"
+"𐍃𐌴𐌹𐌸𐌿","EV"
+// english: "night","NI"
+"𐌽𐌰𐌷𐍄𐍃","NI"

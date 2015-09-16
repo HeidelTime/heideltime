@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"ပထမ","01"
+// english: "second","02"
+"ဒုတိယ","02"
+"စက္ကန့်","02"
+// english: "third","03"
+"တတိယ","03"
+// english: "fourth","04"
+"စတုတ္ထ","04"
+// english: "fifth","05"
+"ပဉ္စမ","05"
+// english: "sixth","06"
+"ဆဌမ","06"
+// english: "seventh","07"
+"သတ္တမ","07"
+// english: "eighth","08"
+"အဌမ","08"
+// english: "ninth","09"
+"နဝမ","09"
+// english: "tenth","10"
+"ဒသမ","10"

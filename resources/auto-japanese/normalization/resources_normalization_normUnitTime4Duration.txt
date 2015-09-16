@@ -1,0 +1,18 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "hour","H"
+"時","H"
+"じ","H"
+"時間","H"
+"じかん","H"
+// english: "minute","M"
+"分","M"
+"ふん","M"
+"ぷん","M"
+// english: "second","S"
+"第二","S"
+"二番目","S"
+"秒","S"

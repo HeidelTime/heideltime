@@ -1,0 +1,22 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day before yesterday","UNDEF-this-day-MINUS-2"
+[Ff]örrgår
+[Ii] förrgår
+// english: "yesterday","UNDEF-last-day"
+[Gg]årdag
+[Ii] går
+[Ii]går
+// english: "today","UNDEF-this-day"
+[Ii]dag
+[Ii] dag
+// english: "tomorrow","UNDEF-next-day"
+[Ii]morgon
+[Ii] morgon
+[Mm]orgondag
+// english: "day after tomorrow","UNDEF-this-day-PLUS-2"
+övermorgon
+[Ii] övermorgon

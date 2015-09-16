@@ -1,0 +1,36 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+Dayamcho Yachunne
+// english: "February","02"
+Onan U'la'k'yakwamme
+// english: "March","03"
+Łi'dekwakkya Ts'ana
+// english: "April","04"
+Łi'dekwakkya Łana
+// english: "May","05"
+Sow-a:ne
+Yachun Kwa'shi'amme
+// english: "June","06"
+Yadokkya De'chikya Yachunne
+Ik'ohbu Yachunne
+// english: "July","07"
+Kwa'shi'amme Yachunne
+Dayamcho Yachunne
+// english: "August","08"
+Olo'ik'yana: Idew'a
+Onan U'la'k'yakwamme
+// english: "September","09"
+Mola: Akwapba
+Łi'dekwakkya Ts'ana
+// english: "October","10"
+Kwa'hołs A:ya:kya
+Łi'dekwakkya Łana
+// english: "November","11"
+Kok A:wiyanna
+Yachun Kwa'shi'amme
+// english: "December","12"
+Ik'ohbu Yachunne

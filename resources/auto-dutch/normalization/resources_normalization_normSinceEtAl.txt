@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "since","since"
+"[Ss]inds","since"
+"[Ss]edert","since"
+// english: "until","until"
+"[Tt]otdat","until"
+"[Tt]ot","until"
+// english: "in","in"
+"[Ii]n","in"
+"[Bb]innen","in"
+"[Tt]ijdens","in"

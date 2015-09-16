@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+Janueri
+// english: "February","02"
+Veverueri
+// english: "March","03"
+Maji
+// english: "April","04"
+Epereli
+// english: "May","05"
+May
+// english: "June","06"
+June
+// english: "July","07"
+Jiulai
+// english: "August","08"
+Okosita
+// english: "September","09"
+Seviteba
+// english: "October","10"
+[Oo]kotova
+// english: "November","11"
+Noveba
+// english: "December","12"
+Tiseba

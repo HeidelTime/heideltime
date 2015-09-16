@@ -1,0 +1,103 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+وَاحِدٌ
+واحد
+// english: "two","2"
+اِثْنَانِ
+٢
+اتنين
+جوج
+// english: "three","3"
+ثَلَاثَةٌ
+٣
+تلاتة
+تْلاتة
+// english: "four","4"
+أَرْبَعَةٌ
+٤
+// english: "five","5"
+خَمْسَةٌ
+٥
+خمسة
+// english: "six","6"
+سِتَّةٌ
+// english: "seven","7"
+سَبْعةٌ
+٧
+سبعة
+// english: "eight","8"
+ثَمَانِيَةٌ
+٨
+تمانية
+// english: "nine","9"
+تِسْعَةٌ
+٩
+تسعة
+// english: "ten","10"
+عَشَرَةٌ
+١٠
+عشرة
+// english: "eleven","11"
+أَحَد عَشَر
+إِحْدَى عَشْرَةَ
+١١
+حداشر
+// english: "twelve","12"
+اِثْنَا عَشَرَ
+اتناشر
+// english: "thirteen","13"
+ثَلَاثَةَ عَشَرَ
+١٣
+تلاتاشر
+// english: "fourteen","14"
+أَرْبَعَةَ عَشَرَ
+أربعتاشر
+// english: "fifteen","15"
+خَمْسَةَ عَشَرَ
+خمستاشر
+// english: "sixteen","16"
+سِتَّةَ عَشَرَ
+ستاشر
+// english: "seventeen","17"
+سَبْعَةَ عَشَرَ
+سبعتاشر
+// english: "eighteen","18"
+ثَمَانِيَةَ عَشَرَ
+تمنتاشر
+// english: "nineteen","19"
+تِسْعَةَ عَشَرَ
+تسعتاشر
+// english: "twenty","20"
+عِشْرِينَ
+عِشْرُونَ
+٢٠
+عشرين
+// english: "twenty-one","21"
+واحد وعشرون
+// english: "twenty-two","22"
+اثنين وعشرين
+// english: "twenty-three","23"
+ثلاثة وعشرين
+// english: "twenty-four","24"
+اربعة وعشرين
+// english: "twenty-five","25"
+خمسة وعشرين
+// english: "twenty-six","26"
+ستة وعشرين
+// english: "twenty-seven","27"
+سبعة وعشرين
+// english: "twenty-eight","28"
+ثمانية وعشرين
+// english: "twenty-nine","29"
+تسعة وعشرين
+// english: "thirty","30"
+ثَلاثِينَ
+ثَلاثُونَ
+٣٠
+تلاتين
+// english: "thirty-one","31"
+واحد وثلاثين

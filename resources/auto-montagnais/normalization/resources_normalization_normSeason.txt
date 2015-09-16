@@ -1,0 +1,13 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+"[Ss]hikuan","SP"
+// english: "summer","SU"
+"[Nn]ipin","SU"
+// english: "autumn","FA"
+"[Tt]akuatshin","FA"
+// english: "winter","WI"
+"[Pp]ipun","WI"

@@ -1,0 +1,80 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+एक
+// english: "two","2"
+दो
+२
+// english: "three","3"
+तीन
+३
+// english: "four","4"
+चार
+४
+// english: "five","5"
+पाँच
+५
+// english: "six","6"
+छह
+छः
+// english: "seven","7"
+सात
+७
+// english: "eight","8"
+आठ
+८
+// english: "nine","9"
+नौ
+९
+// english: "ten","10"
+दस
+१०
+// english: "eleven","11"
+ग्यारह
+११
+// english: "twelve","12"
+बारह
+// english: "thirteen","13"
+तेरह्
+१३
+// english: "fourteen","14"
+चौदह
+// english: "fifteen","15"
+पंद्रह
+// english: "sixteen","16"
+सोलह
+// english: "seventeen","17"
+सत्रह
+// english: "eighteen","18"
+अठारह
+// english: "nineteen","19"
+उन्नीस
+// english: "twenty","20"
+बीस
+२०
+// english: "twenty-one","21"
+इक्कीस
+// english: "twenty-two","22"
+बाईस
+// english: "twenty-three","23"
+तेईस
+// english: "twenty-four","24"
+चौबीस
+// english: "twenty-five","25"
+पच्चीस
+// english: "twenty-six","26"
+छब्बीस
+// english: "twenty-seven","27"
+सत्ताईस
+// english: "twenty-eight","28"
+अट्ठाईस
+// english: "twenty-nine","29"
+उनतीस
+// english: "thirty","30"
+तीस
+// english: "thirty-one","31"
+इकतीस
+इकत्तीस

@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-03-24
+// This file contains normalization information for which month is in which season.
+"01","WI"
+"02","WI"
+"03","SP"
+"04","SP"
+"05","SP"
+"06","SU"
+"07","SU"
+"08","SU"
+"09","FA"
+"10","FA"
+"11","FA"
+"12","WI"

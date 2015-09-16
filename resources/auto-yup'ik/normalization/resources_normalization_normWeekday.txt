@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+"Pekyun","monday"
+// english: "Tuesday","tuesday"
+"Aipirin","tuesday"
+// english: "Wednesday","wednesday"
+"Pingayirin","wednesday"
+// english: "Thursday","thursday"
+"Cetamirin","thursday"
+// english: "Friday","friday"
+"Tallimirin","friday"
+// english: "Saturday","saturday"
+"Maqineq","saturday"
+// english: "Sunday","sunday"
+"Agayuneq","sunday"

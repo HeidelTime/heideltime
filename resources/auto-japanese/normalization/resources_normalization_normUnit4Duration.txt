@@ -1,0 +1,33 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","D"
+"日","D"
+"一日","D"
+"昼間","D"
+// english: "weekend","WE"
+"週末","WE"
+"しゅうまつ","WE"
+"[Ss]hūmatsu","WE"
+// english: "week","W"
+"週","W"
+"週間","W"
+// english: "month","M"
+"月","M"
+"つき","M"
+// english: "quarter","Q"
+"４半期","Q"
+"四半期","Q"
+"しはんき","Q"
+// english: "fiscal year","Y"
+"会計年度","Y"
+// english: "year","Y"
+"年","Y"
+"ねん","Y"
+"とし","Y"
+// english: "decade","DE"
+"十年","DE"
+// english: "century","CE"
+"世紀","CE"

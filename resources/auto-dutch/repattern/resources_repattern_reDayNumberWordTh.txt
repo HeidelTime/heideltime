@@ -1,0 +1,61 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+[Ee]erst
+// english: "second","02"
+[Tt]weede
+2
+[Ss]econde
+// english: "third","03"
+[Dd]erde
+// english: "fourth","04"
+[Vv]ierde
+// english: "fifth","05"
+[Vv]ijfde
+// english: "sixth","06"
+[Zz]esde
+// english: "seventh","07"
+[Zz]evende
+// english: "eighth","08"
+[Aa]chtste
+// english: "ninth","09"
+[Nn]egende
+// english: "tenth","10"
+[Tt]iende
+// english: "eleventh","11"
+[Ee]lfde
+// english: "twelfth","12"
+[Tt]waalfde
+// english: "thirteenth","13"
+[Dd]ertiende
+// english: "fourteenth","14"
+[Vv]eertiende
+// english: "fifteenth","15"
+[Vv]ijftiende
+// english: "sixteenth","16"
+[Zz]estiende
+// english: "seventeenth","17"
+[Zz]eventiende
+// english: "eighteenth","18"
+[Aa]chttiende
+// english: "nineteenth","19"
+[Nn]egentiende
+// english: "twentieth","20"
+[Tt]wintigste
+// english: "twenty-first","21"
+[Ee]enentwintigste
+// english: "twenty-second","22"
+[Tt]weeëntwintigde
+// english: "twenty-fifth","25"
+[Vv]ijfentwintigste
+// english: "thirtieth","30"
+[Dd]ertigste
+// english: "twenty-third","23" - no translation found
+// english: "twenty-fourth","24" - no translation found
+// english: "twenty-sixth","26" - no translation found
+// english: "twenty-seventh","27" - no translation found
+// english: "twenty-eighth","28" - no translation found
+// english: "twenty-ninth","29" - no translation found

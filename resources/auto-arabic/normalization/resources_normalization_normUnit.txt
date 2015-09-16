@@ -1,0 +1,31 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+"يوم","day"
+"ايام","day"
+"نهار","day"
+// english: "weekend","week-WE"
+"نهاية الأسبوع","week-WE"
+"عطلة الأسبوع","week-WE"
+// english: "week","week"
+"أُسْبُوع","week"
+"اسبوع","week"
+"إسبوع","week"
+"أُسبوع","week"
+"سيمانة","week"
+// english: "month","month"
+"شَهْرٌ","month"
+"شهر","month"
+// english: "year","year"
+"عام","year"
+"أعوام","year"
+"سَنة","year"
+"سَنَوات","year"
+"سنة","year"
+// english: "decade","decade"
+"عشر سنوات","decade"
+// english: "century","century"
+"قَرْن","century"

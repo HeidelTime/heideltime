@@ -1,0 +1,68 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+[Ee]en
+// english: "two","2"
+[Tt]wee
+// english: "three","3"
+[Dd]rie
+// english: "four","4"
+[Vv]ier
+// english: "five","5"
+[Vv]yf
+// english: "six","6"
+[Ss]es
+// english: "seven","7"
+[Ss]ewe
+// english: "eight","8"
+[Aa]gt
+// english: "nine","9"
+[Nn]ege
+// english: "ten","10"
+[Tt]ien
+// english: "eleven","11"
+[Ee]lf
+// english: "twelve","12"
+[Tt]waalf
+// english: "thirteen","13"
+[Dd]ertien
+// english: "fourteen","14"
+[Vv]eertien
+// english: "fifteen","15"
+[Vv]yftien
+// english: "sixteen","16"
+[Ss]estien
+// english: "seventeen","17"
+[Ss]ewentien
+// english: "eighteen","18"
+[Aa]gtien
+[Aa]gttien
+// english: "nineteen","19"
+[Nn]egentien
+// english: "twenty","20"
+[Tt]wintig
+// english: "twenty-one","21"
+[Ee]en-en-twintig
+// english: "twenty-two","22"
+[Tt]wee-en-twintig
+// english: "twenty-three","23"
+[Dd]rie-en-twintig
+// english: "twenty-four","24"
+[Vv]ier-en-twintig
+// english: "twenty-five","25"
+[Vv]yf-en-twintig
+// english: "twenty-six","26"
+[Ss]es-en-twintig
+// english: "twenty-seven","27"
+[Ss]ewe-en-twintig
+// english: "twenty-eight","28"
+[Aa]gt-en-twintig
+// english: "twenty-nine","29"
+[Nn]ege-en-twintig
+// english: "thirty","30"
+[Dd]ertig
+// english: "thirty-one","31"
+[Ee]en-en-dertig

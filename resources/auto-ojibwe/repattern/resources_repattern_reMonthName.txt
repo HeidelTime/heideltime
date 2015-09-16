@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+[Gg]ichi-manidoo-giizis
+// english: "February","02"
+[Nn]amebini-giizis
+// english: "March","03"
+[Oo]naabani-giizis
+// english: "April","04"
+[Ii]skigamizige-giizis
+// english: "May","05"
+[Zz]aagibagaa-giizis
+// english: "June","06"
+[Oo]de'imini-giizis
+// english: "July","07"
+[Aa]abita-niibino-giizis
+// english: "August","08"
+[Mm]anoominike-giizis
+// english: "September","09"
+[Ww]aatebagaa-giizis
+// english: "October","10"
+[Bb]inaakwe-giizis
+// english: "November","11"
+[Gg]ashkadino-giizis
+// english: "December","12"
+[Mm]anidoo-giizisoons

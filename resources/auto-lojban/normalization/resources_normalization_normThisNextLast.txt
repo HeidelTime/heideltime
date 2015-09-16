@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+"[Ll]e vi","this"
+"[Ll]e di'u","this"
+"[Ll]e bi'unai","this"
+"[Ll]e","this"
+"[Ll]e di'e","this"
+"[Ll]e bi'u","this"
+"[Tt]i","this"
+"[Ll]a'e","this"
+"[Dd]i'u","this"
+"[Rr]i","this"

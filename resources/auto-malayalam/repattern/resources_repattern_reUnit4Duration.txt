@@ -1,0 +1,22 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","D"
+ദിവസം
+// english: "week","W"
+ആഴ്ച
+// english: "month","M"
+മാസം
+// english: "year","Y"
+കൊല്ലം
+വര്‍ഷം
+// english: "century","CE"
+നൂറ്റാണ്ട്
+ശതാബ്ദം
+// english: "days","D" - no translation found
+// english: "weekend","WE" - no translation found
+// english: "quarter","Q" - no translation found
+// english: "fiscal year","Y" - no translation found
+// english: "decade","DE" - no translation found

@@ -1,0 +1,57 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+[Ll]ehenengo
+// english: "second","02"
+[Bb]igarren
+[Ss]egundo
+// english: "third","03"
+[Hh]irugarren
+// english: "fourth","04"
+[Ll]augarren
+// english: "fifth","05"
+[Bb]osgarren
+// english: "sixth","06"
+[Ss]eigarren
+// english: "seventh","07"
+[Zz]azpigarren
+// english: "eighth","08"
+[Zz]ortzigarren
+// english: "ninth","09"
+[Bb]ederatzigarren
+// english: "tenth","10"
+[Hh]amargarren
+// english: "eleventh","11"
+[Hh]amaikagarren
+// english: "twelfth","12"
+[Hh]amabigarren
+// english: "thirteenth","13"
+[Hh]amahirugarren
+// english: "fourteenth","14"
+[Hh]amalaugarren
+// english: "fifteenth","15"
+[Hh]amabosgarren
+// english: "sixteenth","16"
+[Hh]amaseigarren
+// english: "seventeenth","17"
+[Hh]amazazpigarren
+// english: "eighteenth","18"
+[Hh]emezortzigarren
+[Hh]amazortzigarren
+// english: "nineteenth","19"
+[Hh]emeretzigarren
+// english: "twentieth","20"
+[Hh]ogeigarren
+// english: "twenty-first","21" - no translation found
+// english: "twenty-second","22" - no translation found
+// english: "twenty-third","23" - no translation found
+// english: "twenty-fourth","24" - no translation found
+// english: "twenty-fifth","25" - no translation found
+// english: "twenty-sixth","26" - no translation found
+// english: "twenty-seventh","27" - no translation found
+// english: "twenty-eighth","28" - no translation found
+// english: "twenty-ninth","29" - no translation found
+// english: "thirtieth","30" - no translation found

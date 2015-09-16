@@ -1,0 +1,25 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "BC","BC"
+"[Vv]. Chr.","BC"
+"[Vv]or Christus","BC"
+// english: "AD",""
+"[Nn]. Chr.",""
+"[Nn]ach Christus",""
+"[Nn]ach Christo",""
+"[Nn]. Chr. Geb.",""
+"[Nn]. Chr. G.",""
+// english: "CE",""
+"[Nn]. Chr.",""
+"[Nn]ach Christus",""
+"[Nn]ach Christo",""
+"[Nn]. Chr. Geb.",""
+"[Nn]. Chr. G.",""
+"[Nn]. d. Z.",""
+"[Nn]ach der Zeitrechnung",""
+"[Nn]. u. Z.",""
+"[Uu]. Z.",""
+"[Nn]ach unserer Zeitrechnung",""

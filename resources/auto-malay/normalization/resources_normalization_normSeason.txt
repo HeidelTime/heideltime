@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+"[Mm]usim semi","SP"
+"[Mm]usim bunga","SP"
+// english: "summer","SU"
+"[Mm]usim panas","SU"
+// english: "autumn","FA"
+"[Mm]usim gugur","FA"
+"[Mm]usim luruh","FA"
+// english: "winter","WI"
+"[Mm]usim dingin","WI"
+"[Mm]usim salji","WI"
+"[Mm]usim sejuk","WI"

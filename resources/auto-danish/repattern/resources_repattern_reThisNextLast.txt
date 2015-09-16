@@ -1,0 +1,25 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+[Dd]enne
+[Dd]ette
+// english: "current","this"
+[Aa]ktuel
+[Nn]uværende
+// english: "next","next"
+[Nn]æste
+// english: "following","next"
+[Ff]ølgende
+[Nn]æste
+// english: "last","last"
+[Ss]idste
+[Ss]idst
+[Ss]enest
+// english: "previous","last"
+[Ff]oregående
+[Ff]orrige
+// english: "latest","last" - no translation found
+// english: "past","last" - no translation found

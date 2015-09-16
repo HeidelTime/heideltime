@@ -1,0 +1,13 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","D"
+"[Dd]īna","D"
+// english: "weekend","WE"
+"[Nn]edeļgols","WE"
+// english: "week","W"
+"[Nn]edeļa","W"
+// english: "year","Y"
+"[Gg]ods","Y"

@@ -1,0 +1,14 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "week","week"
+"апта","week"
+"жұма","week"
+// english: "month","month"
+"ай","month"
+// english: "year","year"
+"жыл","year"
+// english: "century","century"
+"ғасыр","century"

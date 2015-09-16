@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+[Aa]m Faoilleach
+// english: "February","02"
+Gearran
+// english: "March","03"
+Màrt
+// english: "April","04"
+Giblean
+// english: "May","05"
+Cèitean
+Cèit
+// english: "June","06"
+Ògmhios
+// english: "July","07"
+Iuchar
+// english: "August","08"
+Lùnastal
+// english: "October","10"
+[Aa]n Dàmhair
+// english: "November","11"
+[Aa]n t-Samhain
+// english: "December","12"
+Dùbhlachd
+// english: "September","09" - no translation found

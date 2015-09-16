@@ -1,0 +1,86 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+јѐдан
+[Jj]èdan
+// english: "two","2"
+два̑
+[Dd]vȃ
+// english: "three","3"
+три̑
+[Tt]rȋ
+// english: "four","4"
+четири
+četiri
+// english: "five","5"
+пе̑т
+[Pp]ȇt
+// english: "six","6"
+ше̑ст
+šȇst
+// english: "seven","7"
+седам
+[Ss]edam
+// english: "eight","8"
+о̏сам
+ȍsam
+// english: "nine","9"
+девет
+[Dd]evet
+// english: "ten","10"
+де̏сет
+[Dd]ȅset
+// english: "eleven","11"
+једа̀нае̄ст
+[Jj]edànaēst
+// english: "twelve","12"
+два́нае̄ст
+[Dd]vánaēst
+// english: "thirteen","13"
+тринаест
+[Tt]rinaest
+// english: "fourteen","14"
+четрнаест
+četrnaest
+// english: "fifteen","15"
+петнаест
+[Pp]etnaest
+// english: "sixteen","16"
+шеснаест
+šesnaest
+// english: "seventeen","17"
+седамнаест
+[Ss]edamnaest
+// english: "eighteen","18"
+осамнаест
+[Oo]samnaest
+// english: "nineteen","19"
+деветнаест
+[Dd]evetnaest
+// english: "twenty","20"
+двадесет
+[Dd]vadeset
+// english: "twenty-one","21"
+двадесет и један
+[Dd]vadeset i jedan
+// english: "twenty-eight","28"
+двадесет и осам
+[Dd]vadeset i osam
+// english: "twenty-nine","29"
+двадесет и девет
+[Dd]vadeset i devet
+// english: "thirty","30"
+тридесет
+[Tt]rideset
+// english: "thirty-one","31"
+тридесет и један
+[Tt]rideset i jedan
+// english: "twenty-two","22" - no translation found
+// english: "twenty-three","23" - no translation found
+// english: "twenty-four","24" - no translation found
+// english: "twenty-five","25" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found

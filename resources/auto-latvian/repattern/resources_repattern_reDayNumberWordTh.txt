@@ -1,0 +1,63 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+[Pp]irmais
+[Pp]irmā
+// english: "second","02"
+[Oo]trais
+[Oo]trā
+[Ss]ekunde
+// english: "third","03"
+[Tt]rešais
+[Tt]rešā
+// english: "fourth","04"
+[Cc]eturtais
+[Cc]eturtā
+// english: "fifth","05"
+[Pp]iektais
+[Pp]iektā
+// english: "sixth","06"
+[Ss]estais
+[Ss]estā
+// english: "seventh","07"
+[Ss]eptiņi
+// english: "eighth","08"
+[Aa]stoņi
+// english: "ninth","09"
+[Dd]evītais
+// english: "tenth","10"
+[Dd]esmitais
+// english: "eleventh","11"
+[Vv]ienpadsmitais
+// english: "twelfth","12"
+[Dd]ivpadsmitais
+// english: "thirteenth","13"
+[Tt]rīspadsmitais
+// english: "fourteenth","14"
+četrpadsmitais
+// english: "fifteenth","15"
+[Pp]iecpadsmitais
+// english: "sixteenth","16"
+[Ss]ešpadsmitais
+// english: "seventeenth","17"
+[Ss]eptiņpadsmitais
+// english: "eighteenth","18"
+[Aa]stoņpadsmitais
+// english: "nineteenth","19"
+[Dd]eviņpadsmitais
+// english: "twentieth","20"
+[Dd]ivdesmitais
+// english: "thirtieth","30"
+[Tt]rīsdesmitais
+// english: "twenty-first","21" - no translation found
+// english: "twenty-second","22" - no translation found
+// english: "twenty-third","23" - no translation found
+// english: "twenty-fourth","24" - no translation found
+// english: "twenty-fifth","25" - no translation found
+// english: "twenty-sixth","26" - no translation found
+// english: "twenty-seventh","27" - no translation found
+// english: "twenty-eighth","28" - no translation found
+// english: "twenty-ninth","29" - no translation found

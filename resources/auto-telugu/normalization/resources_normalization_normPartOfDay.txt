@@ -1,0 +1,22 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+"ఉదయం","MO"
+"పొద్దు","MO"
+"వేకువ","MO"
+// english: "noon","MD"
+"మధ్యాహ్నము","MD"
+// english: "afternoon","AF"
+"అపరాహ్నం","AF"
+"మధ్యాహ్నం","AF"
+// english: "evening","EV"
+"సాయంత్రం","EV"
+"సాయంకాలం","EV"
+// english: "night","NI"
+"రాత్రి","NI"
+"రాత్రి గడుపుట","NI"
+// english: "midnight","24:00"
+"నడిరేయి","24:00"

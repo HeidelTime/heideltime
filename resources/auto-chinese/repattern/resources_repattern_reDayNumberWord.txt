@@ -1,0 +1,85 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+一
+йи
+壹
+// english: "two","02"
+二
+两
+貳
+[Rr]i6
+[Nn]o6
+// english: "three","03"
+三
+сан
+參
+[Ss]am1
+// english: "four","04"
+亖
+四
+肆
+// english: "five","05"
+五
+[Nn]gou6
+伍
+// english: "six","06"
+六
+// english: "seven","07"
+七
+柒
+// english: "eight","08"
+八
+捌
+// english: "nine","09"
+九
+玖
+// english: "ten","10"
+十
+拾
+// english: "eleven","11"
+十一
+拾壹
+// english: "twelve","12"
+十二
+拾貳
+// english: "thirteen","13"
+十三
+拾參
+// english: "fourteen","14"
+十四
+// english: "fifteen","15"
+十五
+// english: "sixteen","16"
+十六
+// english: "seventeen","17"
+十七
+// english: "eighteen","18"
+十八
+// english: "nineteen","19"
+十九
+// english: "twenty","20"
+二十
+貳拾
+廿
+// english: "twenty-one","21"
+廿一
+二十一
+// english: "twenty-two","22"
+二十二
+// english: "twenty-three","23"
+二十三
+// english: "twenty-four","24"
+二十四
+// english: "thirty","30"
+三十
+卅
+// english: "twenty-five","25" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found
+// english: "twenty-eight","28" - no translation found
+// english: "twenty-nine","29" - no translation found
+// english: "thirty-one","31" - no translation found

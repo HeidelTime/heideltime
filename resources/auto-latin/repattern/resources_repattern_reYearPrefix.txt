@@ -1,0 +1,22 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "BC","BC"
+[Aa]. Chr. n.
+[Aa].C.n.
+[Aa]nte Christum natum
+// english: "AD",""
+A. C.
+AC
+A. D.
+AD
+[Pp]. Chr. n.
+[Pp]. Chr.
+// english: "CE",""
+[Pp]. Chr. n.
+[Pp]. Chr.
+A. D.
+AD
+// english: "BCE","BC" - no translation found

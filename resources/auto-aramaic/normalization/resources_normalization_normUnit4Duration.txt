@@ -1,0 +1,18 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","D"
+"יומא","D"
+"ܝܘܡܐ","D"
+"איממא","D"
+"ܐܝܡܡܐ","D"
+// english: "week","W"
+"ܫܒܘܥܐ","W"
+// english: "month","M"
+"ירחא","M"
+"ܝܪܚܐ","M"
+// english: "year","Y"
+"שנתא","Y"
+"ܫܢܬܐ","Y"

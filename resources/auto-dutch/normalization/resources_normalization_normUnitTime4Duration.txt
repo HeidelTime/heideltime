@@ -1,0 +1,14 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "hour","H"
+"[Uu]ur","H"
+"[Ss]tonde","H"
+// english: "minute","M"
+"[Mm]inuut","M"
+// english: "second","S"
+"[Tt]weede","S"
+"2","S"
+"[Ss]econde","S"

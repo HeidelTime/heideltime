@@ -1,0 +1,24 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"[Pp]yrmais","01"
+"[Pp]yrmuo","01"
+// english: "second","02"
+"ūtrys","02"
+"ūtra","02"
+// english: "third","03"
+"[Tt]rešs","03"
+"[Tt]reša","03"
+"[Tt]rešais","03"
+"[Tt]rešuo","03"
+// english: "eighth","08"
+"[Oo]stoni","08"
+// english: "ninth","09"
+"[Dd]eveits","09"
+"[Dd]eveita","09"
+// english: "tenth","10"
+"[Dd]asmyts","10"
+"[Dd]asmyta","10"

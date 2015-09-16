@@ -1,0 +1,7 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-03-24
+// This file contains regular expression patterns for and / or / to symbols.
+[\s]?\–[\s]?
+[\s]?-[\s]?
+[\s]?–[\s]?

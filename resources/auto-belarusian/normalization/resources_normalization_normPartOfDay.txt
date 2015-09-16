@@ -1,0 +1,18 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+"ра́ніца","MO"
+// english: "noon","MD"
+"по́ўдзень","MD"
+"по́лудзень","MD"
+// english: "evening","EV"
+"уве́чар","EV"
+"ўве́чар","EV"
+"ве́чар","EV"
+// english: "night","NI"
+"ноч","NI"
+// english: "midnight","24:00"
+"по́ўнач","24:00"

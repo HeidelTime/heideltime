@@ -1,0 +1,11 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+"áins","01"
+// english: "two","02"
+"𐍄𐍅𐌰𐌹","02"
+// english: "seven","07"
+"𐍃𐌹𐌱𐌿𐌽","07"

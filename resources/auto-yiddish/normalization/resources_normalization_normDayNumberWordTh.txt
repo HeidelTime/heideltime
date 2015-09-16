@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"ערשט","01"
+// english: "second","02"
+"צווייט","02"
+"סעקונדע","02"
+// english: "third","03"
+"דריט","03"
+// english: "fourth","04"
+"פֿירט","04"
+// english: "fifth","05"
+"פֿינפֿט","05"
+// english: "sixth","06"
+"זעקסט","06"
+// english: "seventh","07"
+"זיבט","07"
+// english: "eighth","08"
+"אַכט","08"
+// english: "ninth","09"
+"נײַנט","09"
+// english: "tenth","10"
+"צענט","10"

@@ -1,0 +1,44 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+Januar
+Jänner
+Hartung
+Jannowaa
+// english: "February","02"
+Februar
+Feber
+Hornung
+Febrowaa
+// english: "March","03"
+März
+Lenzing
+// english: "April","04"
+April
+Ostermond
+// english: "May","05"
+Mai
+Wonnemond
+// english: "June","06"
+Juni
+Brachet
+// english: "July","07"
+Juli
+Heuert
+// english: "August","08"
+August
+Ernting
+// english: "September","09"
+September
+Scheiding
+// english: "October","10"
+Oktober
+// english: "November","11"
+November
+Nebelung
+// english: "December","12"
+Dezember
+Julmond

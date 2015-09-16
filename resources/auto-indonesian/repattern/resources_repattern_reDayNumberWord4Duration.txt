@@ -1,0 +1,72 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+[Ss]atu
+// english: "two","2"
+[Dd]ua
+// english: "three","3"
+[Tt]iga
+// english: "four","4"
+[Ee]mpat
+// english: "five","5"
+[Ll]ima
+// english: "six","6"
+[Ee]nam
+// english: "seven","7"
+[Tt]ujuh
+// english: "eight","8"
+[Dd]elapan
+// english: "nine","9"
+[Ss]embilan
+// english: "ten","10"
+[Ss]epuluh
+[Dd]əsə
+[Ss]apuluh
+[Ss]e-puluh
+(sa)polo
+[Ss]apuluah
+// english: "eleven","11"
+[Ss]ebelas
+// english: "twelve","12"
+[Dd]ua belas
+// english: "thirteen","13"
+[Tt]iga belas
+// english: "fourteen","14"
+[Ee]mpat belas
+// english: "fifteen","15"
+[Ll]ima belas
+// english: "sixteen","16"
+[Ee]nam belas
+// english: "seventeen","17"
+[Tt]ujuh belas
+// english: "eighteen","18"
+[Dd]elapan belas
+// english: "nineteen","19"
+[Ss]embilan belas
+// english: "twenty","20"
+[Dd]ua puluh
+[Ll]ikur
+// english: "twenty-one","21"
+[Dd]ua puluh satu
+// english: "twenty-two","22"
+[Dd]ua puluh dua
+// english: "twenty-three","23"
+[Dd]ua puluh tiga
+// english: "twenty-four","24"
+[Dd]ua puluh empat
+// english: "twenty-five","25"
+[Dd]ua puluh lima
+[Ss]alawe
+// english: "twenty-six","26"
+[Dd]ua puluh enam
+// english: "twenty-seven","27"
+[Dd]ua puluh tujuh
+// english: "twenty-eight","28"
+[Dd]ua puluh delapan
+// english: "thirty","30"
+[Tt]iga puluh
+// english: "twenty-nine","29" - no translation found
+// english: "thirty-one","31" - no translation found

@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "and","and"
+"[Uu]nd","and"
+// english: "or","or"
+"[Oo]der","or"
+// english: "to","to"
+"[Zz]u","to"
+"[Nn]ach","to"
+"[Nn]achhause/nach Hause (home)","to"
+"[Ii]n","to"
+"[Vv]or","to"

@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "two","2"
+"[Dd]ua","2"
+// english: "three","3"
+"[Tt]allo","3"
+// english: "seven","7"
+"[Pp]ito","7"
+// english: "eight","8"
+"[Ww]alo","8"
+// english: "ten","10"
+"[Pp]ullo","10"
+"[Ss]angapulo","10"

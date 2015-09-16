@@ -1,0 +1,72 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+[Ee]inn
+// english: "two","2"
+[Tt]veir
+[Tt]vær
+[Tt]vö
+// english: "three","3"
+þrír
+þrjár
+þrjú
+// english: "four","4"
+[Ff]jórir
+[Ff]jórar
+[Ff]jögur
+// english: "five","5"
+[Ff]imm
+// english: "six","6"
+[Ss]ex
+// english: "seven","7"
+[Ss]jö
+// english: "eight","8"
+átta
+// english: "nine","9"
+[Nn]íu
+// english: "ten","10"
+[Tt]íu
+// english: "eleven","11"
+[Ee]llefu
+// english: "twelve","12"
+[Tt]ólf
+// english: "thirteen","13"
+þrettán
+// english: "fourteen","14"
+[Ff]jórtán
+// english: "fifteen","15"
+[Ff]immtán
+// english: "sixteen","16"
+[Ss]extán
+// english: "seventeen","17"
+[Ss]autján
+// english: "eighteen","18"
+átján
+áttján
+// english: "nineteen","19"
+[Nn]ítján
+// english: "twenty","20"
+[Tt]uttugu
+// english: "twenty-one","21"
+[Tt]uttugu og einn
+// english: "twenty-two","22"
+[Tt]uttugu og tveir
+// english: "twenty-three","23"
+[Tt]uttugu og þrír
+// english: "twenty-four","24"
+[Tt]uttugu og fjórir
+// english: "twenty-five","25"
+[Tt]uttugu og fimm
+// english: "twenty-six","26"
+[Tt]uttugu og sex
+// english: "twenty-seven","27"
+[Tt]uttugu og sjö
+// english: "thirty","30"
+þrjátíu
+// english: "thirty-one","31"
+þrjátíu og einn
+// english: "twenty-eight","28" - no translation found
+// english: "twenty-nine","29" - no translation found

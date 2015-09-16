@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+"[Tt]aha","1"
+// english: "two","2"
+"[Uu]a","2"
+// english: "six","6"
+"[Oo]no","6"
+// english: "seven","7"
+"[Ff]itu","7"
+// english: "eight","8"
+"[Vv]alu","8"
+// english: "nine","9"
+"[Hh]iva","9"
+// english: "twenty","20"
+"[Uu]ofulu","20"
+// english: "thirty","30"
+"[Tt]olungofulu","30"

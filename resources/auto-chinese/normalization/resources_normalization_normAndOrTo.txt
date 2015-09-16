@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "and","and"
+"和","and"
+"與","and"
+"与","and"
+"及","and"
+"以及","and"
+// english: "or","or"
+"或","or"
+"或者","or"
+"還是","or"
+"还是","or"
+// english: "to","to"
+"到","to"
+"比","to"

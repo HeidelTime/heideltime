@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+朝
+あさ
+午前
+ごぜん
+// english: "noon","MD"
+正午
+真昼
+// english: "afternoon","AF"
+午後
+ごご
+// english: "evening","EV"
+夕方
+夜
+// english: "night","NI"
+夜
+よる
+一晩
+// english: "midnight","24:00"
+深夜
+真夜中

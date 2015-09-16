@@ -1,0 +1,25 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+"ǀgui","1"
+// english: "two","2"
+"ǀgam","2"
+// english: "three","3"
+"ǃnona","3"
+// english: "four","4"
+"[Hh]aka","4"
+// english: "five","5"
+"[Kk]oro","5"
+// english: "six","6"
+"ǃnani","6"
+// english: "seven","7"
+"[Hh]û","7"
+// english: "eight","8"
+"ǁkhaisa","8"
+// english: "nine","9"
+"[Kk]hoese","9"
+// english: "ten","10"
+"[Dd]isi","10"

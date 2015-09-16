@@ -1,0 +1,30 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+"æfterra ġēola","01"
+// english: "February","02"
+"[Ss]olmonaþ","02"
+// english: "March","03"
+"[Hh]reþmōnaþ","03"
+// english: "April","04"
+"ēastermōnaþ","04"
+// english: "May","05"
+"þrimilce","05"
+// english: "June","06"
+"[Ss]e ǣrra līþa","06"
+// english: "July","07"
+"[Ss]e æfterra līþa","07"
+// english: "August","08"
+"[Ww]ēodmōnaþ","08"
+// english: "September","09"
+"[Hh]ærfestmōnaþ","09"
+"[Hh]āliġmōnaþ","09"
+// english: "October","10"
+"[Ww]interfylleþ","10"
+// english: "November","11"
+"[Bb]lōtmōnaþ","11"
+// english: "December","12"
+"ǣrra ġēola","12"

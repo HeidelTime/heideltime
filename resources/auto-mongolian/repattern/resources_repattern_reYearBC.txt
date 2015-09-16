@@ -1,0 +1,8 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-03-24
+// This file contains regular expression patterns for 1,2,3,4-digit year.
+\d\d\d\d
+\d\d\d
+\d\d
+\d

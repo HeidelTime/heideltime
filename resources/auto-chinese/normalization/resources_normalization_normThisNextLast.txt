@@ -1,0 +1,33 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+"這","this"
+"这","this"
+"呢","this"
+"此","this"
+"這個","this"
+"这个","this"
+"這些","this"
+"这些","this"
+// english: "current","this"
+"活期","this"
+"通用","this"
+// english: "next","next"
+"下一個","next"
+"下一个","next"
+"[Mm]easure word","next"
+"下","next"
+"下一次","next"
+"隔壁","next"
+"比鄰","next"
+"比邻","next"
+// english: "last","last"
+"最後","last"
+"最后","last"
+"最終","last"
+"最终","last"
+// english: "previous","last"
+"以前的","last"

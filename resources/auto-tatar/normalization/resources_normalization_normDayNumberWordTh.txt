@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"беренче","01"
+// english: "second","02"
+"икенче","02"
+"секунд","02"
+// english: "third","03"
+"өченче","03"
+// english: "fourth","04"
+"дүртенче","04"
+// english: "fifth","05"
+"бишенче","05"
+// english: "sixth","06"
+"алтынчы","06"
+// english: "seventh","07"
+"җиденче","07"
+// english: "eighth","08"
+"сигезенче","08"
+// english: "ninth","09"
+"тугызынчы","09"
+// english: "tenth","10"
+"унынчы","10"

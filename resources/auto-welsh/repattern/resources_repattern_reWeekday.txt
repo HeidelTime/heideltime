@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+[Dd]ydd Llun
+// english: "Tuesday","tuesday"
+[Dd]ydd Mawrth
+// english: "Wednesday","wednesday"
+[Dd]ydd Mercher
+// english: "Thursday","thursday"
+[Dd]ydd Iau
+// english: "Friday","friday"
+[Dd]ydd Gwener
+// english: "Saturday","saturday"
+[Dd]ydd Sadwrn
+// english: "Sunday","sunday"
+[Dd]ydd Sul

@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+"[Mm]asika","SP"
+"[Mm]ajira ya chipuko","SP"
+"[Kk]ipindi cha demani","SP"
+// english: "summer","SU"
+"[Kk]iangazi","SU"
+"[Mm]ajira ya joto","SU"
+"[Kk]ipindi cha kiangazi","SU"
+// english: "autumn","FA"
+"[Vv]uli","FA"
+"[Mm]ajira ya pukutiko","FA"
+"[Kk]ipindi cha bubujiko","FA"
+// english: "winter","WI"
+"[Kk]ipupwe","WI"
+"[Mm]ajira ya baridi","WI"
+"[Kk]ipindi cha baridi","WI"

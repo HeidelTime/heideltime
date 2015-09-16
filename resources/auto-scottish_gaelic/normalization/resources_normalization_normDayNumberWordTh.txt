@@ -1,0 +1,31 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"[Aa]' chiad","01"
+"[Aa]' cheud","01"
+// english: "second","02"
+"[Dd]ara","02"
+"[Dd]àrna","02"
+"[Dd]iog","02"
+// english: "third","03"
+"[Tt]reas","03"
+"[Tt]rìtheamh","03"
+// english: "fourth","04"
+"[Aa]n ceathramh","04"
+// english: "fifth","05"
+"[Cc]òigeamh","05"
+// english: "sixth","06"
+"[Ss]iathamh","06"
+// english: "seventh","07"
+"[Ss]eachdamh","07"
+// english: "eighth","08"
+"[Oo]chdamh","08"
+// english: "ninth","09"
+"[Nn]aoidheamh","09"
+// english: "tenth","10"
+"[Dd]eicheamh","10"
+// english: "twentieth","20"
+"[Ff]icheadamh","20"

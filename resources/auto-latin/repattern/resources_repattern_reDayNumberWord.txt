@@ -1,0 +1,70 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+ūnus
+ūna
+ūnum
+// english: "two","02"
+[Dd]uo
+[Dd]uae
+// english: "three","03"
+[Tt]rēs
+[Tt]ria
+// english: "four","04"
+[Qq]uattuor
+// english: "five","05"
+[Qq]uīnque
+// english: "six","06"
+[Ss]ex
+// english: "seven","07"
+[Ss]eptem
+// english: "eight","08"
+[Oo]cto
+// english: "nine","09"
+[Nn]ovem
+// english: "ten","10"
+[Dd]ecem
+// english: "eleven","11"
+ūndecim
+// english: "twelve","12"
+[Dd]uodecim
+// english: "thirteen","13"
+[Tt]redecim
+// english: "fourteen","14"
+[Qq]uattuordecim
+// english: "fifteen","15"
+[Qq]uīndecim
+// english: "sixteen","16"
+[Ss]ēdecim
+// english: "seventeen","17"
+[Ss]eptendecim
+// english: "eighteen","18"
+[Dd]uodēvīgintī
+// english: "nineteen","19"
+ūndēvīgintī
+// english: "twenty","20"
+[Vv]īgintī
+// english: "twenty-one","21"
+[Vv]iginti unus
+// english: "twenty-two","22"
+[Vv]igintiduo
+// english: "twenty-three","23"
+[Vv]igintitres
+// english: "twenty-five","25"
+[Vv]igintiquinque
+// english: "twenty-six","26"
+[Vv]igintisex
+// english: "twenty-seven","27"
+[Vv]igintiseptem
+// english: "twenty-eight","28"
+[Dd]uodetriginta
+// english: "twenty-nine","29"
+[Uu]ndetriginta
+// english: "thirty","30"
+[Tt]rīgintaː
+// english: "thirty-one","31"
+[Tt]rigintaunus
+// english: "twenty-four","24" - no translation found

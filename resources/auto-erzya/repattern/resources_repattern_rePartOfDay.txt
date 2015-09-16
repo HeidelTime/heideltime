@@ -1,0 +1,14 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "evening","EV"
+чокшне
+// english: "night","NI"
+[Bb]e
+// english: "midnight","24:00"
+пелеве
+// english: "morning","MO" - no translation found
+// english: "noon","MD" - no translation found
+// english: "afternoon","AF" - no translation found

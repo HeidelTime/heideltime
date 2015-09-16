@@ -1,0 +1,18 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "hour","H"
+"小時","H"
+"小时","H"
+"鐘頭","H"
+"钟头","H"
+// english: "minute","M"
+"分鐘","M"
+"分钟","M"
+// english: "second","S"
+"第二","S"
+"秒鐘","S"
+"秒钟","S"
+"秒","S"

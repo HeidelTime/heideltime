@@ -1,0 +1,33 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"أَوّل","01"
+"أولى","01"
+"أول","01"
+// english: "second","02"
+"ثانٍ","02"
+"الثاني","02"
+"ثانية","02"
+"تاني","02"
+// english: "third","03"
+"ثالِث","03"
+"ثالِثة","03"
+"تالت","03"
+// english: "fourth","04"
+"رابِع","04"
+"رابع","04"
+// english: "fifth","05"
+"خامس","05"
+// english: "sixth","06"
+"سادس","06"
+// english: "seventh","07"
+"سابع","07"
+// english: "eighth","08"
+"ثامن","08"
+// english: "ninth","09"
+"تاسع","09"
+// english: "tenth","10"
+"عاشر","10"

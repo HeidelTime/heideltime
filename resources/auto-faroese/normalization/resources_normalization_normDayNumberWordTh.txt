@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"[Ff]yrsti","01"
+"[Ff]yrri","01"
+// english: "second","02"
+"[Ss]ekund","02"
+// english: "fourth","04"
+"[Ff]jórði","04"
+// english: "fifth","05"
+"[Ff]imti","05"
+// english: "sixth","06"
+"[Ss]ætti","06"
+// english: "eighth","08"
+"áttandi","08"
+"áttanda","08"
+// english: "thirteenth","13"
+"[Tt]rettandi","13"

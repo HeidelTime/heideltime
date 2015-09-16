@@ -1,0 +1,78 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+ఒకటి
+// english: "two","02"
+రెండు
+౨
+// english: "three","03"
+మూడు
+౩
+// english: "four","04"
+నాలుగు
+౪
+// english: "five","05"
+ఐదు
+౫
+// english: "six","06"
+ఆరు
+// english: "seven","07"
+ఏడు
+౭
+// english: "eight","08"
+ఎనిమిది
+౮
+// english: "nine","09"
+తొనిమిది
+తొమ్మిది
+౯
+// english: "ten","10"
+పది
+౧౦
+// english: "eleven","11"
+పదకొండు
+౧౧
+// english: "twelve","12"
+పండ్రెండు
+// english: "thirteen","13"
+పదమూడు
+౧౩
+// english: "fourteen","14"
+పద్నాలుగు
+// english: "fifteen","15"
+పదిహేను
+// english: "sixteen","16"
+పదహారు
+// english: "seventeen","17"
+పదిహేడు
+// english: "eighteen","18"
+పద్దెనిమిది
+// english: "nineteen","19"
+పంతొమ్మిది
+// english: "twenty","20"
+ఇరవై
+౨౦
+// english: "twenty-one","21"
+ఇరవై ఒకటి
+// english: "twenty-two","22"
+ఇరవై రెండు
+// english: "twenty-three","23"
+ఇరవై మూడు
+// english: "twenty-four","24"
+ఇరవై నాలుగు
+// english: "twenty-five","25"
+ఇరవై ఐదు
+// english: "twenty-six","26"
+ఇరవై ఆరు
+// english: "twenty-seven","27"
+ఇరవై ఏడు
+// english: "twenty-eight","28"
+ఇరవై ఎనిమిది
+// english: "twenty-nine","29"
+ఇరవై తొమ్మిది
+// english: "thirty","30"
+ముప్ఫై
+// english: "thirty-one","31" - no translation found

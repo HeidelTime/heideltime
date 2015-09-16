@@ -1,0 +1,25 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","D"
+రోజు
+// english: "week","W"
+వారము
+// english: "month","M"
+నెల
+మాసము
+// english: "quarter","Q"
+త్రైమాసికం
+// english: "year","Y"
+సంవత్సరము
+ఏడాది
+// english: "decade","DE"
+దశాబ్దము
+దశాబ్ది
+// english: "century","CE"
+శతాబ్దము
+// english: "days","D" - no translation found
+// english: "weekend","WE" - no translation found
+// english: "fiscal year","Y" - no translation found

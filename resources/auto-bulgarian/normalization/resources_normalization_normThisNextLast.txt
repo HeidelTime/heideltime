@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+"то́зи","this"
+"та́зи","this"
+"това́","this"
+"те́зи","this"
+"ето","this"
+"това","this"
+// english: "current","this"
+"текущ","this"
+"сегашен","this"
+// english: "following","next"
+"следващ","next"
+// english: "last","last"
+"последен","last"

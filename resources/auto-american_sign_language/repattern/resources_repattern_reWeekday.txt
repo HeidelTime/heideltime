@@ -1,0 +1,14 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+M@Side-PalmBack CirclesHoriz
+// english: "Saturday","saturday"
+S@Side-PalmBack CirclesHoriz
+// english: "Tuesday","tuesday" - no translation found
+// english: "Wednesday","wednesday" - no translation found
+// english: "Thursday","thursday" - no translation found
+// english: "Friday","friday" - no translation found
+// english: "Sunday","sunday" - no translation found

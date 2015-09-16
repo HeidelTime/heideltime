@@ -1,0 +1,12 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "and","and"
+[Ss]y
+[Aa]ry
+// english: "or","or"
+[Nn]a
+[Ss]a
+// english: "to","to" - no translation found

@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day before yesterday","UNDEF-this-day-MINUS-2"
+прекјуче
+[Pp]rekjuče
+// english: "yesterday","UNDEF-last-day"
+ју̀че̄р
+ју̀че
+[Jj]ùčēr
+[Jj]ùčē
+// english: "today","UNDEF-this-day"
+данас
+[Dd]anas
+// english: "tomorrow","UNDEF-next-day"
+сутра
+сутрадан
+[Ss]utra
+[Ss]utradan
+сутрa
+// english: "day after tomorrow","UNDEF-this-day-PLUS-2"
+прексутра
+прекосутра
+[Pp]reksutra
+[Pp]rekosutra
+дан послије сутра
+[Dd]an poslije sutra

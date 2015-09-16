@@ -1,0 +1,34 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+一月
+元月
+// english: "February","02"
+二月
+// english: "March","03"
+三月
+// english: "April","04"
+四月
+// english: "May","05"
+五月
+// english: "June","06"
+六月
+6月
+// english: "July","07"
+七月
+7月
+// english: "August","08"
+八月
+8月
+// english: "September","09"
+九月
+// english: "October","10"
+十月
+шийүә
+// english: "November","11"
+十一月
+// english: "December","12"
+十二月

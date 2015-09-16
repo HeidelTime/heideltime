@@ -1,0 +1,13 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "hour","H"
+"[Jj]am","H"
+// english: "minute","M"
+"[Mm]init","M"
+// english: "second","S"
+"[Kk]edua","S"
+"[Ss]aat","S"
+"[Dd]etik","S"

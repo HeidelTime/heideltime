@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day before yesterday","UNDEF-this-day-MINUS-2"
+"أَوَّل أَمْس","UNDEF-this-day-MINUS-2"
+"قَبْلَ أَمْس","UNDEF-this-day-MINUS-2"
+"أَمْس الأَوَّل","UNDEF-this-day-MINUS-2"
+"أول امبارح","UNDEF-this-day-MINUS-2"
+// english: "yesterday","UNDEF-last-day"
+"أمس","UNDEF-last-day"
+"[Ii]mps","UNDEF-last-day"
+"امبارح","UNDEF-last-day"
+// english: "today","UNDEF-this-day"
+"اليوم","UNDEF-this-day"
+"النهارده","UNDEF-this-day"
+"ليوم","UNDEF-this-day"
+// english: "tomorrow","UNDEF-next-day"
+"الغد","UNDEF-next-day"
+"غدًا","UNDEF-next-day"
+"في الغد","UNDEF-next-day"
+"بكره","UNDEF-next-day"
+// english: "day after tomorrow","UNDEF-this-day-PLUS-2"
+"بَعْدَ غَد","UNDEF-this-day-PLUS-2"
+"بعد بكره","UNDEF-this-day-PLUS-2"

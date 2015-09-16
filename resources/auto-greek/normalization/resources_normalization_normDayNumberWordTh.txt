@@ -1,0 +1,31 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"πρώτος","01"
+// english: "second","02"
+"δεύτερος","02"
+"δευτερόλεπτο","02"
+// english: "third","03"
+"τρίτος","03"
+// english: "fourth","04"
+"τέταρτος","04"
+// english: "fifth","05"
+"πέμπτος","05"
+"Greek numeral system","05"
+// english: "sixth","06"
+"έκτος","06"
+// english: "seventh","07"
+"έβδομος","07"
+// english: "ninth","09"
+"ένατος","09"
+// english: "eleventh","11"
+"ενδέκατος","11"
+// english: "twelfth","12"
+"δωδέκατος","12"
+// english: "thirteenth","13"
+"δέκατος τρίτος","13"
+// english: "thirtieth","30"
+"τριακοστός","30"

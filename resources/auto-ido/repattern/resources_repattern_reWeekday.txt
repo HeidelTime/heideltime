@@ -1,0 +1,18 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+[Ll]undio
+// english: "Tuesday","tuesday"
+[Mm]ardio
+// english: "Wednesday","wednesday"
+[Mm]erkurdio
+// english: "Thursday","thursday"
+[Jj]ovdio
+// english: "Saturday","saturday"
+[Ss]aturdio
+// english: "Sunday","sunday"
+[Ss]undio
+// english: "Friday","friday" - no translation found

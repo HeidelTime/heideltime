@@ -1,0 +1,68 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Uu]nu
+// english: "two","02"
+[Dd]u
+[Dd]ua
+// english: "three","03"
+[Tt]ri
+// english: "four","04"
+[Kk]var
+// english: "five","05"
+[Kk]vin
+// english: "six","06"
+[Ss]es
+// english: "seven","07"
+[Ss]ep
+// english: "eight","08"
+[Oo]k
+// english: "nine","09"
+[Nn]aŭ
+// english: "ten","10"
+[Dd]ek
+// english: "eleven","11"
+[Dd]ek unu
+// english: "twelve","12"
+[Dd]ek du
+// english: "thirteen","13"
+[Dd]ek tri
+// english: "fourteen","14"
+[Dd]ek kvar
+// english: "fifteen","15"
+[Dd]ek kvin
+// english: "sixteen","16"
+[Dd]ek ses
+// english: "seventeen","17"
+[Dd]ek sep
+// english: "eighteen","18"
+[Dd]ek ok
+// english: "nineteen","19"
+[Dd]ek naŭ
+// english: "twenty","20"
+[Dd]udek
+// english: "twenty-one","21"
+[Dd]udek unu
+// english: "twenty-two","22"
+[Dd]udek du
+// english: "twenty-three","23"
+[Dd]udek tri
+// english: "twenty-four","24"
+[Dd]udek kvar
+// english: "twenty-five","25"
+[Dd]udek kvin
+// english: "twenty-six","26"
+[Dd]udek ses
+// english: "twenty-seven","27"
+[Dd]udek sep
+// english: "twenty-eight","28"
+[Dd]udek ok
+// english: "twenty-nine","29"
+[Dd]udek naŭ
+// english: "thirty","30"
+[Tt]ridek
+// english: "thirty-one","31"
+[Tt]ridek unu

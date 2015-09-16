@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day before yesterday","UNDEF-this-day-MINUS-2"
+"[Nn]udius tertius","UNDEF-this-day-MINUS-2"
+// english: "yesterday","UNDEF-last-day"
+"[Hh]eri","UNDEF-last-day"
+"[Hh]esternus","UNDEF-last-day"
+"[Hh]ere","UNDEF-last-day"
+// english: "today","UNDEF-this-day"
+"[Hh]odie","UNDEF-this-day"
+// english: "tomorrow","UNDEF-next-day"
+"[Cc]rās","UNDEF-next-day"
+"[Cc]ras","UNDEF-next-day"
+"[Dd]ies crastinus","UNDEF-next-day"
+"[Dd]ies castinus","UNDEF-next-day"
+"[Dd]ies castina","UNDEF-next-day"
+// english: "day after tomorrow","UNDEF-this-day-PLUS-2"
+"[Pp]erendie","UNDEF-this-day-PLUS-2"

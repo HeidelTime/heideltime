@@ -1,0 +1,31 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+الإثنَين
+يَوْم الإثنَين‎
+الإتنين
+// english: "Tuesday","tuesday"
+الثلاثاء
+يوم الثلاثاء
+التلات
+// english: "Wednesday","wednesday"
+الأربعاء
+يوم الأربعاء
+الأربع
+// english: "Thursday","thursday"
+الخميس
+يوم الخميس
+Yamuxmis
+// english: "Friday","friday"
+الجمعة
+يوم الجمعة
+// english: "Saturday","saturday"
+السبت
+يوم السبت
+// english: "Sunday","sunday"
+الأحد
+يوم الأحد
+الحد

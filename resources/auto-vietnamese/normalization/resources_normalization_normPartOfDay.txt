@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+"[Bb]uổi sáng","MO"
+// english: "noon","MD"
+"[Bb]uổi trưa","MD"
+// english: "afternoon","AF"
+"[Bb]uổi chiều","AF"
+// english: "evening","EV"
+"[Bb]uổi chiều","EV"
+"[Bb]uổi tối","EV"
+// english: "night","NI"
+"đêm","NI"
+"[Tt]ối","NI"
+"[Bb]an đêm","NI"
+// english: "midnight","24:00"
+"[Bb]an đêm","24:00"
+"[Nn]ửa đêm","24:00"

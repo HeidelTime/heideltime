@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+"Genver","01"
+"Mys Genver","01"
+"[Mm]is Genver","01"
+// english: "February","02"
+"[Mm]is Whevrer","02"
+// english: "March","03"
+"[Mm]ys merth","03"
+// english: "April","04"
+"[Mm]ys Ebrel","04"
+// english: "May","05"
+"[Mm]ys Me","05"
+// english: "June","06"
+"Metheven","06"
+// english: "November","11"
+"[Mm]ys du","11"

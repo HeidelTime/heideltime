@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+"Monite","monday"
+// english: "Tuesday","tuesday"
+"Mahana piti","tuesday"
+// english: "Wednesday","wednesday"
+"Mahana toru","wednesday"
+// english: "Thursday","thursday"
+"[Mm]ahana maha","thursday"
+// english: "Friday","friday"
+"[Mm]ahana pae","friday"
+// english: "Saturday","saturday"
+"[Mm]ahama maa","saturday"
+// english: "Sunday","sunday"
+"Tapati","sunday"

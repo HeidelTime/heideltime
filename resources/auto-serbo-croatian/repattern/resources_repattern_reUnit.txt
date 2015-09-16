@@ -1,0 +1,44 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+дан
+[Dd]an
+обданица
+[Oo]bdanica
+// english: "weekend","week-WE"
+викенд
+[Vv]ikend
+// english: "week","week"
+седмица
+недеља
+тједан
+[Ss]edmica
+[Nn]edelja
+[Tt]jedan
+// english: "month","month"
+ме̏се̄ц
+мје̏се̄ц
+[Mm]ȅsēc
+[Mm]jȅsēc
+// english: "year","year"
+година
+[Gg]odina
+лето
+[Ll]eto
+// english: "decade","decade"
+десетлеће
+[Dd]esetleće
+[Dd]ecenija
+// english: "century","century"
+век
+вијек
+столеће
+[Vv]ek
+[Vv]ijek
+[Ss]toleće
+// english: "days","day" - no translation found
+// english: "quarter","quarter" - no translation found
+// english: "fiscal year","year" - no translation found

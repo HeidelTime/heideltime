@@ -1,0 +1,23 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "and","and"
+"と","and"
+"かつ","and"
+"とか","and"
+"や","and"
+"そして","and"
+"然して","and"
+// english: "or","or"
+"または","or"
+"又は","or"
+"あるいは","or"
+"か","or"
+"それとも","or"
+// english: "to","to"
+"...へ","to"
+"...まで","to"
+"に","to"
+"へ","to"

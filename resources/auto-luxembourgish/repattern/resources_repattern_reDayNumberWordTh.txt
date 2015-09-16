@@ -1,0 +1,51 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+éischt
+// english: "second","02"
+[Zz]weet
+// english: "third","03"
+[Dd]rëtt
+// english: "fourth","04"
+[Vv]éiert
+// english: "eighth","08"
+[Aa]achtel
+// english: "eleventh","11"
+[Ee]eleft
+// english: "twelfth","12"
+[Zz]wieleft
+// english: "thirteenth","13"
+[Dd]räizéngt
+// english: "fourteenth","14"
+[Vv]éierzéngt
+// english: "fifteenth","15"
+[Ff]ofzéngt
+// english: "sixteenth","16"
+[Ss]iechzéngt
+// english: "seventeenth","17"
+[Ss]iwwenzéngt
+// english: "eighteenth","18"
+[Uu]echtzéngt
+// english: "nineteenth","19"
+[Nn]onzéngt
+// english: "twentieth","20"
+[Zz]wanzegst
+// english: "thirtieth","30"
+[Dd]rëssegst
+// english: "fifth","05" - no translation found
+// english: "sixth","06" - no translation found
+// english: "seventh","07" - no translation found
+// english: "ninth","09" - no translation found
+// english: "tenth","10" - no translation found
+// english: "twenty-first","21" - no translation found
+// english: "twenty-second","22" - no translation found
+// english: "twenty-third","23" - no translation found
+// english: "twenty-fourth","24" - no translation found
+// english: "twenty-fifth","25" - no translation found
+// english: "twenty-sixth","26" - no translation found
+// english: "twenty-seventh","27" - no translation found
+// english: "twenty-eighth","28" - no translation found
+// english: "twenty-ninth","29" - no translation found

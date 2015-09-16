@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+[Ss]efaqi ser
+şefaq
+// english: "noon","MD"
+[Dd]ehir
+[Hh]el
+// english: "afternoon","AF"
+[Hh]ela şani
+[Bb]ahdé dehir
+// english: "evening","EV"
+şan
+[Mm]uxrub
+// english: "night","NI"
+şewe
+// english: "midnight","24:00"
+[Nn]imsew

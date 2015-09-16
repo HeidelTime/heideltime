@@ -1,0 +1,33 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+"هذا","this"
+"هذه","this"
+"هذان","this"
+"هتان","this"
+"هأولاء","this"
+"ده","this"
+"دي","this"
+"دول","this"
+"هد","this"
+"هَذَا","this"
+"هَذِهْ","this"
+"هذي","this"
+"هؤلاء","this"
+// english: "current","this"
+"جارٍ","this"
+// english: "next","next"
+"تالٍ","next"
+"التالي","next"
+"الي جي","next"
+"الي جية","next"
+// english: "following","next"
+"تالي","next"
+// english: "last","last"
+"آخر","last"
+// english: "previous","last"
+"سابِق","last"
+"قبل","last"

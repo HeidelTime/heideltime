@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"ទីមួយ","01"
+// english: "second","02"
+"ទីពីរ","02"
+"វិនាទី","02"
+// english: "third","03"
+"ទីបី","03"
+// english: "fourth","04"
+"ទីបួន","04"
+// english: "fifth","05"
+"ទីប្រាំ","05"
+// english: "sixth","06"
+"ទីប្រាំមួយ","06"
+// english: "seventh","07"
+"ទីប្រាំពីរ","07"
+// english: "eighth","08"
+"ទីប្រាំបី","08"
+// english: "ninth","09"
+"ទីប្រាំបួន","09"
+// english: "tenth","10"
+"ទីដប់","10"

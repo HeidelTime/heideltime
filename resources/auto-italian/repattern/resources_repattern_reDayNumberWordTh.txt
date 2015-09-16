@@ -1,0 +1,85 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+[Pp]rimo
+// english: "second","02"
+[Ss]econdo
+// english: "third","03"
+[Tt]erzo
+[Tt]erza
+// english: "fourth","04"
+[Qq]uarto
+[Qq]uarta
+// english: "fifth","05"
+[Qq]uinto
+[Qq]uinta
+// english: "sixth","06"
+[Ss]esto
+[Ss]esta
+// english: "seventh","07"
+[Ss]ettimo
+[Ss]ettima
+// english: "eighth","08"
+[Oo]ttavo
+[Oo]ttava
+// english: "ninth","09"
+[Nn]ono
+// english: "tenth","10"
+[Dd]ecimo
+[Dd]ecima
+// english: "eleventh","11"
+[Uu]ndicesimo
+[Uu]ndicesima
+// english: "twelfth","12"
+[Dd]odicesimo
+// english: "thirteenth","13"
+[Tt]redicesimo
+[Tt]redicesima
+// english: "fourteenth","14"
+[Qq]uattordicesimo
+[Qq]uattordicesima
+// english: "fifteenth","15"
+[Qq]uindicesimo
+[Qq]uindicesima
+// english: "sixteenth","16"
+[Ss]edicesimo
+[Ss]edicesima
+// english: "seventeenth","17"
+[Dd]iciassettesimo
+[Dd]iciassettesima
+// english: "eighteenth","18"
+[Dd]iciottesimo
+[Dd]iciottesima
+// english: "nineteenth","19"
+[Dd]iciannovesimo
+[Dd]iciannovesima
+// english: "twentieth","20"
+[Vv]entesimo
+[Vv]entesima
+// english: "twenty-first","21"
+[Vv]entunesimo
+[Vv]entunesima
+// english: "twenty-second","22"
+[Vv]entiduesimo
+// english: "twenty-third","23"
+[Vv]entitreesimo
+// english: "twenty-fourth","24"
+[Vv]entiquattresimo
+// english: "twenty-fifth","25"
+[Vv]enticinquesimo
+// english: "twenty-sixth","26"
+[Vv]entiseiesimo
+[Vv]entiseiesima
+// english: "twenty-seventh","27"
+[Vv]entisettesimo
+[Vv]entisettesima
+// english: "twenty-eighth","28"
+[Vv]entottesimo
+// english: "twenty-ninth","29"
+[Vv]entinovesimo
+// english: "thirtieth","30"
+[Tt]rentesimo
+[Tt]rentesima

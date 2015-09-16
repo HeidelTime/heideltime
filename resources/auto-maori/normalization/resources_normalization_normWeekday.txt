@@ -1,0 +1,30 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+"Mane","monday"
+"Rātahi","monday"
+"Rāhina","monday"
+// english: "Tuesday","tuesday"
+"Tūrei","tuesday"
+"Rārua","tuesday"
+"Rātū","tuesday"
+// english: "Wednesday","wednesday"
+"Wenerei","wednesday"
+"Rātoru","wednesday"
+"Rāapa","wednesday"
+// english: "Thursday","thursday"
+"Tāite","thursday"
+"Rāwhā","thursday"
+"Rāpare","thursday"
+// english: "Friday","friday"
+"Paraire","friday"
+"Rārima","friday"
+"Rāmere","friday"
+// english: "Saturday","saturday"
+"Hātarei","saturday"
+"Rāhoroi","saturday"
+// english: "Sunday","sunday"
+"Rātapu","sunday"

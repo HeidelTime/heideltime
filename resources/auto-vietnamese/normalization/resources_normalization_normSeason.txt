@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+"[Mm]ùa xuân","SP"
+"務春","SP"
+"[Xx]uân","SP"
+"春","SP"
+// english: "summer","SU"
+"[Mm]ùa hè","SU"
+"[Mm]ùa hạ","SU"
+"務夏","SU"
+"[Hh]ạ","SU"
+"夏","SU"
+// english: "autumn","FA"
+"[Mm]ùa thu","FA"
+"務秋","FA"
+"[Tt]hu","FA"
+"秋","FA"
+// english: "winter","WI"
+"[Mm]ùa đông","WI"
+"務冬","WI"
+"đông","WI"
+"冬","WI"

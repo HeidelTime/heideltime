@@ -1,0 +1,24 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+"[Dd]oba","day"
+"[Dd]eň","day"
+// english: "weekend","week-WE"
+"[Vv]íkend","week-WE"
+"[Kk]oniec týždňa","week-WE"
+// english: "week","week"
+"[Tt]ýždeň","week"
+// english: "month","month"
+"[Mm]esiac","month"
+// english: "quarter","quarter"
+"štvrťrok","quarter"
+// english: "year","year"
+"[Rr]ok","year"
+// english: "decade","decade"
+"[Dd]esaťročie","decade"
+"[Dd]ekáda","decade"
+// english: "century","century"
+"[Ss]toročie","century"

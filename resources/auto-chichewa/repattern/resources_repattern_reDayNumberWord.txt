@@ -1,0 +1,60 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Mm]odzi
+// english: "two","02"
+[Ww]iri
+// english: "three","03"
+[Tt]atu
+// english: "four","04"
+[Nn]ayi
+// english: "five","05"
+[Ss]anu
+// english: "six","06"
+[Ss]anu n'chimodzi
+// english: "seven","07"
+[Ss]anu n'ziwiri
+// english: "eight","08"
+[Ss]anu n'zitatu
+// english: "nine","09"
+[Ss]anu n'zinayi
+// english: "ten","10"
+[Kk]humi
+// english: "eleven","11"
+[Kk]humi n'chimodzi
+// english: "twelve","12"
+[Kk]humi n'ziwiri
+// english: "thirteen","13"
+[Kk]humi n'zitatu
+// english: "fourteen","14"
+[Kk]humi n'zinayi
+// english: "fifteen","15"
+[Kk]humi n'zisanu
+// english: "sixteen","16"
+[Kk]humi n'zisanu n'chimodzi
+// english: "seventeen","17"
+[Kk]humi n'zisanu n'ziwiri
+// english: "eighteen","18"
+[Kk]humi n'zisanu n'zitatu
+// english: "nineteen","19"
+[Kk]humi n'zisanu n'zinayi
+// english: "twenty","20"
+[Mm]akumi awiri
+// english: "twenty-one","21"
+[Mm]akumi awiri n'chimodzi
+// english: "twenty-two","22"
+[Mm]akumi awiri n'ziwiri
+// english: "twenty-three","23"
+[Mm]akumi awiri n'zitatu
+// english: "thirty","30"
+[Mm]akumi atatu
+// english: "twenty-four","24" - no translation found
+// english: "twenty-five","25" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found
+// english: "twenty-eight","28" - no translation found
+// english: "twenty-nine","29" - no translation found
+// english: "thirty-one","31" - no translation found

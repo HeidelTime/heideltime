@@ -1,0 +1,67 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+[Bb]ezhig
+// english: "two","2"
+[Nn]iizh
+// english: "three","3"
+[Nn]iswi
+// english: "four","4"
+[Nn]iiwin
+// english: "five","5"
+[Nn]aanan
+// english: "six","6"
+[Ii]ngodwaaswi
+// english: "seven","7"
+[Nn]iizhwaaswi
+// english: "eight","8"
+[Nn]ishwaaswi
+// english: "nine","9"
+[Zz]haangaswi
+// english: "ten","10"
+[Mm]idaaswi
+// english: "eleven","11"
+[Aa]shi-bezhig
+// english: "twelve","12"
+[Aa]shi-niizh
+// english: "thirteen","13"
+[Aa]shi-niswi
+// english: "fourteen","14"
+[Aa]shi-niiwin
+// english: "fifteen","15"
+[Aa]shi-naanan
+// english: "sixteen","16"
+[Aa]shi-ingodwaaswi
+// english: "seventeen","17"
+[Aa]shi-niizhwaaswi
+// english: "eighteen","18"
+[Aa]shi-nishwaaswi
+// english: "nineteen","19"
+[Aa]shi-zhaangaswi
+// english: "twenty","20"
+[Nn]iishtana
+// english: "twenty-one","21"
+[Nn]iishtanashi-bezhig
+// english: "twenty-two","22"
+[Nn]iishtana-ashi-niizh
+// english: "twenty-three","23"
+[Nn]iishtana-ashi-nswi
+// english: "twenty-four","24"
+[Nn]iishtana-ashi-niiwin
+// english: "twenty-five","25"
+[Nn]iishtana-ashi-naanan
+// english: "twenty-six","26"
+[Nn]iishtana-ashi-ingodwaaswi
+// english: "twenty-seven","27"
+[Nn]iishtana-ashi-niizhwaaswi
+// english: "twenty-eight","28"
+[Nn]iishtana-ashi-nishwaaswi
+// english: "twenty-nine","29"
+[Nn]iishtana-ashi-zhaangaswi
+// english: "thirty","30"
+[Nn]isimidana
+// english: "thirty-one","31"
+[Nn]isimidana-ashi-bezhig

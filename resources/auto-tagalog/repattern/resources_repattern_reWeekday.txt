@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+Lunes
+[Ll]unes
+// english: "Tuesday","tuesday"
+Martes
+[Mm]artes
+// english: "Wednesday","wednesday"
+Miyerkules
+[Mm]iyerkules
+// english: "Thursday","thursday"
+Huwebes
+[Hh]uwebes
+// english: "Friday","friday"
+Biyernes
+[Bb]iyernes
+// english: "Saturday","saturday"
+Sabado
+[Ss]abado
+// english: "Sunday","sunday"
+Linggo
+[Ll]inggo

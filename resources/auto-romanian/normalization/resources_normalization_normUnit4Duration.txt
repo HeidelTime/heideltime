@@ -1,0 +1,27 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","D"
+"[Zz]i","D"
+// english: "days","D"
+"[Zz]ile","D"
+// english: "weekend","WE"
+"[Ss]fârșit de săptămână","WE"
+"[Ww]eekend","WE"
+// english: "week","W"
+"[Ss]ăptămână","W"
+// english: "month","M"
+"[Ll]ună","M"
+// english: "quarter","Q"
+"[Tt]rimestru","Q"
+// english: "fiscal year","Y"
+"[Aa]n fiscal","Y"
+// english: "year","Y"
+"[Aa]n","Y"
+// english: "decade","DE"
+"[Dd]eceniu","DE"
+// english: "century","CE"
+"[Ss]ecol","CE"
+"[Vv]eac","CE"

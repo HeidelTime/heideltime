@@ -1,0 +1,31 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+"[Aa]iquen","1"
+// english: "two","2"
+"[Aa]ro","2"
+// english: "three","3"
+"[Aa]iju","3"
+// english: "four","4"
+"[Aa]eoq","4"
+// english: "five","5"
+"[Aa]ijimo","5"
+// english: "six","6"
+"[Aa]ño","6"
+// english: "seven","7"
+"[Aa]eiu","7"
+// english: "eight","8"
+"[Aa]oju","8"
+// english: "ten","10"
+"[Aa]ta","10"
+// english: "eleven","11"
+"[Aa]ta ma aiquen","11"
+// english: "twelve","12"
+"[Aa]ta ma aro","12"
+// english: "twenty","20"
+"[Aa]narama","20"
+// english: "thirty","30"
+"[Aa]ma","30"

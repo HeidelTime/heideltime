@@ -1,0 +1,33 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+[Ll]unis
+// english: "Tuesday","tuesday"
+[Mm]artis
+[Mm]altis
+// english: "Wednesday","wednesday"
+[Mm]élcuris
+[Mm]ércuis
+[Mm]érculis
+[Mm]ércuris
+[Mm]èrcuris
+// english: "Thursday","thursday"
+[Gg]iovia
+[Gg]iobia
+[Gg]iòia
+// english: "Friday","friday"
+[Cc]anàbara
+[Cc]henàbura
+[Cc]enàbara
+// english: "Saturday","saturday"
+[Ss]àbadu
+[Ss]àpadu
+[Ss]àbudu
+// english: "Sunday","sunday"
+[Dd]omiga
+[Dd]umínica
+[Dd]omìniga
+[Dd]omigu

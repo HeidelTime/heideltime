@@ -1,0 +1,25 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+Bhimbídvwane
+// english: "February","02"
+[Ii]Ndlóvana
+// english: "March","03"
+íNdlovu
+// english: "May","05"
+íNkhwekhwéti
+// english: "June","06"
+íNhlaba
+// english: "July","07"
+Khólwáne
+// english: "August","08"
+íNgci
+// english: "December","12"
+íNgongóni
+// english: "April","04" - no translation found
+// english: "September","09" - no translation found
+// english: "October","10" - no translation found
+// english: "November","11" - no translation found

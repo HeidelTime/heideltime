@@ -1,0 +1,22 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+"[Mm]orgunn","MO"
+// english: "afternoon","AF"
+"[Ss]íðdegi","AF"
+"[Ee]ftirmiðdagur","AF"
+"[Ss]einnipartur","AF"
+// english: "evening","EV"
+"[Kk]völd","EV"
+"[Kk]veld","EV"
+"[Aa]ftann","EV"
+// english: "night","NI"
+"[Nn]ótt","NI"
+"[Nn]átt","NI"
+"[Nn]jóla","NI"
+// english: "midnight","24:00"
+"[Mm]iðnætti","24:00"
+"[Mm]iðnótt","24:00"

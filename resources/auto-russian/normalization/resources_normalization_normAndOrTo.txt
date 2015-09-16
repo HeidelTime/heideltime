@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "and","and"
+"и","and"
+"да","and"
+// english: "or","or"
+"и́ли","or"
+"ли́бо","or"
+// english: "to","to"
+"на","to"
+"в","to"
+"к","to"
+"без","to"

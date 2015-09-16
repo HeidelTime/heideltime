@@ -1,0 +1,22 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+صبح
+سویرا
+پربهات
+تڑکا
+اشا
+// english: "noon","MD"
+دوپہر
+// english: "evening","EV"
+شام
+وكال
+// english: "night","NI"
+رات
+شب
+// english: "midnight","24:00"
+آدھی رات
+// english: "afternoon","AF" - no translation found

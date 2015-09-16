@@ -1,0 +1,20 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+"[Jj]our","day"
+"[Jj]ournée","day"
+"[Jj]ournaïe","day"
+// english: "week","week"
+"[Ss]'maine","week"
+"[Ss]'môine","week"
+// english: "month","month"
+"[Mm]ais","month"
+// english: "year","year"
+"[Aa]un","year"
+"[Aa]n","year"
+"[Aa]nnaée","year"
+"[Aa]nnée","year"
+"[Oo]nnaïe","year"

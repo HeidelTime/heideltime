@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+"ວັນ","day"
+// english: "weekend","week-WE"
+"ທ້າຍສັບປະດາ","week-WE"
+// english: "week","week"
+"ອາທິດ","week"
+// english: "month","month"
+"ເດືອນ","month"
+// english: "year","year"
+"ປີ","year"
+// english: "century","century"
+"ສັດຕະວັດ","century"

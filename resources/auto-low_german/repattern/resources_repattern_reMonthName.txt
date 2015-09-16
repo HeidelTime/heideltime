@@ -1,0 +1,56 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+Januar
+Groothorn
+[Jj]annewaori
+// english: "February","02"
+Februar
+Horning
+Hornung
+Heering
+Höring
+Kleenhorn
+Iesmoand
+Lammermoand
+[Ff]ebrewaori
+// english: "March","03"
+März
+Märzmaand
+// english: "April","04"
+April
+Aprilmaand
+Oostermaand
+Pröl
+[Aa]pril
+// english: "May","05"
+Mai
+Maimaand
+// english: "June","06"
+Juni
+Braakmaand
+[Jj]uni
+// english: "July","07"
+Juli
+Heumaand
+[Jj]uli
+// english: "August","08"
+August
+Augustmaand
+// english: "September","09"
+September
+Harvstmaand
+// english: "October","10"
+Oktober
+[Oo]ktober
+[Oo]ktobermaand
+// english: "November","11"
+November
+[Nn]ovember
+// english: "December","12"
+Dezember
+Juulmaand
+[Dd]ecember

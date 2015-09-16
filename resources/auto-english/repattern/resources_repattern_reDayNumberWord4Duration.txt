@@ -1,0 +1,67 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+one
+// english: "two","2"
+two
+// english: "three","3"
+three
+// english: "four","4"
+four
+// english: "five","5"
+five
+// english: "six","6"
+six
+// english: "seven","7"
+seven
+// english: "eight","8"
+eight
+// english: "nine","9"
+nine
+// english: "ten","10"
+ten
+// english: "eleven","11"
+eleven
+// english: "twelve","12"
+twelve
+// english: "thirteen","13"
+thirteen
+// english: "fourteen","14"
+fourteen
+// english: "fifteen","15"
+fifteen
+// english: "sixteen","16"
+sixteen
+// english: "seventeen","17"
+seventeen
+// english: "eighteen","18"
+eighteen
+// english: "nineteen","19"
+nineteen
+// english: "twenty","20"
+twenty
+// english: "twenty-one","21"
+twenty-one
+// english: "twenty-two","22"
+twenty-two
+// english: "twenty-three","23"
+twenty-three
+// english: "twenty-four","24"
+twenty-four
+// english: "twenty-five","25"
+twenty-five
+// english: "twenty-six","26"
+twenty-six
+// english: "twenty-seven","27"
+twenty-seven
+// english: "twenty-eight","28"
+twenty-eight
+// english: "twenty-nine","29"
+twenty-nine
+// english: "thirty","30"
+thirty
+// english: "thirty-one","31"
+thirty-one

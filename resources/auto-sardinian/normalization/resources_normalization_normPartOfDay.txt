@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "noon","MD"
+"[Mm]esu die","MD"
+// english: "evening","EV"
+"[Ss]era","EV"
+"[Ss]ero","EV"
+// english: "night","NI"
+"[Nn]oti","NI"
+"[Nn]otti","NI"
+// english: "midnight","24:00"
+"[Mm]esanote","24:00"
+"[Mm]esanoti","24:00"

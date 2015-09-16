@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+[Dd]illuns
+// english: "Tuesday","tuesday"
+[Dd]imarts
+// english: "Wednesday","wednesday"
+[Dd]imecres
+// english: "Thursday","thursday"
+[Dd]ijous
+// english: "Friday","friday"
+[Dd]ivendres
+// english: "Saturday","saturday"
+[Dd]issabte
+// english: "Sunday","sunday"
+[Dd]iumenge

@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+"[Mm]atí","MO"
+"[Mm]atinada","MO"
+// english: "noon","MD"
+"[Mm]igdia","MD"
+// english: "afternoon","AF"
+"[Tt]arda","AF"
+// english: "evening","EV"
+"[Tt]arda","EV"
+"[Vv]espre","EV"
+// english: "night","NI"
+"[Nn]it","NI"
+"[Vv]etllada","NI"
+"[Vv]espre","NI"
+// english: "midnight","24:00"
+"[Mm]itjanit","24:00"

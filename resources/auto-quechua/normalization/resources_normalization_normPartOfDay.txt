@@ -1,0 +1,11 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "afternoon","AF"
+"[Ss]ukha","AF"
+// english: "night","NI"
+"[Tt]uta","NI"
+// english: "midnight","24:00"
+"[Cc]hawpi tuta","24:00"

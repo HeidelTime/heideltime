@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+ວະສັນ
+ວະສັນຕະ
+ວະສັນຕະຣະດູ
+// english: "summer","SU"
+ຣະດູຮ້ອນ
+// english: "autumn","FA"
+ລະດູໃບໄມ້ຫລົ່ນ
+ລຶດູໃບໄມ້ຫລົ່ນ
+// english: "winter","WI"
+ລະດູໜາວ

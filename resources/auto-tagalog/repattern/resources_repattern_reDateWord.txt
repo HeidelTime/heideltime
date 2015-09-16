@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day before yesterday","UNDEF-this-day-MINUS-2"
+[Kk]amakalawa
+// english: "yesterday","UNDEF-last-day"
+[Kk]ahpon
+// english: "today","UNDEF-this-day"
+[Nn]gayon
+// english: "tomorrow","UNDEF-next-day"
+[Bb]ukas
+// english: "day after tomorrow","UNDEF-this-day-PLUS-2"
+[Ss]amakalawa

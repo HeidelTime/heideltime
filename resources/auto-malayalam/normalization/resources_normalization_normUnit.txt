@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+"ദിവസം","day"
+// english: "week","week"
+"ആഴ്ച","week"
+// english: "month","month"
+"മാസം","month"
+// english: "year","year"
+"കൊല്ലം","year"
+"വര്‍ഷം","year"
+// english: "century","century"
+"നൂറ്റാണ്ട്","century"
+"ശതാബ്ദം","century"

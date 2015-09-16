@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-03-24
+// This file contains normalization information for which month is in which quarter.
+"01","1"
+"02","1"
+"03","1"
+"04","2"
+"05","2"
+"06","2"
+"07","3"
+"08","3"
+"09","3"
+"10","4"
+"11","4"
+"12","4"

@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "and","and"
+"와","and"
+"과","and"
+"그리고","and"
+"하고","and"
+// english: "or","or"
+"또는","or"
+// english: "to","to"
+"...으로","to"
+"...에게","to"

@@ -1,0 +1,68 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+łáaʼii góneʼ
+áłtsé
+// english: "second","02"
+[Nn]aaki góneʼ
+áłtsʼíísígo
+[Tt]sį́įłgo yilkiłígíí
+// english: "third","03"
+[Tt]ááʼ góneʼ
+// english: "fourth","04"
+[Dd]į́į́ʼ góneʼ
+// english: "fifth","05"
+[Aa]shdlaʼ góneʼ
+// english: "sixth","06"
+[Hh]astą́ą́ góneʼ
+// english: "seventh","07"
+[Tt]sostsʼid góneʼ
+// english: "eighth","08"
+[Tt]seebíí góneʼ
+// english: "ninth","09"
+[Nn]áhástʼéí góneʼ
+// english: "tenth","10"
+[Nn]eeznáá góneʼ
+// english: "eleventh","11"
+łaʼtsʼáadah góneʼ
+// english: "twelfth","12"
+[Nn]aakitsʼáadah góneʼ
+// english: "thirteenth","13"
+[Tt]ááʼtsʼáadah góneʼ
+// english: "fourteenth","14"
+[Dd]į́į́ʼtsʼáadah góneʼ
+// english: "fifteenth","15"
+[Aa]shdlaʼáadah góneʼ
+// english: "sixteenth","16"
+[Hh]astą́ʼáadah góneʼ
+// english: "seventeenth","17"
+[Tt]sostsʼidtsʼáadah góneʼ
+// english: "eighteenth","18"
+[Tt]seebíítsʼáadah góneʼ
+// english: "nineteenth","19"
+[Nn]ahastʼéítsʼáadah góneʼ
+// english: "twentieth","20"
+[Nn]aadíín góneʼ
+// english: "twenty-first","21"
+[Nn]aadįįłaʼ góneʼ
+// english: "twenty-second","22"
+[Nn]aadįįnaaki góneʼ
+// english: "twenty-third","23"
+[Nn]aadįįtááʼ góneʼ
+// english: "twenty-fourth","24"
+[Nn]aadįįdį́į́ʼ góneʼ
+// english: "twenty-fifth","25"
+[Nn]aadįįʼashdlaʼ góneʼ
+// english: "twenty-sixth","26"
+[Nn]aadįįhastą́ą́ góneʼ
+// english: "twenty-seventh","27"
+[Nn]aadįįtsostsʼid góneʼ
+// english: "twenty-eighth","28"
+[Nn]aadįįtseebíí góneʼ
+// english: "twenty-ninth","29"
+[Nn]aadįįnáhástʼéí góneʼ
+// english: "thirtieth","30"
+[Tt]ádiin góneʼ

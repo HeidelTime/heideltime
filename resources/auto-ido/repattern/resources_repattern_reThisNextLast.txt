@@ -1,0 +1,18 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+[Cc]a
+// english: "next","next"
+[Nn]exta
+// english: "last","last"
+[Ll]asta
+[Uu]ltima
+// english: "previous","last"
+[Aa]ntea
+// english: "current","this" - no translation found
+// english: "following","next" - no translation found
+// english: "latest","last" - no translation found
+// english: "past","last" - no translation found

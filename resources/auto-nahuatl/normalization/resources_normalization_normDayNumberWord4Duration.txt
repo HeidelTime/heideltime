@@ -1,0 +1,27 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+"[Cc]e","1"
+// english: "two","2"
+"[Oo]me","2"
+// english: "three","3"
+"ēyi","3"
+"[Yy]ēi","3"
+// english: "four","4"
+"[Nn]ahui","4"
+// english: "five","5"
+"[Mm]akwilli","5"
+"[Mm]acuilli","5"
+// english: "six","6"
+"[Cc]hicuace","6"
+// english: "seven","7"
+"[Cc]hicome","7"
+// english: "eight","8"
+"[Cc]hicuei","8"
+// english: "nine","9"
+"[Cc]hicuei","9"
+// english: "ten","10"
+"[Mm]atlactli","10"

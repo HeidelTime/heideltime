@@ -1,0 +1,30 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"[Yy]a kwanza","01"
+// english: "second","02"
+"[Yy]a pili","02"
+"[Ss]ekunde","02"
+// english: "third","03"
+"[Yy]a tatu","03"
+// english: "fourth","04"
+"[Yy]a nne","04"
+// english: "fifth","05"
+"[Yy]a tano","05"
+// english: "sixth","06"
+"[Yy]a sita","06"
+// english: "seventh","07"
+"[Yy]a saba","07"
+// english: "ninth","09"
+"[Yy]a tisa","09"
+// english: "tenth","10"
+"[Yy]a kumi","10"
+// english: "twelfth","12"
+"[Kk]umi na mbili","12"
+// english: "twentieth","20"
+"[Ii]shirini","20"
+// english: "thirtieth","30"
+"[Tt]helathini","30"

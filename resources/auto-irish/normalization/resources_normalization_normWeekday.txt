@@ -1,0 +1,25 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+"Luan","monday"
+"Dé Luain","monday"
+// english: "Tuesday","tuesday"
+"Máirt","tuesday"
+"Dé Máirt","tuesday"
+// english: "Wednesday","wednesday"
+"Céadaoin","wednesday"
+"Dé Céadaoin","wednesday"
+// english: "Thursday","thursday"
+"Déardaoin","thursday"
+// english: "Friday","friday"
+"Aoine","friday"
+"Dé hAoine","friday"
+// english: "Saturday","saturday"
+"Satharn","saturday"
+"Dé Sathairn","saturday"
+// english: "Sunday","sunday"
+"Domhnach","sunday"
+"Dé Domhnaigh","sunday"

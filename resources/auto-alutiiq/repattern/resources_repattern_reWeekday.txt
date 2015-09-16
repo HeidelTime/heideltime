@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+Pekyun
+// english: "Tuesday","tuesday"
+Aipiin
+// english: "Wednesday","wednesday"
+Pingayiin
+// english: "Thursday","thursday"
+Staamiin
+// english: "Friday","friday"
+Tallimiin
+// english: "Saturday","saturday"
+Maqineq
+// english: "Sunday","sunday"
+Agayuneq

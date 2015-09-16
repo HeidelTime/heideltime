@@ -1,0 +1,57 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+առաջին
+// english: "second","02"
+երկրորդ
+վայրկյան
+երկվայրկյան
+// english: "third","03"
+երրորդ
+// english: "fourth","04"
+չորրորդ
+// english: "fifth","05"
+հինգերորդ
+// english: "sixth","06"
+վեցերորդ
+// english: "seventh","07"
+յոթերորդ
+// english: "eighth","08"
+ութերորդ
+// english: "ninth","09"
+իններորդ
+// english: "tenth","10"
+տասներորդ
+// english: "eleventh","11"
+տասնմեկերորդ
+// english: "twelfth","12"
+տասներկուերորդ
+// english: "thirteenth","13"
+տասներեքերորդ
+// english: "fourteenth","14"
+տասնչորսերորդ
+// english: "fifteenth","15"
+տասնհինգերորդ
+// english: "sixteenth","16"
+տասնվեցերորդ
+// english: "seventeenth","17"
+տասնյոթերորդ
+// english: "eighteenth","18"
+տասնութերորդ
+// english: "nineteenth","19"
+տասնիններորդ
+// english: "twentieth","20"
+քսաներորդ
+// english: "twenty-first","21" - no translation found
+// english: "twenty-second","22" - no translation found
+// english: "twenty-third","23" - no translation found
+// english: "twenty-fourth","24" - no translation found
+// english: "twenty-fifth","25" - no translation found
+// english: "twenty-sixth","26" - no translation found
+// english: "twenty-seventh","27" - no translation found
+// english: "twenty-eighth","28" - no translation found
+// english: "twenty-ninth","29" - no translation found
+// english: "thirtieth","30" - no translation found

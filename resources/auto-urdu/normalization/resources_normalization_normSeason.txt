@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+"بسنت","SP"
+"بہار","SP"
+// english: "summer","SU"
+"گرمی","SU"
+"گریشم","SU"
+"گرما","SU"
+"صيف","SU"
+// english: "autumn","FA"
+"خزان","FA"
+"پائيز","FA"
+// english: "winter","WI"
+"سسر","WI"
+"جاڙا","WI"
+"سرما","WI"
+"زمستان","WI"

@@ -1,0 +1,30 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+[Tt]ämä
+[Ss]e
+[Tt]ällainen
+// english: "current","this"
+[Aa]jankohtainen
+[Tt]ämänhetkinen
+[Nn]ykyinen
+// english: "next","next"
+[Ss]euraava
+// english: "following","next"
+[Ss]euraava
+// english: "last","last"
+[Vv]iimeinen
+[Vv]iime
+// english: "latest","last"
+[Uu]usin
+[Vv]iimeisin
+// english: "past","last"
+[Mm]ennyt
+[Vv]iime
+// english: "previous","last"
+[Ee]dellinen
+[Aa]ikaisempi
+[Aa]iempi

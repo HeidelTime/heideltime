@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+"[Kk]ün","day"
+// english: "week","week"
+"[Aa]fta","week"
+// english: "month","month"
+"[Aa]y","month"
+// english: "quarter","quarter"
+"[Kk]vartal","quarter"
+// english: "century","century"
+"[Yy]üz","century"

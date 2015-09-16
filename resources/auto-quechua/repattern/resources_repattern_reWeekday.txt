@@ -1,0 +1,18 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+[Kk]illachaw
+// english: "Tuesday","tuesday"
+[Aa]tipachaw
+// english: "Wednesday","wednesday"
+[Mm]irkulis
+// english: "Thursday","thursday"
+[Ii]llapachaw
+// english: "Saturday","saturday"
+[Kk]'uychichaw
+// english: "Sunday","sunday"
+[Dd]umingu
+// english: "Friday","friday" - no translation found

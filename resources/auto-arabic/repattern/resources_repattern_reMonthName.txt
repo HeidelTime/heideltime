@@ -1,0 +1,46 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+يَنَايِر
+كانون الثاني
+يناير
+شهر واحد
+// english: "February","02"
+فِبْرَايِر
+شُبَاطٌ
+شهر جوج
+// english: "March","03"
+مَارِس
+آذَارٌ
+// english: "April","04"
+أبْرِيل
+نِيسَانٌ
+// english: "May","05"
+مَايُو
+أيّارٌ
+// english: "June","06"
+يُونْيُو
+حَزيرانٌ
+// english: "July","07"
+يُولْيُو
+تَمّوزٌ
+// english: "August","08"
+أغُسْطُسْ
+آبُ
+// english: "September","09"
+سبْتمْبر
+أيْلولٌ
+سبتمبر
+// english: "October","10"
+أكْتُوبَر
+تِشرينُ الأوّلُ
+// english: "November","11"
+نُوفمْبر
+تِشرينُ الثّانِي
+نوفمبر
+// english: "December","12"
+دِيسمْبِر
+کانونُ الأوّلُ

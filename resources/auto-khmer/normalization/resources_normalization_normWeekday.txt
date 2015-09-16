@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+"ថ្ងៃច័ន្ទ","monday"
+// english: "Tuesday","tuesday"
+"ថ្ងៃអង្គារ","tuesday"
+// english: "Wednesday","wednesday"
+"ថ្ងៃពុធ","wednesday"
+// english: "Thursday","thursday"
+"ព្រហស្បតិ៍","thursday"
+// english: "Friday","friday"
+"ថ្ងៃសុក្រ","friday"
+// english: "Saturday","saturday"
+"ថ្ងៃសៅរ៏","saturday"
+// english: "Sunday","sunday"
+"ថ្ងៃអាទិត្យ","sunday"

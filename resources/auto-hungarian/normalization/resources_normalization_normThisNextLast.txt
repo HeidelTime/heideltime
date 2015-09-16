@@ -1,0 +1,22 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+"[Ee]z a","this"
+"[Ee]zek a","this"
+"[Ee]z","this"
+// english: "current","this"
+"[Jj]elenlegi","this"
+"[Aa]ktuális","this"
+// english: "next","next"
+"[Kk]övetkező","next"
+"[Ll]egközelebbi","next"
+"[Ss]zomszédos","next"
+"[Ll]egközelebb","next"
+// english: "last","last"
+"[Uu]tolsó","last"
+// english: "previous","last"
+"[Ee]lőző","last"
+"[Mm]egelőző","last"

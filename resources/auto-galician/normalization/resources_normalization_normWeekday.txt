@@ -1,0 +1,32 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+"[Ll]uns","monday"
+"[Ss]egunda feira","monday"
+"[Oo] luns","monday"
+// english: "Tuesday","tuesday"
+"[Mm]artes","tuesday"
+"[Tt]erza feira","tuesday"
+"[Tt]erceira feira","tuesday"
+"[Oo] martes","tuesday"
+// english: "Wednesday","wednesday"
+"[Mm]ércores","wednesday"
+"[Cc]orta feira","wednesday"
+"[Cc]uarta feira","wednesday"
+"[Oo] mércores","wednesday"
+// english: "Thursday","thursday"
+"[Xx]oves","thursday"
+"[Qq]uinta feira","thursday"
+"[Oo] xoves","thursday"
+// english: "Friday","friday"
+"[Vv]enres","friday"
+"[Ss]exta feira","friday"
+"[Oo] venres","friday"
+// english: "Saturday","saturday"
+"[Ss]ábado","saturday"
+"[Oo] sábado","saturday"
+// english: "Sunday","sunday"
+"[Dd]omingo","sunday"

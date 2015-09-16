@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+[Ii]lkbahar
+[Bb]ahar
+// english: "summer","SU"
+[Yy]az
+// english: "autumn","FA"
+[Ss]onbahar
+[Gg]üz
+[Yy]aprakdökümü
+// english: "winter","WI"
+[Kk]ış

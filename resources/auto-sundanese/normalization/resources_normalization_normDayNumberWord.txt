@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+"[Hh]iji","01"
+// english: "three","03"
+"[Tt]ilu","03"
+// english: "four","04"
+"[Oo]pat","04"
+// english: "six","06"
+"[Gg]enep","06"
+// english: "eight","08"
+"[Dd]alapan","08"
+// english: "nine","09"
+"[Ss]alapan","09"

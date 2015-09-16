@@ -1,0 +1,72 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+èn
+êden
+êna
+// english: "two","2"
+[Dd]vá
+[Dd]vé
+// english: "three","3"
+[Tt]ríje
+[Tt]rí
+// english: "four","4"
+štírje
+štíri
+// english: "five","5"
+[Pp]ét
+// english: "six","6"
+šést
+// english: "seven","7"
+[Ss]édem
+// english: "eight","8"
+ósem
+// english: "nine","9"
+[Dd]evét
+// english: "ten","10"
+[Dd]esét
+// english: "eleven","11"
+[Ee]nájst
+// english: "twelve","12"
+[Dd]vanájst
+// english: "thirteen","13"
+[Tt]rinajst
+// english: "fourteen","14"
+štirinajst
+// english: "fifteen","15"
+[Pp]etnajst
+// english: "sixteen","16"
+šestnajst
+// english: "seventeen","17"
+[Ss]edemnajst
+// english: "eighteen","18"
+[Oo]semnajst
+// english: "nineteen","19"
+[Dd]evetnajst
+// english: "twenty","20"
+[Dd]vajset
+// english: "twenty-one","21"
+[Ee]naindvajset
+// english: "twenty-two","22"
+[Dd]vaindvajset
+// english: "twenty-three","23"
+[Tt]riindvajset
+// english: "twenty-four","24"
+štiriindvajset
+// english: "twenty-five","25"
+[Pp]etindvajset
+// english: "twenty-six","26"
+šestindvajset
+// english: "twenty-seven","27"
+[Ss]edemindvajset
+// english: "twenty-eight","28"
+[Oo]semindvajset
+// english: "twenty-nine","29"
+[Dd]evetindvajset
+// english: "thirty","30"
+[Tt]rideset
+// english: "thirty-one","31"
+[Ee]naintrideset

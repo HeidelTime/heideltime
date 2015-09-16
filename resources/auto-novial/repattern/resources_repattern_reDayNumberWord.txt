@@ -1,0 +1,66 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Uu]n
+// english: "two","02"
+[Dd]u
+// english: "three","03"
+[Tt]ri
+// english: "four","04"
+[Qq]uar
+// english: "five","05"
+[Ss]ink
+// english: "six","06"
+[Ss]ix
+// english: "seven","07"
+[Ss]et
+// english: "eight","08"
+[Oo]t
+// english: "nine","09"
+[Nn]in
+// english: "ten","10"
+[Dd]ek
+// english: "eleven","11"
+[Dd]ek-un
+// english: "twelve","12"
+[Dd]ek-du
+// english: "thirteen","13"
+[Dd]ek-tri
+// english: "fourteen","14"
+[Dd]ek-quar
+// english: "fifteen","15"
+[Dd]ek-sink
+// english: "sixteen","16"
+[Dd]ek-six
+// english: "seventeen","17"
+[Dd]ek-set
+// english: "eighteen","18"
+[Dd]ek-ot
+// english: "nineteen","19"
+[Dd]ek-nin
+// english: "twenty","20"
+[Dd]uanti
+// english: "twenty-one","21"
+[Dd]uanti-un
+// english: "twenty-two","22"
+[Dd]uanti-du
+// english: "twenty-three","23"
+[Dd]uanti-tri
+// english: "twenty-four","24"
+[Dd]uanti-quar
+// english: "twenty-five","25"
+[Dd]uanti-sink
+// english: "twenty-six","26"
+[Dd]uanti-six
+// english: "twenty-seven","27"
+[Dd]uanti-set
+// english: "twenty-eight","28"
+[Dd]uanti-ot
+// english: "twenty-nine","29"
+[Dd]uanti-nin
+// english: "thirty","30"
+[Tt]rianti
+// english: "thirty-one","31" - no translation found

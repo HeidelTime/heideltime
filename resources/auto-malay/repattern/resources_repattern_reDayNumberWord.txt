@@ -1,0 +1,164 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Ss]atu
+[Ee]sa
+[Ss]e
+[Tt]unggal
+[Ee]ka
+[Aa]had
+[Ww]ahid
+ساتو
+اسا
+س
+توڠݢل
+ايک
+احد
+واحد
+// english: "two","02"
+[Dd]ua
+[Dd]wi
+دوا
+دوي
+// english: "three","03"
+[Tt]iga
+[Tt]elu
+[Tt]ri
+تيݢ
+تلو
+تري
+// english: "four","04"
+[Ee]mpat
+[Pp]at
+[Cc]atur
+امڤت
+ڤت
+چاتور
+// english: "five","05"
+[Ll]ima
+[Pp]anca
+ليم
+ڤنچا
+// english: "six","06"
+[Ee]nam
+[Nn]am
+انم
+نم
+// english: "seven","07"
+[Tt]ujuh
+[Pp]itu
+[Ss]apta
+توجوه
+ڤيتو
+سڤتا
+// english: "eight","08"
+[Ll]apan
+[Dd]elapan
+[Ss]elapan
+[Aa]sta
+لاڤن
+دلاڤن
+سلاڤن
+استا
+// english: "nine","09"
+[Ss]embilan
+[Ss]elapan
+[Nn]awa
+سمبيلن
+سلاڤن
+ناوا
+// english: "ten","10"
+[Ss]epuluh
+[Ss]atu puluh
+[Ee]kadasa
+سڤولوه
+ساتو ڤولوه
+ايکداسا
+// english: "eleven","11"
+[Ss]ebelas
+[Ss]atu belas
+[Ss]epuluh satu
+[Ss]atu puluh satu
+// english: "twelve","12"
+[Dd]ua belas
+[Ss]epuluh dua
+[Ss]atu puluh dua
+// english: "thirteen","13"
+[Tt]iga belas
+[Tt]elu belas
+[Ss]epuluh tiga
+[Ss]epuluh telu
+[Ss]atu puluh tiga
+[Ss]atu puluh telu
+// english: "fourteen","14"
+[Ee]mpat belas
+[Ss]epuluh empat
+[Ss]atu puluh empat
+// english: "fifteen","15"
+[Ll]ima belas
+[Ss]epuluh lima
+[Ss]atu puluh lima
+// english: "sixteen","16"
+[Ee]nam belas
+[Ss]epuluh enam
+[Ss]atu puluh enam
+// english: "seventeen","17"
+[Tt]ujuh belas
+[Pp]itu belas
+[Ss]epuluh tujuh
+[Ss]epuluh pitu
+[Ss]atu puluh tujuh
+[Ss]atu puluh pitu
+// english: "eighteen","18"
+[Ll]apan belas
+[Dd]elapan belas
+[Ss]epuluh lapan
+[Ss]epuluh delapan
+[Ss]atu puluh lapan
+[Ss]atu puluh delapan
+// english: "nineteen","19"
+[Ss]embilan belas
+[Ss]epuluh sembilan
+[Ss]atu puluh sembilan
+// english: "twenty","20"
+[Dd]ua puluh
+// english: "twenty-one","21"
+[Dd]ua puluh satu
+[Ss]elikur
+[Ss]atu likur
+// english: "twenty-two","22"
+[Dd]ua puluh dua
+[Dd]ua likur
+// english: "twenty-three","23"
+[Dd]ua puluh tiga
+[Dd]ua puluh telu
+[Tt]iga likur
+[Tt]elu likur
+// english: "twenty-four","24"
+[Dd]ua puluh empat
+[Ee]mpat likur
+// english: "twenty-five","25"
+[Dd]ua puluh lima
+[Ll]ima likur
+// english: "twenty-six","26"
+[Dd]ua puluh enam
+[Ee]nam likur
+// english: "twenty-seven","27"
+[Dd]ua puluh tujuh
+[Dd]ua puluh pitu
+[Tt]ujuh likur
+[Pp]itu likur
+// english: "twenty-eight","28"
+[Dd]ua puluh lapan
+[Ll]apan likur
+// english: "twenty-nine","29"
+[Dd]ua puluh sembilan
+[Ss]embilan likur
+// english: "thirty","30"
+[Tt]iga puluh
+[Tt]elu puluh
+// english: "thirty-one","31"
+[Tt]iga puluh satu

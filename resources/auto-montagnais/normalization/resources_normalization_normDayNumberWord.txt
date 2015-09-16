@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+"[Pp]eikᵘ","01"
+// english: "two","02"
+"[Nn]ishᵘ","02"
+// english: "three","03"
+"[Nn]ishtᵘ","03"
+// english: "four","04"
+"[Nn]eu","04"
+// english: "five","05"
+"[Pp]atetat","05"
+// english: "six","06"
+"[Kk]utuasht","06"
+"[Aa]shutash","06"
+// english: "seven","07"
+"[Nn]ishuasht","07"
+"[Nn]ishuautash","07"
+// english: "eight","08"
+"[Nn]ishuaush","08"
+"[Nn]ianeu","08"
+// english: "nine","09"
+"[Pp]eikushteu","09"
+// english: "ten","10"
+"[Kk]utunnu","10"
+"[Pp]eikunnu","10"

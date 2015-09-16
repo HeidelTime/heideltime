@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+"тај","this"
+"[Tt]aj","this"
+"[Oo]vaj","this"
+// english: "next","next"
+"следећи","next"
+"[Ss]ledeći","next"
+"[Ss]ljedeći","next"
+// english: "last","last"
+"последњи","last"
+"посљедњи","last"
+"задњи","last"
+"[Pp]oslednji","last"
+"[Pp]osljednji","last"
+"[Zz]adnji","last"
+"прошли","last"
+"[Pp]rošli","last"
+// english: "past","last"
+"[Pp]rošli","last"
+"[Pp]rošla","last"
+"[Pp]róšlo","last"

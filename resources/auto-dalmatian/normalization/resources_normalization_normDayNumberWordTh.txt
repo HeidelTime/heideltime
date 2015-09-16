@@ -1,0 +1,11 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"[Pp]rein","01"
+// english: "fifth","05"
+"[Cc]incto","05"
+// english: "tenth","10"
+"[Dd]icto","10"

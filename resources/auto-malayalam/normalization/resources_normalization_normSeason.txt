@@ -1,0 +1,13 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+"വസന്തം","SP"
+// english: "summer","SU"
+"വേനല്‍ക്കാലം","SU"
+// english: "autumn","FA"
+"ശരത്കാലം","FA"
+// english: "winter","WI"
+"ശീതകാലം","WI"

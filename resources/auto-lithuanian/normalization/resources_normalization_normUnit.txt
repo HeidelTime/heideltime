@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+"[Pp]ara","day"
+"[Dd]iena","day"
+// english: "weekend","week-WE"
+"[Ss]avaitgalis","week-WE"
+// english: "week","week"
+"[Ss]avaitė","week"
+// english: "month","month"
+"[Mm]ėnuo","month"
+// english: "quarter","quarter"
+"[Kk]etvirtis","quarter"
+// english: "year","year"
+"[Mm]etai","year"
+// english: "century","century"
+"šimtmetis","century"
+"[Aa]mžius","century"

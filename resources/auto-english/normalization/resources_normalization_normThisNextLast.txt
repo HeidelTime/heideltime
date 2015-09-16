@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+"this","this"
+// english: "current","this"
+"current","this"
+// english: "next","next"
+"next","next"
+// english: "following","next"
+"following","next"
+// english: "last","last"
+"last","last"
+// english: "latest","last"
+"latest","last"
+// english: "past","last"
+"past","last"
+// english: "previous","last"
+"previous","last"

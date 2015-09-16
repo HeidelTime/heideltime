@@ -1,0 +1,25 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+[Tt]ento
+[Tt]ato
+[Tt]oto
+// english: "current","this"
+[Ss]oučasný
+// english: "next","next"
+[Pp]říští
+[Dd]alší
+[Nn]ásledující
+// english: "following","next"
+[Nn]ásledující
+// english: "last","last"
+[Pp]oslední
+[Mm]inulý
+// english: "past","last"
+[Mm]inulý
+// english: "previous","last"
+[Pp]ředchozí
+// english: "latest","last" - no translation found

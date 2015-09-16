@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day before yesterday","UNDEF-this-day-MINUS-2"
+一昨日
+// english: "yesterday","UNDEF-last-day"
+昨日
+きのう
+さくじつ
+// english: "today","UNDEF-this-day"
+今日
+きょう
+本日
+// english: "tomorrow","UNDEF-next-day"
+明日
+あした
+あす
+// english: "day after tomorrow","UNDEF-this-day-PLUS-2"
+明後日

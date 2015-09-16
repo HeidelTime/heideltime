@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+"Moanibong","monday"
+// english: "Tuesday","tuesday"
+"Kauabong","tuesday"
+// english: "Wednesday","wednesday"
+"Katenibong","wednesday"
+// english: "Thursday","thursday"
+"Kabong","thursday"
+// english: "Friday","friday"
+"Danimabong","friday"

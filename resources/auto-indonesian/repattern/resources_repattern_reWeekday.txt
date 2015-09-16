@@ -1,0 +1,20 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+Senin
+// english: "Tuesday","tuesday"
+[Hh]ari selasa
+// english: "Wednesday","wednesday"
+[Hh]ari rabu
+// english: "Thursday","thursday"
+Kamis
+// english: "Friday","friday"
+Jumat
+// english: "Saturday","saturday"
+[Hh]ari sabtu
+// english: "Sunday","sunday"
+Minggu
+Ahad

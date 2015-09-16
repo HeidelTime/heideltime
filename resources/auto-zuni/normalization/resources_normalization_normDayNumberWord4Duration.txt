@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+"[Dd]obinde","1"
+// english: "two","2"
+"[Kk]wili","2"
+// english: "three","3"
+"[Hh]a'i","3"
+// english: "four","4"
+"[Aa]:wide","4"
+// english: "five","5"
+"[Aa]pde","5"
+// english: "six","6"
+"[Dd]obalekk'ya","6"
+// english: "seven","7"
+"[Kk]wilelekk'ya","7"
+// english: "eight","8"
+"[Hh]a'elekk'ya","8"
+// english: "nine","9"
+"[Dd]enalekk'ya","9"
+// english: "ten","10"
+"[Aa]sdemła","10"
+// english: "eleven","11"
+"[Aa]sdemłan doba yałdo'","11"
+// english: "twelve","12"
+"[Aa]sdemłan kwili yałdo'","12"

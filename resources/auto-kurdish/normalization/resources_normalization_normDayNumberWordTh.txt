@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"یه‌که‌م","01"
+// english: "second","02"
+"دوه‌م","02"
+"چرکه‌","02"
+"سانیه","02"
+// english: "third","03"
+"سێیه‌م","03"
+// english: "sixth","06"
+"شه‌شه‌م","06"
+// english: "eighth","08"
+"هه‌شته‌م","08"
+// english: "ninth","09"
+"نۆیه‌م","09"
+// english: "nineteenth","19"
+"نۆزده‌یه‌م","19"

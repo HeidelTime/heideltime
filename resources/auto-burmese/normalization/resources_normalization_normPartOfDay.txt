@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+"နံနက်","MO"
+// english: "noon","MD"
+"မွန်းတည့်","MD"
+// english: "afternoon","AF"
+"မွန်းလွဲ","AF"
+// english: "evening","EV"
+"ညနေခင်း","EV"
+// english: "night","NI"
+"ည","NI"
+// english: "midnight","24:00"
+"သန်းခေါင်","24:00"

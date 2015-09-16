@@ -1,0 +1,36 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+[Ll]okbahaháhpa
+// english: "February","02"
+[Hh]asiholtina istatókla
+Febwiiri
+// english: "March","03"
+[Hh]asiholtina istatótchìina
+Màchka
+// english: "April","04"
+[Hh]asiholtina istonóostàaka
+Eyprilka
+// english: "May","05"
+[Hh]asiholtina istatáɬɬàapi
+Meyka
+// english: "June","06"
+[Hh]asiholtina istahánnàali
+// english: "July","07"
+[Hh]asiholtina istontóklo
+// english: "August","08"
+[Hh]asiholtina istontótchìina
+Awkoska
+// english: "September","09"
+[Hh]asiholtina istachákkàali
+// english: "October","10"
+[Hh]asiholtina ispókkòoli
+// english: "November","11"
+[Hh]asiholtina istapókkòolawah cháffàaka
+Nofìmba
+// english: "December","12"
+[Hh]asiholtina istapókkòolawah tóklo
+[Hh]asiholtina istanóoka

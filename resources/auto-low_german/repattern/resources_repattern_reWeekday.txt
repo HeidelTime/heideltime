@@ -1,0 +1,36 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+Maandag
+Maondag
+// english: "Tuesday","tuesday"
+Dingsdag
+Deensdag
+[Dd]iensdag
+// english: "Wednesday","wednesday"
+Middeweek
+Mödweek
+Merrweek
+Woonsdag
+[Ww]oensdag
+[Ww]oonsdag
+[Ww]onsdag
+// english: "Thursday","thursday"
+Dunnersdag
+Dunnerdag
+Dünnersdag
+Dünnerdag
+Dönnerdag
+Dörndag
+Dundersdag
+[Dd]onderdag
+// english: "Friday","friday"
+Freedag
+[Vv]riedag
+// english: "Sunday","sunday"
+Sünndag
+[Zz]undag
+// english: "Saturday","saturday" - no translation found

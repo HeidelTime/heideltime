@@ -1,0 +1,71 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Aa]on
+[Aa]mháin
+óen
+// english: "two","02"
+[Dd]ó
+[Dd]há
+[Bb]eirt
+[Dd]á
+// english: "three","03"
+[Tt]rí
+// english: "four","04"
+[Cc]eathair
+[Cc]eithre
+[Cc]ethair
+// english: "five","05"
+[Cc]úig
+[Cc]óic
+// english: "six","06"
+[Ss]é
+// english: "seven","07"
+[Ss]eacht
+// english: "eight","08"
+[Oo]cht
+// english: "nine","09"
+[Nn]aoi
+// english: "ten","10"
+[Dd]eich
+// english: "eleven","11"
+[Aa]on déag
+// english: "twelve","12"
+[Dd]ó dhéag
+// english: "thirteen","13"
+[Tt]rí déag
+// english: "fourteen","14"
+[Cc]eathair déag
+// english: "fifteen","15"
+[Cc]úig déag
+// english: "sixteen","16"
+[Ss]é déag
+// english: "seventeen","17"
+[Ss]eacht déag
+// english: "eighteen","18"
+[Oo]cht déag
+// english: "nineteen","19"
+[Nn]aoi déag
+// english: "twenty","20"
+[Ff]iche
+// english: "twenty-one","21"
+[Ff]iche a haon
+[Aa]on is fiche
+// english: "twenty-two","22"
+[Ff]iche a dó
+[Dd]ó is fiche
+// english: "thirty","30"
+[Tt]ríocha
+[Tt]rícho
+[Tt]rícha
+// english: "twenty-three","23" - no translation found
+// english: "twenty-four","24" - no translation found
+// english: "twenty-five","25" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found
+// english: "twenty-eight","28" - no translation found
+// english: "twenty-nine","29" - no translation found
+// english: "thirty-one","31" - no translation found

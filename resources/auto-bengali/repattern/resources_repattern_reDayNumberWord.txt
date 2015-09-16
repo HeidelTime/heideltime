@@ -1,0 +1,80 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+এক
+[Bb]esik
+// english: "two","02"
+দুই
+২
+// english: "three","03"
+তিন
+৩
+// english: "four","04"
+চার
+৪
+// english: "five","05"
+পাঁচ
+৫
+// english: "six","06"
+ছয়
+// english: "seven","07"
+সাত
+৭
+// english: "eight","08"
+আট
+৮
+// english: "nine","09"
+নয়
+৯
+// english: "ten","10"
+দশ
+১০
+// english: "eleven","11"
+এগারো
+১১
+// english: "twelve","12"
+বারো
+// english: "thirteen","13"
+তেরো
+১৩
+// english: "fourteen","14"
+চোদ্দ
+// english: "fifteen","15"
+পনেরো
+// english: "sixteen","16"
+সোলো
+// english: "seventeen","17"
+সতেরো
+// english: "eighteen","18"
+আঠারো
+// english: "nineteen","19"
+উনিশ
+// english: "twenty","20"
+কুড়ি
+বিশ
+২০
+// english: "twenty-one","21"
+একুশ
+// english: "twenty-two","22"
+বাইশ
+// english: "twenty-three","23"
+তেইশ
+// english: "twenty-four","24"
+চব্বিশ
+// english: "twenty-five","25"
+পঁচিশ
+// english: "twenty-six","26"
+ছাব্বিশ
+// english: "twenty-seven","27"
+সাতাশ
+// english: "twenty-eight","28"
+আঠাশ
+// english: "twenty-nine","29"
+উনতিরিশ
+// english: "thirty","30"
+ত্রিশ
+তিরিশ
+// english: "thirty-one","31" - no translation found

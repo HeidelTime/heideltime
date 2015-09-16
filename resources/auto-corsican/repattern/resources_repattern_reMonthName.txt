@@ -1,0 +1,27 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+[Gg]hjennaghju
+// english: "February","02"
+[Ff]erraghju
+// english: "March","03"
+[Mm]arzu
+// english: "April","04"
+[Aa]prile
+// english: "May","05"
+[Mm]aghju
+// english: "June","06"
+[Gg]hjugnu
+// english: "July","07"
+[Ll]ugliu
+// english: "August","08"
+[Aa]ostu
+// english: "September","09"
+[Ss]ettembre
+// english: "December","12"
+[Dd]icembre
+// english: "October","10" - no translation found
+// english: "November","11" - no translation found

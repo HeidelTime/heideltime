@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"మొదటి","01"
+"ఒకటవ","01"
+// english: "second","02"
+"సెకండు","02"
+"సెకను","02"
+// english: "third","03"
+"మూడో","03"
+// english: "tenth","10"
+"పదవ","10"
+"పదో","10"

@@ -1,0 +1,18 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+"นี้","this"
+"นี่","this"
+// english: "next","next"
+"หน้า","next"
+// english: "last","last"
+"สุดท้าย","last"
+// english: "previous","last"
+"ก่อนหน้านี้","last"
+"ก่อน","last"
+"ที่แล้ว","last"
+"เก่า","last"
+"เดิม","last"
