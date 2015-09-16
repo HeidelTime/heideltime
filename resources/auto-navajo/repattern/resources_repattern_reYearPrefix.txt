@@ -1,0 +1,11 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "BC","BC"
+Doodaatsaahii tʼah bítséedi
+// english: "AD",""
+Doodaatsaahii biʼdizhchį́į́ dóó bikʼijįʼ
+// english: "BCE","BC" - no translation found
+// english: CE - no translation found

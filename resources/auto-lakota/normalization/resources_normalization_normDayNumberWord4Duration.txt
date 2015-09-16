@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+"[Ww]aŋží","1"
+// english: "two","2"
+"[Nn]uŋpa","2"
+// english: "four","4"
+"[Tt]ópa","4"
+// english: "six","6"
+"šákpe","6"
+// english: "seven","7"
+"šakówiŋ","7"
+// english: "twenty","20"
+"[Ww]ikcemna nuŋpa","20"

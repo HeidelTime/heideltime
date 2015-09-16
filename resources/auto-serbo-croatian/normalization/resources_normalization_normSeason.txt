@@ -1,0 +1,23 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+"пролеће","SP"
+"прољеће","SP"
+"[Pp]roleće","SP"
+"[Pp]roljeće","SP"
+"[Pp]roliće","SP"
+"[Pp]rolitje","SP"
+// english: "summer","SU"
+"лето","SU"
+"љето","SU"
+"[Ll]eto","SU"
+"[Ll]jeto","SU"
+// english: "autumn","FA"
+"јесен","FA"
+"[Jj]esen","FA"
+// english: "winter","WI"
+"зима","WI"
+"[Zz]ima","WI"

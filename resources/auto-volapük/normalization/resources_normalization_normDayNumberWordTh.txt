@@ -1,0 +1,22 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "second","02"
+"[Tt]elid","02"
+"[Ss]ekun","02"
+// english: "third","03"
+"[Kk]ilid","03"
+// english: "fourth","04"
+"[Ff]olid","04"
+// english: "fifth","05"
+"[Ll]ulid","05"
+// english: "sixth","06"
+"[Mm]älid","06"
+// english: "seventh","07"
+"[Vv]elid","07"
+// english: "eighth","08"
+"[Jj]ölid","08"
+// english: "ninth","09"
+"[Zz]ülid","09"

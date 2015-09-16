@@ -1,0 +1,90 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Jj]eden
+[Jj]edynka
+// english: "two","02"
+[Dd]wa
+[Dd]wie
+[Dd]woje
+[Dd]wójka
+// english: "three","03"
+[Tt]rzy
+[Tt]roje
+[Tt]rójka
+// english: "four","04"
+[Cc]ztery
+[Cc]zworo
+// english: "five","05"
+[Pp]ięć
+[Pp]ięcioro
+// english: "six","06"
+[Ss]ześć
+[Ss]ześcioro
+// english: "seven","07"
+[Ss]iedem
+[Ss]iedmioro
+// english: "eight","08"
+[Oo]siem
+[Oo]śmioro
+// english: "nine","09"
+[Dd]ziewięć
+[Dd]ziewięcioro
+// english: "ten","10"
+[Dd]ziesięć
+[Dd]ziesięcioro
+// english: "eleven","11"
+[Jj]edenaście
+[Jj]edenaścioro
+// english: "twelve","12"
+[Dd]wanaście
+[Dd]wanaścioro
+// english: "thirteen","13"
+[Tt]rzynaście
+[Tt]rzynaścioro
+// english: "fourteen","14"
+[Cc]zternaście
+[Cc]zternaścioro
+// english: "fifteen","15"
+[Pp]iętnaście
+[Pp]iętnaścioro
+// english: "sixteen","16"
+[Ss]zesnaście
+[Ss]zesnaścioro
+// english: "seventeen","17"
+[Ss]iedemnaście
+[Ss]iedemnaścioro
+// english: "eighteen","18"
+[Oo]siemnaście
+[Oo]siemnaścioro
+// english: "nineteen","19"
+[Dd]ziewiętnaście
+[Dd]ziewiętnaścioro
+// english: "twenty","20"
+[Dd]wadzieścia
+[Dd]wadzieścioro
+// english: "twenty-one","21"
+[Dd]wadzieścia jeden
+// english: "twenty-two","22"
+[Dd]wadzieścia dwa
+// english: "twenty-three","23"
+[Dd]wadzieścia trzy
+// english: "twenty-four","24"
+[Dd]wadzieścia cztery
+// english: "twenty-five","25"
+[Dd]wadzieścia pięć
+// english: "twenty-six","26"
+[Dd]wadzieścia sześć
+// english: "twenty-seven","27"
+[Dd]wadzieścia siedem
+// english: "twenty-eight","28"
+[Dd]wadzieścia osiem
+// english: "twenty-nine","29"
+[Dd]wadzieścia dziewięć
+// english: "thirty","30"
+[Tt]rzydzieści
+// english: "thirty-one","31"
+[Tt]rzydzieści jeden

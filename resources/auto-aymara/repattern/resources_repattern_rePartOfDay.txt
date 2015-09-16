@@ -1,0 +1,14 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+[Aa]rumanthi
+// english: "night","NI"
+[Aa]ruma
+// english: "midnight","24:00"
+[Cc]hika aruma
+// english: "noon","MD" - no translation found
+// english: "afternoon","AF" - no translation found
+// english: "evening","EV" - no translation found

@@ -1,0 +1,63 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+[Ee]lső
+// english: "second","02"
+[Mm]ásodik
+[Mm]ásodperc
+// english: "third","03"
+[Hh]armadik
+// english: "fourth","04"
+[Nn]egyedik
+// english: "fifth","05"
+ötödik
+// english: "sixth","06"
+[Hh]atodik
+// english: "seventh","07"
+[Hh]etedik
+// english: "eighth","08"
+[Nn]yolcadik
+// english: "ninth","09"
+[Kk]ilencedik
+// english: "tenth","10"
+[Tt]izedik
+// english: "eleventh","11"
+[Tt]izenegyedik
+// english: "twelfth","12"
+[Tt]izenkettedik
+// english: "thirteenth","13"
+[Tt]izenharmadik
+// english: "fourteenth","14"
+[Tt]izennegyedik
+// english: "fifteenth","15"
+[Tt]izenötödik
+// english: "sixteenth","16"
+[Tt]izenhatodik
+// english: "seventeenth","17"
+[Tt]izenhetedik
+// english: "eighteenth","18"
+[Tt]izennyolcadik
+// english: "nineteenth","19"
+[Tt]izenkilencedik
+// english: "twentieth","20"
+[Hh]uszadik
+// english: "twenty-first","21"
+[Hh]uszonegyedik
+// english: "twenty-second","22"
+[Hh]uszonkettedik
+// english: "twenty-third","23"
+[Hh]uszonharmadik
+// english: "twenty-fourth","24"
+[Hh]uszonnegyedik
+// english: "twenty-fifth","25"
+[Hh]uszonötödik
+// english: "twenty-sixth","26"
+[Hh]uszonhatodik
+// english: "thirtieth","30"
+[Hh]armincadik
+// english: "twenty-seventh","27" - no translation found
+// english: "twenty-eighth","28" - no translation found
+// english: "twenty-ninth","29" - no translation found

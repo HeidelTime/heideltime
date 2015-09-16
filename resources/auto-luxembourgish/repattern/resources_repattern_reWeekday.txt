@@ -1,0 +1,25 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+Méinden
+Méindeg
+// english: "Tuesday","tuesday"
+Dënschden
+Dënschdeg
+// english: "Wednesday","wednesday"
+Mëttwoch
+// english: "Thursday","thursday"
+Donneschden
+Donneschdeg
+// english: "Friday","friday"
+Freiden
+Freideg
+// english: "Saturday","saturday"
+Samschden
+Samschdeg
+// english: "Sunday","sunday"
+Sonnden
+Sonndeg

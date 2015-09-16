@@ -1,0 +1,22 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+"[Nn]gày","day"
+"[Bb]an ngày","day"
+// english: "weekend","week-WE"
+"[Cc]uối tuần","week-WE"
+// english: "week","week"
+"[Tt]uần","week"
+// english: "month","month"
+"[Tt]háng","month"
+// english: "year","year"
+"[Nn]ăm","year"
+// english: "decade","decade"
+"[Tt]hập kỷ","decade"
+"[Tt]hập niên","decade"
+"[Mm]ười năm","decade"
+// english: "century","century"
+"[Tt]hế kỷ","century"

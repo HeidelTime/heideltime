@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "four","04"
+"štyry","04"
+// english: "five","05"
+"[Pp]jyńć","05"
+// english: "six","06"
+"šeść","06"
+// english: "seven","07"
+"śedym","07"
+// english: "eight","08"
+"[Uu]oźym","08"
+// english: "nine","09"
+"[Dd]źewjyńć","09"
+// english: "ten","10"
+"[Dd]źeśyńć","10"

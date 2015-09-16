@@ -1,0 +1,56 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+[Ss]uukyaʼ
+// english: "two","2"
+[Ll]ööyöʼ
+// english: "three","3"
+[Pp]àayoʼ
+// english: "four","4"
+[Nn]aalöyöʼ
+// english: "five","5"
+[Tt]sivot
+// english: "six","6"
+[Nn]avay
+// english: "seven","7"
+[Tt]sangeʼ
+// english: "eight","8"
+[Nn]anal
+// english: "nine","9"
+[Pp]ept
+// english: "ten","10"
+[Pp]akwt
+// english: "eleven","11"
+[Pp]akwt niikyang suk siikya’ta
+// english: "twelve","12"
+[Pp]akwt niikyang löqmuy siikya’ta
+// english: "thirteen","13"
+[Pp]akwt niikyang paykomuy siikya’ta
+// english: "fourteen","14"
+[Pp]akwt niikyang naalöqmuy siikya’ta
+// english: "fifteen","15"
+[Pp]akwt niikyang tsivot siikya’ta
+// english: "sixteen","16"
+[Pp]akwt niikyang navay siikya’ta
+// english: "seventeen","17"
+[Pp]akwt niikyang tsange’ siikya’ta
+// english: "eighteen","18"
+[Pp]akwt niikyang nanalt siikya’ta
+// english: "nineteen","19"
+[Pp]akwt niikyang pevt siikya’ta
+// english: "twenty","20"
+[Ss]unat
+// english: "twenty-one","21" - no translation found
+// english: "twenty-two","22" - no translation found
+// english: "twenty-three","23" - no translation found
+// english: "twenty-four","24" - no translation found
+// english: "twenty-five","25" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found
+// english: "twenty-eight","28" - no translation found
+// english: "twenty-nine","29" - no translation found
+// english: "thirty","30" - no translation found
+// english: "thirty-one","31" - no translation found

@@ -1,0 +1,72 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+एक
+// english: "two","02"
+द्वि
+// english: "three","03"
+त्रि
+त्रयं
+// english: "four","04"
+चतुर्
+// english: "five","05"
+पञ्चन्
+// english: "six","06"
+षष्
+षण्
+// english: "seven","07"
+सप्तन्
+// english: "eight","08"
+अष्टन्
+अष्ट
+// english: "nine","09"
+नवम्
+// english: "ten","10"
+दश
+// english: "eleven","11"
+एकादश
+// english: "twelve","12"
+द्वादश
+// english: "thirteen","13"
+त्रयोदश
+१३
+// english: "fourteen","14"
+चतुर्दश
+// english: "fifteen","15"
+पञ्चदश
+// english: "sixteen","16"
+सोस्दषन्
+// english: "seventeen","17"
+सप्तदश
+// english: "eighteen","18"
+अष्टादशन्
+// english: "nineteen","19"
+ऊनविंशति
+नवदशन्
+// english: "twenty","20"
+विंशति
+// english: "twenty-one","21"
+एकविंशति
+// english: "twenty-two","22"
+द्वाविंशति
+// english: "twenty-three","23"
+त्रयोविंशति
+// english: "twenty-four","24"
+चतुर्विंशति
+// english: "twenty-five","25"
+पञ्चविंसति
+// english: "twenty-six","26"
+षड्विंशति
+// english: "twenty-seven","27"
+सप्तविंशति
+// english: "twenty-eight","28"
+अष्टाविंशति
+// english: "twenty-nine","29"
+ऊनत्रिंशत्
+// english: "thirty","30"
+त्रिंशत्
+// english: "thirty-one","31"
+एकत्रिंशत्

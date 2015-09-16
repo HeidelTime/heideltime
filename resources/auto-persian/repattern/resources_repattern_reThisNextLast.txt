@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+این
+// english: "current","this"
+کنونی
+// english: "next","next"
+سپس
+پس از این
+دیگر
+آینده
+// english: "last","last"
+آخَر
+// english: "previous","last"
+پیشین
+// english: "following","next" - no translation found
+// english: "latest","last" - no translation found
+// english: "past","last" - no translation found

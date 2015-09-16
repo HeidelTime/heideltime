@@ -1,0 +1,20 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+"[Gg]ħodwa","MO"
+"[Ff]ilgħodu","MO"
+// english: "noon","MD"
+"[Nn]ofsinhar","MD"
+// english: "afternoon","AF"
+"[Ww]aranofsinhar","AF"
+// english: "evening","EV"
+"[Gg]ħaxija","EV"
+"[Ff]ilgħaxija","EV"
+// english: "night","NI"
+"[Ll]ejl","NI"
+"[Ll]ejla","NI"
+// english: "midnight","24:00"
+"[Nn]ofsillejl","24:00"

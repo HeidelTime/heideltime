@@ -1,0 +1,24 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+"[Aa]cest","this"
+"[Aa]ceastă","this"
+"ăsta","this"
+"[Aa]sta","this"
+// english: "current","this"
+"[Aa]ctual","this"
+"[Cc]urent","this"
+"în curs","this"
+"[Cc]are se întâmplă","this"
+// english: "next","next"
+"[Uu]rmător","next"
+// english: "last","last"
+"[Uu]ltim","last"
+// english: "latest","last"
+"[Uu]ltim","last"
+// english: "past","last"
+"[Tt]recut","last"
+"[Tt]recută","last"

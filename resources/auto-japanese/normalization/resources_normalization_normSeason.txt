@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+"春","SP"
+"はる","SP"
+// english: "summer","SU"
+"夏","SU"
+"なつ","SU"
+// english: "autumn","FA"
+"秋","FA"
+"あき","FA"
+// english: "winter","WI"
+"冬","WI"
+"ふゆ","WI"

@@ -1,0 +1,61 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Uu]sa
+// english: "seventeen","17"
+[Nn]apulo`g pito
+[Dd]isesyete
+// english: "eighteen","18"
+[Nn]apulo'g walo
+[Dd]isiotso
+// english: "nineteen","19"
+[Nn]apulo'g siyam
+[Dd]isinuybe
+// english: "twenty-one","21"
+[Kk]awhaa`g usa
+[Bb]ayente uno
+// english: "twenty-two","22"
+[Kk]awhaa`g duha
+[Bb]ayente dos
+// english: "twenty-three","23"
+[Kk]awhaa`g tulo
+[Bb]aynete tres
+// english: "twenty-four","24"
+[Kk]awhaa`g upat
+[Bb]aynete kwatro
+// english: "twenty-five","25"
+[Kk]awhaa'g lima
+[Bb]aynete singko
+// english: "twenty-six","26"
+[Kk]awhaa'g unom
+[Bb]aynete sais
+// english: "twenty-seven","27"
+[Kk]awhaa'g pito
+[Bb]aynete syete
+// english: "twenty-eight","28"
+[Kk]awhaa'g walo
+[Bb]aynete otso
+// english: "twenty-nine","29"
+[Kk]awhaa'g siyam
+[Bb]aynete nuybe
+// english: "two","02" - no translation found
+// english: "three","03" - no translation found
+// english: "four","04" - no translation found
+// english: "five","05" - no translation found
+// english: "six","06" - no translation found
+// english: "seven","07" - no translation found
+// english: "eight","08" - no translation found
+// english: "nine","09" - no translation found
+// english: "ten","10" - no translation found
+// english: "eleven","11" - no translation found
+// english: "twelve","12" - no translation found
+// english: "thirteen","13" - no translation found
+// english: "fourteen","14" - no translation found
+// english: "fifteen","15" - no translation found
+// english: "sixteen","16" - no translation found
+// english: "twenty","20" - no translation found
+// english: "thirty","30" - no translation found
+// english: "thirty-one","31" - no translation found

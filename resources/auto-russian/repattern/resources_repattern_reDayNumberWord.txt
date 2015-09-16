@@ -1,0 +1,82 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+оди́н
+одна́
+одно́
+раз
+едини́ца
+// english: "two","02"
+два
+две
+дво́е
+дво́йка
+// english: "three","03"
+три
+тро́е
+тро́йка
+// english: "four","04"
+четы́ре
+// english: "five","05"
+пять
+пя́теро
+// english: "six","06"
+шесть
+ше́стеро
+// english: "seven","07"
+семь
+се́меро
+// english: "eight","08"
+во́семь
+во́сьмеро
+// english: "nine","09"
+де́вять
+де́вятеро
+// english: "ten","10"
+де́сять
+де́сятеро
+// english: "eleven","11"
+оди́ннадцать
+// english: "twelve","12"
+двена́дцать
+// english: "thirteen","13"
+трина́дцать
+// english: "fourteen","14"
+четы́рнадцать
+// english: "fifteen","15"
+пятна́дцать
+// english: "sixteen","16"
+шестна́дцать
+// english: "seventeen","17"
+семна́дцать
+// english: "eighteen","18"
+восемна́дцать
+// english: "nineteen","19"
+девятна́дцать
+// english: "twenty","20"
+два́дцать
+// english: "twenty-one","21"
+двадцать один
+// english: "twenty-two","22"
+двадцать два
+// english: "twenty-three","23"
+двадцать три
+// english: "twenty-four","24"
+двадцать четыре
+// english: "twenty-five","25"
+двадцать пять
+// english: "twenty-six","26"
+двадцать шесть
+// english: "twenty-seven","27"
+двадцать семь
+// english: "twenty-eight","28"
+двадцать восемь
+// english: "twenty-nine","29"
+двадцать девять
+// english: "thirty","30"
+три́дцать
+// english: "thirty-one","31"
+тридцать один

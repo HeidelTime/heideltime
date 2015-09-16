@@ -1,0 +1,13 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "February","02"
+"[Kk]uovâmáánu","02"
+// english: "March","03"
+"[Nn]juhčâmáánu","03"
+// english: "April","04"
+"[Cc]uáŋuimáánu","04"
+// english: "September","09"
+"čohčâmáánu","09"

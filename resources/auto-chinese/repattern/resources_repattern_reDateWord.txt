@@ -1,0 +1,30 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day before yesterday","UNDEF-this-day-MINUS-2"
+前天
+前日
+// english: "yesterday","UNDEF-last-day"
+昨天
+琴日
+尋日
+寻日
+昨日
+昨晡日
+昨昏
+昨暗
+// english: "today","UNDEF-this-day"
+今天
+今日
+今晡日
+今仔日
+// english: "tomorrow","UNDEF-next-day"
+明天
+聽日
+听日
+明仔日
+// english: "day after tomorrow","UNDEF-this-day-PLUS-2"
+後天
+后天

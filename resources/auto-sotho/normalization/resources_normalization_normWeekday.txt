@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+"Mantaha","monday"
+// english: "Tuesday","tuesday"
+"Labobedi","tuesday"
+// english: "Wednesday","wednesday"
+"Laboraro","wednesday"
+// english: "Thursday","thursday"
+"Labone","thursday"
+// english: "Friday","friday"
+"Labohlano","friday"
+// english: "Saturday","saturday"
+"Moqebele","saturday"
+// english: "Sunday","sunday"
+"Sontaha","sunday"

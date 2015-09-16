@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+[Ff]orår
+[Vv]år
+// english: "summer","SU"
+[Ss]ommer
+// english: "autumn","FA"
+[Ee]fterår
+[Hh]øst
+// english: "winter","WI"
+[Vv]inter

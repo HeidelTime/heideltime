@@ -1,0 +1,63 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Yy]ksi
+// english: "two","02"
+[Kk]aksi
+// english: "three","03"
+[Kk]olme
+// english: "four","04"
+[Nn]eljä
+// english: "five","05"
+[Vv]iisi
+// english: "six","06"
+[Kk]uusi
+// english: "seven","07"
+[Ss]eitsemän
+// english: "eight","08"
+[Kk]ahdeksan
+// english: "nine","09"
+[Yy]hdeksän
+// english: "ten","10"
+[Kk]ymmenen
+// english: "eleven","11"
+[Yy]ksitoista
+// english: "twelve","12"
+[Kk]aksitoista
+// english: "thirteen","13"
+[Kk]olmetoista
+// english: "fourteen","14"
+[Nn]eljätoista
+// english: "fifteen","15"
+[Vv]iisitoista
+// english: "sixteen","16"
+[Kk]uusitoista
+// english: "seventeen","17"
+[Ss]eitsemäntoista
+// english: "eighteen","18"
+[Kk]ahdeksantoista
+// english: "nineteen","19"
+[Yy]hdeksäntoista
+// english: "twenty","20"
+[Kk]aksikymmentä
+// english: "twenty-one","21"
+[Kk]aksikymmentäyksi
+// english: "twenty-two","22"
+[Kk]aksikymmentäkaksi
+// english: "twenty-four","24"
+[Kk]aksikymmentäneljä
+// english: "twenty-five","25"
+[Kk]aksikymmentäviisi
+// english: "twenty-eight","28"
+[Kk]aksikymmentäkahdeksan
+// english: "thirty","30"
+[Kk]olmekymmentä
+// english: "thirty-one","31"
+[Kk]olmekymmentäyksi
+// english: "twenty-three","23" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found
+// english: "twenty-nine","29" - no translation found

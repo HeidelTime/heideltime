@@ -1,0 +1,67 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+[Vv]iens
+[Vv]īns
+[Vv]iena
+// english: "two","2"
+[Dd]ivi
+[Dd]ivas
+// english: "three","3"
+[Tt]rīs
+// english: "four","4"
+četri
+četras
+// english: "five","5"
+[Pp]ieci
+[Pp]iecas
+// english: "six","6"
+[Ss]eši
+[Ss]ešas
+// english: "seven","7"
+[Ss]eptiņi
+[Ss]eptiņas
+// english: "eight","8"
+[Aa]stoņi
+[Aa]stoņas
+// english: "nine","9"
+[Dd]eviņi
+[Dd]eviņas
+// english: "ten","10"
+[Dd]esmit
+// english: "eleven","11"
+[Vv]ienpadsmit
+// english: "twelve","12"
+[Dd]ivpadsmit
+// english: "thirteen","13"
+[Tt]rīspadsmit
+// english: "fourteen","14"
+četrpadsmit
+// english: "fifteen","15"
+[Pp]iecpadsmit
+// english: "sixteen","16"
+[Ss]ešpadsmit
+// english: "seventeen","17"
+[Ss]eptiņpadsmit
+// english: "eighteen","18"
+[Aa]stoņpadsmit
+// english: "nineteen","19"
+[Dd]eviņpadsmit
+// english: "twenty","20"
+[Dd]ivdesmit
+// english: "twenty-one","21"
+[Dd]ivdesmit viens
+// english: "thirty","30"
+[Tt]rīsdesmit
+// english: "twenty-two","22" - no translation found
+// english: "twenty-three","23" - no translation found
+// english: "twenty-four","24" - no translation found
+// english: "twenty-five","25" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found
+// english: "twenty-eight","28" - no translation found
+// english: "twenty-nine","29" - no translation found
+// english: "thirty-one","31" - no translation found

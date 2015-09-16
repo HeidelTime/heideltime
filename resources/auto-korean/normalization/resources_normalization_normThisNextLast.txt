@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+"이","this"
+"이것","this"
+// english: "next","next"
+"다음의","next"
+// english: "last","last"
+"마지막","last"
+// english: "past","last"
+"지나간","last"
+"이전의","last"
+// english: "previous","last"
+"이전의","last"

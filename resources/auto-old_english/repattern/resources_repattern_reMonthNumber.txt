@@ -1,0 +1,8 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-03-24
+// This file contains regular expression patterns for month numbers.
+10
+11
+12
+0?[1-9]

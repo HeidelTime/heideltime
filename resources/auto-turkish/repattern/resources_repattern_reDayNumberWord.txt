@@ -1,0 +1,67 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Bb]ir
+// english: "two","02"
+[Ii]ki
+// english: "three","03"
+üç
+// english: "four","04"
+[Dd]ört
+// english: "five","05"
+[Bb]eş
+// english: "six","06"
+[Aa]ltı
+// english: "seven","07"
+[Yy]edi
+// english: "eight","08"
+[Ss]ekiz
+// english: "nine","09"
+[Dd]okuz
+// english: "ten","10"
+[Oo]n
+// english: "eleven","11"
+[Oo]n bir
+// english: "twelve","12"
+[Oo]n iki
+// english: "thirteen","13"
+[Oo]n üç
+// english: "fourteen","14"
+[Oo]n dört
+// english: "fifteen","15"
+[Oo]n beş
+// english: "sixteen","16"
+[Oo]n altı
+// english: "seventeen","17"
+[Oo]n yedi
+// english: "eighteen","18"
+[Oo]n sekiz
+// english: "nineteen","19"
+[Oo]n dokuz
+// english: "twenty","20"
+[Yy]irmi
+// english: "twenty-one","21"
+[Yy]irmi bir
+// english: "twenty-two","22"
+[Yy]irmi iki
+// english: "twenty-three","23"
+[Yy]irmi üç
+// english: "twenty-four","24"
+[Yy]irmi dört
+// english: "twenty-five","25"
+[Yy]irmi beş
+// english: "twenty-six","26"
+[Yy]irmi altı
+// english: "twenty-seven","27"
+[Yy]irmi yedi
+// english: "twenty-eight","28"
+[Yy]irmi sekiz
+// english: "twenty-nine","29"
+[Yy]irmi dokuz
+// english: "thirty","30"
+[Oo]tuz
+// english: "thirty-one","31"
+[Oo]tuz bir

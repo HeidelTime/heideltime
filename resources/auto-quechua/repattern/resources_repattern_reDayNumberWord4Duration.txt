@@ -1,0 +1,70 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+[Hh]uk
+// english: "two","2"
+[Ii]skay
+// english: "three","3"
+[Kk]imsa
+[Kk]insa
+// english: "four","4"
+[Tt]awa
+// english: "five","5"
+[Pp]ichka
+[Pp]isqa
+[Pp]hisqa
+// english: "six","6"
+[Ss]uqta
+// english: "seven","7"
+[Qq]anchis
+// english: "eight","8"
+[Pp]usaq
+// english: "nine","9"
+[Ii]squn
+// english: "ten","10"
+[Cc]hunka
+// english: "eleven","11"
+[Cc]hunka hukniyuq
+// english: "twelve","12"
+[Cc]hunka iskayniyuq
+// english: "thirteen","13"
+[Cc]hunka kimsayuq
+// english: "fourteen","14"
+[Cc]hunka tawayuq
+// english: "fifteen","15"
+[Cc]hunka pichqayuq
+// english: "sixteen","16"
+[Cc]hunka suqtayuq
+// english: "seventeen","17"
+[Cc]hunka qanchisniyuq
+// english: "eighteen","18"
+[Cc]hunka pusaqniyuq
+// english: "nineteen","19"
+[Cc]hunka isqunniyuq
+// english: "twenty","20"
+[Ii]skay chunka
+// english: "twenty-one","21"
+[Ii]skay chunka hukniyuq
+// english: "twenty-two","22"
+[Ii]skay chunka iskayniyuq
+// english: "twenty-three","23"
+[Ii]skay chunka kimsayuq
+// english: "twenty-four","24"
+[Ii]skay chunka tawayuq
+// english: "twenty-five","25"
+[Ii]skay chunka pichqayuq
+// english: "twenty-six","26"
+[Ii]skay chunka suqtayuq
+// english: "twenty-seven","27"
+[Ii]skay chunka qanchisniyuq
+// english: "twenty-eight","28"
+[Ii]skay chunka pusaqniyuq
+// english: "twenty-nine","29"
+[Ii]skay chunka isqunniyuq
+// english: "thirty","30"
+[Kk]imsa chunka
+// english: "thirty-one","31"
+[Kk]imsa chunka hukniyuq

@@ -1,0 +1,68 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Bb]at
+// english: "two","02"
+[Bb]i
+// english: "three","03"
+[Hh]iru
+// english: "four","04"
+[Ll]au
+// english: "five","05"
+[Bb]ost
+// english: "six","06"
+[Ss]ei
+// english: "seven","07"
+[Zz]azpi
+// english: "eight","08"
+[Zz]ortzi
+// english: "nine","09"
+[Bb]ederatzi
+// english: "ten","10"
+[Hh]amar
+// english: "eleven","11"
+[Hh]amaika
+// english: "twelve","12"
+[Hh]amabi
+// english: "thirteen","13"
+[Hh]amahiru
+// english: "fourteen","14"
+[Hh]amalau
+// english: "fifteen","15"
+[Hh]amabost
+// english: "sixteen","16"
+[Hh]amasei
+// english: "seventeen","17"
+[Hh]amazazpi
+// english: "eighteen","18"
+[Hh]emezortzi
+[Hh]amazortzi
+// english: "nineteen","19"
+[Hh]emeretzi
+// english: "twenty","20"
+[Hh]ogei
+// english: "twenty-one","21"
+[Hh]ogeita bat
+// english: "twenty-two","22"
+[Hh]ogeita bi
+// english: "twenty-three","23"
+[Hh]ogeita hiru
+// english: "twenty-four","24"
+[Hh]ogeita lau
+// english: "twenty-five","25"
+[Hh]ogeita bost
+// english: "twenty-six","26"
+[Hh]ogeita sei
+// english: "twenty-seven","27"
+[Hh]ogeita zazpi
+// english: "twenty-eight","28"
+[Hh]ogeita zortzi
+// english: "twenty-nine","29"
+[Hh]ogeita bederatzi
+// english: "thirty","30"
+[Hh]ogeita hamar
+// english: "thirty-one","31"
+[Hh]ogeita hamaika

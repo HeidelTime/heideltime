@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+"月曜日","monday"
+"月曜","monday"
+// english: "Tuesday","tuesday"
+"火曜日","tuesday"
+"火曜","tuesday"
+// english: "Wednesday","wednesday"
+"水曜日","wednesday"
+"水曜","wednesday"
+// english: "Thursday","thursday"
+"木曜日","thursday"
+"木曜","thursday"
+// english: "Friday","friday"
+"金曜日","friday"
+"金曜","friday"
+// english: "Saturday","saturday"
+"土曜日","saturday"
+"土曜","saturday"
+// english: "Sunday","sunday"
+"日曜日","sunday"
+"日曜","sunday"

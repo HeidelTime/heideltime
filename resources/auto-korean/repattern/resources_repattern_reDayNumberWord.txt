@@ -1,0 +1,121 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+하나
+한
+일
+一
+// english: "two","02"
+둘
+두
+이
+二
+// english: "three","03"
+셋
+세
+석
+삼
+三
+// english: "four","04"
+넷
+네
+사
+四
+// english: "five","05"
+다섯
+오
+五
+// english: "six","06"
+여섯
+육
+륙
+六
+// english: "seven","07"
+일곱
+칠
+七
+// english: "eight","08"
+여덟
+팔
+八
+// english: "nine","09"
+아홉
+구
+九
+// english: "ten","10"
+열
+십
+十
+// english: "eleven","11"
+열하나
+십일
+十一
+// english: "twelve","12"
+열둘
+십이
+十二
+// english: "thirteen","13"
+열셋
+십삼
+十三
+// english: "fourteen","14"
+열넷
+십사
+十四
+// english: "fifteen","15"
+열다섯
+십오
+十五
+// english: "sixteen","16"
+열여섯
+십육
+十六
+// english: "seventeen","17"
+열일곱
+십칠
+十七
+// english: "eighteen","18"
+열여덟
+십팔
+十八
+// english: "nineteen","19"
+열아홉
+십구
+十九
+// english: "twenty","20"
+이십
+二十
+스물
+// english: "twenty-one","21"
+스물 하나
+// english: "twenty-two","22"
+스물 둘
+// english: "twenty-four","24"
+스물넷
+이십사(二十四)
+// english: "twenty-five","25"
+스물다섯
+이십오
+// english: "twenty-six","26"
+스물여섯
+이십육
+// english: "twenty-seven","27"
+스물일곱
+이십칠
+// english: "twenty-eight","28"
+스물여덟
+이십팔
+// english: "twenty-nine","29"
+스물아홉
+이십구
+// english: "thirty","30"
+삼십
+三十
+서른
+// english: "thirty-one","31"
+삼십오
+서른한
+// english: "twenty-three","23" - no translation found

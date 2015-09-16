@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+Kanruyauciq
+// english: "February","02"
+Kep'nerciq
+// english: "March","03"
+Tengmiirviguaq
+// english: "April","04"
+Tengmiirvik
+// english: "May","05"
+Qusiirvik
+// english: "June","06"
+Kaugun
+// english: "July","07"
+Ingun
+// english: "August","08"
+Amirairun
+// english: "September","09"
+Amiraayaaq
+// english: "October","10"
+Nulirun
+// english: "November","11"
+Cauyarvik
+// english: "December","12"
+Uivik

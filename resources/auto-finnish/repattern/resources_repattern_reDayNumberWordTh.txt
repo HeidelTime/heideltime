@@ -1,0 +1,58 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+[Ee]nsimmäinen
+// english: "second","02"
+[Tt]oinen
+[Ss]ekunti
+// english: "third","03"
+[Kk]olmas
+// english: "fourth","04"
+[Nn]eljäs
+// english: "fifth","05"
+[Vv]iides
+// english: "sixth","06"
+[Kk]uudes
+// english: "seventh","07"
+[Ss]eitsemäs
+// english: "eighth","08"
+[Kk]ahdeksas
+// english: "ninth","09"
+[Yy]hdeksäs
+// english: "tenth","10"
+[Kk]ymmenes
+// english: "eleventh","11"
+[Yy]hdestoista
+// english: "twelfth","12"
+[Kk]ahdestoista
+// english: "thirteenth","13"
+[Kk]olmastoista
+// english: "fourteenth","14"
+[Nn]eljästoista
+// english: "fifteenth","15"
+[Vv]iidestoista
+// english: "sixteenth","16"
+[Kk]uudestoista
+// english: "seventeenth","17"
+[Ss]eitsemästoista
+// english: "eighteenth","18"
+[Kk]ahdeksastoista
+// english: "nineteenth","19"
+[Yy]hdeksästoista
+// english: "twentieth","20"
+[Kk]ahdeskymmenes
+// english: "twenty-first","21"
+[Kk]ahdeskymmenesensimmäinen
+// english: "thirtieth","30"
+[Kk]olmaskymmenes
+// english: "twenty-second","22" - no translation found
+// english: "twenty-third","23" - no translation found
+// english: "twenty-fourth","24" - no translation found
+// english: "twenty-fifth","25" - no translation found
+// english: "twenty-sixth","26" - no translation found
+// english: "twenty-seventh","27" - no translation found
+// english: "twenty-eighth","28" - no translation found
+// english: "twenty-ninth","29" - no translation found

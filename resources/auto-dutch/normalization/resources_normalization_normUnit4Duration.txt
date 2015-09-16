@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","D"
+"[Dd]ag","D"
+"[Ee]tmaal","D"
+// english: "weekend","WE"
+"[Ww]eekend","WE"
+"[Ww]eekeinde","WE"
+// english: "week","W"
+"[Ww]eek","W"
+// english: "month","M"
+"[Mm]aand","M"
+// english: "quarter","Q"
+"[Kk]wartaal","Q"
+"[Tt]rimester","Q"
+// english: "year","Y"
+"[Jj]aar","Y"
+// english: "decade","DE"
+"[Dd]ecade","DE"
+"[Dd]ecennium","DE"
+"[Jj]aartien","DE"
+// english: "century","CE"
+"[Ee]euw","CE"

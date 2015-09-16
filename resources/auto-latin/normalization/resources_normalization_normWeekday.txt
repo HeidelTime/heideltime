@@ -1,0 +1,23 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+"[Dd]ies Lunae","monday"
+// english: "Tuesday","tuesday"
+"[Dd]ies Martis","tuesday"
+// english: "Wednesday","wednesday"
+"[Dd]iēs Mercuriī","wednesday"
+"[Dd]ies Mercurii","wednesday"
+// english: "Thursday","thursday"
+"[Dd]ies Iovis","thursday"
+"[Dd]ies Jovis","thursday"
+// english: "Friday","friday"
+"[Dd]ies Veneris","friday"
+// english: "Saturday","saturday"
+"[Dd]iēs Saturnī","saturday"
+"Sabbata","saturday"
+// english: "Sunday","sunday"
+"[Dd]ies Solis","sunday"
+"[Dd]ies Dominica","sunday"

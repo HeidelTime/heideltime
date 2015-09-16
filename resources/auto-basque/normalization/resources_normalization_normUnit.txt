@@ -1,0 +1,23 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+"[Ee]gun","day"
+"[Ll]anegun","day"
+// english: "weekend","week-WE"
+"[Aa]steburu","week-WE"
+"[Aa]stebukaera","week-WE"
+// english: "week","week"
+"[Aa]ste","week"
+// english: "month","month"
+"[Hh]il","month"
+"[Hh]ilabete","month"
+// english: "year","year"
+"[Uu]rte","year"
+// english: "decade","decade"
+"[Hh]amarkada","decade"
+// english: "century","century"
+"[Mm]ende","century"
+"[Gg]izaldi","century"

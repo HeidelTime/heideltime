@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"[Bb]irinji","01"
+// english: "second","02"
+"[Ii]kinji","02"
+"[Ss]ekunt","02"
+// english: "third","03"
+"üçünji","03"
+// english: "fourth","04"
+"[Dd]öördünci","04"
+// english: "fifth","05"
+"[Bb]äşinji","05"
+// english: "sixth","06"
+"[Aa]ltynjy","06"
+// english: "seventh","07"
+"ýedinji","07"
+// english: "eighth","08"
+"[Ss]ekizinji","08"
+// english: "ninth","09"
+"[Dd]okuzynjy","09"
+// english: "tenth","10"
+"[Oo]nunjy","10"

@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+Cuqllirpaaq Iraluq
+// english: "February","02"
+Nanicqaaq Iraluq
+// english: "March","03"
+Kaignasqaq Iraluq
+// english: "April","04"
+Uqna'isurt'sqaaq Iraluq
+// english: "May","05"
+Nikllit Iraluat
+// english: "June","06"
+Naut'staat Iraluat
+// english: "July","07"
+Amartut Iraluat
+// english: "August","08"
+Alagnat Iraluat
+// english: "September","09"
+Qakiiyat Iraluat
+// english: "October","10"
+Kakegllum Iralua
+// english: "November","11"
+Quyawim Iralua
+// english: "December","12"
+Qanim Iralua

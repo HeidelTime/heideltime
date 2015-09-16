@@ -1,0 +1,64 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+[Bb]irinci
+[Ss]ipti
+// english: "second","02"
+[Ee]kinci
+// english: "third","03"
+üçünci
+// english: "fourth","04"
+[Dd]örtünci
+// english: "fifth","05"
+[Bb]eşinci
+// english: "sixth","06"
+[Aa]ltıncı
+// english: "seventh","07"
+[Yy]edinci
+// english: "eighth","08"
+[Ss]ekizinci
+// english: "ninth","09"
+[Dd]oquzıncı
+// english: "tenth","10"
+[Oo]nuncı
+// english: "eleventh","11"
+[Oo]n birinci
+// english: "twelfth","12"
+[Oo]n ekinci
+// english: "thirteenth","13"
+[Oo]n üçünci
+// english: "fourteenth","14"
+[Oo]n dörtünci
+// english: "fifteenth","15"
+[Oo]n beşinci
+// english: "sixteenth","16"
+[Oo]n altıncı
+// english: "seventeenth","17"
+[Oo]n yedinci
+// english: "eighteenth","18"
+[Oo]n sekizinci
+// english: "nineteenth","19"
+[Oo]n doquzıncı
+// english: "twentieth","20"
+[Yy]igirminci
+// english: "twenty-first","21"
+[Yy]igirmi birinci
+// english: "twenty-second","22"
+[Yy]igirmi ekinci
+// english: "twenty-third","23"
+[Yy]igirmi üçünci
+// english: "twenty-fourth","24"
+[Yy]igirmi dörtünci
+// english: "twenty-fifth","25"
+[Yy]igirmi beşinci
+// english: "twenty-sixth","26"
+[Yy]igirmi altıncı
+// english: "twenty-seventh","27"
+[Yy]igirmi yedinci
+// english: "thirtieth","30"
+[Oo]tuzıncı
+// english: "twenty-eighth","28" - no translation found
+// english: "twenty-ninth","29" - no translation found

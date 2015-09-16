@@ -1,0 +1,68 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Ee]gy
+// english: "two","02"
+[Kk]ettő
+[Kk]ét
+// english: "three","03"
+[Hh]árom
+// english: "four","04"
+[Nn]égy
+// english: "five","05"
+öt
+// english: "six","06"
+[Hh]at
+// english: "seven","07"
+[Hh]ét
+// english: "eight","08"
+[Nn]yolc
+// english: "nine","09"
+[Kk]ilenc
+// english: "ten","10"
+[Tt]íz
+// english: "eleven","11"
+[Tt]izenegy
+// english: "twelve","12"
+[Tt]izenkettő
+// english: "thirteen","13"
+[Tt]izenhárom
+// english: "fourteen","14"
+[Tt]izennégy
+// english: "fifteen","15"
+[Tt]izenöt
+// english: "sixteen","16"
+[Tt]izenhat
+// english: "seventeen","17"
+[Tt]izenhét
+// english: "eighteen","18"
+[Tt]izennyolc
+// english: "nineteen","19"
+[Tt]izenkilenc
+// english: "twenty","20"
+[Hh]úsz
+// english: "twenty-one","21"
+[Hh]uszonegy
+// english: "twenty-two","22"
+[Hh]uszonkettő
+// english: "twenty-three","23"
+[Hh]uszonhárom
+// english: "twenty-four","24"
+[Hh]uszonnégy
+// english: "twenty-five","25"
+[Hh]uszonöt
+// english: "twenty-six","26"
+[Hh]uszonhat
+// english: "twenty-seven","27"
+[Hh]uszonhét
+// english: "twenty-eight","28"
+[Hh]uszonnyolc
+// english: "twenty-nine","29"
+[Hh]uszonkilenc
+// english: "thirty","30"
+[Hh]arminc
+// english: "thirty-one","31"
+[Hh]armincegy

@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Tuesday","tuesday"
+"Lesíbilí","tuesday"
+// english: "Thursday","thursday"
+"Lesíne","thursday"
+// english: "Friday","friday"
+"Lesíhlánu","friday"
+// english: "Saturday","saturday"
+"úm-gcibélo","saturday"
+// english: "Sunday","sunday"
+"[Ll]í-Sontfo","sunday"

@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+"[Kk]a tahi","01"
+// english: "two","02"
+"[Rr]ua","02"
+// english: "three","03"
+"[Kk]a toru","03"
+// english: "four","04"
+"[Hh]a","04"
+// english: "five","05"
+"[Rr]ima","05"
+// english: "six","06"
+"[Oo]no","06"
+// english: "nine","09"
+"[Kk]a iva","09"

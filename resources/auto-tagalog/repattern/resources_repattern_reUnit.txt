@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+[Aa]raw
+// english: "week","week"
+[Ll]inggo
+[Ss]emana
+// english: "month","month"
+[Bb]uwan
+// english: "year","year"
+[Tt]aon
+// english: "century","century"
+[Ss]íglo
+// english: "days","day" - no translation found
+// english: "weekend","week-WE" - no translation found
+// english: "quarter","quarter" - no translation found
+// english: "fiscal year","year" - no translation found
+// english: "decade","decade" - no translation found

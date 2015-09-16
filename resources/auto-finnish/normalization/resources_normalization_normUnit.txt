@@ -1,0 +1,28 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+"[Pp]äivä","day"
+"[Vv]uorokausi","day"
+// english: "weekend","week-WE"
+"[Vv]iikonloppu","week-WE"
+// english: "week","week"
+"[Vv]iikko","week"
+// english: "month","month"
+"[Kk]uukausi","month"
+"[Kk]uu","month"
+// english: "quarter","quarter"
+"[Nn]eljännesvuosi","quarter"
+"[Vv]uosineljännes","quarter"
+// english: "fiscal year","year"
+"[Tt]ilivuosi","year"
+"[Tt]ilikausi","year"
+// english: "year","year"
+"[Vv]uosi","year"
+"[Kk]alenterivuosi","year"
+// english: "decade","decade"
+"[Vv]uosikymmen","decade"
+// english: "century","century"
+"[Vv]uosisata","century"

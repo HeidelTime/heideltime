@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+มกราคม
+// english: "February","02"
+กุมภาพันธ์
+// english: "March","03"
+มีนาคม
+// english: "April","04"
+เมษายน
+// english: "May","05"
+พฤษภาคม
+// english: "June","06"
+มิถุนายน
+// english: "July","07"
+กรกฎาคม
+// english: "August","08"
+สิงหาคม
+// english: "September","09"
+กันยายน
+// english: "October","10"
+ตุลาคม
+// english: "November","11"
+พฤศจิกายน
+// english: "December","12"
+ธันวาคม

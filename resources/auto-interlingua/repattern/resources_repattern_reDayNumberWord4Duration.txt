@@ -1,0 +1,70 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+[Uu]n
+// english: "two","2"
+[Dd]uo
+// english: "three","3"
+[Tt]res
+// english: "four","4"
+[Qq]uatro
+// english: "five","5"
+[Cc]inque
+// english: "six","6"
+[Ss]ex
+// english: "seven","7"
+[Ss]epte
+// english: "eight","8"
+[Oo]cto
+// english: "nine","9"
+[Nn]ove
+// english: "ten","10"
+[Dd]ece
+// english: "eleven","11"
+[Dd]ece-un
+[Uu]ndece
+// english: "twelve","12"
+[Dd]ece
+[Dd]uo
+[Dd]uodece
+// english: "thirteen","13"
+[Dd]ece-tres
+// english: "fourteen","14"
+[Dd]ece-quatro
+// english: "fifteen","15"
+[Dd]ece-cinque
+// english: "sixteen","16"
+[Dd]ece-sex
+// english: "seventeen","17"
+[Dd]ece-septe
+// english: "eighteen","18"
+[Dd]ece-octo
+// english: "nineteen","19"
+[Dd]ece-nove
+// english: "twenty","20"
+[Vv]inti
+[Vv]iginti
+// english: "twenty-one","21"
+[Vv]inti-un
+// english: "twenty-two","22"
+[Vv]inti-duo
+// english: "twenty-three","23"
+[Vv]inti-tres
+// english: "twenty-four","24"
+[Vv]inti-quatro
+// english: "twenty-five","25"
+[Vv]inti-cinque
+// english: "twenty-six","26"
+[Vv]inti-sex
+// english: "twenty-seven","27"
+[Vv]inti-septe
+// english: "twenty-eight","28"
+[Vv]inti-octo
+// english: "twenty-nine","29"
+[Vv]inti-nove
+// english: "thirty","30"
+[Tt]renta
+// english: "thirty-one","31" - no translation found

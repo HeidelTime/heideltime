@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+"пĕрре","01"
+// english: "four","04"
+"тӑваттӑ","04"
+// english: "six","06"
+"улттӑ","06"
+// english: "seven","07"
+"çиччӗ","07"
+"çичӗ","07"
+"çич","07"
+// english: "eight","08"
+"саккӑр","08"
+// english: "nine","09"
+"тӑххӑр","09"
+// english: "ten","10"
+"вун","10"
+// english: "eleven","11"
+"вун пӗр","11"
+// english: "eighteen","18"
+"вунсаккӑр","18"
+// english: "nineteen","19"
+"вунтӑххӑр","19"
+// english: "twenty","20"
+"ҫирӗм","20"

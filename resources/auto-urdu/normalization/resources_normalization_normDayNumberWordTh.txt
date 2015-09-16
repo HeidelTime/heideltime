@@ -1,0 +1,24 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"پہلا","01"
+// english: "second","02"
+"دوسرا","02"
+"سیکنڈ","02"
+// english: "fourth","04"
+"چوتھا","04"
+// english: "fifth","05"
+"پانچواں","05"
+// english: "sixth","06"
+"چھٹواں","06"
+// english: "seventh","07"
+"ساتواں","07"
+// english: "eighth","08"
+"آٹھواں","08"
+// english: "ninth","09"
+"نواں","09"
+// english: "tenth","10"
+"دسواں","10"

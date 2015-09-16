@@ -1,0 +1,51 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+星期一
+禮拜一
+礼拜一
+周一
+拜一
+// english: "Tuesday","tuesday"
+星期二
+禮拜二
+礼拜二
+周二
+拜二
+// english: "Wednesday","wednesday"
+星期三
+禮拜三
+礼拜三
+周三
+拜三
+// english: "Thursday","thursday"
+星期四
+禮拜四
+礼拜四
+周四
+拜四
+// english: "Friday","friday"
+星期五
+禮拜五
+礼拜五
+周五
+拜五
+// english: "Saturday","saturday"
+星期六
+禮拜六
+礼拜六
+周六
+拜六
+// english: "Sunday","sunday"
+星期日
+禮拜日
+礼拜日
+星期天
+禮拜天
+礼拜天
+周日
+禮拜
+礼拜

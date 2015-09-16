@@ -1,0 +1,28 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+"ၼိုင်ႈ","1"
+"႑","1"
+// english: "two","2"
+"သွင်","2"
+// english: "three","3"
+"သၢမ်","3"
+// english: "four","4"
+"သီႇ","4"
+// english: "five","5"
+"ႁႃႈ","5"
+// english: "six","6"
+"ႁူၵ်း","6"
+// english: "seven","7"
+"ၸဵတ်း","7"
+// english: "eight","8"
+"ပႅတ်ႇ","8"
+// english: "nine","9"
+"ၵဝ်ႈ","9"
+// english: "ten","10"
+"သိပ်း","10"
+// english: "thirty","30"
+"သၢမ်သိပ်း","30"

@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+"ఈ","this"
+"ఇది","this"
+// english: "current","this"
+"ఇటీవలి","this"
+// english: "last","last"
+"చివరి","last"
+"ఆఖరి","last"
+"పోయిన","last"
+"కిందటి","last"
+// english: "past","last"
+"పూర్వపు","last"
+"జరిగింది","last"
+"గత","last"

@@ -1,0 +1,110 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+[Pp]rim
+[Pp]rimă
+[Pp]rimul
+[Pp]rima
+// english: "second","02"
+[Ss]ecund
+[Aa]l doilea
+[Ss]ecundă
+// english: "third","03"
+[Aa]l treilea
+[Aa] treia
+// english: "fourth","04"
+[Pp]atrulea
+[Pp]atra
+// english: "fifth","05"
+[Cc]incilea
+[Cc]incea
+// english: "sixth","06"
+șaselea
+șasea
+// english: "seventh","07"
+șaptelea
+șaptea
+// english: "eighth","08"
+[Oo]ptulea
+[Oo]pta
+// english: "ninth","09"
+[Nn]ouălea
+[Nn]oua
+// english: "tenth","10"
+[Zz]ecelea
+[Zz]ecea
+// english: "eleventh","11"
+[Uu]nsprezecelea
+[Uu]nsprezecea
+[Uu]nșpelea
+[Uu]nșpea
+// english: "twelfth","12"
+[Dd]oisprezecelea
+[Dd]ouăsprezecea
+[Dd]oișpelea
+[Dd]ouășpea
+// english: "thirteenth","13"
+[Tt]reisprezecelea
+[Tt]reisprezecea
+[Tt]reișpelea
+[Tt]reișpea
+// english: "fourteenth","14"
+[Pp]aisprezecelea
+[Pp]aisprezecea
+[Pp]aișpelea
+[Pp]aișpea
+// english: "fifteenth","15"
+[Cc]incisprezecelea
+[Cc]incisprezecea
+[Cc]inșpelea
+[Cc]inșpea
+// english: "sixteenth","16"
+șaisprezecelea
+șaisprezecea
+șaișpelea
+șaișpea
+// english: "seventeenth","17"
+șaptesprezecelea
+șaptesprezecea
+șapteșpelea
+șapteșpea
+// english: "eighteenth","18"
+[Oo]ptsprezecelea
+[Oo]ptsprezecea
+[Oo]ptșpelea
+[Oo]ptșpea
+// english: "nineteenth","19"
+[Nn]ouăsprezecelea
+[Nn]ouăsprezecea
+[Nn]ouășpelea
+[Nn]ouășpea
+// english: "twentieth","20"
+[Dd]ouăzecilea
+[Dd]ouăzecea
+// english: "twenty-first","21"
+[Dd]ouăzeci și unulea
+[Dd]ouăzeci și una
+// english: "twenty-second","22"
+[Dd]ouăzeci și doilea
+// english: "twenty-third","23"
+[Dd]ouăzeci și treilea
+// english: "twenty-fourth","24"
+[Dd]ouăzeci și patrulea
+// english: "twenty-fifth","25"
+[Dd]ouăzeci și cincilea
+// english: "twenty-sixth","26"
+[Dd]ouăzeci și șaselea
+[Dd]ouăzeci și șasea
+// english: "twenty-seventh","27"
+[Dd]ouăzeci și șaptelea
+[Dd]ouăzeci și șaptea
+// english: "twenty-eighth","28"
+[Dd]ouăzeci și optulea
+// english: "twenty-ninth","29"
+[Dd]ouăzeci și nouălea
+// english: "thirtieth","30"
+[Tt]reizecilea
+[Tt]reizecea

@@ -1,0 +1,56 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Aa]taaseq
+// english: "two","02"
+[Mm]arluk
+// english: "three","03"
+[Pp]ingasut
+// english: "four","04"
+[Ss]isamat
+// english: "five","05"
+[Tt]allimat
+// english: "six","06"
+[Aa]rfinillit
+// english: "seven","07"
+[Aa]rfineq marluk
+// english: "eight","08"
+[Aa]rfineq pingasut
+// english: "nine","09"
+[Qq]ulingiluat
+// english: "ten","10"
+[Qq]ulit
+// english: "eleven","11"
+[Aa]qqanillit
+// english: "twelve","12"
+[Aa]qqaniq-marluk
+// english: "thirteen","13"
+[Aa]qqaniq-pingasut
+// english: "fourteen","14"
+[Aa]qqaniq-sisamat
+// english: "fifteen","15"
+[Aa]qqaniq-tallimat
+// english: "sixteen","16"
+[Aa]rvirsanillit
+// english: "seventeen","17"
+[Aa]rvirsaniq-marluk
+// english: "eighteen","18"
+[Aa]rvirsaniq-pingasut
+// english: "nineteen","19"
+[Aa]rvirsaniq-sisamat
+// english: "twenty","20"
+[Aa]rvirsaniq-tallimat
+// english: "twenty-one","21" - no translation found
+// english: "twenty-two","22" - no translation found
+// english: "twenty-three","23" - no translation found
+// english: "twenty-four","24" - no translation found
+// english: "twenty-five","25" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found
+// english: "twenty-eight","28" - no translation found
+// english: "twenty-nine","29" - no translation found
+// english: "thirty","30" - no translation found
+// english: "thirty-one","31" - no translation found

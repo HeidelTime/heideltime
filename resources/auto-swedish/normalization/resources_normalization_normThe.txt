@@ -1,0 +1,18 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "the","the"
+"[Dd]en","the"
+"[Dd]et","the"
+"[Dd]e","the"
+"-n","the"
+"-en","the"
+"-t","the"
+"-et","the"
+"-na","the"
+"-a","the"
+// english: "an","an"
+"[Ee]n","an"
+"[Ee]tt","an"

@@ -1,0 +1,79 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Ee]en
+[Ee]in
+// english: "two","02"
+[Tt]wei
+// english: "three","03"
+[Dd]rij
+[Dd]rèje
+[Dd]rei
+[Dd]ree
+// english: "four","04"
+[Vv]eer
+// english: "five","05"
+[Ff]îf
+// english: "six","06"
+[Zz]es
+[Zz]ès
+[Ss]öss
+[Ss]oss
+[Ss]ess
+// english: "seven","07"
+[Ss]öben
+[Ss]öven
+[Ss]eben
+[Ss]even
+[Ss]ëwe
+[Ss]ëwen
+[Ss]æwen
+[Ss]æben
+// english: "eight","08"
+[Aa]cht
+// english: "nine","09"
+[Nn]egen
+// english: "ten","10"
+[Tt]eihn
+// english: "eleven","11"
+ölven
+[Ee]lven
+// english: "twelve","12"
+[Tt]wölf
+[Tt]wolf
+// english: "thirteen","13"
+[Dd]örteihn
+[Dd]ötteihn
+[Dd]orteihn
+// english: "fourteen","14"
+[Vv]eerteihn
+// english: "fifteen","15"
+[Ff]öffteihn
+[Ff]offteihn
+// english: "sixteen","16"
+[Ss]össteihn
+[Ss]ossteihn
+// english: "seventeen","17"
+[Ss]öventeihn
+// english: "eighteen","18"
+[Aa]chtteihn
+// english: "nineteen","19"
+[Nn]egenteihn
+[Nn]ägenteihn
+// english: "twenty","20"
+[Tt]wintig
+// english: "thirty-one","31"
+[Ee]enundörtig
+// english: "twenty-one","21" - no translation found
+// english: "twenty-two","22" - no translation found
+// english: "twenty-three","23" - no translation found
+// english: "twenty-four","24" - no translation found
+// english: "twenty-five","25" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found
+// english: "twenty-eight","28" - no translation found
+// english: "twenty-nine","29" - no translation found
+// english: "thirty","30" - no translation found

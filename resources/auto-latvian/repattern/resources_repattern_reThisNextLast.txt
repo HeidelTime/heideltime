@@ -1,0 +1,22 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+šis
+šī
+šie
+šīs
+šās
+// english: "current","this"
+[Pp]ašreizējs
+[Ee]sošs
+// english: "last","last"
+[Pp]ēdējais
+// english: "past","last"
+[Pp]agājis
+// english: "next","next" - no translation found
+// english: "following","next" - no translation found
+// english: "latest","last" - no translation found
+// english: "previous","last" - no translation found

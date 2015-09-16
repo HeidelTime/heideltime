@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "two","2"
+"[Ww]í’iną","2"
+// english: "three","3"
+"[Pp]óyuo","3"
+// english: "four","4"
+"[Ww]íaną","4"
+// english: "five","5"
+"[Pp]’ą́nyuo","5"
+// english: "six","6"
+"[Mm]ą́łi","6"
+// english: "eight","8"
+"[Xx]wíli","8"

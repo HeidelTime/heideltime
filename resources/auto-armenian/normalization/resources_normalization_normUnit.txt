@@ -1,0 +1,20 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+"օր","day"
+"ցերեկ","day"
+// english: "week","week"
+"շաբաթ","week"
+// english: "month","month"
+"ամիս","month"
+// english: "quarter","quarter"
+"քառորդ","quarter"
+// english: "year","year"
+"տարի","year"
+// english: "decade","decade"
+"տասնամյակ","decade"
+// english: "century","century"
+"դար","century"

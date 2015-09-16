@@ -1,0 +1,30 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day before yesterday","UNDEF-this-day-MINUS-2"
+"前天","UNDEF-this-day-MINUS-2"
+"前日","UNDEF-this-day-MINUS-2"
+// english: "yesterday","UNDEF-last-day"
+"昨天","UNDEF-last-day"
+"琴日","UNDEF-last-day"
+"尋日","UNDEF-last-day"
+"寻日","UNDEF-last-day"
+"昨日","UNDEF-last-day"
+"昨晡日","UNDEF-last-day"
+"昨昏","UNDEF-last-day"
+"昨暗","UNDEF-last-day"
+// english: "today","UNDEF-this-day"
+"今天","UNDEF-this-day"
+"今日","UNDEF-this-day"
+"今晡日","UNDEF-this-day"
+"今仔日","UNDEF-this-day"
+// english: "tomorrow","UNDEF-next-day"
+"明天","UNDEF-next-day"
+"聽日","UNDEF-next-day"
+"听日","UNDEF-next-day"
+"明仔日","UNDEF-next-day"
+// english: "day after tomorrow","UNDEF-this-day-PLUS-2"
+"後天","UNDEF-this-day-PLUS-2"
+"后天","UNDEF-this-day-PLUS-2"

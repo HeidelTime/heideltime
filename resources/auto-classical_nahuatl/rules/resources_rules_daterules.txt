@@ -1,0 +1,65 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-03-31
+// This file contains rules for the temporal expressions of the type date: daterules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""
+//(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+
+// BC and AD rules year
+RULENAME="date_historic_1a-BCADhint",EXTRACTION="%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(2))%normYearBC(group(1))"
+RULENAME="date_historic_1b-BCADhint",EXTRACTION="%reYearPrefix %reYearBC",NORM_VALUE="%normYearPrefix(group(1))%normYearBC(group(2))"
+// BC and AD rules month, year
+RULENAME="date_historic_2a-BCADhint",EXTRACTION="%reMonthName %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(3))%normYearBC(group(2))-%normMonthName(group(1))"
+RULENAME="date_historic_2b",EXTRACTION="%reMonthName ([\d][\d][\d])",NORM_VALUE="%normYearBC(group(2))-%normMonthName(group(1))"
+// BC and AD rules season, year
+RULENAME="date_historic_3a-BCADhint",EXTRACTION="%reSeason %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(3))%normYearBC(group(2))-%normSeason(group(1))"
+RULENAME="date_historic_3b",EXTRACTION="%reSeason ([\d][\d][\d])",NORM_VALUE="%normYearBC(group(2))-%normSeason(group(1))"
+
+
+
+// r1a: 30 August 2000 (with "." and "," and very short words in between allowed)
+RULENAME="date_r1a",EXTRACTION="(%reWeekday ([\S][\S]? )?)?%reDayNumber\.?( [\S][\S]?)? %reMonthName,?( [\S][\S]?)? %reYear4Digit",NORM_VALUE="group(8)-%normMonthName(group(6))-%normDayNumber(group(4))"
+RULENAME="date_r1b",EXTRACTION="(%reWeekday ([\S][\S]? )?)?%reDayNumberWord( [\S][\S]?)? %reMonthName,?( [\S][\S]?)? %reYear4Digit",NORM_VALUE="group(8)-%normMonthName(group(6))-%normDayNumberWord(group(4))"
+RULENAME="date_r1c",EXTRACTION="(%reWeekday ([\S][\S]? )?)?%reDayNumberWordTh( [\S][\S]?)? %reMonthName,?( [\S][\S]?)? %reYear4Digit",NORM_VALUE="group(8)-%normMonthName(group(6))-%normDayNumberWordTh(group(4))"
+
+// r2a: 30 March (with "." and very short words in between allowed)
+RULENAME="date_r2a",EXTRACTION="(%reWeekday ([\S][\S]? )?)?%reDayNumber\.? %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(5))-%normDayNumber(group(4))"
+RULENAME="date_r2b",EXTRACTION="(%reWeekday ([\S][\S]? )?)?%reDayNumber\.? [\S] %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(5))-%normDayNumber(group(4))"
+RULENAME="date_r2c",EXTRACTION="(%reWeekday ([\S][\S]? )?)?%reDayNumber\.? [\S][\S] %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(5))-%normDayNumber(group(4))"
+
+// r3a: March 30, 2000
+// r3b: March 30
+RULENAME="date_r3a",EXTRACTION="%reMonthName %reDayNumber,? %reYear4Digit",NORM_VALUE="group(3)-%normMonthName(group(1))-%normDayNumber(group(2))"
+RULENAME="date_r3b",EXTRACTION="%reMonthName %reDayNumber",NORM_VALUE="UNDEF-year-%normMonthName(group(1))-%normDayNumber(group(2))"
+
+// r4a: July, etc.
+// r4b: July 2000, July of 2010, etc.
+// r4c: July 99, July of 99, etc.
+RULENAME="date_r4a",EXTRACTION="%reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(1))"
+RULENAME="date_r4b",EXTRACTION="%reMonthName( [\S][\S]?)? %reYear4Digit",NORM_VALUE="group(3)-%normMonthName(group(1))"
+RULENAME="date_r4c",EXTRACTION="%reMonthName( [\S][\S]?)? %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normMonthName(group(1))"
+
+
+// r5a: today, tomorrow, etc.
+RULENAME="date_r5a",EXTRACTION="%reDateWord",NORM_VALUE="%normDateWord(group(1))"
+
+// r6a: Wednesday, Thursday, etc.
+RULENAME="date_r6a",EXTRACTION="%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(1))"
+
+// r7a: this week, next year, etc.
+// r7b: this March, next June, etc.
+// r7c: this Friday, last Monday, etc.
+// r7d: this summer, next winter, etc.
+RULENAME="date_r7a",EXTRACTION="%reThisNextLast %reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normUnit(group(2))"
+//RULENAME="date_r7b",EXTRACTION="%reThisNextLast %reMonthName",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%LOWERCASE%(group(2))"
+RULENAME="date_r7c",EXTRACTION="%reThisNextLast %reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%LOWERCASE%(%normWeekday(group(2)))"
+RULENAME="date_r7d",EXTRACTION="%reThisNextLast %reSeason",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normSeason(group(2))"
+
+// r8a: since|until|in 2000
+RULENAME="date_r8a",EXTRACTION="%reSinceEtAl %reYear4Digit",NORM_VALUE="group(2)",OFFSET="group(2)-group(2)"
+
+// r9a: day 15 month 2 year 2000
+RULENAME="date_r9a",EXTRACTION="(%reDayToken )?%reDayNumber[\.]?[\s]?(%reMonthToken )?%reMonthNumber[\.]?[\s]?(%reYearToken )?%reYear4Digit",NORM_VALUE="group(9)-%normMonthNumber(group(6))-%normDayNumber(group(3))"
+RULENAME="date_r9b",EXTRACTION="(%reMonthToken )?%reMonthNumber[\.]?[\s]?(%reYearToken )?%reYear4Digit",NORM_VALUE="group(6)-%normMonthNumber(group(3))"
+

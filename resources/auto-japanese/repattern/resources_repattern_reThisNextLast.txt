@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+この
+これ
+// english: "current","this"
+現行
+げんこう
+現在
+げんざい
+当座
+とうざ
+// english: "next","next"
+次の
+隣の
+明くる
+// english: "last","last"
+最後
+最終的
+終わり
+// english: "latest","last"
+最新
+// english: "previous","last"
+前の
+// english: "following","next" - no translation found
+// english: "past","last" - no translation found

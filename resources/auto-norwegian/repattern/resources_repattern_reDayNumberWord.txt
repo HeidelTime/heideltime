@@ -1,0 +1,77 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+én
+[Ee]tt
+éin
+éi
+[Ee]itt
+// english: "two","02"
+[Tt]o
+// english: "three","03"
+[Tt]re
+[Tt]ri
+// english: "four","04"
+[Ff]ire
+// english: "five","05"
+[Ff]em
+// english: "six","06"
+[Ss]eks
+// english: "seven","07"
+[Ss]ju
+[Ss]yv
+// english: "eight","08"
+åtte
+// english: "nine","09"
+[Nn]i
+// english: "ten","10"
+[Tt]i
+// english: "eleven","11"
+[Ee]lleve
+// english: "twelve","12"
+[Tt]olv
+// english: "thirteen","13"
+[Tt]retten
+// english: "fourteen","14"
+[Ff]jorten
+// english: "fifteen","15"
+[Ff]emten
+// english: "sixteen","16"
+[Ss]eksten
+// english: "seventeen","17"
+[Ss]ytten
+// english: "eighteen","18"
+[Aa]tten
+// english: "nineteen","19"
+[Nn]itten
+// english: "twenty","20"
+[Tt]jue
+[Tt]yve
+// english: "twenty-one","21"
+[Tt]jueen
+[Tt]jueén
+[Tt]jueein
+// english: "twenty-two","22"
+[Tt]jueto
+// english: "twenty-three","23"
+[Tt]juetre
+// english: "twenty-four","24"
+[Tt]juefire
+// english: "twenty-five","25"
+[Tt]juefem
+// english: "twenty-six","26"
+[Tt]jueseks
+// english: "twenty-seven","27"
+[Tt]juesyv
+[Tt]juesju
+// english: "twenty-eight","28"
+[Tt]jueåtte
+// english: "twenty-nine","29"
+[Tt]jueni
+// english: "thirty","30"
+[Tt]redve
+[Tt]retti
+// english: "thirty-one","31" - no translation found

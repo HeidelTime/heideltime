@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "BC","BC"
+до нашей эры
+до н. э.
+до Рождества Христова
+до Р. Хр.
+// english: "BCE","BC"
+до н. э.
+// english: "AD",""
+после Р. Хр.
+н. э.
+// english: CE - no translation found

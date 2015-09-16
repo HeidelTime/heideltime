@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"[Kk]ied","01"
+"[Yy]n chied","01"
+// english: "second","02"
+"[Dd]errey","02"
+// english: "third","03"
+"[Tt]reeoo","03"
+// english: "fourth","04"
+"[Kk]erroo","04"
+// english: "sixth","06"
+"[Ss]heyoo","06"
+// english: "eighth","08"
+"[Hh]oghtoo","08"
+// english: "tenth","10"
+"[Jj]eihoo","10"
+// english: "twelfth","12"
+"[Dd]aa-yeigoo","12"
+// english: "twentieth","20"
+"[Ff]eedoo","20"
+// english: "thirtieth","30"
+"[Jj]eihoo as feed","30"

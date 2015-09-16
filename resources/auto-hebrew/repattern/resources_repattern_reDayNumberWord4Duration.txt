@@ -1,0 +1,87 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+אַחַת
+אֶחָד
+// english: "two","2"
+שתיים
+שניים
+// english: "three","3"
+שָׁלוֹשׁ
+שְׁלוֹשָׁה
+// english: "four","4"
+אַרְבַּע
+אַרְבָּעָה
+// english: "five","5"
+חָמֵשׁ
+חֲמִשָּׁה
+// english: "six","6"
+שֵׁשׁ
+שִׁשָּׁה
+// english: "seven","7"
+שֶׁבַע
+שִׁבְעָה
+// english: "eight","8"
+שְׁמוֹנֶה
+שְׁמוֹנָה
+// english: "nine","9"
+תֵּשַׁע
+תִּשְׁעָה
+// english: "ten","10"
+עֶשֶׂר
+עֲשָׂרָה
+// english: "eleven","11"
+אַחַת־עֶשְׂרֵה
+אַחַד־עָשָׂר
+// english: "twelve","12"
+שְׁתֵּים־עֶשְׂרֵה
+שנים שְׁנֵים־עָשָׂר
+// english: "thirteen","13"
+שְׁלֹשׁ־עֶשְׂרֵה
+שְׁלוֹשָה־עָשָׂר
+// english: "fourteen","14"
+אַרְבַּע־עֶשְׂרֵה
+אַרְבָּעָה־עָשָׂר
+// english: "fifteen","15"
+חֲמֵשׁ־עֶשְׂרֵה
+חֲמִשָּׁה־עָשָׂר
+// english: "sixteen","16"
+שֵׁשׁ־עֶשְׂרֵה
+שִׁשָּׁה־עָשָׂר
+// english: "seventeen","17"
+שְׁבַע־עֶשְׂרֵה
+שִׁבְעָה־עָשָׂר
+// english: "eighteen","18"
+שְׁמוֹנֶה־עֶשְׂרֵה
+שְׁמוֹנָה־עָשָׂר
+// english: "nineteen","19"
+תְּשַׁע־עֶשְׂרֵה
+תִּשְׁעָה־עָשָׂר
+// english: "twenty","20"
+עֶשְׂרִים
+// english: "twenty-one","21"
+עשרים־ואחד
+// english: "twenty-two","22"
+עשרים־ושנים
+// english: "twenty-three","23"
+עשרים־ושלשה
+// english: "twenty-four","24"
+עשרים־וארבעה
+// english: "twenty-five","25"
+עשרים־וחמשה
+// english: "twenty-six","26"
+עשרים־וששה
+עשרים־ושש
+// english: "twenty-seven","27"
+עשרים־ושבעה
+// english: "twenty-eight","28"
+עשרים־ושמנה
+// english: "twenty-nine","29"
+עשרים־ותשעה
+// english: "thirty","30"
+שְׁלוֹשִׁים
+// english: "thirty-one","31"
+שלשים־ואחד

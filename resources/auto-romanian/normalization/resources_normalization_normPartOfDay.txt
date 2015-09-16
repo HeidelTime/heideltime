@@ -1,0 +1,22 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+"[Dd]imineață","MO"
+// english: "noon","MD"
+"[Aa]miază","MD"
+"[Mm]iezul zilei","MD"
+"[Mm]ijloc de zi","MD"
+// english: "afternoon","AF"
+"[Dd]upă-amiază","AF"
+// english: "evening","EV"
+"[Ss]eară","EV"
+// english: "night","NI"
+"[Nn]oapte","NI"
+// english: "midnight","24:00"
+"[Mm]iezul nopții","24:00"
+"[Mm]iez de noapte","24:00"
+"[Mm]ijloc de noapte","24:00"
+"мезул нопций","24:00"

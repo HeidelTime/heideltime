@@ -1,0 +1,37 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+일주야
+一晝夜
+하루
+일
+日
+날
+주간
+晝間
+낮
+// english: "weekend","week-WE"
+주말
+週末
+// english: "week","week"
+주
+週
+주일
+// english: "month","month"
+달
+월
+// english: "quarter","quarter"
+분기
+// english: "year","year"
+년
+年
+해
+연
+// english: "century","century"
+세기
+// english: "days","day" - no translation found
+// english: "fiscal year","year" - no translation found
+// english: "decade","decade" - no translation found

@@ -1,0 +1,65 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+[Ss]iječanj
+сијечањ
+јануар
+сечањ
+[Jj]anuar
+[Ss]ečanj
+// english: "February","02"
+фебруар
+вељача
+[Ff]ebruar
+[Vv]eljača
+// english: "March","03"
+март
+[Mm]art
+[Oo]žujak
+// english: "April","04"
+април
+[Aa]pril
+[Tt]ravanj
+// english: "May","05"
+мај
+[Mm]aj
+[Ss]vibanj
+// english: "June","06"
+јун
+јуни
+[Jj]un
+[Jj]uni
+[Ll]ipanj
+// english: "July","07"
+јул
+јули
+српањ
+[Jj]ul
+[Jj]uli
+[Ss]rpanj
+// english: "August","08"
+август
+аугуст
+[Aa]vgust
+[Aa]ugust
+[Kk]olovoz
+// english: "September","09"
+септембар
+[Ss]eptembar
+[Rr]ujan
+// english: "October","10"
+октобар
+[Oo]ktobar
+[Ll]istopad
+// english: "November","11"
+новембар
+студени
+[Nn]ovembar
+[Ss]tudeni
+// english: "December","12"
+децембар
+[Dd]ecembar
+[Pp]rosinac

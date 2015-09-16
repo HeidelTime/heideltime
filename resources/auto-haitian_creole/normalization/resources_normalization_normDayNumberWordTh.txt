@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"[Pp]remye","01"
+// english: "second","02"
+"[Ss]egonn","02"
+// english: "twelfth","12"
+"[Dd]ouzyèm","12"
+// english: "twentieth","20"
+"[Vv]entyèm","20"
+// english: "thirtieth","30"
+"[Tt]rèzyèm","30"

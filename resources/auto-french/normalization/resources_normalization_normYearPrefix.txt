@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "BC","BC"
+"[Aa]v. J.-C.","BC"
+"[Aa]v. JC","BC"
+// english: "BCE","BC"
+"AÈC","BC"
+"[Aa]èc","BC"
+"[Aa]vant l'ère commune","BC"
+"AEC","BC"
+// english: "AD",""
+"[Aa]p. J.-C.",""
+"[Aa]pr. J.-C.",""
+"[Ee]n l'an de grâce",""

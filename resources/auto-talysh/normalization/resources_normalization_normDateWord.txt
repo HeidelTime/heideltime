@@ -1,0 +1,18 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "yesterday","UNDEF-last-day"
+"ایزر","UNDEF-last-day"
+// english: "today","UNDEF-this-day"
+"ام روج","UNDEF-this-day"
+"ام روز","UNDEF-this-day"
+"امروج","UNDEF-this-day"
+"امروز","UNDEF-this-day"
+// english: "tomorrow","UNDEF-next-day"
+"ماشکی","UNDEF-next-day"
+"سخسه","UNDEF-next-day"
+// english: "day after tomorrow","UNDEF-this-day-PLUS-2"
+"پاشا","UNDEF-this-day-PLUS-2"
+"پشرا","UNDEF-this-day-PLUS-2"

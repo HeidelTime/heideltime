@@ -1,0 +1,68 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Ee]n
+[Yy]oun
+// english: "two","02"
+[Dd]e
+// english: "three","03"
+[Tt]wa
+// english: "four","04"
+[Kk]at
+// english: "five","05"
+[Ss]enk
+// english: "six","06"
+[Ss]is
+// english: "seven","07"
+[Ss]èt
+// english: "eight","08"
+[Uu]it
+// english: "nine","09"
+[Nn]èf
+// english: "ten","10"
+[Dd]is
+// english: "eleven","11"
+[Oo]nz
+// english: "twelve","12"
+[Dd]ouz
+// english: "thirteen","13"
+[Tt]rèz
+// english: "fourteen","14"
+[Kk]atòz
+// english: "fifteen","15"
+[Kk]enz
+// english: "sixteen","16"
+[Ss]èz
+// english: "seventeen","17"
+[Dd]isèt
+// english: "eighteen","18"
+[Dd]izuit
+// english: "nineteen","19"
+[Dd]iznèf
+// english: "twenty","20"
+[Vv]en
+// english: "twenty-one","21"
+[Vv]enteyen
+// english: "twenty-two","22"
+[Vv]ennde
+// english: "twenty-three","23"
+[Vv]enntwa
+// english: "twenty-four","24"
+[Vv]ennkat
+// english: "twenty-five","25"
+[Vv]ennsenk
+// english: "twenty-six","26"
+[Vv]ennsis
+// english: "twenty-seven","27"
+[Vv]ennsèt
+// english: "twenty-eight","28"
+[Vv]entuit
+// english: "twenty-nine","29"
+[Vv]entnèf
+// english: "thirty","30"
+[Tt]rant
+// english: "thirty-one","31"
+[Tt]ranteyen

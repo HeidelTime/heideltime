@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"[Pp]rvý","01"
+// english: "second","02"
+"[Dd]ruhý","02"
+"[Ss]ekunda","02"
+// english: "third","03"
+"[Tt]retí","03"
+// english: "fourth","04"
+"štvrtý","04"
+// english: "fifth","05"
+"[Pp]iaty","05"
+// english: "sixth","06"
+"šiesty","06"
+// english: "seventh","07"
+"[Ss]iedmy","07"
+// english: "eighth","08"
+"ôsmy","08"
+// english: "ninth","09"
+"[Dd]eviaty","09"
+// english: "tenth","10"
+"[Dd]esiaty","10"

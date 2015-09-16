@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","D"
+"روز","D"
+"شبانَه روز","D"
+// english: "weekend","WE"
+"آخر هفته","WE"
+// english: "week","W"
+"هفته","W"
+// english: "month","M"
+"ماه","M"
+// english: "quarter","Q"
+"فصل","Q"
+"سه‌ماهه","Q"
+// english: "year","Y"
+"سال","Y"
+// english: "century","CE"
+"سده","CE"

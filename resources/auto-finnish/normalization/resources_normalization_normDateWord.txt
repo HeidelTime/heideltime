@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day before yesterday","UNDEF-this-day-MINUS-2"
+"[Tt]oissa päivä","UNDEF-this-day-MINUS-2"
+"[Tt]oissa päivänä","UNDEF-this-day-MINUS-2"
+// english: "yesterday","UNDEF-last-day"
+"[Ee]ilinen","UNDEF-last-day"
+"[Ee]ilispäivä","UNDEF-last-day"
+"[Ee]ilen","UNDEF-last-day"
+"[Ee]ilispäivänä","UNDEF-last-day"
+// english: "today","UNDEF-this-day"
+"[Tt]änään","UNDEF-this-day"
+// english: "tomorrow","UNDEF-next-day"
+"[Hh]uomenna","UNDEF-next-day"
+"[Hh]uominen","UNDEF-next-day"
+// english: "day after tomorrow","UNDEF-this-day-PLUS-2"
+"[Yy]lihuominen","UNDEF-this-day-PLUS-2"
+"[Yy]lihuomenna","UNDEF-this-day-PLUS-2"

@@ -1,0 +1,25 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day","day"
+[Nn]gày
+[Bb]an ngày
+// english: "weekend","week-WE"
+[Cc]uối tuần
+// english: "week","week"
+[Tt]uần
+// english: "month","month"
+[Tt]háng
+// english: "year","year"
+[Nn]ăm
+// english: "decade","decade"
+[Tt]hập kỷ
+[Tt]hập niên
+[Mm]ười năm
+// english: "century","century"
+[Tt]hế kỷ
+// english: "days","day" - no translation found
+// english: "quarter","quarter" - no translation found
+// english: "fiscal year","year" - no translation found

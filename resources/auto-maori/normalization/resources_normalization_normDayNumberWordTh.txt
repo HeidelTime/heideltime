@@ -1,0 +1,12 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"[Mm]ātāmua","01"
+// english: "second","02"
+"[Tt]uarua","02"
+"[Hh]ēkena","02"
+// english: "third","03"
+"[Tt]uatoru","03"

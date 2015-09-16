@@ -1,0 +1,25 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "two","2"
+"икки","2"
+// english: "three","3"
+"үс","3"
+// english: "four","4"
+"түөрт","4"
+// english: "five","5"
+"биэс","5"
+// english: "six","6"
+"алта","6"
+// english: "seven","7"
+"сэттэ","7"
+// english: "eight","8"
+"аҕыс","8"
+// english: "nine","9"
+"тоҕус","9"
+// english: "ten","10"
+"уон","10"
+// english: "eleven","11"
+"уон биир","11"

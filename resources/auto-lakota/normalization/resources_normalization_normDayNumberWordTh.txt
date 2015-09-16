@@ -1,0 +1,14 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"[Tt]’oka","01"
+"[Tt]’okeya","01"
+"[Tt]’okaheya","01"
+// english: "second","02"
+"[Ii]cinuŋpa","02"
+"[Ii]nuŋpa","02"
+// english: "twentieth","20"
+"[Ii]wikcemna nuŋpa","20"

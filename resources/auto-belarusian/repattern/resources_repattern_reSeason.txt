@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+вясна́
+уве́сну
+ўве́сну
+// english: "summer","SU"
+ле́та
+уле́тку
+ўле́тку
+// english: "autumn","FA"
+во́сень
+уво́сень
+ўво́сень
+// english: "winter","WI"
+зіма́
+узі́мку
+ўзі́мку

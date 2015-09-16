@@ -1,0 +1,28 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+"[Bb]anau","SP"
+"[Bb]aranu","SP"
+"[Bb]enau","SP"
+"[Bb]eranu","SP"
+"[Vv]eranu","SP"
+// english: "summer","SU"
+"[Ii]ltiu","SU"
+"[Ii]stiu","SU"
+"[Ee]stiu","SU"
+"[Ii]stade","SU"
+"[Ii]stadi","SU"
+"[Ss]tadi","SU"
+// english: "autumn","FA"
+"[Aa]tonzu","FA"
+"[Aa]tongiu","FA"
+"[Aa]tognu","FA"
+"[Aa]ttonzu","FA"
+"[Aa]ttugnu","FA"
+"[Oo]ttugnu","FA"
+"[Vv]aggjmu","FA"
+// english: "winter","WI"
+"[Ii]bérru","WI"

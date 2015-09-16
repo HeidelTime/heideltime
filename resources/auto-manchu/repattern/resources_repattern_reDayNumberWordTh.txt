@@ -1,0 +1,52 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+[Uu]ju
+[Ee]muci
+// english: "second","02"
+[Jj]uweci
+[Jj]ai
+[Jj]aici
+// english: "third","03"
+[Ii]laci
+// english: "fourth","04"
+[Dd]uici
+// english: "fifth","05"
+[Ss]unjaci
+// english: "sixth","06"
+[Nn]ingguci
+// english: "seventh","07"
+[Nn]adaci
+// english: "eighth","08"
+[Jj]akūci
+// english: "ninth","09"
+[Uu]yuci
+// english: "tenth","10"
+[Jj]uwanci
+// english: "eleventh","11"
+[Jj]uwan emuci
+// english: "twelfth","12"
+[Jj]uwan juweci
+// english: "thirteenth","13"
+[Jj]uwan ilaci
+// english: "fourteenth","14"
+[Jj]uwan duici
+// english: "fifteenth","15" - no translation found
+// english: "sixteenth","16" - no translation found
+// english: "seventeenth","17" - no translation found
+// english: "eighteenth","18" - no translation found
+// english: "nineteenth","19" - no translation found
+// english: "twentieth","20" - no translation found
+// english: "twenty-first","21" - no translation found
+// english: "twenty-second","22" - no translation found
+// english: "twenty-third","23" - no translation found
+// english: "twenty-fourth","24" - no translation found
+// english: "twenty-fifth","25" - no translation found
+// english: "twenty-sixth","26" - no translation found
+// english: "twenty-seventh","27" - no translation found
+// english: "twenty-eighth","28" - no translation found
+// english: "twenty-ninth","29" - no translation found
+// english: "thirtieth","30" - no translation found

@@ -1,0 +1,32 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"רִאשׁוֹן","01"
+// english: "second","02"
+"שני","02"
+"שניה","02"
+// english: "third","03"
+"שלישי","03"
+// english: "fourth","04"
+"רביעי","04"
+"רביעית","04"
+"רביעיים","04"
+"רביעיות","04"
+// english: "fifth","05"
+"חמישי","05"
+"חמישית","05"
+// english: "sixth","06"
+"שישי","06"
+// english: "seventh","07"
+"שביעי","07"
+// english: "eighth","08"
+"שמיני","08"
+// english: "ninth","09"
+"תשיעי","09"
+// english: "tenth","10"
+"עשירי","10"
+// english: "eleventh","11"
+"אחד עשר","11"

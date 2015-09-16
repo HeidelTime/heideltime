@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+Pōʻakahi
+// english: "Tuesday","tuesday"
+Pōʻalua
+// english: "Wednesday","wednesday"
+Pōʻakolu
+// english: "Thursday","thursday"
+Pōʻahā
+// english: "Friday","friday"
+Pōʻalima
+// english: "Saturday","saturday"
+Pōʻaono
+// english: "Sunday","sunday"
+Lāpule

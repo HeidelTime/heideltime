@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+Lumbu kia ntete
+// english: "Tuesday","tuesday"
+Lumbu kia nzole
+// english: "Wednesday","wednesday"
+Lumbu kia ntatu
+// english: "Thursday","thursday"
+Lumbu kia nya
+// english: "Friday","friday"
+Lumbu kia ntanu
+// english: "Saturday","saturday"
+Lumbu kia sabala
+// english: "Sunday","sunday"
+Lumbu kia lumingu

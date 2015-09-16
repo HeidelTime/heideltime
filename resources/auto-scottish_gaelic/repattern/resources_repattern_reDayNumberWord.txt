@@ -1,0 +1,76 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Aa]on
+[Aa]onar
+[Aa]onan
+// english: "two","02"
+[Dd]à
+[Dd]hà
+[Dd]ithis
+// english: "three","03"
+[Tt]rì
+[Tt]riùir
+// english: "four","04"
+[Cc]eithir
+[Cc]eathrar
+// english: "five","05"
+[Cc]òig
+[Cc]òignear
+// english: "six","06"
+[Ss]ia
+[Ss]ianar
+// english: "seven","07"
+[Ss]eachd
+[Ss]eachdnar
+// english: "eight","08"
+[Oo]chd
+[Oo]chdnar
+// english: "nine","09"
+[Nn]aoi
+[Nn]aoinear
+// english: "ten","10"
+[Dd]eich
+[Dd]eichnear
+// english: "eleven","11"
+[Aa]on
+[Dd]eug
+// english: "twelve","12"
+[Dd]à dheug
+[Aa] dhà dheug
+// english: "thirteen","13"
+[Tt]rì deug
+// english: "fourteen","14"
+[Cc]eithir deug
+// english: "fifteen","15"
+[Cc]òig
+[Dd]eug
+// english: "sixteen","16"
+[Ss]ia deug
+// english: "seventeen","17"
+[Ss]eachd
+[Dd]eug
+// english: "eighteen","18"
+[Oo]chd
+[Dd]eug
+// english: "nineteen","19"
+[Nn]aoi
+[Dd]eug
+// english: "twenty","20"
+[Ff]ichead
+// english: "thirty","30"
+[Dd]eug air fhichead
+[Tt]rìthead
+// english: "twenty-one","21" - no translation found
+// english: "twenty-two","22" - no translation found
+// english: "twenty-three","23" - no translation found
+// english: "twenty-four","24" - no translation found
+// english: "twenty-five","25" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found
+// english: "twenty-eight","28" - no translation found
+// english: "twenty-nine","29" - no translation found
+// english: "thirty-one","31" - no translation found

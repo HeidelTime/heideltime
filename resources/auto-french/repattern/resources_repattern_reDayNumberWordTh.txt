@@ -1,0 +1,88 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+[Pp]remier
+[Uu]nième
+[Pp]remière
+// english: "second","02"
+[Dd]euxième
+[Ss]econd
+[Dd]eux
+[Ss]econde
+// english: "third","03"
+[Tt]roisième
+[Tt]rois
+// english: "fourth","04"
+[Qq]uatrième
+[Qq]uatre
+// english: "fifth","05"
+[Cc]inquième
+[Cc]inq
+// english: "sixth","06"
+[Ss]ixième
+[Ss]ix
+// english: "seventh","07"
+[Ss]eptième
+[Ss]ept
+// english: "eighth","08"
+[Hh]uitième
+[Hh]uit
+// english: "ninth","09"
+[Nn]euvième
+[Nn]euf
+// english: "tenth","10"
+[Dd]ixième
+[Dd]ix
+// english: "eleventh","11"
+[Oo]nzième
+[Oo]nze
+// english: "twelfth","12"
+[Dd]ouzième
+[Dd]ouze
+// english: "thirteenth","13"
+[Tt]reizième
+[Tt]reize
+// english: "fourteenth","14"
+[Qq]uatorzième
+[Qq]uatorze
+// english: "fifteenth","15"
+[Qq]uinzième
+[Qq]uinze
+// english: "sixteenth","16"
+[Ss]eizième
+[Ss]eize
+// english: "seventeenth","17"
+[Dd]ix-septième
+[Dd]ix-sept
+// english: "eighteenth","18"
+[Dd]ix-huitième
+[Dd]ix-huit
+// english: "nineteenth","19"
+[Dd]ix-neuvième
+[Dd]ix-neuf
+// english: "twentieth","20"
+[Vv]ingtième
+[Vv]ingt
+// english: "twenty-first","21"
+[Vv]ingt-et-unième
+// english: "twenty-second","22"
+[Vv]ingt-deuxième
+// english: "twenty-third","23"
+[Vv]ingt-troisième
+// english: "twenty-fourth","24"
+[Vv]ingt-quatrième
+// english: "twenty-fifth","25"
+[Vv]ingt-cinquième
+// english: "twenty-sixth","26"
+[Vv]ingt-sixième
+// english: "twenty-seventh","27"
+[Vv]ingt-septième
+// english: "twenty-eighth","28"
+[Vv]ingt-huitième
+// english: "twenty-ninth","29"
+[Vv]ingt-neuvième
+// english: "thirtieth","30"
+[Tt]rentième

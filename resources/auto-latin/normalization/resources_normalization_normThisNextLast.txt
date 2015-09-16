@@ -1,0 +1,22 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+"[Hh]ic","this"
+"[Hh]aec","this"
+"[Hh]oc","this"
+"[Ii]s","this"
+"[Ee]a","this"
+"[Ii]d","this"
+// english: "next","next"
+"[Pp]roximus","next"
+"[Ss]equens","next"
+"[Ss]ubsequens","next"
+"[Pp]ropior","next"
+// english: "last","last"
+"[Uu]ltimus","last"
+"[Nn]ovissimus","last"
+// english: "previous","last"
+"[Aa]ntiquus","last"

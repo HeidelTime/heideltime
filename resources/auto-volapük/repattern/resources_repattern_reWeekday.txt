@@ -1,0 +1,50 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+[Mm]udel
+[Tt]elüdel
+[Mm]undel
+[Mm]udelo
+[Tt]elüdelo
+[Mm]undelo
+// english: "Tuesday","tuesday"
+[Tt]udel
+[Kk]ilüdel
+[Tt]usdel
+[Tt]udelo
+[Kk]ilüdelo
+[Tt]usdelo
+// english: "Wednesday","wednesday"
+[Vv]edel
+[Ff]olüdel
+[Vv]esdel
+[Vv]edelo
+[Ff]olüdelo
+[Vv]esdelo
+// english: "Thursday","thursday"
+[Dd]ödel
+[Ll]ulüdel
+[Dd]ödelo
+[Ll]ulüdelo
+// english: "Friday","friday"
+[Ff]ridel
+[Mm]älüdel
+[Ff]lidel
+[Ff]ridelo
+[Mm]älüdelo
+[Ff]lidelo
+// english: "Saturday","saturday"
+[Zz]ädel
+[Vv]elüdel
+[Zz]ädelo
+[Vv]elüdelo
+// english: "Sunday","sunday"
+[Ss]udel
+[Bb]alüdel
+[Ss]oldel
+[Ss]udelo
+[Bb]alüdelo
+[Ss]oldelo

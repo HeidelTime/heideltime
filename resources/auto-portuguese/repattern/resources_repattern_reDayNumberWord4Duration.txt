@@ -1,0 +1,73 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+[Uu]m
+// english: "two","2"
+[Dd]ois
+[Dd]uas
+// english: "three","3"
+[Tt]rês
+// english: "four","4"
+[Qq]uatro
+// english: "five","5"
+[Cc]inco
+// english: "six","6"
+[Ss]eis
+// english: "seven","7"
+[Ss]ete
+// english: "eight","8"
+[Oo]ito
+// english: "nine","9"
+[Nn]ove
+// english: "ten","10"
+[Dd]ez
+// english: "eleven","11"
+[Oo]nze
+// english: "twelve","12"
+[Dd]oze
+// english: "thirteen","13"
+[Tt]reze
+// english: "fourteen","14"
+[Cc]atorze
+[Qq]uatorze
+// english: "fifteen","15"
+[Qq]uinze
+// english: "sixteen","16"
+[Dd]ezasseis
+[Dd]ezesseis
+// english: "seventeen","17"
+[Dd]ezassete
+[Dd]ezessete
+// english: "eighteen","18"
+[Dd]ezoito
+// english: "nineteen","19"
+[Dd]ezanove
+[Dd]ezenove
+// english: "twenty","20"
+[Vv]inte
+// english: "twenty-one","21"
+[Vv]inte e um
+// english: "twenty-two","22"
+[Vv]inte e dois
+[Vv]inte e duas
+// english: "twenty-three","23"
+[Vv]inte e três
+// english: "twenty-four","24"
+[Vv]inte e quatro
+// english: "twenty-five","25"
+[Vv]inte e cinco
+// english: "twenty-six","26"
+[Vv]inte e seis
+// english: "twenty-seven","27"
+[Vv]inte e sete
+// english: "twenty-eight","28"
+[Vv]inte e oito
+// english: "twenty-nine","29"
+[Vv]inte e nove
+// english: "thirty","30"
+[Tt]rinta
+// english: "thirty-one","31"
+[Tt]rinta e um

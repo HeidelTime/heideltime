@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"[Ll]-ewwel","01"
+// english: "second","02"
+"[Ii]t-tieni","02"
+"[Ss]ekonda","02"
+// english: "third","03"
+"[Ii]t-tilet","03"
+// english: "fourth","04"
+"[Ii]r-raba'","04"
+// english: "fifth","05"
+"[Ii]l-ħames","05"
+// english: "sixth","06"
+"[Ii]s-sitt","06"
+// english: "seventh","07"
+"[Ii]s-seba'","07"
+// english: "eighth","08"
+"[Ii]t-tmien","08"
+// english: "ninth","09"
+"[Ii]d-disa'","09"
+// english: "tenth","10"
+"[Ll]-għaxar","10"

@@ -1,0 +1,17 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "four","04"
+"ньыль","04"
+// english: "five","05"
+"вить","05"
+// english: "six","06"
+"куать","06"
+// english: "eight","08"
+"тямыс","08"
+// english: "nine","09"
+"укмыс","09"
+// english: "ten","10"
+"дас","10"

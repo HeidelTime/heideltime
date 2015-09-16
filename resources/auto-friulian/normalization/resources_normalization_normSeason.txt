@@ -1,0 +1,14 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+"Primevere","SP"
+// english: "summer","SU"
+"[Ii]stât","SU"
+// english: "autumn","FA"
+"Sierade","FA"
+"Sorunviêr","FA"
+// english: "winter","WI"
+"[Uu]nviêr","WI"

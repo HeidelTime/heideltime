@@ -1,0 +1,13 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+"[Ss]eo","this"
+// english: "next","next"
+"[Aa]th","next"
+// english: "last","last"
+"[Dd]eireannach","last"
+"[Mm]u dheireadh","last"
+"[Ss]eo chaidh","last"

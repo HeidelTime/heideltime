@@ -1,0 +1,13 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "fifth","05"
+"[Vv]iiđad","05"
+// english: "sixth","06"
+"[Kk]uuđad","06"
+// english: "ninth","09"
+"ååucad","09"
+// english: "tenth","10"
+"[Ll]ååǥǥad","10"

@@ -1,0 +1,18 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Tuesday","tuesday"
+[Jj]umaane
+// english: "Wednesday","wednesday"
+[Jj]umatano
+// english: "Thursday","thursday"
+[Ll]juma
+// english: "Friday","friday"
+[Ii]jumaa
+// english: "Saturday","saturday"
+Jumamosi
+// english: "Sunday","sunday"
+Jumapili
+// english: "Monday","monday" - no translation found

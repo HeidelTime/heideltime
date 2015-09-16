@@ -1,0 +1,70 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+én
+[Ee]t
+// english: "two","2"
+[Tt]o
+// english: "three","3"
+[Tt]re
+// english: "four","4"
+[Ff]ire
+// english: "five","5"
+[Ff]em
+// english: "six","6"
+[Ss]eks
+// english: "seven","7"
+[Ss]yv
+// english: "eight","8"
+[Oo]tte
+// english: "nine","9"
+[Nn]i
+// english: "ten","10"
+[Tt]i
+// english: "eleven","11"
+[Ee]lleve
+// english: "twelve","12"
+[Tt]olv
+// english: "thirteen","13"
+[Tt]retten
+// english: "fourteen","14"
+[Ff]jorten
+// english: "fifteen","15"
+[Ff]emten
+// english: "sixteen","16"
+[Ss]eksten
+// english: "seventeen","17"
+[Ss]ytten
+// english: "eighteen","18"
+[Aa]tten
+// english: "nineteen","19"
+[Nn]itten
+// english: "twenty","20"
+[Tt]yve
+// english: "twenty-one","21"
+[Ee]nogtyve
+// english: "twenty-two","22"
+[Tt]oogtyve
+// english: "twenty-three","23"
+[Tt]reogtyve
+// english: "twenty-four","24"
+[Ff]ireogtyve
+// english: "twenty-five","25"
+[Ff]emogtyve
+// english: "twenty-six","26"
+[Ss]eksogtyve
+// english: "twenty-seven","27"
+[Ss]yvogtyve
+// english: "twenty-eight","28"
+[Oo]tteogtyve
+// english: "twenty-nine","29"
+[Nn]iogtyve
+// english: "thirty","30"
+[Tt]redive
+[Tt]redve
+// english: "thirty-one","31"
+[Ee]nogtredive
+[Ee]nogtredve

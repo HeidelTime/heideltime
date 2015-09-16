@@ -1,0 +1,70 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+[Ee]tt
+[Ee]n
+// english: "two","2"
+[Tt]vå
+// english: "three","3"
+[Tt]re
+// english: "four","4"
+[Ff]yra
+// english: "five","5"
+[Ff]em
+// english: "six","6"
+[Ss]ex
+// english: "seven","7"
+[Ss]ju
+// english: "eight","8"
+åtta
+// english: "nine","9"
+[Nn]io
+// english: "ten","10"
+[Tt]io
+// english: "eleven","11"
+[Ee]lva
+// english: "twelve","12"
+[Tt]olv
+// english: "thirteen","13"
+[Tt]retton
+// english: "fourteen","14"
+[Ff]jorton
+// english: "fifteen","15"
+[Ff]emton
+// english: "sixteen","16"
+[Ss]exton
+// english: "seventeen","17"
+[Ss]jutton
+// english: "eighteen","18"
+[Aa]rton
+[Aa]derton
+// english: "nineteen","19"
+[Nn]itton
+// english: "twenty","20"
+[Tt]jugo
+// english: "twenty-one","21"
+[Tt]jugoett
+[Tt]jugoen
+// english: "twenty-two","22"
+[Tt]jugotvå
+// english: "twenty-three","23"
+[Tt]jugotre
+// english: "twenty-four","24"
+[Tt]jugofyra
+// english: "twenty-five","25"
+[Tt]jugofem
+// english: "twenty-six","26"
+[Tt]jugosex
+// english: "twenty-seven","27"
+[Tt]jugosju
+// english: "twenty-eight","28"
+[Tt]jugoåtta
+// english: "twenty-nine","29"
+[Tt]jugonio
+// english: "thirty","30"
+[Tt]rettio
+// english: "thirty-one","31"
+[Tt]rettioett

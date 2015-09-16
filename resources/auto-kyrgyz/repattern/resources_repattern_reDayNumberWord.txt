@@ -1,0 +1,57 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+бир
+// english: "two","02"
+эки
+// english: "three","03"
+үч
+// english: "four","04"
+төрт
+// english: "five","05"
+беш
+// english: "six","06"
+алты
+// english: "seven","07"
+жети
+// english: "eight","08"
+сегиз
+// english: "nine","09"
+тогуз
+// english: "ten","10"
+он
+// english: "eleven","11"
+он бир
+// english: "twelve","12"
+он эки
+// english: "thirteen","13"
+он үч
+// english: "fourteen","14"
+он төрт
+// english: "fifteen","15"
+он беш
+// english: "sixteen","16"
+он алты
+// english: "seventeen","17"
+он жети
+// english: "eighteen","18"
+он сегиз
+// english: "nineteen","19"
+он тогуз
+// english: "twenty","20"
+жыйырма
+// english: "thirty","30"
+отуз
+// english: "twenty-one","21" - no translation found
+// english: "twenty-two","22" - no translation found
+// english: "twenty-three","23" - no translation found
+// english: "twenty-four","24" - no translation found
+// english: "twenty-five","25" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found
+// english: "twenty-eight","28" - no translation found
+// english: "twenty-nine","29" - no translation found
+// english: "thirty-one","31" - no translation found

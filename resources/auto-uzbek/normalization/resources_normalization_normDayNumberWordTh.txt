@@ -1,0 +1,31 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"[Bb]irinchi","01"
+// english: "second","02"
+"[Ii]kkinchi","02"
+"[Ss]ekund","02"
+"[Ss]oniya","02"
+// english: "third","03"
+"[Uu]chinchi","03"
+// english: "fourth","04"
+"[Tt]oʻrtinchi","04"
+// english: "fifth","05"
+"[Bb]eshinchi","05"
+// english: "sixth","06"
+"[Oo]ltinchi","06"
+// english: "seventh","07"
+"[Yy]ettinchi","07"
+// english: "eighth","08"
+"[Ss]akkizinchi","08"
+// english: "ninth","09"
+"[Tt]oʻqqizinchi","09"
+// english: "tenth","10"
+"[Oo]ʻninchi","10"
+// english: "twentieth","20"
+"[Yy]igirmanchi","20"
+// english: "thirtieth","30"
+"[Oo]'ttizinchi","30"

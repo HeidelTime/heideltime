@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+సోమవారము
+// english: "Tuesday","tuesday"
+మంగళవారము
+// english: "Wednesday","wednesday"
+బుధవారము
+// english: "Thursday","thursday"
+గురువారము
+// english: "Friday","friday"
+శుక్రవారము
+// english: "Sunday","sunday"
+ఆదివారం
+రవివారము
+// english: "Saturday","saturday" - no translation found

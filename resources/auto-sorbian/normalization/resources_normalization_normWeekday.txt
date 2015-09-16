@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Tuesday","tuesday"
+"[Ww]ałtora","tuesday"
+"[Ww]utora","tuesday"
+// english: "Wednesday","wednesday"
+"[Ss]rjoda","wednesday"
+"[Ss]rjeda","wednesday"
+// english: "Saturday","saturday"
+"[Ss]obota","saturday"
+// english: "Sunday","sunday"
+"[Nn]jeźela","sunday"
+"[Nn]jedźela","sunday"

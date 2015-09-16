@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+មករា
+// english: "February","02"
+កុម្ភៈ
+// english: "March","03"
+មីនា
+// english: "April","04"
+មេសា
+// english: "May","05"
+ឧសភា
+// english: "June","06"
+មិថុនា
+// english: "July","07"
+កក្កដា
+// english: "August","08"
+សីហា
+// english: "September","09"
+កញ្ញា
+// english: "October","10"
+តុលា
+// english: "November","11"
+វិច្ឆិកា
+// english: "December","12"
+ធ្នូ

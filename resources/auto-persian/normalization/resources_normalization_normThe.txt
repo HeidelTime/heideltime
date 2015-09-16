@@ -1,0 +1,11 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "an","an"
+"یک","an"
+"-ی","an"
+"یک -ی","an"
+"یه","an"
+"یه -ی","an"

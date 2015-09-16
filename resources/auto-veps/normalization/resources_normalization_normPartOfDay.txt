@@ -1,0 +1,10 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "night","NI"
+"ö","NI"
+// english: "midnight","24:00"
+"[Kk]eskö","24:00"
+"[Pp]ol’ö","24:00"

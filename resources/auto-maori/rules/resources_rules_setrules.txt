@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2015-03-31
+// This file contains rules for the temporal expressions of the type set: setrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""
+//(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+// r1a: every week
+// r1b: every Monday
+// r1c: every July
+// r1d: every summer
+RULENAME="set_r1a",EXTRACTION="%reEachEvery %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_QUANT="%UPPERCASE%(%normEachEvery(group(1)))"
+RULENAME="set_r1b",EXTRACTION="%reEachEvery %reWeekday",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1W"
+RULENAME="set_r1c",EXTRACTION="%reEachEvery %reMonthName",NORM_VALUE="XXXX-%normMonthName(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1M"
+RULENAME="set_r1d",EXTRACTION="%reEachEvery %reSeason",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1S"

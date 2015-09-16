@@ -1,0 +1,24 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+"понеделник","monday"
+"во понеделник","monday"
+"понеделнички","monday"
+// english: "Tuesday","tuesday"
+"вторник","tuesday"
+// english: "Wednesday","wednesday"
+"среда","wednesday"
+// english: "Thursday","thursday"
+"четврток","thursday"
+// english: "Friday","friday"
+"петок","friday"
+"во петок","friday"
+"петочно","friday"
+"петочко","friday"
+// english: "Saturday","saturday"
+"сабота","saturday"
+// english: "Sunday","sunday"
+"недела","sunday"

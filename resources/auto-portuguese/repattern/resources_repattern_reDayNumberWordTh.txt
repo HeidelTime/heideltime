@@ -1,0 +1,72 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+[Pp]rimeiro
+[Pp]rimeira
+// english: "second","02"
+[Ss]egundo
+// english: "third","03"
+[Tt]erceiro
+[Tt]erceira
+[Tt]erço
+[Tt]erça
+// english: "fourth","04"
+[Qq]uarto
+[Qq]uarta
+// english: "fifth","05"
+[Qq]uinto
+[Qq]uinta
+// english: "sixth","06"
+[Ss]exto
+[Ss]exta
+// english: "seventh","07"
+[Ss]étimo
+[Ss]étima
+// english: "eighth","08"
+[Oo]itavo
+[Oo]itava
+// english: "ninth","09"
+[Nn]ono
+// english: "tenth","10"
+[Dd]écimo
+[Dd]écima
+// english: "eleventh","11"
+[Dd]écimo primeiro
+// english: "twelfth","12"
+[Dd]uodécimo
+[Dd]écimo segundo
+// english: "thirteenth","13"
+[Dd]écimo
+[Tt]erceiro
+// english: "fourteenth","14"
+[Dd]écimo quarto
+// english: "fifteenth","15"
+[Dd]écimo quinto
+// english: "sixteenth","16"
+[Dd]écimo sexto
+// english: "seventeenth","17"
+[Dd]écimo sétimo
+// english: "eighteenth","18"
+[Dd]écimo oitavo
+// english: "nineteenth","19"
+[Dd]écimo nono
+// english: "twentieth","20"
+[Vv]igésimo
+[Vv]igésima
+// english: "twenty-first","21"
+[Vv]igésimo primeiro
+// english: "twenty-third","23"
+[Vv]igésimo terceiro
+// english: "thirtieth","30"
+[Tt]rigésimo
+[Tt]rigésima
+// english: "twenty-second","22" - no translation found
+// english: "twenty-fourth","24" - no translation found
+// english: "twenty-fifth","25" - no translation found
+// english: "twenty-sixth","26" - no translation found
+// english: "twenty-seventh","27" - no translation found
+// english: "twenty-eighth","28" - no translation found
+// english: "twenty-ninth","29" - no translation found

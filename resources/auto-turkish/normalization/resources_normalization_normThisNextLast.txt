@@ -1,0 +1,24 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "this","this"
+"[Bb]u","this"
+// english: "next","next"
+"[Gg]elecek","next"
+"önümüzdeki","next"
+"[Yy]akın","next"
+"[Ee]rtesi","next"
+// english: "following","next"
+"[Ee]rtesi","next"
+// english: "last","last"
+"[Ss]on","last"
+"[Ss]onuncu","last"
+// english: "past","last"
+"[Gg]eçmiş","last"
+"[Gg]eçen","last"
+"[Gg]eçtiğimiz","last"
+"önceki","last"
+// english: "previous","last"
+"önceki","last"

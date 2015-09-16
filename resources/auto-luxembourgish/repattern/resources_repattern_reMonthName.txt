@@ -1,0 +1,46 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+Januar
+Haartmount
+Jannewarie
+// english: "February","02"
+Febuar
+Februar
+Spierkel
+// english: "March","03"
+Mäerz
+Aussenzäit
+Lenzmount
+// english: "April","04"
+Abrëll
+Fréileng
+Ouschtermount
+// english: "May","05"
+Mee
+Päischtmount
+// english: "June","06"
+Juni
+Broochmount
+// english: "July","07"
+Juli
+Heemount
+// english: "August","08"
+August
+Karschnatz
+// english: "September","09"
+September
+Hierschtmount
+// english: "October","10"
+Oktober
+Wäimount
+// english: "November","11"
+November
+Allerhellgemount
+Wantermount
+// english: "December","12"
+Dezember
+Chrëschtmount

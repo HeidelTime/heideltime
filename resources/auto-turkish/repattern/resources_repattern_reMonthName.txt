@@ -1,0 +1,33 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+[Oo]cak
+Kanuni Sani
+// english: "February","02"
+şubat
+// english: "March","03"
+[Mm]art
+// english: "April","04"
+[Nn]isan
+// english: "May","05"
+[Mm]ayıs
+// english: "June","06"
+[Hh]aziran
+// english: "July","07"
+[Tt]emmuz
+// english: "August","08"
+[Aa]ğustos
+// english: "September","09"
+[Ee]ylül
+// english: "October","10"
+[Ee]kim
+Teşrini Evvel
+// english: "November","11"
+[Kk]asım
+Teşrini Sani
+// english: "December","12"
+[Aa]ralık
+Kanuni Evvel

@@ -1,0 +1,80 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+[Uu]nu
+[Uu]na
+уну
+// english: "two","02"
+[Dd]oi
+[Dd]ouă
+// english: "three","03"
+[Tt]rei
+// english: "four","04"
+[Pp]atru
+// english: "five","05"
+[Cc]inci
+// english: "six","06"
+șase
+// english: "seven","07"
+șapte
+// english: "eight","08"
+[Oo]pt
+// english: "nine","09"
+[Nn]ouă
+// english: "ten","10"
+[Zz]ece
+// english: "eleven","11"
+[Uu]nsprezece
+[Uu]nșpe
+// english: "twelve","12"
+[Dd]oisprezece
+[Dd]oișpe
+[Dd]ouăsprezece
+[Dd]ouășpe
+// english: "thirteen","13"
+[Tt]reisprezece
+[Tt]reișpe
+// english: "fourteen","14"
+[Pp]aisprezece
+[Pp]aișpe
+// english: "fifteen","15"
+[Cc]incisprezece
+[Cc]inșpe
+// english: "sixteen","16"
+șaisprezece
+șaișpe
+// english: "seventeen","17"
+șaptesprezece
+șapteșpe
+// english: "eighteen","18"
+[Oo]ptsprezece
+// english: "nineteen","19"
+[Nn]ouăsprezece
+[Nn]ouășpe
+// english: "twenty","20"
+[Dd]ouăzeci
+// english: "twenty-one","21"
+[Dd]ouăzeci și unu
+// english: "twenty-two","22"
+[Dd]ouăzeci și doi
+[Dd]ouăzeci și două
+// english: "twenty-three","23"
+[Dd]ouăzeci și trei
+// english: "twenty-four","24"
+[Dd]ouăzeci și patru
+// english: "twenty-five","25"
+[Dd]ouăzeci și cinci
+// english: "twenty-six","26"
+[Dd]ouăzeci și șase
+// english: "twenty-seven","27"
+[Dd]ouăzeci și șapte
+// english: "twenty-eight","28"
+[Dd]ouăzeci și opt
+// english: "twenty-nine","29"
+[Dd]ouăzeci și nouă
+// english: "thirty","30"
+[Tt]reizeci
+// english: "thirty-one","31" - no translation found

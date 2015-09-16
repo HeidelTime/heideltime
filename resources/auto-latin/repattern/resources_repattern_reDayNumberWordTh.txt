@@ -1,0 +1,62 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+[Pp]rīmus
+// english: "second","02"
+[Ss]ecundum
+[Aa]ltrum
+// english: "third","03"
+[Tt]ertius
+// english: "fourth","04"
+[Qq]uartus
+[Qq]uartum
+// english: "fifth","05"
+[Qq]uintus
+// english: "sixth","06"
+[Ss]extus
+// english: "seventh","07"
+[Ss]eptimus
+// english: "eighth","08"
+[Oo]ctavus
+// english: "ninth","09"
+[Nn]onus
+// english: "tenth","10"
+[Dd]ecimus
+// english: "eleventh","11"
+[Uu]ndecimus
+// english: "twelfth","12"
+[Dd]uodecimus
+// english: "thirteenth","13"
+[Tt]ertius decimus
+// english: "fourteenth","14"
+[Qq]uartus decimus
+// english: "fifteenth","15"
+[Qq]uintus decimus
+// english: "sixteenth","16"
+[Ss]extus decimus
+// english: "seventeenth","17"
+[Ss]eptmus decimus
+// english: "eighteenth","18"
+[Oo]ctavus decimus
+[Dd]uodevicesimus
+// english: "nineteenth","19"
+[Nn]onus decimus
+[Nn]onum decimum
+// english: "twentieth","20"
+[Vv]īcēsimus
+[Vv]īcēsima
+[Vv]īcēsimum
+// english: "thirtieth","30"
+[Tt]ricesimus
+// english: "twenty-first","21" - no translation found
+// english: "twenty-second","22" - no translation found
+// english: "twenty-third","23" - no translation found
+// english: "twenty-fourth","24" - no translation found
+// english: "twenty-fifth","25" - no translation found
+// english: "twenty-sixth","26" - no translation found
+// english: "twenty-seventh","27" - no translation found
+// english: "twenty-eighth","28" - no translation found
+// english: "twenty-ninth","29" - no translation found

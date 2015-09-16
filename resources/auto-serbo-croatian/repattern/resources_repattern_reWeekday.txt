@@ -1,0 +1,33 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+понедељак
+понедјељак
+[Pp]onedeljak
+[Pp]onedjeljak
+// english: "Tuesday","tuesday"
+уторак
+[Uu]torak
+// english: "Wednesday","wednesday"
+среда
+сриједа
+[Ss]reda
+[Ss]rijeda
+средом
+// english: "Thursday","thursday"
+четвртак
+četvrtak
+// english: "Friday","friday"
+петак
+[Pp]etak
+// english: "Saturday","saturday"
+субота
+[Ss]ubota
+// english: "Sunday","sunday"
+недеља
+недјеља
+[Nn]edelja
+[Nn]edjelja

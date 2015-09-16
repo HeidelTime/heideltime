@@ -1,0 +1,11 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "February","02"
+"[Jj]uwe biya","02"
+// english: "April","04"
+"[Dd]uin biya","04"
+// english: "July","07"
+"[Nn]adan biya","07"

@@ -1,0 +1,84 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+ένας
+μια
+ένα
+εἷς
+[Hh]emei
+// english: "two","2"
+δύο
+// english: "three","3"
+τρεις
+τρία
+// english: "four","4"
+τέσσερις
+τέσσερα
+τέτταρες
+τέσσαρες
+// english: "five","5"
+πέντε
+// english: "six","6"
+έξι
+// english: "seven","7"
+επτά
+ἑπτά
+// english: "eight","8"
+οκτώ
+// english: "nine","9"
+εννέα
+εννιά
+// english: "ten","10"
+δέκα
+// english: "eleven","11"
+έντεκα
+// english: "twelve","12"
+δώδεκα
+// english: "thirteen","13"
+δεκατρείς
+δεκατρία
+τρισκαίδεκα
+// english: "fourteen","14"
+δεκατέσσερις
+δεκατέσσερα
+δεκατέσσαρες
+// english: "fifteen","15"
+δεκαπέντε
+// english: "sixteen","16"
+δεκαέξι
+// english: "seventeen","17"
+δεκαεπτά
+// english: "eighteen","18"
+δεκαοκτώ
+// english: "nineteen","19"
+δεκαεννέα
+δεκαεννιά
+// english: "twenty","20"
+είκοσι
+// english: "twenty-one","21"
+είκοσι ένα
+// english: "twenty-two","22"
+είκοσι δύο
+// english: "twenty-three","23"
+είκοσι τρείς
+// english: "twenty-four","24"
+είκοσι τέσσερα
+// english: "twenty-five","25"
+είκοσι πέντε
+// english: "twenty-six","26"
+είκοσι έξι
+// english: "twenty-seven","27"
+είκοσι εφτά
+είκοσι επτά
+// english: "twenty-eight","28"
+είκοσι-οκτώ
+// english: "twenty-nine","29"
+είκοσι εννέα
+// english: "thirty","30"
+τριάντα
+τριάκοντα
+// english: "thirty-one","31"
+τριάντα έν

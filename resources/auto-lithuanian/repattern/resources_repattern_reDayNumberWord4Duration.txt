@@ -1,0 +1,65 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+[Vv]ienas
+[Vv]iena
+// english: "two","2"
+[Dd]u
+[Dd]vi
+// english: "three","3"
+[Tt]rys
+// english: "four","4"
+[Kk]eturi
+[Kk]eturios
+// english: "five","5"
+[Pp]enki
+[Pp]enkios
+// english: "six","6"
+šeši
+// english: "seven","7"
+[Ss]eptyni
+[Ss]eptynios
+// english: "eight","8"
+[Aa]štuoni
+[Aa]štuonios
+// english: "nine","9"
+[Dd]evyni
+[Dd]evynios
+// english: "ten","10"
+[Dd]ešimt
+[Dd]ešimtis
+// english: "eleven","11"
+[Vv]ienuolika
+// english: "twelve","12"
+[Dd]vylika
+// english: "thirteen","13"
+[Tt]rylika
+// english: "fourteen","14"
+[Kk]eturiolika
+// english: "fifteen","15"
+[Pp]enkiolika
+// english: "sixteen","16"
+[Ss]ešiolika
+// english: "seventeen","17"
+[Ss]eptyniolika
+// english: "eighteen","18"
+[Aa]štuoniolika
+// english: "nineteen","19"
+[Dd]evyniolika
+// english: "twenty","20"
+[Dd]videšimt
+// english: "thirty","30"
+[Tt]risdešimt
+// english: "twenty-one","21" - no translation found
+// english: "twenty-two","22" - no translation found
+// english: "twenty-three","23" - no translation found
+// english: "twenty-four","24" - no translation found
+// english: "twenty-five","25" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found
+// english: "twenty-eight","28" - no translation found
+// english: "twenty-nine","29" - no translation found
+// english: "thirty-one","31" - no translation found

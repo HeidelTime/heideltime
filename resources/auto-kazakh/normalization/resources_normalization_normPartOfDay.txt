@@ -1,0 +1,16 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+"таңертең","MO"
+"ерте","MO"
+"таң","MO"
+// english: "noon","MD"
+"талтүс","MD"
+// english: "night","NI"
+"түн","NI"
+// english: "midnight","24:00"
+"жарым түн","24:00"
+"түн ортасы","24:00"

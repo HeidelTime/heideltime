@@ -1,0 +1,41 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+Ιανουάριος
+Ἰανουάριος
+// english: "February","02"
+Φεβρουάριος
+// english: "March","03"
+Μάρτιος
+Μάρτης
+// english: "April","04"
+Απρίλιος
+// english: "May","05"
+Μάιος
+Μάης
+// english: "June","06"
+Ιούνιος
+Ιούνης
+Θεριστής
+// english: "July","07"
+Ιούλιος
+Ιούλης
+Αλωνάρης
+// english: "August","08"
+Αύγουστος
+// english: "September","09"
+Σεπτέμβριος
+Σεπτέμβρης
+Τρυγητής
+// english: "October","10"
+Οκτώβριος
+Οκτώβρης
+// english: "November","11"
+Νοέμβριος
+Νοέμβρης
+// english: "December","12"
+Δεκέμβριος
+Δεκέμβρης

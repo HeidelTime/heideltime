@@ -1,0 +1,21 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+"[Rr]êbendan","01"
+"[Kk]anûna duyem","01"
+"کانوونی دوهەم","01"
+// english: "February","02"
+"[Rr]eşemî","02"
+// english: "April","04"
+"[Aa]vrêl","04"
+// english: "May","05"
+"[Gg]ulan","05"
+// english: "June","06"
+"[Pp]ûşber","06"
+"[Hh]ezîran","06"
+"[Xx]ezîran","06"
+// english: "August","08"
+"[Gg]elawêj meh","08"

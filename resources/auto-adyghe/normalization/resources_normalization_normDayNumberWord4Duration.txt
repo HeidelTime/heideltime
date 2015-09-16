@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "four","4"
+"плӀы","4"
+// english: "five","5"
+"тфы","5"
+// english: "six","6"
+"хы","6"
+// english: "seven","7"
+"блы","7"
+// english: "eight","8"
+"и","8"
+// english: "nine","9"
+"бгъу","9"
+// english: "ten","10"
+"пшӀы","10"

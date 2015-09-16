@@ -1,0 +1,67 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+first
+// english: "second","02"
+second
+// english: "third","03"
+third
+// english: "fourth","04"
+fourth
+// english: "fifth","05"
+fifth
+// english: "sixth","06"
+sixth
+// english: "seventh","07"
+seventh
+// english: "eighth","08"
+eighth
+// english: "ninth","09"
+ninth
+// english: "tenth","10"
+tenth
+// english: "eleventh","11"
+eleventh
+// english: "twelfth","12"
+twelfth
+// english: "thirteenth","13"
+thirteenth
+// english: "fourteenth","14"
+fourteenth
+// english: "fifteenth","15"
+fifteenth
+// english: "sixteenth","16"
+sixteenth
+// english: "seventeenth","17"
+seventeenth
+// english: "eighteenth","18"
+eighteenth
+// english: "nineteenth","19"
+nineteenth
+// english: "twentieth","20"
+twentieth
+// english: "twenty-first","21"
+twenty-first
+// english: "twenty-second","22"
+twenty-second
+// english: "twenty-third","23"
+twenty-third
+// english: "twenty-fourth","24"
+twenty-fourth
+// english: "twenty-fifth","25"
+twenty-fifth
+// english: "twenty-sixth","26"
+twenty-sixth
+// english: "twenty-seventh","27"
+twenty-seventh
+// english: "twenty-eighth","28"
+twenty-eighth
+// english: "twenty-ninth","29"
+twenty-ninth
+// english: "thirtieth","30"
+thirtieth
+// english: "thirty-first","31"
+thirty-first

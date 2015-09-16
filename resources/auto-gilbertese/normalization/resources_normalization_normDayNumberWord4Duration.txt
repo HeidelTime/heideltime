@@ -1,0 +1,25 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+"[Tt]euana","1"
+// english: "three","3"
+"[Tt]enua","3"
+// english: "four","4"
+"[Aa]ua","4"
+// english: "five","5"
+"[Nn]imaua","5"
+// english: "six","6"
+"[Oo]noua","6"
+// english: "seven","7"
+"[Ii]tiua","7"
+// english: "eight","8"
+"[Ww]anua","8"
+// english: "nine","9"
+"[Rr]uiwa","9"
+// english: "eleven","11"
+"[Tt]ebwi ma teuana","11"
+// english: "twenty","20"
+"[Hh]ouanpoui","20"

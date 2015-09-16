@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "spring","SP"
+"գարուն","SP"
+// english: "summer","SU"
+"ամառ","SU"
+"ամառն","SU"
+// english: "autumn","FA"
+"աշուն","FA"
+// english: "winter","WI"
+"ձմեռ","WI"
+"ձմեռն","WI"

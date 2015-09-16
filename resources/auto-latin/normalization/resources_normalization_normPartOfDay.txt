@@ -1,0 +1,24 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+"[Mm]ane","MO"
+"[Mm]atutina tempora","MO"
+"[Cc]repusculum","MO"
+"[Mm]atutinum","MO"
+// english: "noon","MD"
+"[Mm]eridies","MD"
+"[Mm]eridianum tempus","MD"
+"[Mm]edium diei","MD"
+// english: "afternoon","AF"
+"[Pp]ostmeridianum tempus","AF"
+"[Pp]ostmeridianus dies","AF"
+"[Vv]esper","AF"
+// english: "evening","EV"
+"[Vv]esper","EV"
+// english: "night","NI"
+"[Nn]ox","NI"
+// english: "midnight","24:00"
+"[Mm]edia nox","24:00"

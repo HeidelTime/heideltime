@@ -1,0 +1,67 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+цхьаъ
+// english: "two","2"
+шиъ
+// english: "three","3"
+кхоъ
+// english: "four","4"
+диъ
+// english: "five","5"
+пхиъ
+// english: "six","6"
+ялх
+// english: "seven","7"
+ворхӏ
+// english: "eight","8"
+бархӏ
+// english: "nine","9"
+исс
+// english: "ten","10"
+итт
+// english: "eleven","11"
+цхьайтта
+// english: "twelve","12"
+шийтта
+// english: "thirteen","13"
+кхойтта
+// english: "fourteen","14"
+дейтта
+// english: "fifteen","15"
+пхийтта
+// english: "sixteen","16"
+ялхитта
+// english: "seventeen","17"
+вуьрхӏитта
+// english: "eighteen","18"
+берхӏитта
+// english: "nineteen","19"
+ткъайоьсна
+// english: "twenty","20"
+ткъа
+// english: "twenty-one","21"
+ткъе цхьаъ
+// english: "twenty-two","22"
+ткъе шиь
+// english: "twenty-three","23"
+ткъе кхоъ
+// english: "twenty-four","24"
+ткъе диъ
+// english: "twenty-five","25"
+ткъе пхиъ
+// english: "twenty-six","26"
+ткъе ялх
+// english: "twenty-seven","27"
+ткъе ворхI
+// english: "twenty-eight","28"
+ткъе бархI
+// english: "twenty-nine","29"
+ткъе исс
+// english: "thirty","30"
+ткъе итт
+// english: "thirty-one","31"
+ткъе цхьайтта

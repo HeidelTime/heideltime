@@ -1,0 +1,25 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+Lun
+// english: "Tuesday","tuesday"
+Meurzh
+[Dd]imeurzh
+// english: "Wednesday","wednesday"
+Merc'her
+[Dd]imerc'her
+// english: "Thursday","thursday"
+Yaou
+[Dd]iriaou
+// english: "Friday","friday"
+Gwener
+[Dd]igwener
+// english: "Saturday","saturday"
+Sadorn
+[Dd]isadorn
+// english: "Sunday","sunday"
+Sul
+[Dd]isul

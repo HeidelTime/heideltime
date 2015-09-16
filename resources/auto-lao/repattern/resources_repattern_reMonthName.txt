@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+ມັງກອນ
+// english: "February","02"
+ກຸມພາ
+// english: "March","03"
+ເດືອນມີນາ
+// english: "April","04"
+ເດືອນເມສາ
+// english: "May","05"
+ເດືອນພຶດສາພາ
+// english: "June","06"
+ເດືອນມິຖຸນາ
+// english: "July","07"
+ເດືອນກໍລະກົດ
+// english: "August","08"
+ເດືອນສິງຫາ
+// english: "September","09"
+ເດືອນກັນຍາ
+// english: "October","10"
+ເດືອນຕຸລາ
+// english: "November","11"
+ເດືອນພະຈິກ
+// english: "December","12"
+ເດືອນທັນວາ

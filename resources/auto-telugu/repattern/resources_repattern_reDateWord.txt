@@ -1,0 +1,15 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day before yesterday","UNDEF-this-day-MINUS-2"
+మొన్న
+// english: "yesterday","UNDEF-last-day"
+నిన్న
+// english: "today","UNDEF-this-day"
+నేడు
+// english: "tomorrow","UNDEF-next-day"
+రేపు
+// english: "day after tomorrow","UNDEF-this-day-PLUS-2"
+ఎల్లుండి

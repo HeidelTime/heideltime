@@ -1,0 +1,79 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","1"
+нэг
+ᠨᠢᠭᠡᠨ
+// english: "two","2"
+хоёр
+ᠬᠣᠶᠠᠷ
+᠒
+// english: "three","3"
+гурав
+ᠭᠤᠷᠪᠠᠨ
+᠓
+// english: "four","4"
+дөрөв
+ᠳᠥᠷᠪᠡᠨ
+᠔
+// english: "five","5"
+тав
+ᠲᠠᠪᠤᠨ
+᠕
+// english: "six","6"
+зургаа
+ᠵᠢᠷᠭᠤᠭᠠᠨ
+// english: "seven","7"
+долоо
+ᠳᠣᠯᠤᠭᠠᠨ
+᠗
+// english: "eight","8"
+найм
+ᠨᠠᠢᠮᠠᠨ
+᠘
+// english: "nine","9"
+ес
+ᠢᠰᠦᠨ
+᠙
+// english: "ten","10"
+арав
+ᠠᠷᠪᠠᠨ
+᠑᠐
+// english: "eleven","11"
+арван нэг
+᠑᠑
+// english: "twelve","12"
+арван хоёр
+᠑᠒
+// english: "thirteen","13"
+арван гурав
+᠑᠓
+// english: "fourteen","14"
+арван дөрөв‎
+// english: "fifteen","15"
+арван тав‎
+// english: "sixteen","16"
+арван зургаа‎
+// english: "seventeen","17"
+арван долоо‎
+// english: "eighteen","18"
+арван найм‎
+// english: "nineteen","19"
+арван ес‎
+// english: "twenty","20"
+хорь
+᠒᠐
+// english: "thirty","30"
+гуч
+// english: "twenty-one","21" - no translation found
+// english: "twenty-two","22" - no translation found
+// english: "twenty-three","23" - no translation found
+// english: "twenty-four","24" - no translation found
+// english: "twenty-five","25" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found
+// english: "twenty-eight","28" - no translation found
+// english: "twenty-nine","29" - no translation found
+// english: "thirty-one","31" - no translation found

@@ -1,0 +1,57 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+бірінші
+// english: "second","02"
+екінші
+секунд
+// english: "third","03"
+үшінші
+// english: "fourth","04"
+төртінші
+// english: "fifth","05"
+бесінші
+// english: "sixth","06"
+алтыншы
+// english: "seventh","07"
+жетінші
+// english: "eighth","08"
+сегізінші
+// english: "ninth","09"
+тоғызыншы
+// english: "tenth","10"
+оныншы
+// english: "eleventh","11"
+он бірінші
+// english: "twelfth","12"
+он екінші
+// english: "thirteenth","13"
+он үшінші
+// english: "fourteenth","14"
+он төртінші
+// english: "fifteenth","15"
+он бесінші
+// english: "sixteenth","16"
+он алтыншы
+// english: "seventeenth","17"
+он жетінші
+// english: "eighteenth","18"
+он сегізінші
+// english: "nineteenth","19"
+он тоғызыншы
+// english: "twentieth","20"
+жиырмасыншы
+// english: "thirtieth","30"
+отызыншы
+// english: "twenty-first","21" - no translation found
+// english: "twenty-second","22" - no translation found
+// english: "twenty-third","23" - no translation found
+// english: "twenty-fourth","24" - no translation found
+// english: "twenty-fifth","25" - no translation found
+// english: "twenty-sixth","26" - no translation found
+// english: "twenty-seventh","27" - no translation found
+// english: "twenty-eighth","28" - no translation found
+// english: "twenty-ninth","29" - no translation found

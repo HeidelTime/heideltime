@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "January","01"
+"[Tt]shishe-pishimᵘ","01"
+// english: "February","02"
+"[Ee]pishiminishkueu","02"
+// english: "March","03"
+"[Uu]inashku-pishimᵘ","03"
+// english: "April","04"
+"[Ss]hiship-pishimᵘ","04"
+// english: "May","05"
+"[Nn]issi-pishimᵘ","05"
+// english: "June","06"
+"[Uu]apikun-pishimᵘ","06"
+// english: "July","07"
+"[Ss]hetan-pishimᵘ","07"
+// english: "August","08"
+"[Uu]pau-pishimᵘ","08"
+// english: "September","09"
+"[Uu]shkau-pishimᵘ","09"
+// english: "October","10"
+"[Uu]ashtessiu-pishimᵘ","10"
+// english: "November","11"
+"[Tt]akuatshi-pishimᵘ","11"
+// english: "December","12"
+"[Pp]ishimuss","12"

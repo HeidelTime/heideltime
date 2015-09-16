@@ -1,0 +1,58 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "six","6"
+[Cc]hicuacē
+// english: "seven","7"
+[Cc]hicōme
+// english: "eight","8"
+[Cc]hicuēyi
+// english: "nine","9"
+[Cc]hiucnāhui
+// english: "eleven","11"
+[Mm]ahtlāctli oncē
+// english: "twelve","12"
+[Mm]ahtlāctli omōme
+// english: "thirteen","13"
+[Mm]ahtlāctli omēyi
+// english: "fourteen","14"
+[Mm]ahtlāctli onnāhui
+// english: "fifteen","15"
+[Cc]axtōlli
+// english: "sixteen","16"
+[Cc]axtōlli oncē
+// english: "seventeen","17"
+[Cc]axtōlli omōme
+// english: "eighteen","18"
+[Cc]axtōlli omēyi
+// english: "nineteen","19"
+[Cc]axtōlli onnāhui
+// english: "twenty-one","21"
+[Cc]empōhualli oncē
+// english: "twenty-two","22"
+[Cc]empōhualli omōme
+// english: "twenty-three","23"
+[Cc]empōhualli omēyi
+// english: "twenty-six","26"
+[Cc]empōhualli onchicuacē
+// english: "twenty-seven","27"
+[Cc]empōhualli onchicōme
+// english: "twenty-eight","28"
+[Cc]empōhualli onchicuēyi
+// english: "twenty-nine","29"
+[Cc]empōhualli onchiucnāhui
+// english: "thirty","30"
+[Cc]empōhualli ommahtlāctli
+// english: "thirty-one","31"
+[Cc]empōhualli ommahtlāctli oncē
+// english: "one","1" - no translation found
+// english: "two","2" - no translation found
+// english: "three","3" - no translation found
+// english: "four","4" - no translation found
+// english: "five","5" - no translation found
+// english: "ten","10" - no translation found
+// english: "twenty","20" - no translation found
+// english: "twenty-four","24" - no translation found
+// english: "twenty-five","25" - no translation found

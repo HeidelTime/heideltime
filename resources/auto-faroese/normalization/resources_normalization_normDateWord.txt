@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "day before yesterday","UNDEF-this-day-MINUS-2"
+"[Ff]yrradagin","UNDEF-this-day-MINUS-2"
+"í fyrradagin","UNDEF-this-day-MINUS-2"
+// english: "yesterday","UNDEF-last-day"
+"í gjár","UNDEF-last-day"
+"[Gg]járdagur","UNDEF-last-day"
+// english: "today","UNDEF-this-day"
+"í dag","UNDEF-this-day"
+// english: "tomorrow","UNDEF-next-day"
+"í morgin","UNDEF-next-day"
+"[Mm]orgindagur","UNDEF-next-day"
+// english: "day after tomorrow","UNDEF-this-day-PLUS-2"
+"[Oo]vurmorgin","UNDEF-this-day-PLUS-2"
+"í ovurmorgin","UNDEF-this-day-PLUS-2"

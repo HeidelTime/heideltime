@@ -1,0 +1,19 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+Monite
+// english: "Tuesday","tuesday"
+Tusite
+// english: "Wednesday","wednesday"
+Pulelulu
+// english: "Thursday","thursday"
+Tu'apulelulu
+// english: "Friday","friday"
+Falaite
+// english: "Saturday","saturday"
+Tokonaki
+// english: "Sunday","sunday"
+Sapate

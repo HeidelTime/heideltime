@@ -1,0 +1,27 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+"[Uu]nesma","01"
+// english: "second","02"
+"[Dd]uesma","02"
+// english: "third","03"
+"[Tt]riesma","03"
+// english: "fourth","04"
+"[Qq]uaresma","04"
+// english: "fifth","05"
+"[Kk]inesma","05"
+// english: "sixth","06"
+"[Ss]isesma","06"
+// english: "seventh","07"
+"[Ss]epesma","07"
+// english: "eighth","08"
+"[Oo]kesma","08"
+// english: "ninth","09"
+"[Nn]onesma","09"
+// english: "tenth","10"
+"[Dd]ekesma","10"
+// english: "twelfth","12"
+"[Dd]uadekesma","12"

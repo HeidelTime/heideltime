@@ -1,0 +1,57 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "first","01"
+첫째
+// english: "second","02"
+둘째
+초
+// english: "third","03"
+셋째
+// english: "fourth","04"
+넷째
+// english: "fifth","05"
+다섯째
+// english: "sixth","06"
+여섯째
+// english: "seventh","07"
+일곱째
+// english: "eighth","08"
+여덟째
+// english: "ninth","09"
+아홉째
+// english: "tenth","10"
+열째
+// english: "eleventh","11"
+열한째
+// english: "twelfth","12"
+열두째
+// english: "thirteenth","13"
+열셋째
+// english: "fourteenth","14"
+열넷째
+// english: "fifteenth","15"
+열다섯째
+// english: "sixteenth","16"
+열여섯째
+// english: "seventeenth","17"
+열일곱째
+// english: "eighteenth","18"
+열여덟째
+// english: "nineteenth","19"
+열아홉째
+// english: "twentieth","20"
+스무째
+// english: "thirtieth","30"
+서른째
+// english: "twenty-first","21" - no translation found
+// english: "twenty-second","22" - no translation found
+// english: "twenty-third","23" - no translation found
+// english: "twenty-fourth","24" - no translation found
+// english: "twenty-fifth","25" - no translation found
+// english: "twenty-sixth","26" - no translation found
+// english: "twenty-seventh","27" - no translation found
+// english: "twenty-eighth","28" - no translation found
+// english: "twenty-ninth","29" - no translation found

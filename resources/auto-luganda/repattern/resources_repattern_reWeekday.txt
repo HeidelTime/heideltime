@@ -1,0 +1,20 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "Monday","monday"
+Kazooba
+Bbalaza
+// english: "Tuesday","tuesday"
+Lwakubiri
+// english: "Wednesday","wednesday"
+Lwakusatu
+// english: "Thursday","thursday"
+Lwakuna
+// english: "Friday","friday"
+Lwakutaano
+// english: "Saturday","saturday"
+Lwamukaaga
+// english: "Sunday","sunday"
+[Ss]ande

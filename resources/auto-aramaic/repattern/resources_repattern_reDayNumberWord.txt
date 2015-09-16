@@ -1,0 +1,116 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+חד
+חדא
+ܚܕ
+ܚܕܐ
+// english: "two","02"
+ܬܪܝܢ
+ܬܪܬܝܢ
+תרין
+תרתין
+// english: "three","03"
+ܬܠܬܐ
+ܬܠܬ
+תלתא
+תלת
+// english: "four","04"
+ܐܪܒܥܐ
+ܐܪܒܥ
+ארבעא
+ארבע
+// english: "five","05"
+חמשא
+חמש
+ܚܡܫܐ
+ܚܡܫ
+// english: "six","06"
+ܫܬܐ
+ܫܬ
+שתא
+שת
+// english: "seven","07"
+שבעא
+שבע
+ܫܒܥܐ
+ܫܒܥ
+// english: "eight","08"
+ܬܡܢܝܐ
+ܬܡܢܐ
+תמניא
+תמנא
+// english: "nine","09"
+ܬܫܥܐ
+ܬܫܥ
+תשעא
+תשע
+// english: "ten","10"
+עסרא
+עסר
+ܥܣܪܐ
+ܥܣܪ
+// english: "eleven","11"
+חדעסר
+חדעסרא
+ܚܕܥܣܪ
+ܚܕܥܣܪܐ
+// english: "twelve","12"
+תרעסר
+תרתעסרא
+ܬܪܥܣܪ
+ܬܪܬܥܣܪܐ
+// english: "thirteen","13"
+תלתעסר
+תלתעסרא
+ܬܠܬܥܣܪ
+ܬܠܬܥܣܪܐ
+// english: "fourteen","14"
+ܐܪܒܥܣܪ
+ܐܪܒܥܣܪܐ
+ארבעסר
+ארבעסרא
+// english: "fifteen","15"
+חמשעסר
+חמשעסרא
+ܚܡܫܥܣܪ
+ܚܡܫܥܣܪܐ
+// english: "sixteen","16"
+שתעסר
+שתעסרא
+ܫܬܥܣܪ
+ܫܬܥܣܪܐ
+// english: "seventeen","17"
+שבעסר
+שבעסרא
+ܫܒܥܣܪ
+ܫܒܥܣܪܐ
+// english: "eighteen","18"
+תמנעסר
+תמנעסרא
+ܬܡܢܥܣܪ
+ܬܡܢܥܣܪܐ
+// english: "nineteen","19"
+תשעסר
+תשעסרא
+ܬܫܥܣܪ
+ܬܫܥܣܪܐ
+// english: "twenty","20"
+עסרין
+ܥܣܪܝܢ
+// english: "thirty","30"
+תלתין
+ܬܠܬܝܢ
+// english: "twenty-one","21" - no translation found
+// english: "twenty-two","22" - no translation found
+// english: "twenty-three","23" - no translation found
+// english: "twenty-four","24" - no translation found
+// english: "twenty-five","25" - no translation found
+// english: "twenty-six","26" - no translation found
+// english: "twenty-seven","27" - no translation found
+// english: "twenty-eight","28" - no translation found
+// english: "twenty-nine","29" - no translation found
+// english: "thirty-one","31" - no translation found

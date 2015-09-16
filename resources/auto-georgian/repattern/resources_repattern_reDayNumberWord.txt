@@ -1,0 +1,67 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "one","01"
+ერთი
+// english: "two","02"
+ორი
+// english: "three","03"
+სამი
+// english: "four","04"
+ოთხი
+// english: "five","05"
+ხუთი
+// english: "six","06"
+ექვსი
+// english: "seven","07"
+შვიდი
+// english: "eight","08"
+რვა
+// english: "nine","09"
+ცხრა
+// english: "ten","10"
+ათი
+// english: "eleven","11"
+თერთმეტი
+// english: "twelve","12"
+თორმეტი
+// english: "thirteen","13"
+ცამეტი
+// english: "fourteen","14"
+თოთხმეტი
+// english: "fifteen","15"
+თხუთმეტი
+// english: "sixteen","16"
+თექვსმეტი
+// english: "seventeen","17"
+ჩვიდმეტი
+// english: "eighteen","18"
+თვრამეტი
+// english: "nineteen","19"
+ცხრამეტი
+// english: "twenty","20"
+ოცი
+// english: "twenty-one","21"
+ოცდაერთი
+// english: "twenty-two","22"
+ოცდაორი
+// english: "twenty-three","23"
+ოცდასამი
+// english: "twenty-four","24"
+ოცდაოთხი
+// english: "twenty-five","25"
+ოცდახუთი
+// english: "twenty-six","26"
+ოცდაექვსი
+// english: "twenty-seven","27"
+ოცდაშვიდი
+// english: "twenty-eight","28"
+ოცდარვა
+// english: "twenty-nine","29"
+ოცდაცხრა
+// english: "thirty","30"
+ოცდაათი
+// english: "thirty-one","31"
+ოცდათერთმეტი

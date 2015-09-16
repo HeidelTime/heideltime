@@ -1,0 +1,29 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+преподне
+[Pp]repodne
+јутро
+сабах
+[Jj]utro
+[Ss]abah
+// english: "noon","MD"
+подне
+[Pp]odne
+// english: "afternoon","AF"
+поподне
+[Pp]opodne
+// english: "evening","EV"
+вече
+вечер
+[Vv]eče
+[Vv]ečer
+// english: "night","NI"
+ноћ
+[Nn]oć
+// english: "midnight","24:00"
+по́ноћ
+[Pp]ónoć

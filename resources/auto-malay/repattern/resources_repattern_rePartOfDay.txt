@@ -1,0 +1,25 @@
+// author: Jannik Strötgen
+// email: stroetgen@uni-hd.de
+// resources automatically created; see our EMNLP 2015 paper for details:
+// https://aclweb.org/anthology/D/D15/D15-1063.pdf
+//
+// english: "morning","MO"
+[Pp]agi
+// english: "noon","MD"
+[Tt]engah hari
+[Tt]engari
+تڠه هاري
+تڠاري
+// english: "afternoon","AF"
+[Pp]etang
+[Ss]ore
+ڤتڠ
+سوري
+// english: "evening","EV"
+[Pp]etang
+// english: "night","NI"
+[Mm]alam
+[Ll]ailah
+[Bb]ermalam
+// english: "midnight","24:00"
+[Tt]engah malam
