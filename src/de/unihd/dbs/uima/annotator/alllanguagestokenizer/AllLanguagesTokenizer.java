@@ -29,11 +29,9 @@ public class AllLanguagesTokenizer extends JCasAnnotator_ImplBase {
 	}
 
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
-		List<Token> tokens = tokenize(jcas);
-//		System.err.println("tokenized " + tokens.size() + " tokens.");
+		tokenize(jcas);
 		
-		List<Sentence> sentences = sentenceTokenize(jcas);
-//		System.err.println("tokenized " + sentences.size() + " sentences.");
+		sentenceTokenize(jcas);
 	}
 
 	
@@ -221,7 +219,6 @@ public class AllLanguagesTokenizer extends JCasAnnotator_ImplBase {
 	
 	public List<Sentence> sentenceTokenize(JCas jcas) {
 		List<Sentence> outList = new LinkedList<Sentence>();
-		@SuppressWarnings("rawtypes")
 		FSIterator tokIt = jcas.getAnnotationIndex(Token.type).iterator();
 		
 		Sentence s = new Sentence(jcas);
