@@ -40,6 +40,7 @@ import org.apache.uima.util.XMLInputSource;
 import de.unihd.dbs.heideltime.standalone.components.JCasFactory;
 import de.unihd.dbs.heideltime.standalone.components.ResultFormatter;
 import de.unihd.dbs.heideltime.standalone.components.PartOfSpeechTagger;
+import de.unihd.dbs.heideltime.standalone.components.impl.AllLanguagesTokenizerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.HunPosTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.IntervalTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.JCasFactoryImpl;
@@ -250,15 +251,7 @@ public class HeidelTimeStandalone {
 											this.getClass()
 													.getClassLoader()
 													.getResource(
-															Config.get(Config.TYPESYSTEMHOME)))),
-					UIMAFramework
-							.getXMLParser()
-							.parseTypeSystemDescription(
-									new XMLInputSource(
-											this.getClass()
-													.getClassLoader()
-													.getResource(
-															Config.get(Config.TYPESYSTEMHOME_DKPRO)))) };
+															Config.get(Config.TYPESYSTEMHOME)))) };
 			jcasFactory = new JCasFactoryImpl(descriptions);
 			logger.log(Level.INFO, "JCas factory initialized");
 		} catch (Exception e) {
@@ -398,6 +391,8 @@ public class HeidelTimeStandalone {
 					settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_POS, true);
 					settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_SENTENCES, true);
 					settings.put(PartOfSpeechTagger.HUNPOS_MODEL_PATH, Config.get(Config.HUNPOS_MODEL_PATH));
+				} else if(POSTagger.NO.equals(posTagger)) {
+					partOfSpeechTagger = new AllLanguagesTokenizerWrapper();
 				} else {
 					logger.log(Level.FINEST, "Sorry, but you can't use that tagger.");
 				}
