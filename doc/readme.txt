@@ -198,8 +198,8 @@ set the environment variables.
    To process English, German, Dutch, Spanish, Italian, French, Chinese or Russian documents, 
    the TreeTaggerWrapper can be used for pre-processing: 
     * Download the TreeTagger and its tagging scripts, installation scripts, as well as 
-      English, German, and Dutch (or any other) parameter files into one directory from:
-      http://www.ims.uni-stuttgart.de/projekte/corplex/TreeTagger/
+      English, German, and Dutch (and all required) parameter files into one directory from:
+      http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
       - mkdir treetagger 
       - cd treetagger
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tree-tagger-linux-3.2.tar.gz
@@ -211,6 +211,8 @@ set the environment variables.
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/italian-par-linux-3.2-utf8.bin.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/spanish-par-linux-3.2-utf8.bin.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/french-par-linux-3.2-utf8.bin.gz
+      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/portuguese-par-linux-3.2-utf8.bin.gz
+      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/estonian-par-linux-3.2-utf8.bin.gz
       Attention: If you do not use Linux, please download all TreeTagger files directly from
                  http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
     * (OPTIONAL) For Chinese documents, please get the Tokenizer and TreeTagger parameter file
@@ -279,9 +281,9 @@ set the environment variables.
     You will need to enter the full path of the hunpos-1.0-linux directory in the
     HunPosTaggerWrapper.
     
-    To process any of the automatically create, you can use the AllLanguagesTokenizer
-    which is part of the heideltime kit. It is a simple (whitespace-based) yet generic
-    tool and creaetes sentence and token annotation.
+    To process any of the language with automatically created resources, you can use 
+    the AllLanguagesTokenizer, which is part of the heideltime kit. It is a simple 
+    (whitespace-based) yet generic tool and creaetes sentence and token annotation.
      
      
     For sample UIMA workflows for any of the supported languages, please take a look
