@@ -3,8 +3,8 @@
 #######################
 
 Author:  Jannik Strötgen, Julian Zell
-Date:    June 12th, 2015
-Version: 1.9
+Date:    September 17th, 2015
+Version: 2.0
 eMail:   stroetgen@uni-hd.de, zell@informatik.uni-heidelberg.de
 
 ###################################
@@ -34,6 +34,13 @@ publications (e.g., biomedical studies), you may want to cite the following pape
   In: LREC 2012: Proceedings of the 8th International Conference on Language Resources 
   and Evaluation. Pages 3746-3753, Istanbul, Turkey, May 21-27, 2012. ELRA.
   http://www.lrec-conf.org/proceedings/lrec2012/pdf/425_Paper.pdf
+  
+Starting with version 2.0, HeidelTime contains also automatically created resources. If you
+use them, please cite the following paper:
+  Jannik Strötgen and Michael Gertz:
+  A Baseline Temporal Tagger for All Languages.
+  In EMNLP: Proceedings of the 2015 Conference on Empirical Methods in Natural Language 
+  Processing. Pages 541-547, Lisbon, Portugal, September 17-21, 2015. ACL.
 
 ###################
 # 2. Introduction #
@@ -48,11 +55,11 @@ simply develop resources for additional languages using HeidelTime's well-define
 
 HeidelTime was the best system for the extraction and normalization of English temporal 
 expressions from documents in the TempEval-2 challenge in 2010. Furthermore, it is evaluated on 
-several additional corpora, as described in our paper "Multilingual Cross-domain Temporal 
-Tagging" (http://www.springerlink.com/content/64767752451075k8/). In TempEval-3, HeidelTime 
-achieved the best results for the combination of extraction and normalization for English and
-Spanish. In the EVENTI competition of EVALITA 2014, HeidelTime (version 1.8) achieved the best
-results for Italian temporal tagging.
+several additional corpora, as described in our papers, e.g., in "Multilingual Cross-domain 
+Temporal Tagging" (http://www.springerlink.com/content/64767752451075k8/). In TempEval-3, 
+HeidelTime achieved the best results for the combination of extraction and normalization for 
+English and Spanish. In the EVENTI competition of EVALITA 2014, HeidelTime (version 1.8) achieved 
+the best results for Italian temporal tagging.
 
 HeidelTime with resources for several languages is one component of our UIMA HeidelTime kit.
 - German
@@ -69,6 +76,11 @@ HeidelTime with resources for several languages is one component of our UIMA Hei
 - Croatian (kindly provided by Luka Skukan)
 - Estonian
 - Portuguese (kindly provided by Zunsik Lim)
+
+Starting with version 2.0, HeidelTime contains automatically created resources for 200+ 
+languages. It can thus be used as a baseline temporal tagger for all these languages or
+as a starting point for developing more sophisticated temporal tagging capabilities for 
+languages which have not been addressed so far.
 
 Additionally, whilst expanding the set of domains that HeidelTime can recognize temporal 
 expressions in, English resources for colloquial as well as scientific style documents were 
@@ -97,6 +109,11 @@ contains:
     * Eventi 2014 Reader: This Collection Reader reads the Eventi 2014 input data of the
       training and the evaluation sets and annotates the tokenization information.
       
+    * AllLanguagesTokenizer: This Analysis Engine produces Token and Sentence annotations. It is a 
+      simple yet generic tool and should be used for languages which are not supported by any other
+      preprocessing tool, i.e., or most of the languages for which HeidelTime resources have been
+      automatically created.
+      
     * TreeTaggerWrapper: This Analysis Engine produces Token, Sentence and Part-of-Speech annotations
       required by HeidelTime by using the multilingual TreeTagger tool.
       
@@ -115,6 +132,7 @@ contains:
     * HeidelTime: Possible parameter values are:
         - languages: english, englishcoll, englishsci, german, spanish, italian, vietnamese, arabic,
                    dutch, chinese, french, russian, croatian, estonian, portuguese
+                   as well as any "auto-LANGUAGE" contained in the resource folder
         - types: news, narratives, colloquial (for use with englishcoll), scientific (englishsci)
         - locale: the locale to use for date calculation. Leave it empty to use en_GB.
         - Debugging: to output verbose debugging information to stderr.
@@ -260,6 +278,10 @@ set the environment variables.
     - tar -xzvf model.hunpos.mte5.defnpout.tar.gz -C hunpos-1.0-linux/
     You will need to enter the full path of the hunpos-1.0-linux directory in the
     HunPosTaggerWrapper.
+    
+    To process any of the automatically create, you can use the AllLanguagesTokenizer
+    which is part of the heideltime kit. It is a simple (whitespace-based) yet generic
+    tool and creaetes sentence and token annotation.
      
      
     For sample UIMA workflows for any of the supported languages, please take a look
@@ -320,11 +342,11 @@ To analyze the annotations produced by HeidelTime you may use UIMA's annotation 
 ####################################################################
 HeidelTime distinguishes between four types of documents: news style, narrative
 style, colloquial style and scientific style documents. This file here is a narrative 
-document. This version of HeidelTime was released in 2011. To be more precise, and using
-a relative expression, it was released on May 4. HeidelTime was the best performing 
+document. This version of HeidelTime was released in 2015. To be more precise, and using
+a relative expression, it was released on September 17. HeidelTime was the best performing 
 system of task A of the TempEval-2 challenge in 2010 and the system was presented at the 
 TempEval Workshop at the ACL conference in Uppsala, Sweden on July 15, 2010 or July 16. 
-In the meantime, it is May 2011 and HeidelTime is made publicly available and identifies 
+In the meantime, it is September 2015 and HeidelTime is made publicly available and identifies 
 these temporal expressions: January 22, 2001 or twice a week.
 
 ##########################################
@@ -341,8 +363,8 @@ Visit the project at
 #######################################################################
 # 8. Reproducing HeidelTime's evaluation results on different corpora #
 #######################################################################
-To reproduce HeidelTime's evaluation results reported in in our paper "Multilingual 
-Cross-domain Temporal Tagging", follow the instructions on:
+To reproduce HeidelTime's evaluation results reported in in our papers, e.g., in
+"Multilingual Cross-domain Temporal Tagging", follow the instructions on:
 https://github.com/HeidelTime/heideltime/wiki/Reproducing-Evaluation-Results
 
 ##############

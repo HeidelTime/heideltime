@@ -1,9 +1,9 @@
-**HeidelTime 2.0 with automatically created resources for 200+ languages will be available soon. For details, take a look at our [EMNLP 2015 paper](https://aclweb.org/anthology/D/D15/D15-1063.pdf).**
+**HeidelTime 2.0 with automatically created resources for 200+ languages is now available. For further details, take a look at our [EMNLP 2015 paper](https://aclweb.org/anthology/D/D15/D15-1063.pdf).**
 
 ## About HeidelTime
 **HeidelTime** is a multilingual, cross-domain temporal tagger developed at the [Database Systems Research Group](http://dbs.ifi.uni-heidelberg.de/) at [Heidelberg University](http://www.uni-heidelberg.de/index_e.html). It extracts temporal expressions from documents and normalizes them according to the TIMEX3 annotation standard. HeidelTime is available as [UIMA](http://uima.apache.org/) annotator and as standalone version.
 
-**HeidelTime** currently understands documents in **13 languages**: English, German, Dutch, Vietnamese, Arabic, Spanish, Italian, French, Chinese, Russian, Croatian, Estonian and Portuguese.
+**HeidelTime** currently contains hand-crafted resources for **13 languages**: English, German, Dutch, Vietnamese, Arabic, Spanish, Italian, French, Chinese, Russian, Croatian, Estonian and Portuguese. In addition, starting with version 2.0, HeidelTime contains **automatically created resources for more than 200 languages**. Although these resources are of lower quality than the manually created ones, temporal tagging of many of these languages has never been addressed before. Thus, HeidelTime can be used as a baseline for temporal tagging of all these languages or as a starting point for developing temporal tagging capabilities for them. 
 
 **HeidelTime** distinguishes between **news-style** documents and **narrative-style documents** (e.g., Wikipedia articles) in all languages. In addition, English colloquial (e.g., Tweets and SMS) and scientific articles (e.g., clinical trails) are supported.
 
@@ -21,16 +21,18 @@ Want to see what it can do before you delve in? Take a look at our **[online dem
 
 ## Publications
 
-If you use HeidelTime, please cite the appropriate paper (in general, this would be the journal paper [5]):
+If you use HeidelTime, please cite the appropriate paper (in general, this would be the journal paper [7]; if you use HeidelTime with automatically created resources, please cite paper [1]):
 
-1. Manfredi et al.: HeidelTime at EVENTI: Tuning Italian Resources and Addressing TimeML's Empty Tags. EVALITA'14. [pdf](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/2014_EVALITA_ManfrediEtAl.pdf) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#EVALITA2014)
-2. Strötgen et al.: Extending HeidelTime for Temporal Expressions Referring to Historic Dates. LREC'14. [pdf](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/StroetgenEtAl2014_LREC.pdf) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#LREC2014b)
-3. Li et al.: Chinese Temporal Tagging with HeidelTime. EACL'14. [pdf](http://www.aclweb.org/anthology/E/E14/E14-4026.pdf) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#EACL2014)
-4. Strötgen et al.: Time for More Languages: Temporal Tagging of Arabic, Italian, Spanish, and Vietnamese. TALIP, 2014. [pdf](http://dl.acm.org/citation.cfm?id=2540989&CFID=415441800&CFTOKEN=19912471) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#TALIPjournal2014)
-5. Strötgen, Gertz: Multilingual and Cross-domain Temporal Tagging. Language Resources and Evaluation, 2013. [pdf](http://www.springerlink.com/content/64767752451075k8/) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#LREjournal2013)
-6. Strötgen et al.: HeidelTime: Tuning English and Developing Spanish Resources for TempEval-3. SemEval'13. [pdf](http://www.aclweb.org/anthology/S13-2003) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#SEMEVAL2013)
-7. Strötgen, Gertz: Temporal Tagging on Different Domains: Challenges, Strategies, and Gold Standards. LREC'12. [pdf](http://www.lrec-conf.org/proceedings/lrec2012/pdf/425_Paper.pdf) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#LREC2012)
-8. Strötgen, Gertz: HeidelTime: High Qualitiy Rule-based Extraction and Normalization of Temporal Expressions. SemEval'10. [pdf](http://www.newdesign.aclweb.org/anthology/S/S10/S10-1071.pdf) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#SEMEVAL2010)
+1. Strötgen, Gertz: A Baseline Temporal Tagger for All Languages. EMNLP'15. [pdf](https://aclweb.org/anthology/D/D15/D15-1063.pdf) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#EMNLP2015)
+2. Strötgen: Domain-sensitive Temporal Tagging for Event-centric Information Retrieval. PhD Thesis. [pdf](http://archiv.ub.uni-heidelberg.de/volltextserver/18357/1/thesis.pdf) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#THESIS2015)
+3. Manfredi et al.: HeidelTime at EVENTI: Tuning Italian Resources and Addressing TimeML's Empty Tags. EVALITA'14. [pdf](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/2014_EVALITA_ManfrediEtAl.pdf) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#EVALITA2014)
+4. Strötgen et al.: Extending HeidelTime for Temporal Expressions Referring to Historic Dates. LREC'14. [pdf](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/StroetgenEtAl2014_LREC.pdf) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#LREC2014b)
+5. Li et al.: Chinese Temporal Tagging with HeidelTime. EACL'14. [pdf](http://www.aclweb.org/anthology/E/E14/E14-4026.pdf) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#EACL2014)
+6. Strötgen et al.: Time for More Languages: Temporal Tagging of Arabic, Italian, Spanish, and Vietnamese. TALIP, 2014. [pdf](http://dl.acm.org/citation.cfm?id=2540989&CFID=415441800&CFTOKEN=19912471) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#TALIPjournal2014)
+7. Strötgen, Gertz: Multilingual and Cross-domain Temporal Tagging. Language Resources and Evaluation, 2013. [pdf](http://www.springerlink.com/content/64767752451075k8/) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#LREjournal2013)
+8. Strötgen et al.: HeidelTime: Tuning English and Developing Spanish Resources for TempEval-3. SemEval'13. [pdf](http://www.aclweb.org/anthology/S13-2003) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#SEMEVAL2013)
+9. Strötgen, Gertz: Temporal Tagging on Different Domains: Challenges, Strategies, and Gold Standards. LREC'12. [pdf](http://www.lrec-conf.org/proceedings/lrec2012/pdf/425_Paper.pdf) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#LREC2012)
+10. Strötgen, Gertz: HeidelTime: High Qualitiy Rule-based Extraction and Normalization of Temporal Expressions. SemEval'10. [pdf](http://www.newdesign.aclweb.org/anthology/S/S10/S10-1071.pdf) [bibtex](http://dbs.ifi.uni-heidelberg.de/fileadmin/Team/jannik/publications/stroetgen_bib.html#SEMEVAL2010)
 
 ## Language Resources
 We want to thank the following researchers for their efforts to develop HeidelTime resources:
@@ -40,6 +42,8 @@ We want to thank the following researchers for their efforts to develop HeidelTi
 3. Russian resources: Elena Klyachko
 4. [Croatian resources](http://nl.ijs.si/isjt14/proceedings/isjt2014_17.pdf): Luka Skukan, University of Zagreb
 5. Portuguese resources: Zunsik Lim
+
+Please feel free to use our automatically created resources as starting point, if you plan to manually address a language.  
 
 ---
 
