@@ -24,7 +24,7 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
  * 
  */
 public class RuleManager extends GenericResourceManager {
-	protected static HashMap<Language, RuleManager> instances = new HashMap<Language, RuleManager>();
+	protected static HashMap<String, RuleManager> instances = new HashMap<String, RuleManager>();
 
 	// PATTERNS TO READ RESOURCES "RULES" AND "NORMALIZATION"
 	Pattern paReadRules = Pattern.compile("RULENAME=\"(.*?)\",EXTRACTION=\"(.*?)\",NORM_VALUE=\"(.*?)\"(.*)");
@@ -104,10 +104,10 @@ public class RuleManager extends GenericResourceManager {
 	public static RuleManager getInstance(Language language) {
 		if(!instances.containsKey(language)) {
 			RuleManager nm = new RuleManager(language.getResourceFolder());
-			instances.put(language, nm);
+			instances.put(language.getName(), nm);
 		}
 		
-		return instances.get(language);
+		return instances.get(language.getName());
 	}
 
 	/**

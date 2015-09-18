@@ -20,7 +20,7 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
  *
  */
 public class RePatternManager extends GenericResourceManager {
-	protected static HashMap<Language, RePatternManager> instances = new HashMap<Language, RePatternManager>();
+	protected static HashMap<String, RePatternManager> instances = new HashMap<String, RePatternManager>();
 	
 	// STORE PATTERNS AND NORMALIZATIONS
 	private TreeMap<String, String> hmAllRePattern;
@@ -54,10 +54,10 @@ public class RePatternManager extends GenericResourceManager {
 	public static RePatternManager getInstance(Language language) {
 		if(!instances.containsKey(language)) {
 			RePatternManager nm = new RePatternManager(language.getResourceFolder());
-			instances.put(language, nm);
+			instances.put(language.getName(), nm);
 		}
 		
-		return instances.get(language);
+		return instances.get(language.getName());
 	}
 	
 	

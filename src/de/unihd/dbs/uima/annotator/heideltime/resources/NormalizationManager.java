@@ -18,7 +18,7 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.*;
  *
  */
 public class NormalizationManager extends GenericResourceManager {
-	protected static HashMap<Language, NormalizationManager> instances = new HashMap<Language, NormalizationManager>();
+	protected static HashMap<String, NormalizationManager> instances = new HashMap<String, NormalizationManager>();
 	// PATTERNS TO READ RESOURCES "RULES" AND "NORMALIZATION"
 	private Pattern paReadNormalizations = Pattern.compile("\"(.*?)\",\"(.*?)\"");
 
@@ -73,10 +73,10 @@ public class NormalizationManager extends GenericResourceManager {
 	public static NormalizationManager getInstance(Language language) {
 		if(!instances.containsKey(language)) {
 			NormalizationManager nm = new NormalizationManager(language.getResourceFolder());
-			instances.put(language, nm);
+			instances.put(language.getName(), nm);
 		}
 		
-		return instances.get(language);
+		return instances.get(language.getName());
 	}
 	
 	/**

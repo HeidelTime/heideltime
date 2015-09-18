@@ -98,4 +98,9 @@ public enum Language {
 	public final String getResourceFolder() {
 		return this.resourceFolder;
 	}
+	
+	@Override
+	public String toString() {
+		return getName();
+	}
 }
