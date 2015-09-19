@@ -102,7 +102,7 @@ public class RuleManager extends GenericResourceManager {
 	 * @return singleton instance of RuleManager
 	 */
 	public static RuleManager getInstance(Language language) {
-		if(!instances.containsKey(language)) {
+		if(!instances.containsKey(language.getName())) {
 			RuleManager nm = new RuleManager(language.getResourceFolder());
 			instances.put(language.getName(), nm);
 		}

@@ -71,7 +71,7 @@ public class NormalizationManager extends GenericResourceManager {
 	 * @return singleton instance of NormalizationManager
 	 */
 	public static NormalizationManager getInstance(Language language) {
-		if(!instances.containsKey(language)) {
+		if(!instances.containsKey(language.getName())) {
 			NormalizationManager nm = new NormalizationManager(language.getResourceFolder());
 			instances.put(language.getName(), nm);
 		}

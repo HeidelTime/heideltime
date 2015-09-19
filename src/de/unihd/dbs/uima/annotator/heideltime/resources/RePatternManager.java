@@ -52,7 +52,7 @@ public class RePatternManager extends GenericResourceManager {
 	 * @return singleton instance of RePatternManager
 	 */
 	public static RePatternManager getInstance(Language language) {
-		if(!instances.containsKey(language)) {
+		if(!instances.containsKey(language.getName())) {
 			RePatternManager nm = new RePatternManager(language.getResourceFolder());
 			instances.put(language.getName(), nm);
 		}
