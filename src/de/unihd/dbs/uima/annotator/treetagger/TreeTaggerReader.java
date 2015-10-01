@@ -65,7 +65,7 @@ public class TreeTaggerReader implements Callable<Boolean> {
 				
 				// do splitting
 				String[] splits = s.split("\t", 2);
-				String tokenStr = splits[0].trim(), pos = null;
+				String tokenStr = splits[0].trim(), pos = "";
 				if(splits.length == 2) {
 					pos = splits[1].trim();
 				}
