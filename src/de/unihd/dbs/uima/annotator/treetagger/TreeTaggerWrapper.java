@@ -16,12 +16,16 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.FSIndex;
 import org.apache.uima.cas.FSIterator;
+import org.apache.uima.cas.text.AnnotationIndex;
 import org.apache.uima.impl.RootUimaContext_impl;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ConfigurationManager;
@@ -59,6 +63,12 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	
 	// local treetagger properties container, see below
 	private TreeTaggerProperties ttprops = new TreeTaggerProperties();
+	private TreeTaggerProcess ttProc = null;
+	
+	// processing threads for I/O
+	private ExecutorService executor = Executors.newFixedThreadPool(2);
+	private TreeTaggerWriter ttwriter;
+	private TreeTaggerReader ttreader;
 	
 	/**
 	 * uimacontext to make secondary initialize() method possible.
@@ -285,7 +295,6 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 				newToken.addToIndexes();
 				tokenOffset = newToken.getEnd();
 			}
-			
 		}
 	}
 	
@@ -355,6 +364,43 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	 * @param jcas JCas object supplied by the pipeline
 	 */
 	private void doTreeTag(JCas jcas) {
+		try {
+			if(ttProc == null) {
+				ttProc = new TreeTaggerProcess(ttprops.getTreeTaggingProcess());
+			}
+			
+			Logger.printDetail(component, "TreeTagger (pos tagging) with: " + ttprops.parFileName);
+			
+			AnnotationIndex ai = jcas.getAnnotationIndex(Token.type);
+			List<String> tokenStrings = new ArrayList<>();
+			List<Token> tokens = new ArrayList<>();
+			for(FSIterator fsi = ai.iterator(); fsi.hasNext();) {
+				Token token = (Token) fsi.next();
+				tokenStrings.add(token.getCoveredText());
+				tokens.add(token);
+			}
+			
+			ttreader = new TreeTaggerReader(tokens, ttProc.getStdout(), jcas, annotate_sentences);
+			ttwriter = new TreeTaggerWriter(tokenStrings, ttProc.getStdin());
+			
+			List<Callable<Boolean>> tasks = new ArrayList<>(2);
+			tasks.add(ttreader);
+			tasks.add(ttwriter);
+			
+			executor.invokeAll(tasks);
+		} catch(IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
+	/**
+	 * based on tokens from the jcas object, adds part of speech (POS) and sentence
+	 * tags to the jcas object using the treetagger program.
+	 * @param jcas JCas object supplied by the pipeline
+	 */
+	@SuppressWarnings({"unused"})
+	private void doTreeTagOld(JCas jcas) {
 		File tmpDocument = null;
 		BufferedWriter tmpFileWriter;
 		ArrayList<Token> tokens = new ArrayList<Token>();
@@ -450,7 +496,6 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 						
 						// Make sure current sentence is not active anymore so that a new one might be created
 						sentence = null;
-//						sentence = new Sentence(jcas);
 					}
 				}
 			}
@@ -472,7 +517,6 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			// Delete temporary files
 			tmpDocument.delete();
 		}
-
 	}
 	
 	public void setHome(String home) {

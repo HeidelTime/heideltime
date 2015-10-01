@@ -16,6 +16,10 @@ import java.util.ArrayList;
  *
  */
 public class TreeTaggerProperties {
+	public static final String FLUSH_SEQUENCE = "\n.\n.\n.\n.\n.\n(\n)\n.\n.\n.\n.\n";
+	public static final String STARTOFTEXT = "<This-is-the-start-of-the-text />";
+    public static final String ENDOFTEXT = "<This-is-the-end-of-the-text />";
+	
 	// treetagger language name for par files
 	public String languageName = null;
 	
@@ -134,5 +138,24 @@ public class TreeTaggerProperties {
 		command.toArray(commandStr);
 		
 		return Runtime.getRuntime().exec(commandStr);
+	}
+	
+	public Process getTreeTaggingProcess() throws IOException {
+		// assemble a command line based on configuration and execute the POS tagging.
+		ArrayList<String> command = new ArrayList<String>();
+		command.add(this.rootPath + this.fileSeparator + "bin" + this.fileSeparator + "tree-tagger");
+		command.add(this.rootPath + this.fileSeparator + "lib" + this.fileSeparator + this.parFileName);
+		command.add("-no-unknown");
+		command.add("-quiet");
+		command.add("-token");
+		command.add("-sgml");
+		
+		String[] commandStr = new String[command.size()];
+		command.toArray(commandStr);
+
+		ProcessBuilder builder = new ProcessBuilder(commandStr);
+		builder.redirectErrorStream(true);
+		
+		return builder.start();
 	}
 }
