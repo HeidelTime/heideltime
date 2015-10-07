@@ -52,22 +52,22 @@ RULENAME="duration_r3c",EXTRACTION="(%reApproximate )?(ثلث|الثلث) ((ال
 
 // duration_r4
 // EXAMPLE r4a: about the years 10 last.
-RULENAME="duration_r4a",EXTRACTION="(%reApproximate )?(ال)%reUnit (ال)([\d]+)( %reThisNextLast)?",NORM_VALUE="Pgroup(6)%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(1))"
+RULENAME="duration_r4a",EXTRACTION="(%reApproximate )?(ال)%reUnit (ال)([\d]+)( %reThisNextLast)?",NORM_VALUE="Pgroup(6)%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
 
 // EXAMPLE r4a: about the years 10 last. , three arabic digits, the choice of three just for random
-RULENAME="duration_r4a_arNum",EXTRACTION="(%reApproximate )?(ال)%reUnit (ال[ـ]?)(%reArabicDigit(%reArabicDigit)?(%reArabicDigit)?)( %reThisNextLast)?",NORM_VALUE="P%normArabicDigit(group(7))%normArabicDigit(group(9))%normArabicDigit(group(11))%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(1))"
+RULENAME="duration_r4a_arNum",EXTRACTION="(%reApproximate )?(ال)%reUnit (ال[ـ]?)(%reArabicDigit(%reArabicDigit)?(%reArabicDigit)?)( %reThisNextLast)?",NORM_VALUE="P%normArabicDigit(group(7))%normArabicDigit(group(9))%normArabicDigit(group(11))%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
 
 // EXAMPLE r4b: about the years ten last.
-RULENAME="duration_r4b",EXTRACTION="(%reApproximate )?(ال)%reUnit (ال)(%reNumWord2D|%reNumWord1D)( %reThisNextLast)?",NORM_VALUE="P%normDurationNumber(group(6))%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(1))"
+RULENAME="duration_r4b",EXTRACTION="(%reApproximate )?(ال)%reUnit (ال)(%reNumWord2D|%reNumWord1D)( %reThisNextLast)?",NORM_VALUE="P%normDurationNumber(group(6))%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
 
 // EXAMPLE r4c: about the minutes 10 last.
-RULENAME="duration_r4c",EXTRACTION="(%reApproximate )?(ال)%reUnitT (ال)([\d]+)( %reThisNextLast)?",NORM_VALUE="PTgroup(6)%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(1))"
+RULENAME="duration_r4c",EXTRACTION="(%reApproximate )?(ال)%reUnitT (ال)([\d]+)( %reThisNextLast)?",NORM_VALUE="PTgroup(6)%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
 
 // EXAMPLE r4c: about the mintues 10 last. , three arabic digits, the choice of three just for random
-RULENAME="duration_r4c_arNum",EXTRACTION="(%reApproximate )?(ال)%reUnitT (ال[ـ]?)(%reArabicDigit(%reArabicDigit)?(%reArabicDigit)?)( %reThisNextLast)?",NORM_VALUE="PT%normArabicDigit(group(7))%normArabicDigit(group(9))%normArabicDigit(group(11))%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(1))"
+RULENAME="duration_r4c_arNum",EXTRACTION="(%reApproximate )?(ال)%reUnitT (ال[ـ]?)(%reArabicDigit(%reArabicDigit)?(%reArabicDigit)?)( %reThisNextLast)?",NORM_VALUE="PT%normArabicDigit(group(7))%normArabicDigit(group(9))%normArabicDigit(group(11))%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
 
 // EXAMPLE r4d: about the minutes ten last.
-RULENAME="duration_r4d",EXTRACTION="(%reApproximate )?(ال)%reUnitT (ال)(%reNumWord2D|%reNumWord1D)( %reThisNextLast)?",NORM_VALUE="PT%normDurationNumber(group(6))%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(1))"
+RULENAME="duration_r4d",EXTRACTION="(%reApproximate )?(ال)%reUnitT (ال)(%reNumWord2D|%reNumWord1D)( %reThisNextLast)?",NORM_VALUE="PT%normDurationNumber(group(6))%normUnit4Duration(group(4))",NORM_MOD="%normApprox4Durations(group(2))"
 
 // duration_r5
 // EXAMPLE r5a: the 3rd year.
