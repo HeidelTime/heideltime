@@ -808,6 +808,11 @@ public class HeidelTimeStandalone {
 	private static void printHelp() {
 		String path = HeidelTimeStandalone.class.getProtectionDomain().getCodeSource().getLocation().getFile();
 		String filename = path.substring(path.lastIndexOf(System.getProperty("file.separator")) + 1);
+
+		System.out.println("HeidelTime Standalone");
+		System.out.println("Copyright © 2011-2015 Jannik Strötgen");
+		System.out.println("This software is free. See the COPYING file for copying conditions.");
+		System.out.println();
 		
 		System.out.println("Usage:");
 		System.out.println("  java -jar " 
