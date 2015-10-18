@@ -416,7 +416,7 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 			Timex3 timex3 = (Timex3) iterTimex3.next();
 			
 			//DATE Pattern
-			Pattern pDate = Pattern.compile("(?:BC)?(\\d+)(-(\\d+))?(-(\\d+))?(T(\\d+))?(:(\\d+))?(:(\\d+))?");
+			Pattern pDate = Pattern.compile("(?:BC)?(\\d\\d\\d\\d)(-(\\d+))?(-(\\d+))?(T(\\d+))?(:(\\d+))?(:(\\d+))?");
 			Pattern pCentury = Pattern.compile("(\\d\\d)");
 			Pattern pDecate = Pattern.compile("(\\d\\d\\d)");
 			Pattern pQuarter = Pattern.compile("(\\d+)-Q([1-4])");
@@ -578,11 +578,16 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 				beginDay=endDay=mTimeOfDay.group(3);
 			}
 			if(!beginYear.equals("UNDEF") && !endYear.equals("UNDEF")){
-				annotation.setTimexValueEB(beginYear+"-"+beginMonth+"-"+beginDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
-				annotation.setTimexValueEE(endYear+"-"+endMonth+"-"+endDay+"T"+endHour+":"+endMinute+":"+endSecond);
-				annotation.setTimexValueLB(beginYear+"-"+beginMonth+"-"+beginDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
-				annotation.setTimexValueLE(endYear+"-"+endMonth+"-"+endDay+"T"+endHour+":"+endMinute+":"+endSecond);
+//				annotation.setTimexValueEB(beginYear+"-"+beginMonth+"-"+beginDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
+//				annotation.setTimexValueEE(endYear+"-"+endMonth+"-"+endDay+"T"+endHour+":"+endMinute+":"+endSecond);
+//				annotation.setTimexValueLB(beginYear+"-"+beginMonth+"-"+beginDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
+//				annotation.setTimexValueLE(endYear+"-"+endMonth+"-"+endDay+"T"+endHour+":"+endMinute+":"+endSecond);
 		
+				annotation.setTimexValueEB(beginYear+"-"+beginMonth+"-"+beginDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
+				annotation.setTimexValueLB(endYear+"-"+endMonth+"-"+endDay+"T"+endHour+":"+endMinute+":"+endSecond);
+				annotation.setTimexValueEE(beginYear+"-"+beginMonth+"-"+beginDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
+				annotation.setTimexValueLE(endYear+"-"+endMonth+"-"+endDay+"T"+endHour+":"+endMinute+":"+endSecond);
+				
 				//Copy Values from the Timex3 Annotation
 				annotation.setTimexFreq(timex3.getTimexFreq());
 				annotation.setTimexId(timex3.getTimexId());
