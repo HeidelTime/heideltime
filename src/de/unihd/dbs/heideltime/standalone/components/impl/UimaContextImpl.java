@@ -30,6 +30,7 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
  * @version 1.0
  */
 public class UimaContextImpl extends RootUimaContext_impl {
+	private ConfigurationManager mConfigManager;
 
 	/**
 	 * Constructor
@@ -39,40 +40,46 @@ public class UimaContextImpl extends RootUimaContext_impl {
 	 * @param typeToProcess
 	 *            Document type to process
 	 */
-	public UimaContextImpl(Language language, DocumentType typeToProcess) {
+	public UimaContextImpl(Language language, DocumentType typeToProcess, Boolean debug) {
 		super();
 
 		// Initialize config
-		ConfigurationManager configManager = new ConfigurationManager_impl();
+		mConfigManager = new ConfigurationManager_impl();
 
 		// Initialize context
-		this.initializeRoot(null, new ResourceManager_impl(), configManager);
+		this.initializeRoot(null, new ResourceManager_impl(), mConfigManager);
 
 		// Set session
-		configManager.setSession(this.getSession());
+		mConfigManager.setSession(this.getSession());
 
 		// Set necessary variables
-		configManager.setConfigParameterValue(
+		mConfigManager.setConfigParameterValue(makeQualifiedName(Config.DEBUG), debug);
+		mConfigManager.setConfigParameterValue(
 				makeQualifiedName(Config.get(Config.UIMAVAR_DATE)),
 				Boolean.parseBoolean(Config.get(Config.CONSIDER_DATE)));
-		configManager.setConfigParameterValue(
+		mConfigManager.setConfigParameterValue(
 				makeQualifiedName(Config.get(Config.UIMAVAR_DURATION)),
 				Boolean.parseBoolean(Config.get(Config.CONSIDER_DURATION)));
-		configManager.setConfigParameterValue(
+		mConfigManager.setConfigParameterValue(
 				makeQualifiedName(Config.get(Config.UIMAVAR_LANGUAGE)),
 				language.getName());
-		configManager.setConfigParameterValue(
+		mConfigManager.setConfigParameterValue(
 				makeQualifiedName(Config.get(Config.UIMAVAR_SET)),
 				Boolean.parseBoolean(Config.get(Config.CONSIDER_SET)));
-		configManager.setConfigParameterValue(
+		mConfigManager.setConfigParameterValue(
 				makeQualifiedName(Config.get(Config.UIMAVAR_TIME)),
 				Boolean.parseBoolean(Config.get(Config.CONSIDER_TIME)));
-		configManager.setConfigParameterValue(
+		mConfigManager.setConfigParameterValue(
 				makeQualifiedName(Config.get(Config.UIMAVAR_TYPETOPROCESS)),
 				typeToProcess.toString());
-		configManager.setConfigParameterValue(
+		mConfigManager.setConfigParameterValue(
 				makeQualifiedName(Config.UIMAVAR_CONVERTDURATIONS),
 				new Boolean(true));
+	}
+	
+	@Override
+	public ConfigurationManager getConfigurationManager() {
+		return mConfigManager;
 	}
 
 }

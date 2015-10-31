@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class TreeTaggerWriter implements Callable<Boolean> {
+public class TreeTaggerWriter implements Runnable {
 	private List<String> tokens;
 	private PrintWriter writer;
 	
@@ -15,7 +15,7 @@ public class TreeTaggerWriter implements Callable<Boolean> {
 	}
 
 	@Override
-	public Boolean call() {
+	public void run() {
 		try {
 			// signal to the reader that this is the beginning of the document
 			writer.println(TreeTaggerProperties.STARTOFTEXT);
@@ -38,8 +38,6 @@ public class TreeTaggerWriter implements Callable<Boolean> {
 			// ignore as we can't really do anything about it anyway
 			e.printStackTrace();
 		}
-		
-		return true;
 	}
 
 }

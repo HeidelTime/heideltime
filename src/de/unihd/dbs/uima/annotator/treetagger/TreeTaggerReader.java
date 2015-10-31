@@ -5,14 +5,13 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import org.apache.uima.jcas.JCas;
 
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Token;
 
-public class TreeTaggerReader implements Callable<Boolean> {
+public class TreeTaggerReader implements Runnable {
 	private List<Token> tokens;
 	private BufferedReader reader;
 	private JCas jcas;
@@ -41,7 +40,7 @@ public class TreeTaggerReader implements Callable<Boolean> {
 	}
 	
 	@Override
-	public Boolean call() {
+	public void run() {
 		i = 0;
 		try {
 			Boolean isStarted = false;
@@ -136,7 +135,5 @@ public class TreeTaggerReader implements Callable<Boolean> {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-		
-		return true;
 	}
 }

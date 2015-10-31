@@ -233,7 +233,7 @@ public class HeidelTimeStandalone {
 		
 		try {
 			heidelTime = new HeidelTime();
-			heidelTime.initialize(new UimaContextImpl(language, typeToProcess));
+			heidelTime.initialize(new UimaContextImpl(language, typeToProcess, CLISwitch.VERBOSITY2.getIsActive()));
 			logger.log(Level.INFO, "HeidelTime initialized");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -34,6 +34,8 @@ public abstract class Config {
 	/*
 	 * Constants to organize consistent access to config parameters
 	 */
+	public static final String DEBUG = "Debugging";
+	
 	public static final String CONSIDER_DATE = "considerDate";
 	public static final String CONSIDER_DURATION = "considerDuration";
 	public static final String CONSIDER_SET = "considerSet";

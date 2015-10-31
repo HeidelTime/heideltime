@@ -17,8 +17,10 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
@@ -77,6 +79,8 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	 *
 	 */
 	private class TreeTaggerContext extends RootUimaContext_impl {
+		private ConfigurationManager mConfigManager;
+		
 		// shorthand for when we don't want to supply a cnTokPath
 		@SuppressWarnings("unused")
 		public TreeTaggerContext(Language language, Boolean annotateTokens, Boolean annotateSentences, 
@@ -90,20 +94,25 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			super();
 
 			// Initialize config
-			ConfigurationManager configManager = new ConfigurationManager_impl();
+			mConfigManager = new ConfigurationManager_impl();
 
 			// Initialize context
-			this.initializeRoot(null, new ResourceManager_impl(), configManager);
+			this.initializeRoot(null, new ResourceManager_impl(), mConfigManager);
 
 			// Set session
-			configManager.setSession(this.getSession());
+			mConfigManager.setSession(this.getSession());
 			
 			// Set necessary variables
-			configManager.setConfigParameterValue(makeQualifiedName(PARAM_LANGUAGE), language.getName());
-			configManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_TOKENS), annotateTokens);
-			configManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_PARTOFSPEECH), annotatePartOfSpeech);
-			configManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_SENTENCES), annotateSentences);
-			configManager.setConfigParameterValue(makeQualifiedName(PARAM_CHINESE_TOKENIZER_PATH), cnTokPath);
+			mConfigManager.setConfigParameterValue(makeQualifiedName(PARAM_LANGUAGE), language.getName());
+			mConfigManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_TOKENS), annotateTokens);
+			mConfigManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_PARTOFSPEECH), annotatePartOfSpeech);
+			mConfigManager.setConfigParameterValue(makeQualifiedName(PARAM_ANNOTATE_SENTENCES), annotateSentences);
+			mConfigManager.setConfigParameterValue(makeQualifiedName(PARAM_CHINESE_TOKENIZER_PATH), cnTokPath);
+		}
+		
+		@Override
+		public ConfigurationManager getConfigurationManager() {
+			return mConfigManager;
 		}
 	}
 	
@@ -383,11 +392,14 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			ttreader = new TreeTaggerReader(tokens, ttProc.getStdout(), jcas, annotate_sentences);
 			ttwriter = new TreeTaggerWriter(tokenStrings, ttProc.getStdin());
 			
-			List<Callable<Boolean>> tasks = new ArrayList<>(2);
-			tasks.add(ttreader);
-			tasks.add(ttwriter);
+			Thread rThread = new Thread(ttreader);
+			Thread wThread = new Thread(ttwriter);
 			
-			executor.invokeAll(tasks);
+			rThread.start();
+			wThread.start();
+			
+			rThread.join();
+			wThread.join();
 		} catch(IOException | InterruptedException e) {
 			e.printStackTrace();
 		}

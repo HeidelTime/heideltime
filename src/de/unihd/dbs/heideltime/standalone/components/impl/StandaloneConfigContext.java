@@ -25,16 +25,15 @@ public class StandaloneConfigContext implements UimaContext {
 	public void setConfigParameterValue(String aParamName, Object aParamValue) {
 		settings.put(aParamName, aParamValue);
 	}
+
+	@Override
+	public Object getConfigParameterValue(String aGroupName, String aParamName) {
+		return settings.get(aParamName);
+	}
 	
 	/*
 	 *  leave these defunct because we don't use them for now
 	 */
-
-	@Override
-	public Object getConfigParameterValue(String aGroupName, String aParamName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public String[] getConfigurationGroupNames() {
