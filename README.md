@@ -19,6 +19,25 @@ Want to see what it can do before you delve in? Take a look at our **[online dem
 * If you want to receive notifications on updates of HeidelTime, please fill out [this form](http://dbs.ifi.uni-heidelberg.de/index.php?id=form-downloads).
 * You can also follow us on Twitter ![Twitter](https://i.imgur.com/dtKBCF8.png)[@HeidelTime](https://twitter.com/heideltime).
 
+## Maven
+
+A minimal set of dependencies is satisfied by these entries for your pom.xml:
+
+```xml
+		<dependency>
+			<groupId>org.apache.uima</groupId>
+			<artifactId>uimaj-core</artifactId>
+			<version>2.8.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.github.heideltime</groupId>
+			<artifactId>heideltime</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+```
+
+For some additional features, you will need to provide additional dependencies. See our [Maven wiki page](https://github.com/HeidelTime/heideltime/wiki/Maven-Support).
+
 ## Publications
 
 If you use HeidelTime, please cite the appropriate paper (in general, this would be the journal paper [7]; if you use HeidelTime with automatically created resources, please cite paper [1]):
