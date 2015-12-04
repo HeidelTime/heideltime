@@ -16,11 +16,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
@@ -68,7 +63,6 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	private TreeTaggerProcess ttProc = null;
 	
 	// processing threads for I/O
-	private ExecutorService executor = Executors.newFixedThreadPool(2);
 	private TreeTaggerWriter ttwriter;
 	private TreeTaggerReader ttreader;
 	
