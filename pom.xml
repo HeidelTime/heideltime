@@ -49,6 +49,7 @@
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<outputDirectory>${basedir}/class</outputDirectory>
 		<resources>
 			<resource>
 				<directory>${basedir}</directory>
@@ -132,6 +133,9 @@
 						<goals>
 							<goal>jar</goal>
 						</goals>
+						<configuration>
+							<additionalparam>-Xdoclint:none</additionalparam>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
