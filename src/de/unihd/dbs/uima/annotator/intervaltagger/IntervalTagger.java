@@ -241,9 +241,9 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 							
 							if(!duplicate){
 								annotation.setTimexValueEB(startTx.getTimexValueEB());
-								annotation.setTimexValueLB(startTx.getTimexValueEE());
+								annotation.setTimexValueLB(startTx.getTimexValueLE());
 								annotation.setTimexValueEE(endTx.getTimexValueEB());
-								annotation.setTimexValueLE(endTx.getTimexValueEE());
+								annotation.setTimexValueLE(endTx.getTimexValueLE());
 								annotation.setTimexType(startTx.getTimexType());
 								annotation.setFoundByRule(name);
 								
@@ -578,14 +578,9 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 				beginDay=endDay=mTimeOfDay.group(3);
 			}
 			if(!beginYear.equals("UNDEF") && !endYear.equals("UNDEF")){
-//				annotation.setTimexValueEB(beginYear+"-"+beginMonth+"-"+beginDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
-//				annotation.setTimexValueEE(endYear+"-"+endMonth+"-"+endDay+"T"+endHour+":"+endMinute+":"+endSecond);
-//				annotation.setTimexValueLB(beginYear+"-"+beginMonth+"-"+beginDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
-//				annotation.setTimexValueLE(endYear+"-"+endMonth+"-"+endDay+"T"+endHour+":"+endMinute+":"+endSecond);
-		
 				annotation.setTimexValueEB(beginYear+"-"+beginMonth+"-"+beginDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
-				annotation.setTimexValueLB(endYear+"-"+endMonth+"-"+endDay+"T"+endHour+":"+endMinute+":"+endSecond);
-				annotation.setTimexValueEE(beginYear+"-"+beginMonth+"-"+beginDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
+				annotation.setTimexValueLB(beginYear+"-"+beginMonth+"-"+beginDay+"T"+endHour+":"+endMinute+":"+endSecond);
+				annotation.setTimexValueEE(endYear+"-"+endMonth+"-"+endDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
 				annotation.setTimexValueLE(endYear+"-"+endMonth+"-"+endDay+"T"+endHour+":"+endMinute+":"+endSecond);
 				
 				//Copy Values from the Timex3 Annotation
