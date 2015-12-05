@@ -46,7 +46,7 @@ public class TimeMLResultFormatter implements ResultFormatter {
 			Timex3Interval t = (Timex3Interval) iterIntervals.next();
 			
 			// disregard intervals that likely aren't a real interval, but just a timex-translation
-			if(t.getTimexValueEB().equals(t.getTimexValueLB()) && t.getTimexValueEE().equals(t.getTimexValueLE()))
+			if(t.getTimexValueLE().equals(t.getTimexValueLB()) && t.getTimexValueEE().equals(t.getTimexValueEB()))
 				continue;
 			
 			if(intervals.containsKey(t.getBegin())) {
