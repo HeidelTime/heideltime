@@ -3,8 +3,8 @@
 #######################
 
 Author:  Jannik Strötgen, Julian Zell
-Date:    September 17th, 2015
-Version: 2.0
+Date:    December 18th, 2015
+Version: 2.1
 eMail:   stroetgen@uni-hd.de, zell@informatik.uni-heidelberg.de
 
 ###################################

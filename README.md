@@ -1,5 +1,3 @@
-**HeidelTime 2.0 with automatically created resources for 200+ languages is now available. For further details, take a look at our [EMNLP 2015 paper](https://aclweb.org/anthology/D/D15/D15-1063.pdf).**
-
 ## About HeidelTime
 **HeidelTime** is a multilingual, cross-domain temporal tagger developed at the [Database Systems Research Group](http://dbs.ifi.uni-heidelberg.de/) at [Heidelberg University](http://www.uni-heidelberg.de/index_e.html). It extracts temporal expressions from documents and normalizes them according to the TIMEX3 annotation standard. HeidelTime is available as [UIMA](http://uima.apache.org/) annotator and as standalone version.
 
@@ -32,7 +30,7 @@ A minimal set of dependencies is satisfied by these entries for your pom.xml:
 		<dependency>
 			<groupId>com.github.heideltime</groupId>
 			<artifactId>heideltime</artifactId>
-			<version>2.0.1</version>
+			<version>2.1.0</version>
 		</dependency>
 ```
 
