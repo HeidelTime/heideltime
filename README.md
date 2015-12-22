@@ -30,7 +30,7 @@ A minimal set of dependencies is satisfied by these entries for your pom.xml:
 		<dependency>
 			<groupId>com.github.heideltime</groupId>
 			<artifactId>heideltime</artifactId>
-			<version>2.1.0</version>
+			<version>2.1</version>
 		</dependency>
 ```
 
