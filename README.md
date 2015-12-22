@@ -1,5 +1,7 @@
+**HeidelTime 2.1 contains automatically created resources for 200+ languages in addition to manually created ones for 13 languages. For further details, take a look at our [EMNLP 2015 paper](https://aclweb.org/anthology/D/D15/D15-1063.pdf).**
+
 ## About HeidelTime
-**HeidelTime** is a multilingual, cross-domain temporal tagger developed at the [Database Systems Research Group](http://dbs.ifi.uni-heidelberg.de/) at [Heidelberg University](http://www.uni-heidelberg.de/index_e.html). It extracts temporal expressions from documents and normalizes them according to the TIMEX3 annotation standard. HeidelTime is available as [UIMA](http://uima.apache.org/) annotator and as standalone version.
+**HeidelTime** is a multilingual, domain-sensitive temporal tagger developed at the [Database Systems Research Group](http://dbs.ifi.uni-heidelberg.de/) at [Heidelberg University](http://www.uni-heidelberg.de/index_e.html). It extracts temporal expressions from documents and normalizes them according to the TIMEX3 annotation standard. HeidelTime is available as [UIMA](http://uima.apache.org/) annotator and as standalone version.
 
 **HeidelTime** currently contains hand-crafted resources for **13 languages**: English, German, Dutch, Vietnamese, Arabic, Spanish, Italian, French, Chinese, Russian, Croatian, Estonian and Portuguese. In addition, starting with version 2.0, HeidelTime contains **automatically created resources for more than 200 languages**. Although these resources are of lower quality than the manually created ones, temporal tagging of many of these languages has never been addressed before. Thus, HeidelTime can be used as a baseline for temporal tagging of all these languages or as a starting point for developing temporal tagging capabilities for them. 
 
