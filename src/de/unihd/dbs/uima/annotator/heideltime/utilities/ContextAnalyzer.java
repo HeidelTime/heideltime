@@ -241,8 +241,8 @@ public class ContextAnalyzer {
 		Sentence s = new Sentence(jcas);
 		while (iterSentence.hasNext()) {
 			s = (Sentence) iterSentence.next();
-			if ((s.getBegin() < timex.getBegin())
-					&& (s.getEnd() > timex.getEnd())) {
+			if ((s.getBegin() <= timex.getBegin())
+					&& (s.getEnd() >= timex.getEnd())) {
 				break;
 			}
 		}
@@ -363,8 +363,8 @@ public class ContextAnalyzer {
 		Sentence s = new Sentence(jcas);
 		while (iterSentence.hasNext()) {
 			s = (Sentence) iterSentence.next();
-			if ((s.getBegin() < timex.getBegin())
-					&& (s.getEnd() > timex.getEnd())) {
+			if ((s.getBegin() <= timex.getBegin())
+					&& (s.getEnd() >= timex.getEnd())) {
 				break;
 			}
 		}
