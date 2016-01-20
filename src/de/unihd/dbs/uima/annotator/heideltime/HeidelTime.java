@@ -87,12 +87,14 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private String PARAM_TIME      = "Time";
 	private String PARAM_DURATION  = "Duration";
 	private String PARAM_SET       = "Set";
+	private String PARAM_TEMPONYMS = "Temponym";
 	private String PARAM_DEBUG	   = "Debugging";
 	private String PARAM_GROUP     = "ConvertDurations";
 	private Boolean find_dates     = true;
 	private Boolean find_times     = true;
 	private Boolean find_durations = true;
 	private Boolean find_sets      = true;
+	private Boolean find_temponyms = false;
 	private Boolean group_gran     = true;
 	// FOR DEBUGGING PURPOSES (IF FALSE)
 	private Boolean deleteOverlapped = true;
@@ -142,6 +144,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		find_times     = (Boolean) aContext.getConfigParameterValue(PARAM_TIME);
 		find_durations = (Boolean) aContext.getConfigParameterValue(PARAM_DURATION);
 		find_sets      = (Boolean) aContext.getConfigParameterValue(PARAM_SET);
+		find_temponyms = (Boolean) aContext.getConfigParameterValue(PARAM_TEMPONYMS);
 		group_gran	   = (Boolean) aContext.getConfigParameterValue(PARAM_GROUP);
 		////////////////////////////////////////////////////////////
 		// READ NORMALIZATION RESOURCES FROM FILES AND STORE THEM //
@@ -172,6 +175,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		if (find_times) Logger.printDetail("Getting Times...");	
 		if (find_durations) Logger.printDetail("Getting Durations...");	
 		if (find_sets) Logger.printDetail("Getting Sets...");
+		if (find_temponyms) Logger.printDetail("Getting Temponyms...");
 	}
 
 	
@@ -246,6 +250,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					}
 					if (find_durations) {
 						findTimexes("DURATION", rulem.getHmDurationPattern(), rulem.getHmDurationOffset(), rulem.getHmDurationNormalization(), rulem.getHmDurationQuant(), s, jcas);
+					}
+					if (find_temponyms) {
+						findTimexes("TEMPONYM", rulem.getHmTemponymPattern(), rulem.getHmTemponymOffset(), rulem.getHmTemponymNormalization(), rulem.getHmTemponymQuant(), s, jcas);						
 					}
 				} catch(NullPointerException npe) {
 					if(!debugIteration) {
@@ -2134,6 +2141,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		HashMap<String, String> hmDurationPosConstraint = rm.getHmDurationPosConstraint();
 		HashMap<String, String> hmTimePosConstraint = rm.getHmTimePosConstraint();
 		HashMap<String, String> hmSetPosConstraint = rm.getHmSetPosConstraint();
+		HashMap<String, String> hmTemponymPosConstraint = rm.getHmTemponymPosConstraint();
 		
 		// Iterator over the rules by sorted by the name of the rules
 		// this is important since later, the timexId will be used to 
@@ -2162,6 +2170,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					}
 				} else if (timexType.equals("SET")) {
 					if (hmSetPosConstraint.containsKey(hmPattern.get(p))) {
+						posConstraintOK = checkPosConstraint(s , hmSetPosConstraint.get(hmPattern.get(p)), r, jcas);
+					}
+				} else if (timexType.equals("TEMPONYM")) {
+					if (hmTemponymPosConstraint.containsKey(hmPattern.get(p))) {
 						posConstraintOK = checkPosConstraint(s , hmSetPosConstraint.get(hmPattern.get(p)), r, jcas);
 					}
 				}
@@ -2199,6 +2211,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmTimeNormalization(), rm.getHmTimeQuant(), rm.getHmTimeFreq(), rm.getHmTimeMod(), rm.getHmTimeEmptyValue(), r, jcas);
 						} else if (timexType.equals("SET")) {
 							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmSetNormalization(), rm.getHmSetQuant(), rm.getHmSetFreq(), rm.getHmSetMod(), rm.getHmSetEmptyValue(), r, jcas);
+						} else if (timexType.equals("TEMPONYM")) {
+							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmTemponymNormalization(), rm.getHmTemponymQuant(), rm.getHmTemponymFreq(), rm.getHmTemponymMod(), rm.getHmTemponymEmptyValue(), r, jcas);
 						}
 						addTimexAnnotation(timexType, timexStart + s.getBegin(), timexEnd + s.getBegin(), s, 
 								attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], "t" + timexID++, hmPattern.get(p), jcas);

@@ -1,0 +1,76 @@
+// author: Jannik Strötgen
+// email:  jannik.stroetgen@mpi-inf.mpg.de
+// date:   2016-01-18
+// This file contains rules for the extraction of temponyms such as "Michael Jackson's death" 
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////////
+// Temponym RULES //
+////////////////////
+
+// temponyms -- DEATH
+// RULENAME="temponym_death_1",EXTRACTION="%reTemponymDeathPerson's %reTemponymDeathNoun",NORM_VALUE="%normTemponymDeath(group(1))"
+// RULENAME="temponym_death_2",EXTRACTION="%reTemponymDeathNoun of %reTemponymDeathPerson",NORM_VALUE="%normTemponymDeath(group(2))"
+// RULENAME="temponym_death_3",EXTRACTION="%reTemponymDeathPerson %reTemponymDeathVerb",NORM_VALUE="%normTemponymDeath(group(1))"
+
+// temponyms -- BIRTH
+// RULENAME="temponym_birth_0a",EXTRACTION="%reTemponymBirthPersonF1T50000's %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))"
+// RULENAME="temponym_birth_0b",EXTRACTION="%reTemponymBirthNoun of %reTemponymBirthPersonF1T50000",NORM_VALUE="%normTemponymBirth(group(2))"
+// RULENAME="temponym_birth_0c",EXTRACTION="%reTemponymBirthPersonF1T50000 %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))"
+
+// RULENAME="temponym_birth_0d",EXTRACTION="%reTemponymBirthPersonF50000T100000's %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))"
+// RULENAME="temponym_birth_0e",EXTRACTION="%reTemponymBirthNoun of %reTemponymBirthPersonF50000T100000",NORM_VALUE="%normTemponymBirth(group(2))"
+// RULENAME="temponym_birth_0f",EXTRACTION="%reTemponymBirthPersonF50000T100000 %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))"
+
+// RULENAME="temponym_birth_1a",EXTRACTION="%reTemponymBirthPersonF100000T150000's %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))"
+// RULENAME="temponym_birth_1b",EXTRACTION="%reTemponymBirthNoun of %reTemponymBirthPersonF100000T150000",NORM_VALUE="%normTemponymBirth(group(2))"
+// RULENAME="temponym_birth_1c",EXTRACTION="%reTemponymBirthPersonF100000T150000 %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))"
+
+// RULENAME="temponym_birth_2a",EXTRACTION="%reTemponymBirthPersonF150000T200000's %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))"
+// RULENAME="temponym_birth_2b",EXTRACTION="%reTemponymBirthNoun of %reTemponymBirthPersonF150000T200000",NORM_VALUE="%normTemponymBirth(group(2))"
+// RULENAME="temponym_birth_2c",EXTRACTION="%reTemponymBirthPersonF150000T200000 %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))"
+
+// RULENAME="temponym_birth_3a",EXTRACTION="%reTemponymBirthPersonF200000T250000's %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))"
+// RULENAME="temponym_birth_3b",EXTRACTION="%reTemponymBirthNoun of %reTemponymBirthPersonF200000T250000",NORM_VALUE="%normTemponymBirth(group(2))"
+// RULENAME="temponym_birth_3c",EXTRACTION="%reTemponymBirthPersonF200000T250000 %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))"
+
+// RULENAME="temponym_birth_3d",EXTRACTION="%reTemponymBirthPersonF250000T300000's %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))"
+// RULENAME="temponym_birth_3e",EXTRACTION="%reTemponymBirthNoun of %reTemponymBirthPersonF250000T300000",NORM_VALUE="%normTemponymBirth(group(2))"
+// RULENAME="temponym_birth_3f",EXTRACTION="%reTemponymBirthPersonF250000T300000 %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))"
+
+// RULENAME="temponym_birth_4a",EXTRACTION="%reTemponymBirthPersonF300000T350000's %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))"
+// RULENAME="temponym_birth_4b",EXTRACTION="%reTemponymBirthNoun of %reTemponymBirthPersonF300000T350000",NORM_VALUE="%normTemponymBirth(group(2))"
+// RULENAME="temponym_birth_4c",EXTRACTION="%reTemponymBirthPersonF300000T350000 %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))"
+
+// RULENAME="temponym_birth_5a",EXTRACTION="%reTemponymBirthPersonF350000T400000's %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))"
+// RULENAME="temponym_birth_5b",EXTRACTION="%reTemponymBirthNoun of %reTemponymBirthPersonF350000T400000",NORM_VALUE="%normTemponymBirth(group(2))"
+// RULENAME="temponym_birth_5c",EXTRACTION="%reTemponymBirthPersonF350000T400000 %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))"
+
+// RULENAME="temponym_birth_6a",EXTRACTION="%reTemponymBirthPersonF400000T450000's %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))"
+// RULENAME="temponym_birth_6b",EXTRACTION="%reTemponymBirthNoun of %reTemponymBirthPersonF400000T450000",NORM_VALUE="%normTemponymBirth(group(2))"
+// RULENAME="temponym_birth_6c",EXTRACTION="%reTemponymBirthPersonF400000T450000 %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))"
+
+// RULENAME="temponym_birth_7a",EXTRACTION="%reTemponymBirthPersonF450000T500000's %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))"
+// RULENAME="temponym_birth_7b",EXTRACTION="%reTemponymBirthNoun of %reTemponymBirthPersonF450000T500000",NORM_VALUE="%normTemponymBirth(group(2))"
+// RULENAME="temponym_birth_7c",EXTRACTION="%reTemponymBirthPersonF450000T500000 %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))"
+
+
+
+// temponyms -- POSITION
+// RULENAME="temponym_position_1",EXTRACTION="%reTemponymHoldsposition",NORM_VALUE="%normTemponymHoldsposition(group(1))"
+
+// temponyms -- MARRIAGE
+// RULENAME="temponym_marriage_1",EXTRACTION="%reTemponymMarriage",NORM_VALUE="%normTemponymMarriage(group(1))"
+
+// temponyms -- CREATED
+// RULENAME="temponym_created_1",EXTRACTION="%reTemponymCreatedToH",NORM_VALUE="%normTemponymCreatedToH(group(1))"
+// RULENAME="temponym_created_2",EXTRACTION="%reTemponymCreatedFromH",NORM_VALUE="%normTemponymCreatedFromH(group(1))"
+
+// temponyms -- DIRECTED
+// RULENAME="temponym_directed_1",EXTRACTION="%reTemponymDirected",NORM_VALUE="%normTemponymDirected(group(1))"
+
+// temponyms -- PRODUCED
+// RULENAME="temponym_produced_1",EXTRACTION="%reTemponymProduced",NORM_VALUE="%normTemponymProduced(group(1))"
+
+// temponyms -- EVENT
+// RULENAME="temponym_event_1",EXTRACTION="%reTemponymEvent",NORM_VALUE="%normTemponymEvent(group(1))"

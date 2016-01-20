@@ -77,6 +77,16 @@ public class RuleManager extends GenericResourceManager {
 	HashMap<String, String> hmDurationEmptyValue = new HashMap<String, String>();
 	HashMap<String, String> hmSetEmptyValue = new HashMap<String, String>();
 
+	// TEMPONYM RULES (loaded from resource files)
+	HashMap<Pattern, String> hmTemponymPattern = new HashMap<Pattern, String>();
+	HashMap<String, String> hmTemponymNormalization = new HashMap<String, String>();
+	HashMap<String, String> hmTemponymOffset = new HashMap<String, String>();
+	HashMap<String, String> hmTemponymQuant = new HashMap<String, String>();
+	HashMap<String, String> hmTemponymFreq = new HashMap<String, String>();
+	HashMap<String, String> hmTemponymMod = new HashMap<String, String>();
+	HashMap<String, String> hmTemponymPosConstraint = new HashMap<String, String>();
+	HashMap<String, String> hmTemponymEmptyValue = new HashMap<String, String>();
+	
 	/**
 	 * Constructor calls the parent constructor that sets language/resource
 	 * parameters and collects rules resources.
@@ -407,6 +417,42 @@ public class RuleManager extends GenericResourceManager {
 								hmTimeEmptyValue.put(rule_name,
 										rule_empty_value);
 							}
+						}
+						// ///////////////////////////////////////////
+						// READ DATE RULES AND MAKE THEM AVAILABLE //
+						// ///////////////////////////////////////////
+						else if (resource.equals("temponymrules")) {
+							// get extraction part
+							hmTemponymPattern.put(pattern, rule_name);
+							// get normalization part
+							hmTemponymNormalization.put(rule_name,
+									rule_normalization);
+							// get offset part
+							if (!(rule_offset.equals(""))) {
+								hmTemponymOffset.put(rule_name, rule_offset);
+							}
+								// get quant part
+							if (!(rule_quant.equals(""))) {
+								hmTemponymQuant.put(rule_name, rule_quant);
+							}
+							// get freq part
+							if (!(rule_freq.equals(""))) {
+								hmTemponymFreq.put(rule_name, rule_freq);
+							}
+							// get mod part
+							if (!(rule_mod.equals(""))) {
+								hmTemponymMod.put(rule_name, rule_mod);
+							}
+							// get pos constraint part
+							if (!(pos_constraint.equals(""))) {
+								hmTemponymPosConstraint.put(rule_name,
+										pos_constraint);
+							}
+							// get empty value part
+							if (!(rule_empty_value.equals(""))) {
+								hmTemponymEmptyValue.put(rule_name,
+										rule_empty_value);
+							}
 						} else {
 							Logger.printDetail(component, "Resource not recognized by HeidelTime: "	+ resource);
 						}
@@ -569,4 +615,35 @@ public class RuleManager extends GenericResourceManager {
 		return hmSetEmptyValue;
 	}
 
+	public final HashMap<Pattern, String> getHmTemponymPattern() {
+		return hmTemponymPattern;
+	}
+	
+	public final HashMap<String, String> getHmTemponymNormalization() {
+		return hmTemponymNormalization;
+	}
+	
+	public final HashMap<String, String> getHmTemponymOffset() {
+		return hmTemponymOffset;
+	}
+	
+	public final HashMap<String, String> getHmTemponymQuant() {
+		return hmTemponymQuant;
+	}
+	
+	public final HashMap<String, String> getHmTemponymFreq() {
+		return hmTemponymFreq;
+	}
+	
+	public final HashMap<String, String> getHmTemponymMod() {
+		return hmTemponymMod;
+	}
+	
+	public final HashMap<String, String> getHmTemponymPosConstraint() {
+		return hmTemponymPosConstraint;
+	}
+	
+	public final HashMap<String, String> getHmTemponymEmptyValue() {
+		return hmTemponymEmptyValue;
+	}
 }
