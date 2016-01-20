@@ -399,6 +399,7 @@ public class HeidelTimeStandalone {
 		}
 		partOfSpeechTagger.initialize(settings);
 		partOfSpeechTagger.process(jcas);
+		partOfSpeechTagger.reset();
 
 		logger.log(Level.FINEST, "Part of speech information established");
 	}

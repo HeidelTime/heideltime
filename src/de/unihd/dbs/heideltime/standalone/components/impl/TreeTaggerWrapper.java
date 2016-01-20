@@ -58,4 +58,9 @@ public class TreeTaggerWrapper implements PartOfSpeechTagger {
 		ttw.initialize(language, treeTaggerHome, annotateTokens, 
 				annotateSentences, annotatePartOfSpeech, improveGermanSentences, cnTokenizerPath);
 	}
+
+	@Override
+	public void reset() {
+		ttw.quit();
+	}
 }

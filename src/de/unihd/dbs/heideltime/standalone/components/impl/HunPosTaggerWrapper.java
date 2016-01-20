@@ -34,4 +34,9 @@ public class HunPosTaggerWrapper implements PartOfSpeechTagger {
 		}
 	}
 
+	@Override
+	public void reset() {
+		// not necessary
+	}
+
 }

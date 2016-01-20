@@ -46,4 +46,6 @@ public interface PartOfSpeechTagger extends UIMAAnnotator {
 	public static final String HUNPOS_ANNOTATE_TOKENS = "annotate_tokens";
 	public static final String HUNPOS_ANNOTATE_SENTENCES = "annotate_sentences";
 	public static final String HUNPOS_ANNOTATE_POS = "annotate_pos";
+	
+	public void reset();
 }

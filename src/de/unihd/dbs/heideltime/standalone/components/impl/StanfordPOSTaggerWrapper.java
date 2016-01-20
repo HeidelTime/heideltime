@@ -40,4 +40,9 @@ public class StanfordPOSTaggerWrapper implements PartOfSpeechTagger {
 		stanford.initialize(aContext);
 	}
 
+	@Override
+	public void reset() {
+		// not necessary
+	}
+
 }

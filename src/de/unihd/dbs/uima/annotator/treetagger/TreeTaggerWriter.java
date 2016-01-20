@@ -3,7 +3,6 @@ package de.unihd.dbs.uima.annotator.treetagger;
 import java.io.BufferedWriter;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class TreeTaggerWriter implements Runnable {
 	private List<String> tokens;

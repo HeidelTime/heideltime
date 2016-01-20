@@ -42,4 +42,9 @@ public class JVnTextProWrapper implements PartOfSpeechTagger {
 		jvntextpro.initialize(aContext);
 	}
 
+	@Override
+	public void reset() {
+		// not necessary
+	}
+
 }

@@ -705,4 +705,9 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			mergedSent.addToIndexes();
 		}
 	}
+	
+	public void quit() {
+		ttProc.close();
+		ttProc = null;
+	}
 }

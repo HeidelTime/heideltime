@@ -9,10 +9,12 @@ import java.io.OutputStreamWriter;
 public class TreeTaggerProcess {
 	private final BufferedReader stdout;
 	private final BufferedWriter stdin;
+	private final Process proc;
 	
 	public TreeTaggerProcess(Process ttProc) {
 		this.stdout = new BufferedReader(new InputStreamReader(ttProc.getInputStream()));
 		this.stdin = new BufferedWriter(new OutputStreamWriter(ttProc.getOutputStream()));
+		this.proc = ttProc;
 	}
 	
 	public void close() {
@@ -22,6 +24,9 @@ public class TreeTaggerProcess {
 			}
 			if(stdin != null) {
 				stdin.close();
+			}
+			if(proc != null) {
+				proc.destroy();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

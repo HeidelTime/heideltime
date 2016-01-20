@@ -25,4 +25,9 @@ public class AllLanguagesTokenizerWrapper implements PartOfSpeechTagger {
 		}
 	}
 
+	@Override
+	public void reset() {
+		// not necessary
+	}
+
 }
