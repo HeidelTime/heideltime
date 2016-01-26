@@ -107,12 +107,14 @@ public class RePatternManager extends GenericResourceManager {
 							return 0;
 					}
 				});
-				
+								
+				StringBuilder sb = new StringBuilder();
 				String devPattern = "";
 				for(String pat : patterns) {
-					devPattern += "|" + pat;
+					sb.append("|");
+					sb.append(pat);
 				}
-				
+				devPattern = sb.toString();
 				hmAllRePattern.put(resource, devPattern);
 			}
 			////////////////////////////
