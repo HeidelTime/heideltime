@@ -94,7 +94,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private Boolean find_times     = true;
 	private Boolean find_durations = true;
 	private Boolean find_sets      = true;
-	private Boolean find_temponyms = false;
+	public static Boolean find_temponyms = false;
 	private Boolean group_gran     = true;
 	// FOR DEBUGGING PURPOSES (IF FALSE)
 	private Boolean deleteOverlapped = true;
@@ -2175,9 +2175,6 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				if (f.matcher(s.getCoveredText()).find()) {
 					fastCheckOK = true;
 				}
-				else{
-					System.err.println("FAST CHECK: "  + fastCheckOK);		
-				}
 			}
 			
             
@@ -2248,8 +2245,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							} else if (timexType.equals("TEMPONYM")) {
 								attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmTemponymNormalization(), rm.getHmTemponymQuant(), rm.getHmTemponymFreq(), rm.getHmTemponymMod(), rm.getHmTemponymEmptyValue(), r, jcas);
 							}
-							addTimexAnnotation(timexType, timexStart + s.getBegin(), timexEnd + s.getBegin(), s, 
-									attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], "t" + timexID++, hmPattern.get(p), jcas);
+							if (!(attributes == null)) {
+								addTimexAnnotation(timexType, timexStart + s.getBegin(), timexEnd + s.getBegin(), s, 
+										attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], "t" + timexID++, hmPattern.get(p), jcas);
+							}
 						}
 						else {
 							Logger.printError("SOMETHING REALLY WRONG HERE: "+hmPattern.get(p));
@@ -2314,8 +2313,14 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					if (!(norm.getFromHmAllNormalization(mr.group(1)).containsKey(partToReplace))) {
 						Logger.printDetail("Maybe problem with normalization of the resource: "+mr.group(1));
 						Logger.printDetail("Maybe problem with part to replace? "+partToReplace);
+						if (mr.group(1).contains("Temponym")){
+							Logger.printDetail("Should be ok, as it's a temponym.");
+							return null;
+						}
 					}
-					tonormalize = tonormalize.replace(mr.group(), norm.getFromHmAllNormalization(mr.group(1)).get(partToReplace));
+					else { 
+						tonormalize = tonormalize.replace(mr.group(), norm.getFromHmAllNormalization(mr.group(1)).get(partToReplace));
+					}
 				} else {
 					Logger.printDetail("Empty part to normalize in "+mr.group(1));
 					
@@ -2419,6 +2424,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// Normalize Value
 		String value_normalization_pattern = hmNormalization.get(rule);
 		value = applyRuleFunctions(value_normalization_pattern, m);
+		if (value == null) return null;
 		
 		// get quant
 		if (hmQuant.containsKey(rule)) {
