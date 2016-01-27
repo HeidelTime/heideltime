@@ -66,7 +66,7 @@ public class RePatternManager extends GenericResourceManager {
 	 * @param hmResourcesRePattern RePattern resources to be interpreted
 	 */
 	private void readRePatternResources(ResourceMap hmResourcesRePattern) {
-		
+		Boolean load_temponym_resources = de.unihd.dbs.uima.annotator.heideltime.HeidelTime.find_temponyms;
 		//////////////////////////////////////
 		// READ REGULAR EXPRESSION PATTERNS //
 		//////////////////////////////////////
@@ -75,53 +75,65 @@ public class RePatternManager extends GenericResourceManager {
 		BufferedReader br = null;
 		try {
 			for (String resource : hmResourcesRePattern.keySet()) {
-				Logger.printDetail(component, "Adding pattern resource: "+resource);
-				// create a buffered reader for every repattern resource file
-				is = hmResourcesRePattern.getInputStream(resource);
-				isr = new InputStreamReader(is, "UTF-8");
-				br = new BufferedReader(isr);
-				LinkedList<String> patterns = new LinkedList<String>();
-				for (String line; (line = br.readLine()) != null; ) {
-					// disregard comments
-					if (!line.startsWith("//") && !line.equals("")) {
-						patterns.add(replaceSpaces(line));
+				// read pattern resources with "Temponym" only if temponym tagging is selected
+				if ( (!(resource.contains("Temponym"))) ||
+						((load_temponym_resources) && (resource.contains("Temponym")))){
+					Logger.printDetail(component, "Adding pattern resource: "+resource);
+					// create a buffered reader for every repattern resource file
+					is = hmResourcesRePattern.getInputStream(resource);
+					isr = new InputStreamReader(is, "UTF-8");
+					br = new BufferedReader(isr);
+					LinkedList<String> patterns = new LinkedList<String>();
+					for (String line; (line = br.readLine()) != null; ) {
+						// disregard comments
+						if (!line.startsWith("//") && !line.equals("")) {
+							patterns.add(replaceSpaces(line));
+						}
 					}
-				}
 				
-				// sort the repatterns by length in ascending order
-				Collections.sort(patterns, new Comparator<String>() {
-					@Override
-					public int compare(String o1, String o2) {
-						String o1effective = o1.replaceAll("\\[[^\\]]*\\]", "X")
-								.replaceAll("\\?", "")
-								.replaceAll("\\\\.(?:\\{([^\\}])+\\})?", "X$1");
-						String o2effective = o2.replaceAll("\\[[^\\]]*\\]", "X")
-								.replaceAll("\\?", "")
-								.replaceAll("\\\\.(?:\\{([^\\}])+\\})?", "X$1");
-						
-						if(o1effective.length() < o2effective.length())
-							return 1;
-						else if(o1effective.length() > o2effective.length())
-							return -1;
-						else
-							return 0;
+				
+					
+					// sort the repatterns by length in ascending order
+					Collections.sort(patterns, new Comparator<String>() {
+						@Override
+						public int compare(String o1, String o2) {
+							String o1effective = o1.replaceAll("\\[[^\\]]*\\]", "X")
+									.replaceAll("\\?", "")
+									.replaceAll("\\\\.(?:\\{([^\\}])+\\})?", "X$1");
+							String o2effective = o2.replaceAll("\\[[^\\]]*\\]", "X")
+									.replaceAll("\\?", "")
+									.replaceAll("\\\\.(?:\\{([^\\}])+\\})?", "X$1");
+							
+							if(o1effective.length() < o2effective.length())
+								return 1;
+							else if(o1effective.length() > o2effective.length())
+								return -1;
+							else
+								return 0;
+						}
+					});
+										
+					StringBuilder sb = new StringBuilder();
+					String devPattern = "";
+					for(String pat : patterns) {
+						sb.append("|");
+						sb.append(pat);
 					}
-				});
-								
-				StringBuilder sb = new StringBuilder();
-				String devPattern = "";
-				for(String pat : patterns) {
-					sb.append("|");
-					sb.append(pat);
+					devPattern = sb.toString();
+					hmAllRePattern.put(resource, devPattern);
 				}
-				devPattern = sb.toString();
-				hmAllRePattern.put(resource, devPattern);
+				else {
+					Logger.printDetail(component, "No Temponym Tagging selected. Skipping pattern resource: "+resource);
+				}
 			}
 			////////////////////////////
 			// FINALIZE THE REPATTERN //
 			////////////////////////////
 			for (String which : hmAllRePattern.keySet()) {
-				finalizeRePattern(which, hmAllRePattern.get(which));
+				if ( (!(which.contains("Temponym"))) ||
+						((load_temponym_resources) && (which.contains("Temponym")))){
+					finalizeRePattern(which, hmAllRePattern.get(which));
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
