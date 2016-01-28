@@ -30,7 +30,7 @@ public class ContextAnalyzer {
 	 * @return last mentioned entry
 	 */
 	public static String getLastMentionedX(List<Timex3> linearDates, int i, String x, Language language) {
-		NormalizationManager nm = NormalizationManager.getInstance(language);
+		NormalizationManager nm = NormalizationManager.getInstance(language, true);
 		
 		// Timex for which to get the last mentioned x (i.e., Timex i)
 		Timex3 t_i = linearDates.get(i);
@@ -226,7 +226,7 @@ public class ContextAnalyzer {
 	 * @return string that contains the tense
 	 */
 	public static String getClosestTense(Timex3 timex, JCas jcas, Language language) {
-		RePatternManager rpm = RePatternManager.getInstance(language);
+		RePatternManager rpm = RePatternManager.getInstance(language, false);
 		
 		String lastTense = "";
 		String nextTense = "";
@@ -354,7 +354,7 @@ public class ContextAnalyzer {
 	 * @return string that contains the tense
 	 */
 	public static String getLastTense(Timex3 timex, JCas jcas, Language language) {
-		RePatternManager rpm = RePatternManager.getInstance(language);
+		RePatternManager rpm = RePatternManager.getInstance(language, false);
 		
 		String lastTense = "";
 

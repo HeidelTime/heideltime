@@ -29,8 +29,9 @@ public class RePatternManager extends GenericResourceManager {
 	 * Constructor calls the parent constructor that sets language/resource
 	 * parameters and collects resource repatterns.
 	 * @param language
+	 * @param load_temponym_resources
 	 */
-	private RePatternManager(String language) {
+	private RePatternManager(String language, Boolean load_temponym_resources) {
 		// calls the Generic constructor with repattern parameter
 		super("repattern", language);
 		// initialize the member map of all repatterns
@@ -44,16 +45,16 @@ public class RePatternManager extends GenericResourceManager {
 		for (String which : hmResourcesRePattern.keySet()) {
 			hmAllRePattern.put(which, "");
 		}
-		readRePatternResources(hmResourcesRePattern);
+		readRePatternResources(hmResourcesRePattern, load_temponym_resources);
 	}
 
 	/**
 	 * singleton producer.
 	 * @return singleton instance of RePatternManager
 	 */
-	public static RePatternManager getInstance(Language language) {
+	public static RePatternManager getInstance(Language language, Boolean load_temponym_resources) {
 		if(!instances.containsKey(language.getName())) {
-			RePatternManager nm = new RePatternManager(language.getResourceFolder());
+			RePatternManager nm = new RePatternManager(language.getResourceFolder(), load_temponym_resources);
 			instances.put(language.getName(), nm);
 		}
 		
@@ -64,9 +65,10 @@ public class RePatternManager extends GenericResourceManager {
 	/**
 	 * READ THE REPATTERN FROM THE FILES. The files have to be defined in the HashMap hmResourcesRePattern.
 	 * @param hmResourcesRePattern RePattern resources to be interpreted
+	 * @param load_temponym_resources whether temponym resources are to be read
 	 */
-	private void readRePatternResources(ResourceMap hmResourcesRePattern) {
-		Boolean load_temponym_resources = de.unihd.dbs.uima.annotator.heideltime.HeidelTime.find_temponyms;
+	private void readRePatternResources(ResourceMap hmResourcesRePattern, Boolean load_temponym_resources) {
+
 		//////////////////////////////////////
 		// READ REGULAR EXPRESSION PATTERNS //
 		//////////////////////////////////////

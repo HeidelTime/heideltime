@@ -100,8 +100,10 @@ public class RuleManager extends GenericResourceManager {
 	 * 
 	 * @param language
 	 *            language of resources to be used
+	 * @param load_temponym_resources
+	 *            whether temponym resources are loaded
 	 */
-	protected RuleManager(String language) {
+	protected RuleManager(String language, Boolean load_temponym_resources) {
 		// Process Generic constructor with rules parameter
 		super("rules", language);
 
@@ -110,7 +112,7 @@ public class RuleManager extends GenericResourceManager {
 		// /////////////////////////////////////////////////
 		ResourceScanner rs = ResourceScanner.getInstance();
 		ResourceMap hmResourcesRules = rs.getRules(language);
-		readRules(hmResourcesRules, language);
+		readRules(hmResourcesRules, language, load_temponym_resources);
 	}
 
 	/**
@@ -118,9 +120,9 @@ public class RuleManager extends GenericResourceManager {
 	 * 
 	 * @return singleton instance of RuleManager
 	 */
-	public static RuleManager getInstance(Language language) {
+	public static RuleManager getInstance(Language language, Boolean load_temponym_resources) {
 		if(!instances.containsKey(language.getName())) {
-			RuleManager nm = new RuleManager(language.getResourceFolder());
+			RuleManager nm = new RuleManager(language.getResourceFolder(), load_temponym_resources);
 			instances.put(language.getName(), nm);
 		}
 		
@@ -133,8 +135,10 @@ public class RuleManager extends GenericResourceManager {
 	 * 
 	 * @param hmResourcesRules
 	 *            rules to be interpreted
+	 * @param load_temponym_resources
+	 *            whether temponym resources are loaded
 	 */
-	public void readRules(ResourceMap hmResourcesRules, String language) {
+	public void readRules(ResourceMap hmResourcesRules, String language, Boolean load_temponym_resources) {
 		InputStream is = null;
 		InputStreamReader isr = null;
 		BufferedReader br = null;
@@ -202,7 +206,7 @@ public class RuleManager extends GenericResourceManager {
 						// //////////////////////////////////////////////////////////////////
 						// create pattern for rule extraction part
 						Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]*)");
-						RePatternManager rpm = RePatternManager.getInstance(Language.getLanguageFromString(language));
+						RePatternManager rpm = RePatternManager.getInstance(Language.getLanguageFromString(language), load_temponym_resources);
 						for (MatchResult mr : Toolbox.findMatches(paVariable, rule_extraction)) {
 							Logger.printDetail("DEBUGGING: replacing patterns..." + mr.group());
 							if (!(rpm.containsKey(mr.group(1)))) {
