@@ -31,6 +31,7 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 
 import de.unihd.dbs.uima.annotator.heideltime.ProcessorManager.Priority;
+import de.unihd.dbs.uima.annotator.heideltime.processors.TemponymPostprocessing;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
@@ -94,7 +95,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private Boolean find_times     = true;
 	private Boolean find_durations = true;
 	private Boolean find_sets      = true;
-	public static Boolean find_temponyms = false;
+	private Boolean find_temponyms = false;
 	private Boolean group_gran     = true;
 	// FOR DEBUGGING PURPOSES (IF FALSE)
 	private Boolean deleteOverlapped = true;
@@ -149,17 +150,17 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		////////////////////////////////////////////////////////////
 		// READ NORMALIZATION RESOURCES FROM FILES AND STORE THEM //
 		////////////////////////////////////////////////////////////
-		NormalizationManager.getInstance(language);
+		NormalizationManager.getInstance(language, find_temponyms);
 		
 		//////////////////////////////////////////////////////
 		// READ PATTERN RESOURCES FROM FILES AND STORE THEM //
 		//////////////////////////////////////////////////////
-		RePatternManager.getInstance(language);
+		RePatternManager.getInstance(language, find_temponyms);
 	
 		///////////////////////////////////////////////////
 		// READ RULE RESOURCES FROM FILES AND STORE THEM //
 		///////////////////////////////////////////////////
-		RuleManager.getInstance(language);
+		RuleManager.getInstance(language, find_temponyms);
 		
 		/////////////////////////////////////////////////////////////////////////////////
 		// SUBPROCESSOR CONFIGURATION. REGISTER YOUR OWN PROCESSORS HERE FOR EXECUTION //
@@ -193,7 +194,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// run preprocessing processors
 		procMan.executeProcessors(jcas, Priority.PREPROCESSING);
 		
-		RuleManager rulem = RuleManager.getInstance(language);
+		RuleManager rulem = RuleManager.getInstance(language, find_temponyms);
 		
 		timexID = 1; // reset counter once per document processing
 
@@ -299,6 +300,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				e.printStackTrace();
 			}
 
+		if (find_temponyms) {
+			TemponymPostprocessing.handleIntervals(jcas);
+		}
+		
 		/*
 		 * kick out the rest of the overlapping expressions
 		 */
@@ -488,7 +493,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 	@SuppressWarnings("unused")
 	public String specifyAmbiguousValuesString(String ambigString, Timex3 t_i, Integer i, List<Timex3> linearDates, JCas jcas) {
-		NormalizationManager norm = NormalizationManager.getInstance(language);
+		NormalizationManager norm = NormalizationManager.getInstance(language, find_temponyms);
 
 		// //////////////////////////////////////
 		// IS THERE A DOCUMENT CREATION TIME? //
@@ -1951,20 +1956,23 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			Timex3 myTimex = (Timex3) timexIter.next();
 			
 			ArrayList<Timex3> timexSet = new ArrayList<Timex3>();
-			timexSet.add(myTimex);
+			if (!(myTimex.getTimexType().equals("TEMPONYM"))) {
+				timexSet.add(myTimex);
+			}
 			
 			// compare this timex to all other timexes and mark those that have an overlap
 			while(innerTimexIter.hasNext()) {
 				Timex3 myInnerTimex = (Timex3) innerTimexIter.next();
-				
-				if((myTimex.getBegin() <= myInnerTimex.getBegin() && myTimex.getEnd() > myInnerTimex.getBegin()) || // timex1 starts, timex2 is partial overlap
-				   (myInnerTimex.getBegin() <= myTimex.getBegin() && myInnerTimex.getEnd() > myTimex.getBegin()) || // same as above, but in reverse
-				   (myInnerTimex.getBegin() <= myTimex.getBegin() && myTimex.getEnd() <= myInnerTimex.getEnd()) || // timex 1 is contained within or identical to timex2
-				   (myTimex.getBegin() <= myInnerTimex.getBegin() && myInnerTimex.getEnd() <= myTimex.getEnd())) { // same as above, but in reverse
-					timexSet.add(myInnerTimex); // increase the set
-					
-					allTimexesToInspect.add(myTimex); // note that these timexes are being looked at
-					allTimexesToInspect.add(myInnerTimex);
+				if (!(myTimex.getTimexType().equals("TEMPONYM"))) {
+					if((myTimex.getBegin() <= myInnerTimex.getBegin() && myTimex.getEnd() > myInnerTimex.getBegin()) || // timex1 starts, timex2 is partial overlap
+					   (myInnerTimex.getBegin() <= myTimex.getBegin() && myInnerTimex.getEnd() > myTimex.getBegin()) || // same as above, but in reverse
+					   (myInnerTimex.getBegin() <= myTimex.getBegin() && myTimex.getEnd() <= myInnerTimex.getEnd()) || // timex 1 is contained within or identical to timex2
+					   (myTimex.getBegin() <= myInnerTimex.getBegin() && myInnerTimex.getEnd() <= myTimex.getEnd())) { // same as above, but in reverse
+						timexSet.add(myInnerTimex); // increase the set
+						
+						allTimexesToInspect.add(myTimex); // note that these timexes are being looked at
+						allTimexesToInspect.add(myInnerTimex);
+					}
 				}
 			}
 			
@@ -2134,7 +2142,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							HashMap<String, String> hmNormalization,
 							Sentence s,
 							JCas jcas) {
-		RuleManager rm = RuleManager.getInstance(language);
+		RuleManager rm = RuleManager.getInstance(language, find_temponyms);
 		HashMap<String, String> hmDatePosConstraint = rm.getHmDatePosConstraint();
 		HashMap<String, String> hmDurationPosConstraint = rm.getHmDurationPosConstraint();
 		HashMap<String, String> hmTimePosConstraint = rm.getHmTimePosConstraint();
@@ -2288,7 +2296,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	
 	
 	public String applyRuleFunctions(String tonormalize, MatchResult m) {
-		NormalizationManager norm = NormalizationManager.getInstance(language);
+		NormalizationManager norm = NormalizationManager.getInstance(language, find_temponyms);
 		
 		String normalized = "";
 		// pattern for normalization functions + group information
