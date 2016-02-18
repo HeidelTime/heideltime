@@ -896,7 +896,24 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					String ltn  = mr.group(2);
 					String unit = mr.group(3);
 					String op   = mr.group(4);
-					int diff    = Integer.parseInt(mr.group(5));
+					String sDiff = mr.group(5);
+					int diff = 0;
+					try {
+						diff = Integer.parseInt(sDiff);
+					} catch (Exception e) {
+						Logger.printError(component, "Expression difficult to normalize: ");
+						Logger.printError(component, ambigString);
+						Logger.printError(component, sDiff + " probably too long for parsing as integer.");
+						Logger.printError(component, "set normalized value as PAST_REF / FUTURE_REF:");
+						if (op.equals("PLUS")){
+							valueNew = "FUTURE_REF";
+						}
+						else {
+							valueNew = "PAST_REF";
+						}
+						break;
+					}
+					
 					
 					// do the processing for SCIENTIFIC documents (TPZ identification could be improved)
 					if ((documentTypeScientific)){
