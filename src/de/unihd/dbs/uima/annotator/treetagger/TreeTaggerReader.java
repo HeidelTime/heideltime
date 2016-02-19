@@ -134,14 +134,6 @@ public class TreeTaggerReader implements Runnable {
 			}
 		} catch(IOException e) {
 			e.printStackTrace();
-		} finally {
-			if(reader != null) {
-				try {
-					reader.close();
-				} catch(Exception e) {
-					// no need to catch this
-				}
-			}
 		}
 	}
 }
