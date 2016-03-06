@@ -29,9 +29,12 @@ public class TemponymPostprocessing {
 		while (iterTimex.hasNext()) {
 			Timex3 t = (Timex3) iterTimex.next();
 			if (t.getTimexType().equals("TEMPONYM")) {
+				
 				// create a timex3interval for each temponym
 				Timex3Interval ti = new Timex3Interval(jcas);
 
+				System.err.println("TEMPONYM: " + t.getCoveredText());
+				
 				ti.setBegin(t.getBegin());
 				ti.setEnd(t.getEnd());
 				ti.setTimexType(t.getTimexType());
@@ -46,14 +49,14 @@ public class TemponymPostprocessing {
 				ti.setTimexId("t" + newId);
 
 				// get the (earliest|last)(begin|end) information
-				Pattern p = Pattern.compile("[(.*?), (.*?), (.*?), (.*?)]");
+				Pattern p = Pattern.compile("\\[(.*?), (.*?), (.*?), (.*?)\\]");
 				for (MatchResult mr : Toolbox.findMatches(p,t.getTimexValue())) {
 					ti.setTimexValueEB(mr.group(1));
 					ti.setTimexValueLB(mr.group(2));
 					ti.setTimexValueEE(mr.group(3));
 					ti.setTimexValueLE(mr.group(4));	
 				}
-				System.err.println("temponym: " + t.getTimexValue());				
+				//System.err.println("temponym: " + t.getTimexValue());				
 				if ((ti.getTimexValueEB() == ti.getTimexValueLB()) && 
 						(ti.getTimexValueLB() == ti.getTimexValueEE()) &&
 						(ti.getTimexValueEE() == ti.getTimexValueLE())) {
