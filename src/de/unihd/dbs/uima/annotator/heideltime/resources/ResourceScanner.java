@@ -3,6 +3,7 @@ package de.unihd.dbs.uima.annotator.heideltime.resources;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -44,44 +45,52 @@ public class ResourceScanner {
 	private Map<String, ResourceMap> rules = new HashMap<String, ResourceMap>();
 
 	private ResourceScanner() {
-		File jarFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
-		if (jarFile.isFile()) {
-			// scan the interior of a jar file
-			JarFile jar = null;
-			try {
-				jar = new JarFile(jarFile);
-			} catch(IOException e1) {
-				e1.printStackTrace();
-			}
-			final Enumeration<JarEntry> entries = jar.entries();
-			HashMap<String, JarEntry> jarContents = new HashMap<String, JarEntry>();
+		String jarFilePath = null;
+		try {
+			jarFilePath = this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		if (jarFilePath != null) {
+			File jarFile = new File(jarFilePath);
+			if (jarFile.isFile()) {
+				// scan the interior of a jar file
+				JarFile jar = null;
+				try {
+					jar = new JarFile(jarFile);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				final Enumeration<JarEntry> entries = jar.entries();
+				HashMap<String, JarEntry> jarContents = new HashMap<String, JarEntry>();
 
-			while(entries.hasMoreElements()) {
-				JarEntry je = entries.nextElement();
-				String name = je.getName();
-				
-				jarContents.put(name, je);
-			}
-			
-			try {
-				jar.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			this.scanValidInsideResourcesFolder(jarContents);
-			
-			// scan the "resources" folder outside of a jar file
+				while (entries.hasMoreElements()) {
+					JarEntry je = entries.nextElement();
+					String name = je.getName();
 
-			File outFolder = jarFile.getParentFile();
-			this.scanValidOutsideResourcesFolder(outFolder);
-		} else {
-			// scan the immediate folders of the local classpath
-			this.scanValidOutsideResourcesFolder(jarFile);
-			// scan the folder "../resources" if it exists
-			File outFolder = new File(jarFile.getParentFile(), path);
-			if(outFolder.exists()) {
+					jarContents.put(name, je);
+				}
+
+				try {
+					jar.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				this.scanValidInsideResourcesFolder(jarContents);
+
+				// scan the "resources" folder outside of a jar file
+
+				File outFolder = jarFile.getParentFile();
 				this.scanValidOutsideResourcesFolder(outFolder);
+			} else {
+				// scan the immediate folders of the local classpath
+				this.scanValidOutsideResourcesFolder(jarFile);
+				// scan the folder "../resources" if it exists
+				File outFolder = new File(jarFile.getParentFile(), path);
+				if (outFolder.exists()) {
+					this.scanValidOutsideResourcesFolder(outFolder);
+				}
 			}
 		}
 		
