@@ -577,11 +577,28 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 				beginMonth=endMonth=mTimeOfDay.group(2);
 				beginDay=endDay=mTimeOfDay.group(3);
 			}
+			
+			// correct month and days < 10
+			if (Integer.parseInt(beginDay) < 10){
+				beginDay = "0" + Integer.parseInt(beginDay);
+			}
+			if (Integer.parseInt(beginMonth) < 10){
+				beginMonth = "0" + Integer.parseInt(beginMonth);
+			}
+			if (Integer.parseInt(endDay) < 10){
+				endDay = "0" + Integer.parseInt(endDay);
+			}
+			if (Integer.parseInt(endMonth) < 10){
+				endMonth = "0" + Integer.parseInt(endMonth);
+			}
+			
 			if(!beginYear.equals("UNDEF") && !endYear.equals("UNDEF")){
 				annotation.setTimexValueEB(beginYear+"-"+beginMonth+"-"+beginDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
-				annotation.setTimexValueLB(beginYear+"-"+beginMonth+"-"+beginDay+"T"+endHour+":"+endMinute+":"+endSecond);
-				annotation.setTimexValueEE(endYear+"-"+endMonth+"-"+endDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
+//				annotation.setTimexValueLB(beginYear+"-"+beginMonth+"-"+beginDay+"T"+endHour+":"+endMinute+":"+endSecond);
+//				annotation.setTimexValueEE(endYear+"-"+endMonth+"-"+endDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
 				annotation.setTimexValueLE(endYear+"-"+endMonth+"-"+endDay+"T"+endHour+":"+endMinute+":"+endSecond);
+				annotation.setTimexValueLB(endYear+"-"+endMonth+"-"+endDay+"T"+endHour+":"+endMinute+":"+endSecond);
+				annotation.setTimexValueEE(beginYear+"-"+beginMonth+"-"+beginDay+"T"+beginHour+":"+beginMinute+":"+beginSecond);
 				
 				//Copy Values from the Timex3 Annotation
 				annotation.setTimexFreq(timex3.getTimexFreq());
