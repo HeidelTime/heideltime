@@ -211,7 +211,7 @@ public class DateCalculator {
 	 * @return new week
 	 */
 	public static String getXNextWeek(String date, Integer x, Language language) {
-		NormalizationManager nm = NormalizationManager.getInstance(language);
+		NormalizationManager nm = NormalizationManager.getInstance(language, false);
 		String date_no_W = date.replace("W", "");
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-w");
 		String newDate = "";

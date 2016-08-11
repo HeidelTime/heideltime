@@ -31,6 +31,7 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 
 import de.unihd.dbs.uima.annotator.heideltime.ProcessorManager.Priority;
+import de.unihd.dbs.uima.annotator.heideltime.processors.TemponymPostprocessing;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
@@ -87,12 +88,14 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private String PARAM_TIME      = "Time";
 	private String PARAM_DURATION  = "Duration";
 	private String PARAM_SET       = "Set";
+	private String PARAM_TEMPONYMS = "Temponym";
 	private String PARAM_DEBUG	   = "Debugging";
 	private String PARAM_GROUP     = "ConvertDurations";
 	private Boolean find_dates     = true;
 	private Boolean find_times     = true;
 	private Boolean find_durations = true;
 	private Boolean find_sets      = true;
+	private Boolean find_temponyms = false;
 	private Boolean group_gran     = true;
 	// FOR DEBUGGING PURPOSES (IF FALSE)
 	private Boolean deleteOverlapped = true;
@@ -142,21 +145,22 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		find_times     = (Boolean) aContext.getConfigParameterValue(PARAM_TIME);
 		find_durations = (Boolean) aContext.getConfigParameterValue(PARAM_DURATION);
 		find_sets      = (Boolean) aContext.getConfigParameterValue(PARAM_SET);
+		find_temponyms = (Boolean) aContext.getConfigParameterValue(PARAM_TEMPONYMS);
 		group_gran	   = (Boolean) aContext.getConfigParameterValue(PARAM_GROUP);
 		////////////////////////////////////////////////////////////
 		// READ NORMALIZATION RESOURCES FROM FILES AND STORE THEM //
 		////////////////////////////////////////////////////////////
-		NormalizationManager.getInstance(language);
+		NormalizationManager.getInstance(language, find_temponyms);
 		
 		//////////////////////////////////////////////////////
 		// READ PATTERN RESOURCES FROM FILES AND STORE THEM //
 		//////////////////////////////////////////////////////
-		RePatternManager.getInstance(language);
+		RePatternManager.getInstance(language, find_temponyms);
 	
 		///////////////////////////////////////////////////
 		// READ RULE RESOURCES FROM FILES AND STORE THEM //
 		///////////////////////////////////////////////////
-		RuleManager.getInstance(language);
+		RuleManager.getInstance(language, find_temponyms);
 		
 		/////////////////////////////////////////////////////////////////////////////////
 		// SUBPROCESSOR CONFIGURATION. REGISTER YOUR OWN PROCESSORS HERE FOR EXECUTION //
@@ -172,6 +176,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		if (find_times) Logger.printDetail("Getting Times...");	
 		if (find_durations) Logger.printDetail("Getting Durations...");	
 		if (find_sets) Logger.printDetail("Getting Sets...");
+		if (find_temponyms) Logger.printDetail("Getting Temponyms...");
 	}
 
 	
@@ -189,7 +194,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// run preprocessing processors
 		procMan.executeProcessors(jcas, Priority.PREPROCESSING);
 		
-		RuleManager rulem = RuleManager.getInstance(language);
+		RuleManager rulem = RuleManager.getInstance(language, find_temponyms);
 		
 		timexID = 1; // reset counter once per document processing
 
@@ -220,10 +225,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			do {
 				try {
 					if (find_dates) {
-						findTimexes("DATE", rulem.getHmDatePattern(), rulem.getHmDateOffset(), rulem.getHmDateNormalization(), rulem.getHmDateQuant(), s, jcas);
+						findTimexes("DATE", rulem.getHmDatePattern(), rulem.getHmDateOffset(), rulem.getHmDateNormalization(), s, jcas);
 					}
 					if (find_times) {
-						findTimexes("TIME", rulem.getHmTimePattern(), rulem.getHmTimeOffset(), rulem.getHmTimeNormalization(), rulem.getHmTimeQuant(), s, jcas);
+						findTimexes("TIME", rulem.getHmTimePattern(), rulem.getHmTimeOffset(), rulem.getHmTimeNormalization(), s, jcas);
 					}
 					
 					/*
@@ -242,10 +247,13 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					}
 					
 					if (find_sets) {
-						findTimexes("SET", rulem.getHmSetPattern(), rulem.getHmSetOffset(), rulem.getHmSetNormalization(), rulem.getHmSetQuant(), s, jcas);
+						findTimexes("SET", rulem.getHmSetPattern(), rulem.getHmSetOffset(), rulem.getHmSetNormalization(), s, jcas);
 					}
 					if (find_durations) {
-						findTimexes("DURATION", rulem.getHmDurationPattern(), rulem.getHmDurationOffset(), rulem.getHmDurationNormalization(), rulem.getHmDurationQuant(), s, jcas);
+						findTimexes("DURATION", rulem.getHmDurationPattern(), rulem.getHmDurationOffset(), rulem.getHmDurationNormalization(), s, jcas);
+					}
+					if (find_temponyms) {
+						findTimexes("TEMPONYM", rulem.getHmTemponymPattern(), rulem.getHmTemponymOffset(), rulem.getHmTemponymNormalization(), s, jcas);						
 					}
 				} catch(NullPointerException npe) {
 					if(!debugIteration) {
@@ -292,6 +300,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				e.printStackTrace();
 			}
 
+		if (find_temponyms) {
+			TemponymPostprocessing.handleIntervals(jcas);
+		}
+		
 		/*
 		 * kick out the rest of the overlapping expressions
 		 */
@@ -481,7 +493,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 	@SuppressWarnings("unused")
 	public String specifyAmbiguousValuesString(String ambigString, Timex3 t_i, Integer i, List<Timex3> linearDates, JCas jcas) {
-		NormalizationManager norm = NormalizationManager.getInstance(language);
+		NormalizationManager norm = NormalizationManager.getInstance(language, find_temponyms);
 
 		// //////////////////////////////////////
 		// IS THERE A DOCUMENT CREATION TIME? //
@@ -1961,20 +1973,23 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			Timex3 myTimex = (Timex3) timexIter.next();
 			
 			ArrayList<Timex3> timexSet = new ArrayList<Timex3>();
-			timexSet.add(myTimex);
+			if (!(myTimex.getTimexType().equals("TEMPONYM"))) {
+				timexSet.add(myTimex);
+			}
 			
 			// compare this timex to all other timexes and mark those that have an overlap
 			while(innerTimexIter.hasNext()) {
 				Timex3 myInnerTimex = (Timex3) innerTimexIter.next();
-				
-				if((myTimex.getBegin() <= myInnerTimex.getBegin() && myTimex.getEnd() > myInnerTimex.getBegin()) || // timex1 starts, timex2 is partial overlap
-				   (myInnerTimex.getBegin() <= myTimex.getBegin() && myInnerTimex.getEnd() > myTimex.getBegin()) || // same as above, but in reverse
-				   (myInnerTimex.getBegin() <= myTimex.getBegin() && myTimex.getEnd() <= myInnerTimex.getEnd()) || // timex 1 is contained within or identical to timex2
-				   (myTimex.getBegin() <= myInnerTimex.getBegin() && myInnerTimex.getEnd() <= myTimex.getEnd())) { // same as above, but in reverse
-					timexSet.add(myInnerTimex); // increase the set
-					
-					allTimexesToInspect.add(myTimex); // note that these timexes are being looked at
-					allTimexesToInspect.add(myInnerTimex);
+				if (!(myTimex.getTimexType().equals("TEMPONYM"))) {
+					if((myTimex.getBegin() <= myInnerTimex.getBegin() && myTimex.getEnd() > myInnerTimex.getBegin()) || // timex1 starts, timex2 is partial overlap
+					   (myInnerTimex.getBegin() <= myTimex.getBegin() && myInnerTimex.getEnd() > myTimex.getBegin()) || // same as above, but in reverse
+					   (myInnerTimex.getBegin() <= myTimex.getBegin() && myTimex.getEnd() <= myInnerTimex.getEnd()) || // timex 1 is contained within or identical to timex2
+					   (myTimex.getBegin() <= myInnerTimex.getBegin() && myInnerTimex.getEnd() <= myTimex.getEnd())) { // same as above, but in reverse
+						timexSet.add(myInnerTimex); // increase the set
+						
+						allTimexesToInspect.add(myTimex); // note that these timexes are being looked at
+						allTimexesToInspect.add(myInnerTimex);
+					}
 				}
 			}
 			
@@ -2135,22 +2150,30 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 * @param hmPattern
 	 * @param hmOffset
 	 * @param hmNormalization
-	 * @param hmQuant
-	 * @param s
+  	 * @param s
 	 * @param jcas
 	 */
 	public void findTimexes(String timexType, 
 							HashMap<Pattern, String> hmPattern,
 							HashMap<String, String> hmOffset,
 							HashMap<String, String> hmNormalization,
-							HashMap<String, String> hmQuant,
 							Sentence s,
 							JCas jcas) {
-		RuleManager rm = RuleManager.getInstance(language);
+		RuleManager rm = RuleManager.getInstance(language, find_temponyms);
 		HashMap<String, String> hmDatePosConstraint = rm.getHmDatePosConstraint();
 		HashMap<String, String> hmDurationPosConstraint = rm.getHmDurationPosConstraint();
 		HashMap<String, String> hmTimePosConstraint = rm.getHmTimePosConstraint();
 		HashMap<String, String> hmSetPosConstraint = rm.getHmSetPosConstraint();
+		HashMap<String, String> hmTemponymPosConstraint = rm.getHmTemponymPosConstraint();
+		
+		// get fast check patterns first
+		HashMap<String, Pattern> hmDateFastCheck = rm.getHmDateFastCheck();
+		HashMap<String, Pattern> hmDurationFastCheck = rm.getHmDurationFastCheck();
+		HashMap<String, Pattern> hmTimeFastCheck = rm.getHmTimeFastCheck();
+		HashMap<String, Pattern> hmSetFastCheck = rm.getHmSetFastCheck();
+		HashMap<String, Pattern> hmTemponymFastCheck = rm.getHmTemponymFastCheck();
+		Pattern f = null;
+		Boolean fastCheckOK = true;
 		
 		// Iterator over the rules by sorted by the name of the rules
 		// this is important since later, the timexId will be used to 
@@ -2158,73 +2181,107 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// have the same offset
 		for (Iterator<Pattern> i = Toolbox.sortByValue(hmPattern).iterator(); i.hasNext(); ) {
             Pattern p = (Pattern) i.next();
-
-			for (MatchResult r : Toolbox.findMatches(p, s.getCoveredText())) {
-				boolean infrontBehindOK = ContextAnalyzer.checkTokenBoundaries(r, s, jcas) // improved token boundary checking
-									&& ContextAnalyzer.checkInfrontBehind(r, s);
-
-				boolean posConstraintOK = true;
-				// CHECK POS CONSTRAINTS
-				if (timexType.equals("DATE")) {
-					if (hmDatePosConstraint.containsKey(hmPattern.get(p))) {
-						posConstraintOK = checkPosConstraint(s , hmDatePosConstraint.get(hmPattern.get(p)), r, jcas);
-					}
-				} else if (timexType.equals("DURATION")) {
-					if (hmDurationPosConstraint.containsKey(hmPattern.get(p))) {
-						posConstraintOK = checkPosConstraint(s , hmDurationPosConstraint.get(hmPattern.get(p)), r, jcas);
-					}					
-				} else if (timexType.equals("TIME")) {
-					if (hmTimePosConstraint.containsKey(hmPattern.get(p))) {
-						posConstraintOK = checkPosConstraint(s , hmTimePosConstraint.get(hmPattern.get(p)), r, jcas);
-					}
-				} else if (timexType.equals("SET")) {
-					if (hmSetPosConstraint.containsKey(hmPattern.get(p))) {
-						posConstraintOK = checkPosConstraint(s , hmSetPosConstraint.get(hmPattern.get(p)), r, jcas);
-					}
+            
+            // validate fast check fist, if no fast match, everything else is not required anymore
+            if (timexType.equals("DATE")) {
+            	f = hmDateFastCheck.get(hmPattern.get(p));
+            } else if (timexType.equals("Time")) {
+            	f = hmTimeFastCheck.get(hmPattern.get(p));
+            } else if (timexType.equals("DURATION")) {
+            	f = hmDurationFastCheck.get(hmPattern.get(p));
+            } else if (timexType.equals("SET")) {
+            	f = hmSetFastCheck.get(hmPattern.get(p));
+            } else if (timexType.equals("TEMPONYM")) {
+            	f = hmTemponymFastCheck.get(hmPattern.get(p));
+            } 
+			if (!(f == null)){
+				fastCheckOK = false;
+				
+				if (f.matcher(s.getCoveredText()).find()) {
+					fastCheckOK = true;
 				}
-				
-				if ((infrontBehindOK == true) && (posConstraintOK == true)) {
+			}
+			
+            
+			if (fastCheckOK) {
+				for (MatchResult r : Toolbox.findMatches(p, s.getCoveredText())) {
+					boolean infrontBehindOK = ContextAnalyzer.checkTokenBoundaries(r, s, jcas) // improved token boundary checking
+										&& ContextAnalyzer.checkInfrontBehind(r, s);
+	
 					
-					// Offset of timex expression (in the checked sentence)
-					int timexStart = r.start();
-					int timexEnd   = r.end();
+					// CHECK POS CONSTRAINTS
+					boolean posConstraintOK = true;
 					
-					// Normalization from Files:
-					
-					// Any offset parameter?
-					if (hmOffset.containsKey(hmPattern.get(p))) {
-						String offset    = hmOffset.get(hmPattern.get(p));
-				
-						// pattern for offset information
-						Pattern paOffset = Pattern.compile("group\\(([0-9]+)\\)-group\\(([0-9]+)\\)");
-						for (MatchResult mr : Toolbox.findMatches(paOffset,offset)) {
-							int startOffset = Integer.parseInt(mr.group(1));
-							int endOffset   = Integer.parseInt(mr.group(2));
-							timexStart = r.start(startOffset);
-							timexEnd   = r.end(endOffset); 
+					if (timexType.equals("DATE")) {
+						if (hmDatePosConstraint.containsKey(hmPattern.get(p))) {
+							posConstraintOK = checkPosConstraint(s , hmDatePosConstraint.get(hmPattern.get(p)), r, jcas);
+						}
+					} else if (timexType.equals("DURATION")) {
+						if (hmDurationPosConstraint.containsKey(hmPattern.get(p))) {
+							posConstraintOK = checkPosConstraint(s , hmDurationPosConstraint.get(hmPattern.get(p)), r, jcas);
+						}					
+					} else if (timexType.equals("TIME")) {
+						if (hmTimePosConstraint.containsKey(hmPattern.get(p))) {
+							posConstraintOK = checkPosConstraint(s , hmTimePosConstraint.get(hmPattern.get(p)), r, jcas);
+						}
+					} else if (timexType.equals("SET")) {
+						if (hmSetPosConstraint.containsKey(hmPattern.get(p))) {
+							posConstraintOK = checkPosConstraint(s , hmSetPosConstraint.get(hmPattern.get(p)), r, jcas);
+						}
+					} else if (timexType.equals("TEMPONYM")) {
+						if (hmTemponymPosConstraint.containsKey(hmPattern.get(p))) {
+							posConstraintOK = checkPosConstraint(s , hmSetPosConstraint.get(hmPattern.get(p)), r, jcas);
 						}
 					}
 					
-					// Normalization Parameter
-					if (hmNormalization.containsKey(hmPattern.get(p))) {
-						String[] attributes = new String[5];
-						if (timexType.equals("DATE")) {
-							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmDateNormalization(), rm.getHmDateQuant(), rm.getHmDateFreq(), rm.getHmDateMod(), rm.getHmDateEmptyValue(), r, jcas);
-						} else if (timexType.equals("DURATION")) {
-							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmDurationNormalization(), rm.getHmDurationQuant(), rm.getHmDurationFreq(), rm.getHmDurationMod(), rm.getHmDurationEmptyValue(), r, jcas);
-						} else if (timexType.equals("TIME")) {
-							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmTimeNormalization(), rm.getHmTimeQuant(), rm.getHmTimeFreq(), rm.getHmTimeMod(), rm.getHmTimeEmptyValue(), r, jcas);
-						} else if (timexType.equals("SET")) {
-							attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmSetNormalization(), rm.getHmSetQuant(), rm.getHmSetFreq(), rm.getHmSetMod(), rm.getHmSetEmptyValue(), r, jcas);
+					if ((infrontBehindOK == true) && (posConstraintOK == true)) {
+						
+						// Offset of timex expression (in the checked sentence)
+						int timexStart = r.start();
+						int timexEnd   = r.end();
+						
+						// Normalization from Files:
+						
+						// Any offset parameter?
+						if (hmOffset.containsKey(hmPattern.get(p))) {
+							String offset    = hmOffset.get(hmPattern.get(p));
+					
+							// pattern for offset information
+							Pattern paOffset = Pattern.compile("group\\(([0-9]+)\\)-group\\(([0-9]+)\\)");
+							for (MatchResult mr : Toolbox.findMatches(paOffset,offset)) {
+								int startOffset = Integer.parseInt(mr.group(1));
+								int endOffset   = Integer.parseInt(mr.group(2));
+								timexStart = r.start(startOffset);
+								timexEnd   = r.end(endOffset); 
+							}
 						}
-						addTimexAnnotation(timexType, timexStart + s.getBegin(), timexEnd + s.getBegin(), s, 
-								attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], "t" + timexID++, hmPattern.get(p), jcas);
-					}
-					else {
-						Logger.printError("SOMETHING REALLY WRONG HERE: "+hmPattern.get(p));
+						
+						// Normalization Parameter
+						if (hmNormalization.containsKey(hmPattern.get(p))) {
+							String[] attributes = new String[5];
+							if (timexType.equals("DATE")) {
+								attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmDateNormalization(), rm.getHmDateQuant(), rm.getHmDateFreq(), rm.getHmDateMod(), rm.getHmDateEmptyValue(), r, jcas);
+							} else if (timexType.equals("DURATION")) {
+								attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmDurationNormalization(), rm.getHmDurationQuant(), rm.getHmDurationFreq(), rm.getHmDurationMod(), rm.getHmDurationEmptyValue(), r, jcas);
+							} else if (timexType.equals("TIME")) {
+								attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmTimeNormalization(), rm.getHmTimeQuant(), rm.getHmTimeFreq(), rm.getHmTimeMod(), rm.getHmTimeEmptyValue(), r, jcas);
+							} else if (timexType.equals("SET")) {
+								attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmSetNormalization(), rm.getHmSetQuant(), rm.getHmSetFreq(), rm.getHmSetMod(), rm.getHmSetEmptyValue(), r, jcas);
+							} else if (timexType.equals("TEMPONYM")) {
+								attributes = getAttributesForTimexFromFile(hmPattern.get(p), rm.getHmTemponymNormalization(), rm.getHmTemponymQuant(), rm.getHmTemponymFreq(), rm.getHmTemponymMod(), rm.getHmTemponymEmptyValue(), r, jcas);
+							}
+							if (!(attributes == null)) {
+								addTimexAnnotation(timexType, timexStart + s.getBegin(), timexEnd + s.getBegin(), s, 
+										attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], "t" + timexID++, hmPattern.get(p), jcas);
+							}
+						}
+						else {
+							Logger.printError("SOMETHING REALLY WRONG HERE: "+hmPattern.get(p));
+						}
 					}
 				}
 			}
+			fastCheckOK = true;
 		}
 	}
 	
@@ -2256,7 +2313,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	
 	
 	public String applyRuleFunctions(String tonormalize, MatchResult m) {
-		NormalizationManager norm = NormalizationManager.getInstance(language);
+		NormalizationManager norm = NormalizationManager.getInstance(language, find_temponyms);
 		
 		String normalized = "";
 		// pattern for normalization functions + group information
@@ -2281,8 +2338,14 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					if (!(norm.getFromHmAllNormalization(mr.group(1)).containsKey(partToReplace))) {
 						Logger.printDetail("Maybe problem with normalization of the resource: "+mr.group(1));
 						Logger.printDetail("Maybe problem with part to replace? "+partToReplace);
+						if (mr.group(1).contains("Temponym")){
+							Logger.printDetail("Should be ok, as it's a temponym.");
+							return null;
+						}
 					}
-					tonormalize = tonormalize.replace(mr.group(), norm.getFromHmAllNormalization(mr.group(1)).get(partToReplace));
+					else { 
+						tonormalize = tonormalize.replace(mr.group(), norm.getFromHmAllNormalization(mr.group(1)).get(partToReplace));
+					}
 				} else {
 					Logger.printDetail("Empty part to normalize in "+mr.group(1));
 					
@@ -2386,6 +2449,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// Normalize Value
 		String value_normalization_pattern = hmNormalization.get(rule);
 		value = applyRuleFunctions(value_normalization_pattern, m);
+		if (value == null) return null;
 		
 		// get quant
 		if (hmQuant.containsKey(rule)) {

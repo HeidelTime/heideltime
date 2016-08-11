@@ -112,7 +112,7 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 						// RULE EXTRACTION PARTS ARE TRANSLATED INTO REGULAR EXPRESSSIONS //
 						////////////////////////////////////////////////////////////////////
 						// create pattern for rule extraction part
-						RePatternManager rpm = RePatternManager.getInstance(language);
+						RePatternManager rpm = RePatternManager.getInstance(language, false);
 						for (MatchResult mr : Toolbox.findMatches(paVariable,rule_extraction)) {
 							Logger.printDetail("DEBUGGING: replacing patterns..."+ mr.group());
 							if (!(rpm.containsKey(mr.group(1)))) {

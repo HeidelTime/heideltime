@@ -76,15 +76,34 @@ public class RuleManager extends GenericResourceManager {
 	HashMap<String, String> hmTimeEmptyValue = new HashMap<String, String>();
 	HashMap<String, String> hmDurationEmptyValue = new HashMap<String, String>();
 	HashMap<String, String> hmSetEmptyValue = new HashMap<String, String>();
+	
+	// FASTCHECK part of rules
+	HashMap<String, Pattern> hmDateFastCheck = new HashMap<String, Pattern>();
+	HashMap<String, Pattern> hmTimeFastCheck = new HashMap<String, Pattern>();
+	HashMap<String, Pattern> hmDurationFastCheck = new HashMap<String, Pattern>();
+	HashMap<String, Pattern> hmSetFastCheck = new HashMap<String, Pattern>();
 
+	// TEMPONYM RULES (loaded from resource files)
+	HashMap<Pattern, String> hmTemponymPattern = new HashMap<Pattern, String>();
+	HashMap<String, String> hmTemponymNormalization = new HashMap<String, String>();
+	HashMap<String, String> hmTemponymOffset = new HashMap<String, String>();
+	HashMap<String, String> hmTemponymQuant = new HashMap<String, String>();
+	HashMap<String, String> hmTemponymFreq = new HashMap<String, String>();
+	HashMap<String, String> hmTemponymMod = new HashMap<String, String>();
+	HashMap<String, String> hmTemponymPosConstraint = new HashMap<String, String>();
+	HashMap<String, String> hmTemponymEmptyValue = new HashMap<String, String>();
+	HashMap<String, Pattern> hmTemponymFastCheck = new HashMap<String, Pattern>();
+	
 	/**
 	 * Constructor calls the parent constructor that sets language/resource
 	 * parameters and collects rules resources.
 	 * 
 	 * @param language
 	 *            language of resources to be used
+	 * @param load_temponym_resources
+	 *            whether temponym resources are loaded
 	 */
-	protected RuleManager(String language) {
+	protected RuleManager(String language, Boolean load_temponym_resources) {
 		// Process Generic constructor with rules parameter
 		super("rules", language);
 
@@ -93,7 +112,7 @@ public class RuleManager extends GenericResourceManager {
 		// /////////////////////////////////////////////////
 		ResourceScanner rs = ResourceScanner.getInstance();
 		ResourceMap hmResourcesRules = rs.getRules(language);
-		readRules(hmResourcesRules, language);
+		readRules(hmResourcesRules, language, load_temponym_resources);
 	}
 
 	/**
@@ -101,9 +120,9 @@ public class RuleManager extends GenericResourceManager {
 	 * 
 	 * @return singleton instance of RuleManager
 	 */
-	public static RuleManager getInstance(Language language) {
+	public static RuleManager getInstance(Language language, Boolean load_temponym_resources) {
 		if(!instances.containsKey(language.getName())) {
-			RuleManager nm = new RuleManager(language.getResourceFolder());
+			RuleManager nm = new RuleManager(language.getResourceFolder(), load_temponym_resources);
 			instances.put(language.getName(), nm);
 		}
 		
@@ -116,8 +135,10 @@ public class RuleManager extends GenericResourceManager {
 	 * 
 	 * @param hmResourcesRules
 	 *            rules to be interpreted
+	 * @param load_temponym_resources
+	 *            whether temponym resources are loaded
 	 */
-	public void readRules(ResourceMap hmResourcesRules, String language) {
+	public void readRules(ResourceMap hmResourcesRules, String language, Boolean load_temponym_resources) {
 		InputStream is = null;
 		InputStreamReader isr = null;
 		BufferedReader br = null;
@@ -156,7 +177,7 @@ public class RuleManager extends GenericResourceManager {
 					boolean correctLine = false;
 					Logger.printDetail("DEBUGGING: reading rules..." + line);
 					// check each line for the name, extraction, and
-					// normalization part
+					// normalization part, others are optional
 					for (MatchResult r : Toolbox.findMatches(paReadRules, line)) {
 						correctLine = true;
 						String rule_name = r.group(1);
@@ -168,6 +189,7 @@ public class RuleManager extends GenericResourceManager {
 						String rule_mod = "";
 						String pos_constraint = "";
 						String rule_empty_value = "";
+						String rule_fast_check = "";
 						
 						// throw an error if the rule's name already exists
 						if(hmDatePattern.containsValue(rule_name) ||
@@ -184,7 +206,7 @@ public class RuleManager extends GenericResourceManager {
 						// //////////////////////////////////////////////////////////////////
 						// create pattern for rule extraction part
 						Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]*)");
-						RePatternManager rpm = RePatternManager.getInstance(Language.getLanguageFromString(language));
+						RePatternManager rpm = RePatternManager.getInstance(Language.getLanguageFromString(language), load_temponym_resources);
 						for (MatchResult mr : Toolbox.findMatches(paVariable, rule_extraction)) {
 							Logger.printDetail("DEBUGGING: replacing patterns..." + mr.group());
 							if (!(rpm.containsKey(mr.group(1)))) {
@@ -210,6 +232,7 @@ public class RuleManager extends GenericResourceManager {
 						// ///////////////////////////////////
 						// CHECK FOR ADDITIONAL CONSTRAINS //
 						// ///////////////////////////////////
+						Pattern patternFast = null;
 						if (!(r.group(4) == null)) {
 							if (r.group(4).contains("OFFSET")) {
 								Pattern paOffset = Pattern
@@ -259,6 +282,36 @@ public class RuleManager extends GenericResourceManager {
 									rule_empty_value = rp.group(1);
 								}
 							}
+							if (r.group(4).contains("FAST_CHECK")) {
+								Pattern paFast = Pattern
+										.compile("FAST_CHECK=\"(.*?)\"");
+								for (MatchResult rp : Toolbox.findMatches(
+										paFast, line)) {
+									rule_fast_check = rp.group(1);
+									// create pattern for rule fast check part -- similar to extraction part
+									// thus using paVariable and rpm
+									for (MatchResult mr : Toolbox.findMatches(paVariable, rule_fast_check)) {
+										Logger.printDetail("DEBUGGING: replacing patterns..." + mr.group());
+										if (!(rpm.containsKey(mr.group(1)))) {
+											Logger.printError("Error creating rule:" + rule_name);
+											Logger.printError("The following pattern used in this rule does not exist, does it? %" + mr.group(1));
+											System.exit(-1);
+										}
+										rule_fast_check = rule_fast_check.replaceAll("%" + mr.group(1), rpm.get(mr.group(1)));
+									}
+									rule_fast_check = rule_fast_check.replaceAll(" ", "[\\\\s]+");
+									patternFast = null;
+									try {
+										patternFast = Pattern.compile(rule_fast_check);
+									} catch (java.util.regex.PatternSyntaxException e) {
+										Logger.printError("Compiling rules resulted in errors.");
+										Logger.printError("Problematic rule is " + rule_name);
+										Logger.printError("Cannot compile pattern: " + rule_fast_check);
+										e.printStackTrace();
+										System.exit(-1);
+									}
+								}
+							}
 						}
 
 						// ///////////////////////////////////////////
@@ -295,6 +348,11 @@ public class RuleManager extends GenericResourceManager {
 							if (!(rule_empty_value.equals(""))) {
 								hmDateEmptyValue.put(rule_name,
 										rule_empty_value);
+							}
+							// get fast check part
+							if (!(rule_fast_check.equals(""))) {
+								hmDateFastCheck.put(rule_name,
+										patternFast);
 							}
 						}
 
@@ -333,6 +391,11 @@ public class RuleManager extends GenericResourceManager {
 								hmDurationEmptyValue.put(rule_name,
 										rule_empty_value);
 							}
+							// get fast check part
+							if (!(rule_fast_check.equals(""))) {
+								hmDurationFastCheck.put(rule_name,
+										patternFast);
+							}
 						}
 
 						// //////////////////////////////////////////
@@ -370,6 +433,11 @@ public class RuleManager extends GenericResourceManager {
 								hmSetEmptyValue.put(rule_name,
 										rule_empty_value);
 							}
+							// get fast check part
+							if (!(rule_fast_check.equals(""))) {
+								hmSetFastCheck.put(rule_name,
+										patternFast);
+							}
 						}
 
 						// ///////////////////////////////////////////
@@ -406,6 +474,52 @@ public class RuleManager extends GenericResourceManager {
 							if (!(rule_empty_value.equals(""))) {
 								hmTimeEmptyValue.put(rule_name,
 										rule_empty_value);
+							}
+							// get fast check part
+							if (!(rule_fast_check.equals(""))) {
+								hmTimeFastCheck.put(rule_name,
+										patternFast);
+							}
+						}
+						// //////////////////////////////////////////////
+						// READ TEMPONYM RULES AND MAKE THEM AVAILABLE //
+						// //////////////////////////////////////////////
+						else if (resource.equals("temponymrules")) {
+							// get extraction part
+							hmTemponymPattern.put(pattern, rule_name);
+							// get normalization part
+							hmTemponymNormalization.put(rule_name,
+									rule_normalization);
+							// get offset part
+							if (!(rule_offset.equals(""))) {
+								hmTemponymOffset.put(rule_name, rule_offset);
+							}
+								// get quant part
+							if (!(rule_quant.equals(""))) {
+								hmTemponymQuant.put(rule_name, rule_quant);
+							}
+							// get freq part
+							if (!(rule_freq.equals(""))) {
+								hmTemponymFreq.put(rule_name, rule_freq);
+							}
+							// get mod part
+							if (!(rule_mod.equals(""))) {
+								hmTemponymMod.put(rule_name, rule_mod);
+							}
+							// get pos constraint part
+							if (!(pos_constraint.equals(""))) {
+								hmTemponymPosConstraint.put(rule_name,
+										pos_constraint);
+							}
+							// get empty value part
+							if (!(rule_empty_value.equals(""))) {
+								hmTemponymEmptyValue.put(rule_name,
+										rule_empty_value);
+							}
+							// get fast check part
+							if (!(rule_fast_check.equals(""))) {
+								hmTemponymFastCheck.put(rule_name,
+										patternFast);
 							}
 						} else {
 							Logger.printDetail(component, "Resource not recognized by HeidelTime: "	+ resource);
@@ -569,4 +683,55 @@ public class RuleManager extends GenericResourceManager {
 		return hmSetEmptyValue;
 	}
 
+	public final HashMap<Pattern, String> getHmTemponymPattern() {
+		return hmTemponymPattern;
+	}
+	
+	public final HashMap<String, String> getHmTemponymNormalization() {
+		return hmTemponymNormalization;
+	}
+	
+	public final HashMap<String, String> getHmTemponymOffset() {
+		return hmTemponymOffset;
+	}
+	
+	public final HashMap<String, String> getHmTemponymQuant() {
+		return hmTemponymQuant;
+	}
+	
+	public final HashMap<String, String> getHmTemponymFreq() {
+		return hmTemponymFreq;
+	}
+	
+	public final HashMap<String, String> getHmTemponymMod() {
+		return hmTemponymMod;
+	}
+	
+	public final HashMap<String, String> getHmTemponymPosConstraint() {
+		return hmTemponymPosConstraint;
+	}
+	
+	public final HashMap<String, String> getHmTemponymEmptyValue() {
+		return hmTemponymEmptyValue;
+	}
+
+	public final HashMap<String, Pattern> getHmDateFastCheck() {
+		return hmDateFastCheck;
+	}
+
+	public final HashMap<String, Pattern> getHmTimeFastCheck() {
+		return hmTimeFastCheck;
+	}
+
+	public final HashMap<String, Pattern> getHmDurationFastCheck() {
+		return hmDurationFastCheck;
+	}
+
+	public final HashMap<String, Pattern> getHmSetFastCheck() {
+		return hmSetFastCheck;
+	}
+
+	public final HashMap<String, Pattern> getHmTemponymFastCheck() {
+		return hmTemponymFastCheck;
+	}
 }

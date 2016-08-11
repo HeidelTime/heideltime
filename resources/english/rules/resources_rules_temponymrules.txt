@@ -1,0 +1,98 @@
+// author: Jannik Strötgen
+// email:  jannik.stroetgen@mpi-inf.mpg.de
+// date:   2016-01-18
+// This file contains rules for the extraction of temponyms such as "Michael Jackson's death" 
+// RULENAME="",EXTRACTION="",NORM_VALUE=""(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+////////////////////
+// Temponym RULES //
+////////////////////
+
+// temponyms -- Events
+RULENAME="temponym_event_accident_1",EXTRACTION="%reTemponymEventAccidents",NORM_VALUE="%normTemponymEventAccidents(group(1))",FAST_CHECK="[Aa]ccident"
+RULENAME="temponym_event_action_1",EXTRACTION="%reTemponymEventActions",NORM_VALUE="%normTemponymEventActions(group(1))",FAST_CHECK="[Aa]ction"
+RULENAME="temponym_event_attack_1",EXTRACTION="%reTemponymEventAttacks",NORM_VALUE="%normTemponymEventAttacks(group(1))",FAST_CHECK="[Aa]ttack"
+RULENAME="temponym_event_battle_1",EXTRACTION="%reTemponymEventBattles",NORM_VALUE="%normTemponymEventBattles(group(1))",FAST_CHECK="[Bb]attle"
+RULENAME="temponym_event_battle_2",EXTRACTION="%reTemponymEventBattlesYago2",NORM_VALUE="%normTemponymEventBattlesYago2(group(1))",FAST_CHECK="[Bb]attle"
+RULENAME="temponym_event_bombing_1",EXTRACTION="%reTemponymEventBombings",NORM_VALUE="%normTemponymEventBombings(group(1))",FAST_CHECK="[Bb]ombing"
+RULENAME="temponym_event_award_1",EXTRACTION="%reTemponymEventAwards",NORM_VALUE="%normTemponymEventAwards(group(1))",FAST_CHECK="[Aa]ward"
+RULENAME="temponym_event_campaign_1",EXTRACTION="%reTemponymEventCampaigns",NORM_VALUE="%normTemponymEventCampaigns(group(1))",FAST_CHECK="[Cc]ampaign"
+RULENAME="temponym_event_capture_1",EXTRACTION="%reTemponymEventCaptures",NORM_VALUE="%normTemponymEventCaptures(group(1))",FAST_CHECK="[Cc]apture"
+RULENAME="temponym_event_crash_1",EXTRACTION="%reTemponymEventCrashs",NORM_VALUE="%normTemponymEventCrashs(group(1))",FAST_CHECK="[Cc]rash"
+RULENAME="temponym_event_cup_1",EXTRACTION="%reTemponymEventCups",NORM_VALUE="%normTemponymEventCups(group(1))",FAST_CHECK="[Cc]up"
+RULENAME="temponym_event_disaster_1",EXTRACTION="%reTemponymEventDisasters",NORM_VALUE="%normTemponymEventDisasters(group(1))",FAST_CHECK="[Dd]isaster"
+RULENAME="temponym_event_election_1",EXTRACTION="%reTemponymEventElections",NORM_VALUE="%normTemponymEventElections(group(1))",FAST_CHECK="[Ee]lection"
+RULENAME="temponym_event_festival_1",EXTRACTION="%reTemponymEventFestivals",NORM_VALUE="%normTemponymEventFestivals(group(1))",FAST_CHECK="[Ff]estival"
+RULENAME="temponym_event_final_1",EXTRACTION="%reTemponymEventFinals",NORM_VALUE="%normTemponymEventFinals(group(1))",FAST_CHECK="[Ff]inal"
+RULENAME="temponym_event_fire_1",EXTRACTION="%reTemponymEventFires",NORM_VALUE="%normTemponymEventFires(group(1))",FAST_CHECK="[Ff]ire"
+RULENAME="temponym_event_flight_1",EXTRACTION="%reTemponymEventFlights",NORM_VALUE="%normTemponymEventFlights(group(1))",FAST_CHECK="[Ff]light"
+RULENAME="temponym_event_game_1",EXTRACTION="%reTemponymEventGames",NORM_VALUE="%normTemponymEventGames(group(1))",FAST_CHECK="[Gg]ame"
+RULENAME="temponym_event_inauguration_1",EXTRACTION="%reTemponymEventInaugurations",NORM_VALUE="%normTemponymEventInaugurations(group(1))",FAST_CHECK="[Ii]nauguration"
+RULENAME="temponym_event_incident_1",EXTRACTION="%reTemponymEventIncidents",NORM_VALUE="%normTemponymEventIncidents(group(1))",FAST_CHECK="[Ii]ncident"
+RULENAME="temponym_event_indianapolis_1",EXTRACTION="%reTemponymEventIndianapolis",NORM_VALUE="%normTemponymEventIndianapolis(group(1))",FAST_CHECK="[Ii]ndianapolis"
+RULENAME="temponym_event_invasion_1",EXTRACTION="%reTemponymEventInvasions",NORM_VALUE="%normTemponymEventInvasions(group(1))",FAST_CHECK="[Ii]nvasion"
+RULENAME="temponym_event_massacre_1",EXTRACTION="%reTemponymEventMassacres",NORM_VALUE="%normTemponymEventMassacres(group(1))",FAST_CHECK="[Mm]assacre"
+RULENAME="temponym_event_offensive_1",EXTRACTION="%reTemponymEventOffensives",NORM_VALUE="%normTemponymEventOffensives(group(1))",FAST_CHECK="[Oo]ffensives"
+RULENAME="temponym_event_olympics_1",EXTRACTION="%reTemponymEventOlympics",NORM_VALUE="%normTemponymEventOlympics(group(1))",FAST_CHECK="[Oo]lympics"
+RULENAME="temponym_event_operation_1",EXTRACTION="%reTemponymEventOperations",NORM_VALUE="%normTemponymEventOperations(group(1))",FAST_CHECK="[Oo]peration"
+RULENAME="temponym_event_operation_2",EXTRACTION="%reTemponymEventOperationsYago2",NORM_VALUE="%normTemponymEventOperationsYago2(group(1))",FAST_CHECK="[Oo]peration"
+RULENAME="temponym_event_order_1",EXTRACTION="%reTemponymEventOrders",NORM_VALUE="%normTemponymEventOrders(group(1))",FAST_CHECK="[Oo]rder"
+RULENAME="temponym_event_raid_1",EXTRACTION="%reTemponymEventRaids",NORM_VALUE="%normTemponymEventRaids(group(1))",FAST_CHECK="[Rr]aid"
+RULENAME="temponym_event_shooting_1",EXTRACTION="%reTemponymEventShootings",NORM_VALUE="%normTemponymEventShootings(group(1))",FAST_CHECK="[Ss]hooting"
+RULENAME="temponym_event_show_1",EXTRACTION="%reTemponymEventShows",NORM_VALUE="%normTemponymEventShows(group(1))",FAST_CHECK="[Ss]how"
+RULENAME="temponym_event_siege_1",EXTRACTION="%reTemponymEventSiege",NORM_VALUE="%normTemponymEventSiege(group(1))",FAST_CHECK="[Ss]iege"
+RULENAME="temponym_event_UFC_1",EXTRACTION="%reTemponymEventUfc",NORM_VALUE="%normTemponymEventUfc(group(1))",FAST_CHECK="UFC"
+RULENAME="temponym_event_war_1",EXTRACTION="%reTemponymEventWars",NORM_VALUE="%normTemponymEventWars(group(1))",FAST_CHECK="[Ww]ar"
+RULENAME="temponym_event_war_2",EXTRACTION="%reTemponymEventWarsYago2",NORM_VALUE="%normTemponymEventWarsYago2(group(1))",FAST_CHECK="[Ww]ar"
+RULENAME="temponym_event_rest",EXTRACTION="%reTemponymEventRest",NORM_VALUE="%normTemponymEventRest(group(1))"
+RULENAME="temponym_event_revolution_2",EXTRACTION="%reTemponymEventRevolutionsYago2",NORM_VALUE="%normTemponymEventRevolutionsYago2(group(1))",FAST_CHECK="[Rr]evolution"
+
+// temponyms -- DEATH
+RULENAME="temponym_death_a1",EXTRACTION="(([\S]+))'s %reTemponymDeathNoun",NORM_VALUE="%normTemponymDeath(group(1))",FAST_CHECK="%reTemponymDeathNoun"
+RULENAME="temponym_death_a2",EXTRACTION="(([\S]+) ([\S]+))'s %reTemponymDeathNoun",NORM_VALUE="%normTemponymDeath(group(1))",FAST_CHECK="%reTemponymDeathNoun"
+RULENAME="temponym_death_a3",EXTRACTION="(([\S]+) ([\S]+) ([\S]+))'s %reTemponymDeathNoun",NORM_VALUE="%normTemponymDeath(group(1))",FAST_CHECK="%reTemponymDeathNoun"
+RULENAME="temponym_death_a4",EXTRACTION="(([\S]+) ([\S]+) ([\S]+) ([\S]+))'s %reTemponymDeathNoun",NORM_VALUE="%normTemponymDeath(group(1))",FAST_CHECK="%reTemponymDeathNoun"
+RULENAME="temponym_death_a5",EXTRACTION="%reTemponymDeathPerson5Token's %reTemponymDeathNoun",NORM_VALUE="%normTemponymDeath(group(1))",FAST_CHECK="%reTemponymDeathNoun"
+RULENAME="temponym_death_b1",EXTRACTION="%reTemponymDeathNoun of (([\S]+))",NORM_VALUE="%normTemponymDeath(group(2))",FAST_CHECK="%reTemponymDeathNoun"
+RULENAME="temponym_death_b2",EXTRACTION="%reTemponymDeathNoun of (([\S]+) ([\S]+))",NORM_VALUE="%normTemponymDeath(group(2))",FAST_CHECK="%reTemponymDeathNoun"
+RULENAME="temponym_death_b3",EXTRACTION="%reTemponymDeathNoun of (([\S]+) ([\S]+) ([\S]+))",NORM_VALUE="%normTemponymDeath(group(2))",FAST_CHECK="%reTemponymDeathNoun"
+RULENAME="temponym_death_b4",EXTRACTION="%reTemponymDeathNoun of (([\S]+) ([\S]+) ([\S]+) ([\S]+))",NORM_VALUE="%normTemponymDeath(group(2))",FAST_CHECK="%reTemponymDeathNoun"
+RULENAME="temponym_death_b5",EXTRACTION="%reTemponymDeathNoun of %reTemponymDeathPerson5Token",NORM_VALUE="%normTemponymDeath(group(2))",FAST_CHECK="%reTemponymDeathNoun"
+RULENAME="temponym_death_c1",EXTRACTION="(([\S]+)) %reTemponymDeathVerb",NORM_VALUE="%normTemponymDeath(group(1))",FAST_CHECK="%reTemponymDeathVerb"
+RULENAME="temponym_death_c2",EXTRACTION="(([\S]+) ([\S]+)) %reTemponymDeathVerb",NORM_VALUE="%normTemponymDeath(group(1))",FAST_CHECK="%reTemponymDeathVerb"
+RULENAME="temponym_death_c3",EXTRACTION="(([\S]+) ([\S]+) ([\S]+)) %reTemponymDeathVerb",NORM_VALUE="%normTemponymDeath(group(1))",FAST_CHECK="%reTemponymDeathVerb"
+RULENAME="temponym_death_c4",EXTRACTION="(([\S]+) ([\S]+) ([\S]+) ([\S]+)) %reTemponymDeathVerb",NORM_VALUE="%normTemponymDeath(group(1))",FAST_CHECK="%reTemponymDeathVerb"
+RULENAME="temponym_death_c5",EXTRACTION="%reTemponymDeathPerson5Token %reTemponymDeathVerb",NORM_VALUE="%normTemponymDeath(group(1))",FAST_CHECK="%reTemponymDeathVerb"
+
+// temponyms -- BIRTH
+RULENAME="temponym_birth_a1",EXTRACTION="(([\S]+))'s %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))",FAST_CHECK="%reTemponymBirthNoun"
+RULENAME="temponym_birth_a2",EXTRACTION="(([\S]+) ([\S]+))'s %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))",FAST_CHECK="%reTemponymBirthNoun"
+RULENAME="temponym_birth_a3",EXTRACTION="(([\S]+) ([\S]+) ([\S]+))'s %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))",FAST_CHECK="%reTemponymBirthNoun"
+RULENAME="temponym_birth_a4",EXTRACTION="(([\S]+) ([\S]+) ([\S]+) ([\S]+))'s %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))",FAST_CHECK="%reTemponymBirthNoun"
+RULENAME="temponym_birth_a5",EXTRACTION="%reTemponymBirthPerson5Token's %reTemponymBirthNoun",NORM_VALUE="%normTemponymBirth(group(1))",FAST_CHECK="%reTemponymBirthNoun"
+RULENAME="temponym_birth_b1",EXTRACTION="%reTemponymBirthNoun of (([\S]+))",NORM_VALUE="%normTemponymBirth(group(2))",FAST_CHECK="%reTemponymBirthNoun of "
+RULENAME="temponym_birth_b2",EXTRACTION="%reTemponymBirthNoun of (([\S]+) ([\S]+))",NORM_VALUE="%normTemponymBirth(group(2))",FAST_CHECK="%reTemponymBirthNoun of "
+RULENAME="temponym_birth_b3",EXTRACTION="%reTemponymBirthNoun of (([\S]+) ([\S]+) ([\S]+))",NORM_VALUE="%normTemponymBirth(group(2))",FAST_CHECK="%reTemponymBirthNoun of "
+RULENAME="temponym_birth_b4",EXTRACTION="%reTemponymBirthNoun of (([\S]+) ([\S]+) ([\S]+) ([\S]+))",NORM_VALUE="%normTemponymBirth(group(2))",FAST_CHECK="%reTemponymBirthNoun of "
+RULENAME="temponym_birth_b5",EXTRACTION="%reTemponymBirthNoun of %reTemponymBirthPerson5Token",NORM_VALUE="%normTemponymBirth(group(2))",FAST_CHECK="%reTemponymBirthNoun of "
+RULENAME="temponym_birth_c1",EXTRACTION="(([\S]+)) %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))",FAST_CHECK=" %reTemponymBirthVerb"
+RULENAME="temponym_birth_c2",EXTRACTION="(([\S]+) ([\S]+)) %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))",FAST_CHECK=" %reTemponymBirthVerb"
+RULENAME="temponym_birth_c3",EXTRACTION="(([\S]+) ([\S]+) ([\S]+)) %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))",FAST_CHECK=" %reTemponymBirthVerb"
+RULENAME="temponym_birth_c4",EXTRACTION="(([\S]+) ([\S]+) ([\S]+) ([\S]+)) %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))",FAST_CHECK=" %reTemponymBirthVerb"
+RULENAME="temponym_birth_c5",EXTRACTION="%reTemponymBirthPerson5Token %reTemponymBirthVerb",NORM_VALUE="%normTemponymBirth(group(1))",FAST_CHECK=" %reTemponymBirthVerb"
+
+// temponyms -- POSITION
+// RULENAME="temponym_position_1",EXTRACTION="%reTemponymHoldsposition",NORM_VALUE="%normTemponymHoldsposition(group(1))"
+
+// temponyms -- MARRIAGE
+// RULENAME="temponym_marriage_1",EXTRACTION="%reTemponymMarriage",NORM_VALUE="%normTemponymMarriage(group(1))"
+
+// temponyms -- CREATED
+// RULENAME="temponym_created_1",EXTRACTION="%reTemponymCreatedToH",NORM_VALUE="%normTemponymCreatedToH(group(1))"
+// RULENAME="temponym_created_2",EXTRACTION="%reTemponymCreatedFromH",NORM_VALUE="%normTemponymCreatedFromH(group(1))"
+
+// temponyms -- DIRECTED
+// RULENAME="temponym_directed_1",EXTRACTION="%reTemponymDirected",NORM_VALUE="%normTemponymDirected(group(1))"
+
+// temponyms -- PRODUCED
+// RULENAME="temponym_produced_1",EXTRACTION="%reTemponymProduced",NORM_VALUE="%normTemponymProduced(group(1))"

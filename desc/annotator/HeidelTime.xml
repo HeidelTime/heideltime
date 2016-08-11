@@ -34,8 +34,14 @@
         <mandatory>true</mandatory>
       </configurationParameter>
       <configurationParameter>
+        <name>Temponym</name>
+        <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+      <configurationParameter>
         <name>Language</name>
-        <description>english, englishcoll, englishsci, german, dutch, vietnamese, arabic, spanish, italian, french</description>
+        <description>english, englishcoll, englishsci, german, dutch, vietnamese, arabic, spanish, italian, french, etc.</description>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
@@ -91,6 +97,12 @@
         <name>Set</name>
         <value>
           <boolean>true</boolean>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>Temponym</name>
+        <value>
+          <boolean>false</boolean>
         </value>
       </nameValuePair>
       <nameValuePair>

@@ -29,8 +29,9 @@ public class RePatternManager extends GenericResourceManager {
 	 * Constructor calls the parent constructor that sets language/resource
 	 * parameters and collects resource repatterns.
 	 * @param language
+	 * @param load_temponym_resources
 	 */
-	private RePatternManager(String language) {
+	private RePatternManager(String language, Boolean load_temponym_resources) {
 		// calls the Generic constructor with repattern parameter
 		super("repattern", language);
 		// initialize the member map of all repatterns
@@ -44,16 +45,16 @@ public class RePatternManager extends GenericResourceManager {
 		for (String which : hmResourcesRePattern.keySet()) {
 			hmAllRePattern.put(which, "");
 		}
-		readRePatternResources(hmResourcesRePattern);
+		readRePatternResources(hmResourcesRePattern, load_temponym_resources);
 	}
 
 	/**
 	 * singleton producer.
 	 * @return singleton instance of RePatternManager
 	 */
-	public static RePatternManager getInstance(Language language) {
+	public static RePatternManager getInstance(Language language, Boolean load_temponym_resources) {
 		if(!instances.containsKey(language.getName())) {
-			RePatternManager nm = new RePatternManager(language.getResourceFolder());
+			RePatternManager nm = new RePatternManager(language.getResourceFolder(), load_temponym_resources);
 			instances.put(language.getName(), nm);
 		}
 		
@@ -64,9 +65,10 @@ public class RePatternManager extends GenericResourceManager {
 	/**
 	 * READ THE REPATTERN FROM THE FILES. The files have to be defined in the HashMap hmResourcesRePattern.
 	 * @param hmResourcesRePattern RePattern resources to be interpreted
+	 * @param load_temponym_resources whether temponym resources are to be read
 	 */
-	private void readRePatternResources(ResourceMap hmResourcesRePattern) {
-		
+	private void readRePatternResources(ResourceMap hmResourcesRePattern, Boolean load_temponym_resources) {
+
 		//////////////////////////////////////
 		// READ REGULAR EXPRESSION PATTERNS //
 		//////////////////////////////////////
@@ -75,51 +77,65 @@ public class RePatternManager extends GenericResourceManager {
 		BufferedReader br = null;
 		try {
 			for (String resource : hmResourcesRePattern.keySet()) {
-				Logger.printDetail(component, "Adding pattern resource: "+resource);
-				// create a buffered reader for every repattern resource file
-				is = hmResourcesRePattern.getInputStream(resource);
-				isr = new InputStreamReader(is, "UTF-8");
-				br = new BufferedReader(isr);
-				LinkedList<String> patterns = new LinkedList<String>();
-				for (String line; (line = br.readLine()) != null; ) {
-					// disregard comments
-					if (!line.startsWith("//") && !line.equals("")) {
-						patterns.add(replaceSpaces(line));
+				// read pattern resources with "Temponym" only if temponym tagging is selected
+				if ( (!(resource.contains("Temponym"))) ||
+						((load_temponym_resources) && (resource.contains("Temponym")))){
+					Logger.printDetail(component, "Adding pattern resource: "+resource);
+					// create a buffered reader for every repattern resource file
+					is = hmResourcesRePattern.getInputStream(resource);
+					isr = new InputStreamReader(is, "UTF-8");
+					br = new BufferedReader(isr);
+					LinkedList<String> patterns = new LinkedList<String>();
+					for (String line; (line = br.readLine()) != null; ) {
+						// disregard comments
+						if (!line.startsWith("//") && !line.equals("")) {
+							patterns.add(replaceSpaces(line));
+						}
 					}
-				}
 				
-				// sort the repatterns by length in ascending order
-				Collections.sort(patterns, new Comparator<String>() {
-					@Override
-					public int compare(String o1, String o2) {
-						String o1effective = o1.replaceAll("\\[[^\\]]*\\]", "X")
-								.replaceAll("\\?", "")
-								.replaceAll("\\\\.(?:\\{([^\\}])+\\})?", "X$1");
-						String o2effective = o2.replaceAll("\\[[^\\]]*\\]", "X")
-								.replaceAll("\\?", "")
-								.replaceAll("\\\\.(?:\\{([^\\}])+\\})?", "X$1");
-						
-						if(o1effective.length() < o2effective.length())
-							return 1;
-						else if(o1effective.length() > o2effective.length())
-							return -1;
-						else
-							return 0;
+				
+					
+					// sort the repatterns by length in ascending order
+					Collections.sort(patterns, new Comparator<String>() {
+						@Override
+						public int compare(String o1, String o2) {
+							String o1effective = o1.replaceAll("\\[[^\\]]*\\]", "X")
+									.replaceAll("\\?", "")
+									.replaceAll("\\\\.(?:\\{([^\\}])+\\})?", "X$1");
+							String o2effective = o2.replaceAll("\\[[^\\]]*\\]", "X")
+									.replaceAll("\\?", "")
+									.replaceAll("\\\\.(?:\\{([^\\}])+\\})?", "X$1");
+							
+							if(o1effective.length() < o2effective.length())
+								return 1;
+							else if(o1effective.length() > o2effective.length())
+								return -1;
+							else
+								return 0;
+						}
+					});
+										
+					StringBuilder sb = new StringBuilder();
+					String devPattern = "";
+					for(String pat : patterns) {
+						sb.append("|");
+						sb.append(pat);
 					}
-				});
-				
-				String devPattern = "";
-				for(String pat : patterns) {
-					devPattern += "|" + pat;
+					devPattern = sb.toString();
+					hmAllRePattern.put(resource, devPattern);
 				}
-				
-				hmAllRePattern.put(resource, devPattern);
+				else {
+					Logger.printDetail(component, "No Temponym Tagging selected. Skipping pattern resource: "+resource);
+				}
 			}
 			////////////////////////////
 			// FINALIZE THE REPATTERN //
 			////////////////////////////
 			for (String which : hmAllRePattern.keySet()) {
-				finalizeRePattern(which, hmAllRePattern.get(which));
+				if ( (!(which.contains("Temponym"))) ||
+						((load_temponym_resources) && (which.contains("Temponym")))){
+					finalizeRePattern(which, hmAllRePattern.get(which));
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
