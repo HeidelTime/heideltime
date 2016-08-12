@@ -2,10 +2,10 @@
 # UIMA HEIDELTIME KIT #
 #######################
 
-Author:  Jannik Strötgen, Julian Zell
-Date:    December 18th, 2015
-Version: 2.1
-eMail:   stroetgen@uni-hd.de, zell@informatik.uni-heidelberg.de
+Author:  Jannik Strötgen
+Date:    August 11, 2016
+Version: 2.2
+eMail:   stroetgen@uni-hd.de
 
 ###################################
 # 1. Papers describing HeidelTime #
@@ -41,6 +41,13 @@ use them, please cite the following paper:
   A Baseline Temporal Tagger for All Languages.
   In EMNLP: Proceedings of the 2015 Conference on Empirical Methods in Natural Language 
   Processing. Pages 541-547, Lisbon, Portugal, September 17-21, 2015. ACL.
+  
+Starting with version 2.2, HeidelTime (UIMA version) can be used for temponym tagging. 
+If you use HeidelTime as a temponym tagger, please cite the following paper:
+  Erdal Kuzey, Jannik Strötgen, Vinay Setty, and Gerhard Weikum:
+  Temponym Tagging: Temporal Scopes for Textual Phrases.
+  In TempWeb: Proceedings of the 6th Temporal Web Analytics Workshop. Pages 841-842, Montreal,
+  Canada, April 12, 2016. ACM.
 
 ###################
 # 2. Introduction #
@@ -63,7 +70,7 @@ the best results for Italian temporal tagging.
 
 HeidelTime with resources for several languages is one component of our UIMA HeidelTime kit.
 - German
-- English
+- English (and Englischcoll (for colloquial texts), Englishsci (for scientific texts))
 - Dutch (kindly provided by Matje van de Camp, Tilburg University, 
     http://www.tilburguniversity.edu/webwijs/show/?uid=m.m.v.d.camp)
 - Arabic
@@ -111,7 +118,7 @@ contains:
       
     * AllLanguagesTokenizer: This Analysis Engine produces Token and Sentence annotations. It is a 
       simple yet generic tool and should be used for languages which are not supported by any other
-      preprocessing tool, i.e., or most of the languages for which HeidelTime resources have been
+      preprocessing tool, i.e., for most of the languages for which HeidelTime resources have been
       automatically created.
       
     * TreeTaggerWrapper: This Analysis Engine produces Token, Sentence and Part-of-Speech annotations
@@ -320,6 +327,7 @@ set the environment variables.
             set "Time" to "true"
             set "Duration" to "true"
             set "Set" to "true"
+            set "Temponym" to "false"
             set "Language" to "english"
             set "Type" to "narratives"
         CAS Consumer
