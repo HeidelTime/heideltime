@@ -21,8 +21,9 @@ import java.util.Properties;
 /**
  * Static class
  * 
- * @author Andreas Fay, University of Heidelberg
- * @version 1.0
+ * @author Jannik Strötgen, MPI-Inf, 
+ *         (initial version: Andreas Fay, University of Heidelberg)
+ * @version 1.1
  */
 public abstract class Config {
 
@@ -40,6 +41,7 @@ public abstract class Config {
 	public static final String CONSIDER_DURATION = "considerDuration";
 	public static final String CONSIDER_SET = "considerSet";
 	public static final String CONSIDER_TIME = "considerTime";
+	public static final String CONSIDER_TEMPONYM = "considerTemponym";
 	public static final String TREETAGGERHOME = "treeTaggerHome";
 	public static final String CHINESE_TOKENIZER_PATH = "chineseTokenizerPath";
 	
@@ -60,6 +62,7 @@ public abstract class Config {
 	public static final String UIMAVAR_DURATION = "uimaVarDuration";
 	public static final String UIMAVAR_LANGUAGE = "uimaVarLanguage";
 	public static final String UIMAVAR_SET = "uimaVarSet";
+	public static final String UIMAVAR_TEMPONYM = "uimaVarTemponym";
 	public static final String UIMAVAR_TIME = "uimaVarTime";
 	public static final String UIMAVAR_TYPETOPROCESS = "uimaVarTypeToProcess";
 	public static final String UIMAVAR_CONVERTDURATIONS = "ConvertDurations";
