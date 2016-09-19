@@ -5,7 +5,7 @@
 Author:  Jannik Strötgen
 Date:    August 11, 2016
 Version: 2.2
-eMail:   stroetgen@uni-hd.de
+eMail:   jannik.stroetgen@mpi-inf.mpg.de
 
 ###################################
 # 1. Papers describing HeidelTime #
@@ -18,16 +18,16 @@ Jannik Strötgen and Michael Gertz.
   http://www.aclweb.org/anthology/S/S10
 
 In "Language Resources and Evaluation", we have published a paper on "Multilingual and 
-Cross-domain Temporal Tagging". In addition, we detail the features and architecture of 
+Cross-domain Temporal Tagging". Here, we detail the features and architecture of 
 HeidelTime:
   Jannik Strötgen and Michael Gertz.
   Multilingual and Cross-domain Temporal Tagging.
   In: Language Resources and Evaluation, 47(2), pages 269-298, 2013, Springer.
   http://link.springer.com/article/10.1007%2Fs10579-012-9179-y
 
-Please cite one of these papers if you use HeidelTime. 
+Please cite one of these papers if you use HeidelTime. Or, alternatively:
 
-If you use HeidelTime for processing colloquial text such as SMS or tweets or scientific 
+If you use HeidelTime for processing colloquial text (such as SMS or tweets) or scientific 
 publications (e.g., biomedical studies), you may want to cite the following paper instead:
   Jannik Strötgen and Michael Gertz:
   Temporal Tagging on Different Domains: Challenges, Strategies, and Gold Standards.
@@ -380,12 +380,12 @@ https://github.com/HeidelTime/heideltime/wiki/Reproducing-Evaluation-Results
 ##############
 # 9. License #
 ##############
-Copyright (c) 2012-2015, Database Research Group, Institute of Computer Science, University of Heidelberg. 
+Copyright (c) 2012-2016, Database Research Group, Institute of Computer Science, Heidelberg University. 
 All rights reserved. This program and the accompanying materials 
 are made available under the terms of the GNU General Public License.
 
 author: Jannik Strötgen
-email:  stroetgen@uni-hd.de
+email:  jannik.stroetgen@mpi-inf.mpg.de
 
 HeidelTime is a multilingual, cross-domain temporal tagger.
 For details, see http://dbs.ifi.uni-heidelberg.de/heideltime
