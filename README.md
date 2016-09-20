@@ -1,4 +1,4 @@
-**HeidelTime 2.2 for English temponym tagging will be available soon. For details, see our [TempWeb'16 paper](http://www2016.net/proceedings/companion/p841.pdf).**
+**HeidelTime can now also be used for English temponym tagging. For details, see our [TempWeb'16 paper](http://www2016.net/proceedings/companion/p841.pdf).**
 
 **HeidelTime contains automatically created resources for 200+ languages in addition to manually created ones for 13 languages. For further details, take a look at our [EMNLP 2015 paper](https://aclweb.org/anthology/D/D15/D15-1063.pdf).**
 
