@@ -42,7 +42,7 @@ use them, please cite the following paper:
   In EMNLP: Proceedings of the 2015 Conference on Empirical Methods in Natural Language 
   Processing. Pages 541-547, Lisbon, Portugal, September 17-21, 2015. ACL.
   
-Starting with version 2.2, HeidelTime (UIMA version) can be used for temponym tagging. 
+Starting with version 2.2, HeidelTime can be used for temponym tagging. 
 If you use HeidelTime as a temponym tagger, please cite the following paper:
   Erdal Kuzey, Jannik Strötgen, Vinay Setty, and Gerhard Weikum:
   Temponym Tagging: Temporal Scopes for Textual Phrases.
@@ -143,7 +143,9 @@ contains:
         - types: news, narratives, colloquial (for use with englishcoll), scientific (englishsci)
         - locale: the locale to use for date calculation. Leave it empty to use en_GB.
         - Debugging: to output verbose debugging information to stderr.
-    
+        - Date / Time / Duration / Set / Temponym: if respective temporal expressions shall be 
+          extracted
+
     * IntervalTagger: This Analysis Engine in conjunction with HeidelTime recognizes
       temporal intervals in documents.
       
@@ -294,7 +296,7 @@ set the environment variables.
     (whitespace-based) yet generic tool and creaetes sentence and token annotation.
      
      
-    For sample UIMA workflows for any of the supported languages, please take a look
+    For sample UIMA workflows for many of the supported languages, please take a look
     at our evaluation results reproduction Wiki page:
         https://github.com/HeidelTime/heideltime/wiki/Reproducing-Evaluation-Results
     and select a workflow description for a corpus of the language of your choice.
@@ -352,12 +354,13 @@ To analyze the annotations produced by HeidelTime you may use UIMA's annotation 
 # 6. What kind of temporal expressions can be found and normalized #
 ####################################################################
 HeidelTime distinguishes between four types of documents: news style, narrative
-style, colloquial style and scientific style documents. This file here is a narrative 
-document. This version of HeidelTime was released in 2015. To be more precise, and using
-a relative expression, it was released on September 17. HeidelTime was the best performing 
-system of task A of the TempEval-2 challenge in 2010 and the system was presented at the 
+style, colloquial style and scientific style documents. In addition, temponyms such as "John 
+F. Kennedy's death" can be identified and normalized if "temponym" is set to true.  This file 
+here is a narrative document. This version of HeidelTime was released in 2016. To be more 
+precise, and using a relative expression, it was released on Ocotber 4. HeidelTime was the best 
+performing system of task A of the TempEval-2 challenge in 2010 and the system was presented at the 
 TempEval Workshop at the ACL conference in Uppsala, Sweden on July 15, 2010 or July 16. 
-In the meantime, it is September 2015 and HeidelTime is made publicly available and identifies 
+In the meantime, it is October 2016 and HeidelTime is made publicly available and identifies 
 these temporal expressions: January 22, 2001 or twice a week.
 
 ##########################################
