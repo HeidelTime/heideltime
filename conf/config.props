@@ -14,12 +14,14 @@ considerSet = true
 # Time
 considerTime = true
 
+# Temponyms (make sure you know what you do if you set this to "true")
+considerTemponym = false
 
 ###################################
 # Path to TreeTagger home directory
 ###################################
 # Ensure there is no white space in path (try to escape white spaces)
-treeTaggerHome = SET ME IN CONFIG.PROPS!
+treeTaggerHome = SET ME IN CONFIG.PROPS! (e.g., /home/jannik/treetagger)
 # This one is only necessary if you want to process chinese documents.
 chineseTokenizerPath = SET ME IN CONFIG.PROPS!
 
@@ -33,7 +35,7 @@ pos_model_path = SET ME IN CONFIG.PROPS!
 #####################################################
 # paths to Stanford POS Tagger model or config files:
 #####################################################
-model_path = SET ME IN CONFIG.PROPS!
+model_path = SET ME IN CONFIG.PROPS! (e.g., /home/jannik/stanford-postagger-full-2014-01-04/models/arabic.tagger)
 # leave this unset if you do not need one
 config_path = 
 
@@ -68,6 +70,9 @@ uimaVarSet = Set
 
 # ...for time-consideration
 uimaVarTime = Time
+
+# ...for temponym-consideration
+uimaVarTemponym = Temponym
 
 # ...for type to process
 uimaVarTypeToProcess = Type
