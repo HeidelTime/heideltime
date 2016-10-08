@@ -70,11 +70,15 @@ public class UimaContextImpl extends RootUimaContext_impl {
 				makeQualifiedName(Config.get(Config.UIMAVAR_TIME)),
 				Boolean.parseBoolean(Config.get(Config.CONSIDER_TIME)));
 		mConfigManager.setConfigParameterValue(
+				makeQualifiedName(Config.get(Config.UIMAVAR_TEMPONYM)),
+				Boolean.parseBoolean(Config.get(Config.CONSIDER_TEMPONYM)));
+		mConfigManager.setConfigParameterValue(
 				makeQualifiedName(Config.get(Config.UIMAVAR_TYPETOPROCESS)),
 				typeToProcess.toString());
 		mConfigManager.setConfigParameterValue(
 				makeQualifiedName(Config.UIMAVAR_CONVERTDURATIONS),
 				new Boolean(true));
+
 	}
 	
 	@Override

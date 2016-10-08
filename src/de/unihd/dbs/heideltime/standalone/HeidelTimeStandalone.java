@@ -344,29 +344,47 @@ public class HeidelTimeStandalone {
 		Properties settings = new Properties();
 		switch (language) {
 			case ARABIC:
-				partOfSpeechTagger = new StanfordPOSTaggerWrapper();
-				settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_ANNOTATE_TOKENS, true);
-				settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_ANNOTATE_SENTENCES, true);
-				settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_ANNOTATE_POS, true);
-				settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_MODEL_PATH, Config.get(Config.STANFORDPOSTAGGER_MODEL_PATH));
-				settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_CONFIG_PATH, Config.get(Config.STANFORDPOSTAGGER_CONFIG_PATH));
+				if(POSTagger.NO.equals(posTagger)) {
+					partOfSpeechTagger = new AllLanguagesTokenizerWrapper();
+					logger.log(Level.INFO, "Be aware that you use the AllLanguagesTokenizer instead of specific preprocessing for Arabic. "
+							+ "Thus, tagging results might be very different (and worse).");
+				} else {
+					partOfSpeechTagger = new StanfordPOSTaggerWrapper();
+					settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_ANNOTATE_TOKENS, true);
+					settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_ANNOTATE_SENTENCES, true);
+					settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_ANNOTATE_POS, true);
+					settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_MODEL_PATH, Config.get(Config.STANFORDPOSTAGGER_MODEL_PATH));
+					settings.put(PartOfSpeechTagger.STANFORDPOSTAGGER_CONFIG_PATH, Config.get(Config.STANFORDPOSTAGGER_CONFIG_PATH));
+				}
 				break;
 			case VIETNAMESE:
-				partOfSpeechTagger = new JVnTextProWrapper();
-				settings.put(PartOfSpeechTagger.JVNTEXTPRO_ANNOTATE_TOKENS, true);
-				settings.put(PartOfSpeechTagger.JVNTEXTPRO_ANNOTATE_SENTENCES, true);
-				settings.put(PartOfSpeechTagger.JVNTEXTPRO_ANNOTATE_POS, true);
-				settings.put(PartOfSpeechTagger.JVNTEXTPRO_WORD_MODEL_PATH, Config.get(Config.JVNTEXTPRO_WORD_MODEL_PATH));
-				settings.put(PartOfSpeechTagger.JVNTEXTPRO_SENT_MODEL_PATH, Config.get(Config.JVNTEXTPRO_SENT_MODEL_PATH));
-				settings.put(PartOfSpeechTagger.JVNTEXTPRO_POS_MODEL_PATH, Config.get(Config.JVNTEXTPRO_POS_MODEL_PATH));
+				if(POSTagger.NO.equals(posTagger)) {
+					partOfSpeechTagger = new AllLanguagesTokenizerWrapper();
+					logger.log(Level.INFO, "Be aware that you use the AllLanguagesTokenizer instead of specific preprocessing for Vietnamese. "
+							+ "Thus, tagging results might be very different (and worse).");
+				} else {
+					partOfSpeechTagger = new JVnTextProWrapper();
+					settings.put(PartOfSpeechTagger.JVNTEXTPRO_ANNOTATE_TOKENS, true);
+					settings.put(PartOfSpeechTagger.JVNTEXTPRO_ANNOTATE_SENTENCES, true);
+					settings.put(PartOfSpeechTagger.JVNTEXTPRO_ANNOTATE_POS, true);
+					settings.put(PartOfSpeechTagger.JVNTEXTPRO_WORD_MODEL_PATH, Config.get(Config.JVNTEXTPRO_WORD_MODEL_PATH));
+					settings.put(PartOfSpeechTagger.JVNTEXTPRO_SENT_MODEL_PATH, Config.get(Config.JVNTEXTPRO_SENT_MODEL_PATH));
+					settings.put(PartOfSpeechTagger.JVNTEXTPRO_POS_MODEL_PATH, Config.get(Config.JVNTEXTPRO_POS_MODEL_PATH));
+				}
 				break;
 			case CROATIAN:
-				partOfSpeechTagger = new HunPosTaggerWrapper();
-				settings.put(PartOfSpeechTagger.HUNPOS_LANGUAGE, language);
-				settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_TOKENS, true);
-				settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_POS, true);
-				settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_SENTENCES, true);
-				settings.put(PartOfSpeechTagger.HUNPOS_MODEL_PATH, Config.get(Config.HUNPOS_MODEL_PATH));
+				if(POSTagger.NO.equals(posTagger)) {
+					partOfSpeechTagger = new AllLanguagesTokenizerWrapper();
+					logger.log(Level.INFO, "Be aware that you use the AllLanguagesTokenizer instead of specific preprocessing for Croatian. "
+							+ "Thus, tagging results might be very different (and worse).");
+				} else {
+					partOfSpeechTagger = new HunPosTaggerWrapper();
+					settings.put(PartOfSpeechTagger.HUNPOS_LANGUAGE, language);
+					settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_TOKENS, true);
+					settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_POS, true);
+					settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_SENTENCES, true);
+					settings.put(PartOfSpeechTagger.HUNPOS_MODEL_PATH, Config.get(Config.HUNPOS_MODEL_PATH));
+				}
 				break;
 			default:
 				if(POSTagger.STANFORDPOSTAGGER.equals(posTagger)) {
@@ -393,6 +411,9 @@ public class HeidelTimeStandalone {
 					settings.put(PartOfSpeechTagger.HUNPOS_MODEL_PATH, Config.get(Config.HUNPOS_MODEL_PATH));
 				} else if(POSTagger.NO.equals(posTagger)) {
 					partOfSpeechTagger = new AllLanguagesTokenizerWrapper();
+					logger.log(Level.INFO, "Be aware that you use the AllLanguagesTokenizer instead of specific preprocessing for the selected language. "
+							+ "If proper preprocessing for the specified language (." + language.getName() + ") is available, this might results in better "
+									+ "temporal tagging quality.");
 				} else {
 					logger.log(Level.FINEST, "Sorry, but you can't use that tagger.");
 				}
@@ -811,7 +832,7 @@ public class HeidelTimeStandalone {
 		String filename = path.substring(path.lastIndexOf(System.getProperty("file.separator")) + 1);
 
 		System.out.println("HeidelTime Standalone");
-		System.out.println("Copyright © 2011-2015 Jannik Strötgen");
+		System.out.println("Copyright © 2011-2016 Jannik Strötgen");
 		System.out.println("This software is free. See the COPYING file for copying conditions.");
 		System.out.println();
 		

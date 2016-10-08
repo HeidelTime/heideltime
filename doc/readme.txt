@@ -2,10 +2,10 @@
 # UIMA HEIDELTIME KIT #
 #######################
 
-Author:  Jannik Strötgen, Julian Zell
-Date:    December 18th, 2015
-Version: 2.1
-eMail:   stroetgen@uni-hd.de, zell@informatik.uni-heidelberg.de
+Author:  Jannik Strötgen
+Date:    October 4, 2016
+Version: 2.2
+eMail:   jannik.stroetgen@mpi-inf.mpg.de
 
 ###################################
 # 1. Papers describing HeidelTime #
@@ -18,16 +18,16 @@ Jannik Strötgen and Michael Gertz.
   http://www.aclweb.org/anthology/S/S10
 
 In "Language Resources and Evaluation", we have published a paper on "Multilingual and 
-Cross-domain Temporal Tagging". In addition, we detail the features and architecture of 
+Cross-domain Temporal Tagging". Here, we detail the features and architecture of 
 HeidelTime:
   Jannik Strötgen and Michael Gertz.
   Multilingual and Cross-domain Temporal Tagging.
   In: Language Resources and Evaluation, 47(2), pages 269-298, 2013, Springer.
   http://link.springer.com/article/10.1007%2Fs10579-012-9179-y
 
-Please cite one of these papers if you use HeidelTime. 
+Please cite one of these papers if you use HeidelTime. Or, alternatively:
 
-If you use HeidelTime for processing colloquial text such as SMS or tweets or scientific 
+If you use HeidelTime for processing colloquial text (such as SMS or tweets) or scientific 
 publications (e.g., biomedical studies), you may want to cite the following paper instead:
   Jannik Strötgen and Michael Gertz:
   Temporal Tagging on Different Domains: Challenges, Strategies, and Gold Standards.
@@ -41,6 +41,13 @@ use them, please cite the following paper:
   A Baseline Temporal Tagger for All Languages.
   In EMNLP: Proceedings of the 2015 Conference on Empirical Methods in Natural Language 
   Processing. Pages 541-547, Lisbon, Portugal, September 17-21, 2015. ACL.
+  
+Starting with version 2.2, HeidelTime can be used for temponym tagging. 
+If you use HeidelTime as a temponym tagger, please cite the following paper:
+  Erdal Kuzey, Jannik Strötgen, Vinay Setty, and Gerhard Weikum:
+  Temponym Tagging: Temporal Scopes for Textual Phrases.
+  In TempWeb: Proceedings of the 6th Temporal Web Analytics Workshop. Pages 841-842, Montreal,
+  Canada, April 12, 2016. ACM.
 
 ###################
 # 2. Introduction #
@@ -63,7 +70,7 @@ the best results for Italian temporal tagging.
 
 HeidelTime with resources for several languages is one component of our UIMA HeidelTime kit.
 - German
-- English
+- English (and Englischcoll (for colloquial texts), Englishsci (for scientific texts))
 - Dutch (kindly provided by Matje van de Camp, Tilburg University, 
     http://www.tilburguniversity.edu/webwijs/show/?uid=m.m.v.d.camp)
 - Arabic
@@ -111,7 +118,7 @@ contains:
       
     * AllLanguagesTokenizer: This Analysis Engine produces Token and Sentence annotations. It is a 
       simple yet generic tool and should be used for languages which are not supported by any other
-      preprocessing tool, i.e., or most of the languages for which HeidelTime resources have been
+      preprocessing tool, i.e., for most of the languages for which HeidelTime resources have been
       automatically created.
       
     * TreeTaggerWrapper: This Analysis Engine produces Token, Sentence and Part-of-Speech annotations
@@ -136,7 +143,9 @@ contains:
         - types: news, narratives, colloquial (for use with englishcoll), scientific (englishsci)
         - locale: the locale to use for date calculation. Leave it empty to use en_GB.
         - Debugging: to output verbose debugging information to stderr.
-    
+        - Date / Time / Duration / Set / Temponym: if respective temporal expressions shall be 
+          extracted
+
     * IntervalTagger: This Analysis Engine in conjunction with HeidelTime recognizes
       temporal intervals in documents.
       
@@ -202,7 +211,8 @@ set the environment variables.
       http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
       - mkdir treetagger 
       - cd treetagger
-      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tree-tagger-linux-3.2.tar.gz
+      - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tree-tagger-linux-3.2.1.tar.gz
+      - or alternatively: wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tree-tagger-linux-3.2-old.tar.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tagger-scripts.tar.gz
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/install-tagger.sh
       - wget http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/german-par-linux-3.2-utf8.bin.gz
@@ -286,7 +296,7 @@ set the environment variables.
     (whitespace-based) yet generic tool and creaetes sentence and token annotation.
      
      
-    For sample UIMA workflows for any of the supported languages, please take a look
+    For sample UIMA workflows for many of the supported languages, please take a look
     at our evaluation results reproduction Wiki page:
         https://github.com/HeidelTime/heideltime/wiki/Reproducing-Evaluation-Results
     and select a workflow description for a corpus of the language of your choice.
@@ -320,6 +330,7 @@ set the environment variables.
             set "Time" to "true"
             set "Duration" to "true"
             set "Set" to "true"
+            set "Temponym" to "false"
             set "Language" to "english"
             set "Type" to "narratives"
         CAS Consumer
@@ -343,12 +354,13 @@ To analyze the annotations produced by HeidelTime you may use UIMA's annotation 
 # 6. What kind of temporal expressions can be found and normalized #
 ####################################################################
 HeidelTime distinguishes between four types of documents: news style, narrative
-style, colloquial style and scientific style documents. This file here is a narrative 
-document. This version of HeidelTime was released in 2015. To be more precise, and using
-a relative expression, it was released on September 17. HeidelTime was the best performing 
-system of task A of the TempEval-2 challenge in 2010 and the system was presented at the 
+style, colloquial style and scientific style documents. In addition, temponyms such as "John 
+F. Kennedy's death" can be identified and normalized if "temponym" is set to true.  This file 
+here is a narrative document. This version of HeidelTime was released in 2016. To be more 
+precise, and using a relative expression, it was released on Ocotber 4. HeidelTime was the best 
+performing system of task A of the TempEval-2 challenge in 2010 and the system was presented at the 
 TempEval Workshop at the ACL conference in Uppsala, Sweden on July 15, 2010 or July 16. 
-In the meantime, it is September 2015 and HeidelTime is made publicly available and identifies 
+In the meantime, it is October 2016 and HeidelTime is made publicly available and identifies 
 these temporal expressions: January 22, 2001 or twice a week.
 
 ##########################################
@@ -372,12 +384,12 @@ https://github.com/HeidelTime/heideltime/wiki/Reproducing-Evaluation-Results
 ##############
 # 9. License #
 ##############
-Copyright (c) 2012-2015, Database Research Group, Institute of Computer Science, University of Heidelberg. 
+Copyright (c) 2012-2016, Database Research Group, Institute of Computer Science, Heidelberg University. 
 All rights reserved. This program and the accompanying materials 
 are made available under the terms of the GNU General Public License.
 
 author: Jannik Strötgen
-email:  stroetgen@uni-hd.de
+email:  jannik.stroetgen@mpi-inf.mpg.de
 
 HeidelTime is a multilingual, cross-domain temporal tagger.
 For details, see http://dbs.ifi.uni-heidelberg.de/heideltime
