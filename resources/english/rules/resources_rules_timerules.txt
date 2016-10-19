@@ -45,12 +45,15 @@ RULENAME="time_r2f",EXTRACTION="(%reMonthLong %reDayNumber, %reTimeHour:%reTimeM
 // EXAMPLE r3c-1: midnight today
 // EXAMPLE r3d-1: yesterday morning
 // EXAMPLE r3d2-1: late yesterday evening
+// EXAMPLE r3e: last Friday morning
 RULENAME="time_r3a",EXTRACTION="%rePartOfDay %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(2))T%normPartOfDay(group(1))"
 RULENAME="time_r3b",EXTRACTION="%reWeekday %rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normPartOfDay(group(2))"
 RULENAME="time_r3b2",EXTRACTION="%rePartWords %reWeekday %rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(2))T%normPartOfDay(group(3))",NORM_MOD="%normPartWords(group(1))"
 RULENAME="time_r3c",EXTRACTION="%rePartOfDay %reDateWord",NORM_VALUE="%normDateWord(group(2))T%normPartOfDay(group(1))"
 RULENAME="time_r3d",EXTRACTION="%reDateWord %rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
 RULENAME="time_r3d2",EXTRACTION="%rePartWords %reDateWord %rePartOfDay",NORM_VALUE="%normDateWord(group(2))T%normPartOfDay(group(3))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="time_r3e",EXTRACTION="%reThisNextLast %reWeekday %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%LOWERCASE%(group(2))T%normPartOfDay(group(3))"
+
 
 // time_r4
 // EXAMPLE r4a-1: earlier this afternoon
