@@ -2422,55 +2422,38 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		return attributes;
 	}
 	
+	private static final Pattern SIMPLIFY_DURATION = Pattern.compile("(PT?)(\\d+)([HM])");
 
 	/**
 	 * Durations of a finer granularity are mapped to a coarser one if possible, e.g., "PT24H" -> "P1D".
 	 * One may add several further corrections.
 	 * @param value 
-     * @return
-     */
-	public String correctDurationValue(String value) {
-		if (value.matches("PT[0-9]+H")){
-			for (MatchResult mr : Toolbox.findMatches(Pattern.compile("PT([0-9]+)H"), value)){
-				try {
-					int hours = Integer.parseInt(mr.group(1));
-					if ((hours % 24) == 0){
-						int days = hours / 24;
-						value = "P"+days+"D";
-					}
-				} catch(NumberFormatException e) {
-					LOG.debug("Couldn't do granularity conversion for {}", value);
-				}
+	 * @return
+	 */
+	public static String correctDurationValue(String value) {
+		Matcher m = SIMPLIFY_DURATION.matcher(value);
+		if (m.matches()) {
+			int ival = Integer.parseInt(m.group(2));
+			if (m.group(1).equals("PT")) {
+				// x*24 hours to x days
+				if (m.group(3).equals("H") && (ival % 24 == 0))
+					return String.format(Locale.ROOT, "P%dD", ival / 24);
+				// x*60 minutes to x days
+				if (m.group(3).equals("M") && (ival % 60 == 0))
+					return String.format(Locale.ROOT, "PT%dH", ival / 60);
+				// TODO: also do 24*60 min to days?
 			}
-		} else if (value.matches("PT[0-9]+M")){
-			for (MatchResult mr : Toolbox.findMatches(Pattern.compile("PT([0-9]+)M"), value)){
-				try {
-					int minutes = Integer.parseInt(mr.group(1));
-					if ((minutes % 60) == 0){
-						int hours = minutes / 60;
-						value = "PT"+hours+"H";
-					}
-				} catch(NumberFormatException e) {
-					LOG.debug("Couldn't do granularity conversion for {}", value);
-				}
-			}
-		} else if (value.matches("P[0-9]+M")){
-			for (MatchResult mr : Toolbox.findMatches(Pattern.compile("P([0-9]+)M"), value)){
-				try {
-					int months = Integer.parseInt(mr.group(1));
-					if ((months % 12) == 0){
-						int years = months / 12;
-						value = "P"+years+"Y";
-					}
-				} catch(NumberFormatException e) {
-					LOG.debug("Couldn't do granularity conversion for {}", value);
-				}
+			else if (m.group(1).equals("P")) {
+				// x*12 months to years
+				if (m.group(3).equals("M") && (ival % 12 == 0))
+					return String.format(Locale.ROOT, "P%dY", ival / 12);
+				
 			}
 		}
 		return value;
 	}
 	
-	Pattern VALID_DCT = Pattern.compile("\\d{4}.\\d{2}.\\d{2}|\\d{8}");
+	private static final Pattern VALID_DCT = Pattern.compile("\\d{4}.\\d{2}.\\d{2}|\\d{8}");
 
 	/**
 	 * Check whether or not a jcas object has a correct DCT value.
