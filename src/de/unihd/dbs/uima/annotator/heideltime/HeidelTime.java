@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.uima.UimaContext;
@@ -58,6 +59,16 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  * 
  */
 public class HeidelTime extends JCasAnnotator_ImplBase {
+	private static final Pattern UNDEF_PATTERN = Pattern.compile("^(UNDEF-(this|REFUNIT|REF)-(.*?)-(MINUS|PLUS)-([0-9]+)).*");
+	
+	private static final Pattern UNDEF_MONTH = Pattern.compile("(UNDEF-(last|this|next)-(january|february|march|april|may|june|july|august|september|october|november|december))(.*)");
+
+	private static final Pattern UNDEF_SEASON = Pattern.compile("^(UNDEF-(last|this|next)-(SP|SU|FA|WI)).*");
+	
+	private static final Pattern UNDEF_WEEKDAY = Pattern.compile("^(UNDEF-(last|this|next|day)-(monday|tuesday|wednesday|thursday|friday|saturday|sunday)).*");
+
+	private static final Pattern EIGHT_DIGITS = Pattern.compile("^\\d{8}$");
+	
 	/** Class logger */
 	private Logger LOG = LoggerFactory.getLogger(HeidelTime.class);
 
@@ -528,7 +539,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			dctAvailable = true;
 			dctValue = dctIter.next().getValue();
 			// year, month, day as mentioned in the DCT
-			if (dctValue.matches("\\d\\d\\d\\d\\d\\d\\d\\d")) {
+			if (EIGHT_DIGITS.matcher(dctValue).matches()) {
 				dctCentury = Integer.parseInt(dctValue.substring(0, 2));
 				dctYear = Integer.parseInt(dctValue.substring(0, 4));
 				dctDecade = Integer.parseInt(dctValue.substring(2, 3));
@@ -559,7 +570,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			}
 			dctQuarter = "Q"
 					+ norm.getFromNormMonthInQuarter(norm
-							.getFromNormNumber(dctMonth + ""));
+							.normNumber(dctMonth));
 			dctHalf = "H1";
 			if (dctMonth > 6) {
 				dctHalf = "H2";
@@ -567,13 +578,13 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 			// season, week, weekday, have to be calculated
 			dctSeason = norm.getFromNormMonthInSeason(norm
-					.getFromNormNumber(dctMonth + "") + "");
+					.normNumber(dctMonth) + "");
 			dctWeekday = DateCalculator.getWeekdayOfDate(dctYear + "-"
-					+ norm.getFromNormNumber(dctMonth + "") + "-"
-					+ norm.getFromNormNumber(dctDay + ""));
+					+ norm.normNumber(dctMonth) + "-"
+					+ norm.normNumber(dctDay));
 			dctWeek = DateCalculator.getWeekOfDate(dctYear + "-"
-					+ norm.getFromNormNumber(dctMonth + "") + "-"
-					+ norm.getFromNormNumber(dctDay + ""));
+					+ norm.normNumber(dctMonth) + "-"
+					+ norm.normNumber(dctDay));
 
 			if (LOG.isDebugEnabled()) {
 				LOG.debug("dctQuarter:" + dctQuarter);
@@ -880,6 +891,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// CHECK IMPLICIT EXPRESSIONS STARTING WITH UNDEF //
 		////////////////////////////////////////////////////
 		else if (ambigString.startsWith("UNDEF")) {
+			Matcher m;
 			valueNew = ambigString;
 			if (ambigString.matches("^UNDEF-REFDATE$")){
 				if (i > 0){
@@ -895,209 +907,163 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				// TO CALCULATE //
 				//////////////////
 				// year to calculate
-			} else if (ambigString.matches("^UNDEF-(this|REFUNIT|REF)-(.*?)-(MINUS|PLUS)-([0-9]+).*")) {
-				for (MatchResult mr : Toolbox.findMatches(Pattern.compile("^(UNDEF-(this|REFUNIT|REF)-(.*?)-(MINUS|PLUS)-([0-9]+)).*"), ambigString)) {
-					String checkUndef = mr.group(1);
-					String ltn  = mr.group(2);
-					String unit = mr.group(3);
-					String op   = mr.group(4);
-					String sDiff = mr.group(5);
-					int diff = 0;
-					try {
-						diff = Integer.parseInt(sDiff);
-					} catch (Exception e) {
-						LOG.error("Expression difficult to normalize: ");
-						LOG.error(ambigString);
-						LOG.error("{} probably too long for parsing as integer.", sDiff);
-						LOG.error("set normalized value as PAST_REF / FUTURE_REF:");
-						if (op.equals("PLUS")){
-							valueNew = "FUTURE_REF";
-						}
-						else {
-							valueNew = "PAST_REF";
-						}
-						break;
+			} else if ((m = UNDEF_PATTERN.matcher(ambigString)).find()) {
+				String checkUndef = m.group(1);
+				String ltn  = m.group(2);
+				String unit = m.group(3);
+				String op   = m.group(4);
+				String sDiff = m.group(5);
+				int diff = 0;
+				try {
+					diff = Integer.parseInt(sDiff);
+				} catch (Exception e) {
+					LOG.error("Expression difficult to normalize: ");
+					LOG.error(ambigString);
+					LOG.error("{} probably too long for parsing as integer.", sDiff);
+					LOG.error("set normalized value as PAST_REF / FUTURE_REF:");
+					valueNew = op.equals("PLUS") ? "FUTURE_REF" : "PAST_REF";
+					return valueNew;
+				}
+
+
+				// do the processing for SCIENTIFIC documents (TPZ identification could be improved)
+				if ((documentTypeScientific)){
+					char opSymbol = op.equals("PLUS") ? '+' : '-';
+					if (unit.equals("year")){
+						valueNew = String.format(Locale.ROOT, "TPZ%c%04d", opSymbol, diff);
 					}
-					
-					
-					// do the processing for SCIENTIFIC documents (TPZ identification could be improved)
-					if ((documentTypeScientific)){
-						String opSymbol = "-";
-						if (op.equals("PLUS")){
-							opSymbol = "+";
+					else if (unit.equals("month")){
+						valueNew = String.format(Locale.ROOT, "TPZ%c0000-%02d", opSymbol, diff);
+					}
+					else if (unit.equals("week")){
+						valueNew = String.format(Locale.ROOT, "TPZ%c0000-W%02d", opSymbol, diff);
+					}
+					else if (unit.equals("day")){
+						valueNew = String.format(Locale.ROOT, "TPZ%c0000-00-%02d", opSymbol, diff);
+					}
+					else if (unit.equals("hour")){
+						valueNew = String.format(Locale.ROOT, "TPZ%c0000-00-00T%02d", opSymbol, diff);
+					}
+					else if (unit.equals("minute")){
+						valueNew = String.format(Locale.ROOT, "TPZ%c0000-00-00T00:%02d", opSymbol, diff);
+					}							
+					else if (unit.equals("second")){
+						valueNew = String.format(Locale.ROOT, "TPZ%c0000-00-00T00:00:%02d", opSymbol, diff);
+					}
+				}
+				else{	
+
+
+					// check for REFUNIT (only allowed for "year")
+					if ((ltn.equals("REFUNIT")) && (unit.equals("year"))) {
+						String dateWithYear = ContextAnalyzer.getLastMentionedX(linearDates, i, "dateYear", language);
+						String year = dateWithYear;
+						if (dateWithYear.equals("")) {
+							valueNew = valueNew.replace(checkUndef, "XXXX");
+						} else {
+							if (dateWithYear.startsWith("BC")){
+								year = dateWithYear.substring(0,6);
+							}
+							else{
+								year = dateWithYear.substring(0,4);
+							}
+							if (op.equals("MINUS")) {
+								diff = diff * (-1);
+							}
+							String yearNew = DateCalculator.getXNextYear(dateWithYear, diff);
+							String rest = dateWithYear.substring(4);
+							valueNew = valueNew.replace(checkUndef, yearNew+rest);
 						}
-						if (unit.equals("year")){
-							String diffString;
-							if (diff < 10){
-								diffString = "000"+diff;
+					}
+
+
+					// REF and this are handled here
+					if (unit.equals("century")) {
+						if ((documentTypeNews|documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
+							int century = dctCentury;
+							if (op.equals("MINUS")) {
+								century = dctCentury - diff;
+							} else if (op.equals("PLUS")) {
+								century = dctCentury + diff;
 							}
-							else if (diff < 100){
-								diffString = "00"+diff;
-							}
-							else if (diff < 1000){
-								diffString = "0"+diff;
+							valueNew = valueNew.replace(checkUndef, century+"");
+						} else {
+							String lmCentury = ContextAnalyzer.getLastMentionedX(linearDates, i, "century", language);
+							if (lmCentury.equals("")) {
+								valueNew = valueNew.replace(checkUndef, "XX");
 							} else {
-								diffString = Integer.toString(diff);
+								if (op.equals("MINUS")) {
+									diff = (-1) * diff;
+								} 
+								lmCentury = DateCalculator.getXNextCentury(lmCentury, diff);
+								valueNew = valueNew.replace(checkUndef, lmCentury);
 							}
-							valueNew = "TPZ"+opSymbol+diffString;
 						}
-						else if (unit.equals("month")){
-							String diffString;
-							if (diff < 10){
-								diffString = "0000-0"+diff;
+					} else if (unit.equals("decade")) {
+						if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
+							int dctDecadeLong = Integer.parseInt(dctCentury + "" + dctDecade);
+							int decade = dctDecadeLong;
+							if (op.equals("MINUS")) {
+								decade = dctDecadeLong - diff;
+							} else if (op.equals("PLUS")) {
+								decade = dctDecadeLong + diff;
 							}
-							else {
-								diffString = "0000-"+diff;
+							valueNew = valueNew.replace(checkUndef, decade+"X");
+						} else {
+							String lmDecade = ContextAnalyzer.getLastMentionedX(linearDates, i, "decade", language);
+							if (lmDecade.equals("")) {
+								valueNew = valueNew.replace(checkUndef, "XXX");
+							} else {
+								if (op.equals("MINUS")) {
+									diff = (-1) * diff;
+								}
+								lmDecade = DateCalculator.getXNextDecade(lmDecade, diff);
+								valueNew = valueNew.replace(checkUndef, lmDecade);
 							}
-							valueNew = "TPZ"+opSymbol+diffString;
 						}
-						else if (unit.equals("week")){
-							String diffString;
-							if (diff < 10){
-								diffString = "0000-W0"+diff;
+					} else if (unit.equals("year")) {
+						if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
+							int intValue = dctYear;
+							if (op.equals("MINUS")) {
+								intValue = dctYear - diff;
+							} else if (op.equals("PLUS")) {
+								intValue = dctYear + diff;
 							}
-							else {
-								diffString = "0000-W"+diff;
-							}
-							valueNew = "TPZ"+opSymbol+diffString;
-						}
-						else if (unit.equals("day")){
-							String diffString;
-							if (diff < 10){
-								diffString = "0000-00-0"+diff;
-							}
-							else {
-								diffString = "0000-00-"+diff;
-							}
-							valueNew = "TPZ"+opSymbol+diffString;
-						}
-						else if (unit.equals("hour")){
-							String diffString;
-							if (diff < 10){
-								diffString = "0000-00-00T0"+diff;
-							}
-							else {
-								diffString = "0000-00-00T"+diff;
-							}
-							valueNew = "TPZ"+opSymbol+diffString;
-						}
-						else if (unit.equals("minute")){
-							String diffString;
-							if (diff < 10){
-								diffString = "0000-00-00T00:0"+diff;
-							}
-							else {
-								diffString = "0000-00-00T00:"+diff;
-							}
-							valueNew = "TPZ"+opSymbol+diffString;								
-						}							
-						else if (unit.equals("second")){
-							String diffString;
-							if (diff < 10){
-								diffString = "0000-00-00T00:00:0"+diff;
-							}
-							else {
-								diffString = "0000-00-00T00:00:"+diff;
-							}
-							valueNew = "TPZ"+opSymbol+diffString;
-						}
-					}
-					else{	
-						
-						
-						// check for REFUNIT (only allowed for "year")
-						if ((ltn.equals("REFUNIT")) && (unit.equals("year"))) {
-							String dateWithYear = ContextAnalyzer.getLastMentionedX(linearDates, i, "dateYear", language);
-							String year = dateWithYear;
-							if (dateWithYear.equals("")) {
+							valueNew = valueNew.replace(checkUndef, intValue + "");
+						} else {
+							String lmYear = ContextAnalyzer.getLastMentionedX(linearDates, i, "year", language);
+							if (lmYear.equals("")) {
 								valueNew = valueNew.replace(checkUndef, "XXXX");
 							} else {
-								if (dateWithYear.startsWith("BC")){
-									year = dateWithYear.substring(0,6);
-								}
-								else{
-									year = dateWithYear.substring(0,4);
-								}
 								if (op.equals("MINUS")) {
-									diff = diff * (-1);
-								}
-								String yearNew = DateCalculator.getXNextYear(dateWithYear, diff);
-								String rest = dateWithYear.substring(4);
-								valueNew = valueNew.replace(checkUndef, yearNew+rest);
+									diff = (-1) * diff;
+								} 
+								lmYear = DateCalculator.getXNextYear(lmYear, diff);
+								valueNew = valueNew.replace(checkUndef, lmYear);
 							}
 						}
-						
-						
-						// REF and this are handled here
-						if (unit.equals("century")) {
-							if ((documentTypeNews|documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
-								int century = dctCentury;
-								if (op.equals("MINUS")) {
-									century = dctCentury - diff;
-								} else if (op.equals("PLUS")) {
-									century = dctCentury + diff;
-								}
-								valueNew = valueNew.replace(checkUndef, century+"");
-							} else {
-								String lmCentury = ContextAnalyzer.getLastMentionedX(linearDates, i, "century", language);
-								if (lmCentury.equals("")) {
-									valueNew = valueNew.replace(checkUndef, "XX");
-								} else {
-									if (op.equals("MINUS")) {
-										diff = (-1) * diff;
-									} 
-									lmCentury = DateCalculator.getXNextCentury(lmCentury, diff);
-									valueNew = valueNew.replace(checkUndef, lmCentury);
-								}
+						// TODO BC years
+					} else if (unit.equals("quarter")) {
+						if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
+							int intYear    = dctYear;
+							int intQuarter = Integer.parseInt(dctQuarter.substring(1));
+							int diffQuarters = diff % 4;
+							diff = diff - diffQuarters;
+							int diffYears    = diff / 4;
+							if (op.equals("MINUS")) {
+								diffQuarters = diffQuarters * (-1);
+								diffYears    = diffYears    * (-1);
 							}
-						} else if (unit.equals("decade")) {
-							if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
-								int dctDecadeLong = Integer.parseInt(dctCentury + "" + dctDecade);
-								int decade = dctDecadeLong;
-								if (op.equals("MINUS")) {
-									decade = dctDecadeLong - diff;
-								} else if (op.equals("PLUS")) {
-									decade = dctDecadeLong + diff;
-								}
-								valueNew = valueNew.replace(checkUndef, decade+"X");
+							intYear    = intYear + diffYears;
+							intQuarter = intQuarter + diffQuarters; 
+							valueNew = valueNew.replace(checkUndef, intYear+"-Q"+intQuarter);
+						} else {
+							String lmQuarter = ContextAnalyzer.getLastMentionedX(linearDates, i, "quarter", language);
+							if (lmQuarter.equals("")) {
+								valueNew = valueNew.replace(checkUndef, "XXXX-XX");
 							} else {
-								String lmDecade = ContextAnalyzer.getLastMentionedX(linearDates, i, "decade", language);
-								if (lmDecade.equals("")) {
-									valueNew = valueNew.replace(checkUndef, "XXX");
-								} else {
-									if (op.equals("MINUS")) {
-										diff = (-1) * diff;
-									}
-									lmDecade = DateCalculator.getXNextDecade(lmDecade, diff);
-									valueNew = valueNew.replace(checkUndef, lmDecade);
-								}
-							}
-						} else if (unit.equals("year")) {
-							if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
-								int intValue = dctYear;
-								if (op.equals("MINUS")) {
-									intValue = dctYear - diff;
-								} else if (op.equals("PLUS")) {
-									intValue = dctYear + diff;
-								}
-								valueNew = valueNew.replace(checkUndef, intValue + "");
-							} else {
-								String lmYear = ContextAnalyzer.getLastMentionedX(linearDates, i, "year", language);
-								if (lmYear.equals("")) {
-									valueNew = valueNew.replace(checkUndef, "XXXX");
-								} else {
-									if (op.equals("MINUS")) {
-										diff = (-1) * diff;
-									} 
-									lmYear = DateCalculator.getXNextYear(lmYear, diff);
-									valueNew = valueNew.replace(checkUndef, lmYear);
-								}
-							}
-							// TODO BC years
-						} else if (unit.equals("quarter")) {
-							if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
-								int intYear    = dctYear;
-								int intQuarter = Integer.parseInt(dctQuarter.substring(1));
+								int intYear    = Integer.parseInt(lmQuarter.substring(0, 4));
+								int intQuarter = Integer.parseInt(lmQuarter.substring(6)); 
 								int diffQuarters = diff % 4;
 								diff = diff - diffQuarters;
 								int diffYears    = diff / 4;
@@ -1108,79 +1074,61 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 								intYear    = intYear + diffYears;
 								intQuarter = intQuarter + diffQuarters; 
 								valueNew = valueNew.replace(checkUndef, intYear+"-Q"+intQuarter);
-							} else {
-								String lmQuarter = ContextAnalyzer.getLastMentionedX(linearDates, i, "quarter", language);
-								if (lmQuarter.equals("")) {
-									valueNew = valueNew.replace(checkUndef, "XXXX-XX");
-								} else {
-									int intYear    = Integer.parseInt(lmQuarter.substring(0, 4));
-									int intQuarter = Integer.parseInt(lmQuarter.substring(6)); 
-									int diffQuarters = diff % 4;
-									diff = diff - diffQuarters;
-									int diffYears    = diff / 4;
-									if (op.equals("MINUS")) {
-										diffQuarters = diffQuarters * (-1);
-										diffYears    = diffYears    * (-1);
-									}
-									intYear    = intYear + diffYears;
-									intQuarter = intQuarter + diffQuarters; 
-									valueNew = valueNew.replace(checkUndef, intYear+"-Q"+intQuarter);
-								}
 							}
-						} else if (unit.equals("month")) {
-							if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
+						}
+					} else if (unit.equals("month")) {
+						if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
+							if (op.equals("MINUS")) {
+								diff = diff * (-1);
+							}
+							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(dctYear + "-" + norm.normNumber(dctMonth), diff));
+						} else {
+							String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates, i, "month", language);
+							if (lmMonth.equals("")) {
+								valueNew = valueNew.replace(checkUndef, "XXXX-XX");
+							} else {
 								if (op.equals("MINUS")) {
 									diff = diff * (-1);
 								}
-								valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(dctYear + "-" + norm.getFromNormNumber(dctMonth+""), diff));
-							} else {
-								String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates, i, "month", language);
-								if (lmMonth.equals("")) {
-									valueNew = valueNew.replace(checkUndef, "XXXX-XX");
-								} else {
-									if (op.equals("MINUS")) {
-										diff = diff * (-1);
-									}
-									valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(lmMonth, diff));
-								}
+								valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(lmMonth, diff));
 							}
-						} else if (unit.equals("week")) {
-							if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
+						}
+					} else if (unit.equals("week")) {
+						if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
+							if (op.equals("MINUS")) {
+								diff = diff * (-1);
+							} else if (op.equals("PLUS")) {
+								// diff = diff * 7;
+							}
+							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dctYear+"-W"+norm.normNumber(dctWeek), diff, language));
+						} else {
+							String lmDay = ContextAnalyzer.getLastMentionedX(linearDates, i, "day", language);
+							if (lmDay.equals("")) {
+								valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
+							} else {
 								if (op.equals("MINUS")) {
-									diff = diff * (-1);
+									diff = diff * 7 * (-1);
 								} else if (op.equals("PLUS")) {
-									// diff = diff * 7;
+									diff = diff * 7;
 								}
-								valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dctYear+"-W"+norm.getFromNormNumber(dctWeek+""), diff, language));
-							} else {
-								String lmDay = ContextAnalyzer.getLastMentionedX(linearDates, i, "day", language);
-								if (lmDay.equals("")) {
-									valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
-								} else {
-									if (op.equals("MINUS")) {
-										diff = diff * 7 * (-1);
-									} else if (op.equals("PLUS")) {
-										diff = diff * 7;
-									}
-									valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
-								}
+								valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
 							}
-						} else if (unit.equals("day")) {
-							if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
+						}
+					} else if (unit.equals("day")) {
+						if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && (ltn.equals("this"))) {
+							if (op.equals("MINUS")) {
+								diff = diff * (-1);
+							}
+							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dctYear + "-" + norm.normNumber(dctMonth) + "-"	+ dctDay, diff));
+						} else {
+							String lmDay = ContextAnalyzer.getLastMentionedX(linearDates, i, "day", language);
+							if (lmDay.equals("")) {
+								valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
+							} else {
 								if (op.equals("MINUS")) {
 									diff = diff * (-1);
 								}
-								valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dctYear + "-" + norm.getFromNormNumber(dctMonth+"") + "-"	+ dctDay, diff));
-							} else {
-								String lmDay = ContextAnalyzer.getLastMentionedX(linearDates, i, "day", language);
-								if (lmDay.equals("")) {
-									valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
-								} else {
-									if (op.equals("MINUS")) {
-										diff = diff * (-1);
-									}
-									valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
-								}
+								valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
 							}
 						}
 					}
@@ -1191,7 +1139,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			else if (ambigString.startsWith("UNDEF-last-century")) {
 				String checkUndef = "UNDEF-last-century";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef, norm.getFromNormNumber(dctCentury - 1 +""));
+					valueNew = valueNew.replace(checkUndef, norm.normNumber(dctCentury - 1));
 				} else {
 					String lmCentury = ContextAnalyzer.getLastMentionedX(linearDates,i,"century", language);
 					if (lmCentury.equals("")) {
@@ -1205,7 +1153,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			} else if (ambigString.startsWith("UNDEF-this-century")) {
 				String checkUndef = "UNDEF-this-century";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef, norm.getFromNormNumber(dctCentury+""));
+					valueNew = valueNew.replace(checkUndef, norm.normNumber(dctCentury));
 				} else {
 					String lmCentury = ContextAnalyzer.getLastMentionedX(linearDates,i,"century", language);
 					if (lmCentury.equals("")) {
@@ -1217,7 +1165,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			} else if (ambigString.startsWith("UNDEF-next-century")) {
 				String checkUndef = "UNDEF-next-century";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef, norm.getFromNormNumber(dctCentury + 1+""));
+					valueNew = valueNew.replace(checkUndef, norm.normNumber(dctCentury + 1));
 				} else {
 					String lmCentury = ContextAnalyzer.getLastMentionedX(linearDates,i,"century", language);
 					if (lmCentury.equals("")) {
@@ -1233,7 +1181,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			else if (ambigString.startsWith("UNDEF-last-decade")) {
 				String checkUndef = "UNDEF-last-decade";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef, (dctYear - 10+"").substring(0,3));
+					valueNew = valueNew.replace(checkUndef, (Integer.toString(dctYear - 10)).substring(0,3));
 				} else {
 					String lmDecade = ContextAnalyzer.getLastMentionedX(linearDates,i,"decade", language);
 					if (lmDecade.equals("")) {
@@ -1246,7 +1194,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			} else if (ambigString.startsWith("UNDEF-this-decade")) {
 				String checkUndef = "UNDEF-this-decade";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef, (dctYear+"").substring(0,3));
+					valueNew = valueNew.replace(checkUndef, (Integer.toString(dctYear)).substring(0,3));
 				} else {
 					String lmDecade = ContextAnalyzer.getLastMentionedX(linearDates,i,"decade", language);
 					if (lmDecade.equals("")) {
@@ -1258,7 +1206,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			} else if (ambigString.startsWith("UNDEF-next-decade")) {
 				String checkUndef = "UNDEF-next-decade";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef, (dctYear + 10+"").substring(0,3));
+					valueNew = valueNew.replace(checkUndef, (Integer.toString(dctYear + 10)).substring(0,3));
 				} else {
 					String lmDecade = ContextAnalyzer.getLastMentionedX(linearDates,i,"decade", language);
 					if (lmDecade.equals("")) {
@@ -1324,7 +1272,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			else if (ambigString.startsWith("UNDEF-last-month")) {
 				String checkUndef = "UNDEF-last-month";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(dctYear + "-" + norm.getFromNormNumber(dctMonth+""), -1));
+					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(dctYear + "-" + norm.normNumber(dctMonth), -1));
 				} else {
 					String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates,i,"month", language);
 					if (lmMonth.equals("")) {
@@ -1336,7 +1284,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			} else if (ambigString.startsWith("UNDEF-this-month")) {
 				String checkUndef = "UNDEF-this-month";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef, dctYear + "-" + norm.getFromNormNumber(dctMonth+""));
+					valueNew = valueNew.replace(checkUndef, dctYear + "-" + norm.normNumber(dctMonth));
 				} else {
 					String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates,i,"month", language);
 					if (lmMonth.equals("")) {
@@ -1349,7 +1297,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			else if (ambigString.startsWith("UNDEF-next-month")) {
 				String checkUndef = "UNDEF-next-month";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(dctYear + "-" + norm.getFromNormNumber(dctMonth+""), 1));
+					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(dctYear + "-" + norm.normNumber(dctMonth), 1));
 				} else {
 					String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates,i,"month", language);
 					if (lmMonth.equals("")) {
@@ -1364,7 +1312,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			else if (ambigString.startsWith("UNDEF-last-day")) {
 				String checkUndef = "UNDEF-last-day";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dctYear + "-" + norm.getFromNormNumber(dctMonth+"") + "-"+ dctDay, -1));
+					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dctYear + "-" + norm.normNumber(dctMonth) + "-"+ dctDay, -1));
 				} else {
 					String lmDay = ContextAnalyzer.getLastMentionedX(linearDates,i,"day", language);
 					if (lmDay.equals("")) {
@@ -1376,7 +1324,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			} else if (ambigString.startsWith("UNDEF-this-day")) {
 				String checkUndef = "UNDEF-this-day";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef, dctYear + "-" + norm.getFromNormNumber(dctMonth+"") + "-"+ norm.getFromNormNumber(dctDay+""));
+					valueNew = valueNew.replace(checkUndef, dctYear + "-" + norm.normNumber(dctMonth) + "-"+ norm.normNumber(dctDay));
 				} else {
 					String lmDay = ContextAnalyzer.getLastMentionedX(linearDates,i,"day", language);
 					if (lmDay.equals("")) {
@@ -1392,7 +1340,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			else if (ambigString.startsWith("UNDEF-next-day")) {
 				String checkUndef = "UNDEF-next-day";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dctYear + "-" + norm.getFromNormNumber(dctMonth+"") + "-"+ dctDay, 1));
+					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dctYear + "-" + norm.normNumber(dctMonth) + "-"+ dctDay, 1));
 				} else {
 					String lmDay = ContextAnalyzer.getLastMentionedX(linearDates,i,"day", language);
 					if (lmDay.equals("")) {
@@ -1407,7 +1355,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			else if (ambigString.startsWith("UNDEF-last-week")) {
 				String checkUndef = "UNDEF-last-week";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dctYear+"-W"+norm.getFromNormNumber(dctWeek+""),-1, language));
+					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dctYear+"-W"+norm.normNumber(dctWeek),-1, language));
 				} else {
 					String lmWeek = ContextAnalyzer.getLastMentionedX(linearDates,i,"week", language);
 					if (lmWeek.equals("")) {
@@ -1419,7 +1367,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			} else if (ambigString.startsWith("UNDEF-this-week")) {
 				String checkUndef = "UNDEF-this-week";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef,dctYear+"-W"+norm.getFromNormNumber(dctWeek+""));
+					valueNew = valueNew.replace(checkUndef,dctYear+"-W"+norm.normNumber(dctWeek));
 				} else {
 					String lmWeek = ContextAnalyzer.getLastMentionedX(linearDates,i,"week", language);
 					if (lmWeek.equals("")) {
@@ -1431,7 +1379,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			} else if (ambigString.startsWith("UNDEF-next-week")) {
 				String checkUndef = "UNDEF-next-week";
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dctYear+"-W"+norm.getFromNormNumber(dctWeek+""),1, language));
+					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dctYear+"-W"+norm.normNumber(dctWeek),1, language));
 				} else {
 					String lmWeek = ContextAnalyzer.getLastMentionedX(linearDates,i,"week", language);
 					if (lmWeek.equals("")) {
@@ -1506,227 +1454,224 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			}
 			
 			// MONTH NAMES
-			else if (ambigString.matches("UNDEF-(last|this|next)-(january|february|march|april|may|june|july|august|september|october|november|december).*")) {
-				for (MatchResult mr : Toolbox.findMatches(Pattern.compile("(UNDEF-(last|this|next)-(january|february|march|april|may|june|july|august|september|october|november|december))(.*)"),ambigString)) {
-					String rest = mr.group(4);
-					int day = 0;
-					for (MatchResult mr_rest : Toolbox.findMatches(Pattern.compile("-([0-9][0-9])"),rest)){
-						day = Integer.parseInt(mr_rest.group(1));
-					}
-					String checkUndef = mr.group(1);
-					String ltn      = mr.group(2);
-					String newMonth = norm.getFromNormMonthName((mr.group(3)));
-					int newMonthInt = Integer.parseInt(newMonth);
-					if (ltn.equals("last")) {
-						if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-							// check day if dct-month and newMonth are equal
-							if ((dctMonth == newMonthInt) && (!(day == 0))){
-								if (dctDay > day){
-									valueNew = valueNew.replace(checkUndef, dctYear+"-"+newMonth);
-								}
-								else{
-									valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newMonth);
-								}
-							}
-							else if (dctMonth <= newMonthInt) {
-								valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newMonth);
-							} else {
+			else if ((m = UNDEF_MONTH.matcher(ambigString)).matches()) {
+				String rest = m.group(4);
+				int day = 0;
+				for (MatchResult mr_rest : Toolbox.findMatches(Pattern.compile("-([0-9][0-9])"),rest)){
+					day = Integer.parseInt(mr_rest.group(1));
+				}
+				String checkUndef = m.group(1);
+				String ltn      = m.group(2);
+				String newMonth = norm.getFromNormMonthName((m.group(3)));
+				int newMonthInt = Integer.parseInt(newMonth);
+				if (ltn.equals("last")) {
+					if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
+						// check day if dct-month and newMonth are equal
+						if ((dctMonth == newMonthInt) && (!(day == 0))){
+							if (dctDay > day){
 								valueNew = valueNew.replace(checkUndef, dctYear+"-"+newMonth);
 							}
-						} else {
-							String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates, i, "month-with-details", language);
-							if (lmMonth.equals("")) {
-								valueNew = valueNew.replace(checkUndef, "XXXX-XX");
-							} else {
-								int lmMonthInt = Integer.parseInt(lmMonth.substring(5,7));
-								// 
-								int lmDayInt  = 0;
-								if ((lmMonth.length() > 9) && (lmMonth.subSequence(8,10).toString().matches("\\d\\d"))){
-									lmDayInt = Integer.parseInt(lmMonth.subSequence(8,10)+"");
-								}
-								if ((lmMonthInt == newMonthInt) && (!(lmDayInt == 0)) && (!(day == 0))){
-									if (lmDayInt > day){
-										valueNew = valueNew.replace(checkUndef, lmMonth.substring(0,4)+"-"+newMonth);
-									}
-									else{
-										valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmMonth.substring(0,4))-1+"-"+newMonth);
-									}
-								}
-								if (lmMonthInt <= newMonthInt) {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmMonth.substring(0,4))-1+"-"+newMonth);
-								} else {
-									valueNew = valueNew.replace(checkUndef, lmMonth.substring(0,4)+"-"+newMonth);
-								}
+							else{
+								valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newMonth);
 							}
 						}
-					} else if (ltn.equals("this")) {
-						if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-							valueNew = valueNew.replace(checkUndef, dctYear+"-"+newMonth);
+						else if (dctMonth <= newMonthInt) {
+							valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newMonth);
 						} else {
-							String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates, i, "month-with-details", language);
-							if (lmMonth.equals("")) {
-								valueNew = valueNew.replace(checkUndef, "XXXX-XX");
+							valueNew = valueNew.replace(checkUndef, dctYear+"-"+newMonth);
+						}
+					} else {
+						String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates, i, "month-with-details", language);
+						if (lmMonth.equals("")) {
+							valueNew = valueNew.replace(checkUndef, "XXXX-XX");
+						} else {
+							int lmMonthInt = Integer.parseInt(lmMonth.substring(5,7));
+							// 
+							int lmDayInt  = 0;
+							if ((lmMonth.length() > 9) && (lmMonth.subSequence(8,10).toString().matches("\\d\\d"))){
+								lmDayInt = Integer.parseInt(lmMonth.subSequence(8,10)+"");
+							}
+							if ((lmMonthInt == newMonthInt) && (!(lmDayInt == 0)) && (!(day == 0))){
+								if (lmDayInt > day){
+									valueNew = valueNew.replace(checkUndef, lmMonth.substring(0,4)+"-"+newMonth);
+								}
+								else{
+									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmMonth.substring(0,4))-1+"-"+newMonth);
+								}
+							}
+							if (lmMonthInt <= newMonthInt) {
+								valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmMonth.substring(0,4))-1+"-"+newMonth);
 							} else {
 								valueNew = valueNew.replace(checkUndef, lmMonth.substring(0,4)+"-"+newMonth);
 							}
 						}
-					} else if (ltn.equals("next")) {
-						if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-							// check day if dct-month and newMonth are equal								
-							if ((dctMonth == newMonthInt) && (!(day == 0))){
-								if (dctDay < day){
-									valueNew = valueNew.replace(checkUndef, dctYear+"-"+newMonth);
-								}
-								else{
-									valueNew = valueNew.replace(checkUndef, dctYear+1+"-"+newMonth);
-								}
-							}
-							else if (dctMonth >= newMonthInt) {
-								valueNew = valueNew.replace(checkUndef, dctYear+1+"-"+newMonth);
-							} else {
+					}
+				} else if (ltn.equals("this")) {
+					if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
+						valueNew = valueNew.replace(checkUndef, dctYear+"-"+newMonth);
+					} else {
+						String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates, i, "month-with-details", language);
+						if (lmMonth.equals("")) {
+							valueNew = valueNew.replace(checkUndef, "XXXX-XX");
+						} else {
+							valueNew = valueNew.replace(checkUndef, lmMonth.substring(0,4)+"-"+newMonth);
+						}
+					}
+				} else if (ltn.equals("next")) {
+					if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
+						// check day if dct-month and newMonth are equal								
+						if ((dctMonth == newMonthInt) && (!(day == 0))){
+							if (dctDay < day){
 								valueNew = valueNew.replace(checkUndef, dctYear+"-"+newMonth);
 							}
-						} else {
-							String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates, i, "month-with-details", language);
-							if (lmMonth.equals("")) {
-								valueNew = valueNew.replace(checkUndef, "XXXX-XX");
-							} else {
-								int lmMonthInt = Integer.parseInt(lmMonth.substring(5,7));
-								if (lmMonthInt >= newMonthInt) {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmMonth.substring(0,4))+1+"-"+newMonth);
-								} else {
-									valueNew = valueNew.replace(checkUndef, lmMonth.substring(0,4)+"-"+newMonth);
-								}
-							}	
+							else{
+								valueNew = valueNew.replace(checkUndef, dctYear+1+"-"+newMonth);
+							}
 						}
+						else if (dctMonth >= newMonthInt) {
+							valueNew = valueNew.replace(checkUndef, dctYear+1+"-"+newMonth);
+						} else {
+							valueNew = valueNew.replace(checkUndef, dctYear+"-"+newMonth);
+						}
+					} else {
+						String lmMonth = ContextAnalyzer.getLastMentionedX(linearDates, i, "month-with-details", language);
+						if (lmMonth.equals("")) {
+							valueNew = valueNew.replace(checkUndef, "XXXX-XX");
+						} else {
+							int lmMonthInt = Integer.parseInt(lmMonth.substring(5,7));
+							if (lmMonthInt >= newMonthInt) {
+								valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmMonth.substring(0,4))+1+"-"+newMonth);
+							} else {
+								valueNew = valueNew.replace(checkUndef, lmMonth.substring(0,4)+"-"+newMonth);
+							}
+						}	
 					}
 				}
 			}
 			
 			// SEASONS NAMES
-			else if (ambigString.matches("^UNDEF-(last|this|next)-(SP|SU|FA|WI).*")) {
-				for (MatchResult mr : Toolbox.findMatches(Pattern.compile("(UNDEF-(last|this|next)-(SP|SU|FA|WI)).*"),ambigString)) {
-					String checkUndef = mr.group(1);
-					String ltn       = mr.group(2);
-					String newSeason = mr.group(3);
-					if (ltn.equals("last")) {
-						if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-							if (dctSeason.equals("SP")) {
+			else if ((m = UNDEF_SEASON.matcher(ambigString)).matches()) {
+				String checkUndef = m.group(1);
+				String ltn       = m.group(2);
+				String newSeason = m.group(3);
+				if (ltn.equals("last")) {
+					if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
+						if (dctSeason.equals("SP")) {
+							valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newSeason);
+						} else if (dctSeason.equals("SU")) {
+							if (newSeason.equals("SP")) {
+								valueNew = valueNew.replace(checkUndef, dctYear+"-"+newSeason);
+							} else {
 								valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newSeason);
-							} else if (dctSeason.equals("SU")) {
-								if (newSeason.equals("SP")) {
-									valueNew = valueNew.replace(checkUndef, dctYear+"-"+newSeason);
-								} else {
-									valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newSeason);
-								}
-							} else if (dctSeason.equals("FA")) {
-								if ((newSeason.equals("SP")) || (newSeason.equals("SU"))) {
-									valueNew = valueNew.replace(checkUndef, dctYear+"-"+newSeason);
-								} else {
-									valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newSeason);
-								}
-							} else if (dctSeason.equals("WI")) {
-								if (newSeason.equals("WI")) {
-									valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newSeason);
-								} else {
-									if (dctMonth < 12){
-										valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newSeason);
-									}
-									else{
-										valueNew = valueNew.replace(checkUndef, dctYear+"-"+newSeason);
-									}
-								}
 							}
-						} else { // NARRATVIE DOCUMENT
-							String lmSeason = ContextAnalyzer.getLastMentionedX(linearDates, i, "season", language);
-							if (lmSeason.equals("")) {
-								valueNew = valueNew.replace(checkUndef, "XXXX-XX");
+						} else if (dctSeason.equals("FA")) {
+							if ((newSeason.equals("SP")) || (newSeason.equals("SU"))) {
+								valueNew = valueNew.replace(checkUndef, dctYear+"-"+newSeason);
 							} else {
-								if (lmSeason.substring(5,7).equals("SP")) {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))-1+"-"+newSeason);
-								} else if (lmSeason.substring(5,7).equals("SU")) {
-									if (lmSeason.substring(5,7).equals("SP")) {
-										valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+"-"+newSeason);
-									} else {
-										valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))-1+"-"+newSeason);
-									}
-								} else if (lmSeason.substring(5,7).equals("FA")) {
-									if ((newSeason.equals("SP")) || (newSeason.equals("SU"))) {
-										valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+"-"+newSeason);
-									} else {
-										valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))-1+"-"+newSeason);
-									}
-								} else if (lmSeason.substring(5,7).equals("WI")) {
-									if (newSeason.equals("WI")) {
-										valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))-1+"-"+newSeason);
-									} else {
-										valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+"-"+newSeason);
-									}
+								valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newSeason);
+							}
+						} else if (dctSeason.equals("WI")) {
+							if (newSeason.equals("WI")) {
+								valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newSeason);
+							} else {
+								if (dctMonth < 12){
+									valueNew = valueNew.replace(checkUndef, dctYear-1+"-"+newSeason);
+								}
+								else{
+									valueNew = valueNew.replace(checkUndef, dctYear+"-"+newSeason);
 								}
 							}
 						}
-					} else if (ltn.equals("this")) {
-						if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-							// TODO include tense of sentence?
-							valueNew = valueNew.replace(checkUndef, dctYear+"-"+newSeason);
+					} else { // NARRATVIE DOCUMENT
+						String lmSeason = ContextAnalyzer.getLastMentionedX(linearDates, i, "season", language);
+						if (lmSeason.equals("")) {
+							valueNew = valueNew.replace(checkUndef, "XXXX-XX");
 						} else {
-							// TODO include tense of sentence?
-							String lmSeason = ContextAnalyzer.getLastMentionedX(linearDates, i, "season", language);
-							if (lmSeason.equals("")) {
-								valueNew = valueNew.replace(checkUndef, "XXXX-XX");
-							} else {
-								valueNew = valueNew.replace(checkUndef, lmSeason.substring(0,4)+"-"+newSeason);
+							String se = lmSeason.substring(5,7);
+							if (se.equals("SP")) {
+								valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))-1+"-"+newSeason);
+							} else if (se.equals("SU")) {
+								if (se.equals("SP")) {
+									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+"-"+newSeason);
+								} else {
+									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))-1+"-"+newSeason);
+								}
+							} else if (se.equals("FA")) {
+								if ((newSeason.equals("SP")) || (newSeason.equals("SU"))) {
+									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+"-"+newSeason);
+								} else {
+									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))-1+"-"+newSeason);
+								}
+							} else if (se.equals("WI")) {
+								if (newSeason.equals("WI")) {
+									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))-1+"-"+newSeason);
+								} else {
+									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+"-"+newSeason);
+								}
 							}
 						}
-					} else if (ltn.equals("next")) {
-						if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-							if (dctSeason.equals("SP")) {
-								if (newSeason.equals("SP")) {
-									valueNew = valueNew.replace(checkUndef, dctYear+1+"-"+newSeason);
-								} else {
-									valueNew = valueNew.replace(checkUndef, dctYear+"-"+newSeason);
-								}
-							} else if (dctSeason.equals("SU")) {
-								if ((newSeason.equals("SP")) || (newSeason.equals("SU"))) {
-									valueNew = valueNew.replace(checkUndef, dctYear+1+"-"+newSeason);
-								} else {
-									valueNew = valueNew.replace(checkUndef, dctYear+"-"+newSeason);
-								}
-							} else if (dctSeason.equals("FA")) {
-								if (newSeason.equals("WI")) {
-									valueNew = valueNew.replace(checkUndef, dctYear+"-"+newSeason);
-								} else {
-									valueNew = valueNew.replace(checkUndef, dctYear+1+"-"+newSeason);
-								}
-							} else if (dctSeason.equals("WI")) {
+					}
+				} else if (ltn.equals("this")) {
+					if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
+						// TODO include tense of sentence?
+						valueNew = valueNew.replace(checkUndef, dctYear+"-"+newSeason);
+					} else {
+						// TODO include tense of sentence?
+						String lmSeason = ContextAnalyzer.getLastMentionedX(linearDates, i, "season", language);
+						if (lmSeason.equals("")) {
+							valueNew = valueNew.replace(checkUndef, "XXXX-XX");
+						} else {
+							valueNew = valueNew.replace(checkUndef, lmSeason.substring(0,4)+"-"+newSeason);
+						}
+					}
+				} else if (ltn.equals("next")) {
+					if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
+						if (dctSeason.equals("SP")) {
+							if (newSeason.equals("SP")) {
+								valueNew = valueNew.replace(checkUndef, dctYear+1+"-"+newSeason);
+							} else {
+								valueNew = valueNew.replace(checkUndef, dctYear+"-"+newSeason);
+							}
+						} else if (dctSeason.equals("SU")) {
+							if ((newSeason.equals("SP")) || (newSeason.equals("SU"))) {
+								valueNew = valueNew.replace(checkUndef, dctYear+1+"-"+newSeason);
+							} else {
+								valueNew = valueNew.replace(checkUndef, dctYear+"-"+newSeason);
+							}
+						} else if (dctSeason.equals("FA")) {
+							if (newSeason.equals("WI")) {
+								valueNew = valueNew.replace(checkUndef, dctYear+"-"+newSeason);
+							} else {
 								valueNew = valueNew.replace(checkUndef, dctYear+1+"-"+newSeason);
 							}
-						} else { // NARRATIVE DOCUMENT
-							String lmSeason = ContextAnalyzer.getLastMentionedX(linearDates, i, "season", language);
-							if (lmSeason.equals("")) {
-								valueNew = valueNew.replace(checkUndef, "XXXX-XX");
-							} else {
-								if (lmSeason.substring(5,7).equals("SP")) {
-									if (newSeason.equals("SP")) {
-										valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+1+"-"+newSeason);
-									} else {
-										valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+"-"+newSeason);
-									}
-								} else if (lmSeason.substring(5,7).equals("SU")) {
-									if ((newSeason.equals("SP")) || (newSeason.equals("SU"))) {
-										valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+1+"-"+newSeason);
-									} else {
-										valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+"-"+newSeason);
-									}
-								} else if (lmSeason.substring(5,7).equals("FA")) {
-									if (newSeason.equals("WI")) {
-										valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+"-"+newSeason);
-									} else {
-										valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+1+"-"+newSeason);
-									}
-								} else if (lmSeason.substring(5,7).equals("WI")) {
+						} else if (dctSeason.equals("WI")) {
+							valueNew = valueNew.replace(checkUndef, dctYear+1+"-"+newSeason);
+						}
+					} else { // NARRATIVE DOCUMENT
+						String lmSeason = ContextAnalyzer.getLastMentionedX(linearDates, i, "season", language);
+						if (lmSeason.equals("")) {
+							valueNew = valueNew.replace(checkUndef, "XXXX-XX");
+						} else {
+							if (lmSeason.substring(5,7).equals("SP")) {
+								if (newSeason.equals("SP")) {
+									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+1+"-"+newSeason);
+								} else {
+									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+"-"+newSeason);
+								}
+							} else if (lmSeason.substring(5,7).equals("SU")) {
+								if ((newSeason.equals("SP")) || (newSeason.equals("SU"))) {
+									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+1+"-"+newSeason);
+								} else {
+									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+"-"+newSeason);
+								}
+							} else if (lmSeason.substring(5,7).equals("FA")) {
+								if (newSeason.equals("WI")) {
+									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+"-"+newSeason);
+								} else {
 									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+1+"-"+newSeason);
 								}
+							} else if (lmSeason.substring(5,7).equals("WI")) {
+								valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0,4))+1+"-"+newSeason);
 							}
 						}
 					}
@@ -1736,8 +1681,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			// WEEKDAY NAMES
 			// TODO the calculation is strange, but works
 			// TODO tense should be included?!
-			else if (ambigString.matches("^UNDEF-(last|this|next|day)-(monday|tuesday|wednesday|thursday|friday|saturday|sunday).*")) {
-				for (MatchResult mr : Toolbox.findMatches(Pattern.compile("(UNDEF-(last|this|next|day)-(monday|tuesday|wednesday|thursday|friday|saturday|sunday)).*"),ambigString)) {
+			else if (UNDEF_WEEKDAY.matcher(ambigString).matches()) {
+				for (MatchResult mr : Toolbox.findMatches(UNDEF_WEEKDAY,ambigString)) {
 					String checkUndef = mr.group(1);
 					String ltnd       = mr.group(2);
 					String newWeekday = mr.group(3);
@@ -2525,6 +2470,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		return value;
 	}
 	
+	Pattern VALID_DCT = Pattern.compile("\\d{4}.\\d{2}.\\d{2}|\\d{8}");
+
 	/**
 	 * Check whether or not a jcas object has a correct DCT value.
 	 * If there is no DCT present, we canonically return true since
@@ -2536,15 +2483,13 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		AnnotationIndex<Dct> dcts = jcas.getAnnotationIndex(Dct.type);
 		FSIterator<Dct> dctIter = dcts.iterator();
 		
-		if(!dctIter.hasNext()) {
+		if(!dctIter.hasNext())
 			return true;
-		}
 		String dctVal = dctIter.next().getValue();
 			
 		if(dctVal == null)
 			return false;
 			
-		return dctVal.matches("\\d{8}") // Something like 20041224
-				|| dctVal.matches("\\d{4}.\\d{2}.\\d{2}.*"); // Something like 2004-12-24
+		return VALID_DCT.matcher(dctVal).matches();// Something like 20041224 or 2004-12-24
 	}
 }
