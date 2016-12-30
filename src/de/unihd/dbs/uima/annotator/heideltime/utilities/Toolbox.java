@@ -26,12 +26,15 @@ public class Toolbox {
 	 * @return Iterable List of MatchResults
 	 */
 	public static Iterable<MatchResult> findMatches(Pattern pattern, CharSequence s) {
-		List<MatchResult> results = new ArrayList<MatchResult>();
-
-		for (Matcher m = pattern.matcher(s); m.find();)
-			results.add(m.toMatchResult());
-
-		return results;
+		Matcher m = pattern.matcher(s);
+		if (m.find()) {
+			List<MatchResult> results = new ArrayList<MatchResult>();
+			results.add(m.toMatchResult()); // First match
+			while(m.find()) // Subsequent matches
+				results.add(m.toMatchResult());
+			return results;
+		}
+		return Collections.emptyList();
 	}
 
 	/**
