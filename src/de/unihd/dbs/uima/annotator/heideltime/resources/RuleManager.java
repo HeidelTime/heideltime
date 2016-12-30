@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,6 +34,8 @@ public class RuleManager extends GenericResourceManager {
 
 	// PATTERNS TO READ RESOURCES "RULES" AND "NORMALIZATION"
 	Pattern paReadRules = Pattern.compile("RULENAME=\"(.*?)\",EXTRACTION=\"(.*?)\",NORM_VALUE=\"(.*?)\"(.*)");
+
+	Pattern paAdditional = Pattern.compile("(?<=,)(OFFSET|NORM_QUANT|NORM_FREQ|NORM_MOD|POS_CONSTRAINT|EMPTY_VALUE|FAST_CHECK)=\"(.*?)\" *(?=,|$)");
 
 	// EXTRACTION PARTS OF RULES (patterns loaded from files)
 	HashMap<Pattern, String> hmDatePattern = new HashMap<Pattern, String>();
@@ -109,7 +111,7 @@ public class RuleManager extends GenericResourceManager {
 	 * @param load_temponym_resources
 	 *            whether temponym resources are loaded
 	 */
-	protected RuleManager(String language, Boolean load_temponym_resources) {
+	protected RuleManager(String language, boolean load_temponym_resources) {
 		// Process Generic constructor with rules parameter
 		super("rules", language);
 
@@ -126,7 +128,7 @@ public class RuleManager extends GenericResourceManager {
 	 * 
 	 * @return singleton instance of RuleManager
 	 */
-	public static RuleManager getInstance(Language language, Boolean load_temponym_resources) {
+	public static RuleManager getInstance(Language language, boolean load_temponym_resources) {
 		if(!instances.containsKey(language.getName())) {
 			RuleManager nm = new RuleManager(language.getResourceFolder(), load_temponym_resources);
 			instances.put(language.getName(), nm);
@@ -144,12 +146,12 @@ public class RuleManager extends GenericResourceManager {
 	 * @param load_temponym_resources
 	 *            whether temponym resources are loaded
 	 */
-	public void readRules(ResourceMap hmResourcesRules, String language, Boolean load_temponym_resources) {
+	public void readRules(ResourceMap hmResourcesRules, String language, boolean load_temponym_resources) {
 		InputStream is = null;
 		InputStreamReader isr = null;
 		BufferedReader br = null;
 		
-		LinkedList<String> resourceKeys = new LinkedList<String>(hmResourcesRules.keySet());
+		ArrayList<String> resourceKeys = new ArrayList<String>(hmResourcesRules.keySet());
 		
 		// sort DATE > TIME > DURATION > SET > rest
 		Collections.sort(resourceKeys, new Comparator<String>() {
@@ -167,6 +169,8 @@ public class RuleManager extends GenericResourceManager {
 				return 1;
 			}
 		});
+		
+		Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]*)");
 		
 		try {
 			for (String resource : resourceKeys) {
@@ -210,14 +214,13 @@ public class RuleManager extends GenericResourceManager {
 						// EXPRESSSIONS //
 						// //////////////////////////////////////////////////////////////////
 						// create pattern for rule extraction part
-						Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]*)");
 						RePatternManager rpm = RePatternManager.getInstance(Language.getLanguageFromString(language), load_temponym_resources);
 						for (MatchResult mr : Toolbox.findMatches(paVariable, rule_extraction)) {
 							LOG.debug("replacing patterns... {}", mr.group());
 							if (!(rpm.containsKey(mr.group(1)))) {
 								LOG.error("Error creating rule: {}", rule_name);
 								LOG.error("The following pattern used in this rule does not exist, does it? %{}", mr.group(1));
-								System.exit(-1);
+								System.exit(1);
 							}
 							rule_extraction = rule_extraction.replaceAll("%" + mr.group(1), rpm.get(mr.group(1)));
 						}
@@ -229,7 +232,7 @@ public class RuleManager extends GenericResourceManager {
 							LOG.error("Compiling rules resulted in errors.", e);
 							LOG.error("Problematic rule is {}", rule_name);
 							LOG.error("Cannot compile pattern: {}", rule_extraction);
-							System.exit(-1);
+							System.exit(1);
 						}
 						// Pattern pattern = Pattern.compile(rule_extraction);
 
@@ -238,60 +241,27 @@ public class RuleManager extends GenericResourceManager {
 						// ///////////////////////////////////
 						Pattern patternFast = null;
 						if (!(r.group(4) == null)) {
-							if (r.group(4).contains("OFFSET")) {
-								Pattern paOffset = Pattern
-										.compile("OFFSET=\"(.*?)\"");
-								for (MatchResult ro : Toolbox.findMatches(
-										paOffset, line)) {
-									rule_offset = ro.group(1);
+							for (MatchResult ro : Toolbox.findMatches(paAdditional, line)) {
+								if (ro.group(1).equals("OFFSET")) {
+									rule_offset = ro.group(2);
 								}
-							}
-							if (r.group(4).contains("NORM_QUANT")) {
-								Pattern paQuant = Pattern
-										.compile("NORM_QUANT=\"(.*?)\"");
-								for (MatchResult rq : Toolbox.findMatches(
-										paQuant, line)) {
-									rule_quant = rq.group(1);
+								else if (ro.group(1).equals("NORM_QUANT")) {
+									rule_quant = ro.group(2);
 								}
-							}
-							if (r.group(4).contains("NORM_FREQ")) {
-								Pattern paFreq = Pattern
-										.compile("NORM_FREQ=\"(.*?)\"");
-								for (MatchResult rf : Toolbox.findMatches(
-										paFreq, line)) {
-									rule_freq = rf.group(1);
+								else if (ro.group(1).equals("NORM_FREQ")) {
+									rule_freq = ro.group(2);
 								}
-							}
-							if (r.group(4).contains("NORM_MOD")) {
-								Pattern paMod = Pattern
-										.compile("NORM_MOD=\"(.*?)\"");
-								for (MatchResult rf : Toolbox.findMatches(
-										paMod, line)) {
-									rule_mod = rf.group(1);
+								else if (ro.group(1).equals("NORM_MOD")) {
+									rule_mod = ro.group(2);
 								}
-							}
-							if (r.group(4).contains("POS_CONSTRAINT")) {
-								Pattern paPos = Pattern
-										.compile("POS_CONSTRAINT=\"(.*?)\"");
-								for (MatchResult rp : Toolbox.findMatches(
-										paPos, line)) {
-									pos_constraint = rp.group(1);
+								else if (ro.group(1).equals("POS_CONSTRAINT")) {
+									pos_constraint = ro.group(2);
 								}
-							}
-							if (r.group(4).contains("EMPTY_VALUE")) {
-								Pattern paEmpty = Pattern
-										.compile("EMPTY_VALUE=\"(.*?)\"");
-								for (MatchResult rp : Toolbox.findMatches(
-										paEmpty, line)) {
-									rule_empty_value = rp.group(1);
+								else if (ro.group(1).equals("EMPTY_VALUE")) {
+									rule_empty_value = ro.group(2);
 								}
-							}
-							if (r.group(4).contains("FAST_CHECK")) {
-								Pattern paFast = Pattern
-										.compile("FAST_CHECK=\"(.*?)\"");
-								for (MatchResult rp : Toolbox.findMatches(
-										paFast, line)) {
-									rule_fast_check = rp.group(1);
+								else if (ro.group(1).equals("FAST_CHECK")) {
+									rule_fast_check = ro.group(2);
 									// create pattern for rule fast check part -- similar to extraction part
 									// thus using paVariable and rpm
 									for (MatchResult mr : Toolbox.findMatches(paVariable, rule_fast_check)) {
@@ -299,7 +269,7 @@ public class RuleManager extends GenericResourceManager {
 										if (!(rpm.containsKey(mr.group(1)))) {
 											LOG.error("Error creating rule: {}", rule_name);
 											LOG.error("The following pattern used in this rule does not exist, does it? %{}", mr.group(1));
-											System.exit(-1);
+											System.exit(1);
 										}
 										rule_fast_check = rule_fast_check.replaceAll("%" + mr.group(1), rpm.get(mr.group(1)));
 									}
@@ -311,7 +281,7 @@ public class RuleManager extends GenericResourceManager {
 										LOG.error("Compiling rules resulted in errors.", e);
 										LOG.error("Problematic rule is {}", rule_name);
 										LOG.error("Cannot compile pattern: {}", rule_fast_check);
-										System.exit(-1);
+										System.exit(1);
 									}
 								}
 								else {
@@ -542,7 +512,7 @@ public class RuleManager extends GenericResourceManager {
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
 		} finally {
 			try {
 				if(br != null) {
@@ -555,7 +525,7 @@ public class RuleManager extends GenericResourceManager {
 					is.close();
 				}
 			} catch(Exception e) {
-				e.printStackTrace();
+				LOG.error(e.getMessage(), e);
 			}
 		}
 	}
