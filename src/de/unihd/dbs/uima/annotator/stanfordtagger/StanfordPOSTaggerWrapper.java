@@ -17,7 +17,9 @@ import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.FSIterator;
 import org.apache.uima.jcas.JCas;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Token;
 
@@ -34,7 +36,8 @@ import edu.stanford.nlp.process.PTBTokenizer.PTBTokenizerFactory;
  *
  */
 public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
-	private Class<?> component = this.getClass();
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(StanfordPOSTaggerWrapper.class);
 	
 	// definitions of what names these parameters have in the wrapper's descriptor file
 	public static final String PARAM_MODEL_PATH = "model_path";
@@ -66,7 +69,7 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 
 		// check if the model file exists
 		if(model_path == null) {
-			Logger.printError(component, "The model file for the Stanford Tagger was not correctly specified.");
+			LOG.error("The model file for the Stanford Tagger was not correctly specified.");
 			System.exit(-1);
 		}
 		
@@ -81,8 +84,7 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 				mt = new MaxentTagger(model_path, new TaggerConfig("-model", model_path), false);
 			}
 		} catch(Exception e) {
-			e.printStackTrace();
-			Logger.printError(component, "MaxentTagger could not be instantiated with the supplied model("+model_path+") and config("+config_path+") file.");
+			LOG.error("MaxentTagger could not be instantiated with the supplied model("+model_path+") and config("+config_path+") file.", e);
 			System.exit(-1);
 		}
 	}
@@ -123,8 +125,8 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 				String thisWord = wordToken.word();
 				
 				if(docText.indexOf(thisWord, offset) < 0) {
-					Logger.printDetail(component, "A previously tagged token wasn't found in the document text: \"" + thisWord + "\". " +
-							"This may be due to unpredictable punctuation tokenization; hence this token isn't tagged.");
+					LOG.debug("A previously tagged token wasn't found in the document text: \"{}\". " +
+							"This may be due to unpredictable punctuation tokenization; hence this token isn't tagged.", thisWord);
 					continue; // jump to next token: discards token
 				} else {
 					offset = docText.indexOf(thisWord, offset); // set cursor to the starting position of token in docText

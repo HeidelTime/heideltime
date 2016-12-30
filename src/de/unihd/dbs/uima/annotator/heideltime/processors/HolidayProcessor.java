@@ -12,8 +12,9 @@ import java.util.regex.Pattern;
 import org.apache.uima.UimaContext;
 import org.apache.uima.cas.FSIterator;
 import org.apache.uima.jcas.JCas;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 import de.unihd.dbs.uima.types.heideltime.Timex3;
 /**
  * Addition to HeidelTime to recognize several (mostly, but not
@@ -22,6 +23,8 @@ import de.unihd.dbs.uima.types.heideltime.Timex3;
  *
  */
 public class HolidayProcessor extends GenericProcessor {
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(HolidayProcessor.class);
 
 	/**
 	 * Constructor just calls the parent constructor here.
@@ -118,7 +121,7 @@ public class HolidayProcessor extends GenericProcessor {
 					}
 					else{
 						
-						Logger.printError("wrong format");
+						LOG.error("wrong format");
 						valueNew = "XXXX-XX-XX";
 					
 					}
@@ -134,7 +137,7 @@ public class HolidayProcessor extends GenericProcessor {
 					}
 					else{
 
-						Logger.printError("wrong format");
+						LOG.error("wrong format");
 						valueNew = "XXXX-XX-XX";
 						
 					}
@@ -150,7 +153,7 @@ public class HolidayProcessor extends GenericProcessor {
 					}
 					else{
 
-						Logger.printError("wrong format");
+						LOG.error("wrong format");
 						valueNew = "XXXX-XX-XX";
 
 					}
@@ -166,14 +169,14 @@ public class HolidayProcessor extends GenericProcessor {
 					}
 					else{
 
-						Logger.printError("wrong format");
+						LOG.error("wrong format");
 						valueNew = "XXXX-XX-XX";
 
 					}
 				}
 				else{
 					// if function call doesn't match any supported function
-					Logger.printError("command not found");
+					LOG.error("command not found");
 					valueNew = "XXXX-XX-XX";
 				}
 			}
@@ -319,7 +322,7 @@ public class HolidayProcessor extends GenericProcessor {
             return year+"-W"+shroveTideWeek;
         }
         catch (ParseException pe){
-            Logger.printError("ParseException:"+pe.getMessage());
+            LOG.error("ParseException:"+pe.getMessage(), pe);
             return "unknown";
         }
     }

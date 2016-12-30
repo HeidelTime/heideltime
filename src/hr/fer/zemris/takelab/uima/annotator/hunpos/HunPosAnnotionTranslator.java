@@ -12,9 +12,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HunPosAnnotionTranslator {
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(HunPosAnnotionTranslator.class);
 	
 	private List<HunPosAnnotationMapping> mappings;
 	
@@ -43,28 +46,28 @@ public class HunPosAnnotionTranslator {
 				
 				Matcher m = reRule.matcher(line);
 				if(!m.matches()) {
-					Logger.printError("Error matching HunPos annotation translation rule : " + line);
+					LOG.error("Error matching HunPos annotation translation rule : " + line);
 					continue;
 				}
 				
 				try {
 					mappings.add(new HunPosAnnotationMapping(m.group(1), m.group(2)));
 				} catch (Exception e) {
-					Logger.printError("Invalid regex in HunPos annotation matching rule " + m.group(1));
+					LOG.error("Invalid regex in HunPos annotation matching rule " + m.group(1), e);
 					continue;
 				}			
 			}
 		} catch (FileNotFoundException e) {
-			Logger.printError("Cannot find the HunPos annotation translation rules file.");
+			LOG.error("Cannot find the HunPos annotation translation rules file.", e);
 		} catch (IOException e) {
-			Logger.printError("Error reading HunPos annotation translation rules file.");
+			LOG.error("Error reading HunPos annotation translation rules file.", e);
 		} finally {
 			try {
 				if(reader != null) {
 					reader.close();
 				}
 			} catch (IOException e) {
-				Logger.printError("An error occured while closing the file.");
+				LOG.error("An error occured while closing the file.", e);
 			}
 		}
 		
