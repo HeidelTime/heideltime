@@ -159,9 +159,9 @@ public class ContextAnalyzer {
 							}
 						}
 						else if (x.equals("week")) {
-						  Matcher matcher = YEAR_MON_DAY.matcher(value);
+							Matcher matcher = YEAR_MON_DAY.matcher(value);
 							if (matcher.find()) {
-							  xValue = matcher.group(2)+"-W"+DateCalculator.getWeekOfDate(matcher.group(1));
+								xValue = matcher.group(2)+"-W"+DateCalculator.getWeekOfDate(matcher.group(0));
 								break;
 							}
 							else if (YEAR_MON_WK.matcher(value).find()) {

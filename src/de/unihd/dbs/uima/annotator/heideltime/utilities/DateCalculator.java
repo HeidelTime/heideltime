@@ -4,6 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
@@ -14,23 +18,26 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
  *
  */
 public class DateCalculator {
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(DateCalculator.class);
 	
-	public static String getXNextYear(String date, Integer x){
-		
-		// two formatters depending if BC or not
-		SimpleDateFormat formatter   = new SimpleDateFormat("yyyy");
-		SimpleDateFormat formatterBC = new SimpleDateFormat("GGyyyy");
-		
-		String newDate = "";
-		Calendar c = Calendar.getInstance();
-		
+	// two formatters depending if BC or not
+	static final SimpleDateFormat YEARFORMATTER   = new SimpleDateFormat("yyyy");
+	static final SimpleDateFormat YEARFORMATTERBC = new SimpleDateFormat("GGyyyy");
+	
+	static SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
+
+	static final TimeZone GMT = TimeZone.getTimeZone("GMT");
+
+	public static String getXNextYear(String date, Integer x){		
 		try {
+			Calendar c = Calendar.getInstance(GMT, Locale.ROOT);
 			// read the original date
 			if (date.matches("^\\d.*")){
-				c.setTime(formatter.parse(date));
+				c.setTime(YEARFORMATTER.parse(date));
 			}
 			else{
-				c.setTime(formatterBC.parse(date));
+				c.setTime(YEARFORMATTERBC.parse(date));
 			}
 			// make calucaltion
 			c.add(Calendar.YEAR, x);
@@ -38,35 +45,29 @@ public class DateCalculator {
 			// check if new date is BC or AD for choosing formatter or formatterBC
 			int newEra = c.get(Calendar.ERA);
 			if (newEra > 0){
-				newDate = formatter.format(c.getTime());
+				return YEARFORMATTER.format(c.getTime());
 			}
 			else{
-				newDate = formatterBC.format(c.getTime());
+				return YEARFORMATTERBC.format(c.getTime());
 			}
 		}
 		catch (ParseException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
 		}
-		return newDate;
+		return "";
 	}
 	
 	public static String getXNextDecade(String date, Integer x) {
 		date = date + "0"; // deal with years not with centuries
 		
-		// two formatters depending if BC or not
-		SimpleDateFormat formatter   = new SimpleDateFormat("yyyy");
-		SimpleDateFormat formatterBC = new SimpleDateFormat("GGyyyy");
-		
-		String newDate = "";
-		Calendar c = Calendar.getInstance();
-		
 		try {
+			Calendar c = Calendar.getInstance(GMT, Locale.ROOT);
 			// read the original date
 			if (date.matches("^\\d.*")){
-				c.setTime(formatter.parse(date));
+				c.setTime(YEARFORMATTER.parse(date));
 			}
 			else{
-				c.setTime(formatterBC.parse(date));
+				c.setTime(YEARFORMATTERBC.parse(date));
 			}
 			
 			// make calucaltion
@@ -76,38 +77,32 @@ public class DateCalculator {
 			// check if new date is BC or AD for choosing formatter or formatterBC
 			int newEra = c.get(Calendar.ERA);
 			if (newEra > 0){
-				newDate = formatter.format(c.getTime()).substring(0, 3);
+				return YEARFORMATTER.format(c.getTime()).substring(0, 3);
 			}
 			else{
-				newDate = formatterBC.format(c.getTime()).substring(0, 5);
+				return YEARFORMATTERBC.format(c.getTime()).substring(0, 5);
 			}
 			
 		} catch (ParseException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
+			return "";
 		}
-		return newDate;
 	}
 	
 	
 	public static String getXNextCentury(String date, Integer x) {
 		date = date + "00"; // deal with years not with centuries
 		int oldEra = 0;     // 0 if BC date, 1 if AD date
-		
-		// two formatters depending if BC or not
-		SimpleDateFormat formatter   = new SimpleDateFormat("yyyy");
-		SimpleDateFormat formatterBC = new SimpleDateFormat("GGyyyy");
-		
-		String newDate = "";
-		Calendar c = Calendar.getInstance();
-		
+				
 		try {
+			Calendar c = Calendar.getInstance(GMT, Locale.ROOT);
 			// read the original date
 			if (date.matches("^\\d.*")){
-				c.setTime(formatter.parse(date));
+				c.setTime(YEARFORMATTER.parse(date));
 				oldEra = 1;
 			}
 			else{
-				c.setTime(formatterBC.parse(date));
+				c.setTime(YEARFORMATTERBC.parse(date));
 			}
 			
 			// make calucaltion
@@ -122,7 +117,7 @@ public class DateCalculator {
 					c.add(Calendar.YEAR, -100);
 					c.getTime();
 				}
-				newDate = formatter.format(c.getTime()).substring(0, 2);
+				return YEARFORMATTER.format(c.getTime()).substring(0, 2);
 			}
 			else{
 				if (oldEra > 0){
@@ -130,13 +125,13 @@ public class DateCalculator {
 					c.add(Calendar.YEAR, 100);
 					c.getTime();
 				}
-				newDate = formatterBC.format(c.getTime()).substring(0, 4);
+				return YEARFORMATTERBC.format(c.getTime()).substring(0, 4);
 			}
 			
 		} catch (ParseException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
+			return "";
 		}
-		return newDate;
 	}
 	
 	/**
@@ -147,18 +142,16 @@ public class DateCalculator {
 	 * @return
 	 */
 	public static String getXNextDay(String date, Integer x) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String newDate = "";
-		Calendar c = Calendar.getInstance();
 		try {
-			c.setTime(formatter.parse(date));
+			Calendar c = Calendar.getInstance(GMT, Locale.ROOT);
+			c.setTime(FORMATTER.parse(date));
 			c.add(Calendar.DAY_OF_MONTH, x);
 			c.getTime();
-			newDate = formatter.format(c.getTime());
+			return FORMATTER.format(c.getTime());
 		} catch (ParseException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
+			return "";
 		}
-		return newDate;
 	}
 
 	/**
@@ -169,20 +162,14 @@ public class DateCalculator {
 	 * @return new month
 	 */
 	public static String getXNextMonth(String date, Integer x) {
-
-		// two formatters depending if BC or not
-		SimpleDateFormat formatter   = new SimpleDateFormat("yyyy-MM");
-		SimpleDateFormat formatterBC = new SimpleDateFormat("GGyyyy-MM");
-		String newDate = "";
-		Calendar c = Calendar.getInstance();
-
 		try {
+			Calendar c = Calendar.getInstance(GMT, Locale.ROOT);
 			// read the original date
 			if (date.matches("^\\d.*")){
-				c.setTime(formatter.parse(date));
+				c.setTime(YEARFORMATTER.parse(date));
 			}
 			else{
-				c.setTime(formatterBC.parse(date));
+				c.setTime(YEARFORMATTERBC.parse(date));
 			}
 			// make calucaltion
 			c.add(Calendar.MONTH, x);
@@ -191,19 +178,21 @@ public class DateCalculator {
 			// check if new date is BC or AD for choosing formatter or formatterBC
 			int newEra = c.get(Calendar.ERA);
 			if (newEra > 0){
-				newDate = formatter.format(c.getTime());
+				return YEARFORMATTER.format(c.getTime());
 			}
 			else{
-				newDate = formatterBC.format(c.getTime());
+				return YEARFORMATTERBC.format(c.getTime());
 			}
 			
 		}
 		catch (ParseException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
+			return "";
 		}
-		return newDate;
 	}
 	
+	static final SimpleDateFormat WEEKFORMATTER = new SimpleDateFormat("yyyy-w");
+
 	/**
 	 * get the x-next week of date
 	 * @param date current date
@@ -213,19 +202,17 @@ public class DateCalculator {
 	public static String getXNextWeek(String date, Integer x, Language language) {
 		NormalizationManager nm = NormalizationManager.getInstance(language, false);
 		String date_no_W = date.replace("W", "");
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-w");
-		String newDate = "";
-		Calendar c = Calendar.getInstance();
 		try {
-			c.setTime(formatter.parse(date_no_W));
+			Calendar c = Calendar.getInstance(GMT, Locale.ROOT);
+			c.setTime(WEEKFORMATTER.parse(date_no_W));
 			c.add(Calendar.WEEK_OF_YEAR, x);
 			c.getTime();
-			newDate = formatter.format(c.getTime());
-			newDate = newDate.substring(0,4)+"-W"+nm.getFromNormNumber(newDate.substring(5));
+			String newDate = WEEKFORMATTER.format(c.getTime());
+			return newDate.substring(0,4)+"-W"+nm.getFromNormNumber(newDate.substring(5));
 		} catch (ParseException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
 		}
-		return newDate;
+		return "";
 	}
 
 	/**
@@ -235,16 +222,14 @@ public class DateCalculator {
 	 * @return day of week
 	 */
 	public static int getWeekdayOfDate(String date) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		int weekday = 0;
-		Calendar c = Calendar.getInstance();
 		try {
-			c.setTime(formatter.parse(date));
-			weekday = c.get(Calendar.DAY_OF_WEEK);
+			Calendar c = Calendar.getInstance(GMT, Locale.ROOT);
+			c.setTime(FORMATTER.parse(date));
+			return c.get(Calendar.DAY_OF_WEEK);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
+			return 0;
 		}
-		return weekday;
 	}
 
 	/**
@@ -254,17 +239,14 @@ public class DateCalculator {
 	 * @return week of year
 	 */
 	public static int getWeekOfDate(String date) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		int week = 0;
-		;
-		Calendar c = Calendar.getInstance();
 		try {
-			c.setTime(formatter.parse(date));
-			week = c.get(Calendar.WEEK_OF_YEAR);
+			Calendar c = Calendar.getInstance(GMT, Locale.ROOT);
+			c.setTime(FORMATTER.parse(date));
+			return c.get(Calendar.WEEK_OF_YEAR);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
+			return 0;
 		}
-		return week;
 	}
 	
 	/**
@@ -273,11 +255,9 @@ public class DateCalculator {
 	 * @return Locale to represent the input String
 	 */
 	public static Locale getLocaleFromString(String locale) throws LocaleException {
-		for(Locale l : Locale.getAvailableLocales()) {
-			if(locale.toLowerCase().equals(l.toString().toLowerCase())) {
+		for(Locale l : Locale.getAvailableLocales())
+			if(locale.equalsIgnoreCase(l.toString()))
 				return l;
-			}
-		}
 		throw new LocaleException();
 	}
 }
