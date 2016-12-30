@@ -2185,7 +2185,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
             // validate fast check fist, if no fast match, everything else is not required anymore
             if (timexType.equals("DATE")) {
             	f = hmDateFastCheck.get(hmPattern.get(p));
-            } else if (timexType.equals("Time")) {
+            } else if (timexType.equals("TIME")) {
             	f = hmTimeFastCheck.get(hmPattern.get(p));
             } else if (timexType.equals("DURATION")) {
             	f = hmDurationFastCheck.get(hmPattern.get(p));
