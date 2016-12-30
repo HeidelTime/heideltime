@@ -1842,59 +1842,15 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		HashSet<Timex3> hsTimexesToRemove = new HashSet<Timex3>();
 		for (Timex3 t1 : timexes) {
 			for (Timex3 t2 : timexes) {
-				if (((t1.getBegin() >= t2.getBegin()) && (t1.getEnd() < t2.getEnd())) || // t1
-													 // starts
-													 // inside
-													 // or
-													 // with
-													 // t2
-													 // and
-													 // ends
-													 // before
-													 // t2
-													 // ->
-													 // remove
-													 // t1
-						((t1.getBegin() > t2.getBegin()) && (t1.getEnd() <= t2.getEnd()))) { // t1
-														     // starts
-														     // inside
-														     // t2
-														     // and
-														     // ends
-														     // with
-														     // or
-														     // before
-														     // t2
-														     // ->
-														     // remove
-														     // t1
+				if ( // t1 starts inside or with t2 and ends before t2 -> remove t1
+						((t1.getBegin() >= t2.getBegin()) && (t1.getEnd() < t2.getEnd())) ||
+						// t1 starts inside t2 and ends with or before t2 -> remove t1
+						((t1.getBegin() > t2.getBegin()) && (t1.getEnd() <= t2.getEnd()))) {
 					hsTimexesToRemove.add(t1);
-				} else if (((t2.getBegin() >= t1.getBegin()) && (t2.getEnd() < t1.getEnd())) || // t2
-														// starts
-														// inside
-														// or
-														// with
-														// t1
-														// and
-														// ends
-														// before
-														// t1
-														// ->
-														// remove
-														// t2
-						((t2.getBegin() > t1.getBegin()) && (t2.getEnd() <= t1.getEnd()))) { // t2
-														     // starts
-														     // inside
-														     // t1
-														     // and
-														     // ends
-														     // with
-														     // or
-														     // before
-														     // t1
-														     // ->
-														     // remove
-														     // t2
+					// t2 starts inside or with t1 and ends before t1 -> remove t2
+				} else if (((t2.getBegin() >= t1.getBegin()) && (t2.getEnd() < t1.getEnd())) ||
+						// t2 starts inside t1 and ends with or before t1 -> remove t2
+						((t2.getBegin() > t1.getBegin()) && (t2.getEnd() <= t1.getEnd()))) {
 					hsTimexesToRemove.add(t2);
 				}
 				// identical length
@@ -1908,13 +1864,11 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					else if ((t1.getFoundByRule().endsWith("explicit")) && (!(t2.getFoundByRule().endsWith("explicit")))) {
 						hsTimexesToRemove.add(t2);
 					}
-					// remove timexes that are identical, but one has
-					// an emptyvalue
+					// remove timexes that are identical, but one has an emptyvalue
 					else if (t2.getEmptyValue().equals("") && !t1.getEmptyValue().equals("")) {
 						hsTimexesToRemove.add(t2);
 					}
-					// REMOVE REAL DUPLICATES (the one with the lower
-					// timexID)
+					// REMOVE REAL DUPLICATES (the one with the lower timexID)
 					else if ((Integer.parseInt(t1.getTimexId().substring(1)) < Integer.parseInt(t2.getTimexId().substring(1)))) {
 						hsTimexesToRemove.add(t1);
 					}
@@ -1945,44 +1899,19 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			// have an overlap
 			for (Timex3 myInnerTimex : timexes) {
 				if (!(myTimex.getTimexType().equals("TEMPONYM"))) {
-					if ((myTimex.getBegin() <= myInnerTimex.getBegin() && myTimex.getEnd() > myInnerTimex.getBegin()) || // timex1
-																	     // starts,
-																	     // timex2
-																	     // is
-																	     // partial
-																	     // overlap
-							(myInnerTimex.getBegin() <= myTimex.getBegin() && myInnerTimex.getEnd() > myTimex.getBegin()) || // same
-																			 // as
-																			 // above,
-																			 // but
-																			 // in
-																			 // reverse
-							(myInnerTimex.getBegin() <= myTimex.getBegin() && myTimex.getEnd() <= myInnerTimex.getEnd()) || // timex
-																			// 1
-																			// is
-																			// contained
-																			// within
-																			// or
-																			// identical
-																			// to
-																			// timex2
-							(myTimex.getBegin() <= myInnerTimex.getBegin() && myInnerTimex.getEnd() <= myTimex.getEnd())) { // same
-																			// as
-																			// above,
-																			// but
-																			// in
-																			// reverse
-						timexSet.add(myInnerTimex); // increase
-									    // the set
+					if (// timex1 starts, timex2 is partial overlap
+					(myTimex.getBegin() <= myInnerTimex.getBegin() && myTimex.getEnd() > myInnerTimex.getBegin()) ||
+					// same as above, but in reverse
+							(myInnerTimex.getBegin() <= myTimex.getBegin() && myInnerTimex.getEnd() > myTimex.getBegin()) ||
+							// timex 1 is contained within or identical to timex2
+							(myInnerTimex.getBegin() <= myTimex.getBegin() && myTimex.getEnd() <= myInnerTimex.getEnd()) ||
+							// same as above, but in reverse
+							(myTimex.getBegin() <= myInnerTimex.getBegin() && myInnerTimex.getEnd() <= myTimex.getEnd())) {
 
-						allTimexesToInspect.add(myTimex); // note
-										  // that
-										  // these
-										  // timexes
-										  // are
-										  // being
-										  // looked
-										  // at
+						// increase the set
+						timexSet.add(myInnerTimex);
+						// note that these timexes are being looked at
+						allTimexesToInspect.add(myTimex);
 						allTimexesToInspect.add(myInnerTimex);
 					}
 				}
@@ -2011,20 +1940,16 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// overwrite previous list of sets
 		effectivelyToInspect = newEffectivelyToInspect;
 
-		// iterate over the selected sets and merge information, remove old
-		// timexes
+		// iterate over the selected sets and merge information, remove old timexes
 		for (ArrayList<Timex3> tSet : effectivelyToInspect) {
 			Timex3 newTimex = new Timex3(jcas);
 
-			// if a timex has the timex value REMOVE, remove it from
-			// consideration
+			// if a timex has the timex value REMOVE, remove it from consideration
 			@SuppressWarnings("unchecked")
 			ArrayList<Timex3> newTSet = (ArrayList<Timex3>) tSet.clone();
 			for (Timex3 t : tSet) {
-				if (t.getTimexValue().equals("REMOVE")) { // remove
-									  // timexes with
-									  // value
-									  // "REMOVE"
+				// remove timexes with value "REMOVE"
+				if (t.getTimexValue().equals("REMOVE")) {
 					newTSet.remove(t);
 				}
 			}
@@ -2189,26 +2114,25 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			if (f != null && !f.matcher(coveredText).find())
 				continue;
 
-			Pattern p = e.getKey();
-			for (MatchResult r : Toolbox.findMatches(p, coveredText)) {
+			for (Matcher m = e.getKey().matcher(coveredText); m.find();) {
 				// improved token boundary checking
-				boolean infrontBehindOK = ContextAnalyzer.checkTokenBoundaries(r, s, jcas) && ContextAnalyzer.checkInfrontBehind(r, s);
+				boolean infrontBehindOK = ContextAnalyzer.checkTokenBoundaries(m, s, jcas) && ContextAnalyzer.checkInfrontBehind(m, s);
 
 				// CHECK POS CONSTRAINTS
 				String constraint = constraints.get(key);
-				boolean posConstraintOK = (constraint == null) || checkPosConstraint(s, constraint, r, jcas);
+				boolean posConstraintOK = (constraint == null) || checkPosConstraint(s, constraint, m, jcas);
 
 				if (infrontBehindOK && posConstraintOK) {
 					// Offset of timex expression (in the checked sentence)
-					int timexStart = r.start(), timexEnd = r.end();
+					int timexStart = m.start(), timexEnd = m.end();
 
 					// Any offset parameter?
 					if (hmOffset.containsKey(key)) {
 						String offset = hmOffset.get(key);
 
 						for (MatchResult mr : Toolbox.findMatches(paOffset, offset)) {
-							timexStart = r.start(Integer.parseInt(mr.group(1)));
-							timexEnd = r.end(Integer.parseInt(mr.group(2)));
+							timexStart = m.start(Integer.parseInt(mr.group(1)));
+							timexEnd = m.end(Integer.parseInt(mr.group(2)));
 						}
 					}
 
@@ -2217,19 +2141,19 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						String[] attributes = new String[5];
 						if (timexType.equals("DATE")) {
 							attributes = getAttributesForTimexFromFile(key, rm.getHmDateNormalization(), rm.getHmDateQuant(), rm.getHmDateFreq(), rm.getHmDateMod(),
-									rm.getHmDateEmptyValue(), r, jcas);
+									rm.getHmDateEmptyValue(), m, jcas);
 						} else if (timexType.equals("DURATION")) {
 							attributes = getAttributesForTimexFromFile(key, rm.getHmDurationNormalization(), rm.getHmDurationQuant(), rm.getHmDurationFreq(),
-									rm.getHmDurationMod(), rm.getHmDurationEmptyValue(), r, jcas);
+									rm.getHmDurationMod(), rm.getHmDurationEmptyValue(), m, jcas);
 						} else if (timexType.equals("TIME")) {
 							attributes = getAttributesForTimexFromFile(key, rm.getHmTimeNormalization(), rm.getHmTimeQuant(), rm.getHmTimeFreq(), rm.getHmTimeMod(),
-									rm.getHmTimeEmptyValue(), r, jcas);
+									rm.getHmTimeEmptyValue(), m, jcas);
 						} else if (timexType.equals("SET")) {
 							attributes = getAttributesForTimexFromFile(key, rm.getHmSetNormalization(), rm.getHmSetQuant(), rm.getHmSetFreq(), rm.getHmSetMod(),
-									rm.getHmSetEmptyValue(), r, jcas);
+									rm.getHmSetEmptyValue(), m, jcas);
 						} else if (timexType.equals("TEMPONYM")) {
 							attributes = getAttributesForTimexFromFile(key, rm.getHmTemponymNormalization(), rm.getHmTemponymQuant(), rm.getHmTemponymFreq(),
-									rm.getHmTemponymMod(), rm.getHmTemponymEmptyValue(), r, jcas);
+									rm.getHmTemponymMod(), rm.getHmTemponymEmptyValue(), m, jcas);
 						}
 						if (!(attributes == null)) {
 							addTimexAnnotation(timexType, timexStart + s.getBegin(), timexEnd + s.getBegin(), s, attributes[0], attributes[1], attributes[2], attributes[3],

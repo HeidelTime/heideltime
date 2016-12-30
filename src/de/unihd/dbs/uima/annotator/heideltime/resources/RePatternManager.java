@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,8 @@ public class RePatternManager extends GenericResourceManager {
 	
 	// STORE PATTERNS AND NORMALIZATIONS
 	private TreeMap<String, String> hmAllRePattern;
+	
+	private HashMap<String, Pattern> compiled;
 
 	/**
 	 * Constructor calls the parent constructor that sets language/resource
@@ -41,6 +44,7 @@ public class RePatternManager extends GenericResourceManager {
 		super("repattern", language);
 		// initialize the member map of all repatterns
 		hmAllRePattern = new TreeMap<String, String>();
+		compiled = new HashMap<String, Pattern>();
 
 		//////////////////////////////////////////////////////
 		// READ PATTERN RESOURCES FROM FILES AND STORE THEM //
@@ -176,6 +180,7 @@ public class RePatternManager extends GenericResourceManager {
 		rePattern = rePattern.replaceAll("\\\\", "\\\\\\\\");
 		// add rePattern to hmAllRePattern
 		hmAllRePattern.put(name, rePattern);
+		compiled.put(name, Pattern.compile(rePattern));
 	}
 	
 	/**
@@ -183,8 +188,17 @@ public class RePatternManager extends GenericResourceManager {
 	 * @param key key to check for
 	 * @return whether the map contains the key
 	 */
-	public Boolean containsKey(String key) {
+	public boolean containsKey(String key) {
 		return hmAllRePattern.containsKey(key);
+	}
+
+	/**
+	 * proxy method to access the compiled hmAllRePattern member
+	 * @param key Key to retrieve data from
+	 * @return String from the map
+	 */
+	public Pattern getCompiled(String key) {
+		return compiled.get(key);
 	}
 
 	/**
