@@ -4,7 +4,7 @@
 
 	<groupId>com.github.heideltime</groupId>
 	<artifactId>heideltime</artifactId>
-	<version>2.2.1</version>
+	<version>2.2.2-SNAPSHOT</version>
 
 	<name>HeidelTime</name>
 	<description>HeidelTime is a multilingual cross-domain temporal tagger that extracts temporal expressions from documents and normalizes them according to the TIMEX3 annotation standard.</description>
