@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
@@ -312,6 +313,9 @@ public class RuleManager extends GenericResourceManager {
 										LOG.error("Cannot compile pattern: {}", rule_fast_check);
 										System.exit(-1);
 									}
+								}
+								else {
+									LOG.warn("Unknown additional constraint: {}", ro.group());
 								}
 							}
 						}
