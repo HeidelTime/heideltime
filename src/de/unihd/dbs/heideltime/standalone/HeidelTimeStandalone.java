@@ -236,8 +236,7 @@ public class HeidelTimeStandalone {
 			heidelTime.initialize(new UimaContextImpl(language, typeToProcess, CLISwitch.VERBOSITY2.getIsActive()));
 			logger.log(Level.INFO, "HeidelTime initialized");
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.log(Level.WARNING, "HeidelTime could not be initialized");
+			logger.log(Level.WARNING, "HeidelTime could not be initialized", e);
 		}
 
 		// Initialize JCas factory -------------
@@ -255,8 +254,7 @@ public class HeidelTimeStandalone {
 			jcasFactory = new JCasFactoryImpl(descriptions);
 			logger.log(Level.INFO, "JCas factory initialized");
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.log(Level.WARNING, "JCas factory could not be initialized");
+			logger.log(Level.WARNING, "JCas factory could not be initialized", e);
 		}
 	}
 	
@@ -505,8 +503,7 @@ public class HeidelTimeStandalone {
 			jcas.setDocumentText(document);
 			logger.log(Level.FINE, "CAS object generated");
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.log(Level.WARNING, "Cas object could not be generated");
+			logger.log(Level.WARNING, "Cas object could not be generated", e);
 		}
 
 		// Process jcas object -----------
@@ -520,8 +517,7 @@ public class HeidelTimeStandalone {
 
 			logger.log(Level.INFO, "Processing finished");
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.log(Level.WARNING, "Processing aborted due to errors");
+			logger.log(Level.WARNING, "Processing aborted due to errors", e);
 		}
 
 		// process interval tagging ---
@@ -536,8 +532,7 @@ public class HeidelTimeStandalone {
 			result = resultFormatter.format(jcas);
 			logger.log(Level.INFO, "Result formatted");
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.log(Level.WARNING, "Result could not be formatted");
+			logger.log(Level.WARNING, "Result could not be formatted", e);
 		}
 
 		return result;
@@ -715,9 +710,8 @@ public class HeidelTimeStandalone {
 
 			logger.log(Level.FINE, "Config initialized");
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.log(Level.WARNING, "Config could not be initialized! Please supply the -c switch or "
-					+ "put a config.props into this directory.");
+					+ "put a config.props into this directory.", e);
 			printHelp();
 			System.exit(-1);
 		}
@@ -785,7 +779,7 @@ public class HeidelTimeStandalone {
 			pwOut = new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"));
 			pwOut.println(out);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Level.WARNING, e.getMessage(), e);
 		} finally {
 			if(pwOut != null) {
 				pwOut.close();
@@ -822,8 +816,7 @@ public class HeidelTimeStandalone {
 			logger.log(Level.WARNING, "couldn't open configuration file \""+configPath+"\". quitting.");
 			System.exit(-1);
 		} catch (IOException e) {
-			logger.log(Level.WARNING, "couldn't close config file handle");
-			e.printStackTrace();
+			logger.log(Level.WARNING, "couldn't close config file handle", e);
 		}
 	}
 	

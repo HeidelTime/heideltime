@@ -25,8 +25,9 @@ import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.jcas.JCas;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Token;
 
@@ -35,7 +36,8 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  *
  */
 public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
-	private Class<?> component = this.getClass();
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(JVnTextProWrapper.class);
 
 	// definitions of what names these parameters have in the wrapper's descriptor file
 	public static final String PARAM_SENTSEGMODEL_PATH = "sent_model_path";
@@ -74,7 +76,7 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 		
 		if(sentModelPath != null)
 			if(!vnSenSegmenter.init(sentModelPath)) {
-				Logger.printError(component, "Error initializing the sentence segmenter model: " + sentModelPath);
+				LOG.error("Error initializing the sentence segmenter model: " + sentModelPath);
 				System.exit(-1);
 			}
 		
@@ -82,7 +84,7 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 			try {
 				vnSegmenter.init(wordModelPath);
 			} catch(Exception e) {
-				Logger.printError(component, "Error initializing the word segmenter model: " + wordModelPath);
+				LOG.error("Error initializing the word segmenter model: " + wordModelPath);
 				System.exit(-1);
 			}
 		
@@ -91,7 +93,7 @@ public class JVnTextProWrapper extends JCasAnnotator_ImplBase {
 				dataTagger.addContextGenerator(new POSContextGenerator(posModelPath + File.separator + "featuretemplate.xml"));
 				classifier = new Classification(posModelPath);	
 			} catch(Exception e) {
-				Logger.printError(component, "Error initializing the POS tagging model: " + posModelPath);
+				LOG.error("Error initializing the POS tagging model: " + posModelPath);
 				System.exit(-1);
 			}
 	}

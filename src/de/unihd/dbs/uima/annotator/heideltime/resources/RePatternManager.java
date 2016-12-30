@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 
  * This class fills the role of a manager of all the RePattern resources.
@@ -20,6 +22,9 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
  *
  */
 public class RePatternManager extends GenericResourceManager {
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(RePatternManager.class);
+	
 	protected static HashMap<String, RePatternManager> instances = new HashMap<String, RePatternManager>();
 	
 	// STORE PATTERNS AND NORMALIZATIONS
@@ -80,7 +85,7 @@ public class RePatternManager extends GenericResourceManager {
 				// read pattern resources with "Temponym" only if temponym tagging is selected
 				if ( (!(resource.contains("Temponym"))) ||
 						((load_temponym_resources) && (resource.contains("Temponym")))){
-					Logger.printDetail(component, "Adding pattern resource: "+resource);
+					LOG.debug("Adding pattern resource: {}", resource);
 					// create a buffered reader for every repattern resource file
 					is = hmResourcesRePattern.getInputStream(resource);
 					isr = new InputStreamReader(is, "UTF-8");
@@ -125,7 +130,7 @@ public class RePatternManager extends GenericResourceManager {
 					hmAllRePattern.put(resource, devPattern);
 				}
 				else {
-					Logger.printDetail(component, "No Temponym Tagging selected. Skipping pattern resource: "+resource);
+					LOG.debug("No Temponym Tagging selected. Skipping pattern resource: {}", resource);
 				}
 			}
 			////////////////////////////

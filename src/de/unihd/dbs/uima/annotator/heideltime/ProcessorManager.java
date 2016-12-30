@@ -5,9 +5,10 @@ import java.util.LinkedList;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.jcas.JCas;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.unihd.dbs.uima.annotator.heideltime.processors.GenericProcessor;
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 /**
  * This class implements a singleton "Addon Manager". Any subroutine (Processor) that
  * may be added to HeidelTime's code to achieve a specific goal which is self-sufficient,
@@ -20,12 +21,13 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
  *
  */
 public class ProcessorManager {
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(ProcessorManager.class);
+
 	// list of processes' package names
 	private EnumMap<Priority, LinkedList<String>> processorNames;
 	// array of instantiated processors
 	private EnumMap<Priority, LinkedList<GenericProcessor>> processors;
-	// self-identifying component for logging purposes
-	private Class<?> component; 
 	// flag for whether the processors have been initialized
 	private boolean initialized = false;
 	
@@ -34,7 +36,6 @@ public class ProcessorManager {
 	 */
 	public ProcessorManager() {
 		this.processorNames = new EnumMap<Priority, LinkedList<String>>(Priority.class);
-		this.component = this.getClass();
 		this.processors = new EnumMap<Priority, LinkedList<GenericProcessor>>(Priority.class);
 		
 		for(Priority prio : Priority.values()) {
@@ -74,8 +75,7 @@ public class ProcessorManager {
 					p.initialize(aContext);
 					processors.get(prio).add(p);
 				} catch (Exception exception) {
-					exception.printStackTrace();
-					Logger.printError(component, "Unable to initialize registered Processor " + pn + ", got: " + exception.toString());
+					LOG.error("Unable to initialize registered Processor " + pn + ", got: " + exception.toString(), exception);
 					System.exit(-1);
 				}
 			}
@@ -91,7 +91,7 @@ public class ProcessorManager {
 	 */
 	public void executeProcessors(JCas jcas, ProcessorManager.Priority prio) {
 		if(!this.initialized) {
-			Logger.printError(component, "Unable to execute Processors; initialization was not concluded successfully.");
+			LOG.error("Unable to execute Processors; initialization was not concluded successfully.");
 			System.exit(-1);
 		}
 		
@@ -100,8 +100,7 @@ public class ProcessorManager {
 			try {
 				gp.process(jcas);
 			} catch (Exception exception) {
-				exception.printStackTrace();
-				Logger.printError(component, "Unable to process registered Processor " + gp.getClass().getName() + ", got: " + exception.toString());
+				LOG.error("Unable to process registered Processor " + gp.getClass().getName() + ", got: " + exception.toString(), exception);
 				System.exit(-1);
 			}
 		}

@@ -28,9 +28,10 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ConfigurationManager;
 import org.apache.uima.resource.impl.ConfigurationManager_impl;
 import org.apache.uima.resource.impl.ResourceManager_impl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Token;
 import de.unihd.dbs.uima.annotator.treetagger.TreeTaggerTokenizer.Flag;
@@ -40,7 +41,8 @@ import de.unihd.dbs.uima.annotator.treetagger.TreeTaggerTokenizer.Flag;
  *
  */
 public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
-	private Class<?> component = this.getClass();
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(TreeTaggerWrapper.class);
 	
 	// definitions of what names these parameters have in the wrapper's descriptor file
 	public static final String PARAM_LANGUAGE = "language";
@@ -180,7 +182,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		
 		// handle the treetagger path from the environment variables
 		if(ttprops.rootPath == null) {
-			Logger.printError("TreeTagger environment variable is not present, aborting.");
+			LOG.error("TreeTagger environment variable is not present, aborting.");
 			System.exit(-1);
 		}
 
@@ -196,30 +198,37 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 				abbFileFlag = true;
 				ttprops.abbFileName = null;
 			} else {
-				Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.abbFileName);
+				LOG.error("File missing to use TreeTagger tokenizer: {}", ttprops.abbFileName);
 			}
 		}
 		if (!(parFileFlag = parFile.exists())) {
-			Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.parFileName);
+			LOG.error("File missing to use TreeTagger tokenizer: {}", ttprops.parFileName);
 		}
 		if (!(tokScriptFlag = tokFile.exists())) {
 			if(language.equals(Language.CHINESE))
 				tokScriptFlag = true;
 			else
-				Logger.printError(component, "File missing to use TreeTagger tokenizer: " + ttprops.tokScriptName);
+				LOG.error("File missing to use TreeTagger tokenizer: {}", ttprops.tokScriptName);
 		}
 
 		if (!abbFileFlag || !parFileFlag || !tokScriptFlag) {
-			Logger.printError(component, "Cannot find tree tagger (" + ttprops.rootPath + ttprops.fileSeparator 
+			LOG.error("Cannot find tree tagger (" + ttprops.rootPath + ttprops.fileSeparator 
 					+ "cmd" + ttprops.fileSeparator + ttprops.tokScriptName + ")." +
-			" Make sure that path to tree tagger is set correctly in config.props!");
-			Logger.printError(component, "If path is set correctly:");
-			Logger.printError(component, "Maybe you need to download the TreeTagger tagger-scripts.tar.gz");
-			Logger.printError(component, "from http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tagger-scripts.tar.gz");
-			Logger.printError(component, "Extract this file and copy the missing file into the corresponding TreeTagger directories.");
-			Logger.printError(component, "If missing, copy " + ttprops.abbFileName   + " into " +  ttprops.rootPath+ttprops.fileSeparator+"lib");
-			Logger.printError(component, "If missing, copy " + ttprops.parFileName   + " into " +  ttprops.rootPath+ttprops.fileSeparator+"lib");
-			Logger.printError(component, "If missing, copy " + ttprops.tokScriptName + " into " +  ttprops.rootPath+ttprops.fileSeparator+"cmd");
+			" Make sure that path to tree tagger is set correctly in config.props!" +
+			"\n" + 
+			"If path is set correctly:" +
+			"\n" + 
+			"Maybe you need to download the TreeTagger tagger-scripts.tar.gz" +
+			"\n" + 
+			"from http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tagger-scripts.tar.gz" +
+			"\n" + 
+			"Extract this file and copy the missing file into the corresponding TreeTagger directories." +
+			"\n" + 
+			"If missing, copy " + ttprops.abbFileName   + " into " +  ttprops.rootPath+ttprops.fileSeparator+"lib" +
+			"\n" + 
+			"If missing, copy " + ttprops.parFileName   + " into " +  ttprops.rootPath+ttprops.fileSeparator+"lib" +
+			"\n" + 
+			"If missing, copy " + ttprops.tokScriptName + " into " +  ttprops.rootPath+ttprops.fileSeparator+"cmd");
 			System.exit(-1);
 		}
 	}
@@ -258,7 +267,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 	 */
 	private void tokenize(JCas jcas) {
 		// read tokenized text to add tokens to the jcas
-		Logger.printDetail(component, "TreeTagger (tokenization) with: " + ttprops.abbFileName);
+		LOG.debug("TreeTagger (tokenization) with: {}", ttprops.abbFileName);
 		
 		EnumSet<Flag> flags = Flag.getSet(ttprops.languageSwitch);
 		TreeTaggerTokenizer ttt; ttprops.abbFileName = "english-abbreviations";
@@ -276,7 +285,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		for(String s : tokenized) {
 			// charset missmatch fallback: signal (invalid) s
 			if ((!(s.equals("EMPTYLINE"))) && (jcas.getDocumentText().indexOf(s, tokenOffset) < 0)) {
-				Logger.printError(component, "Tokenization was interrupted because the token \"" + s 
+				LOG.error("Tokenization was interrupted because the token \"" + s 
 						+ "\" could not be found in the original text. The reason for this might be "
 						+ "that the encoding of the document is not UTF-8. This token was skipped and "
 						+ "if it was part of a temporal expression, will not be extracted.");
@@ -310,7 +319,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		try {
 			// read tokenized text to add tokens to the jcas
 			Process proc = ttprops.getChineseTokenizationProcess();
-			Logger.printDetail(component, "Chinese tokenization: " + ttprops.chineseTokenizerPath);
+			LOG.debug("Chinese tokenization: {}", ttprops.chineseTokenizerPath);
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(), "UTF-8"));
 			BufferedWriter out = new BufferedWriter(new OutputStreamWriter(proc.getOutputStream(), "UTF-8"));
@@ -372,7 +381,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 				ttProc = new TreeTaggerProcess(ttprops.getTreeTaggingProcess());
 			}
 			
-			Logger.printDetail(component, "TreeTagger (pos tagging) with: " + ttprops.parFileName);
+			LOG.debug("TreeTagger (pos tagging) with: {}", ttprops.parFileName);
 			
 			AnnotationIndex ai = jcas.getAnnotationIndex(Token.type);
 			List<String> tokenStrings = new ArrayList<>();
@@ -429,7 +438,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 			
 			tmpFileWriter.close();
 		} catch(IOException e) {
-			Logger.printError("Something went wrong creating a temporary file for the treetagger to process.");
+			LOG.error("Something went wrong creating a temporary file for the treetagger to process.");
 			System.exit(-1);
 		}
 
@@ -445,7 +454,7 @@ public class TreeTaggerWrapper extends JCasAnnotator_ImplBase {
 		
 		try {
 			Process p = ttprops.getTreeTaggingProcess(tmpDocument);
-			Logger.printDetail(component, "TreeTagger (pos tagging) with: " + ttprops.parFileName);
+			LOG.debug("TreeTagger (pos tagging) with: {}", ttprops.parFileName);
 				
 			BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream(), "UTF-8"));
 			
