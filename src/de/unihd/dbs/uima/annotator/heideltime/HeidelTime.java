@@ -1448,7 +1448,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				String newMonth = norm.getFromNormMonthName((m.group(3)));
 				int newMonthInt = Integer.parseInt(newMonth);
 				String daystr = m.group(5);
-				int day = daystr.length() > 0 ? Integer.parseInt(daystr) : 0;
+				int day = (daystr != null && daystr.length() > 0) ? Integer.parseInt(daystr) : 0;
 				if (ltn.equals("last")) {
 					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && (dctAvailable)) {
 						// check day if dct-month and newMonth are
