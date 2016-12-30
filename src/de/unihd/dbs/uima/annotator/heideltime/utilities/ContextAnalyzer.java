@@ -265,7 +265,7 @@ public class ContextAnalyzer {
 		// Get the tokens
 		TreeMap<Integer, Token> tmToken = new TreeMap<Integer, Token>();
 		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
-    for(Token token : tokens) {
+		for(Token token : tokens) {
 			tmToken.put(token.getEnd(), token);
 		}
 		
@@ -379,7 +379,7 @@ public class ContextAnalyzer {
 		// Get the sentence
 		AnnotationIndex<Sentence> sentences = jcas.getAnnotationIndex(Sentence.type);
 		Sentence s = new Sentence(jcas);
-    for (FSIterator<Sentence> iterSentence = sentences.iterator(); iterSentence.hasNext(); ) {
+		for (FSIterator<Sentence> iterSentence = sentences.iterator(); iterSentence.hasNext(); ) {
 			s = (Sentence) iterSentence.next();
 			if ((s.getBegin() <= timex.getBegin())
 					&& (s.getEnd() >= timex.getEnd())) {
@@ -390,7 +390,7 @@ public class ContextAnalyzer {
 		// Get the tokens
 		TreeMap<Integer, Token> tmToken = new TreeMap<Integer, Token>();
 		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
-    for(Token token : tokens) {
+		for(Token token : tokens) {
 			tmToken.put(token.getEnd(), token);
 		}
 
