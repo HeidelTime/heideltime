@@ -2089,7 +2089,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		if (timexType.equals("DATE")) {
 			fastCheck = rm.getHmDateFastCheck();
 			constraints = rm.getHmDatePosConstraint();
-		} else if (timexType.equals("Time")) {
+		} else if (timexType.equals("TIME")) {
 			fastCheck = rm.getHmTimeFastCheck();
 			constraints = rm.getHmTimePosConstraint();
 		} else if (timexType.equals("DURATION")) {
@@ -2101,6 +2101,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		} else if (timexType.equals("TEMPONYM")) {
 			fastCheck = rm.getHmTemponymFastCheck();
 			constraints = rm.getHmTemponymPosConstraint();
+		} else {
+			LOG.warn("Unknown timex type {}", timexType);
 		}
 		// Iterator over the rules by sorted by the name of the rules
 		// this is important since later, the timexId will be used to
@@ -2108,7 +2110,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// have the same offset
 		for (Map.Entry<Pattern, String> e : Toolbox.sortByValue(hmPattern)) {
 			String key = e.getValue();
-			// validate fast check fist, if no fast match, everything else is
+			// validate fast check first, if no fast match, everything else is
 			// not required anymore
 			Pattern f = fastCheck.get(key);
 			if (f != null && !f.matcher(coveredText).find())
@@ -2116,6 +2118,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 			for (Matcher m = e.getKey().matcher(coveredText); m.find();) {
 				// improved token boundary checking
+				// FIXME: these seem to be flawed 
 				boolean infrontBehindOK = ContextAnalyzer.checkTokenBoundaries(m, s, jcas) && ContextAnalyzer.checkInfrontBehind(m, s);
 
 				// CHECK POS CONSTRAINTS
