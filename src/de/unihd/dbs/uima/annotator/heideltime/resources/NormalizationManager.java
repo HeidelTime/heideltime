@@ -38,6 +38,8 @@ public class NormalizationManager extends GenericResourceManager {
 	private HashMap<String, String> normMonthInSeason; 
 	private HashMap<String, String> normMonthInQuarter;
 
+	private String[] normNumbers;
+
 	/**
 	 * Constructor calls the parent constructor that sets language/resource parameters,
 	 * initializes basic and collects resource normalization patterns.
@@ -290,6 +292,12 @@ public class NormalizationManager extends GenericResourceManager {
 		normNumber.put("59","59");
 		normNumber.put("60","60");
 		
+		normNumbers = new String[61];
+		for (int i = 0; i < 10; i++)
+			normNumbers[i] = "0"+i;
+		for (int i = 10; i <= 60; i++)
+			normNumbers[i] = Integer.toString(i);
+		
 		// NORM MONTH
 		normMonthName.put("january","01");
 		normMonthName.put("february","02");
@@ -313,6 +321,10 @@ public class NormalizationManager extends GenericResourceManager {
 
 	public final String getFromNormNumber(String key) {
 		return normNumber.get(key);
+	}
+
+	public final String normNumber(int key) {
+		return key >= 0 && key <= 60 ? normNumbers[key] : null;
 	}
 
 	public final String getFromNormDayInWeek(String key) {
