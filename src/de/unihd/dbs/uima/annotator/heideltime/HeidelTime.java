@@ -2230,7 +2230,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						}
 					} else if (timexType.equals("TEMPONYM")) {
 						if (hmTemponymPosConstraint.containsKey(hmPattern.get(p))) {
-							posConstraintOK = checkPosConstraint(s , hmSetPosConstraint.get(hmPattern.get(p)), r, jcas);
+							posConstraintOK = checkPosConstraint(s , hmTemponymPosConstraint.get(hmPattern.get(p)), r, jcas);
 						}
 					}
 					
