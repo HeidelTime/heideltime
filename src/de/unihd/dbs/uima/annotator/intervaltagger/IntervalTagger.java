@@ -19,12 +19,13 @@ import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.FSIterator;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.ResourceMap;
 import de.unihd.dbs.uima.annotator.heideltime.resources.ResourceScanner;
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
 import de.unihd.dbs.uima.types.heideltime.IntervalCandidateSentence;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
@@ -37,9 +38,8 @@ import de.unihd.dbs.uima.types.heideltime.Timex3Interval;
  *
  */
 public class IntervalTagger extends JCasAnnotator_ImplBase {
-
-	// TOOL NAME (may be used as componentId)
-	private Class<?> component = this.getClass();
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(IntervalTagger.class);
 	
 	// descriptor parameter names
 	public static String PARAM_LANGUAGE = "language";
@@ -95,13 +95,13 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 				is = hmResourcesRules.getInputStream(resource);
 				isr = new InputStreamReader(is, "UTF-8");
 				br = new BufferedReader(isr);
-				Logger.printDetail(component, "Adding rule resource: " + resource);
+				LOG.debug("Adding rule resource: {}", resource);
 				for(String line; (line = br.readLine()) != null; ) {
 					if(line.startsWith("//") || line.equals("")) {
 						continue;
 					}
 					
-					Logger.printDetail("DEBUGGING: reading rules..."+ line);
+					LOG.debug("reading rules... {}", line);
 					// check each line for the name, extraction, and normalization part
 					for (MatchResult r : Toolbox.findMatches(paReadRules, line)) {
 						String rule_name          = r.group(1);
@@ -114,10 +114,10 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 						// create pattern for rule extraction part
 						RePatternManager rpm = RePatternManager.getInstance(language, false);
 						for (MatchResult mr : Toolbox.findMatches(paVariable,rule_extraction)) {
-							Logger.printDetail("DEBUGGING: replacing patterns..."+ mr.group());
+							LOG.debug("replacing patterns... {}", mr.group());
 							if (!(rpm.containsKey(mr.group(1)))) {
-								Logger.printError("Error creating rule:"+rule_name);
-								Logger.printError("The following pattern used in this rule does not exist, does it? %"+mr.group(1));
+								LOG.error("Error creating rule: {}",rule_name);
+								LOG.error("The following pattern used in this rule does not exist, does it? %{}", mr.group(1));
 								System.exit(-1);
 							}
 							rule_extraction = rule_extraction.replaceAll("%"+mr.group(1), rpm.get(mr.group(1)));
@@ -128,10 +128,9 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 							pattern = Pattern.compile(rule_extraction);
 						}
 						catch (java.util.regex.PatternSyntaxException e) {
-							Logger.printError("Compiling rules resulted in errors.");
-							Logger.printError("Problematic rule is "+rule_name);
-							Logger.printError("Cannot compile pattern: "+rule_extraction);
-							e.printStackTrace();
+							LOG.error("Compiling rules resulted in errors.", e);
+							LOG.error("Problematic rule is: {}", rule_name);
+							LOG.error("Cannot compile pattern: {}", rule_extraction);
 							System.exit(-1);
 						}
 						
@@ -257,8 +256,8 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 								try {
 									sentenceTxes.add(annotation);
 								} catch(NumberFormatException e) {
-									Logger.printError(component, "Couldn't do emptyValue calculation on accont of a faulty normalization in " 
-											+ annotation.getTimexValueEB() + " or " + annotation.getTimexValueEE());
+									LOG.error("Couldn't do emptyValue calculation on accont of a faulty normalization in {} or {}", 
+											annotation.getTimexValueEB(), annotation.getTimexValueEE());
 								}
 								
 								// prepare tx3intervals to remove

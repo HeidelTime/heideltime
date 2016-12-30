@@ -11,7 +11,9 @@ import java.util.LinkedList;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
 
 /**
@@ -24,6 +26,9 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
  * 
  */
 public class RuleManager extends GenericResourceManager {
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(RuleManager.class);
+	
 	protected static HashMap<String, RuleManager> instances = new HashMap<String, RuleManager>();
 
 	// PATTERNS TO READ RESOURCES "RULES" AND "NORMALIZATION"
@@ -168,14 +173,14 @@ public class RuleManager extends GenericResourceManager {
 				isr = new InputStreamReader(is, "UTF-8");
 				br = new BufferedReader(isr);
 				
-				Logger.printDetail(component, "Adding rule resource: " + resource);
+				LOG.debug("Adding rule resource: {}", resource);
 				for (String line; (line = br.readLine()) != null;) {
 					// skip comments or empty lines in resource files
 					if (line.startsWith("//") || line.equals(""))
 						continue;
 					
 					boolean correctLine = false;
-					Logger.printDetail("DEBUGGING: reading rules..." + line);
+					LOG.debug("Reading rules... {}", line);
 					// check each line for the name, extraction, and
 					// normalization part, others are optional
 					for (MatchResult r : Toolbox.findMatches(paReadRules, line)) {
@@ -196,8 +201,7 @@ public class RuleManager extends GenericResourceManager {
 								hmDurationPattern.containsValue(rule_name) ||
 								hmSetPattern.containsValue(rule_name) ||
 								hmTimePattern.containsValue(rule_name)) {
-							Logger.printError("WARNING: Duplicate rule name detected. This rule is being ignored:");
-							Logger.printError(line);
+							LOG.warn("WARNING: Duplicate rule name detected. This rule is being ignored: {}", line);
 						}
 
 						// //////////////////////////////////////////////////////////////////
@@ -208,10 +212,10 @@ public class RuleManager extends GenericResourceManager {
 						Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]*)");
 						RePatternManager rpm = RePatternManager.getInstance(Language.getLanguageFromString(language), load_temponym_resources);
 						for (MatchResult mr : Toolbox.findMatches(paVariable, rule_extraction)) {
-							Logger.printDetail("DEBUGGING: replacing patterns..." + mr.group());
+							LOG.debug("replacing patterns... {}", mr.group());
 							if (!(rpm.containsKey(mr.group(1)))) {
-								Logger.printError("Error creating rule:" + rule_name);
-								Logger.printError("The following pattern used in this rule does not exist, does it? %" + mr.group(1));
+								LOG.error("Error creating rule: {}", rule_name);
+								LOG.error("The following pattern used in this rule does not exist, does it? %{}", mr.group(1));
 								System.exit(-1);
 							}
 							rule_extraction = rule_extraction.replaceAll("%" + mr.group(1), rpm.get(mr.group(1)));
@@ -221,10 +225,9 @@ public class RuleManager extends GenericResourceManager {
 						try {
 							pattern = Pattern.compile(rule_extraction);
 						} catch (java.util.regex.PatternSyntaxException e) {
-							Logger.printError("Compiling rules resulted in errors.");
-							Logger.printError("Problematic rule is " + rule_name);
-							Logger.printError("Cannot compile pattern: " + rule_extraction);
-							e.printStackTrace();
+							LOG.error("Compiling rules resulted in errors.", e);
+							LOG.error("Problematic rule is {}", rule_name);
+							LOG.error("Cannot compile pattern: {}", rule_extraction);
 							System.exit(-1);
 						}
 						// Pattern pattern = Pattern.compile(rule_extraction);
@@ -291,10 +294,10 @@ public class RuleManager extends GenericResourceManager {
 									// create pattern for rule fast check part -- similar to extraction part
 									// thus using paVariable and rpm
 									for (MatchResult mr : Toolbox.findMatches(paVariable, rule_fast_check)) {
-										Logger.printDetail("DEBUGGING: replacing patterns..." + mr.group());
+										LOG.debug("replacing patterns... {}", mr.group());
 										if (!(rpm.containsKey(mr.group(1)))) {
-											Logger.printError("Error creating rule:" + rule_name);
-											Logger.printError("The following pattern used in this rule does not exist, does it? %" + mr.group(1));
+											LOG.error("Error creating rule: {}", rule_name);
+											LOG.error("The following pattern used in this rule does not exist, does it? %{}", mr.group(1));
 											System.exit(-1);
 										}
 										rule_fast_check = rule_fast_check.replaceAll("%" + mr.group(1), rpm.get(mr.group(1)));
@@ -304,10 +307,9 @@ public class RuleManager extends GenericResourceManager {
 									try {
 										patternFast = Pattern.compile(rule_fast_check);
 									} catch (java.util.regex.PatternSyntaxException e) {
-										Logger.printError("Compiling rules resulted in errors.");
-										Logger.printError("Problematic rule is " + rule_name);
-										Logger.printError("Cannot compile pattern: " + rule_fast_check);
-										e.printStackTrace();
+										LOG.error("Compiling rules resulted in errors.", e);
+										LOG.error("Problematic rule is {}", rule_name);
+										LOG.error("Cannot compile pattern: {}", rule_fast_check);
 										System.exit(-1);
 									}
 								}
@@ -522,7 +524,7 @@ public class RuleManager extends GenericResourceManager {
 										patternFast);
 							}
 						} else {
-							Logger.printDetail(component, "Resource not recognized by HeidelTime: "	+ resource);
+							LOG.debug("Resource not recognized by HeidelTime: {}", resource);
 						}
 					}
 
@@ -530,8 +532,7 @@ public class RuleManager extends GenericResourceManager {
 					// CHECK FOR PROBLEMS WHEN READING RULES //
 					// /////////////////////////////////////////
 					if (!correctLine) {
-						Logger.printError(component, "Cannot read the following line of rule resource " + resource);
-						Logger.printError(component, "Line: " + line);
+						LOG.error("Cannot read the following line of rule resource {} line: {}", resource, line);
 					}
 
 				}

@@ -21,13 +21,14 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Progress;
 import org.apache.uima.util.ProgressImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 import de.unihd.dbs.uima.types.heideltime.Dct;
 
 /**
@@ -35,7 +36,8 @@ import de.unihd.dbs.uima.types.heideltime.Dct;
  *
  */
 public class Tempeval3Reader extends CollectionReader_ImplBase {
-	private Class<?> component = this.getClass();
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(Tempeval3Reader.class);
 	
 	// uima descriptor parameter name
 	private String PARAM_INPUTDIR = "InputDirectory";
@@ -130,8 +132,7 @@ public class Tempeval3Reader extends CollectionReader_ImplBase {
 			dct.setTimexId("t0");
 			dct.addToIndexes();
 		} catch(Exception e) {
-			  e.printStackTrace();
-			  Logger.printError(component, "File "+f.getAbsolutePath()+" could not be properly parsed.");
+			LOG.error("File "+f.getAbsolutePath()+" could not be properly parsed.", e);
 		}
 	}
 
@@ -160,7 +161,7 @@ public class Tempeval3Reader extends CollectionReader_ImplBase {
 		// check for existence and readability; add handle to the list
 		for(File f : myFiles) {
 			if(!f.exists() || !f.isFile() || !f.canRead()) {
-				Logger.printDetail(component, "File \""+f.getAbsolutePath()+"\" was ignored because it either didn't exist, wasn't a file or wasn't readable.");
+				LOG.debug("File \"{}\" was ignored because it either didn't exist, wasn't a file or wasn't readable.", f.getAbsolutePath());
 			} else {
 				files.add(f);
 			}

@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.unihd.dbs.uima.annotator.heideltime.utilities.*;
 /**
  * 
@@ -18,6 +21,9 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.*;
  *
  */
 public class NormalizationManager extends GenericResourceManager {
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(NormalizationManager.class);
+	
 	protected static HashMap<String, NormalizationManager> instances = new HashMap<String, NormalizationManager>();
 	// PATTERNS TO READ RESOURCES "RULES" AND "NORMALIZATION"
 	private Pattern paReadNormalizations = Pattern.compile("\"(.*?)\",\"(.*?)\"");
@@ -97,7 +103,7 @@ public class NormalizationManager extends GenericResourceManager {
 				if ( (!(resource.contains("Temponym"))) ||
 						((load_temponym_resources) && (resource.contains("Temponym")))){
 					
-					Logger.printDetail(component, "Adding normalization resource: "+resource);
+					LOG.debug("Adding normalization resource: {}", resource);
 					// create a buffered reader for every normalization resource file
 					is = hmResourcesNormalization.getInputStream(resource);
 					isr = new InputStreamReader(is, "UTF-8");
@@ -117,14 +123,13 @@ public class NormalizationManager extends GenericResourceManager {
 								}
 							}
 							if ((correctLine == false) && (!(line.matches("")))) {
-								Logger.printError("["+component+"] Cannot read one of the lines of normalization resource "+resource);
-								Logger.printError("["+component+"] Line: "+line);
+								LOG.error("Cannot read one of the lines of normalization resource {}\nLine: {}", resource, line);
 							}
 						}
 					}
 				}
 				else {
-					Logger.printDetail(component, "No Temponym Tagging selected. Skipping normalization resource: "+resource);
+					LOG.debug("No Temponym Tagging selected. Skipping normalization resource: {}", resource);
 				}
 			}
 		} catch (IOException e) {

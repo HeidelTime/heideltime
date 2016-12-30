@@ -14,7 +14,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -24,6 +25,9 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
  *
  */
 public class TreeTaggerTokenizer {
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(TreeTaggerTokenizer.class);
+	
 	public static enum Flag {
 		ENGLISH, FRENCH, ITALIAN, GALICIAN, Z;
 		
@@ -65,7 +69,7 @@ public class TreeTaggerTokenizer {
 			this.abbreviationsFile = new File(abbreviationsFile);
 			
 			if(!this.abbreviationsFile.exists() || !this.abbreviationsFile.canRead()) {
-				Logger.printError(this.getClass(), "Couldn't read abbreviations file " + abbreviationsFile +
+				LOG.error("Couldn't read abbreviations file " + abbreviationsFile +
 						" (exist:" + this.abbreviationsFile.exists() + ",read:" + this.abbreviationsFile.canRead() + ")");
 				throw new RuntimeException();
 			}

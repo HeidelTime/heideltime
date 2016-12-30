@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 import org.apache.uima.cas.FSIterator;
 import org.apache.uima.cas.text.AnnotationIndex;
 import org.apache.uima.jcas.JCas;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
@@ -24,19 +26,22 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  *
  */
 public class ContextAnalyzer {
-  private static final Pattern TWO_DIGITS = Pattern.compile("^[0-9][0-9]");
-  private static final Pattern BC_TWO_DIGITS = Pattern.compile("^BC[0-9][0-9]");
-  private static final Pattern THREE_DIGITS = Pattern.compile("^[0-9][0-9][0-9]");
-  private static final Pattern BC_THREE_DIGITS = Pattern.compile("^BC[0-9][0-9][0-9]");
-  private static final Pattern FOUR_DIGITS = Pattern.compile("^[0-9][0-9][0-9][0-9]");
-  private static final Pattern BC_FOUR_DIGITS = Pattern.compile("^BC[0-9][0-9][0-9][0-9]");
-  private static final Pattern YEAR_MON = Pattern.compile("^[0-9][0-9][0-9][0-9]-[0-9][0-9]");
-  private static final Pattern BC_YEAR_MON = Pattern.compile("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9]");
-  private static final Pattern YEAR_MON_WK = Pattern.compile("^[0-9][0-9][0-9][0-9]-W[0-9][0-9]");
-  private static final Pattern YEAR_MON_DAY = Pattern.compile("^([0-9][0-9][0-9][0-9])-([0-9][0-9])-([0-9][0-9])");
-  private static final Pattern YEAR_QUARTER = Pattern.compile("^[0-9][0-9][0-9][0-9]-Q[1234]");
-  private static final Pattern YEAR_SEASON = Pattern.compile("^[0-9][0-9][0-9][0-9]-(SP|SU|FA|WI)");
-  /**
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(ContextAnalyzer.class);
+
+	private static final Pattern TWO_DIGITS = Pattern.compile("^[0-9][0-9]");
+	private static final Pattern BC_TWO_DIGITS = Pattern.compile("^BC[0-9][0-9]");
+	private static final Pattern THREE_DIGITS = Pattern.compile("^[0-9][0-9][0-9]");
+	private static final Pattern BC_THREE_DIGITS = Pattern.compile("^BC[0-9][0-9][0-9]");
+	private static final Pattern FOUR_DIGITS = Pattern.compile("^[0-9][0-9][0-9][0-9]");
+	private static final Pattern BC_FOUR_DIGITS = Pattern.compile("^BC[0-9][0-9][0-9][0-9]");
+	private static final Pattern YEAR_MON = Pattern.compile("^[0-9][0-9][0-9][0-9]-[0-9][0-9]");
+	private static final Pattern BC_YEAR_MON = Pattern.compile("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9]");
+	private static final Pattern YEAR_MON_WK = Pattern.compile("^[0-9][0-9][0-9][0-9]-W[0-9][0-9]");
+	private static final Pattern YEAR_MON_DAY = Pattern.compile("^([0-9][0-9][0-9][0-9])-([0-9][0-9])-([0-9][0-9])");
+	private static final Pattern YEAR_QUARTER = Pattern.compile("^[0-9][0-9][0-9][0-9]-Q[1234]");
+	private static final Pattern YEAR_SEASON = Pattern.compile("^[0-9][0-9][0-9][0-9]-(SP|SU|FA|WI)");
+	/**
 	 * The value of the x of the last mentioned Timex is calculated.
 	 * @param linearDates list of previous linear dates
 	 * @param i index for the previous date entry
@@ -269,11 +274,13 @@ public class ContextAnalyzer {
 			if (tokEnd < timex.getBegin()) {
 				Token token = tmToken.get(tokEnd);
 				
-				Logger.printDetail("GET LAST TENSE: string:"+token.getCoveredText()+" pos:"+token.getPos());
-				Logger.printDetail("hmAllRePattern.containsKey(tensePos4PresentFuture):"+rpm.get("tensePos4PresentFuture"));
-				Logger.printDetail("hmAllRePattern.containsKey(tensePos4Future):"+rpm.get("tensePos4Future"));
-				Logger.printDetail("hmAllRePattern.containsKey(tensePos4Past):"+rpm.get("tensePos4Past"));
-				Logger.printDetail("CHECK TOKEN:"+token.getPos());
+				if (LOG.isDebugEnabled()) {
+					LOG.debug("GET LAST TENSE: string:"+token.getCoveredText()+" pos:"+token.getPos());
+					LOG.debug("hmAllRePattern.containsKey(tensePos4PresentFuture):"+rpm.get("tensePos4PresentFuture"));
+					LOG.debug("hmAllRePattern.containsKey(tensePos4Future):"+rpm.get("tensePos4Future"));
+					LOG.debug("hmAllRePattern.containsKey(tensePos4Past):"+rpm.get("tensePos4Past"));
+					LOG.debug("CHECK TOKEN:"+token.getPos());
+				}
 				
 				if (token.getPos() == null) {
 					
@@ -306,11 +313,13 @@ public class ContextAnalyzer {
 				if (tokEnd > timex.getEnd()) {
 					Token token = tmToken.get(tokEnd);
 					
-					Logger.printDetail("GET NEXT TENSE: string:"+token.getCoveredText()+" pos:"+token.getPos());
-					Logger.printDetail("hmAllRePattern.containsKey(tensePos4PresentFuture):"+rpm.get("tensePos4PresentFuture"));
-					Logger.printDetail("hmAllRePattern.containsKey(tensePos4Future):"+rpm.get("tensePos4Future"));
-					Logger.printDetail("hmAllRePattern.containsKey(tensePos4Past):"+rpm.get("tensePos4Past"));
-					Logger.printDetail("CHECK TOKEN:"+token.getPos());
+					if (LOG.isDebugEnabled()) {
+						LOG.debug("GET NEXT TENSE: string:"+token.getCoveredText()+" pos:"+token.getPos());
+						LOG.debug("hmAllRePattern.containsKey(tensePos4PresentFuture):"+rpm.get("tensePos4PresentFuture"));
+						LOG.debug("hmAllRePattern.containsKey(tensePos4Future):"+rpm.get("tensePos4Future"));
+						LOG.debug("hmAllRePattern.containsKey(tensePos4Past):"+rpm.get("tensePos4Past"));
+						LOG.debug("CHECK TOKEN:"+token.getPos());
+					}
 					
 					if (token.getPos() == null) {
 						
@@ -333,22 +342,22 @@ public class ContextAnalyzer {
 			}
 		}
 		if (lastTense.equals("")) {
-			Logger.printDetail("TENSE: "+nextTense);
+			LOG.debug("TENSE: {}", nextTense);
 			return nextTense;
 		}
 		else if (nextTense.equals("")) {
-			Logger.printDetail("TENSE: "+lastTense);
+			LOG.debug("TENSE: {}", lastTense);
 			return lastTense;
 		}
 		else {
 			// If there is tense before and after the timex token, 
 			// return the closer one:
 			if ((tid - lastid) > (nextid - tid)) {
-				Logger.printDetail("TENSE: "+nextTense);
+				LOG.debug("TENSE: {}", nextTense);
 				return nextTense;
 			}
 			else {
-				Logger.printDetail("TENSE: "+lastTense);
+				LOG.debug("TENSE: {}", lastTense);
 				return lastTense;	
 			}	
 		}
@@ -388,64 +397,69 @@ public class ContextAnalyzer {
 		for (Integer tokEnd : tmToken.keySet()) {
 			if (tokEnd < timex.getBegin()) {
 				Token token = tmToken.get(tokEnd);
-				
-				Logger.printDetail("GET LAST TENSE: string:"+token.getCoveredText()+" pos:"+token.getPos());
-				Logger.printDetail("hmAllRePattern.containsKey(tensePos4PresentFuture):"+rpm.get("tensePos4PresentFuture"));
-				Logger.printDetail("hmAllRePattern.containsKey(tensePos4Future):"+rpm.get("tensePos4Future"));
-				Logger.printDetail("hmAllRePattern.containsKey(tensePos4Past):"+rpm.get("tensePos4Past"));
-				Logger.printDetail("CHECK TOKEN:"+token.getPos());
+			
+				if (LOG.isDebugEnabled()) {
+					LOG.debug("GET LAST TENSE: string:"+token.getCoveredText()+" pos:"+token.getPos());
+					LOG.debug("hmAllRePattern.containsKey(tensePos4PresentFuture):"+rpm.get("tensePos4PresentFuture"));
+					LOG.debug("hmAllRePattern.containsKey(tensePos4Future):"+rpm.get("tensePos4Future"));
+					LOG.debug("hmAllRePattern.containsKey(tensePos4Past):"+rpm.get("tensePos4Past"));
+					LOG.debug("CHECK TOKEN:"+token.getPos());
+				}
 				
 				if (token.getPos() == null) {
 					
 				}
 				else if ((rpm.containsKey("tensePos4PresentFuture")) && (token.getPos().matches(rpm.get("tensePos4PresentFuture")))) {
 					lastTense = "PRESENTFUTURE";
-					Logger.printDetail("this tense:"+lastTense);
+					LOG.debug("this tense: {}", lastTense);
 				}
 				else if ((rpm.containsKey("tensePos4Past")) && (token.getPos().matches(rpm.get("tensePos4Past")))) {
 					lastTense = "PAST";
-					Logger.printDetail("this tense:"+lastTense);
+					LOG.debug("this tense: {}", lastTense);
 				}
 				else if ((rpm.containsKey("tensePos4Future")) && (token.getPos().matches(rpm.get("tensePos4Future")))) {
 					if (token.getCoveredText().matches(rpm.get("tenseWord4Future"))) {
 						lastTense = "FUTURE";
-						Logger.printDetail("this tense:"+lastTense);
+						LOG.debug("this tense: {}", lastTense);
 					}
 				}
 				if (token.getCoveredText().equals("since")) {
 					lastTense = "PAST";
-					Logger.printDetail("this tense:"+lastTense);
+					LOG.debug("this tense: {}", lastTense);
 				}
 				if (token.getCoveredText().equals("depuis")) { // French		
 					lastTense = "PAST";
-					Logger.printDetail("this tense:"+lastTense);
+					LOG.debug("this tense: {}", lastTense);
 				}
 			}
 			if (lastTense.equals("")) {
 				if (tokEnd > timex.getEnd()) {
 					Token token = tmToken.get(tokEnd);
 					
-					Logger.printDetail("GET NEXT TENSE: string:"+token.getCoveredText()+" pos:"+token.getPos());
-					Logger.printDetail("hmAllRePattern.containsKey(tensePos4PresentFuture):"+rpm.get("tensePos4PresentFuture"));
-					Logger.printDetail("hmAllRePattern.containsKey(tensePos4Future):"+rpm.get("tensePos4Future"));
-					Logger.printDetail("hmAllRePattern.containsKey(tensePos4Past):"+rpm.get("tensePos4Past"));
-					Logger.printDetail("CHECK TOKEN:"+token.getPos());
+					if (LOG.isDebugEnabled()) {
+						LOG.debug("GET NEXT TENSE: string:"+token.getCoveredText()+" pos:"+token.getPos());
+						LOG.debug("hmAllRePattern.containsKey(tensePos4PresentFuture):"+rpm.get("tensePos4PresentFuture"));
+						LOG.debug("hmAllRePattern.containsKey(tensePos4Future):"+rpm.get("tensePos4Future"));
+						LOG.debug("hmAllRePattern.containsKey(tensePos4Past):"+rpm.get("tensePos4Past"));
+						LOG.debug("CHECK TOKEN:"+token.getPos());
+					}
+					
 					
 					if (token.getPos() == null) {
 						
 					}
 					else if ((rpm.containsKey("tensePos4PresentFuture")) && (token.getPos().matches(rpm.get("tensePos4PresentFuture")))) {
 						lastTense = "PRESENTFUTURE";
-						Logger.printDetail("this tense:"+lastTense);
+						LOG.debug("this tense: {}", lastTense);
 					}
 					else if ((rpm.containsKey("tensePos4Past")) && (token.getPos().matches(rpm.get("tensePos4Past")))) {
 						lastTense = "PAST";
-						Logger.printDetail("this tense:"+lastTense);
+						LOG.debug("this tense: {}", lastTense);
 					}
 					else if ((rpm.containsKey("tensePos4Future")) && (token.getPos().matches(rpm.get("tensePos4Future")))) {
 						if (token.getCoveredText().matches(rpm.get("tenseWord4Future"))) {
 							lastTense = "FUTURE";
-							Logger.printDetail("this tense:"+lastTense);
+							LOG.debug("this tense: {}", lastTense);
 						}
 					}
 				}
@@ -465,7 +479,7 @@ public class ContextAnalyzer {
 							if ((!(token.getCoveredText().equals("expected"))) && (!(token.getCoveredText().equals("scheduled")))) {
 								lastTense = "PAST";
 								longTense = "PAST";
-								Logger.printDetail("this tense:"+lastTense);
+								LOG.debug("this tense: {}", lastTense);
 							}
 						}
 					}
@@ -480,7 +494,7 @@ public class ContextAnalyzer {
 								if ((!(token.getCoveredText().equals("expected"))) && (!(token.getCoveredText().equals("scheduled")))) {
 									lastTense = "PAST";
 									longTense = "PAST";
-									Logger.printDetail("this tense:"+lastTense);
+									LOG.debug("this tense: {}", lastTense);
 								}
 							}
 						}
@@ -498,7 +512,7 @@ public class ContextAnalyzer {
 							if (((token.getCoveredText().matches("^prévue?s?$"))) || ((token.getCoveredText().equals("^envisagée?s?$")))) {
 								lastTense = "FUTURE";
 								longTense = "FUTURE";
-								Logger.printDetail("this tense:"+lastTense);
+								LOG.debug("this tense: {}", lastTense);
 							}
 					}
 					prevPos = token.getPos();
@@ -510,7 +524,7 @@ public class ContextAnalyzer {
 							if (((token.getCoveredText().matches("^prévue?s?$"))) || ((token.getCoveredText().equals("^envisagée?s?$")))) {
 								lastTense = "FUTURE";
 								longTense = "FUTURE";
-								Logger.printDetail("this tense:"+lastTense);
+								LOG.debug("this tense: {}", lastTense);
 							}
 						}
 						prevPos = token.getPos();
@@ -518,7 +532,7 @@ public class ContextAnalyzer {
 				}
 			}
 		}
-		Logger.printDetail("TENSE: "+lastTense);
+		LOG.debug("TENSE: {}", lastTense);
 		
 		return lastTense;
 	}
