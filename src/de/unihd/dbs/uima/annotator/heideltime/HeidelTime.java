@@ -27,8 +27,11 @@ import java.util.regex.Pattern;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.cas.FSIterator;
+import org.apache.uima.cas.text.AnnotationIndex;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.unihd.dbs.uima.annotator.heideltime.ProcessorManager.Priority;
 import de.unihd.dbs.uima.annotator.heideltime.processors.TemponymPostprocessing;
@@ -40,7 +43,6 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.RuleManager;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.DateCalculator;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.ContextAnalyzer;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.LocaleException;
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
 import de.unihd.dbs.uima.types.heideltime.Dct;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
@@ -56,10 +58,9 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  * 
  */
 public class HeidelTime extends JCasAnnotator_ImplBase {
+	/** Class logger */
+	private Logger LOG = LoggerFactory.getLogger(HeidelTime.class);
 
-	// TOOL NAME (may be used as componentId)
-	private Class<?> component = this.getClass();
-	
 	// PROCESSOR MANAGER
 	private ProcessorManager procMan = new ProcessorManager();
 
@@ -68,7 +69,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	public int timex_counter_global = 0;
 	
 	// FLAG (for historic expressions referring to BC)
-	public Boolean flagHistoricDates = false;
+	public boolean flagHistoricDates = false;
 	
 	// COUNTER FOR TIMEX IDS
 	private int timexID = 0;
@@ -89,16 +90,15 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private String PARAM_DURATION  = "Duration";
 	private String PARAM_SET       = "Set";
 	private String PARAM_TEMPONYMS = "Temponym";
-	private String PARAM_DEBUG	   = "Debugging";
 	private String PARAM_GROUP     = "ConvertDurations";
-	private Boolean find_dates     = true;
-	private Boolean find_times     = true;
-	private Boolean find_durations = true;
-	private Boolean find_sets      = true;
-	private Boolean find_temponyms = false;
-	private Boolean group_gran     = true;
+	private boolean find_dates     = true;
+	private boolean find_times     = true;
+	private boolean find_durations = true;
+	private boolean find_sets      = true;
+	private boolean find_temponyms = false;
+	private boolean group_gran     = true;
 	// FOR DEBUGGING PURPOSES (IF FALSE)
-	private Boolean deleteOverlapped = true;
+	private boolean deleteOverlapped = true;
 
 
 	/**
@@ -111,8 +111,6 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// DEBUGGING PARAMETER SETTING //
 		/////////////////////////////////
 		this.deleteOverlapped = true;
-		Boolean doDebug = (Boolean) aContext.getConfigParameterValue(PARAM_DEBUG);
-		Logger.setPrintDetails(doDebug == null ? false : doDebug);
 		
 		/////////////////////////////////
 		// HANDLE LOCALE    		   //
@@ -125,12 +123,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				Locale locale = DateCalculator.getLocaleFromString(requestedLocale);
 				Locale.setDefault(locale); // sets it for the entire JVM session
 			} catch (LocaleException e) {
-				Logger.printError("Supplied locale parameter couldn't be resolved to a working locale. Try one of these:");
-				String localesString = new String();
+				StringBuilder localesString = new StringBuilder();
+				localesString.append("Supplied locale parameter couldn't be resolved to a working locale. Try one of these:");
 				for(Locale l : Locale.getAvailableLocales()) { // list all available locales
-					localesString += l.toString()+" ";
+					localesString.append(l.toString()).append(' ');
 				}
-				Logger.printError(localesString);
+				LOG.error(localesString.toString());
 				System.exit(-1);
 			}
 		}
@@ -165,18 +163,18 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		/////////////////////////////////////////////////////////////////////////////////
 		// SUBPROCESSOR CONFIGURATION. REGISTER YOUR OWN PROCESSORS HERE FOR EXECUTION //
 		/////////////////////////////////////////////////////////////////////////////////
-		procMan.registerProcessor("de.unihd.dbs.uima.annotator.heideltime.processors.HolidayProcessor");
-		procMan.registerProcessor("de.unihd.dbs.uima.annotator.heideltime.processors.DecadeProcessor");
+		procMan.registerProcessor(de.unihd.dbs.uima.annotator.heideltime.processors.HolidayProcessor.class.getName());
+		procMan.registerProcessor(de.unihd.dbs.uima.annotator.heideltime.processors.DecadeProcessor.class.getName());
 		procMan.initializeAllProcessors(aContext);
 		
 		/////////////////////////////
 		// PRINT WHAT WILL BE DONE //
 		/////////////////////////////
-		if (find_dates) Logger.printDetail("Getting Dates...");	
-		if (find_times) Logger.printDetail("Getting Times...");	
-		if (find_durations) Logger.printDetail("Getting Durations...");	
-		if (find_sets) Logger.printDetail("Getting Sets...");
-		if (find_temponyms) Logger.printDetail("Getting Temponyms...");
+		if (find_dates) LOG.debug("Getting Dates...");	
+		if (find_times) LOG.debug("Getting Times...");	
+		if (find_durations) LOG.debug("Getting Durations...");	
+		if (find_sets) LOG.debug("Getting Sets...");
+		if (find_temponyms) LOG.debug("Getting Temponyms...");
 	}
 
 	
@@ -186,7 +184,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	public void process(JCas jcas) {
 		// check whether a given DCT (if any) is of the correct format and if not, skip this call
 		if(!isValidDCT(jcas)) {
-			Logger.printError(component, "The reader component of this workflow has set an incorrect DCT."
+			LOG.error("The reader component of this workflow has set an incorrect DCT."
 					+ " HeidelTime expects either \"YYYYMMDD\" or \"YYYY-MM-DD...\". This document was skipped.");
 			return;
 		}
@@ -205,77 +203,61 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		////////////////////////////////////////////
 		// CHECK SENTENCE BY SENTENCE FOR TIMEXES //
 		////////////////////////////////////////////
-		FSIterator sentIter = jcas.getAnnotationIndex(Sentence.type).iterator();
+		AnnotationIndex<Sentence> sentences = jcas.getAnnotationIndex(Sentence.type);
 		/* 
 		 * check if the pipeline has annotated any sentences. if not, heideltime can't do any work,
 		 * will return from process() with a warning message.
 		 */
-		if(!sentIter.hasNext()) {
-			Logger.printError(component, "HeidelTime has not found any sentence tokens in this document. " +
+		if(sentences.size() == 0) {
+			LOG.error("HeidelTime has not found any sentence tokens in this document. " +
 					"HeidelTime needs sentence tokens tagged by a preprocessing UIMA analysis engine to " +
 					"do its work. Please check your UIMA workflow and add an analysis engine that creates " +
 					"these sentence tokens.");
 		}
 		
-		while (sentIter.hasNext()) {
-			Sentence s = (Sentence) sentIter.next();
-			
-			Boolean debugIteration = false;
-			Boolean oldDebugState = Logger.getPrintDetails();
-			do {
-				try {
-					if (find_dates) {
-						findTimexes("DATE", rulem.getHmDatePattern(), rulem.getHmDateOffset(), rulem.getHmDateNormalization(), s, jcas);
-					}
-					if (find_times) {
-						findTimexes("TIME", rulem.getHmTimePattern(), rulem.getHmTimeOffset(), rulem.getHmTimeNormalization(), s, jcas);
-					}
-					
-					/*
-					 *  check for historic dates/times starting with BC
-					 *  to check if post-processing step is required
-					 */
-					if (typeToProcess.equals("narrative") || typeToProcess.equals("narratives")){
-						FSIterator iterDates = jcas.getAnnotationIndex(Timex3.type).iterator();
-						while (iterDates.hasNext()){
-							Timex3 t = (Timex3) iterDates.next();
-							if (t.getTimexValue().startsWith("BC")){
-								flagHistoricDates = true;
-								break;
-							}
+		for (Sentence s : sentences) {
+			try {
+				if (find_dates) {
+					findTimexes("DATE", rulem.getHmDatePattern(), rulem.getHmDateOffset(), rulem.getHmDateNormalization(), s, jcas);
+				}
+				if (find_times) {
+					findTimexes("TIME", rulem.getHmTimePattern(), rulem.getHmTimeOffset(), rulem.getHmTimeNormalization(), s, jcas);
+				}
+
+				/*
+				 *  check for historic dates/times starting with BC
+				 *  to check if post-processing step is required
+				 */
+				if (typeToProcess.equals("narrative") || typeToProcess.equals("narratives")){
+					AnnotationIndex<Timex3> dates = jcas.getAnnotationIndex(Timex3.type);
+					for (Timex3 t : dates) {
+						if (t.getTimexValue().startsWith("BC")){
+							flagHistoricDates = true;
+							break;
 						}
 					}
-					
-					if (find_sets) {
-						findTimexes("SET", rulem.getHmSetPattern(), rulem.getHmSetOffset(), rulem.getHmSetNormalization(), s, jcas);
-					}
-					if (find_durations) {
-						findTimexes("DURATION", rulem.getHmDurationPattern(), rulem.getHmDurationOffset(), rulem.getHmDurationNormalization(), s, jcas);
-					}
-					if (find_temponyms) {
-						findTimexes("TEMPONYM", rulem.getHmTemponymPattern(), rulem.getHmTemponymOffset(), rulem.getHmTemponymNormalization(), s, jcas);						
-					}
-				} catch(NullPointerException npe) {
-					if(!debugIteration) {
-						debugIteration = true;
-						Logger.setPrintDetails(true);
-						
-						Logger.printError(component, "HeidelTime's execution has been interrupted by an exception that " +
-								"is likely rooted in faulty normalization resource files. Please consider opening an issue " +
-								"report containing the following information at our GitHub project issue tracker: " +
-								"https://github.com/HeidelTime/heideltime/issues - Thanks!");
-						npe.printStackTrace();
-						Logger.printError(component, "Sentence [" + s.getBegin() + "-" + s.getEnd() + "]: " + s.getCoveredText());
-						Logger.printError(component, "Language: " + language);
-						Logger.printError(component, "Re-running this sentence with DEBUGGING enabled...");
-					} else {
-						debugIteration = false;
-						Logger.setPrintDetails(oldDebugState);
-						
-						Logger.printError(component, "Execution will now resume.");
-					}
 				}
-			} while(debugIteration);
+
+				if (find_sets) {
+					findTimexes("SET", rulem.getHmSetPattern(), rulem.getHmSetOffset(), rulem.getHmSetNormalization(), s, jcas);
+				}
+				if (find_durations) {
+					findTimexes("DURATION", rulem.getHmDurationPattern(), rulem.getHmDurationOffset(), rulem.getHmDurationNormalization(), s, jcas);
+				}
+				if (find_temponyms) {
+					findTimexes("TEMPONYM", rulem.getHmTemponymPattern(), rulem.getHmTemponymOffset(), rulem.getHmTemponymNormalization(), s, jcas);						
+				}
+			} catch(NullPointerException npe) {
+				LOG.error("HeidelTime's execution has been interrupted by an exception that " +
+						"is likely rooted in faulty normalization resource files. "+
+						"Please consider opening an issue report containing the following " +
+						"information at our GitHub project issue tracker (if possible, also enable debug logging): " +
+						"https://github.com/HeidelTime/heideltime/issues - Thanks!", npe);
+				LOG.error("Sentence [" + s.getBegin() + "-" + s.getEnd() + "]: " + s.getCoveredText());
+				LOG.error("Language: " + language);
+				// LOG.error("Re-running this sentence with DEBUGGING enabled...");
+				// TODO: add a flag to force-log debugging information?
+			}
 		}
 
 		/*
@@ -296,8 +278,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			try {
 				disambiguateHistoricDates(jcas);
 			} catch(Exception e) {
-				Logger.printError("Something went wrong disambiguating historic dates.");
-				e.printStackTrace();
+				LOG.error("Something went wrong disambiguating historic dates.", e);
 			}
 
 		if (find_temponyms) {
@@ -319,8 +300,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// run postprocessing processors
 		procMan.executeProcessors(jcas, Priority.POSTPROCESSING);
 
-		timex_counter_global = timex_counter_global + timex_counter;
-		Logger.printDetail(component, "Number of Timexes added to CAS: "+timex_counter + "(global: "+timex_counter_global+")");
+		timex_counter_global += timex_counter;
+		LOG.info("Number of Timexes added to CAS: {} (global: {})", timex_counter, timex_counter_global);
 	}
 
 	
@@ -347,19 +328,19 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		
 		annotation.setEmptyValue(emptyValue);
 
-		FSIterator iterToken = jcas.getAnnotationIndex(Token.type).subiterator(sentence);
-		String allTokIds = "";
-		while (iterToken.hasNext()) {
-			Token tok = (Token) iterToken.next();
+		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
+		StringBuilder allTokIds = new StringBuilder();
+		for (FSIterator<Token> iterToken = tokens.subiterator(sentence); iterToken.hasNext(); ) {
+			Token tok = iterToken.next();
 			if (tok.getBegin() <= begin && tok.getEnd() > begin) {
 				annotation.setFirstTokId(tok.getTokenId());
-				allTokIds = "BEGIN<-->" + tok.getTokenId();
+				allTokIds.append("BEGIN<-->").append(tok.getTokenId());
 			}
 			if ((tok.getBegin() > begin) && (tok.getEnd() <= end)) {
-				allTokIds = allTokIds + "<-->" + tok.getTokenId();
+				allTokIds.append("<-->").append(tok.getTokenId());
 			}
 		}
-		annotation.setAllTokIds(allTokIds);
+		annotation.setAllTokIds(allTokIds.toString());
 		annotation.setTimexType(timexType);
 		annotation.setTimexValue(timexValue);
 		annotation.setTimexId(timexId);
@@ -383,9 +364,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		annotation.addToIndexes();
 		this.timex_counter++;
 		
-		Logger.printDetail(annotation.getTimexId()+"EXTRACTION PHASE:   "+" found by:"+annotation.getFoundByRule()+" text:"+annotation.getCoveredText());
-		Logger.printDetail(annotation.getTimexId()+"NORMALIZATION PHASE:"+" found by:"+annotation.getFoundByRule()+" text:"+annotation.getCoveredText()+" value:"+annotation.getTimexValue());
-		
+		if (LOG.isDebugEnabled()) {
+		    LOG.debug(annotation.getTimexId()+"EXTRACTION PHASE:   "+" found by:"+annotation.getFoundByRule()+" text:"+annotation.getCoveredText());
+		    LOG.debug(annotation.getTimexId()+"NORMALIZATION PHASE:"+" found by:"+annotation.getFoundByRule()+" text:"+annotation.getCoveredText()+" value:"+annotation.getTimexValue());
+		}
 	}
 
 	
@@ -399,11 +381,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		
 		// build up a list with all found TIMEX expressions
 		List<Timex3> linearDates = new ArrayList<Timex3>();
-		FSIterator iterTimex = jcas.getAnnotationIndex(Timex3.type).iterator();
+		AnnotationIndex<Timex3> annotations = jcas.getAnnotationIndex(Timex3.type);
+		FSIterator<Timex3> iterTimex = annotations.iterator();
 
 		// Create List of all Timexes of types "date" and "time"
 		while (iterTimex.hasNext()) {
-			Timex3 timex = (Timex3) iterTimex.next();
+			Timex3 timex = iterTimex.next();
 			if (timex.getTimexType().equals("DATE") || timex.getTimexType().equals("TIME")) {
 				linearDates.add(timex);
 			}
@@ -416,7 +399,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			Timex3 t_i = (Timex3) linearDates.get(i);
 			String value_i = t_i.getTimexValue();
 			String newValue = value_i;
-			Boolean change = false;
+			boolean change = false;
 			if (!(t_i.getFoundByRule().contains("-BCADhint"))){
 				if (value_i.startsWith("0")){
 					Integer offset = 1, counter = 1;
@@ -431,14 +414,16 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 											if (Integer.parseInt(value_i.substring(0,3)) <= Integer.parseInt(linearDates.get(i-offset).getTimexValue().substring(2,5))){
 												newValue = "BC" + value_i;
 												change = true;
-												Logger.printDetail("DisambiguateHistoricDates: "+value_i+" to "+newValue+". Expression "+t_i.getCoveredText()+" due to "+linearDates.get(i-offset).getCoveredText());
+												if (LOG.isDebugEnabled())
+													LOG.debug("DisambiguateHistoricDates: "+value_i+" to "+newValue+". Expression "+t_i.getCoveredText()+" due to "+linearDates.get(i-offset).getCoveredText());
 											}
 										}
 									}
 									else{
 										newValue = "BC" + value_i;
 										change = true;
-										Logger.printDetail("DisambiguateHistoricDates: "+value_i+" to "+newValue+". Expression "+t_i.getCoveredText()+" due to "+linearDates.get(i-offset).getCoveredText());
+										if (LOG.isDebugEnabled())
+											LOG.debug("DisambiguateHistoricDates: "+value_i+" to "+newValue+". Expression "+t_i.getCoveredText()+" due to "+linearDates.get(i-offset).getCoveredText());
 									}
 								}
 							}               
@@ -453,7 +438,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			}
 			if (!(newValue.equals(value_i))){
 				t_i.removeFromIndexes();
-				Logger.printDetail("DisambiguateHistoricDates: value changed to BC");
+				LOG.debug("DisambiguateHistoricDates: value changed to BC");
 
 				t_i.setTimexValue(newValue);
 				t_i.addToIndexes();
@@ -474,10 +459,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		 * Iterate over timexes and add invalids to HashSet 
 		 * (invalids cannot be removed directly since iterator is used)
 		 */
-		FSIterator iterTimex = jcas.getAnnotationIndex(Timex3.type).iterator();
+		AnnotationIndex<Timex3> timexes = jcas.getAnnotationIndex(Timex3.type);
 		HashSet<Timex3> hsTimexToRemove = new HashSet<Timex3>();
-		while (iterTimex.hasNext()) {
-			Timex3 timex = (Timex3) iterTimex.next();
+		for (Timex3 timex : timexes) {
 			if (timex.getTimexValue().equals("REMOVE")) {
 				hsTimexToRemove.add(timex);
 			}
@@ -487,7 +471,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		for (Timex3 timex3 : hsTimexToRemove) {
 			timex3.removeFromIndexes();
 			this.timex_counter--;
-			Logger.printDetail(timex3.getTimexId()+" REMOVING PHASE: "+"found by:"+timex3.getFoundByRule()+" text:"+timex3.getCoveredText()+" value:"+timex3.getTimexValue());
+			if (LOG.isDebugEnabled())
+				LOG.debug(timex3.getTimexId()+" REMOVING PHASE: "+"found by:"+timex3.getFoundByRule()+" text:"+timex3.getCoveredText()+" value:"+timex3.getTimexValue());
 		}
 	}
 
@@ -537,11 +522,11 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// ////////////////////////////////////////////
 		// INFORMATION ABOUT DOCUMENT CREATION TIME //
 		// ////////////////////////////////////////////
-		FSIterator dctIter = jcas.getAnnotationIndex(Dct.type).iterator();
+		AnnotationIndex<Dct> dcts = jcas.getAnnotationIndex(Dct.type);
+		FSIterator<Dct> dctIter = dcts.iterator();
 		if (dctIter.hasNext()) {
 			dctAvailable = true;
-			Dct dct = (Dct) dctIter.next();
-			dctValue = dct.getValue();
+			dctValue = dctIter.next().getValue();
 			// year, month, day as mentioned in the DCT
 			if (dctValue.matches("\\d\\d\\d\\d\\d\\d\\d\\d")) {
 				dctCentury = Integer.parseInt(dctValue.substring(0, 2));
@@ -550,11 +535,13 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				dctMonth = Integer.parseInt(dctValue.substring(4, 6));
 				dctDay = Integer.parseInt(dctValue.substring(6, 8));
 
-				Logger.printDetail("dctCentury:" + dctCentury);
-				Logger.printDetail("dctYear:" + dctYear);
-				Logger.printDetail("dctDecade:" + dctDecade);
-				Logger.printDetail("dctMonth:" + dctMonth);
-				Logger.printDetail("dctDay:" + dctDay);
+				if (LOG.isDebugEnabled()) {
+				    LOG.debug("dctCentury:" + dctCentury);
+				    LOG.debug("dctYear:" + dctYear);
+				    LOG.debug("dctDecade:" + dctDecade);
+				    LOG.debug("dctMonth:" + dctMonth);
+				    LOG.debug("dctDay:" + dctDay);
+				}
 			} else {
 				dctCentury = Integer.parseInt(dctValue.substring(0, 2));
 				dctYear = Integer.parseInt(dctValue.substring(0, 4));
@@ -562,11 +549,13 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				dctMonth = Integer.parseInt(dctValue.substring(5, 7));
 				dctDay = Integer.parseInt(dctValue.substring(8, 10));
 
-				Logger.printDetail("dctCentury:" + dctCentury);
-				Logger.printDetail("dctYear:" + dctYear);
-				Logger.printDetail("dctDecade:" + dctDecade);
-				Logger.printDetail("dctMonth:" + dctMonth);
-				Logger.printDetail("dctDay:" + dctDay);
+				if (LOG.isDebugEnabled()) {
+				    LOG.debug("dctCentury:" + dctCentury);
+				    LOG.debug("dctYear:" + dctYear);
+				    LOG.debug("dctDecade:" + dctDecade);
+				    LOG.debug("dctMonth:" + dctMonth);
+				    LOG.debug("dctDay:" + dctDay);
+				}
 			}
 			dctQuarter = "Q"
 					+ norm.getFromNormMonthInQuarter(norm
@@ -586,21 +575,23 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					+ norm.getFromNormNumber(dctMonth + "") + "-"
 					+ norm.getFromNormNumber(dctDay + ""));
 
-			Logger.printDetail("dctQuarter:" + dctQuarter);
-			Logger.printDetail("dctSeason:" + dctSeason);
-			Logger.printDetail("dctWeekday:" + dctWeekday);
-			Logger.printDetail("dctWeek:" + dctWeek);
+			if (LOG.isDebugEnabled()) {
+				LOG.debug("dctQuarter:" + dctQuarter);
+				LOG.debug("dctSeason:" + dctSeason);
+				LOG.debug("dctWeekday:" + dctWeekday);
+				LOG.debug("dctWeek:" + dctWeek);
+			}
 		} else {
-			Logger.printDetail("No DCT available...");
+			LOG.debug("No DCT available...");
 		}
 		
 		// check if value_i has month, day, season, week (otherwise no UNDEF-year is possible)
-		Boolean viHasMonth   = false;
-		Boolean viHasDay     = false;
-		Boolean viHasSeason  = false;
-		Boolean viHasWeek    = false;
-		Boolean viHasQuarter = false;
-		Boolean viHasHalf    = false;
+		boolean viHasMonth   = false;
+		boolean viHasDay     = false;
+		boolean viHasSeason  = false;
+		boolean viHasWeek    = false;
+		boolean viHasQuarter = false;
+		boolean viHasHalf    = false;
 		int viThisMonth      = 0;
 		int viThisDay        = 0;
 		String viThisSeason  = "";
@@ -678,7 +669,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		////////////////////////////////////////////////////
 		String valueNew = ambigString;
 		if (ambigString.startsWith("UNDEF-year")) {
-			String newYearValue = dctYear+"";
+			String newYearValue = Integer.toString(dctYear);
 			// vi has month (ignore day)
 			if ((viHasMonth == true) && (viHasSeason == false)) {
 				// WITH DOCUMENT CREATION TIME
@@ -688,7 +679,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						// if dct-month is larger than vi-month, than add 1 to dct-year
 						if (dctMonth > viThisMonth) {
 							int intNewYear = dctYear + 1;
-							newYearValue = intNewYear + "";
+							newYearValue = Integer.toString(intNewYear);
 						}
 					}
 					// Tense is PAST
@@ -696,7 +687,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						// if dct-month is smaller than vi month, than substrate 1 from dct-year						
 						if (dctMonth < viThisMonth) {
 							int intNewYear = dctYear - 1;
-							newYearValue = intNewYear + "";
+							newYearValue = Integer.toString(intNewYear);
 						}
 					}
 				}
@@ -713,14 +704,14 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					if ((last_used_tense.equals("FUTURE")) || (last_used_tense.equals("PRESENTFUTURE"))) {
 						if (Integer.parseInt(dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1))) {
 							int intNewYear = dctYear + 1;
-							newYearValue = intNewYear + "";
+							newYearValue = Integer.toString(intNewYear);
 						}
 					}
 					// Tense is PAST
 					if ((last_used_tense.equals("PAST"))) {
 						if (Integer.parseInt(dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1))) {
 							int intNewYear = dctYear - 1;
-							newYearValue = intNewYear + "";
+							newYearValue = Integer.toString(intNewYear);
 						}
 					}
 					// IF NO TENSE IS FOUND
@@ -729,14 +720,14 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							// IN COLLOQUIAL: future temporal expressions
 							if (Integer.parseInt(dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1))){
 								int intNewYear = dctYear + 1;
-								newYearValue = intNewYear + "";
+								newYearValue = Integer.toString(intNewYear);
 							}
 						}
 						else{
 							// IN NEWS: past temporal expressions
 							if (Integer.parseInt(dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1))){
 								int intNewYear = dctYear - 1;
-								newYearValue = intNewYear + "";
+								newYearValue = Integer.toString(intNewYear);
 							}
 						}
 					}
@@ -754,14 +745,14 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					if ((last_used_tense.equals("FUTURE")) || (last_used_tense.equals("PRESENTFUTURE"))) {
 						if (Integer.parseInt(dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1))) {
 							int intNewYear = dctYear + 1;
-							newYearValue = intNewYear + "";
+							newYearValue = Integer.toString(intNewYear);
 						}
 					}
 					// Tense is PAST
 					if ((last_used_tense.equals("PAST"))) {
 						if (Integer.parseInt(dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1))) {
 							int intNewYear = dctYear - 1;
-							newYearValue = intNewYear + "";
+							newYearValue = Integer.toString(intNewYear);
 						}
 					}
 					// IF NO TENSE IS FOUND
@@ -770,14 +761,14 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							// IN COLLOQUIAL: future temporal expressions
 							if (Integer.parseInt(dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1))){
 								int intNewYear = dctYear + 1;
-								newYearValue = intNewYear + "";
+								newYearValue = Integer.toString(intNewYear);
 							}
 						}
 						else{
 							// IN NEWS: past temporal expressions
 							if (Integer.parseInt(dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1))){
 								int intNewYear = dctYear - 1;
-								newYearValue = intNewYear + "";
+								newYearValue = Integer.toString(intNewYear);
 							}
 						}
 					}
@@ -793,7 +784,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				// TODO check tenses?
 				// WITH DOCUMENT CREATION TIME
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					newYearValue = dctYear+"";
+					newYearValue = Integer.toString(dctYear);
 				}
 				// WITHOUT DOCUMENT CREATION TIME
 				else {
@@ -804,7 +795,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			if (viHasWeek) {
 				// WITH DOCUMENT CREATION TIME
 				if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable)) {
-					newYearValue = dctYear+"";
+					newYearValue = Integer.toString(dctYear);
 				}
 				// WITHOUT DOCUMENT CREATION TIME
 				else {
@@ -825,31 +816,33 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// just century is unspecified (UNDEF-century86) //
 		///////////////////////////////////////////////////
 		else if ((ambigString.startsWith("UNDEF-century"))) {
-			String newCenturyValue = dctCentury+"";
+			String newCenturyValue = Integer.toString(dctCentury);
 			
 			// NEWS and COLLOQUIAL DOCUMENTS
 			if ((documentTypeNews||documentTypeColloquial||documentTypeScientific) && (dctAvailable) && !ambigString.equals("UNDEF-century")) {
 				int viThisDecade = Integer.parseInt(ambigString.substring(13, 14));
 				
-				Logger.printDetail("dctCentury"+dctCentury);
+				if (LOG.isDebugEnabled())
+					LOG.debug("dctCentury"+dctCentury);
 				
-				newCenturyValue = dctCentury+"";
-				Logger.printDetail("dctCentury"+dctCentury);
+				newCenturyValue = Integer.toString(dctCentury);
+				if (LOG.isDebugEnabled())
+					LOG.debug("dctCentury"+dctCentury);
 				
 				//  Tense is FUTURE
 				if ((last_used_tense.equals("FUTURE")) || (last_used_tense.equals("PRESENTFUTURE"))) {
 					if (viThisDecade < dctDecade) {
-						newCenturyValue = dctCentury + 1+"";
+						newCenturyValue = Integer.toString(dctCentury + 1);
 					} else {
-						newCenturyValue = dctCentury+"";
+						newCenturyValue = Integer.toString(dctCentury);
 					}
 				}
 				// Tense is PAST
 				if ((last_used_tense.equals("PAST"))) {
 					if (dctDecade < viThisDecade) {
-						newCenturyValue = dctCentury - 1+"";
+						newCenturyValue = Integer.toString(dctCentury - 1);
 					} else {
-						newCenturyValue = dctCentury+"";
+						newCenturyValue = Integer.toString(dctCentury);
 					}
 				}
 			}
@@ -913,10 +906,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					try {
 						diff = Integer.parseInt(sDiff);
 					} catch (Exception e) {
-						Logger.printError(component, "Expression difficult to normalize: ");
-						Logger.printError(component, ambigString);
-						Logger.printError(component, sDiff + " probably too long for parsing as integer.");
-						Logger.printError(component, "set normalized value as PAST_REF / FUTURE_REF:");
+						LOG.error("Expression difficult to normalize: ");
+						LOG.error(ambigString);
+						LOG.error("{} probably too long for parsing as integer.", sDiff);
+						LOG.error("set normalized value as PAST_REF / FUTURE_REF:");
 						if (op.equals("PLUS")){
 							valueNew = "FUTURE_REF";
 						}
@@ -934,7 +927,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							opSymbol = "+";
 						}
 						if (unit.equals("year")){
-							String diffString = diff+"";
+							String diffString;
 							if (diff < 10){
 								diffString = "000"+diff;
 							}
@@ -943,11 +936,13 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							}
 							else if (diff < 1000){
 								diffString = "0"+diff;
+							} else {
+								diffString = Integer.toString(diff);
 							}
 							valueNew = "TPZ"+opSymbol+diffString;
 						}
 						else if (unit.equals("month")){
-							String diffString = diff+"";
+							String diffString;
 							if (diff < 10){
 								diffString = "0000-0"+diff;
 							}
@@ -957,7 +952,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							valueNew = "TPZ"+opSymbol+diffString;
 						}
 						else if (unit.equals("week")){
-							String diffString = diff+"";
+							String diffString;
 							if (diff < 10){
 								diffString = "0000-W0"+diff;
 							}
@@ -967,7 +962,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							valueNew = "TPZ"+opSymbol+diffString;
 						}
 						else if (unit.equals("day")){
-							String diffString = diff+"";
+							String diffString;
 							if (diff < 10){
 								diffString = "0000-00-0"+diff;
 							}
@@ -977,7 +972,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							valueNew = "TPZ"+opSymbol+diffString;
 						}
 						else if (unit.equals("hour")){
-							String diffString = diff+"";
+							String diffString;
 							if (diff < 10){
 								diffString = "0000-00-00T0"+diff;
 							}
@@ -987,7 +982,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							valueNew = "TPZ"+opSymbol+diffString;
 						}
 						else if (unit.equals("minute")){
-							String diffString = diff+"";
+							String diffString;
 							if (diff < 10){
 								diffString = "0000-00-00T00:0"+diff;
 							}
@@ -997,7 +992,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							valueNew = "TPZ"+opSymbol+diffString;								
 						}							
 						else if (unit.equals("second")){
-							String diffString = diff+"";
+							String diffString;
 							if (diff < 10){
 								diffString = "0000-00-00T00:00:0"+diff;
 							}
@@ -1856,7 +1851,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				}
 				
 			} else {
-				Logger.printDetail(component, "ATTENTION: UNDEF value for: " + valueNew+" is not handled in disambiguation phase!");
+				LOG.debug("ATTENTION: UNDEF value for: {} is not handled in disambiguation phase!", valueNew);
 			}
 		}
 		
@@ -1870,11 +1865,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	public void specifyAmbiguousValues(JCas jcas) {
 		// build up a list with all found TIMEX expressions
 		List<Timex3> linearDates = new ArrayList<Timex3>();
-		FSIterator iterTimex = jcas.getAnnotationIndex(Timex3.type).iterator();
+		AnnotationIndex<Timex3> timexes = jcas.getAnnotationIndex(Timex3.type);
 
 		// Create List of all Timexes of types "date" and "time"
-		while (iterTimex.hasNext()) {
-			Timex3 timex = (Timex3) iterTimex.next();
+		for(Timex3 timex : timexes) {
 			if (timex.getTimexType().equals("DATE") || timex.getTimexType().equals("TIME")) {
 				linearDates.add(timex);
 			}
@@ -1903,7 +1897,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			}
 			
 			t_i.removeFromIndexes();
-			Logger.printDetail(t_i.getTimexId()+" DISAMBIGUATION PHASE: foundBy:"+t_i.getFoundByRule()+" text:"+t_i.getCoveredText()+" value:"+t_i.getTimexValue()+" NEW value:"+valueNew);
+			if (LOG.isDebugEnabled())
+				LOG.debug(t_i.getTimexId()+" DISAMBIGUATION PHASE: foundBy:"+t_i.getFoundByRule()+" text:"+t_i.getCoveredText()+" value:"+t_i.getTimexValue()+" NEW value:"+valueNew);
 			
 			t_i.setTimexValue(valueNew);
 			t_i.addToIndexes();
@@ -1916,14 +1911,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 * @param jcas
 	 */
 	private void deleteOverlappedTimexesPreprocessing(JCas jcas) {
-		FSIterator timexIter1 = jcas.getAnnotationIndex(Timex3.type).iterator();
+		AnnotationIndex<Timex3> timexes = jcas.getAnnotationIndex(Timex3.type);
 		HashSet<Timex3> hsTimexesToRemove = new HashSet<Timex3>();
-		while (timexIter1.hasNext()) {
-			Timex3 t1 = (Timex3) timexIter1.next();
-			FSIterator timexIter2 = jcas.getAnnotationIndex(Timex3.type).iterator();
-
-			while (timexIter2.hasNext()) {
-				Timex3 t2 = (Timex3) timexIter2.next();
+		for(Timex3 t1 : timexes) {
+			for (Timex3 t2 : timexes) {
 				if (((t1.getBegin() >= t2.getBegin()) && (t1.getEnd() < t2.getEnd())) ||     // t1 starts inside or with t2 and ends before t2 -> remove t1
 						((t1.getBegin() > t2.getBegin()) && (t1.getEnd() <= t2.getEnd()))) { // t1 starts inside t2 and ends with or before t2 -> remove t1
 					hsTimexesToRemove.add(t1);
@@ -1957,7 +1948,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		}
 		// remove, finally
 		for (Timex3 t : hsTimexesToRemove) {
-			Logger.printDetail("REMOVE DUPLICATE: " + t.getCoveredText()+"(id:"+t.getTimexId()+" value:"+t.getTimexValue()+" found by:"+t.getFoundByRule()+")");
+			if (LOG.isDebugEnabled())
+				LOG.debug("REMOVE DUPLICATE: " + t.getCoveredText()+"(id:"+t.getTimexId()+" value:"+t.getTimexValue()+" found by:"+t.getFoundByRule()+")");
 			
 			t.removeFromIndexes();
 			timex_counter--;
@@ -1965,21 +1957,17 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	}
 	
 	private void deleteOverlappedTimexesPostprocessing(JCas jcas) {
-		FSIterator timexIter = jcas.getAnnotationIndex(Timex3.type).iterator();
-		FSIterator innerTimexIter = timexIter.copy();
+		AnnotationIndex<Timex3> timexes = jcas.getAnnotationIndex(Timex3.type);
 		HashSet<ArrayList<Timex3>> effectivelyToInspect = new HashSet<ArrayList<Timex3>>();
 		ArrayList<Timex3> allTimexesToInspect = new ArrayList<Timex3>();
-		while(timexIter.hasNext()) {
-			Timex3 myTimex = (Timex3) timexIter.next();
-			
+		for(Timex3 myTimex : timexes) {
 			ArrayList<Timex3> timexSet = new ArrayList<Timex3>();
 			if (!(myTimex.getTimexType().equals("TEMPONYM"))) {
 				timexSet.add(myTimex);
 			}
 			
 			// compare this timex to all other timexes and mark those that have an overlap
-			while(innerTimexIter.hasNext()) {
-				Timex3 myInnerTimex = (Timex3) innerTimexIter.next();
+			for(Timex3 myInnerTimex : timexes) {
 				if (!(myTimex.getTimexType().equals("TEMPONYM"))) {
 					if((myTimex.getBegin() <= myInnerTimex.getBegin() && myTimex.getEnd() > myInnerTimex.getBegin()) || // timex1 starts, timex2 is partial overlap
 					   (myInnerTimex.getBegin() <= myTimex.getBegin() && myInnerTimex.getEnd() > myTimex.getBegin()) || // same as above, but in reverse
@@ -1996,9 +1984,6 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			// if overlaps with myTimex were detected, memorize them
 			if(timexSet.size() > 1)
 				effectivelyToInspect.add(timexSet);
-			
-			// reset the inner iterator
-			innerTimexIter.moveToFirst();
 		}
 		
 		/* prune those sets of overlapping timexes that are subsets of others 
@@ -2043,7 +2028,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			 * - which one in the set has the longest value attribute string length,
 			 * - what the combined extents are
 			 */
-			Boolean allSameTypes = true;
+			boolean allSameTypes = true;
 			String timexType = null;
 			Timex3 longestTimex = null;
 			Integer combinedBegin = Integer.MAX_VALUE, combinedEnd = Integer.MIN_VALUE;
@@ -2057,7 +2042,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						allSameTypes = false;
 					}
 				}
-				Logger.printDetail("Are these overlapping timexes of same type? => " + allSameTypes);
+				if (LOG.isDebugEnabled())
+					LOG.debug("Are these overlapping timexes of same type? => " + allSameTypes);
 				
 				// check timex value attribute string length
 				if(longestTimex == null) {
@@ -2072,7 +2058,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				} else if(longestTimex.getTimexValue().length() < t.getTimexValue().length()) {
 					longestTimex = t;
 				}
-				Logger.printDetail("Selected " + longestTimex.getTimexId() + ": " + longestTimex.getCoveredText() + 
+				if (LOG.isDebugEnabled())
+					LOG.debug("Selected " + longestTimex.getTimexId() + ": " + longestTimex.getCoveredText() + 
 						"[" + longestTimex.getTimexValue() + "] as the longest-valued timex.");
 				
 				// check combined beginning/end
@@ -2080,7 +2067,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					combinedBegin = t.getBegin();
 				if(combinedEnd < t.getEnd())
 					combinedEnd = t.getEnd();
-				Logger.printDetail("Selected combined constraints: " + combinedBegin + ":" + combinedEnd);
+				if (LOG.isDebugEnabled())
+					LOG.debug("Selected combined constraints: " + combinedBegin + ":" + combinedEnd);
 				
 				// disassemble and remember the token ids
 				String[] tokenizedTokenIds = t.getAllTokIds().split("<-->");
@@ -2129,9 +2117,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	public String getPosFromMatchResult(int tokBegin, int tokEnd, Sentence s, JCas jcas) {
 		// get all tokens in sentence
 		HashMap<Integer, Token> hmTokens = new HashMap<Integer, Token>();
-		FSIterator iterTok = jcas.getAnnotationIndex(Token.type).subiterator(s);
-		while (iterTok.hasNext()) {
-			Token token = (Token) iterTok.next();
+		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
+		for (FSIterator<Token> iterTok = tokens.subiterator(s); iterTok.hasNext(); ) {
+			Token token = iterTok.next();
 			hmTokens.put(token.getBegin(), token);
 		}
 		// get correct token
@@ -2173,7 +2161,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		HashMap<String, Pattern> hmSetFastCheck = rm.getHmSetFastCheck();
 		HashMap<String, Pattern> hmTemponymFastCheck = rm.getHmTemponymFastCheck();
 		Pattern f = null;
-		Boolean fastCheckOK = true;
+		boolean fastCheckOK = true;
 		
 		// Iterator over the rules by sorted by the name of the rules
 		// this is important since later, the timexId will be used to 
@@ -2276,7 +2264,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 							}
 						}
 						else {
-							Logger.printError("SOMETHING REALLY WRONG HERE: "+hmPattern.get(p));
+							if (LOG.isDebugEnabled())
+								LOG.debug("SOMETHING REALLY WRONG HERE: "+hmPattern.get(p));
 						}
 					}
 				}
@@ -2303,7 +2292,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			String pos = mr.group(2);
 			String pos_as_is = getPosFromMatchResult(tokenBegin, tokenEnd ,s, jcas);
 			if (pos_as_is.matches(pos)) {
-				Logger.printDetail("POS CONSTRAINT IS VALID: pos should be "+pos+" and is "+pos_as_is);
+				if (LOG.isDebugEnabled())
+					LOG.debug("POS CONSTRAINT IS VALID: pos should be "+pos+" and is "+pos_as_is);
 			} else {
 				return false;
 			}
@@ -2323,23 +2313,23 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		while ((tonormalize.contains("%")) || (tonormalize.contains("group"))) {
 			// replace normalization functions
 			for (MatchResult mr : Toolbox.findMatches(paNorm,tonormalize)) {
-				Logger.printDetail("-----------------------------------");
-				Logger.printDetail("DEBUGGING: tonormalize:"+tonormalize);
-				Logger.printDetail("DEBUGGING: mr.group():"+mr.group());
-				Logger.printDetail("DEBUGGING: mr.group(1):"+mr.group(1));
-				Logger.printDetail("DEBUGGING: mr.group(2):"+mr.group(2));
-				Logger.printDetail("DEBUGGING: m.group():"+m.group());
-				Logger.printDetail("DEBUGGING: m.group("+Integer.parseInt(mr.group(2))+"):"+m.group(Integer.parseInt(mr.group(2))));
-				Logger.printDetail("DEBUGGING: hmR...:"+norm.getFromHmAllNormalization(mr.group(1)).get(m.group(Integer.parseInt(mr.group(2)))));
-				Logger.printDetail("-----------------------------------");
+				if (LOG.isDebugEnabled()) {
+					LOG.debug("tonormalize:"+tonormalize);
+					LOG.debug("mr.group():"+mr.group());
+					LOG.debug("mr.group(1):"+mr.group(1));
+					LOG.debug("mr.group(2):"+mr.group(2));
+					LOG.debug("m.group():"+m.group());
+					LOG.debug("m.group("+Integer.parseInt(mr.group(2))+"):"+m.group(Integer.parseInt(mr.group(2))));
+					LOG.debug("hmR...:"+norm.getFromHmAllNormalization(mr.group(1)).get(m.group(Integer.parseInt(mr.group(2)))));
+				}
 				
 				if (! (m.group(Integer.parseInt(mr.group(2))) == null)) {
 					String partToReplace = m.group(Integer.parseInt(mr.group(2))).replaceAll("[\n\\s]+", " ");
 					if (!(norm.getFromHmAllNormalization(mr.group(1)).containsKey(partToReplace))) {
-						Logger.printDetail("Maybe problem with normalization of the resource: "+mr.group(1));
-						Logger.printDetail("Maybe problem with part to replace? "+partToReplace);
+						LOG.debug("Maybe problem with normalization of the resource: {}", mr.group(1));
+						LOG.debug("Maybe problem with part to replace? {}", partToReplace);
 						if (mr.group(1).contains("Temponym")){
-							Logger.printDetail("Should be ok, as it's a temponym.");
+							LOG.debug("Should be ok, as it's a temponym.");
 							return null;
 						}
 					}
@@ -2347,20 +2337,20 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						tonormalize = tonormalize.replace(mr.group(), norm.getFromHmAllNormalization(mr.group(1)).get(partToReplace));
 					}
 				} else {
-					Logger.printDetail("Empty part to normalize in "+mr.group(1));
+					LOG.debug("Empty part to normalize in {}", mr.group(1));
 					
 					tonormalize = tonormalize.replace(mr.group(), "");
 				}
 			}
 			// replace other groups
 			for (MatchResult mr : Toolbox.findMatches(paGroup,tonormalize)) {
-				Logger.printDetail("-----------------------------------");
-				Logger.printDetail("DEBUGGING: tonormalize:"+tonormalize);
-				Logger.printDetail("DEBUGGING: mr.group():"+mr.group());
-				Logger.printDetail("DEBUGGING: mr.group(1):"+mr.group(1));
-				Logger.printDetail("DEBUGGING: m.group():"+m.group());
-				Logger.printDetail("DEBUGGING: m.group("+Integer.parseInt(mr.group(1))+"):"+m.group(Integer.parseInt(mr.group(1))));
-				Logger.printDetail("-----------------------------------");
+				if (LOG.isDebugEnabled()) {
+					LOG.debug("tonormalize:"+tonormalize);
+					LOG.debug("mr.group():"+mr.group());
+					LOG.debug("mr.group(1):"+mr.group(1));
+					LOG.debug("m.group():"+m.group());
+					LOG.debug("m.group("+Integer.parseInt(mr.group(1))+"):"+m.group(Integer.parseInt(mr.group(1))));
+			    }
 				
 				tonormalize = tonormalize.replace(mr.group(), m.group(Integer.parseInt(mr.group(1))));
 			}	
@@ -2370,8 +2360,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				String substring = mr.group(1).substring(Integer.parseInt(mr.group(2)), Integer.parseInt(mr.group(3)));
 				tonormalize = tonormalize.replace(mr.group(),substring);
 			}
-			if(language.getName().compareTo("arabic") != 0)
-			{		
+			if(language.getName().compareTo("arabic") != 0)	{		
 				// replace lowercase
 				Pattern paLowercase = Pattern.compile("%LOWERCASE%\\((.*?)\\)");
 				for (MatchResult mr : Toolbox.findMatches(paLowercase,tonormalize)) {
@@ -2417,8 +2406,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					if(chineseNumerals.containsKey(thisChar)){
 						outString += chineseNumerals.get(thisChar);
 					} else {
-						System.out.println(chineseNumerals.entrySet());
-						Logger.printError(component, "Found an error in the resources: " + mr.group(1) + " contains " +
+						// System.out.println(chineseNumerals.entrySet());
+						LOG.error("Found an error in the resources: " + mr.group(1) + " contains " +
 								"a character that is not defined in the Chinese numerals map. Normalization may be mangled.");
 						outString += thisChar;
 					}
@@ -2505,7 +2494,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						value = "P"+days+"D";
 					}
 				} catch(NumberFormatException e) {
-					Logger.printDetail(component, "Couldn't do granularity conversion for " + value);
+					LOG.debug("Couldn't do granularity conversion for {}", value);
 				}
 			}
 		} else if (value.matches("PT[0-9]+M")){
@@ -2517,7 +2506,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						value = "PT"+hours+"H";
 					}
 				} catch(NumberFormatException e) {
-					Logger.printDetail(component, "Couldn't do granularity conversion for " + value);
+					LOG.debug("Couldn't do granularity conversion for {}", value);
 				}
 			}
 		} else if (value.matches("P[0-9]+M")){
@@ -2529,7 +2518,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						value = "P"+years+"Y";
 					}
 				} catch(NumberFormatException e) {
-					Logger.printDetail(component, "Couldn't do granularity conversion for " + value);
+					LOG.debug("Couldn't do granularity conversion for {}", value);
 				}
 			}
 		}
@@ -2543,24 +2532,19 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 * @param jcas
 	 * @return Whether or not the given jcas contains a valid DCT
 	 */
-	private Boolean isValidDCT(JCas jcas) {
-		FSIterator dctIter = jcas.getAnnotationIndex(Dct.type).iterator();
+	private boolean isValidDCT(JCas jcas) {
+		AnnotationIndex<Dct> dcts = jcas.getAnnotationIndex(Dct.type);
+		FSIterator<Dct> dctIter = dcts.iterator();
 		
 		if(!dctIter.hasNext()) {
 			return true;
-		} else {
-			Dct dct = (Dct) dctIter.next();
-			String dctVal = dct.getValue();
-			
-			if(dctVal == null)
-				return false;
-			
-			if(dctVal.matches("\\d{8}") // Something like 20041224
-					|| dctVal.matches("\\d{4}.\\d{2}.\\d{2}.*")) { // Something like 2004-12-24
-				return true;
-			} else {
-				return false;
-			}
 		}
+		String dctVal = dctIter.next().getValue();
+			
+		if(dctVal == null)
+			return false;
+			
+		return dctVal.matches("\\d{8}") // Something like 20041224
+				|| dctVal.matches("\\d{4}.\\d{2}.\\d{2}.*"); // Something like 2004-12-24
 	}
 }
