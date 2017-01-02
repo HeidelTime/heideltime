@@ -99,6 +99,10 @@ public enum Language {
 		return this.resourceFolder;
 	}
 	
+	public final boolean useLowercase() {
+		return this != ARABIC;
+	}
+	
 	@Override
 	public String toString() {
 		return getName();

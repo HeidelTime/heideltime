@@ -241,26 +241,28 @@ public class RuleManager extends GenericResourceManager {
 						// ///////////////////////////////////
 						Pattern patternFast = null;
 						if (!(r.group(4) == null)) {
-							for (MatchResult ro : Toolbox.findMatches(paAdditional, line)) {
-								if (ro.group(1).equals("OFFSET")) {
+							Matcher ro = paAdditional.matcher(line);
+							while(ro.find()) {
+								String rulename = ro.group(1);
+								if (rulename.equals("OFFSET")) {
 									rule_offset = ro.group(2);
 								}
-								else if (ro.group(1).equals("NORM_QUANT")) {
+								else if (rulename.equals("NORM_QUANT")) {
 									rule_quant = ro.group(2);
 								}
-								else if (ro.group(1).equals("NORM_FREQ")) {
+								else if (rulename.equals("NORM_FREQ")) {
 									rule_freq = ro.group(2);
 								}
-								else if (ro.group(1).equals("NORM_MOD")) {
+								else if (rulename.equals("NORM_MOD")) {
 									rule_mod = ro.group(2);
 								}
-								else if (ro.group(1).equals("POS_CONSTRAINT")) {
+								else if (rulename.equals("POS_CONSTRAINT")) {
 									pos_constraint = ro.group(2);
 								}
-								else if (ro.group(1).equals("EMPTY_VALUE")) {
+								else if (rulename.equals("EMPTY_VALUE")) {
 									rule_empty_value = ro.group(2);
 								}
-								else if (ro.group(1).equals("FAST_CHECK")) {
+								else if (rulename.equals("FAST_CHECK")) {
 									rule_fast_check = ro.group(2);
 									// create pattern for rule fast check part -- similar to extraction part
 									// thus using paVariable and rpm

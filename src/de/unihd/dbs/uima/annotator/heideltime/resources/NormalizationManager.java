@@ -80,12 +80,12 @@ public class NormalizationManager extends GenericResourceManager {
 	 * @return singleton instance of NormalizationManager
 	 */
 	public static NormalizationManager getInstance(Language language, Boolean load_temponym_resources) {
-		if(!instances.containsKey(language.getName())) {
-			NormalizationManager nm = new NormalizationManager(language.getResourceFolder(), load_temponym_resources);
+		NormalizationManager nm = instances.get(language.getName());
+		if(nm == null) {
+			nm = new NormalizationManager(language.getResourceFolder(), load_temponym_resources);
 			instances.put(language.getName(), nm);
 		}
-		
-		return instances.get(language.getName());
+		return nm;
 	}
 	
 	/**

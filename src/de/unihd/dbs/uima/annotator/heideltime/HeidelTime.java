@@ -41,6 +41,8 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RuleManager;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.DateCalculator;
+import de.unihd.dbs.uima.annotator.heideltime.utilities.DurationSimplification;
+import de.unihd.dbs.uima.annotator.heideltime.utilities.ChineseNumbers;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.ContextAnalyzer;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.LocaleException;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
@@ -151,7 +153,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					localesString.append(l.toString()).append(' ');
 				}
 				LOG.error(localesString.toString());
-				System.exit(-1);
+				System.exit(1);
 			}
 		}
 
@@ -242,12 +244,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 		for (Sentence s : sentences) {
 			try {
-				if (find_dates) {
+				if (find_dates)
 					findTimexes("DATE", rulem.getHmDatePattern(), rulem.getHmDateOffset(), rulem.getHmDateNormalization(), s, jcas);
-				}
-				if (find_times) {
+				if (find_times)
 					findTimexes("TIME", rulem.getHmTimePattern(), rulem.getHmTimeOffset(), rulem.getHmTimeNormalization(), s, jcas);
-				}
 
 				/*
 				 * check for historic dates/times starting with BC to check if post-processing step is required
@@ -262,15 +262,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					}
 				}
 
-				if (find_sets) {
+				if (find_sets)
 					findTimexes("SET", rulem.getHmSetPattern(), rulem.getHmSetOffset(), rulem.getHmSetNormalization(), s, jcas);
-				}
-				if (find_durations) {
+				if (find_durations)
 					findTimexes("DURATION", rulem.getHmDurationPattern(), rulem.getHmDurationOffset(), rulem.getHmDurationNormalization(), s, jcas);
-				}
-				if (find_temponyms) {
+				if (find_temponyms)
 					findTimexes("TEMPONYM", rulem.getHmTemponymPattern(), rulem.getHmTemponymOffset(), rulem.getHmTemponymNormalization(), s, jcas);
-				}
 			} catch (NullPointerException npe) {
 				LOG.error("HeidelTime's execution has been interrupted by an exception that " + "is likely rooted in faulty normalization resource files. "
 						+ "Please consider opening an issue report containing the following "
@@ -305,9 +302,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				LOG.error("Something went wrong disambiguating historic dates.", e);
 			}
 
-		if (find_temponyms) {
+		if (find_temponyms)
 			TemponymPostprocessing.handleIntervals(jcas);
-		}
 
 		/*
 		 * kick out the rest of the overlapping expressions
@@ -357,33 +353,30 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			Token tok = iterToken.next();
 			if (tok.getBegin() <= begin && tok.getEnd() > begin) {
 				annotation.setFirstTokId(tok.getTokenId());
+				allTokIds.setLength(0);
 				allTokIds.append("BEGIN<-->").append(tok.getTokenId());
 			}
-			if ((tok.getBegin() > begin) && (tok.getEnd() <= end)) {
+			if ((tok.getBegin() > begin) && (tok.getEnd() <= end))
 				allTokIds.append("<-->").append(tok.getTokenId());
-			}
 		}
 		annotation.setAllTokIds(allTokIds.toString());
 		annotation.setTimexType(timexType);
 		annotation.setTimexValue(timexValue);
 		annotation.setTimexId(timexId);
 		annotation.setFoundByRule(foundByRule);
-		if ((timexType.equals("DATE")) || (timexType.equals("TIME"))) {
-			if ((timexValue.startsWith("X")) || (timexValue.startsWith("UNDEF"))) {
+		if (timexType.equals("DATE") || timexType.equals("TIME")) {
+			if (timexValue.startsWith("X") || timexValue.startsWith("UNDEF")) {
 				annotation.setFoundByRule(foundByRule + "-relative");
 			} else {
 				annotation.setFoundByRule(foundByRule + "-explicit");
 			}
 		}
-		if (!(timexQuant == null)) {
+		if (timexQuant != null)
 			annotation.setTimexQuant(timexQuant);
-		}
-		if (!(timexFreq == null)) {
+		if (timexFreq != null)
 			annotation.setTimexFreq(timexFreq);
-		}
-		if (!(timexMod == null)) {
+		if (timexMod != null)
 			annotation.setTimexMod(timexMod);
-		}
 		annotation.addToIndexes();
 		this.timex_counter++;
 
@@ -2108,9 +2101,19 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			Pattern f = fastCheck.get(key);
 			if (f != null && !f.matcher(coveredText).find())
 				continue;
-			
-			long begin = PROFILE_REGEXP ? System.nanoTime() : 0;
-			for (Matcher m = e.getKey().matcher(coveredText); m.find();) {
+
+			long dur = 0;
+			Matcher m = e.getKey().matcher(coveredText);
+			while (true) {
+				boolean found;
+				if (PROFILE_REGEXP) {
+					long begin = PROFILE_REGEXP ? System.nanoTime() : 0;
+					found = m.find();
+					dur += System.nanoTime() - begin;
+				} else
+					found = m.find();
+				if (!found)
+					break;
 				// improved token boundary checking
 				// FIXME: these seem to be flawed
 				boolean infrontBehindOK = ContextAnalyzer.checkTokenBoundaries(m, s, jcas) && ContextAnalyzer.checkInfrontBehind(m, s);
@@ -2162,10 +2165,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				}
 			}
 			if (PROFILE_REGEXP) {
-				long duration = System.nanoTime() - begin;
 				// Do not enable this by default, because this wastes memory and CPU:
 				Long old = profileData.get(e.getValue());
-				profileData.put(e.getValue(), duration + (old != null ? (long) old : 0L));
+				profileData.put(e.getValue(), dur + (old != null ? (long) old : 0L));
 			}
 		}
 	}
@@ -2177,9 +2179,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		if (!PROFILE_REGEXP)
 			return;
 		long sum = 0;
-		for (Long v : profileData.values()) {
+		for (Long v : profileData.values())
 			sum += v;
-		}
 		double avg = sum / (double) profileData.size();
 
 		StringBuilder buf = new StringBuilder();
@@ -2206,7 +2207,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 * @return
 	 */
 	public boolean checkPosConstraint(Sentence s, String posConstraint, MatchResult m, JCas jcas) {
-		for (MatchResult mr : Toolbox.findMatches(paConstraint, posConstraint)) {
+		Matcher mr = paConstraint.matcher(posConstraint);
+		while(mr.find()) {
 			int groupNumber = Integer.parseInt(mr.group(1));
 			int tokenBegin = s.getBegin() + m.start(groupNumber);
 			int tokenEnd = s.getBegin() + m.end(groupNumber);
@@ -2219,206 +2221,159 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		return true;
 	}
 
-	Pattern paNorm = Pattern.compile("%([A-Za-z0-9]+?)\\(group\\(([0-9]+)\\)\\)");
-	Pattern paGroup = Pattern.compile("group\\(([0-9]+)\\)");
-	Pattern paSubstring = Pattern.compile("%SUBSTRING%\\((.*?),([0-9]+),([0-9]+)\\)");
-	Pattern paLowercase = Pattern.compile("%LOWERCASE%\\((.*?)\\)");
-	Pattern paUppercase = Pattern.compile("%UPPERCASE%\\((.*?)\\)");
-	Pattern paSum = Pattern.compile("%SUM%\\((.*?),(.*?)\\)");
-	Pattern paNormNoGroup = Pattern.compile("%([A-Za-z0-9]+?)\\((.*?)\\)");
-	Pattern paChineseNorm = Pattern.compile("%CHINESENUMBERS%\\((.*?)\\)");
+	static Pattern paNorm = Pattern.compile("%([A-Za-z0-9]+?)\\(group\\(([0-9]+)\\)\\)");
+	static Pattern paGroup = Pattern.compile("group\\(([0-9]+)\\)");
+	static Pattern paSubstring = Pattern.compile("%SUBSTRING%\\((.*?),([0-9]+),([0-9]+)\\)");
+	static Pattern paLowercase = Pattern.compile("%LOWERCASE%\\((.*?)\\)");
+	static Pattern paUppercase = Pattern.compile("%UPPERCASE%\\((.*?)\\)");
+	static Pattern paSum = Pattern.compile("%SUM%\\((.*?),(.*?)\\)");
+	static Pattern paNormNoGroup = Pattern.compile("%([A-Za-z0-9]+?)\\((.*?)\\)");
+	static Pattern paChineseNorm = Pattern.compile("%CHINESENUMBERS%\\((.*?)\\)");
 
-	HashMap<String, String> chineseNumerals = new HashMap<String, String>();
-	{
-		chineseNumerals.put("零", "0");
-		chineseNumerals.put("一", "1");
-		chineseNumerals.put("二", "2");
-		chineseNumerals.put("三", "3");
-		chineseNumerals.put("四", "4");
-		chineseNumerals.put("五", "5");
-		chineseNumerals.put("六", "6");
-		chineseNumerals.put("七", "7");
-		chineseNumerals.put("八", "8");
-		chineseNumerals.put("九", "9");
-		// Unicode arabic-lookalikes (wide)
-		chineseNumerals.put("０", "0");
-		chineseNumerals.put("１", "1");
-		chineseNumerals.put("２", "2");
-		chineseNumerals.put("３", "3");
-		chineseNumerals.put("４", "4");
-		chineseNumerals.put("５", "5");
-		chineseNumerals.put("６", "6");
-		chineseNumerals.put("７", "7");
-		chineseNumerals.put("８", "8");
-		chineseNumerals.put("９", "9");
-		// Allow real arabic, too.
-		chineseNumerals.put("0", "0");
-		chineseNumerals.put("1", "1");
-		chineseNumerals.put("2", "2");
-		chineseNumerals.put("3", "3");
-		chineseNumerals.put("4", "4");
-		chineseNumerals.put("5", "5");
-		chineseNumerals.put("6", "6");
-		chineseNumerals.put("7", "7");
-		chineseNumerals.put("8", "8");
-		chineseNumerals.put("9", "9");
+	static Pattern WHITESPACE_NORM = Pattern.compile("[\n\\s]+");
+
+	public String applyRuleFunctions(String rule, String pattern, MatchResult m) {
+		NormalizationManager norm = NormalizationManager.getInstance(language, find_temponyms);
+		return applyRuleFunctions(rule, pattern, m, norm, language);
 	}
 
-	public String applyRuleFunctions(String rule, String tonormalize, MatchResult m) {
-		NormalizationManager norm = NormalizationManager.getInstance(language, find_temponyms);
-
-		String normalized = "";
+	public static String applyRuleFunctions(String rule, String pattern, MatchResult m,
+			NormalizationManager norm, Language language) {
+		StringBuilder tonormalize = new StringBuilder(pattern);
 		// pattern for normalization functions + group information
 		// pattern for group information
-		while (tonormalize.contains("%") || tonormalize.contains("group")) {
+		Matcher mr = paNorm.matcher(tonormalize);
+		while (tonormalize.indexOf("%") >= 0 || tonormalize.indexOf("group") >= 0) {
 			// replace normalization functions
-			Matcher mr = paNorm.matcher(tonormalize);
-			while (mr.find()) {
+			while (mr.find(0)) {
+				String normfunc = mr.group(1);
+				int groupid = Integer.parseInt(mr.group(2));
 				if (LOG.isDebugEnabled()) {
 					LOG.debug("rule:" + rule);
-					LOG.debug("tonormalize:" + tonormalize);
+					LOG.debug("tonormalize:" + tonormalize.toString());
 					LOG.debug("mr.group():" + mr.group());
-					LOG.debug("mr.group(1):" + mr.group(1));
+					LOG.debug("mr.group(1):" + normfunc);
 					LOG.debug("mr.group(2):" + mr.group(2));
 					LOG.debug("m.group():" + m.group());
-					LOG.debug("m.group(" + Integer.parseInt(mr.group(2)) + "):" + m.group(Integer.parseInt(mr.group(2))));
-					LOG.debug("hmR...:" + norm.getFromHmAllNormalization(mr.group(1)).get(m.group(Integer.parseInt(mr.group(2)))));
+					LOG.debug("m.group(" + groupid + "):" + m.group(groupid));
+					LOG.debug("hmR...:" + norm.getFromHmAllNormalization(normfunc).get(m.group(groupid)));
 				}
 
 				try {
-					if (m.group(Integer.parseInt(mr.group(2))) != null) {
-						String partToReplace = m.group(Integer.parseInt(mr.group(2))).replaceAll("[\n\\s]+", " ");
-						if (!(norm.getFromHmAllNormalization(mr.group(1)).containsKey(partToReplace))) {
-							LOG.debug("Maybe problem with normalization of the resource: {}\nMaybe problem with part to replace? {}", mr.group(1), partToReplace);
-							if (mr.group(1).contains("Temponym")) {
+					String value = m.group(groupid);
+					if (value != null) {
+						value = WHITESPACE_NORM.matcher(value).replaceAll(" ");
+						if (!norm.getFromHmAllNormalization(normfunc).containsKey(value)) {
+							LOG.debug("Maybe problem with normalization of the resource: {}\n" + //
+									"Maybe problem with part to replace? {}", normfunc, value);
+							if (normfunc.contains("Temponym")) {
 								LOG.debug("Should be ok, as it's a temponym.");
 								return null;
 							}
 						} else {
-							tonormalize = tonormalize.replace(mr.group(), norm.getFromHmAllNormalization(mr.group(1)).get(partToReplace));
+							value = norm.getFromHmAllNormalization(normfunc).get(value);
+							tonormalize.replace(mr.start(), mr.end(), value);
 						}
 					} else {
-						LOG.debug("Empty part to normalize in {}", mr.group(1));
-
-						tonormalize = tonormalize.replace(mr.group(), "");
+						// This is not unusual to happen
+						LOG.debug("Empty part to normalize in {}, rule {}", normfunc, rule);
+						tonormalize.delete(mr.start(), mr.end());
 					}
 				} catch (IndexOutOfBoundsException e) {
-					LOG.error("Invalid group reference in normalization pattern of rule: {}", rule);
-					System.exit(1);
+					LOG.error("Invalid group reference '{}' in normalization pattern of rule: {}", groupid, rule);
+					tonormalize.delete(mr.start(), mr.end());
 				}
 			}
 			// replace other groups
-			mr.usePattern(paGroup);
-			mr.reset(tonormalize);
-			while (mr.find()) {
-				if (LOG.isDebugEnabled()) {
-					LOG.debug("tonormalize:" + tonormalize);
-					LOG.debug("mr.group():" + mr.group());
-					LOG.debug("mr.group(1):" + mr.group(1));
-					LOG.debug("m.group():" + m.group());
-					LOG.debug("m.group(" + Integer.parseInt(mr.group(1)) + "):" + m.group(Integer.parseInt(mr.group(1))));
-				}
-
+			mr.usePattern(paGroup).reset(tonormalize);
+			while (mr.find(0)) {
+				int groupid = Integer.parseInt(mr.group(1));
 				try {
-					tonormalize = tonormalize.replace(mr.group(), m.group(Integer.parseInt(mr.group(1))));
+					if (LOG.isDebugEnabled()) {
+						LOG.debug("tonormalize:" + tonormalize);
+						LOG.debug("mr.group():" + mr.group());
+						LOG.debug("mr.group(1):" + mr.group(1));
+						LOG.debug("m.group():" + m.group());
+						LOG.debug("m.group(" + Integer.parseInt(mr.group(1)) + "):" + m.group(groupid));
+					}
+
+					tonormalize.replace(mr.start(), mr.end(), m.group(groupid));
 				} catch (IndexOutOfBoundsException e) {
-					LOG.error("Invalid group reference in normalization pattern of rule: {}", rule);
-					System.exit(1);
+					LOG.error("Invalid group reference '{}' in normalization pattern of rule: {}", groupid, rule);
+					tonormalize.delete(mr.start(), mr.end());
 				}
 			}
 			// replace substrings
 			mr.usePattern(paSubstring).reset(tonormalize);
-			while (mr.find()) {
+			while (mr.find(0)) {
 				String substring = mr.group(1).substring(Integer.parseInt(mr.group(2)), Integer.parseInt(mr.group(3)));
-				tonormalize = tonormalize.replace(mr.group(), substring);
+				tonormalize.replace(mr.start(), mr.end(), substring);
 			}
-			if (language.getName().compareTo("arabic") != 0) {
+			if (language.useLowercase()) {
 				// replace lowercase
 				mr.usePattern(paLowercase).reset(tonormalize);
-				while (mr.find()) {
+				while (mr.find(0)) {
 					String substring = mr.group(1).toLowerCase();
-					tonormalize = tonormalize.replace(mr.group(), substring);
+					tonormalize.replace(mr.start(), mr.end(), substring);
 				}
 
 				// replace uppercase
 				mr.usePattern(paUppercase).reset(tonormalize);
-				while (mr.find()) {
+				while (mr.find(0)) {
 					String substring = mr.group(1).toUpperCase();
-					tonormalize = tonormalize.replace(mr.group(), substring);
+					tonormalize.replace(mr.start(), mr.end(), substring);
 				}
 			}
 			// replace sum, concatenation
 			mr.usePattern(paSum).reset(tonormalize);
-			while (mr.find()) {
+			while (mr.find(0)) {
 				int newValue = Integer.parseInt(mr.group(1)) + Integer.parseInt(mr.group(2));
-				tonormalize = tonormalize.replace(mr.group(), Integer.toString(newValue));
+				tonormalize.replace(mr.start(), mr.end(), Integer.toString(newValue));
 			}
 			// replace normalization function without group
 			mr.usePattern(paNormNoGroup).reset(tonormalize);
-			while (mr.find()) {
-				tonormalize = tonormalize.replace(mr.group(), norm.getFromHmAllNormalization(mr.group(1)).get(mr.group(2)));
+			while (mr.find(0)) {
+				tonormalize.replace(mr.start(), mr.end(), norm.getFromHmAllNormalization(mr.group(1)).get(mr.group(2)));
 			}
 			// replace Chinese with Arabic numerals
 			mr.usePattern(paChineseNorm).reset(tonormalize);
-			while (mr.find()) {
-				String outString = "";
-				for (int i = 0; i < mr.group(1).length(); i++) {
-					String thisChar = mr.group(1).substring(i, i + 1);
-					if (chineseNumerals.containsKey(thisChar)) {
-						outString += chineseNumerals.get(thisChar);
-					} else {
-						// System.out.println(chineseNumerals.entrySet());
-						LOG.error("Found an error in the resources: " + mr.group(1) + " contains "
-								+ "a character that is not defined in the Chinese numerals map. Normalization may be mangled.");
-						outString += thisChar;
-					}
-				}
-				tonormalize = tonormalize.replace(mr.group(), outString);
+			while (mr.find(0)) {
+				String outString = ChineseNumbers.normalize(mr.group(1));
+				tonormalize.replace(mr.start(), mr.end(), outString);
 			}
 		}
-		normalized = tonormalize;
-		return normalized;
+		return tonormalize.toString();
 	}
-
+	
 	public String[] getAttributesForTimexFromFile(String rule, HashMap<String, String> hmNormalization, HashMap<String, String> hmQuant, HashMap<String, String> hmFreq,
 			HashMap<String, String> hmMod, HashMap<String, String> hmEmptyValue, MatchResult m, JCas jcas) {
 		String[] attributes = new String[5];
-		String value = "";
-		String quant = "";
-		String freq = "";
-		String mod = "";
-		String emptyValue = "";
 
 		// Normalize Value
 		String value_normalization_pattern = hmNormalization.get(rule);
-		value = applyRuleFunctions(rule, value_normalization_pattern, m);
+		String value = applyRuleFunctions(rule, value_normalization_pattern, m);
 		if (value == null)
 			return null;
 
 		// get quant
 		String quant_normalization_pattern = hmQuant.get(rule);
-		if (quant_normalization_pattern != null)
-			quant = applyRuleFunctions(rule, quant_normalization_pattern, m);
+		String quant = (quant_normalization_pattern != null) ? applyRuleFunctions(rule, quant_normalization_pattern, m) : "";
 
 		// get freq
 		String freq_normalization_pattern = hmFreq.get(rule);
-		if (freq_normalization_pattern != null)
-			freq = applyRuleFunctions(rule, freq_normalization_pattern, m);
+		String freq = (freq_normalization_pattern != null) ? applyRuleFunctions(rule, freq_normalization_pattern, m) : "";
 
 		// get mod
 		String mod_normalization_pattern = hmMod.get(rule);
-		if (mod_normalization_pattern != null)
-			mod = applyRuleFunctions(rule, mod_normalization_pattern, m);
+		String mod = (mod_normalization_pattern != null) ? applyRuleFunctions(rule, mod_normalization_pattern, m) : "";
 
 		// get emptyValue
 		String emptyValue_normalization_pattern = hmEmptyValue.get(rule);
-		if (emptyValue_normalization_pattern != null) {
-			emptyValue = applyRuleFunctions(rule, emptyValue_normalization_pattern, m);
-			emptyValue = correctDurationValue(emptyValue);
-		}
+		String emptyValue = (emptyValue_normalization_pattern != null) ? //
+				DurationSimplification.simplify(applyRuleFunctions(rule, emptyValue_normalization_pattern, m)) : "";
 		// For example "PT24H" -> "P1D"
 		if (group_gran)
-			value = correctDurationValue(value);
+			value = DurationSimplification.simplify(value);
 
 		attributes[0] = value;
 		attributes[1] = quant;
@@ -2428,37 +2383,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 		return attributes;
 	}
-
-	private static final Pattern SIMPLIFY_DURATION = Pattern.compile("(PT?)(\\d+)([HM])");
-
-	/**
-	 * Durations of a finer granularity are mapped to a coarser one if possible, e.g., "PT24H" -> "P1D". One may add several further corrections.
-	 * 
-	 * @param value
-	 * @return
-	 */
-	public static String correctDurationValue(String value) {
-		Matcher m = SIMPLIFY_DURATION.matcher(value);
-		if (m.matches()) {
-			int ival = Integer.parseInt(m.group(2));
-			if (m.group(1).equals("PT")) {
-				// x*24 hours to x days
-				if (m.group(3).equals("H") && (ival % 24 == 0))
-					return String.format(Locale.ROOT, "P%dD", ival / 24);
-				// x*60 minutes to x days
-				if (m.group(3).equals("M") && (ival % 60 == 0))
-					return String.format(Locale.ROOT, "PT%dH", ival / 60);
-				// TODO: also do 24*60 min to days?
-			} else if (m.group(1).equals("P")) {
-				// x*12 months to years
-				if (m.group(3).equals("M") && (ival % 12 == 0))
-					return String.format(Locale.ROOT, "P%dY", ival / 12);
-
-			}
-		}
-		return value;
-	}
-
+	
 	private static final Pattern VALID_DCT = Pattern.compile("\\d{4}.\\d{2}.\\d{2}|\\d{8}");
 
 	/**
@@ -2467,18 +2392,16 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 * @param jcas
 	 * @return Whether or not the given jcas contains a valid DCT
 	 */
-	private boolean isValidDCT(JCas jcas) {
+	private static boolean isValidDCT(JCas jcas) {
 		AnnotationIndex<Dct> dcts = jcas.getAnnotationIndex(Dct.type);
 		FSIterator<Dct> dctIter = dcts.iterator();
 
 		if (!dctIter.hasNext())
 			return true;
 		String dctVal = dctIter.next().getValue();
-
 		if (dctVal == null)
 			return false;
-
-		return VALID_DCT.matcher(dctVal).matches();// Something like 20041224 or
-							   // 2004-12-24
+		// Something like 20041224 or 2004-12-24
+		return VALID_DCT.matcher(dctVal).matches();
 	}
 }
