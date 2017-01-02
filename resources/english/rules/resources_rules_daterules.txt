@@ -146,7 +146,7 @@ RULENAME="date_r2e",EXTRACTION="(%reDayWordTh|%reDayNumberTh|%reDayNumber[\.]?)%
 // EXAMPLE r2a2_1: January 19th of that year
 // EXAMPLE r2b2_1: 19th of January of the same year
 RULENAME="date_r2a2",EXTRACTION="%reMonthLongShort (%reDayWordTh|%reDayNumberTh|%reDayNumber) of (?:that|the same) year",NORM_VALUE="UNDEF-REF-year-PLUS-0-%normMonth(group(1))-%normDay(group(2))"
-RULENAME="date_r2c2",EXTRACTION="(?:[Tt]he )?(%reDayWordTh|%reDayNumberTh|%reDayNumber) (?:of )?%reMonthLongShort of (?:that|the same) year",NORM_VALUE="UNDEF-REF-year-PLUS-0-%normMonth(group(6))-%normDay(group(1))"
+RULENAME="date_r2c2",EXTRACTION="(?:[Tt]he )?(%reDayWordTh|%reDayNumberTh|%reDayNumber) (?:of )?%reMonthLongShort of (?:that|the same) year",NORM_VALUE="UNDEF-REF-year-PLUS-0-%normMonth(group(5))-%normDay(group(1))"
 
 
 // date_r3
@@ -331,29 +331,29 @@ RULENAME="date_r18e",EXTRACTION="(?:[Tt]he |)%rePartWords ?%reThisNextLast %reSe
 // EXAMPLE r19c_1: about 20 years ago
 // EXAMPLE r19d_1: a month ago
 RULENAME="date_r19a",EXTRACTION="(?:%reApproximate )?(?:several|a couple of|some|a few|many) %reUnitFine(?: or so| or more|) (?:ago|earlier)",NORM_VALUE="PAST_REF"
-RULENAME="date_r19b",EXTRACTION="(%reApproximate )?%reNumWord12D %reUnitFine(?: or so| or more|) ago",NORM_VALUE="UNDEF-this-%normUnit(group(4))-MINUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="date_r19c",EXTRACTION="(%reApproximate )?(\d+) %reUnitFine(?: or so| or more)? ago",NORM_VALUE="UNDEF-this-%normUnit(group(4))-MINUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="date_r19d",EXTRACTION="(%reApproximate )?an? (week-ends?|weekends?|trading days?|days?|months?|weeks?|decades?|century|quarters?|centuries|years?)(?: or so| or more)? ago",NORM_VALUE="UNDEF-this-%normUnit(group(3))-MINUS-1",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="date_r19e",EXTRACTION="coming %reUnit",NORM_VALUE="FUTURE_REF"
+RULENAME="date_r19b",EXTRACTION="(%reApproximate )?%reNumWord12D %reUnitFine(?: or so| or more|) ago",NORM_VALUE="UNDEF-this-%normUnit(group(4))-MINUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\sago"
+RULENAME="date_r19c",EXTRACTION="(%reApproximate )?(\d+) %reUnitFine(?: or so| or more)? ago",NORM_VALUE="UNDEF-this-%normUnit(group(4))-MINUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\sago"
+RULENAME="date_r19d",EXTRACTION="(%reApproximate )?an? (week-ends?|weekends?|trading days?|days?|months?|weeks?|decades?|century|quarters?|centuries|years?)(?: or so| or more)? ago",NORM_VALUE="UNDEF-this-%normUnit(group(3))-MINUS-1",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\sago"
+RULENAME="date_r19e",EXTRACTION="coming %reUnit",NORM_VALUE="FUTURE_REF",FAST_CHECK="coming\s"
 
 // date_r20 (later)
 // EXAMPLE r20a_1: some days later
 // EXAMPLE r20b_1: about twenty days later
 // EXAMPLE r20c_1: about 20  days later
 // EXAMPLE r20d_1: a year later 
-RULENAME="date_r20a",EXTRACTION="(?:%reApproximate )?(?:several|a couple of|some|a few|many) %reUnitFine later",NORM_VALUE="FUTURE_REF"
-RULENAME="date_r20b",EXTRACTION="(%reApproximate )?%reNumWord12D %reUnitFine later",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="date_r20c",EXTRACTION="(%reApproximate )?(\d+) %reUnitFine later",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="date_r20d",EXTRACTION="(%reApproximate )?an? %reUnitFine later",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-1",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="date_r20e",EXTRACTION="recent %reUnit",NORM_VALUE="PAST_REF"
+RULENAME="date_r20a",EXTRACTION="(?:%reApproximate )?(?:several|a couple of|some|a few|many) %reUnitFine later",NORM_VALUE="FUTURE_REF",FAST_CHECK="\slater"
+RULENAME="date_r20b",EXTRACTION="(%reApproximate )?%reNumWord12D %reUnitFine later",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\slater"
+RULENAME="date_r20c",EXTRACTION="(%reApproximate )?(\d+) %reUnitFine later",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\slater"
+RULENAME="date_r20d",EXTRACTION="(%reApproximate )?an? %reUnitFine later",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-1",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\slater"
+RULENAME="date_r20e",EXTRACTION="recent %reUnit",NORM_VALUE="PAST_REF",FAST_CHECK="recent\s"
 
 // date_r21 (earlier)
 // EXAMPLE r21a_1: twenty days earlier
 // EXAMPLE r21b_1: about 20 days earlier
 // EXAMPLE r21c_1: a year earlier
-RULENAME="date_r21a",EXTRACTION="(%reApproximate )?%reNumWord12D %reUnitFine earlier",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-MINUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="date_r21b",EXTRACTION="(%reApproximate )?(\d+) %reUnitFine earlier",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-MINUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="date_r21c",EXTRACTION="(%reApproximate )?an? %reUnit earlier",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-1",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="date_r21a",EXTRACTION="(%reApproximate )?%reNumWord12D %reUnitFine earlier",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-MINUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\searlier"
+RULENAME="date_r21b",EXTRACTION="(%reApproximate )?(\d+) %reUnitFine earlier",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-MINUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\searlier"
+RULENAME="date_r21c",EXTRACTION="(%reApproximate )?an? %reUnit earlier",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-1",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\searlier"
 
 // date_r24 (ago/earlier/later normalizing with REFUNIT)
 // EXAMPLE r22a_1: a year ago

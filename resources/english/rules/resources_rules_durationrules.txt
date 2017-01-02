@@ -48,8 +48,8 @@ RULENAME="duration_r2cf",EXTRACTION="(%reApproximate )?[Tt]he %reThisNextLast (s
 // EXAMPLE r3b-1: a 300 year period
 // EXAMPLE r3c-1: a three-hour period
 // EXAMPLE r3d-1: a 300 hour period
-RULENAME="duration_r3ac",EXTRACTION="(?:[Aa]n? |[Tt]he |)%reNumWord12D[ -]%reUnitFine (?:period|term)",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(2))"
-RULENAME="duration_r3bd",EXTRACTION="(?:[Aa]n? |[Tt]he |)(\d+)[ -]%reUnitFine (?:period|term)",NORM_VALUE="Pgroup(1)%normUnit4Duration(group(2))"
+RULENAME="duration_r3ac",EXTRACTION="(?:[Aa]n? |[Tt]he |)%reNumWord12D[ -]%reUnitFine (?:period|term)",NORM_VALUE="P%normDurationNumber(group(1))%normUnit4Duration(group(2))",FAST_CHECK="\s(?:period|term)"
+RULENAME="duration_r3bd",EXTRACTION="(?:[Aa]n? |[Tt]he |)(\d+)[ -]%reUnitFine (?:period|term)",NORM_VALUE="Pgroup(1)%normUnit4Duration(group(2))",FAST_CHECK="\s(?:period|term)"
 // RULENAME="duration_r3c",EXTRACTION="(?:[Aa]n? |[Tt]he |)%reNumWord12D[ -](seconds?|minutes?|hours?) (?:period|term)",NORM_VALUE="PT%normDurationNumber(group(1))%normUnit4Duration(group(2))"
 // RULENAME="duration_r3d",EXTRACTION="(?:[Aa]n? |[Tt]he |)(\d+)[ -](seconds?|minutes?|hours?) (?:period|term)",NORM_VALUE="PTgroup(1)%normUnit4Duration(group(2))"
 
@@ -75,11 +75,11 @@ RULENAME="duration_r5d1",EXTRACTION="(\d+)(?: to | or | and |-)(\d+) %reUnitFine
 // EXAMPLE r1a_negative-1: about 200 years older
 // EXAMPLE r1b_negative-1: several days old
 // EXAMPLE r1c_negative-1: 59-year-old
-RULENAME="duration_r1a_negation",EXTRACTION="(?:%reApproximate |[Tt]he |)(?:%reNumWord12D|[\d]+) %reUnitFine (?:older|younger|old|young)",NORM_VALUE="REMOVE"
-RULENAME="duration_r1b_negation",EXTRACTION="(?:%reApproximate |[Tt]he |)(?:[Ss]everal|[Aa] couple of|[Ss]ome|[Mm]any|[Aa] few|[Rr]ecent|[Cc]oming) %reUnitFine (?:older|younger|old|young)",NORM_VALUE="REMOVE"
-RULENAME="duration_r1c_negation",EXTRACTION="(?:[Tt]he |)(?:%reNumWord12D|\d+)-%reUnitFine-(?:older|younger|old|young)",NORM_VALUE="REMOVE"
+RULENAME="duration_r1a_negation",EXTRACTION="(?:%reApproximate |[Tt]he |)(?:%reNumWord12D|[\d]+) %reUnitFine (?:older|younger|old|young)",NORM_VALUE="REMOVE",FAST_CHECK="old|young"
+RULENAME="duration_r1b_negation",EXTRACTION="(?:%reApproximate |[Tt]he |)(?:[Ss]everal|[Aa] couple of|[Ss]ome|[Mm]any|[Aa] few|[Rr]ecent|[Cc]oming) %reUnitFine (?:older|younger|old|young)",NORM_VALUE="REMOVE",FAST_CHECK="old|young"
+RULENAME="duration_r1c_negation",EXTRACTION="(?:[Tt]he |)(?:%reNumWord12D|\d+)-%reUnitFine-(?:older|younger|old|young)",NORM_VALUE="REMOVE",FAST_CHECK="old|young"
 RULENAME="duration_r1d_negation",EXTRACTION="(?:%reApproximate |)an? %reUnit-(?:\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(4):NN:"
 
 
 // NEW NEGATIVE RULES: 2015-03-18 (jannik)
-RULENAME="duration_r2a_negation",EXTRACTION="(?:%reApproximate )?(?:%reNumWord12D|a)[- ]quarters?",NORM_VALUE="REMOVE"
+RULENAME="duration_r2a_negation",EXTRACTION="(?:%reApproximate )?(?:%reNumWord12D|a)[- ]quarters?",NORM_VALUE="REMOVE",FAST_CHECK="quarter"
