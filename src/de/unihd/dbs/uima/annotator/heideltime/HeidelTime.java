@@ -58,7 +58,7 @@ import de.unihd.dbs.uima.types.heideltime.Token;
 public class HeidelTime extends JCasAnnotator_ImplBase {
 	/** Class logger */
 	private static final Logger LOG = LoggerFactory.getLogger(HeidelTime.class);
-	
+
 	private static final Pattern UNDEF_PATTERN = Pattern.compile("^(UNDEF-(this|REFUNIT|REF)-(.*?)-(MINUS|PLUS)-([0-9]+)).*");
 
 	private static final Pattern UNDEF_MONTH = Pattern
@@ -112,6 +112,11 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private boolean group_gran = true;
 	// FOR DEBUGGING PURPOSES (IF FALSE)
 	private boolean deleteOverlapping = true;
+
+	// To profile regular expression matching.
+	private static final boolean PROFILE_REGEXP = false;
+
+	private HashMap<String, Long> profileData = PROFILE_REGEXP ? new HashMap<String, Long>() : null;
 
 	/**
 	 * @see AnalysisComponent#initialize(UimaContext)
@@ -221,6 +226,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 		flagHistoricDates = false;
 
+		boolean documentTypeNarrative = typeToProcess.equals("narrative") || typeToProcess.equals("narratives");
+
 		////////////////////////////////////////////
 		// CHECK SENTENCE BY SENTENCE FOR TIMEXES //
 		////////////////////////////////////////////
@@ -245,7 +252,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				/*
 				 * check for historic dates/times starting with BC to check if post-processing step is required
 				 */
-				if (typeToProcess.equals("narrative") || typeToProcess.equals("narratives")) {
+				if (documentTypeNarrative) {
 					AnnotationIndex<Timex3> dates = jcas.getAnnotationIndex(Timex3.type);
 					for (Timex3 t : dates) {
 						if (t.getTimexValue().startsWith("BC")) {
@@ -417,7 +424,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			boolean change = false;
 			if (!(t_i.getFoundByRule().contains("-BCADhint"))) {
 				if (value_i.startsWith("0")) {
-					Integer offset = 1, counter = 1;
+					int offset = 1, counter = 1;
 					do {
 						if ((i == 1 || (i > 1 && !change)) && linearDates.get(i - offset).getTimexValue().startsWith("BC")) {
 							if (value_i.length() > 1) {
@@ -493,7 +500,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	}
 
 	@SuppressWarnings("unused")
-	public String specifyAmbiguousValuesString(String ambigString, Timex3 t_i, Integer i, List<Timex3> linearDates, JCas jcas) {
+	public String specifyAmbiguousValuesString(String ambigString, Timex3 t_i, int i, List<Timex3> linearDates, JCas jcas) {
 		NormalizationManager norm = NormalizationManager.getInstance(language, find_temponyms);
 
 		// //////////////////////////////////////
@@ -1828,13 +1835,13 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		for (Timex3 t1 : timexes) {
 			for (Timex3 t2 : timexes) {
 				if ( // t1 starts inside or with t2 and ends before t2 -> remove t1
-						((t1.getBegin() >= t2.getBegin()) && (t1.getEnd() < t2.getEnd())) ||
-						// t1 starts inside t2 and ends with or before t2 -> remove t1
+				((t1.getBegin() >= t2.getBegin()) && (t1.getEnd() < t2.getEnd())) ||
+				// t1 starts inside t2 and ends with or before t2 -> remove t1
 						((t1.getBegin() > t2.getBegin()) && (t1.getEnd() <= t2.getEnd()))) {
 					hsTimexesToRemove.add(t1);
 					// t2 starts inside or with t1 and ends before t1 -> remove t2
 				} else if (((t2.getBegin() >= t1.getBegin()) && (t2.getEnd() < t1.getEnd())) ||
-						// t2 starts inside t1 and ends with or before t1 -> remove t2
+				// t2 starts inside t1 and ends with or before t1 -> remove t2
 						((t2.getBegin() > t1.getBegin()) && (t2.getEnd() <= t1.getEnd()))) {
 					hsTimexesToRemove.add(t2);
 				}
@@ -1952,7 +1959,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			boolean allSameTypes = true;
 			String timexType = null;
 			Timex3 longestTimex = null;
-			Integer combinedBegin = Integer.MAX_VALUE, combinedEnd = Integer.MIN_VALUE;
+			int combinedBegin = Integer.MAX_VALUE, combinedEnd = Integer.MIN_VALUE;
 			ArrayList<Integer> tokenIds = new ArrayList<Integer>();
 			for (Timex3 t : tSet) {
 				// check whether the types are identical and either all
@@ -1994,7 +2001,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 				// disassemble and remember the token ids
 				String[] tokenizedTokenIds = t.getAllTokIds().split("<-->");
-				for (Integer i = 1; i < tokenizedTokenIds.length; i++) {
+				for (int i = 1; i < tokenizedTokenIds.length; i++) {
 					if (!tokenIds.contains(Integer.parseInt(tokenizedTokenIds[i]))) {
 						tokenIds.add(Integer.parseInt(tokenizedTokenIds[i]));
 					}
@@ -2089,6 +2096,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		} else {
 			LOG.warn("Unknown timex type {}", timexType);
 		}
+
 		// Iterator over the rules by sorted by the name of the rules
 		// this is important since later, the timexId will be used to
 		// decide which of two expressions shall be removed if both
@@ -2100,10 +2108,11 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			Pattern f = fastCheck.get(key);
 			if (f != null && !f.matcher(coveredText).find())
 				continue;
-
+			
+			long begin = PROFILE_REGEXP ? System.nanoTime() : 0;
 			for (Matcher m = e.getKey().matcher(coveredText); m.find();) {
 				// improved token boundary checking
-				// FIXME: these seem to be flawed 
+				// FIXME: these seem to be flawed
 				boolean infrontBehindOK = ContextAnalyzer.checkTokenBoundaries(m, s, jcas) && ContextAnalyzer.checkInfrontBehind(m, s);
 
 				// CHECK POS CONSTRAINTS
@@ -2152,7 +2161,37 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					}
 				}
 			}
+			if (PROFILE_REGEXP) {
+				long duration = System.nanoTime() - begin;
+				// Do not enable this by default, because this wastes memory and CPU:
+				Long old = profileData.get(e.getValue());
+				profileData.put(e.getValue(), duration + (old != null ? (long) old : 0L));
+			}
 		}
+	}
+
+	/**
+	 * Output profiling data, if enabled.
+	 */
+	public void logProfilingData() {
+		if (!PROFILE_REGEXP)
+			return;
+		long sum = 0;
+		for (Long v : profileData.values()) {
+			sum += v;
+		}
+		double avg = sum / (double) profileData.size();
+
+		StringBuilder buf = new StringBuilder();
+		buf.append("Profiling data:\n");
+		buf.append("Average: ").append(avg).append("\n");
+		buf.append("Rules with above average cost:\n");
+		for (Map.Entry<String, Long> ent : profileData.entrySet()) {
+			long v = ent.getValue();
+			if (v > 2 * avg)
+				buf.append(v).append('\t').append(ent.getKey()).append('\t').append(v / avg).append("\n");
+		}
+		LOG.warn(buf.toString());
 	}
 
 	Pattern paConstraint = Pattern.compile("group\\(([0-9]+)\\):(.*?):");
@@ -2225,16 +2264,18 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		chineseNumerals.put("9", "9");
 	}
 
-	public String applyRuleFunctions(String tonormalize, MatchResult m) {
+	public String applyRuleFunctions(String rule, String tonormalize, MatchResult m) {
 		NormalizationManager norm = NormalizationManager.getInstance(language, find_temponyms);
 
 		String normalized = "";
 		// pattern for normalization functions + group information
 		// pattern for group information
-		while ((tonormalize.contains("%")) || (tonormalize.contains("group"))) {
+		while (tonormalize.contains("%") || tonormalize.contains("group")) {
 			// replace normalization functions
-			for (MatchResult mr : Toolbox.findMatches(paNorm, tonormalize)) {
+			Matcher mr = paNorm.matcher(tonormalize);
+			while (mr.find()) {
 				if (LOG.isDebugEnabled()) {
+					LOG.debug("rule:" + rule);
 					LOG.debug("tonormalize:" + tonormalize);
 					LOG.debug("mr.group():" + mr.group());
 					LOG.debug("mr.group(1):" + mr.group(1));
@@ -2244,26 +2285,32 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					LOG.debug("hmR...:" + norm.getFromHmAllNormalization(mr.group(1)).get(m.group(Integer.parseInt(mr.group(2)))));
 				}
 
-				if (!(m.group(Integer.parseInt(mr.group(2))) == null)) {
-					String partToReplace = m.group(Integer.parseInt(mr.group(2))).replaceAll("[\n\\s]+", " ");
-					if (!(norm.getFromHmAllNormalization(mr.group(1)).containsKey(partToReplace))) {
-						LOG.debug("Maybe problem with normalization of the resource: {}", mr.group(1));
-						LOG.debug("Maybe problem with part to replace? {}", partToReplace);
-						if (mr.group(1).contains("Temponym")) {
-							LOG.debug("Should be ok, as it's a temponym.");
-							return null;
+				try {
+					if (m.group(Integer.parseInt(mr.group(2))) != null) {
+						String partToReplace = m.group(Integer.parseInt(mr.group(2))).replaceAll("[\n\\s]+", " ");
+						if (!(norm.getFromHmAllNormalization(mr.group(1)).containsKey(partToReplace))) {
+							LOG.debug("Maybe problem with normalization of the resource: {}\nMaybe problem with part to replace? {}", mr.group(1), partToReplace);
+							if (mr.group(1).contains("Temponym")) {
+								LOG.debug("Should be ok, as it's a temponym.");
+								return null;
+							}
+						} else {
+							tonormalize = tonormalize.replace(mr.group(), norm.getFromHmAllNormalization(mr.group(1)).get(partToReplace));
 						}
 					} else {
-						tonormalize = tonormalize.replace(mr.group(), norm.getFromHmAllNormalization(mr.group(1)).get(partToReplace));
-					}
-				} else {
-					LOG.debug("Empty part to normalize in {}", mr.group(1));
+						LOG.debug("Empty part to normalize in {}", mr.group(1));
 
-					tonormalize = tonormalize.replace(mr.group(), "");
+						tonormalize = tonormalize.replace(mr.group(), "");
+					}
+				} catch (IndexOutOfBoundsException e) {
+					LOG.error("Invalid group reference in normalization pattern of rule: {}", rule);
+					System.exit(1);
 				}
 			}
 			// replace other groups
-			for (MatchResult mr : Toolbox.findMatches(paGroup, tonormalize)) {
+			mr.usePattern(paGroup);
+			mr.reset(tonormalize);
+			while (mr.find()) {
 				if (LOG.isDebugEnabled()) {
 					LOG.debug("tonormalize:" + tonormalize);
 					LOG.debug("mr.group():" + mr.group());
@@ -2272,39 +2319,50 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					LOG.debug("m.group(" + Integer.parseInt(mr.group(1)) + "):" + m.group(Integer.parseInt(mr.group(1))));
 				}
 
-				tonormalize = tonormalize.replace(mr.group(), m.group(Integer.parseInt(mr.group(1))));
+				try {
+					tonormalize = tonormalize.replace(mr.group(), m.group(Integer.parseInt(mr.group(1))));
+				} catch (IndexOutOfBoundsException e) {
+					LOG.error("Invalid group reference in normalization pattern of rule: {}", rule);
+					System.exit(1);
+				}
 			}
 			// replace substrings
-			for (MatchResult mr : Toolbox.findMatches(paSubstring, tonormalize)) {
+			mr.usePattern(paSubstring).reset(tonormalize);
+			while (mr.find()) {
 				String substring = mr.group(1).substring(Integer.parseInt(mr.group(2)), Integer.parseInt(mr.group(3)));
 				tonormalize = tonormalize.replace(mr.group(), substring);
 			}
 			if (language.getName().compareTo("arabic") != 0) {
 				// replace lowercase
-				for (MatchResult mr : Toolbox.findMatches(paLowercase, tonormalize)) {
+				mr.usePattern(paLowercase).reset(tonormalize);
+				while (mr.find()) {
 					String substring = mr.group(1).toLowerCase();
 					tonormalize = tonormalize.replace(mr.group(), substring);
 				}
 
 				// replace uppercase
-				for (MatchResult mr : Toolbox.findMatches(paUppercase, tonormalize)) {
+				mr.usePattern(paUppercase).reset(tonormalize);
+				while (mr.find()) {
 					String substring = mr.group(1).toUpperCase();
 					tonormalize = tonormalize.replace(mr.group(), substring);
 				}
 			}
 			// replace sum, concatenation
-			for (MatchResult mr : Toolbox.findMatches(paSum, tonormalize)) {
+			mr.usePattern(paSum).reset(tonormalize);
+			while (mr.find()) {
 				int newValue = Integer.parseInt(mr.group(1)) + Integer.parseInt(mr.group(2));
 				tonormalize = tonormalize.replace(mr.group(), Integer.toString(newValue));
 			}
 			// replace normalization function without group
-			for (MatchResult mr : Toolbox.findMatches(paNormNoGroup, tonormalize)) {
+			mr.usePattern(paNormNoGroup).reset(tonormalize);
+			while (mr.find()) {
 				tonormalize = tonormalize.replace(mr.group(), norm.getFromHmAllNormalization(mr.group(1)).get(mr.group(2)));
 			}
 			// replace Chinese with Arabic numerals
-			for (MatchResult mr : Toolbox.findMatches(paChineseNorm, tonormalize)) {
+			mr.usePattern(paChineseNorm).reset(tonormalize);
+			while (mr.find()) {
 				String outString = "";
-				for (Integer i = 0; i < mr.group(1).length(); i++) {
+				for (int i = 0; i < mr.group(1).length(); i++) {
 					String thisChar = mr.group(1).substring(i, i + 1);
 					if (chineseNumerals.containsKey(thisChar)) {
 						outString += chineseNumerals.get(thisChar);
@@ -2333,32 +2391,29 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 		// Normalize Value
 		String value_normalization_pattern = hmNormalization.get(rule);
-		value = applyRuleFunctions(value_normalization_pattern, m);
+		value = applyRuleFunctions(rule, value_normalization_pattern, m);
 		if (value == null)
 			return null;
 
 		// get quant
-		if (hmQuant.containsKey(rule)) {
-			String quant_normalization_pattern = hmQuant.get(rule);
-			quant = applyRuleFunctions(quant_normalization_pattern, m);
-		}
+		String quant_normalization_pattern = hmQuant.get(rule);
+		if (quant_normalization_pattern != null)
+			quant = applyRuleFunctions(rule, quant_normalization_pattern, m);
 
 		// get freq
-		if (hmFreq.containsKey(rule)) {
-			String freq_normalization_pattern = hmFreq.get(rule);
-			freq = applyRuleFunctions(freq_normalization_pattern, m);
-		}
+		String freq_normalization_pattern = hmFreq.get(rule);
+		if (freq_normalization_pattern != null)
+			freq = applyRuleFunctions(rule, freq_normalization_pattern, m);
 
 		// get mod
-		if (hmMod.containsKey(rule)) {
-			String mod_normalization_pattern = hmMod.get(rule);
-			mod = applyRuleFunctions(mod_normalization_pattern, m);
-		}
+		String mod_normalization_pattern = hmMod.get(rule);
+		if (mod_normalization_pattern != null)
+			mod = applyRuleFunctions(rule, mod_normalization_pattern, m);
 
 		// get emptyValue
-		if (hmEmptyValue.containsKey(rule)) {
-			String emptyValue_normalization_pattern = hmEmptyValue.get(rule);
-			emptyValue = applyRuleFunctions(emptyValue_normalization_pattern, m);
+		String emptyValue_normalization_pattern = hmEmptyValue.get(rule);
+		if (emptyValue_normalization_pattern != null) {
+			emptyValue = applyRuleFunctions(rule, emptyValue_normalization_pattern, m);
 			emptyValue = correctDurationValue(emptyValue);
 		}
 		// For example "PT24H" -> "P1D"
