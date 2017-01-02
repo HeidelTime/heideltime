@@ -39,6 +39,7 @@ import de.unihd.dbs.uima.annotator.heideltime.processors.TemponymPostprocessing;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
+import de.unihd.dbs.uima.annotator.heideltime.resources.RegexHashMap;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RuleManager;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.DateCalculator;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.DurationSimplification;
@@ -2102,35 +2103,24 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			if (f != null && !f.matcher(coveredText).find())
 				continue;
 
-			long dur = 0;
 			Matcher m = e.getKey().matcher(coveredText);
-			while (true) {
-				boolean found;
-				if (PROFILE_REGEXP) {
-					long begin = PROFILE_REGEXP ? System.nanoTime() : 0;
-					found = m.find();
-					dur += System.nanoTime() - begin;
-				} else
-					found = m.find();
-				if (!found)
-					break;
+			while (timeRegexp(m, key)) {
 				// improved token boundary checking
 				// FIXME: these seem to be flawed
 				boolean infrontBehindOK = ContextAnalyzer.checkTokenBoundaries(m, s, jcas) && ContextAnalyzer.checkInfrontBehind(m, s);
 
 				// CHECK POS CONSTRAINTS
 				String constraint = constraints.get(key);
-				boolean posConstraintOK = (constraint == null) || checkPosConstraint(s, constraint, m, jcas);
+				boolean posConstraintOK = (constraint == null) || checkPosConstraint(key, s, constraint, m, jcas);
 
 				if (infrontBehindOK && posConstraintOK) {
 					// Offset of timex expression (in the checked sentence)
 					int timexStart = m.start(), timexEnd = m.end();
 
 					// Any offset parameter?
-					if (hmOffset.containsKey(key)) {
-						String offset = hmOffset.get(key);
-
-						for (MatchResult mr : Toolbox.findMatches(paOffset, offset)) {
+					String offset = hmOffset.get(key);
+					if (offset != null) {
+						for (Matcher mr = paOffset.matcher(offset); mr.find();) {
 							timexStart = m.start(Integer.parseInt(mr.group(1)));
 							timexEnd = m.end(Integer.parseInt(mr.group(2)));
 						}
@@ -2164,12 +2154,18 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					}
 				}
 			}
-			if (PROFILE_REGEXP) {
-				// Do not enable this by default, because this wastes memory and CPU:
-				Long old = profileData.get(e.getValue());
-				profileData.put(e.getValue(), dur + (old != null ? (long) old : 0L));
-			}
 		}
+	}
+
+	private boolean timeRegexp(Matcher m, String key) {
+		if (!PROFILE_REGEXP)
+			return m.find();
+		long begin = PROFILE_REGEXP ? System.nanoTime() : 0;
+		boolean found = m.find();
+		long dur = System.nanoTime() - begin;
+		Long old = profileData.get(key);
+		profileData.put(key, dur + (old != null ? (long) old : 0L));
+		return found;
 	}
 
 	/**
@@ -2195,28 +2191,34 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		LOG.warn(buf.toString());
 	}
 
-	Pattern paConstraint = Pattern.compile("group\\(([0-9]+)\\):(.*?):");
+	static Pattern paConstraint = Pattern.compile("group\\(([0-9]+)\\):(.*?):");
 
 	/**
 	 * Check whether the part of speech constraint defined in a rule is satisfied.
 	 * 
+	 * @param rule
+	 *                Rule name, for error reporting
 	 * @param s
 	 * @param posConstraint
 	 * @param m
 	 * @param jcas
 	 * @return
 	 */
-	public boolean checkPosConstraint(Sentence s, String posConstraint, MatchResult m, JCas jcas) {
+	public boolean checkPosConstraint(String rule, Sentence s, String posConstraint, MatchResult m, JCas jcas) {
 		Matcher mr = paConstraint.matcher(posConstraint);
-		while(mr.find()) {
-			int groupNumber = Integer.parseInt(mr.group(1));
-			int tokenBegin = s.getBegin() + m.start(groupNumber);
-			int tokenEnd = s.getBegin() + m.end(groupNumber);
-			String pos = mr.group(2);
-			String pos_as_is = getPosFromMatchResult(tokenBegin, tokenEnd, s, jcas);
-			if (!pos_as_is.matches(pos))
-				return false;
-			LOG.debug("POS CONSTRAINT IS VALID: pos should be {} and is {}", pos, pos_as_is);
+		while (mr.find()) {
+			try {
+				int groupNumber = Integer.parseInt(mr.group(1));
+				int tokenBegin = s.getBegin() + m.start(groupNumber);
+				int tokenEnd = s.getBegin() + m.end(groupNumber);
+				String pos = mr.group(2);
+				String pos_as_is = getPosFromMatchResult(tokenBegin, tokenEnd, s, jcas);
+				if (!pos_as_is.matches(pos))
+					return false;
+				LOG.debug("POS CONSTRAINT IS VALID: pos should be {} and is {}", pos, pos_as_is);
+			} catch (IndexOutOfBoundsException e) {
+				LOG.debug("Bad group number in rule {}", rule);
+			}
 		}
 		return true;
 	}
@@ -2237,14 +2239,14 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		return applyRuleFunctions(rule, pattern, m, norm, language);
 	}
 
-	public static String applyRuleFunctions(String rule, String pattern, MatchResult m,
-			NormalizationManager norm, Language language) {
+	public static String applyRuleFunctions(String rule, String pattern, MatchResult m, NormalizationManager norm, Language language) {
 		StringBuilder tonormalize = new StringBuilder(pattern);
 		// pattern for normalization functions + group information
 		// pattern for group information
 		Matcher mr = paNorm.matcher(tonormalize);
 		while (tonormalize.indexOf("%") >= 0 || tonormalize.indexOf("group") >= 0) {
 			// replace normalization functions
+			mr.usePattern(paNorm).reset(tonormalize);
 			while (mr.find(0)) {
 				String normfunc = mr.group(1);
 				int groupid = Integer.parseInt(mr.group(2));
@@ -2263,16 +2265,18 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					String value = m.group(groupid);
 					if (value != null) {
 						value = WHITESPACE_NORM.matcher(value).replaceAll(" ");
-						if (!norm.getFromHmAllNormalization(normfunc).containsKey(value)) {
-							LOG.debug("Maybe problem with normalization of the resource: {}\n" + //
-									"Maybe problem with part to replace? {}", normfunc, value);
+						RegexHashMap<String> normmap = norm.getFromHmAllNormalization(normfunc);
+						String repl = normmap != null ? normmap.get(value) : null;
+						if (repl == null) {
 							if (normfunc.contains("Temponym")) {
-								LOG.debug("Should be ok, as it's a temponym.");
+								LOG.debug("Maybe problem with normalization of the temponym: {}\n" + //
+										"Maybe problem with part to replace? {}", normfunc, value);
 								return null;
 							}
+							LOG.warn("Maybe problem with normalization of the resource: {}\n" + //
+									"Maybe problem with part to replace? {}", normfunc, value);
 						} else {
-							value = norm.getFromHmAllNormalization(normfunc).get(value);
-							tonormalize.replace(mr.start(), mr.end(), value);
+							tonormalize.replace(mr.start(), mr.end(), repl);
 						}
 					} else {
 						// This is not unusual to happen
@@ -2344,7 +2348,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		}
 		return tonormalize.toString();
 	}
-	
+
 	public String[] getAttributesForTimexFromFile(String rule, HashMap<String, String> hmNormalization, HashMap<String, String> hmQuant, HashMap<String, String> hmFreq,
 			HashMap<String, String> hmMod, HashMap<String, String> hmEmptyValue, MatchResult m, JCas jcas) {
 		String[] attributes = new String[5];
@@ -2383,7 +2387,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 		return attributes;
 	}
-	
+
 	private static final Pattern VALID_DCT = Pattern.compile("\\d{4}.\\d{2}.\\d{2}|\\d{8}");
 
 	/**
