@@ -109,7 +109,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private boolean find_temponyms = false;
 	private boolean group_gran = true;
 	// FOR DEBUGGING PURPOSES (IF FALSE)
-	private boolean deleteOverlapped = true;
+	private boolean deleteOverlapping = true;
 
 	/**
 	 * @see AnalysisComponent#initialize(UimaContext)
@@ -120,7 +120,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		/////////////////////////////////
 		// DEBUGGING PARAMETER SETTING //
 		/////////////////////////////////
-		this.deleteOverlapped = true;
+		this.deleteOverlapping = true;
 
 		/////////////////////////////////
 		// HANDLE LOCALE //
@@ -278,8 +278,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		/*
 		 * kick out some overlapping expressions
 		 */
-		if (deleteOverlapped == true)
-			deleteOverlappedTimexesPreprocessing(jcas);
+		if (deleteOverlapping == true)
+			deleteOverlappingTimexesPreprocessing(jcas);
 
 		/*
 		 * specify ambiguous values, e.g.: specific year for date values of format UNDEF-year-01-01; specific month for values of format UNDEF-last-month
@@ -303,7 +303,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		/*
 		 * kick out the rest of the overlapping expressions
 		 */
-		if (deleteOverlapped == true)
+		if (deleteOverlapping == true)
 			deleteOverlappedTimexesPostprocessing(jcas);
 
 		// run arbitrary processors
@@ -1837,7 +1837,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	/**
 	 * @param jcas
 	 */
-	private void deleteOverlappedTimexesPreprocessing(JCas jcas) {
+	private void deleteOverlappingTimexesPreprocessing(JCas jcas) {
 		AnnotationIndex<Timex3> timexes = jcas.getAnnotationIndex(Timex3.type);
 		HashSet<Timex3> hsTimexesToRemove = new HashSet<Timex3>();
 		for (Timex3 t1 : timexes) {
@@ -1891,14 +1891,14 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		ArrayList<Timex3> allTimexesToInspect = new ArrayList<Timex3>();
 		for (Timex3 myTimex : timexes) {
 			ArrayList<Timex3> timexSet = new ArrayList<Timex3>();
-			if (!(myTimex.getTimexType().equals("TEMPONYM"))) {
+			if (!myTimex.getTimexType().equals("TEMPONYM")) {
 				timexSet.add(myTimex);
 			}
 
 			// compare this timex to all other timexes and mark those that
 			// have an overlap
 			for (Timex3 myInnerTimex : timexes) {
-				if (!(myTimex.getTimexType().equals("TEMPONYM"))) {
+				if (!myInnerTimex.getTimexType().equals("TEMPONYM")) {
 					if (// timex1 starts, timex2 is partial overlap
 					(myTimex.getBegin() <= myInnerTimex.getBegin() && myTimex.getEnd() > myInnerTimex.getBegin()) ||
 					// same as above, but in reverse
