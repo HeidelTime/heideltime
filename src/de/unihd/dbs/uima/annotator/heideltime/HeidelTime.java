@@ -1980,7 +1980,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			// compare this timex to all other timexes and mark those that have an overlap
 			while(innerTimexIter.hasNext()) {
 				Timex3 myInnerTimex = (Timex3) innerTimexIter.next();
-				if (!(myTimex.getTimexType().equals("TEMPONYM"))) {
+				if (!(myInnerTimex.getTimexType().equals("TEMPONYM"))) {
 					if((myTimex.getBegin() <= myInnerTimex.getBegin() && myTimex.getEnd() > myInnerTimex.getBegin()) || // timex1 starts, timex2 is partial overlap
 					   (myInnerTimex.getBegin() <= myTimex.getBegin() && myInnerTimex.getEnd() > myTimex.getBegin()) || // same as above, but in reverse
 					   (myInnerTimex.getBegin() <= myTimex.getBegin() && myTimex.getEnd() <= myInnerTimex.getEnd()) || // timex 1 is contained within or identical to timex2
