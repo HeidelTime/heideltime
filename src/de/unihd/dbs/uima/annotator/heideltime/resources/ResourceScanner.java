@@ -104,12 +104,10 @@ public class ResourceScanner {
 	
 
 	public static void main(String[] args) {
-		@SuppressWarnings("unused")
-		ResourceScanner rs = null;
 		try {
-			rs = new ResourceScanner();
+			new ResourceScanner();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage(), e);
 		}
 	}
 
@@ -140,9 +138,9 @@ public class ResourceScanner {
 				 * |- rules
 				 */
 				
-				Boolean repatternExists = false;
-				Boolean normalizationExists = false;
-				Boolean ruleExists = false;
+				boolean repatternExists = false;
+				boolean normalizationExists = false;
+				boolean ruleExists = false;
 		
 				for(String entryName : jarContents.keySet()) {
 					if(!repatternExists && repatternPattern.matcher(entryName).matches()) {

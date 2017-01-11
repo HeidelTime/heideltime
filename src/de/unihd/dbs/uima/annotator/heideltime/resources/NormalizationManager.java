@@ -12,20 +12,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
  * This class fills the role of a manager of all the Normalization resources.
  * It reads the data from a file system and fills up a bunch of HashMaps
  * with their information.
+ * 
  * @author jannik stroetgen
- *
  */
 public class NormalizationManager extends GenericResourceManager {
 	/** Class logger */
 	private static final Logger LOG = LoggerFactory.getLogger(NormalizationManager.class);
 	
 	protected static HashMap<String, NormalizationManager> instances = new HashMap<String, NormalizationManager>();
-	// PATTERNS TO READ RESOURCES "RULES" AND "NORMALIZATION"
-	private Pattern paReadNormalizations = Pattern.compile("\"(.*?)\",\"(.*?)\"");
 
 	// STORE PATTERNS AND NORMALIZATIONS
 	private HashMap<String, RegexHashMap<String>> hmAllNormalization;
@@ -67,9 +64,8 @@ public class NormalizationManager extends GenericResourceManager {
 		ResourceScanner rs = ResourceScanner.getInstance();
 		ResourceMap hmResourcesNormalization = rs.getNormalizations(language);
 		
-		for (String which : hmResourcesNormalization.keySet()) {
+		for (String which : hmResourcesNormalization.keySet())
 			hmAllNormalization.put(which, new RegexHashMap<String>());
-		}
 		
 		readNormalizationResources(hmResourcesNormalization, load_temponym_resources);
 	}
@@ -94,60 +90,40 @@ public class NormalizationManager extends GenericResourceManager {
 	 * @param load_temponym_resources whether temponym resources are loaded
 	 */
 	public void readNormalizationResources(ResourceMap hmResourcesNormalization, Boolean load_temponym_resources) {
+		// PATTERNS TO READ RESOURCES "RULES" AND "NORMALIZATION"
+		Matcher maReadNormalizations = Pattern.compile("\"(.*?)\",\"(.*?)\"").matcher("");
+		for (String resource : hmResourcesNormalization.keySet()) {
+			// read normalization resources with "Temponym" only if temponym tagging is selected
+			if (resource.contains("Temponym") &&
+					!(load_temponym_resources && resource.contains("Temponym"))) {
+				LOG.debug("No Temponym Tagging selected. Skipping normalization resource: {}", resource);
+				continue;
+			}
+			LOG.debug("Adding normalization resource: {}", resource);
+			// create a buffered reader for every normalization resource file
+			try(InputStream is = hmResourcesNormalization.getInputStream(resource); //
+					InputStreamReader isr = new InputStreamReader(is, "UTF-8");//
+					BufferedReader br = new BufferedReader(isr)) {
+				for (String line; (line=br.readLine()) != null; ) {
+					if (line.startsWith("//")) continue; // ignore comments
 
-		InputStream is = null;
-		InputStreamReader isr = null;
-		BufferedReader br = null;
-		try {
-			for (String resource : hmResourcesNormalization.keySet()) {
-				// read normalization resources with "Temponym" only if temponym tagging is selected
-				if ( (!(resource.contains("Temponym"))) ||
-						((load_temponym_resources) && (resource.contains("Temponym")))){
-					
-					LOG.debug("Adding normalization resource: {}", resource);
-					// create a buffered reader for every normalization resource file
-					is = hmResourcesNormalization.getInputStream(resource);
-					isr = new InputStreamReader(is, "UTF-8");
-					br = new BufferedReader(isr);
-					for ( String line; (line=br.readLine()) != null; ) {
-						if (line.startsWith("//")) continue; // ignore comments
-						
-						// check each line for the normalization format (defined in paReadNormalizations)
-						boolean correctLine = false;
-						for (Matcher r = paReadNormalizations.matcher(line); r.find(); ) {
-							correctLine = true;
-							String resource_word   = replaceSpaces(r.group(1));
-							String normalized_word = r.group(2);
-							for (String which : hmAllNormalization.keySet()) {
-								if (resource.equals(which)) {
-									hmAllNormalization.get(which).put(resource_word,normalized_word);
-								}
-							}
-							if ((correctLine == false) && (!(line.matches("")))) {
-								LOG.error("Cannot read one of the lines of normalization resource {}\nLine: {}", resource, line);
-							}
+					// check each line for the normalization format (defined in paReadNormalizations)
+					maReadNormalizations.reset(line);
+					if (!maReadNormalizations.find()) {
+						LOG.error("Cannot read one of the lines of normalization resource {}\nLine: {}", resource, line);
+						continue;
+					}
+					String resource_word = replaceSpaces(maReadNormalizations.group(1));
+					String normalized_word = maReadNormalizations.group(2);
+					for (String which : hmAllNormalization.keySet()) {
+						if (resource.equals(which)) {
+							hmAllNormalization.get(which).put(resource_word, normalized_word);
 						}
 					}
 				}
-				else {
-					LOG.debug("No Temponym Tagging selected. Skipping normalization resource: {}", resource);
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(br != null) {
-					br.close();
-				}
-				if(isr != null) {
-					isr.close();
-				}
-				if(is != null) {
-					is.close();
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
+			} catch (IOException e) {
+				LOG.error(e.getMessage(), e);
+				System.exit(1);
 			}
 		}
 	}
@@ -157,7 +133,6 @@ public class NormalizationManager extends GenericResourceManager {
 	 * sets a couple of rudimentary normalization parameters
 	 */
 	private void readGlobalNormalizationInformation() {
-
 		// MONTH IN QUARTER
 		normMonthInQuarter.put("01","1");
 		normMonthInQuarter.put("02","1");
@@ -173,7 +148,7 @@ public class NormalizationManager extends GenericResourceManager {
 		normMonthInQuarter.put("12","4");
 		
 		// MONTH IN SEASON
-		normMonthInSeason.put("", "");
+		normMonthInSeason.put("", ""); // FIXME: why?
 		normMonthInSeason.put("01","WI");
 		normMonthInSeason.put("02","WI");
 		normMonthInSeason.put("03","SP");
