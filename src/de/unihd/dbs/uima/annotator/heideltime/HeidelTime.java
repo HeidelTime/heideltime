@@ -40,6 +40,7 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RegexHashMap;
+import de.unihd.dbs.uima.annotator.heideltime.resources.Rule;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RuleManager;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.DateCalculator;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.DurationSimplification;
@@ -246,9 +247,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		for (Sentence s : sentences) {
 			try {
 				if (find_dates)
-					findTimexes("DATE", rulem.getHmDatePattern(), rulem.getHmDateOffset(), rulem.getHmDateNormalization(), s, jcas);
+					findTimexes("DATE", rulem.getHmDateRules(), s, jcas);
 				if (find_times)
-					findTimexes("TIME", rulem.getHmTimePattern(), rulem.getHmTimeOffset(), rulem.getHmTimeNormalization(), s, jcas);
+					findTimexes("TIME", rulem.getHmTimeRules(), s, jcas);
 
 				/*
 				 * check for historic dates/times starting with BC to check if post-processing step is required
@@ -264,11 +265,11 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				}
 
 				if (find_sets)
-					findTimexes("SET", rulem.getHmSetPattern(), rulem.getHmSetOffset(), rulem.getHmSetNormalization(), s, jcas);
+					findTimexes("SET", rulem.getHmSetRules(), s, jcas);
 				if (find_durations)
-					findTimexes("DURATION", rulem.getHmDurationPattern(), rulem.getHmDurationOffset(), rulem.getHmDurationNormalization(), s, jcas);
+					findTimexes("DURATION", rulem.getHmDurationRules(), s, jcas);
 				if (find_temponyms)
-					findTimexes("TEMPONYM", rulem.getHmTemponymPattern(), rulem.getHmTemponymOffset(), rulem.getHmTemponymNormalization(), s, jcas);
+					findTimexes("TEMPONYM", rulem.getHmTemponymRules(), s, jcas);
 			} catch (NullPointerException npe) {
 				LOG.error("HeidelTime's execution has been interrupted by an exception that " + "is likely rooted in faulty normalization resource files. "
 						+ "Please consider opening an issue report containing the following "
@@ -349,6 +350,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		annotation.setEmptyValue(emptyValue);
 
 		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
+		// TODO: these strings are quite expensive. Do we always want/need them?
 		StringBuilder allTokIds = new StringBuilder();
 		for (FSIterator<Token> iterToken = tokens.subiterator(sentence); iterToken.hasNext();) {
 			Token tok = iterToken.next();
@@ -394,29 +396,23 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 * @param jcas
 	 */
 	public void disambiguateHistoricDates(JCas jcas) {
-
 		// build up a list with all found TIMEX expressions
-		List<Timex3> linearDates = new ArrayList<Timex3>();
 		AnnotationIndex<Timex3> annotations = jcas.getAnnotationIndex(Timex3.type);
-		FSIterator<Timex3> iterTimex = annotations.iterator();
 
 		// Create List of all Timexes of types "date" and "time"
-		while (iterTimex.hasNext()) {
-			Timex3 timex = iterTimex.next();
-			if (timex.getTimexType().equals("DATE") || timex.getTimexType().equals("TIME")) {
+		List<Timex3> linearDates = new ArrayList<Timex3>();
+		for (Timex3 timex : annotations)
+			if (timex.getTimexType().equals("DATE") || timex.getTimexType().equals("TIME"))
 				linearDates.add(timex);
-			}
-		}
 
 		//////////////////////////////////////////////
 		// go through list of Date and Time timexes //
 		//////////////////////////////////////////////
 		for (int i = 1; i < linearDates.size(); i++) {
-			Timex3 t_i = (Timex3) linearDates.get(i);
-			String value_i = t_i.getTimexValue();
-			String newValue = value_i;
+			Timex3 t_i = linearDates.get(i);
+			String value_i = t_i.getTimexValue(), newValue = value_i;
 			boolean change = false;
-			if (!(t_i.getFoundByRule().contains("-BCADhint"))) {
+			if (!t_i.getFoundByRule().contains("-BCADhint")) {
 				if (value_i.startsWith("0")) {
 					int offset = 1, counter = 1;
 					do {
@@ -455,7 +451,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					} while (counter < 5 && ++offset < i);
 				}
 			}
-			if (!(newValue.equals(value_i))) {
+			if (!newValue.equals(value_i)) {
 				t_i.removeFromIndexes();
 				LOG.debug("DisambiguateHistoricDates: value changed to BC");
 
@@ -472,17 +468,14 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 * @param jcas
 	 */
 	public void removeInvalids(JCas jcas) {
-
 		/*
 		 * Iterate over timexes and add invalids to HashSet (invalids cannot be removed directly since iterator is used)
 		 */
 		AnnotationIndex<Timex3> timexes = jcas.getAnnotationIndex(Timex3.type);
 		HashSet<Timex3> hsTimexToRemove = new HashSet<Timex3>();
-		for (Timex3 timex : timexes) {
-			if (timex.getTimexValue().equals("REMOVE")) {
+		for (Timex3 timex : timexes)
+			if (timex.getTimexValue().equals("REMOVE"))
 				hsTimexToRemove.add(timex);
-			}
-		}
 
 		// remove invalids, finally
 		for (Timex3 timex3 : hsTimexToRemove) {
@@ -2061,56 +2054,33 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 * Apply the extraction rules, normalization rules
 	 * 
 	 * @param timexType
-	 * @param hmPattern
-	 * @param hmOffset
-	 * @param hmNormalization
+	 * @param sortedRules sorted rules
 	 * @param s
 	 * @param jcas
 	 */
-	public void findTimexes(String timexType, HashMap<Pattern, String> hmPattern, HashMap<String, String> hmOffset, HashMap<String, String> hmNormalization, Sentence s, JCas jcas) {
+	public void findTimexes(String timexType, List<Rule> sortedRules, Sentence s, JCas jcas) {
 		final String coveredText = s.getCoveredText();
-		Map<String, String> constraints = Collections.emptyMap();
-		Map<String, Pattern> fastCheck = Collections.emptyMap();
-		RuleManager rm = RuleManager.getInstance(language, find_temponyms);
-		if (timexType.equals("DATE")) {
-			fastCheck = rm.getHmDateFastCheck();
-			constraints = rm.getHmDatePosConstraint();
-		} else if (timexType.equals("TIME")) {
-			fastCheck = rm.getHmTimeFastCheck();
-			constraints = rm.getHmTimePosConstraint();
-		} else if (timexType.equals("DURATION")) {
-			fastCheck = rm.getHmDurationFastCheck();
-			constraints = rm.getHmDurationPosConstraint();
-		} else if (timexType.equals("SET")) {
-			fastCheck = rm.getHmSetFastCheck();
-			constraints = rm.getHmSetPosConstraint();
-		} else if (timexType.equals("TEMPONYM")) {
-			fastCheck = rm.getHmTemponymFastCheck();
-			constraints = rm.getHmTemponymPosConstraint();
-		} else {
-			LOG.warn("Unknown timex type {}", timexType);
-		}
-
+		
 		// Iterator over the rules by sorted by the name of the rules
 		// this is important since later, the timexId will be used to
 		// decide which of two expressions shall be removed if both
 		// have the same offset
-		for (Map.Entry<Pattern, String> e : Toolbox.sortByValue(hmPattern)) {
-			String key = e.getValue();
+		for (Rule rule : sortedRules) {
+			String key = rule.getName();
 			// validate fast check first, if no fast match, everything else is
 			// not required anymore
-			Pattern f = fastCheck.get(key);
+			Pattern f = rule.getFastCheck();
 			if (f != null && !f.matcher(coveredText).find())
 				continue;
 
-			Matcher m = e.getKey().matcher(coveredText);
+			Matcher m = rule.getPattern().matcher(coveredText);
 			while (timeRegexp(m, key)) {
 				// improved token boundary checking
 				// FIXME: these seem to be flawed
 				boolean infrontBehindOK = ContextAnalyzer.checkTokenBoundaries(m, s, jcas) && ContextAnalyzer.checkInfrontBehind(m, s);
 
 				// CHECK POS CONSTRAINTS
-				String constraint = constraints.get(key);
+				String constraint = rule.getPosConstratint();
 				boolean posConstraintOK = (constraint == null) || checkPosConstraint(key, s, constraint, m, jcas);
 
 				if (infrontBehindOK && posConstraintOK) {
@@ -2118,7 +2088,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					int timexStart = m.start(), timexEnd = m.end();
 
 					// Any offset parameter?
-					String offset = hmOffset.get(key);
+					String offset = rule.getOffset();
 					if (offset != null) {
 						for (Matcher mr = paOffset.matcher(offset); mr.find();) {
 							timexStart = m.start(Integer.parseInt(mr.group(1)));
@@ -2127,25 +2097,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					}
 
 					// Normalization Parameter
-					if (hmNormalization.containsKey(key)) {
-						String[] attributes = new String[5];
-						if (timexType.equals("DATE")) {
-							attributes = getAttributesForTimexFromFile(key, rm.getHmDateNormalization(), rm.getHmDateQuant(), rm.getHmDateFreq(), rm.getHmDateMod(),
-									rm.getHmDateEmptyValue(), m, jcas);
-						} else if (timexType.equals("DURATION")) {
-							attributes = getAttributesForTimexFromFile(key, rm.getHmDurationNormalization(), rm.getHmDurationQuant(), rm.getHmDurationFreq(),
-									rm.getHmDurationMod(), rm.getHmDurationEmptyValue(), m, jcas);
-						} else if (timexType.equals("TIME")) {
-							attributes = getAttributesForTimexFromFile(key, rm.getHmTimeNormalization(), rm.getHmTimeQuant(), rm.getHmTimeFreq(), rm.getHmTimeMod(),
-									rm.getHmTimeEmptyValue(), m, jcas);
-						} else if (timexType.equals("SET")) {
-							attributes = getAttributesForTimexFromFile(key, rm.getHmSetNormalization(), rm.getHmSetQuant(), rm.getHmSetFreq(), rm.getHmSetMod(),
-									rm.getHmSetEmptyValue(), m, jcas);
-						} else if (timexType.equals("TEMPONYM")) {
-							attributes = getAttributesForTimexFromFile(key, rm.getHmTemponymNormalization(), rm.getHmTemponymQuant(), rm.getHmTemponymFreq(),
-									rm.getHmTemponymMod(), rm.getHmTemponymEmptyValue(), m, jcas);
-						}
-						if (!(attributes == null)) {
+					if (rule.getNormalization() != null) {
+						String[] attributes = getAttributesForTimexFromFile(key, rule, m, jcas);
+						if (attributes != null) {
 							addTimexAnnotation(timexType, timexStart + s.getBegin(), timexEnd + s.getBegin(), s, attributes[0], attributes[1], attributes[2], attributes[3],
 									attributes[4], "t" + timexID++, key, jcas);
 						}
@@ -2349,41 +2303,35 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		return tonormalize.toString();
 	}
 
-	public String[] getAttributesForTimexFromFile(String rule, HashMap<String, String> hmNormalization, HashMap<String, String> hmQuant, HashMap<String, String> hmFreq,
-			HashMap<String, String> hmMod, HashMap<String, String> hmEmptyValue, MatchResult m, JCas jcas) {
+	public String[] getAttributesForTimexFromFile(String key, Rule rule, MatchResult m, JCas jcas) {
 		String[] attributes = new String[5];
 
 		// Normalize Value
-		String value_normalization_pattern = hmNormalization.get(rule);
-		String value = applyRuleFunctions(rule, value_normalization_pattern, m);
+		String value_normalization_pattern = rule.getNormalization();
+		String value = applyRuleFunctions(key, value_normalization_pattern, m);
 		if (value == null)
 			return null;
-
-		// get quant
-		String quant_normalization_pattern = hmQuant.get(rule);
-		String quant = (quant_normalization_pattern != null) ? applyRuleFunctions(rule, quant_normalization_pattern, m) : "";
-
-		// get freq
-		String freq_normalization_pattern = hmFreq.get(rule);
-		String freq = (freq_normalization_pattern != null) ? applyRuleFunctions(rule, freq_normalization_pattern, m) : "";
-
-		// get mod
-		String mod_normalization_pattern = hmMod.get(rule);
-		String mod = (mod_normalization_pattern != null) ? applyRuleFunctions(rule, mod_normalization_pattern, m) : "";
-
-		// get emptyValue
-		String emptyValue_normalization_pattern = hmEmptyValue.get(rule);
-		String emptyValue = (emptyValue_normalization_pattern != null) ? //
-				DurationSimplification.simplify(applyRuleFunctions(rule, emptyValue_normalization_pattern, m)) : "";
 		// For example "PT24H" -> "P1D"
 		if (group_gran)
 			value = DurationSimplification.simplify(value);
-
 		attributes[0] = value;
-		attributes[1] = quant;
-		attributes[2] = freq;
-		attributes[3] = mod;
-		attributes[4] = emptyValue;
+
+		// get quant
+		String quant_normalization_pattern = rule.getQuant();
+		attributes[1] = (quant_normalization_pattern != null) ? applyRuleFunctions(key, quant_normalization_pattern, m) : "";
+
+		// get freq
+		String freq_normalization_pattern = rule.getFreq();
+		attributes[2] = (freq_normalization_pattern != null) ? applyRuleFunctions(key, freq_normalization_pattern, m) : "";
+
+		// get mod
+		String mod_normalization_pattern = rule.getMod();
+		attributes[3] = (mod_normalization_pattern != null) ? applyRuleFunctions(key, mod_normalization_pattern, m) : "";
+
+		// get emptyValue
+		String emptyValue_normalization_pattern = rule.getEmptyValue();
+		attributes[4] = (emptyValue_normalization_pattern != null) ? //
+				DurationSimplification.simplify(applyRuleFunctions(key, emptyValue_normalization_pattern, m)) : "";
 
 		return attributes;
 	}

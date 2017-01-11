@@ -610,7 +610,7 @@ public class ContextAnalyzer {
 				beginOK = true;
 			}
 			// Tokenizer does not split number from some symbols (".", "/", "-", "–"),
-			// e.g., "...12 August-24 Augsut..."
+			// e.g., "...12 August-24 August..."
 			else if (r.start() > 0) {
 				char prev = cov.charAt(r.start() - 1);
 				if (prev == '.' || prev == '/' || prev == '-' || prev == '–')

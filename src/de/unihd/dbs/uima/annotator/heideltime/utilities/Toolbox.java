@@ -2,20 +2,17 @@ package de.unihd.dbs.uima.annotator.heideltime.utilities;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 /**
- * 
  * The Toolbox class contains methods with functionality that you would also
  * find outside the context of HeidelTime's specific skillset; i.e. they do
  * not require the CAS context, but are 'useful code snippets'.
- * @author jannik stroetgen
  *
+ * @author jannik stroetgen
  */
 public class Toolbox {
 	/**
@@ -37,19 +34,4 @@ public class Toolbox {
 		}
 		return Collections.emptyList();
 	}
-
-	/**
-	 * Sorts a given HashMap using a custom function
-	 * @param m Map of items to sort
-	 * @return sorted List of items
-	 */
-    public static List<Map.Entry<Pattern, String>> sortByValue(final HashMap<Pattern,String> m) {
-        List<Map.Entry<Pattern, String>> keys = new ArrayList<>(m.entrySet());
-        Collections.sort(keys, new Comparator<Map.Entry<Pattern, String>>() {
-        	public int compare(Map.Entry<Pattern, String> o1, Map.Entry<Pattern, String> o2) {
-        		return o1.getValue().compareTo(o2.getValue());
-        	}
-        });
-        return keys;
-    }
 }
