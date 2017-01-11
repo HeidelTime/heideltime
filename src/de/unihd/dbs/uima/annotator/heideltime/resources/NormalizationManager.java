@@ -163,34 +163,34 @@ public class NormalizationManager extends GenericResourceManager {
 		normMonthInSeason.put("12","WI");
 		
 		// DAY IN WEEK
-		normDayInWeek.put("sunday","1");
-		normDayInWeek.put("monday","2");
-		normDayInWeek.put("tuesday","3");
-		normDayInWeek.put("wednesday","4");
-		normDayInWeek.put("thursday","5");
-		normDayInWeek.put("friday","6");
-		normDayInWeek.put("saturday","7");
-		normDayInWeek.put("Sunday","1");
-		normDayInWeek.put("Monday","2");
-		normDayInWeek.put("Tuesday","3");
-		normDayInWeek.put("Wednesday","4");
-		normDayInWeek.put("Thursday","5");
-		normDayInWeek.put("Friday","6");
-		normDayInWeek.put("Saturday","7");
-//		normDayInWeek.put("sunday","7");
-//		normDayInWeek.put("monday","1");
-//		normDayInWeek.put("tuesday","2");
-//		normDayInWeek.put("wednesday","3");
-//		normDayInWeek.put("thursday","4");
-//		normDayInWeek.put("friday","5");
-//		normDayInWeek.put("saturday","6");
-//		normDayInWeek.put("Sunday","7");
-//		normDayInWeek.put("Monday","1");
-//		normDayInWeek.put("Tuesday","2");
-//		normDayInWeek.put("Wednesday","3");
-//		normDayInWeek.put("Thursday","4");
-//		normDayInWeek.put("Friday","5");
-//		normDayInWeek.put("Saturday","6");
+//		normDayInWeek.put("sunday","1");
+//		normDayInWeek.put("monday","2");
+//		normDayInWeek.put("tuesday","3");
+//		normDayInWeek.put("wednesday","4");
+//		normDayInWeek.put("thursday","5");
+//		normDayInWeek.put("friday","6");
+//		normDayInWeek.put("saturday","7");
+//		normDayInWeek.put("Sunday","1");
+//		normDayInWeek.put("Monday","2");
+//		normDayInWeek.put("Tuesday","3");
+//		normDayInWeek.put("Wednesday","4");
+//		normDayInWeek.put("Thursday","5");
+//		normDayInWeek.put("Friday","6");
+//		normDayInWeek.put("Saturday","7");
+		normDayInWeek.put("sunday","7");
+		normDayInWeek.put("monday","1");
+		normDayInWeek.put("tuesday","2");
+		normDayInWeek.put("wednesday","3");
+		normDayInWeek.put("thursday","4");
+		normDayInWeek.put("friday","5");
+		normDayInWeek.put("saturday","6");
+		normDayInWeek.put("Sunday","7");
+		normDayInWeek.put("Monday","1");
+		normDayInWeek.put("Tuesday","2");
+		normDayInWeek.put("Wednesday","3");
+		normDayInWeek.put("Thursday","4");
+		normDayInWeek.put("Friday","5");
+		normDayInWeek.put("Saturday","6");
 		
 		
 		// NORM MINUTE

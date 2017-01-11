@@ -1,12 +1,10 @@
 package de.unihd.dbs.uima.annotator.heideltime.processors;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -139,9 +137,7 @@ public class HolidayProcessor extends GenericProcessor {
 		}
 	}
 
-	static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
-
-	static final TimeZone GMT = TimeZone.getTimeZone("GMT");
+	static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	/**
 	 * Get the date of a day relative to Easter Sunday in a given year. Algorithm used is from the "Physikalisch-Technische Bundesanstalt Braunschweig" PTB.
@@ -163,13 +159,12 @@ public class HolidayProcessor extends GenericProcessor {
 		int OE = 7 - (OG - SZ) % 7;
 		int OS = OG + OE;
 
-		Calendar c = Calendar.getInstance(GMT, Locale.ROOT);
+		LocalDate d;
 		if (OS <= 31)
-			c.set(year, 2 /* 0 based */, OS);
+			d = LocalDate.of(year, 3 /* 1-based */, OS).plusDays(days);
 		else
-			c.set(year, 3 /* 0 based */, OS - 31);
-		c.add(Calendar.DAY_OF_MONTH, days);
-		return FORMATTER.format(c.getTime());
+			d = LocalDate.of(year, 4 /* 1-based */, OS - 31).plusDays(days);
+		return d.format(FORMATTER);
 	}
 
 	/**
@@ -201,26 +196,13 @@ public class HolidayProcessor extends GenericProcessor {
 		int Day = ((D + E + 114) % 31) + 1;
 
 		/*
-		 * 
 		 * int K = year / 100; int M = 15 + ( ( 3 * K + 3 ) / 4 ) - ( ( 8 * K + 13 ) / 25 ); int S = 2 - ( (3 * K + 3) / 4 ); int A = year % 19; int D = ( 19 * A + M ) % 30; int R = ( D / 29)
 		 * + ( ( D / 28 ) - ( D / 29 ) * ( A / 11 ) ); int OG = 21 + D - R; int SZ = 7 - ( year + ( year / 4 ) + S ) % 7; int OE = 7 - ( OG - SZ ) % 7; int OS = OG + OE;
 		 */
 
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar c = Calendar.getInstance();
-		String date;
-
-		date = String.format("%04d-%02d-%02d", year, Month, Day);
-
-		try {
-			c.setTime(formatter.parse(date));
-			c.add(Calendar.DAY_OF_MONTH, days);
-			c.add(Calendar.DAY_OF_MONTH, getJulianDifference(year));
-			date = formatter.format(c.getTime());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return date;
+		return LocalDate.of(year, Month, Day)//
+				.plusDays(days + getJulianDifference(year))//
+				.format(FORMATTER);
 	}
 
 	/**
@@ -241,24 +223,23 @@ public class HolidayProcessor extends GenericProcessor {
 	 * @param year
 	 * @return date
 	 */
-
 	public String getShroveTideWeekOrthodox(int year) {
-		String easterOrthodox = getEasterSundayOrthodox(year);
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			Calendar calendar = Calendar.getInstance();
-			Date date = formatter.parse(easterOrthodox);
-			calendar.setTime(date);
-			calendar.add(Calendar.DAY_OF_MONTH, -49);
-			int shroveTideWeek = calendar.get(Calendar.WEEK_OF_YEAR);
-			if (shroveTideWeek < 10) {
-				return year + "-W0" + shroveTideWeek;
-			}
-			return year + "-W" + shroveTideWeek;
-		} catch (ParseException pe) {
-			LOG.error("ParseException:" + pe.getMessage(), pe);
-			return "unknown";
+		int A = year % 4;
+		int B = year % 7;
+		int C = year % 19;
+		int D = (19 * C + 15) % 30;
+		int E = ((2 * A + 4 * B - D + 34)) % 7;
+		int Month = (int) (Math.floor((D + E + 114) / 31));
+		int Day = ((D + E + 114) % 31) + 1;
+
+		int shroveTideWeek = LocalDate.of(year, Month, Day)//
+				.plusDays(getJulianDifference(year))//
+				.plusDays(-49)//
+				.get(WeekFields.ISO.weekOfWeekBasedYear());
+		if (shroveTideWeek < 10) {
+			return year + "-W0" + shroveTideWeek;
 		}
+		return year + "-W" + shroveTideWeek;
 	}
 
 	/**
@@ -272,49 +253,26 @@ public class HolidayProcessor extends GenericProcessor {
 	 * @return
 	 */
 	public String getWeekdayRelativeTo(String date, int weekday, int number, boolean count_itself) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar c = Calendar.getInstance();
-
-		int day;
-		int add;
-
-		if (number == 0) {
-			try {
-				c.setTime(formatter.parse(date));
-				date = formatter.format(c.getTime());
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+		if (number == 0)
 			return date;
-		} else {
 
-			if (number < 0) {
-				number += 1;
-			}
+		if (number < 0)
+			number += 1;
 
-			try {
-				c.setTime(formatter.parse(date));
-				day = c.get(Calendar.DAY_OF_WEEK);
-				if ((count_itself && number > 0) || (!count_itself && number <= 0)) {
-					if (day <= weekday) {
-						add = weekday - day;
-					} else {
-						add = weekday - day + 7;
-					}
-				} else {
-					if (day < weekday) {
-						add = weekday - day;
-					} else {
-						add = weekday - day + 7;
-					}
-				}
-				add += ((number - 1) * 7);
-				c.add(Calendar.DAY_OF_MONTH, add);
-				date = formatter.format(c.getTime());
-			} catch (ParseException e) {
-				e.printStackTrace();
+		try {
+			LocalDate d = LocalDate.parse(date, FORMATTER);
+			int day = d.getDayOfWeek().getValue(); // 1 = Monday.
+			int add;
+			if ((count_itself && number > 0) || (!count_itself && number <= 0)) {
+				add = (day <= weekday) ? weekday - day : weekday - day + 7;
+			} else {
+				add = (day < weekday) ? weekday - day : weekday - day + 7;
 			}
-			return date;
+			add += ((number - 1) * 7);
+			return d.plusDays(add).format(FORMATTER);
+		} catch (DateTimeParseException e) {
+			LOG.error(e.getMessage(), e);
+			return "";
 		}
 	}
 
@@ -333,24 +291,18 @@ public class HolidayProcessor extends GenericProcessor {
 	}
 
 	private int getJulianDifference(int year) {
-		// TODO: this is not entirely correct!
+		// FIXME: this is not entirely correct!
 		int century = year / 100 + 1;
-		if (century < 18) {
+		if (century < 18)
 			return 10;
-		}
-		if (century == 18) {
+		if (century == 18)
 			return 11;
-		}
-		if (century == 19) {
+		if (century == 19)
 			return 12;
-		}
-		if (century == 20 || century == 21) {
+		if (century == 20 || century == 21)
 			return 13;
-		}
-		if (century == 22) {
+		if (century == 22)
 			return 14;
-		}
 		return 15;
 	}
-
 }

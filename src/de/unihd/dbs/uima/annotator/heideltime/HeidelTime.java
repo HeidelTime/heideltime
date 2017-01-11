@@ -143,7 +143,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		} else { // otherwise, check if the desired locale exists in the JVM's
 			 // available locale repertoire
 			try {
-				Locale locale = DateCalculator.getLocaleFromString(requestedLocale);
+				Locale locale = getLocaleFromString(requestedLocale);
 				Locale.setDefault(locale); // sets it for the entire JVM
 							   // session
 			} catch (LocaleException e) {
@@ -2351,5 +2351,19 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			return false;
 		// Something like 20041224 or 2004-12-24
 		return VALID_DCT.matcher(dctVal).matches();
+	}
+
+	/**
+	 * takes a desired locale input string, iterates through available locales, returns a locale object
+	 * 
+	 * @param locale
+	 *                String to grab a locale for, i.e. en_US, en_GB, de_DE
+	 * @return Locale to represent the input String
+	 */
+	public static Locale getLocaleFromString(String locale) throws LocaleException {
+		for (Locale l : Locale.getAvailableLocales())
+			if (locale.equalsIgnoreCase(l.toString()))
+				return l;
+		throw new LocaleException();
 	}
 }
