@@ -5,13 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.*;
 /**
  * 
  * This class fills the role of a manager of all the Normalization resources.
@@ -115,7 +114,7 @@ public class NormalizationManager extends GenericResourceManager {
 						
 						// check each line for the normalization format (defined in paReadNormalizations)
 						boolean correctLine = false;
-						for (MatchResult r : Toolbox.findMatches(paReadNormalizations, line)) {
+						for (Matcher r = paReadNormalizations.matcher(line); r.find(); ) {
 							correctLine = true;
 							String resource_word   = replaceSpaces(r.group(1));
 							String normalized_word = r.group(2);

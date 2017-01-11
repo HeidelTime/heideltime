@@ -1,13 +1,14 @@
 package de.unihd.dbs.uima.annotator.heideltime.processors;
 
 import java.util.HashSet;
-import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.uima.cas.FSIterator;
+import org.apache.uima.cas.text.AnnotationIndex;
 import org.apache.uima.jcas.JCas;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
 import de.unihd.dbs.uima.types.heideltime.Timex3;
 import de.unihd.dbs.uima.types.heideltime.Timex3Interval;
 
@@ -19,21 +20,23 @@ import de.unihd.dbs.uima.types.heideltime.Timex3Interval;
  *
  */
 public class TemponymPostprocessing {
+	private static final Logger LOG = LoggerFactory.getLogger(TemponymPostprocessing.class);
+
+	private static final Pattern p = Pattern.compile("\\[(.*?), (.*?), (.*?), (.*?)\\]");
 	
 	public static void handleIntervals(JCas jcas){
 		
 		HashSet<Timex3> timexes = new HashSet<>();
 		
 		// iterate over all TEMPONYMS
-		FSIterator iterTimex = jcas.getAnnotationIndex(Timex3.type).iterator();
-		while (iterTimex.hasNext()) {
-			Timex3 t = (Timex3) iterTimex.next();
+		AnnotationIndex<Timex3> timex3s = jcas.getAnnotationIndex(Timex3.type);
+		for(Timex3 t : timex3s) {
 			if (t.getTimexType().equals("TEMPONYM")) {
 				
 				// create a timex3interval for each temponym
 				Timex3Interval ti = new Timex3Interval(jcas);
 
-				System.err.println("TEMPONYM: " + t.getCoveredText());
+				LOG.debug("TEMPONYM: " + t.getCoveredText());
 				
 				ti.setBegin(t.getBegin());
 				ti.setEnd(t.getEnd());
@@ -49,8 +52,7 @@ public class TemponymPostprocessing {
 				ti.setTimexId("t" + newId);
 
 				// get the (earliest|last)(begin|end) information
-				Pattern p = Pattern.compile("\\[(.*?), (.*?), (.*?), (.*?)\\]");
-				for (MatchResult mr : Toolbox.findMatches(p,t.getTimexValue())) {
+				for(Matcher mr = p.matcher(t.getTimexValue()); mr.find(); ) {
 					ti.setTimexValueEB(mr.group(1));
 					ti.setTimexValueLB(mr.group(2));
 					ti.setTimexValueEE(mr.group(3));

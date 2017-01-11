@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -31,7 +30,6 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.ResourceMap;
 import de.unihd.dbs.uima.annotator.heideltime.resources.ResourceScanner;
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
 import de.unihd.dbs.uima.types.heideltime.IntervalCandidateSentence;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Timex3;
@@ -109,7 +107,7 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 					
 					LOG.debug("reading rules... {}", line);
 					// check each line for the name, extraction, and normalization part
-					for (MatchResult r : Toolbox.findMatches(paReadRules, line)) {
+					for (Matcher r = paReadRules.matcher(line); r.find(); ) {
 						String rule_name          = r.group(1);
 						String rule_extraction    = r.group(2);
 						String rule_normalization = r.group(3);
@@ -119,9 +117,9 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 						////////////////////////////////////////////////////////////////////
 						// create pattern for rule extraction part
 						RePatternManager rpm = RePatternManager.getInstance(language, false);
-						for (MatchResult mr : Toolbox.findMatches(paVariable,rule_extraction)) {
+						for (Matcher mr = paVariable.matcher(rule_extraction); mr.find(); ) {
 							LOG.debug("replacing patterns... {}", mr.group());
-							if (!(rpm.containsKey(mr.group(1)))) {
+							if (!rpm.containsKey(mr.group(1))) {
 								LOG.error("Error creating rule: {}\nThe following pattern used in this rule does not exist: %{}", rule_name, mr.group(1));
 								System.exit(1);
 							}

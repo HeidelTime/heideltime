@@ -47,7 +47,6 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.DurationSimplification;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.ChineseNumbers;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.ContextAnalyzer;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.LocaleException;
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
 import de.unihd.dbs.uima.types.heideltime.Dct;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Timex3;
@@ -1641,120 +1640,117 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			// WEEKDAY NAMES
 			// TODO the calculation is strange, but works
 			// TODO tense should be included?!
-			else if (UNDEF_WEEKDAY.matcher(ambigString).matches()) {
-				for (MatchResult mr : Toolbox.findMatches(UNDEF_WEEKDAY, ambigString)) {
-					String checkUndef = mr.group(1);
-					String ltnd = mr.group(2);
-					String newWeekday = mr.group(3);
-					int newWeekdayInt = Integer.parseInt(norm.getFromNormDayInWeek(newWeekday));
-					if (ltnd.equals("last")) {
-						if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
-							int diff = (-1) * (dctWeekday - newWeekdayInt);
+			else if ((m = UNDEF_WEEKDAY.matcher(ambigString)).matches()) {
+				String checkUndef = m.group(1);
+				String ltnd = m.group(2);
+				String newWeekday = m.group(3);
+				int newWeekdayInt = Integer.parseInt(norm.getFromNormDayInWeek(newWeekday));
+				if (ltnd.equals("last")) {
+					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+						int diff = (-1) * (dctWeekday - newWeekdayInt);
+						if (diff >= 0) {
+							diff = diff - 7;
+						}
+						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dctYear + "-" + dctMonth + "-" + dctDay, diff));
+					} else {
+						String lmDay = ContextAnalyzer.getLastMentionedX(linearDates, i, "day", language);
+						if (lmDay.equals("")) {
+							valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
+						} else {
+							int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
+							int diff = (-1) * (lmWeekdayInt - newWeekdayInt);
 							if (diff >= 0) {
 								diff = diff - 7;
 							}
-							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dctYear + "-" + dctMonth + "-" + dctDay, diff));
-						} else {
-							String lmDay = ContextAnalyzer.getLastMentionedX(linearDates, i, "day", language);
-							if (lmDay.equals("")) {
-								valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
-							} else {
-								int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
-								int diff = (-1) * (lmWeekdayInt - newWeekdayInt);
-								if (diff >= 0) {
-									diff = diff - 7;
-								}
-								valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
-							}
+							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
 						}
-					} else if (ltnd.equals("this")) {
-						if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
-							// TODO tense should be included?!
-							int diff = (-1) * (dctWeekday - newWeekdayInt);
+					}
+				} else if (ltnd.equals("this")) {
+					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+						// TODO tense should be included?!
+						int diff = (-1) * (dctWeekday - newWeekdayInt);
+						if (diff >= 0) {
+							diff = diff - 7;
+						}
+						if (diff == -7) {
+							diff = 0;
+						}
+
+						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dctYear + "-" + dctMonth + "-" + dctDay, diff));
+					} else {
+						// TODO tense should be included?!
+						String lmDay = ContextAnalyzer.getLastMentionedX(linearDates, i, "day", language);
+						if (lmDay.equals("")) {
+							valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
+						} else {
+							int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
+							int diff = (-1) * (lmWeekdayInt - newWeekdayInt);
 							if (diff >= 0) {
 								diff = diff - 7;
 							}
 							if (diff == -7) {
 								diff = 0;
 							}
-
-							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dctYear + "-" + dctMonth + "-" + dctDay, diff));
-						} else {
-							// TODO tense should be included?!
-							String lmDay = ContextAnalyzer.getLastMentionedX(linearDates, i, "day", language);
-							if (lmDay.equals("")) {
-								valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
-							} else {
-								int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
-								int diff = (-1) * (lmWeekdayInt - newWeekdayInt);
-								if (diff >= 0) {
-									diff = diff - 7;
-								}
-								if (diff == -7) {
-									diff = 0;
-								}
-								valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
-							}
+							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
 						}
-					} else if (ltnd.equals("next")) {
-						if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
-							int diff = newWeekdayInt - dctWeekday;
+					}
+				} else if (ltnd.equals("next")) {
+					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+						int diff = newWeekdayInt - dctWeekday;
+						if (diff <= 0) {
+							diff = diff + 7;
+						}
+						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dctYear + "-" + dctMonth + "-" + dctDay, diff));
+					} else {
+						String lmDay = ContextAnalyzer.getLastMentionedX(linearDates, i, "day", language);
+						if (lmDay.equals("")) {
+							valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
+						} else {
+							int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
+							int diff = newWeekdayInt - lmWeekdayInt;
 							if (diff <= 0) {
 								diff = diff + 7;
 							}
-							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dctYear + "-" + dctMonth + "-" + dctDay, diff));
-						} else {
-							String lmDay = ContextAnalyzer.getLastMentionedX(linearDates, i, "day", language);
-							if (lmDay.equals("")) {
-								valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
-							} else {
-								int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
-								int diff = newWeekdayInt - lmWeekdayInt;
-								if (diff <= 0) {
-									diff = diff + 7;
-								}
-								valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
-							}
+							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
 						}
-					} else if (ltnd.equals("day")) {
-						if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
-							// TODO tense should be included?!
-							int diff = (-1) * (dctWeekday - newWeekdayInt);
+					}
+				} else if (ltnd.equals("day")) {
+					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+						// TODO tense should be included?!
+						int diff = (-1) * (dctWeekday - newWeekdayInt);
+						if (diff >= 0) {
+							diff = diff - 7;
+						}
+						if (diff == -7) {
+							diff = 0;
+						}
+						// Tense is FUTURE
+						if ((last_used_tense.equals("FUTURE")) && diff != 0) {
+							diff = diff + 7;
+						}
+						// Tense is PAST
+						if ((last_used_tense.equals("PAST"))) {
+
+						}
+						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dctYear + "-" + dctMonth + "-" + dctDay, diff));
+					} else {
+						// TODO tense should be included?!
+						String lmDay = ContextAnalyzer.getLastMentionedX(linearDates, i, "day", language);
+						if (lmDay.equals("")) {
+							valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
+						} else {
+							int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
+							int diff = (-1) * (lmWeekdayInt - newWeekdayInt);
 							if (diff >= 0) {
 								diff = diff - 7;
 							}
 							if (diff == -7) {
 								diff = 0;
 							}
-							// Tense is FUTURE
-							if ((last_used_tense.equals("FUTURE")) && diff != 0) {
-								diff = diff + 7;
-							}
-							// Tense is PAST
-							if ((last_used_tense.equals("PAST"))) {
-
-							}
-							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dctYear + "-" + dctMonth + "-" + dctDay, diff));
-						} else {
-							// TODO tense should be included?!
-							String lmDay = ContextAnalyzer.getLastMentionedX(linearDates, i, "day", language);
-							if (lmDay.equals("")) {
-								valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
-							} else {
-								int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
-								int diff = (-1) * (lmWeekdayInt - newWeekdayInt);
-								if (diff >= 0) {
-									diff = diff - 7;
-								}
-								if (diff == -7) {
-									diff = 0;
-								}
-								valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
-							}
+							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
 						}
 					}
 				}
-
 			} else {
 				LOG.debug("ATTENTION: UNDEF value for: {} is not handled in disambiguation phase!", valueNew);
 			}
