@@ -53,188 +53,105 @@ public class ContextAnalyzer {
 	 * @return last mentioned entry
 	 */
 	public static String getLastMentionedX(List<Timex3> linearDates, int i, String x, Language language) {
-		NormalizationManager nm = NormalizationManager.getInstance(language, true);
-		
 		// Timex for which to get the last mentioned x (i.e., Timex i)
 		Timex3 t_i = linearDates.get(i);
 		
-		String xValue = "";
-		int j = i - 1;
-		while (j >= 0) {
+		for (int j = i - 1; j >= 0; --j) {
 			Timex3 timex = linearDates.get(j);
 			// check that the two timexes to compare do not have the same offset:
-				if (!(t_i.getBegin() == timex.getBegin())) {
-				
-					String value = timex.getTimexValue();
-					if (!(value.contains("funcDate"))){
-						if (x.equals("century")) {
-							if (TWO_DIGITS.matcher(value).find()) {
-								xValue = value.substring(0,2);
-								break;
-							}
-							else if (BC_TWO_DIGITS.matcher(value).find()){
-								xValue = value.substring(0,4);
-								break;
-							}
-							else {
-								j--;
-							}
-						}
-						else if (x.equals("decade")) {
-							if (THREE_DIGITS.matcher(value).find()) {
-								xValue = value.substring(0,3);
-								break;
-							}
-							else if (BC_THREE_DIGITS.matcher(value).find()){
-								xValue = value.substring(0,5);
-								break;
-							}
-							else {
-								j--;
-							}
-						}
-						else if (x.equals("year")) {
-							if (FOUR_DIGITS.matcher(value).find()) {
-								xValue = value.substring(0,4);
-								break;
-							}
-							else if (BC_FOUR_DIGITS.matcher(value).find()){
-								xValue = value.substring(0,6);
-								break;
-							}
-							else {
-								j--;
-							}
-						}
-						else if (x.equals("dateYear")) {
-							if (FOUR_DIGITS.matcher(value).find()) {
-								xValue = value; // .substring?
-								break;
-							}
-							else if (BC_FOUR_DIGITS.matcher(value).find()){
-								xValue = value; // .substring?
-								break;
-							}
-							else {
-								j--;
-							}
-						}
-						else if (x.equals("month")) {
-							if (YEAR_MON.matcher(value).find()) {
-								xValue = value.substring(0,7);
-								break;
-							}
-							else if (BC_YEAR_MON.matcher(value).find()){
-								xValue = value.substring(0,9);
-								break;
-							}
-							else {
-								j--;
-							}
-						}
-						else if (x.equals("month-with-details")) {
-							if (YEAR_MON.matcher(value).find()) {
-								xValue = value; // .substring?
-								break;
-							}
-//							else if (value.matches(YEAR_MON_BC.matcher(value).find()) {
-//								xValue = value;
-//								break;
-//							}
-							else {
-								j--;
-							}
-						}
-						else if (x.equals("day")) {
-							if (YEAR_MON_DAY.matcher(value).find()) {
-								xValue = value.substring(0,10);
-								break;
-							}
-//							else if (value.matches("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*")) {
-//								xValue = value.substring(0,12);
-//								break;
-//							}
-							else {
-								j--;
-							}
-						}
-						else if (x.equals("week")) {
-							Matcher matcher = YEAR_MON_DAY.matcher(value);
-							if (matcher.find()) {
-								xValue = matcher.group(2)+"-W"+DateCalculator.getWeekOfDate(matcher.group(0));
-								break;
-							}
-							else if (YEAR_MON_WK.matcher(value).find()) {
-							  xValue = value; // .substring?
-								break;
-							}
-							// TODO check what to do for BC times
-							else {
-								j--;
-							}
-						}
-						else if (x.equals("quarter")) {
-							if (YEAR_MON.matcher(value).find()) {
-								String month   = value.substring(5,7);
-								String quarter = nm.getFromNormMonthInQuarter(month);
-								if(quarter == null) {
-									quarter = "1";
-								}	
-								xValue = value.substring(0,4)+"-Q"+quarter;
-								break;
-							}
-							else if (YEAR_QUARTER.matcher(value).find()) {
-								xValue = value.substring(0,7);
-								break;
-							}
-							// TODO check what to do for BC times
-							else {
-								j--;
-							}
-						}
-						else if (x.equals("dateQuarter")) {
-							if (YEAR_QUARTER.matcher(value).find()) {
-								xValue = value.substring(0,7);
-								break;
-							}
-							// TODO check what to do for BC times
-							else {
-								j--;
-							}
-						}
-						else if (x.equals("season")) {
-							if (YEAR_MON.matcher(value).find()) {
-								String month   = value.substring(5,7);
-								String season = nm.getFromNormMonthInSeason(month);
-								xValue = value.substring(0,4)+"-"+season;
-								break;
-							}
-//							else if (value.matches("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9].*")) {
-//								String month   = value.substring(7,9);
-//								String season = nm.getFromNormMonthInSeason(month);
-//								xValue = value.substring(0,6)+"-"+season;
-//								break;
-//							}
-							else if (YEAR_SEASON.matcher(value).find()) {
-								xValue = value.substring(0,7);
-								break;
-							}
-//							else if (value.matches("^BC[0-9][0-9][0-9][0-9]-(SP|SU|FA|WI).*")) {
-//								xValue = value.substring(0,9);
-//								break;
-//							}
-							else {
-								j--;
-							}
-						}	
-					} else {
-						j--;
-					}
-				} else {
-					j--;
+			if (t_i.getBegin() == timex.getBegin())
+				continue;
+			String value = timex.getTimexValue();
+			if (value.contains("funcDate"))
+				continue;
+			if (x.equals("century")) {
+				if (TWO_DIGITS.matcher(value).find())
+					return value.substring(0,2);
+				if (BC_TWO_DIGITS.matcher(value).find())
+					return value.substring(0,4);
+			}
+			else if (x.equals("decade")) {
+				if (THREE_DIGITS.matcher(value).find())
+					return value.substring(0,3);
+				if (BC_THREE_DIGITS.matcher(value).find())
+					return value.substring(0,5);
+			}
+			else if (x.equals("year")) {
+				if (FOUR_DIGITS.matcher(value).find())
+					return value.substring(0,4);
+				if (BC_FOUR_DIGITS.matcher(value).find())
+					return value.substring(0,6);
+			}
+			else if (x.equals("dateYear")) {
+				if (FOUR_DIGITS.matcher(value).find())
+					return value; // .substring?
+				if (BC_FOUR_DIGITS.matcher(value).find())
+					return value; // .substring?
+			}
+			else if (x.equals("month")) {
+				if (YEAR_MON.matcher(value).find())
+					return value.substring(0,7);
+				if (BC_YEAR_MON.matcher(value).find())
+					return value.substring(0,9);
+			}
+			else if (x.equals("month-with-details")) {
+				if (YEAR_MON.matcher(value).find())
+					return value; // .substring?
+//				else if (value.matches(YEAR_MON_BC.matcher(value).find())
+//					return value;
+			}
+			else if (x.equals("day")) {
+				if (YEAR_MON_DAY.matcher(value).find())
+					return value.substring(0,10);
+//				else if (value.matches("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*"))
+//					return value.substring(0,12);
+			}
+			else if (x.equals("week")) {
+				Matcher matcher = YEAR_MON_DAY.matcher(value);
+				if (matcher.find())
+					return matcher.group(1)+"-W"+DateCalculator.getWeekOfDate(matcher.group(0));
+				if (YEAR_MON_WK.matcher(value).find())
+					return value; // .substring?
+				// TODO check what to do for BC times
+			}
+			else if (x.equals("quarter")) {
+				if (YEAR_MON.matcher(value).find()) {
+					NormalizationManager nm = NormalizationManager.getInstance(language, true);
+					String month   = value.substring(5,7);
+					String quarter = nm.getFromNormMonthInQuarter(month);
+					if(quarter == null)
+						quarter = "1";
+					return value.substring(0,4)+"-Q"+quarter;
 				}
+				if (YEAR_QUARTER.matcher(value).find())
+					return value.substring(0,7);
+				// TODO check what to do for BC times
+			}
+			else if (x.equals("dateQuarter")) {
+				if (YEAR_QUARTER.matcher(value).find())
+					return value.substring(0,7);
+				// TODO check what to do for BC times
+			}
+			else if (x.equals("season")) {
+				if (YEAR_MON.matcher(value).find()) {
+					NormalizationManager nm = NormalizationManager.getInstance(language, true);
+					String month   = value.substring(5,7);
+					String season = nm.getFromNormMonthInSeason(month);
+					return value.substring(0,4)+"-"+season;
+				}
+//				if (value.matches("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9].*")) {
+//					String month   = value.substring(7,9);
+//					String season = nm.getFromNormMonthInSeason(month);
+//					return value.substring(0,6)+"-"+season;
+//				}
+				if (YEAR_SEASON.matcher(value).find())
+					return value.substring(0,7);
+//				else if (value.matches("^BC[0-9][0-9][0-9][0-9]-(SP|SU|FA|WI).*")) {
+//					return value.substring(0,9);
+//				}
+			}
 		}
-		return xValue;
+		return "";
 	}
 	
 	/**
