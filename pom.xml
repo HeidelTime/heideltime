@@ -24,6 +24,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.test.skip>true</maven.test.skip>
+		<gpg.skip>true</gpg.skip>
 	</properties>
 
 	<developers>
@@ -50,6 +52,8 @@
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<outputDirectory>${basedir}/class</outputDirectory>
+		<testSourceDirectory>test</testSourceDirectory>
+		<testOutputDirectory>${basedir}/testclass</testOutputDirectory>
 		<resources>
 			<resource>
 				<directory>${basedir}</directory>
@@ -205,6 +209,13 @@
 			<artifactId>lbfgs</artifactId>
 			<version>0.1</version>
 			<scope>provided</scope>
+		</dependency>
+		<!-- JUnit4 testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>[4.12,5)</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
