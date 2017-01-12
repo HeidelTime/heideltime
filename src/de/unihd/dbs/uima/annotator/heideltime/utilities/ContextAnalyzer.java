@@ -3,6 +3,7 @@ package de.unihd.dbs.uima.annotator.heideltime.utilities;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Function;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,10 +20,11 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Timex3;
 import de.unihd.dbs.uima.types.heideltime.Token;
+
 /**
  * 
- * This class contains methods that work with the dependence of a subject with its
- * surrounding data; namely via the jcas element or a subset list.
+ * This class contains methods that work with the dependence of a subject with its surrounding data; namely via the jcas element or a subset list.
+ * 
  * @author jannik stroetgen
  *
  */
@@ -47,15 +49,19 @@ public class ContextAnalyzer {
 
 	/**
 	 * The value of the x of the last mentioned Timex is calculated.
-	 * @param linearDates list of previous linear dates
-	 * @param i index for the previous date entry
-	 * @param x type to search for
+	 * 
+	 * @param linearDates
+	 *                list of previous linear dates
+	 * @param i
+	 *                index for the previous date entry
+	 * @param x
+	 *                type to search for
 	 * @return last mentioned entry
 	 */
-	public static String getLastMentionedX(List<Timex3> linearDates, int i, String x, Language language) {
+	public static String getLastMentionedX(List<Timex3> linearDates, int i, Function<String, String> func) {
 		// Timex for which to get the last mentioned x (i.e., Timex i)
 		Timex3 t_i = linearDates.get(i);
-		
+
 		for (int j = i - 1; j >= 0; --j) {
 			Timex3 timex = linearDates.get(j);
 			// check that the two timexes to compare do not have the same offset:
@@ -64,100 +70,289 @@ public class ContextAnalyzer {
 			String value = timex.getTimexValue();
 			if (value.contains("funcDate"))
 				continue;
-			if (x.equals("century")) {
-				if (TWO_DIGITS.matcher(value).find())
-					return value.substring(0,2);
-				if (BC_TWO_DIGITS.matcher(value).find())
-					return value.substring(0,4);
-			}
-			else if (x.equals("decade")) {
-				if (THREE_DIGITS.matcher(value).find())
-					return value.substring(0,3);
-				if (BC_THREE_DIGITS.matcher(value).find())
-					return value.substring(0,5);
-			}
-			else if (x.equals("year")) {
-				if (FOUR_DIGITS.matcher(value).find())
-					return value.substring(0,4);
-				if (BC_FOUR_DIGITS.matcher(value).find())
-					return value.substring(0,6);
-			}
-			else if (x.equals("dateYear")) {
-				if (FOUR_DIGITS.matcher(value).find())
-					return value; // .substring?
-				if (BC_FOUR_DIGITS.matcher(value).find())
-					return value; // .substring?
-			}
-			else if (x.equals("month")) {
-				if (YEAR_MON.matcher(value).find())
-					return value.substring(0,7);
-				if (BC_YEAR_MON.matcher(value).find())
-					return value.substring(0,9);
-			}
-			else if (x.equals("month-with-details")) {
-				if (YEAR_MON.matcher(value).find())
-					return value; // .substring?
-//				else if (value.matches(YEAR_MON_BC.matcher(value).find())
-//					return value;
-			}
-			else if (x.equals("day")) {
-				if (YEAR_MON_DAY.matcher(value).find())
-					return value.substring(0,10);
-//				else if (value.matches("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*"))
-//					return value.substring(0,12);
-			}
-			else if (x.equals("week")) {
-				Matcher matcher = YEAR_MON_DAY.matcher(value);
-				if (matcher.find())
-					return matcher.group(1)+"-W"+DateCalculator.getWeekOfDate(matcher.group(0));
-				if (YEAR_MON_WK.matcher(value).find())
-					return value; // .substring?
-				// TODO check what to do for BC times
-			}
-			else if (x.equals("quarter")) {
-				if (YEAR_MON.matcher(value).find()) {
-					NormalizationManager nm = NormalizationManager.getInstance(language, true);
-					String month   = value.substring(5,7);
-					String quarter = nm.getFromNormMonthInQuarter(month);
-					if(quarter == null)
-						quarter = "1";
-					return value.substring(0,4)+"-Q"+quarter;
-				}
-				if (YEAR_QUARTER.matcher(value).find())
-					return value.substring(0,7);
-				// TODO check what to do for BC times
-			}
-			else if (x.equals("dateQuarter")) {
-				if (YEAR_QUARTER.matcher(value).find())
-					return value.substring(0,7);
-				// TODO check what to do for BC times
-			}
-			else if (x.equals("season")) {
-				if (YEAR_MON.matcher(value).find()) {
-					NormalizationManager nm = NormalizationManager.getInstance(language, true);
-					String month   = value.substring(5,7);
-					String season = nm.getFromNormMonthInSeason(month);
-					return value.substring(0,4)+"-"+season;
-				}
-//				if (value.matches("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9].*")) {
-//					String month   = value.substring(7,9);
-//					String season = nm.getFromNormMonthInSeason(month);
-//					return value.substring(0,6)+"-"+season;
-//				}
-				if (YEAR_SEASON.matcher(value).find())
-					return value.substring(0,7);
-//				else if (value.matches("^BC[0-9][0-9][0-9][0-9]-(SP|SU|FA|WI).*")) {
-//					return value.substring(0,9);
-//				}
-			}
+			String rep = func.apply(value);
+			if (rep != null)
+				return rep;
 		}
 		return "";
 	}
-	
+
+	/**
+	 * The value of the x of the last mentioned Timex is calculated.
+	 * 
+	 * @param linearDates
+	 *                list of previous linear dates
+	 * @param i
+	 *                index for the previous date entry
+	 * @return last mentioned century
+	 */
+	public static String getLastMentionedCentury(List<Timex3> linearDates, int i) {
+		return getLastMentionedX(linearDates, i, value -> {
+			if (TWO_DIGITS.matcher(value).find())
+				return value.substring(0, 2);
+			if (BC_TWO_DIGITS.matcher(value).find())
+				return value.substring(0, 4);
+			return null;
+		});
+	}
+
+	/**
+	 * The value of the x of the last mentioned Timex is calculated.
+	 * 
+	 * @param linearDates
+	 *                list of previous linear dates
+	 * @param i
+	 *                index for the previous date entry
+	 * @return last mentioned decade
+	 */
+	public static String getLastMentionedDecade(List<Timex3> linearDates, int i) {
+		return getLastMentionedX(linearDates, i, value -> {
+			if (THREE_DIGITS.matcher(value).find())
+				return value.substring(0, 3);
+			if (BC_THREE_DIGITS.matcher(value).find())
+				return value.substring(0, 5);
+			return null;
+		});
+	}
+
+	/**
+	 * The value of the x of the last mentioned Timex is calculated.
+	 * 
+	 * @param linearDates
+	 *                list of previous linear dates
+	 * @param i
+	 *                index for the previous date entry
+	 * @return last mentioned year
+	 */
+	public static String getLastMentionedYear(List<Timex3> linearDates, int i) {
+		return getLastMentionedX(linearDates, i, value -> {
+			if (FOUR_DIGITS.matcher(value).find())
+				return value.substring(0, 4);
+			if (BC_FOUR_DIGITS.matcher(value).find())
+				return value.substring(0, 6);
+			return null;
+		});
+	}
+
+	/**
+	 * The value of the x of the last mentioned Timex is calculated.
+	 * 
+	 * @param linearDates
+	 *                list of previous linear dates
+	 * @param i
+	 *                index for the previous date entry
+	 * @return last mentioned date year
+	 */
+	public static String getLastMentionedDateYear(List<Timex3> linearDates, int i) {
+		return getLastMentionedX(linearDates, i, value -> {
+			if (FOUR_DIGITS.matcher(value).find())
+				return value; // .substring?
+			if (BC_FOUR_DIGITS.matcher(value).find())
+				return value; // .substring?
+			return null;
+		});
+	}
+
+	/**
+	 * The value of the x of the last mentioned Timex is calculated.
+	 * 
+	 * @param linearDates
+	 *                list of previous linear dates
+	 * @param i
+	 *                index for the previous date entry
+	 * @return last mentioned month
+	 */
+	public static String getLastMentionedMonth(List<Timex3> linearDates, int i) {
+		return getLastMentionedX(linearDates, i, value -> {
+			if (YEAR_MON.matcher(value).find())
+				return value.substring(0, 7);
+			if (BC_YEAR_MON.matcher(value).find())
+				return value.substring(0, 9);
+			return null;
+		});
+	}
+
+	/**
+	 * The value of the x of the last mentioned Timex is calculated.
+	 * 
+	 * @param linearDates
+	 *                list of previous linear dates
+	 * @param i
+	 *                index for the previous date entry
+	 * @return last mentioned month with details
+	 */
+	public static String getLastMentionedMonthDetails(List<Timex3> linearDates, int i) {
+		return getLastMentionedX(linearDates, i, value -> {
+			if (YEAR_MON.matcher(value).find())
+				return value; // .substring?
+			// else if (value.matches(YEAR_MON_BC.matcher(value).find())
+			// return value;
+			return null;
+		});
+	}
+
+	/**
+	 * The value of the x of the last mentioned Timex is calculated.
+	 * 
+	 * @param linearDates
+	 *                list of previous linear dates
+	 * @param i
+	 *                index for the previous date entry
+	 * @return last mentioned day
+	 */
+	public static String getLastMentionedDay(List<Timex3> linearDates, int i) {
+		return getLastMentionedX(linearDates, i, value -> {
+			if (YEAR_MON_DAY.matcher(value).find())
+				return value.substring(0, 10);
+			// else if (value.matches("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*"))
+			// return value.substring(0,12);
+			return null;
+		});
+	}
+
+	/**
+	 * The value of the x of the last mentioned Timex is calculated.
+	 * 
+	 * @param linearDates
+	 *                list of previous linear dates
+	 * @param i
+	 *                index for the previous date entry
+	 * @return last mentioned weeh
+	 */
+	public static String getLastMentionedWeek(List<Timex3> linearDates, int i) {
+		return getLastMentionedX(linearDates, i, value -> {
+			Matcher matcher = YEAR_MON_DAY.matcher(value);
+			if (matcher.find())
+				return matcher.group(1) + "-W" + DateCalculator.getWeekOfDate(matcher.group(0));
+			if (YEAR_MON_WK.matcher(value).find())
+				return value; // .substring?
+			// TODO check what to do for BC times
+			return null;
+		});
+	}
+
+	/**
+	 * The value of the x of the last mentioned Timex is calculated.
+	 * 
+	 * @param linearDates
+	 *                list of previous linear dates
+	 * @param i
+	 *                index for the previous date entry
+	 * @param language
+	 *                Language
+	 * @return last mentioned quarter
+	 */
+	public static String getLastMentionedQuarter(List<Timex3> linearDates, int i, Language language) {
+		return getLastMentionedX(linearDates, i, value -> {
+			if (YEAR_MON.matcher(value).find()) {
+				NormalizationManager nm = NormalizationManager.getInstance(language, true);
+				String month = value.substring(5, 7);
+				String quarter = nm.getFromNormMonthInQuarter(month);
+				if (quarter == null)
+					quarter = "1";
+				return value.substring(0, 4) + "-Q" + quarter;
+			}
+			if (YEAR_QUARTER.matcher(value).find())
+				return value.substring(0, 7);
+			// TODO check what to do for BC times
+			return null;
+		});
+	}
+
+	/**
+	 * The value of the x of the last mentioned Timex is calculated.
+	 * 
+	 * @param linearDates
+	 *                list of previous linear dates
+	 * @param i
+	 *                index for the previous date entry
+	 * @return last mentioned century
+	 */
+	public static String getLastMentionedDateQuarter(List<Timex3> linearDates, int i) {
+		return getLastMentionedX(linearDates, i, value -> {
+			if (YEAR_QUARTER.matcher(value).find())
+				return value.substring(0, 7);
+			// TODO check what to do for BC times
+			return null;
+		});
+	}
+
+	/**
+	 * The value of the x of the last mentioned Timex is calculated.
+	 * 
+	 * @param linearDates
+	 *                list of previous linear dates
+	 * @param i
+	 *                index for the previous date entry
+	 * @return last mentioned season
+	 */
+	public static String getLastMentionedSeason(List<Timex3> linearDates, int i, Language language) {
+		return getLastMentionedX(linearDates, i, value -> {
+			if (YEAR_MON.matcher(value).find()) {
+				NormalizationManager nm = NormalizationManager.getInstance(language, true);
+				String month = value.substring(5, 7);
+				String season = nm.getFromNormMonthInSeason(month);
+				return value.substring(0, 4) + "-" + season;
+			}
+			// if (value.matches("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9].*")) {
+			// String month = value.substring(7,9);
+			// String season = nm.getFromNormMonthInSeason(month);
+			// return value.substring(0,6)+"-"+season;
+			// }
+			if (YEAR_SEASON.matcher(value).find())
+				return value.substring(0, 7);
+			// else if (value.matches("^BC[0-9][0-9][0-9][0-9]-(SP|SU|FA|WI).*")) {
+			// return value.substring(0,9);
+			// }
+			return null;
+		});
+	}
+
+	/**
+	 * The value of the x of the last mentioned Timex is calculated.
+	 * 
+	 * @param linearDates
+	 *                list of previous linear dates
+	 * @param i
+	 *                index for the previous date entry
+	 * @param x
+	 *                type to search for
+	 * @return last mentioned entry
+	 */
+	public static String getLastMentionedX(List<Timex3> linearDates, int i, String x, Language language) {
+		if (x.equals("century")) {
+			return getLastMentionedCentury(linearDates, i);
+		} else if (x.equals("decade")) {
+			return getLastMentionedDecade(linearDates, i);
+		} else if (x.equals("year")) {
+			return getLastMentionedYear(linearDates, i);
+		} else if (x.equals("dateYear")) {
+			return getLastMentionedDateYear(linearDates, i);
+		} else if (x.equals("month")) {
+			return getLastMentionedMonth(linearDates, i);
+		} else if (x.equals("month-with-details")) {
+			return getLastMentionedMonthDetails(linearDates, i);
+		} else if (x.equals("day")) {
+			return getLastMentionedDay(linearDates, i);
+		} else if (x.equals("week")) {
+			return getLastMentionedWeek(linearDates, i);
+		} else if (x.equals("quarter")) {
+			return getLastMentionedQuarter(linearDates, i, language);
+		} else if (x.equals("dateQuarter")) {
+			return getLastMentionedDateQuarter(linearDates, i);
+		} else if (x.equals("season")) {
+			return getLastMentionedSeason(linearDates, i, language);
+		} else {
+			LOG.error("Unknown type {}", x);
+			return "";
+		}
+	}
+
 	/**
 	 * Get the last tense used in the sentence
 	 * 
-	 * @param timex timex construct to discover tense data for
+	 * @param timex
+	 *                timex construct to discover tense data for
 	 * @return string that contains the tense
 	 */
 	public static String getClosestTense(Timex3 timex, JCas jcas, Language language) {
@@ -169,19 +364,18 @@ public class ContextAnalyzer {
 
 		String lastTense = "";
 		String nextTense = "";
-		
+
 		int tokenCounter = 0;
 		int lastid = 0;
 		int nextid = 0;
-		int tid    = 0;
+		int tid = 0;
 
 		// Get the sentence
 		AnnotationIndex<Sentence> sentences = jcas.getAnnotationIndex(Sentence.type);
 		Sentence s = new Sentence(jcas);
-		for (FSIterator<Sentence> iterSentence = sentences.iterator(); iterSentence.hasNext(); ) {
+		for (FSIterator<Sentence> iterSentence = sentences.iterator(); iterSentence.hasNext();) {
 			s = (Sentence) iterSentence.next();
-			if ((s.getBegin() <= timex.getBegin())
-					&& (s.getEnd() >= timex.getEnd())) {
+			if ((s.getBegin() <= timex.getBegin()) && (s.getEnd() >= timex.getEnd())) {
 				break;
 			}
 		}
@@ -189,7 +383,7 @@ public class ContextAnalyzer {
 		// Get the tokens
 		TreeMap<Integer, Token> tmToken = new TreeMap<Integer, Token>();
 		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
-		for(Token token : tokens) {
+		for (Token token : tokens) {
 			tmToken.put(token.getEnd(), token);
 		}
 
@@ -203,29 +397,26 @@ public class ContextAnalyzer {
 					continue; // POS not available?
 
 				if (LOG.isTraceEnabled()) {
-					LOG.trace("GET LAST TENSE: string:"+token.getCoveredText()+" pos:"+pos);
-					LOG.trace("tensePos4PresentFuture pattern:"+tensePos4PresentFuture.pattern().pattern());
-					LOG.trace("tensePos4Future pattern:"+tensePos4Future.pattern().pattern());
-					LOG.trace("tensePos4Past pattern:"+tensePos4Past.pattern().pattern());
-					LOG.trace("CHECK TOKEN: "+pos);
+					LOG.trace("GET LAST TENSE: string:" + token.getCoveredText() + " pos:" + pos);
+					LOG.trace("tensePos4PresentFuture pattern:" + tensePos4PresentFuture.pattern().pattern());
+					LOG.trace("tensePos4Future pattern:" + tensePos4Future.pattern().pattern());
+					LOG.trace("tensePos4Past pattern:" + tensePos4Past.pattern().pattern());
+					LOG.trace("CHECK TOKEN: " + pos);
 				}
 
 				if (tensePos4PresentFuture != null && tensePos4PresentFuture.reset(pos).matches()) {
 					lastTense = "PRESENTFUTURE";
-					lastid = tokenCounter; 
-				}
-				else if (tensePos4Past != null && tensePos4Past.reset(pos).matches()) {
+					lastid = tokenCounter;
+				} else if (tensePos4Past != null && tensePos4Past.reset(pos).matches()) {
 					lastTense = "PAST";
 					lastid = tokenCounter;
-				}
-				else if (tensePos4Future != null && tensePos4Future.reset(pos).matches()) {
+				} else if (tensePos4Future != null && tensePos4Future.reset(pos).matches()) {
 					if (tenseWord4Future.reset(token.getCoveredText()).matches()) {
 						lastTense = "FUTURE";
 						lastid = tokenCounter;
 					}
 				}
-			}
-			else {
+			} else {
 				if (tid == 0)
 					tid = tokenCounter;
 			}
@@ -241,22 +432,20 @@ public class ContextAnalyzer {
 						continue; // No POS available?
 
 					if (LOG.isTraceEnabled()) {
-						LOG.trace("GET NEXT TENSE: string:"+token.getCoveredText()+" pos:"+pos);
-						LOG.trace("tensePos4PresentFuture pattern:"+tensePos4PresentFuture.pattern().pattern());
-						LOG.trace("tensePos4Future pattern:"+tensePos4Future.pattern().pattern());
-						LOG.trace("tensePos4Past pattern:"+tensePos4Past.pattern().pattern());
-						LOG.trace("CHECK TOKEN: "+pos);
+						LOG.trace("GET NEXT TENSE: string:" + token.getCoveredText() + " pos:" + pos);
+						LOG.trace("tensePos4PresentFuture pattern:" + tensePos4PresentFuture.pattern().pattern());
+						LOG.trace("tensePos4Future pattern:" + tensePos4Future.pattern().pattern());
+						LOG.trace("tensePos4Past pattern:" + tensePos4Past.pattern().pattern());
+						LOG.trace("CHECK TOKEN: " + pos);
 					}
 
 					if (tensePos4PresentFuture != null && tensePos4PresentFuture.reset(pos).matches()) {
 						nextTense = "PRESENTFUTURE";
 						nextid = tokenCounter;
-					}
-					else if (tensePos4Past != null && tensePos4Past.reset(pos).matches()) {
+					} else if (tensePos4Past != null && tensePos4Past.reset(pos).matches()) {
 						nextTense = "PAST";
 						nextid = tokenCounter;
-					}
-					else if (tensePos4Future != null && tensePos4Future.reset(pos).matches()) {
+					} else if (tensePos4Future != null && tensePos4Future.reset(pos).matches()) {
 						if (tenseWord4Future.reset(token.getCoveredText()).matches()) {
 							nextTense = "FUTURE";
 							nextid = tokenCounter;
@@ -268,30 +457,27 @@ public class ContextAnalyzer {
 		if (lastTense.length() == 0) {
 			LOG.trace("TENSE: {}", nextTense);
 			return nextTense;
-		}
-		else if (nextTense.length() == 0) {
+		} else if (nextTense.length() == 0) {
 			LOG.trace("TENSE: {}", lastTense);
 			return lastTense;
-		}
-		else {
-			// If there is tense before and after the timex token, 
+		} else {
+			// If there is tense before and after the timex token,
 			// return the closer one:
 			if ((tid - lastid) > (nextid - tid)) {
 				LOG.trace("TENSE: {}", nextTense);
 				return nextTense;
-			}
-			else {
+			} else {
 				LOG.trace("TENSE: {}", lastTense);
-				return lastTense;	
-			}	
+				return lastTense;
+			}
 		}
 	}
-	
-	
+
 	/**
 	 * Get the last tense used in the sentence
 	 * 
-	 * @param timex timex construct to discover tense data for
+	 * @param timex
+	 *                timex construct to discover tense data for
 	 * @return string that contains the tense
 	 */
 	public static String getLastTense(Timex3 timex, JCas jcas, Language language) {
@@ -306,10 +492,9 @@ public class ContextAnalyzer {
 		// Get the sentence
 		AnnotationIndex<Sentence> sentences = jcas.getAnnotationIndex(Sentence.type);
 		Sentence s = new Sentence(jcas);
-		for (FSIterator<Sentence> iterSentence = sentences.iterator(); iterSentence.hasNext(); ) {
+		for (FSIterator<Sentence> iterSentence = sentences.iterator(); iterSentence.hasNext();) {
 			s = (Sentence) iterSentence.next();
-			if ((s.getBegin() <= timex.getBegin())
-					&& (s.getEnd() >= timex.getEnd())) {
+			if ((s.getBegin() <= timex.getBegin()) && (s.getEnd() >= timex.getEnd())) {
 				break;
 			}
 		}
@@ -317,12 +502,12 @@ public class ContextAnalyzer {
 		// Get the tokens
 		TreeMap<Integer, Token> tmToken = new TreeMap<Integer, Token>();
 		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
-		for(Token token : tokens) {
+		for (Token token : tokens) {
 			tmToken.put(token.getEnd(), token);
 		}
 
 		// Get the last VERB token
-		for (Map.Entry<Integer, Token> ent: tmToken.entrySet()) {
+		for (Map.Entry<Integer, Token> ent : tmToken.entrySet()) {
 			if (ent.getKey() < timex.getBegin()) {
 				Token token = ent.getValue();
 				String coveredText = token.getCoveredText();
@@ -331,22 +516,20 @@ public class ContextAnalyzer {
 					continue; // No POS available?
 
 				if (LOG.isTraceEnabled()) {
-					LOG.trace("GET LAST TENSE: string:"+coveredText+" pos: "+pos);
-					LOG.trace("tensePos4PresentFuture pattern:"+tensePos4PresentFuture.pattern().pattern());
-					LOG.trace("tensePos4Future pattern:"+tensePos4Future.pattern().pattern());
-					LOG.trace("tensePos4Past pattern:"+tensePos4Past.pattern().pattern());
-					LOG.trace("CHECK TOKEN: "+pos);
+					LOG.trace("GET LAST TENSE: string:" + coveredText + " pos: " + pos);
+					LOG.trace("tensePos4PresentFuture pattern:" + tensePos4PresentFuture.pattern().pattern());
+					LOG.trace("tensePos4Future pattern:" + tensePos4Future.pattern().pattern());
+					LOG.trace("tensePos4Past pattern:" + tensePos4Past.pattern().pattern());
+					LOG.trace("CHECK TOKEN: " + pos);
 				}
-				
+
 				if (tensePos4PresentFuture != null && tensePos4PresentFuture.reset(pos).matches()) {
 					lastTense = "PRESENTFUTURE";
 					LOG.debug("this tense: {}", lastTense);
-				}
-				else if (tensePos4Past != null && tensePos4Past.reset(pos).matches()) {
+				} else if (tensePos4Past != null && tensePos4Past.reset(pos).matches()) {
 					lastTense = "PAST";
 					LOG.debug("this tense: {}", lastTense);
-				}
-				else if (tensePos4Future != null && tensePos4Future.reset(pos).matches()) {
+				} else if (tensePos4Future != null && tensePos4Future.reset(pos).matches()) {
 					if (tenseWord4Future.reset(coveredText).matches()) {
 						lastTense = "FUTURE";
 						LOG.debug("this tense: {}", lastTense);
@@ -362,26 +545,22 @@ public class ContextAnalyzer {
 				String pos = token.getPos();
 
 				if (LOG.isDebugEnabled()) {
-					LOG.debug("GET NEXT TENSE: string:"+token.getCoveredText()+" pos:"+pos);
-					LOG.debug("hmAllRePattern.containsKey(tensePos4PresentFuture):"+tensePos4PresentFuture.pattern().pattern());
-					LOG.debug("hmAllRePattern.containsKey(tensePos4Future):"+tensePos4Future.pattern().pattern());
-					LOG.debug("hmAllRePattern.containsKey(tensePos4Past):"+tensePos4Past.pattern().pattern());
-					LOG.debug("CHECK TOKEN:"+pos);
+					LOG.debug("GET NEXT TENSE: string:" + token.getCoveredText() + " pos:" + pos);
+					LOG.debug("hmAllRePattern.containsKey(tensePos4PresentFuture):" + tensePos4PresentFuture.pattern().pattern());
+					LOG.debug("hmAllRePattern.containsKey(tensePos4Future):" + tensePos4Future.pattern().pattern());
+					LOG.debug("hmAllRePattern.containsKey(tensePos4Past):" + tensePos4Past.pattern().pattern());
+					LOG.debug("CHECK TOKEN:" + pos);
 				}
-
 
 				if (pos == null) {
 
-				}
-				else if (tensePos4PresentFuture != null && tensePos4PresentFuture.reset(pos).matches()) {
+				} else if (tensePos4PresentFuture != null && tensePos4PresentFuture.reset(pos).matches()) {
 					lastTense = "PRESENTFUTURE";
 					LOG.debug("this tense: {}", lastTense);
-				}
-				else if (tensePos4Past != null && tensePos4Past.reset(pos).matches()) {
+				} else if (tensePos4Past != null && tensePos4Past.reset(pos).matches()) {
 					lastTense = "PAST";
 					LOG.debug("this tense: {}", lastTense);
-				}
-				else if (tensePos4Future != null && tensePos4Future.reset(pos).matches()) {
+				} else if (tensePos4Future != null && tensePos4Future.reset(pos).matches()) {
 					if (tenseWord4Future.reset(token.getCoveredText()).matches()) {
 						lastTense = "FUTURE";
 						LOG.debug("this tense: {}", lastTense);
@@ -426,15 +605,15 @@ public class ContextAnalyzer {
 		}
 		// French: VER:pres VER:pper
 		if (lastTense.equals("PAST")) {
-			for (Map.Entry<Integer, Token> ent : tmToken.entrySet()) { 
+			for (Map.Entry<Integer, Token> ent : tmToken.entrySet()) {
 				if (ent.getKey() < timex.getBegin()) {
 					Token token = ent.getValue();
 					String pos = token.getPos();
 					if ("VER:pres".equals(prevPos) && "VER:pper".equals(pos)) {
-							if (PREVUE_ENVISAGEE.matcher(token.getCoveredText()).matches()) {
-								lastTense = longTense = "FUTURE";
-								LOG.debug("this tense: {}", lastTense);
-							}
+						if (PREVUE_ENVISAGEE.matcher(token.getCoveredText()).matches()) {
+							lastTense = longTense = "FUTURE";
+							LOG.debug("this tense: {}", lastTense);
+						}
 					}
 					prevPos = pos;
 				}
@@ -454,14 +633,17 @@ public class ContextAnalyzer {
 			}
 		}
 		LOG.trace("TENSE: {}", lastTense);
-		
+
 		return lastTense;
 	}
-	
+
 	/**
 	 * Check token boundaries of expressions.
-	 * @param r MatchResult 
-	 * @param s Respective sentence
+	 * 
+	 * @param r
+	 *                MatchResult
+	 * @param s
+	 *                Respective sentence
 	 * @return whether or not the MatchResult is a clean one
 	 */
 	public static boolean checkInfrontBehind(MatchResult r, Sentence s) {
@@ -471,16 +653,16 @@ public class ContextAnalyzer {
 			char prev = cov.charAt(r.start() - 1);
 			if (r.start() >= 2 && prev == '.' && Character.isDigit(cov.charAt(r.start() - 2)))
 				return false;
-		
+
 			// get rid of expressions if there is a character or symbol ($+) directly in front of the expression
 			if (prev == '(' || prev == '$' || prev == '+' || Character.isAlphabetic(prev))
 				return false;
 		}
-		
+
 		final int len = cov.length();
 		if (r.end() < len) {
 			char succ = cov.charAt(r.end());
-			if (succ == ')' || succ == '°' || Character.isAlphabetic(succ)) 
+			if (succ == ')' || succ == '°' || Character.isAlphabetic(succ))
 				return false;
 			if (r.end() + 1 < len && Character.isDigit(succ)) {
 				char succ2 = cov.charAt(r.end() + 1);
@@ -490,36 +672,40 @@ public class ContextAnalyzer {
 		}
 		return true;
 	}
-	
+
 	/**
-	* Check token boundaries using token information
-	*
-	* @param r MatchResult
-	* @param s respective Sentence
-	* @param jcas current CAS object
-	* @return whether or not the MatchResult is a clean one
-	*/
-	public static boolean checkTokenBoundaries(MatchResult r, Sentence s, JCas jcas){
+	 * Check token boundaries using token information
+	 *
+	 * @param r
+	 *                MatchResult
+	 * @param s
+	 *                respective Sentence
+	 * @param jcas
+	 *                current CAS object
+	 * @return whether or not the MatchResult is a clean one
+	 */
+	public static boolean checkTokenBoundaries(MatchResult r, Sentence s, JCas jcas) {
 		// whole expression is marked as a sentence
-		if ((r.end() - r.start()) == (s.getEnd() - s.getBegin()))
+		final int offset = s.getBegin();
+		if (r.end() - r.start() == s.getEnd() - offset)
 			return true;
-		
+
 		// Only check Token boundaries if no white-spaces in front of and behind the match-result
 		String cov = s.getCoveredText();
-		if ((r.start() == 0 || cov.charAt(r.start() - 1) == ' ') && 
-		    (r.end() == cov.length() || cov.charAt(r.end()) == ' '))
+		boolean beginOK = r.start() == 0 || r.start() == s.getBegin() //
+				|| (r.start() < cov.length() && cov.charAt(r.start() - 1) == ' ');
+		boolean endOK = r.end() == cov.length() || r.end() == s.getEnd() //
+				|| (r.end() < cov.length() && cov.charAt(r.end()) == ' ');
+		if (beginOK && endOK)
 			return true;
-	
-		boolean beginOK = false;
-		boolean endOK = false;
-	
+
 		// other token boundaries than white-spaces
 		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
-		for (FSIterator<Token> iterToken = tokens.subiterator(s); iterToken.hasNext(); ) {
+		for (FSIterator<Token> iterToken = tokens.subiterator(s); iterToken.hasNext();) {
 			Token t = iterToken.next();
 
 			// Check begin
-			if (r.start() + s.getBegin() == t.getBegin()) {
+			if (r.start() + offset == t.getBegin()) {
 				beginOK = true;
 			}
 			// Tokenizer does not split number from some symbols (".", "/", "-", "–"),
@@ -531,14 +717,14 @@ public class ContextAnalyzer {
 			}
 
 			// Check end
-			if (r.end() + s.getBegin() == t.getEnd()) {
+			if (r.end() + offset == t.getEnd()) {
 				endOK = true;
 			}
 			// Tokenizer does not split number from some symbols (".", "/", "-", "–"),
 			// e.g., "... in 1990. New Sentence ..."
 			else if (r.end() < cov.length()) {
 				char last = cov.charAt(r.end());
-				if (last == '.'  || last == '/' || last == '-' || last == '–')
+				if (last == '.' || last == '/' || last == '-' || last == '–')
 					endOK = true;
 			}
 
@@ -546,5 +732,5 @@ public class ContextAnalyzer {
 				return true;
 		}
 		return false;
-	} 
+	}
 }

@@ -120,6 +120,24 @@ public class DateCalculator {
 	}
 
 	/**
+	 * get the x-next day of date.
+	 * 
+	 * @param date
+	 *                given date to get new date from
+	 * @param x
+	 *                type of temporal event to search for
+	 * @return
+	 */
+	public static String getXNextDay(int year, int month, int days, int x) {
+		try {
+			return LocalDate.of(year, month, days).plusDays(x).format(FORMATTER);
+		} catch (DateTimeParseException e) {
+			LOG.error(e.getMessage(), e);
+			return "";
+		}
+	}
+
+	/**
 	 * get the x-next month of date
 	 * 
 	 * @param date
