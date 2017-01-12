@@ -105,7 +105,7 @@ public class NormalizationManager extends GenericResourceManager {
 					InputStreamReader isr = new InputStreamReader(is, "UTF-8");//
 					BufferedReader br = new BufferedReader(isr)) {
 				for (String line; (line=br.readLine()) != null; ) {
-					if (line.startsWith("//")) continue; // ignore comments
+					if (line.startsWith("//") || line.length() == 0) continue; // ignore comments and empty lines
 
 					// check each line for the normalization format (defined in paReadNormalizations)
 					maReadNormalizations.reset(line);
