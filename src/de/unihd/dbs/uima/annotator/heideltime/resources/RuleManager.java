@@ -122,7 +122,7 @@ public class RuleManager extends GenericResourceManager {
 					if (line.startsWith("//") || line.equals(""))
 						continue;
 
-					LOG.debug("Reading rules... {}", line);
+					LOG.trace("Reading rules... {}", line);
 					// check each line for the name, extraction, and
 					// normalization part, others are optional
 					maReadRules.reset(line);
@@ -131,7 +131,7 @@ public class RuleManager extends GenericResourceManager {
 						continue lines;
 					}
 					String rule_name = maReadRules.group(1);
-					String rule_extraction = replaceSpaces(maReadRules.group(2));
+					String rule_extraction = maReadRules.group(2);
 					String rule_normalization = maReadRules.group(3);
 
 					// throw an error if the rule's name already exists
@@ -158,8 +158,7 @@ public class RuleManager extends GenericResourceManager {
 						}
 						rule_extraction = rule_extraction.replaceAll("%" + varname, rep);
 					}
-					// FIXME: this causes false positives inside e.g. character groups!
-					rule_extraction = rule_extraction.replaceAll(" ", "\\s+");
+					rule_extraction = replaceSpaces(rule_extraction);
 					Pattern pattern = null;
 					try {
 						pattern = Pattern.compile(rule_extraction);
@@ -207,7 +206,7 @@ public class RuleManager extends GenericResourceManager {
 									}
 									rule_fast_check = rule_fast_check.replaceAll("%" + varname, rep);
 								}
-								rule_fast_check = rule_fast_check.replaceAll(" ", "\\s+");
+								rule_fast_check = replaceSpaces(rule_fast_check);
 								try {
 									rule.fastCheck = Pattern.compile(rule_fast_check);
 								} catch (java.util.regex.PatternSyntaxException e) {

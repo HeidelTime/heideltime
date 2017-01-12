@@ -382,9 +382,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		annotation.addToIndexes();
 		this.timex_counter++;
 
-		if (LOG.isDebugEnabled()) {
-			LOG.debug(annotation.getTimexId() + "EXTRACTION PHASE:   " + " found by:" + annotation.getFoundByRule() + " text:" + annotation.getCoveredText());
-			LOG.debug(annotation.getTimexId() + "NORMALIZATION PHASE:" + " found by:" + annotation.getFoundByRule() + " text:" + annotation.getCoveredText() + " value:"
+		if (LOG.isTraceEnabled()) {
+			LOG.trace(annotation.getTimexId() + " EXTRACTION PHASE:   " + " found by:" + annotation.getFoundByRule() + " text:" + annotation.getCoveredText());
+			LOG.trace(annotation.getTimexId() + " NORMALIZATION PHASE:" + " found by:" + annotation.getFoundByRule() + " text:" + annotation.getCoveredText() + " value:"
 					+ annotation.getTimexValue());
 		}
 	}
@@ -2200,15 +2200,15 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			while (mr.find(0)) {
 				String normfunc = mr.group(1);
 				int groupid = Integer.parseInt(mr.group(2));
-				if (LOG.isDebugEnabled()) {
-					LOG.debug("rule:" + rule);
-					LOG.debug("tonormalize:" + tonormalize.toString());
-					LOG.debug("mr.group():" + mr.group());
-					LOG.debug("mr.group(1):" + normfunc);
-					LOG.debug("mr.group(2):" + mr.group(2));
-					LOG.debug("m.group():" + m.group());
-					LOG.debug("m.group(" + groupid + "):" + m.group(groupid));
-					LOG.debug("hmR...:" + norm.getFromHmAllNormalization(normfunc).get(m.group(groupid)));
+				if (LOG.isTraceEnabled()) {
+					LOG.trace("rule:" + rule);
+					LOG.trace("tonormalize:" + tonormalize.toString());
+					LOG.trace("mr.group():" + mr.group());
+					LOG.trace("mr.group(1):" + normfunc);
+					LOG.trace("mr.group(2):" + mr.group(2));
+					LOG.trace("m.group():" + m.group());
+					LOG.trace("m.group(" + groupid + "):" + m.group(groupid));
+					LOG.trace("hmR...:" + norm.getFromHmAllNormalization(normfunc).get(m.group(groupid)));
 				}
 
 				try {
@@ -2243,12 +2243,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			while (mr.find(0)) {
 				int groupid = Integer.parseInt(mr.group(1));
 				try {
-					if (LOG.isDebugEnabled()) {
-						LOG.debug("tonormalize:" + tonormalize);
-						LOG.debug("mr.group():" + mr.group());
-						LOG.debug("mr.group(1):" + mr.group(1));
-						LOG.debug("m.group():" + m.group());
-						LOG.debug("m.group(" + Integer.parseInt(mr.group(1)) + "):" + m.group(groupid));
+					if (LOG.isTraceEnabled()) {
+						LOG.trace("tonormalize:" + tonormalize);
+						LOG.trace("mr.group():" + mr.group());
+						LOG.trace("mr.group(1):" + mr.group(1));
+						LOG.trace("m.group():" + m.group());
+						LOG.trace("m.group(" + Integer.parseInt(mr.group(1)) + "):" + m.group(groupid));
 					}
 
 					tonormalize.replace(mr.start(), mr.end(), m.group(groupid));

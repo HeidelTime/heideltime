@@ -113,7 +113,7 @@ public class NormalizationManager extends GenericResourceManager {
 						LOG.error("Cannot read one of the lines of normalization resource {}\nLine: {}", resource, line);
 						continue;
 					}
-					String resource_word = replaceSpaces(maReadNormalizations.group(1));
+					String resource_word = maReadNormalizations.group(1);
 					String normalized_word = maReadNormalizations.group(2);
 					for (String which : hmAllNormalization.keySet()) {
 						if (resource.equals(which)) {
