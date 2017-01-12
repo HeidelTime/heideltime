@@ -147,8 +147,8 @@ public class RuleManager extends GenericResourceManager {
 					// //////////////////////////////////////////////////////////////////
 					// create pattern for rule extraction part
 					for(maVariable.reset(rule_extraction); maVariable.find(); ) {
-						if (LOG.isDebugEnabled())
-							LOG.debug("replacing patterns... {}", maVariable.group());
+						if (LOG.isTraceEnabled())
+							LOG.trace("replacing patterns... {}", maVariable.group());
 						String varname = maVariable.group(1);
 						String rep = rpm.get(varname);
 						if (rep == null) {
@@ -196,8 +196,8 @@ public class RuleManager extends GenericResourceManager {
 								// create pattern for rule fast check part -- similar to extraction part
 								// thus using paVariable and rpm
 								for(maVariable.reset(rule_fast_check); maVariable.find(); ) {
-									if (LOG.isDebugEnabled())
-										LOG.debug("replacing patterns... {}", maVariable.group());
+									if (LOG.isTraceEnabled())
+										LOG.trace("replacing patterns... {}", maVariable.group());
 									String varname = maVariable.group(1);
 									String rep = rpm.get(varname);
 									if (rep == null) {
