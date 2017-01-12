@@ -50,6 +50,8 @@
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<outputDirectory>${basedir}/class</outputDirectory>
+		<testSourceDirectory>test</testSourceDirectory>
+		<testOutputDirectory>${basedir}/testclass</testOutputDirectory>
 		<resources>
 			<resource>
 				<directory>${basedir}</directory>

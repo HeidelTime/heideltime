@@ -137,10 +137,10 @@ public class TestEnglishRules {
 			{ "date_r20a", "some days later" }, //
 			{ "date_r20b", "about twenty days later" }, //
 			{ "date_r20c", "about 20  days later" }, //
-			{ "date_r20d", "a year later" }, //
+			{ "date_r20d", "a week later" }, //
 			{ "date_r21a", "twenty days earlier" }, //
 			{ "date_r21b", "about 20 days earlier" }, //
-			{ "date_r21c", "a year earlier" }, //
+			{ "date_r21c", "a week earlier" }, //
 			{ "date_r22a", "a year ago" }, //
 			{ "date_r22b", "a year later" }, //
 			{ "date_r23a", "the year-earlier first quarter" }, //
@@ -150,10 +150,10 @@ public class TestEnglishRules {
 			{ "date_r24b", "Christmas 2010" }, //
 			{ "date_r24cd", "Christmas 87" }, //
 			{ "date_r24cd", "Christmas '87" }, //
-			{ "date_r25a", "Easter sunday" }, //
-			{ "date_r25b", "Easter sunday 2010" }, //
-			{ "date_r25cd", "Easter sunday 87" }, //
-			{ "date_r25cd", "Easter sunday '87" }, //
+			{ "date_r25a", "Easter Sunday" }, //
+			{ "date_r25b", "Easter Sunday 2010" }, //
+			{ "date_r25cd", "Easter Sunday 87" }, //
+			{ "date_r25cd", "Easter Sunday '87" }, //
 			{ "date_r1a_negative", "as soon as" }, // do not match soon if it is in "as soon as"
 			{ "date_r2a_negative", "they march the way" }, // if it is a verb
 			{ "date_r2b_negative", "they march the way" }, // if it is a verb
@@ -255,7 +255,7 @@ public class TestEnglishRules {
 	@Before
 	public void init() {
 		standalone = new HeidelTimeStandalone(Language.ENGLISH, DocumentType.NARRATIVES, //
-				OutputType.XMI, "conf/config.props", POSTagger.NO);
+				OutputType.XMI, "test/test.props", POSTagger.NO);
 	}
 
 	@Test
