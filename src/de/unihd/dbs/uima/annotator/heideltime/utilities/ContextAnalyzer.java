@@ -275,26 +275,25 @@ public class ContextAnalyzer {
 		for(Token token : tokens) {
 			tmToken.put(token.getEnd(), token);
 		}
-		
+
 		// Get the last VERB token
 		for (Map.Entry<Integer, Token> ent : tmToken.entrySet()) {
 			tokenCounter++;
 			if (ent.getKey() < timex.getBegin()) {
 				Token token = ent.getValue();
 				String pos = token.getPos();
-				
-				if (LOG.isDebugEnabled()) {
-					LOG.debug("GET LAST TENSE: string:"+token.getCoveredText()+" pos:"+pos);
-					LOG.debug("hmAllRePattern.containsKey(tensePos4PresentFuture):"+tensePos4PresentFuture.pattern().pattern());
-					LOG.debug("hmAllRePattern.containsKey(tensePos4Future):"+tensePos4Future.pattern().pattern());
-					LOG.debug("hmAllRePattern.containsKey(tensePos4Past):"+tensePos4Past.pattern().pattern());
-					LOG.debug("CHECK TOKEN:"+pos);
+				if (pos == null)
+					continue; // POS not available?
+
+				if (LOG.isTraceEnabled()) {
+					LOG.trace("GET LAST TENSE: string:"+token.getCoveredText()+" pos:"+pos);
+					LOG.trace("tensePos4PresentFuture pattern:"+tensePos4PresentFuture.pattern().pattern());
+					LOG.trace("tensePos4Future pattern:"+tensePos4Future.pattern().pattern());
+					LOG.trace("tensePos4Past pattern:"+tensePos4Past.pattern().pattern());
+					LOG.trace("CHECK TOKEN: "+pos);
 				}
-				
-				if (pos == null) {
-					
-				}
-				else if (tensePos4PresentFuture != null && tensePos4PresentFuture.reset(pos).matches()) {
+
+				if (tensePos4PresentFuture != null && tensePos4PresentFuture.reset(pos).matches()) {
 					lastTense = "PRESENTFUTURE";
 					lastid = tokenCounter; 
 				}
@@ -310,31 +309,29 @@ public class ContextAnalyzer {
 				}
 			}
 			else {
-				if (tid == 0) {
+				if (tid == 0)
 					tid = tokenCounter;
-				}
 			}
 		}
 		tokenCounter = 0;
 		for (Map.Entry<Integer, Token> ent : tmToken.entrySet()) {
 			tokenCounter++;
-			if (nextTense.equals("")) {
+			if (nextTense.length() == 0) {
 				if (ent.getKey() > timex.getEnd()) {
 					Token token = ent.getValue();
 					String pos = token.getPos();
-					
-					if (LOG.isDebugEnabled()) {
-						LOG.debug("GET NEXT TENSE: string:"+token.getCoveredText()+" pos:"+pos);
-						LOG.debug("hmAllRePattern.containsKey(tensePos4PresentFuture):"+tensePos4PresentFuture.pattern().pattern());
-						LOG.debug("hmAllRePattern.containsKey(tensePos4Future):"+tensePos4Future.pattern().pattern());
-						LOG.debug("hmAllRePattern.containsKey(tensePos4Past):"+tensePos4Past.pattern().pattern());
-						LOG.debug("CHECK TOKEN:"+pos);
+					if (pos == null)
+						continue; // No POS available?
+
+					if (LOG.isTraceEnabled()) {
+						LOG.trace("GET NEXT TENSE: string:"+token.getCoveredText()+" pos:"+pos);
+						LOG.trace("tensePos4PresentFuture pattern:"+tensePos4PresentFuture.pattern().pattern());
+						LOG.trace("tensePos4Future pattern:"+tensePos4Future.pattern().pattern());
+						LOG.trace("tensePos4Past pattern:"+tensePos4Past.pattern().pattern());
+						LOG.trace("CHECK TOKEN: "+pos);
 					}
-					
-					if (pos == null) {
-						
-					}
-					else if (tensePos4PresentFuture != null && tensePos4PresentFuture.reset(pos).matches()) {
+
+					if (tensePos4PresentFuture != null && tensePos4PresentFuture.reset(pos).matches()) {
 						nextTense = "PRESENTFUTURE";
 						nextid = tokenCounter;
 					}
@@ -351,23 +348,23 @@ public class ContextAnalyzer {
 				}
 			}
 		}
-		if (lastTense.equals("")) {
-			LOG.debug("TENSE: {}", nextTense);
+		if (lastTense.length() == 0) {
+			LOG.trace("TENSE: {}", nextTense);
 			return nextTense;
 		}
-		else if (nextTense.equals("")) {
-			LOG.debug("TENSE: {}", lastTense);
+		else if (nextTense.length() == 0) {
+			LOG.trace("TENSE: {}", lastTense);
 			return lastTense;
 		}
 		else {
 			// If there is tense before and after the timex token, 
 			// return the closer one:
 			if ((tid - lastid) > (nextid - tid)) {
-				LOG.debug("TENSE: {}", nextTense);
+				LOG.trace("TENSE: {}", nextTense);
 				return nextTense;
 			}
 			else {
-				LOG.debug("TENSE: {}", lastTense);
+				LOG.trace("TENSE: {}", lastTense);
 				return lastTense;	
 			}	
 		}
@@ -413,19 +410,18 @@ public class ContextAnalyzer {
 				Token token = ent.getValue();
 				String coveredText = token.getCoveredText();
 				String pos = token.getPos();
+				if (pos == null)
+					continue; // No POS available?
 
-				if (LOG.isDebugEnabled()) {
-					LOG.debug("GET LAST TENSE: string:"+coveredText+" pos:"+pos);
-					LOG.debug("hmAllRePattern.containsKey(tensePos4PresentFuture):"+tensePos4PresentFuture.pattern().pattern());
-					LOG.debug("hmAllRePattern.containsKey(tensePos4Future):"+tensePos4Future.pattern().pattern());
-					LOG.debug("hmAllRePattern.containsKey(tensePos4Past):"+tensePos4Past.pattern().pattern());
-					LOG.debug("CHECK TOKEN:"+pos);
+				if (LOG.isTraceEnabled()) {
+					LOG.trace("GET LAST TENSE: string:"+coveredText+" pos: "+pos);
+					LOG.trace("tensePos4PresentFuture pattern:"+tensePos4PresentFuture.pattern().pattern());
+					LOG.trace("tensePos4Future pattern:"+tensePos4Future.pattern().pattern());
+					LOG.trace("tensePos4Past pattern:"+tensePos4Past.pattern().pattern());
+					LOG.trace("CHECK TOKEN: "+pos);
 				}
 				
-				if (pos == null) {
-					
-				}
-				else if (tensePos4PresentFuture != null && tensePos4PresentFuture.reset(pos).matches()) {
+				if (tensePos4PresentFuture != null && tensePos4PresentFuture.reset(pos).matches()) {
 					lastTense = "PRESENTFUTURE";
 					LOG.debug("this tense: {}", lastTense);
 				}
@@ -444,7 +440,7 @@ public class ContextAnalyzer {
 					LOG.debug("this tense: {}", lastTense);
 				}
 			}
-			if (lastTense.equals("") && ent.getKey() > timex.getEnd()) {
+			if (lastTense.length() == 0 && ent.getKey() > timex.getEnd()) {
 				Token token = ent.getValue();
 				String pos = token.getPos();
 
@@ -496,7 +492,7 @@ public class ContextAnalyzer {
 					}
 					prevPos = pos;
 				}
-				if (longTense.equals("") && ent.getKey() > timex.getEnd()) {
+				if (longTense.length() == 0 && ent.getKey() > timex.getEnd()) {
 					Token token = ent.getValue();
 					if ("VHZ".equals(prevPos) || "VBZ".equals(prevPos) || "VHP".equals(prevPos) || "VBP".equals(prevPos) || "VER:pres".equals(prevPos)) {
 						if ("VVN".equals(token.getPos()) || "VER:pper".equals(token.getPos())) {
@@ -525,7 +521,7 @@ public class ContextAnalyzer {
 					}
 					prevPos = pos;
 				}
-				if (longTense.equals("")) {
+				if (longTense.length() == 0) {
 					if (ent.getKey() > timex.getEnd()) {
 						Token token = ent.getValue();
 						String pos = token.getPos();
@@ -540,7 +536,7 @@ public class ContextAnalyzer {
 				}
 			}
 		}
-		LOG.debug("TENSE: {}", lastTense);
+		LOG.trace("TENSE: {}", lastTense);
 		
 		return lastTense;
 	}
@@ -618,7 +614,7 @@ public class ContextAnalyzer {
 			}
 
 			// Check end
-			if ((r.end() + s.getBegin()) == t.getEnd()) {
+			if (r.end() + s.getBegin() == t.getEnd()) {
 				endOK = true;
 			}
 			// Tokenizer does not split number from some symbols (".", "/", "-", "–"),

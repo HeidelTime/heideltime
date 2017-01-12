@@ -1784,7 +1784,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		// go through list of Date and Time timexes //
 		//////////////////////////////////////////////
 		for (int i = 0; i < linearDates.size(); i++) {
-			Timex3 t_i = (Timex3) linearDates.get(i);
+			Timex3 t_i = linearDates.get(i);
 			String value_i = t_i.getTimexValue();
 
 			String valueNew = value_i;
@@ -1800,8 +1800,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 			t_i.removeFromIndexes();
 			if (LOG.isDebugEnabled())
-				LOG.debug(t_i.getTimexId() + " DISAMBIGUATION PHASE: foundBy:" + t_i.getFoundByRule() + " text:" + t_i.getCoveredText() + " value:" + t_i.getTimexValue()
-						+ " NEW value:" + valueNew);
+				LOG.debug("{} DISAMBIGUATION PHASE: foundBy: {} text: {} value: {} NEW value: {} ", t_i.getTimexId(), t_i.getFoundByRule(), t_i.getCoveredText(), t_i.getTimexValue(), valueNew);
 
 			t_i.setTimexValue(valueNew);
 			t_i.addToIndexes();
@@ -1954,8 +1953,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						allSameTypes = false;
 					}
 				}
-				if (LOG.isDebugEnabled())
-					LOG.debug("Are these overlapping timexes of same type? => " + allSameTypes);
+				LOG.debug("Are these overlapping timexes of same type? => {}", allSameTypes);
 
 				// check timex value attribute string length
 				if (longestTimex == null) {
@@ -1970,24 +1968,22 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				} else if (longestTimex.getTimexValue().length() < t.getTimexValue().length()) {
 					longestTimex = t;
 				}
-				if (LOG.isDebugEnabled())
-					LOG.debug("Selected " + longestTimex.getTimexId() + ": " + longestTimex.getCoveredText() + "[" + longestTimex.getTimexValue()
-							+ "] as the longest-valued timex.");
+				LOG.debug("Selected {}: {} [{}] as the longest-valued timex.",
+						longestTimex.getTimexId(), longestTimex.getCoveredText(), longestTimex.getTimexValue());
 
 				// check combined beginning/end
 				if (combinedBegin > t.getBegin())
 					combinedBegin = t.getBegin();
 				if (combinedEnd < t.getEnd())
 					combinedEnd = t.getEnd();
-				if (LOG.isDebugEnabled())
-					LOG.debug("Selected combined constraints: " + combinedBegin + ":" + combinedEnd);
+				LOG.debug("Selected combined constraints: {}:{}", combinedBegin, combinedEnd);
 
 				// disassemble and remember the token ids
 				String[] tokenizedTokenIds = t.getAllTokIds().split("<-->");
 				for (int i = 1; i < tokenizedTokenIds.length; i++) {
-					if (!tokenIds.contains(Integer.parseInt(tokenizedTokenIds[i]))) {
-						tokenIds.add(Integer.parseInt(tokenizedTokenIds[i]));
-					}
+					int tokid = Integer.parseInt(tokenizedTokenIds[i]);
+					if (!tokenIds.contains(tokid))
+						tokenIds.add(tokid);
 				}
 			}
 
@@ -2002,16 +1998,14 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				if (tokenIds.size() > 0)
 					newTimex.setFirstTokId(tokenIds.get(0));
 				String tokenIdText = "BEGIN";
-				for (Integer tokenId : tokenIds) {
+				for (Integer tokenId : tokenIds)
 					tokenIdText += "<-->" + tokenId;
-				}
 				newTimex.setAllTokIds(tokenIdText);
 			}
 
 			// remove old overlaps.
-			for (Timex3 t : tSet) {
+			for (Timex3 t : tSet)
 				t.removeFromIndexes();
-			}
 			// add the single constructed/chosen timex to the indexes.
 			newTimex.addToIndexes();
 		}
@@ -2072,36 +2066,39 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			Matcher m = rule.getPattern().matcher(coveredText);
 			while (timeRegexp(m, key)) {
 				// improved token boundary checking
-				// FIXME: these seem to be flawed
-				boolean infrontBehindOK = ContextAnalyzer.checkTokenBoundaries(m, s, jcas) && ContextAnalyzer.checkInfrontBehind(m, s);
+				if (!ContextAnalyzer.checkTokenBoundaries(m, s, jcas))
+					continue;
+				if (!ContextAnalyzer.checkInfrontBehind(m, s))
+					continue;
 
 				// CHECK POS CONSTRAINTS
 				String constraint = rule.getPosConstratint();
-				boolean posConstraintOK = (constraint == null) || checkPosConstraint(key, s, constraint, m, jcas);
+				if (constraint != null && !checkPosConstraint(key, s, constraint, m, jcas))
+					continue;
+				// Offset of timex expression (in the checked sentence)
+				int timexStart = m.start(), timexEnd = m.end();
 
-				if (infrontBehindOK && posConstraintOK) {
-					// Offset of timex expression (in the checked sentence)
-					int timexStart = m.start(), timexEnd = m.end();
-
-					// Any offset parameter?
-					String offset = rule.getOffset();
-					if (offset != null) {
-						for (Matcher mr = paOffset.matcher(offset); mr.find();) {
-							timexStart = m.start(Integer.parseInt(mr.group(1)));
-							timexEnd = m.end(Integer.parseInt(mr.group(2)));
-						}
-					}
-
-					// Normalization Parameter
-					if (rule.getNormalization() != null) {
-						String[] attributes = getAttributesForTimexFromFile(key, rule, m, jcas);
-						if (attributes != null) {
-							addTimexAnnotation(timexType, timexStart + s.getBegin(), timexEnd + s.getBegin(), s, attributes[0], attributes[1], attributes[2], attributes[3],
-									attributes[4], "t" + timexID++, key, jcas);
-						}
+				// Any offset parameter?
+				String offset = rule.getOffset();
+				if (offset != null) {
+					Matcher mr = paOffset.matcher(offset);
+					if (mr.matches()) {
+						timexStart = m.start(Integer.parseInt(mr.group(1)));
+						timexEnd = m.end(Integer.parseInt(mr.group(2)));
 					} else {
-						LOG.debug("SOMETHING REALLY WRONG HERE: {}", key);
+						LOG.warn("Offset pattern does not match: {}", offset);
 					}
+				}
+
+				// Normalization Parameter
+				if (rule.getNormalization() == null) {
+					LOG.warn("No normalization pattern for: {}", key);
+					continue;
+				}
+				String[] attributes = getAttributesForTimexFromFile(key, rule, m, jcas);
+				if (attributes != null) {
+					addTimexAnnotation(timexType, timexStart + s.getBegin(), timexEnd + s.getBegin(), s, attributes[0], attributes[1], attributes[2], attributes[3],
+							attributes[4], "t" + timexID++, key, jcas);
 				}
 			}
 		}
