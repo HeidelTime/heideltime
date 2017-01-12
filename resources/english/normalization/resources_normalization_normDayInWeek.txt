@@ -19,3 +19,10 @@
 "Friday","5"
 "Saturday","6"
 "Sunday","7"
+// Popular spelling mistakes
+"wednsday","3"
+"wendesday","3"
+"Wendesday","3"
+"wednsday","3"
+"wendsday","3"
+"Wendsday","3"

@@ -3,10 +3,12 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for weekdays.
 // FORMAT: one line is one disjunction of the pattern
+// Allow some spelling mistakes!
 [Mm]onday
 [Tt]uesday
-[Ww]ednesday
+[Ww]edne?sday
 [Tt]hursday
 [Ff]riday
 [Ss]aturday
 [Ss]unday
+[Ww]ende?sday

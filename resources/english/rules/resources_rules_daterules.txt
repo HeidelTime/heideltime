@@ -441,7 +441,7 @@ RULENAME="x_date_r8a_negative",EXTRACTION="(?:\b[B-Z]|\b[A-Z][A-Z][A-Z])[- ]%reY
 RULENAME="x_date_r8b_negative",EXTRACTION="(?:\bA)-%reYear4Digit",NORM_VALUE="REMOVE"
 
 // Money
-RULENAME="x_date_r9a_negative",EXTRACTION="(?:[Ee]uro|EUR|Dollar|\$) \d+(?:-\d+)?",NORM_VALUE="REMOVE"
+RULENAME="x_date_r9a_negative",EXTRACTION="(?:[Ee]uro|EUR|Dollar|USD|[$€£¥¤]|GPB) \d+(?:-\d+)?",NORM_VALUE="REMOVE"
 
 // Unlikely (PAST|PRESENT|FUTURE)_REF expressions
 //RULENAME="x_date_r10a_negative",EXTRACTION="[Ss]oon after",NORM_VALUE="REMOVE"
