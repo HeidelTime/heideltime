@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Function;
 import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -205,39 +204,9 @@ public class RuleManager extends GenericResourceManager {
 
 	private static final Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]*)");
 
-	/**
-	 * Replace all occurrences of a pattern. 
-	 * 
-	 * @param str String
-	 * @param matcher Matcher (the function <em>will</em> call {@code matcher.reset(str)})
-	 * @param func Function to compute the replacement
-	 * @return New string, or {@code str} if not matched.
-	 */
-	public static String replaceAll(String str, Matcher matcher, Function<Matcher, String> func) {
-		matcher.reset(str);
-		// Shortcut if not matches:
-		if (!matcher.find())
-			return str;
-		StringBuilder buf = new StringBuilder();
-		int pos = 0;
-		do {
-			String rep = func.apply(matcher);
-			int start = matcher.start(), end = matcher.end();
-			if (pos < start)
-				buf.append(str, pos, start);
-			if (rep != null)
-				buf.append(rep);
-			pos = end;
-		} while (matcher.find());
-		if (pos < str.length())
-			buf.append(str, pos, str.length());
-		return buf.toString();
-	}
-
-	
-	private static String expandVariables(String rule_name, String str, RePatternManager rpm) {
+	private static String expandVariables(CharSequence rule_name, String str, RePatternManager rpm) {
 		Matcher matcher = paVariable.matcher(str);
-		// Shortcut:
+		// Shortcut if no matches:
 		if (!matcher.find())
 			return str;
 		StringBuilder buf = new StringBuilder();

@@ -309,46 +309,6 @@ public class ContextAnalyzer {
 	}
 
 	/**
-	 * The value of the x of the last mentioned Timex is calculated.
-	 * 
-	 * @param linearDates
-	 *                list of previous linear dates
-	 * @param i
-	 *                index for the previous date entry
-	 * @param x
-	 *                type to search for
-	 * @return last mentioned entry
-	 */
-	public static String getLastMentionedX(List<Timex3> linearDates, int i, String x, Language language) {
-		if (x.equals("century")) {
-			return getLastMentionedCentury(linearDates, i);
-		} else if (x.equals("decade")) {
-			return getLastMentionedDecade(linearDates, i);
-		} else if (x.equals("year")) {
-			return getLastMentionedYear(linearDates, i);
-		} else if (x.equals("dateYear")) {
-			return getLastMentionedDateYear(linearDates, i);
-		} else if (x.equals("month")) {
-			return getLastMentionedMonth(linearDates, i);
-		} else if (x.equals("month-with-details")) {
-			return getLastMentionedMonthDetails(linearDates, i);
-		} else if (x.equals("day")) {
-			return getLastMentionedDay(linearDates, i);
-		} else if (x.equals("week")) {
-			return getLastMentionedWeek(linearDates, i);
-		} else if (x.equals("quarter")) {
-			return getLastMentionedQuarter(linearDates, i, language);
-		} else if (x.equals("dateQuarter")) {
-			return getLastMentionedDateQuarter(linearDates, i);
-		} else if (x.equals("season")) {
-			return getLastMentionedSeason(linearDates, i, language);
-		} else {
-			LOG.error("Unknown type {}", x);
-			return "";
-		}
-	}
-
-	/**
 	 * Get the last tense used in the sentence
 	 * 
 	 * @param timex
@@ -493,18 +453,16 @@ public class ContextAnalyzer {
 		AnnotationIndex<Sentence> sentences = jcas.getAnnotationIndex(Sentence.type);
 		Sentence s = new Sentence(jcas);
 		for (FSIterator<Sentence> iterSentence = sentences.iterator(); iterSentence.hasNext();) {
-			s = (Sentence) iterSentence.next();
-			if ((s.getBegin() <= timex.getBegin()) && (s.getEnd() >= timex.getEnd())) {
+			s = iterSentence.next();
+			if (s.getBegin() <= timex.getBegin() && s.getEnd() >= timex.getEnd())
 				break;
-			}
 		}
 
 		// Get the tokens
 		TreeMap<Integer, Token> tmToken = new TreeMap<Integer, Token>();
 		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
-		for (Token token : tokens) {
+		for (Token token : tokens)
 			tmToken.put(token.getEnd(), token);
-		}
 
 		// Get the last VERB token
 		for (Map.Entry<Integer, Token> ent : tmToken.entrySet()) {
