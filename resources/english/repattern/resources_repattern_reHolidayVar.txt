@@ -35,23 +35,17 @@ The Great Sabbath
 Joyous Saturday
 
 // http://en.wikipedia.org/wiki/Easter
-Easter Sunday
-Easter Day
-Easter
-Resurrection Day
-Resurrection Sunday
+Easter(?: ?[Ss]unday| ?[Dd]ay)?
+Resurrection(?: ?[Ss]unday| ?[Dd]ay)?
 
 // http://en.wikipedia.org/wiki/Easter_Monday
 Easter Monday
 
 // http://en.wikipedia.org/wiki/Octave_of_Easter
-Octave of Easter
-Octave Day of Easter
+Octave(?: [Dd]ay)? of Easter
 Low Sunday
-Saint Thomas Sunday
-St\. Thomas Sunday
-Quasimodo Sunday
-Quasimodogeniti
+(?:Saint|St\.) Thomas Sunday
+Quasimodo(?: Sunday|geniti)
 Second Sunday of Easter
 Divine Mercy Sunday
 
@@ -61,36 +55,30 @@ Solemnity of the Ascension of the Lord
 Ascension Thursday
 
 // http://en.wikipedia.org/wiki/Father%27s_Day
-Father's Day
+Father'?s'? [Dd]ay
 
 // http://en.wikipedia.org/wiki/Reformation_Day
 Reformation Sunday
 
 // http://en.wikipedia.org/wiki/Pentecost
 Pentecost
-Whit Sunday
-Whitsun
-Whit
+Whit(?:sun| ?[Ss]unday)?
 
 // http://en.wikipedia.org/wiki/Corpus_Christi_%28feast%29
 Corpus Christi
 The Most Holy Body and Blood of Christ
 
 // advent sundays: the four sundays before christmas(12-24)
-1\. Advent
-1st Advent
+1(?:st|\.)? Advent
 first Advent
 
-2\. Advent
-2nd Advent
+2(?:nd|\.)? Advent
 second Advent
 
-3\. Advent
-3rd Advent
+3(?:rd|\.)? Advent
 third Advent
 
-4\. Advent
-4th Advent
+4(?:th|\.)? Advent
 fourth Advent
 
 // http://en.wikipedia.org/wiki/Black_Friday_%28shopping%29
@@ -98,28 +86,24 @@ Black Friday
 
 // http://en.wikipedia.org/wiki/Martin_Luther_King,_Jr._Day
 Birthday of Martin Luther King, Jr\.
-Martin Luther King Day
-Martin Luther King, Jr\. Day
+Martin Luther King(?:, Jr\.)? [Dd]ay
 
 // http://en.wikipedia.org/wiki/Washington%27s_Birthday
-Presidents Day
-Presidents' Day
-President's Day
+President'?s'? [Dd]ay
 Washington's Birthday
 
 // http://en.wikipedia.org/wiki/Memorial_Day
-Memorial Day
-Decoration Day
+Memorial [Dd]ay
+Decoration [Dd]ay
 
 // http://en.wikipedia.org/wiki/Labor_Day
-Labor Day
+Labor [Dd]ay
 
 // http://en.wikipedia.org/wiki/Columbus_Day
-Columbus Day
+Columbus [Dd]ay
 
 // http://en.wikipedia.org/wiki/Thanksgiving_%28United_States%29
-Thanksgiving Day
-Thanksgiving
+Thanksgiving(?: [Dd]ay)?
 
 // http://en.wikipedia.org/wiki/Mother%27s_Day
-Mother's Day
+Mother'?s'? [Dd]ay

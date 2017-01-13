@@ -3,27 +3,23 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for short months.
 // FORMAT: one line is one disjunction of the pattern
-[Jj]an\.?
-[Ff]eb\.?
-[Mm]ar\.?
-[Aa]pr\.?
-[Mm]ay
-[Jj]un\.?
-[Jj]ul\.?
-[Aa]ug\.?
-[Ss]ept?\.?
-[Oo]ct\.?
-[Nn]ov\.?
-[Dd]ec\.?
-JAN\.?
-FEB\.?
-MAR\.?
-APR\.?
-MAY
-JUN\.?
-JUL\.?
-AUG\.?
-SEPT?\.?
-OCT\.?
-NOV\.?
-DEC\.?
+// 2016-01-13 Folded patterns by first letter for performance -- Erich
+// January, June, July:
+J(?:an|AN|un|UN|ul|UL)\.?
+j(?:an|un|ul)\.?
+F(?:eb|EB)\.?
+feb\.?
+// March and May (only three letters!)
+M(?:ar\.?|AR\.?|ay|AY)
+ma(?:r\.?|y)
+// April and August
+A(?:pr|PR|ug|UG)\.?
+a(?:pr|ug)\.?
+S(?:ep|EP)\.?
+sep\.?
+O(?:ct|CT)\.?
+oct\.?
+nov\.?
+N(?:ov|OV)\.?
+dec\.?
+D(?:ec|EC)\.?

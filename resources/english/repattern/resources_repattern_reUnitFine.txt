@@ -3,17 +3,15 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for unit words.
 // FORMAT: one line is one disjunction of the pattern
-[Tt]rading days?
+[Hh]ours?
+[Mm]inutes?
+[Ss]econds?
 [Dd]ays?
-[Ww]eek-?ends?
-[Ww]eeks?
+[Ww]eek(?:-?end)?s?
 [Mm]onths?
 [Qq]uarters?
 [Ff]iscal years?
 [Yy]ears?
 [Dd]ecades?
-[Cc]entury
-[Cc]enturies
-[Mm]inutes?
-[Hh]ours?
-[Ss]econds?
+[Cc]entur(?:y|ies)
+[Tt]rading days?

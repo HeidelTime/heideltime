@@ -3,4 +3,4 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for year numbers (2 digit).
 // FORMAT: one line is one disjunction of the pattern
-\d\d
+[0-9][0-9]

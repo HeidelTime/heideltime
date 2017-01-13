@@ -3,14 +3,14 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for number words 10 to 20.
 // FORMAT: one line is one disjunction of the pattern
-ten
-eleven
-twelve
-thirteen
-fourteen
-fifteen
-sixteen
-seventeen
-eighteen
+// 2016-01-13 Folded patterns by first letter for performance -- Erich
+// 10, 12, 13, 20
+t(?:en|welve|hirteen|wenty)
+// 11, 18
+e(?:leven|ighteen)
+// 14, 15
+f(?:ourteen|ifteen)
+// 16, 17
+s(?:ixteen|eventeen)
+// 19
 nineteen
-twenty

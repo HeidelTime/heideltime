@@ -3,14 +3,11 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for long months.
 // FORMAT: one line is one disjunction of the pattern
-[Jj]anuary
+// 2016-01-13 Folded patterns by first letter for performance -- Erich
+[Jj](?:anuary|une|uly)
 [Ff]ebruary
-[Mm]arch
-[Aa]pril
-[Mm]ay
-[Jj]une
-[Jj]uly
-[Aa]ugust
+[Mm](?:arch|ay)
+[Aa](?:pril|ugust)
 [Ss]eptember
 [Oo]ctober
 [Nn]ovember

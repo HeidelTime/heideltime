@@ -3,20 +3,11 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for "approximate" words.
 // FORMAT: one line is one disjunction of the pattern
-// about
-[Aa]pproximately
-[Aa]bout
-[Aa]round
+// 2016-01-13 Folded patterns by first letter for performance -- Erich
+[Aa](?:bout|lmost|pproximately|round|t least)
 [Cc]irca
-// less
-[Nn]o more than
-[Nn]o longer than
-[Uu]p to
-[Ll]ess than
-[Nn]early
-[Aa]lmost
-//  more
-[Aa]t least
+[Ll](?:ess|onger) than
 [Mm]ore than
-[Ll]onger than
+[Nn](?:early|o (?:more|longer) than)
 [Oo]ver
+[Uu]p to

@@ -2210,32 +2210,33 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					LOG.trace("hmR...:" + norm.getFromHmAllNormalization(normfunc).get(m.group(groupid)));
 				}
 
-				try {
-					String value = m.group(groupid);
-					if (value != null) {
-						value = WHITESPACE_NORM.matcher(value).replaceAll(" ");
-						RegexHashMap<String> normmap = norm.getFromHmAllNormalization(normfunc);
-						String repl = normmap != null ? normmap.get(value) : null;
-						if (repl == null) {
-							if (normfunc.contains("Temponym")) {
-								LOG.debug("Maybe problem with normalization of the temponym: {}\n" + //
-										"Maybe problem with part to replace? {}", normfunc, value);
-								return null;
-							}
-							LOG.warn("Maybe problem with normalization of the resource: {}\n" + //
-									"Maybe problem with part to replace? {}", normfunc, value);
-						} else {
-							tonormalize.replace(mr.start(), mr.end(), repl);
-						}
-					} else {
-						// This is not unusual to happen
-						LOG.debug("Empty part to normalize in {}, rule {}", normfunc, rule);
-						tonormalize.delete(mr.start(), mr.end());
-					}
-				} catch (IndexOutOfBoundsException e) {
+				if (groupid > m.groupCount()) {
 					LOG.error("Invalid group reference '{}' in normalization pattern of rule: {}", groupid, rule);
 					tonormalize.delete(mr.start(), mr.end());
+					continue;
 				}
+				String value = m.group(groupid);
+				if (value == null) {
+					// This is not unusual to happen
+					LOG.debug("Empty part to normalize in {}, rule {}", normfunc, rule);
+					tonormalize.delete(mr.start(), mr.end());
+					continue;
+				}
+				value = WHITESPACE_NORM.matcher(value).replaceAll(" ");
+				RegexHashMap<String> normmap = norm.getFromHmAllNormalization(normfunc);
+				String repl = normmap != null ? normmap.get(value) : null;
+				if (repl == null) {
+					if (normfunc.contains("Temponym")) {
+						LOG.debug("Temponym '{}' normalization problem. Value: {} in "+ //
+								"rule: {} tonormalize: {}", normfunc, value, rule, tonormalize);
+						return null;
+					}
+					LOG.warn("'{}' normalization problem. Value: {} in "+ //
+							"rule: {} tonormalize: {}", normfunc, value, rule, tonormalize);
+					tonormalize.delete(mr.start(), mr.end());
+					continue;
+				}
+				tonormalize.replace(mr.start(), mr.end(), repl);
 			}
 			// replace other groups
 			mr.usePattern(paGroup).reset(tonormalize);
@@ -2247,7 +2248,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						LOG.trace("mr.group():" + mr.group());
 						LOG.trace("mr.group(1):" + mr.group(1));
 						LOG.trace("m.group():" + m.group());
-						LOG.trace("m.group(" + Integer.parseInt(mr.group(1)) + "):" + m.group(groupid));
+						LOG.trace("m.group(" + mr.group(1) + "):" + m.group(groupid));
 					}
 
 					tonormalize.replace(mr.start(), mr.end(), m.group(groupid));

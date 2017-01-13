@@ -38,8 +38,8 @@ public class TestEnglishRules {
 			{ "date_historic_6a-BCADhint", "1990s BC" }, //
 			{ "date_historic_6b-BCADhint", "190s BC" }, //
 			{ "date_historic_6c-BCADhint", "90s BC" }, //
-			{ "date_historic_7a", "in 190", "190" }, // 3-digit year
-			{ "date_historic_7b", "in 190,", "190" }, // 3-digit year
+			{ "date_historic_7ab", "in 190", "190" }, // 3-digit year
+			{ "date_historic_7ab", "in 190,", "190" }, // 3-digit year
 			{ "date_historic_7c", "\n190\n", "190" }, // (2- to 4-digit year
 			{ "date_historic_7d", "year of 90" }, // 2-digit year
 			{ "date_historic_7e", "year of 190" }, // 3-digit year
@@ -72,7 +72,7 @@ public class TestEnglishRules {
 			{ "date_r2d", "3 to 6 May" }, // find May 3
 			{ "date_r2e", "3 to 6 May 2004" }, // find May 3, 2004
 			{ "date_r2a2", "January 19th of that year" }, //
-			{ "date_r2b2", "19th of January of the same year" }, //
+			{ "date_r2c2", "19th of January of the same year" }, //
 			{ "date_r3a", "Friday October 13" }, //
 			{ "date_r3a", "Monday, Oct 12" }, //
 			{ "date_r3b", "Friday October 13 2009" }, //
@@ -83,7 +83,7 @@ public class TestEnglishRules {
 			{ "date_r5b", "earlier yesterday" }, //
 			{ "date_r5c", "Monday" }, //
 			{ "date_r5d", "earlier Monday" }, //
-			{ "date_r6a", "the weekend" }, //
+			{ "date_r61", "the weekend" }, //
 			{ "date_r7a", "November 2001" }, //
 			{ "date_r7a", "Nov. 2001" }, //
 			{ "date_r7a", "February of 1999" }, //
@@ -222,7 +222,7 @@ public class TestEnglishRules {
 			{ "time_r1e", "12/29/2000 20:29:29.79" }, //
 			{ "time_r2a", "09-24-99 1145EST" }, // TimeStamp style with timezone information
 			{ "time_r2b", "November 24, 2011 1535 GMT" }, //
-			{ "time_r2c", "Wed, 29 Dec 2004 00:28:16 +0000" }, //
+			{ "time_r2d", "Wed, 29 Dec 2004 00:28:16 +0000" }, //
 			{ "time_r2d", "Sat, 29 Jan 2005 17:21:13 -0600" }, //
 			{ "time_r2d", "1 Feb 2005 16:13:33 +1300" }, //
 			{ "time_r3a", "midnight Monday" }, //
@@ -240,13 +240,13 @@ public class TestEnglishRules {
 			{ "time_r5c", "11:30 a.m." }, //
 			{ "time_r5d", "9:30 p.m." }, //
 			{ "time_r5e", "10:30:34 a.m." }, //
-			{ "time_r5e", "10:30:34 p.m." }, //
+			{ "time_r5f", "10:30:34 p.m." }, //
 			{ "time_r6a", "9 am Wednesday" }, //
 			{ "time_r6b", "9 pm Wednesday" }, //
 			{ "time_r6c", "9:30 a.m. Wednesday" }, //
 			{ "time_r6d", "9:30 p.m. Wednesday" }, //
 			{ "time_r8a", "the morning of April 18, 1775" }, //
-			{ "time_r8c", "the morning of April 18" }, //
+			{ "time_r8b", "the morning of April 18" }, //
 			/* */
 	};
 

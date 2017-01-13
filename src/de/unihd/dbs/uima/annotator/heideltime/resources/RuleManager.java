@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Function;
 import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -88,8 +89,6 @@ public class RuleManager extends GenericResourceManager {
 
 		Matcher maAdditional = Pattern.compile("(?<=,)(OFFSET|NORM_QUANT|NORM_FREQ|NORM_MOD|POS_CONSTRAINT|EMPTY_VALUE|FAST_CHECK)=\"(.*?)\" *(?=,|$)").matcher("");
 
-		Matcher maVariable = Pattern.compile("%(re[a-zA-Z0-9]*)").matcher("");
-		
 		for (String resource : hmResourcesRules.keySet()) {
 			try (InputStream is = hmResourcesRules.getInputStream(resource); //
 					InputStreamReader isr = new InputStreamReader(is, "UTF-8"); //
@@ -141,23 +140,7 @@ public class RuleManager extends GenericResourceManager {
 							continue lines;
 						}
 
-					// //////////////////////////////////////////////////////////////////
-					// RULE EXTRACTION PARTS ARE TRANSLATED INTO REGULAR
-					// EXPRESSSIONS //
-					// //////////////////////////////////////////////////////////////////
-					// create pattern for rule extraction part
-					for(maVariable.reset(rule_extraction); maVariable.find(); ) {
-						if (LOG.isTraceEnabled())
-							LOG.trace("replacing patterns... {}", maVariable.group());
-						String varname = maVariable.group(1);
-						String rep = rpm.get(varname);
-						if (rep == null) {
-							LOG.error("Error creating rule: {}", rule_name);
-							LOG.error("The following pattern used in this rule does not exist, does it? %{}", varname);
-							System.exit(1);
-						}
-						rule_extraction = rule_extraction.replaceAll("%" + varname, rep);
-					}
+					rule_extraction = expandVariables(rule_name, rule_extraction, rpm);
 					rule_extraction = replaceSpaces(rule_extraction);
 					Pattern pattern = null;
 					try {
@@ -194,18 +177,7 @@ public class RuleManager extends GenericResourceManager {
 								String rule_fast_check = maAdditional.group(2);
 								// create pattern for rule fast check part -- similar to extraction part
 								// thus using paVariable and rpm
-								for(maVariable.reset(rule_fast_check); maVariable.find(); ) {
-									if (LOG.isTraceEnabled())
-										LOG.trace("replacing patterns... {}", maVariable.group());
-									String varname = maVariable.group(1);
-									String rep = rpm.get(varname);
-									if (rep == null) {
-										LOG.error("Error creating rule: {}", rule_name);
-										LOG.error("The following pattern used in this rule does not exist, does it? %{}", varname);
-										System.exit(1);
-									}
-									rule_fast_check = rule_fast_check.replaceAll("%" + varname, rep);
-								}
+								rule_fast_check = expandVariables(rule_name, rule_fast_check, rpm);
 								rule_fast_check = replaceSpaces(rule_fast_check);
 								try {
 									rule.fastCheck = Pattern.compile(rule_fast_check);
@@ -224,11 +196,70 @@ public class RuleManager extends GenericResourceManager {
 					rules.add(rule);
 				}
 				Collections.sort(rules);
-		} catch (IOException e) {
-			LOG.error(e.getMessage(), e);
-			System.exit(1);
+			} catch (IOException e) {
+				LOG.error(e.getMessage(), e);
+				System.exit(1);
+			}
 		}
-		}
+	}
+
+	private static final Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]*)");
+
+	/**
+	 * Replace all occurrences of a pattern. 
+	 * 
+	 * @param str String
+	 * @param matcher Matcher (the function <em>will</em> call {@code matcher.reset(str)})
+	 * @param func Function to compute the replacement
+	 * @return New string, or {@code str} if not matched.
+	 */
+	public static String replaceAll(String str, Matcher matcher, Function<Matcher, String> func) {
+		matcher.reset(str);
+		// Shortcut if not matches:
+		if (!matcher.find())
+			return str;
+		StringBuilder buf = new StringBuilder();
+		int pos = 0;
+		do {
+			String rep = func.apply(matcher);
+			int start = matcher.start(), end = matcher.end();
+			if (pos < start)
+				buf.append(str, pos, start);
+			if (rep != null)
+				buf.append(rep);
+			pos = end;
+		} while (matcher.find());
+		if (pos < str.length())
+			buf.append(str, pos, str.length());
+		return buf.toString();
+	}
+
+	
+	private static String expandVariables(String rule_name, String str, RePatternManager rpm) {
+		Matcher matcher = paVariable.matcher(str);
+		// Shortcut:
+		if (!matcher.find())
+			return str;
+		StringBuilder buf = new StringBuilder();
+		int pos = 0;
+		do {
+			if (LOG.isTraceEnabled())
+				LOG.trace("replacing pattern {}", matcher.group());
+			String varname = matcher.group(1);
+			String rep = rpm.get(varname);
+			if (rep == null) {
+				LOG.error("Error expanding rule '{}': RePattern not defined: '%{}'", rule_name, varname);
+				System.exit(1); // TODO: throw an error instead.
+			}
+			int start = matcher.start(), end = matcher.end();
+			if (pos < start)
+				buf.append(str, pos, start);
+			buf.append(rep);
+			pos = end;
+		} while (matcher.find());
+		if (pos < str.length())
+			buf.append(str, pos, str.length());
+		return buf.toString();
 	}
 
 	public final List<Rule> getHmDateRules() {
