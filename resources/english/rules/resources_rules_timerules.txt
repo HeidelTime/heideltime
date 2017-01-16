@@ -77,8 +77,8 @@ RULENAME="time_r5a",EXTRACTION="\b(?:%reApproximate )?%reTimeHour\s*[Aa]\.?[Mm]\
 RULENAME="time_r5b",EXTRACTION="\b(?:%reApproximate )?%reTimeHour\s*[Pp]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(2)),12):00",NORM_MOD="%normApprox4Dates(group(1))"
 RULENAME="time_r5c",EXTRACTION="\b(?:%reApproximate )?%reTimeHour:%reTimeMinute\s*[Aa]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):group(3)",NORM_MOD="%normApprox4Dates(group(1))"
 RULENAME="time_r5d",EXTRACTION="\b(?:%reApproximate )?%reTimeHour:%reTimeMinute\s*[Pp]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(2)),12):group(3)",NORM_MOD="%normApprox4Dates(group(1))"
-RULENAME="time_r5e",EXTRACTION="\b(?:%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute\s*[Aa]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):group(3)",NORM_MOD="%normApprox4Dates(group(1))"
-RULENAME="time_r5f",EXTRACTION="\b(?:%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute\s*[Pp]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(2)),12):group(3)",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r5e",EXTRACTION="\b(?:%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute\s*[Aa]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):group(3):group(4)",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r5f",EXTRACTION="\b(?:%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute\s*[Pp]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(2)),12):group(3):group(4)",NORM_MOD="%normApprox4Dates(group(1))"
 RULENAME="time_r5g",EXTRACTION="\b(?:%reApproximate )?%reTimeHour%reTimeMinute\s*[Aa]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):group(3)",NORM_MOD="%normApprox4Dates(group(1))"
 RULENAME="time_r5h",EXTRACTION="\b(?:%reApproximate )?%reTimeHour%reTimeMinute\s*[Pp]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(2)),12):group(3)",NORM_MOD="%normApprox4Dates(group(1))"
 

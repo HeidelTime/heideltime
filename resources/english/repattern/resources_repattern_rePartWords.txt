@@ -4,6 +4,10 @@
 // This file contains regular expression patterns for "part" words.
 // FORMAT: one line is one disjunction of the pattern
 [Tt]he (?:start|beginning|middle|end) of
+[Ss]tart of
+[Bb]eginning of
+[Mm]iddle of
+[Ee]nd of
 [Ll]ater?
 [Ee]arl(?:y|ier)
 [Mm]id-?
