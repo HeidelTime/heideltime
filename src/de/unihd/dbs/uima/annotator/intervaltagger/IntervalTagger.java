@@ -30,6 +30,7 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.ResourceMap;
 import de.unihd.dbs.uima.annotator.heideltime.resources.ResourceScanner;
+import de.unihd.dbs.uima.annotator.heideltime.resources.RuleManager;
 import de.unihd.dbs.uima.types.heideltime.IntervalCandidateSentence;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Timex3;
@@ -88,18 +89,15 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 	 * @throws ResourceInitializationException
 	 */
 	private void readResources(ResourceMap hmResourcesRules) throws ResourceInitializationException {
-		Pattern paReadRules = Pattern.compile("RULENAME=\"(.*?)\",EXTRACTION=\"(.*?)\",NORM_VALUE=\"(.*?)\"(.*)");
-		Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]*)");
+		Matcher maReadRules = Pattern.compile("RULENAME=\"(.*?)\",EXTRACTION=\"(.*?)\",NORM_VALUE=\"(.*?)\"(.*)").matcher("");
 		
 		// read normalization data
-		InputStream is = null;
-		InputStreamReader isr = null;
-		BufferedReader br = null;
-		try {
-			for (String resource : hmResourcesRules.keySet()) {
-				is = hmResourcesRules.getInputStream(resource);
-				isr = new InputStreamReader(is, "UTF-8");
-				br = new BufferedReader(isr);
+		for (String resource : hmResourcesRules.keySet()) {
+			if(!resource.equals("intervalrules"))
+				continue;
+			try (InputStream is = hmResourcesRules.getInputStream(resource);//
+				InputStreamReader isr = new InputStreamReader(is, "UTF-8");//
+				BufferedReader br = new BufferedReader(isr)) {
 				LOG.debug("Adding rule resource: {}", resource);
 				for(String line; (line = br.readLine()) != null; ) {
 					if(line.startsWith("//") || line.equals(""))
@@ -107,25 +105,18 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 					
 					LOG.debug("reading rules... {}", line);
 					// check each line for the name, extraction, and normalization part
-					for (Matcher r = paReadRules.matcher(line); r.find(); ) {
-						String rule_name          = r.group(1);
-						String rule_extraction    = r.group(2);
-						String rule_normalization = r.group(3);
+					for (maReadRules.reset(line); maReadRules.find(); ) {
+						String rule_name          = maReadRules.group(1);
+						String rule_extraction    = maReadRules.group(2);
+						String rule_normalization = maReadRules.group(3);
 						
 						////////////////////////////////////////////////////////////////////
 						// RULE EXTRACTION PARTS ARE TRANSLATED INTO REGULAR EXPRESSSIONS //
 						////////////////////////////////////////////////////////////////////
 						// create pattern for rule extraction part
 						RePatternManager rpm = RePatternManager.getInstance(language, false);
-						for (Matcher mr = paVariable.matcher(rule_extraction); mr.find(); ) {
-							LOG.debug("replacing patterns... {}", mr.group());
-							if (!rpm.containsKey(mr.group(1))) {
-								LOG.error("Error creating rule: {}\nThe following pattern used in this rule does not exist: %{}", rule_name, mr.group(1));
-								System.exit(1);
-							}
-							rule_extraction = rule_extraction.replaceAll("%"+mr.group(1), rpm.get(mr.group(1)));
-						}
-						rule_extraction = rule_extraction.replaceAll(" ", "[\\\\s]+");
+						rule_extraction = RuleManager.expandVariables(rule_name, rule_extraction, rpm);
+						rule_extraction = RuleManager.replaceSpaces(rule_extraction);
 						Pattern pattern = null;
 						try{
 							pattern = Pattern.compile(rule_extraction);
@@ -139,29 +130,13 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 						/////////////////////////////////////////////////
 						// READ INTERVAL RULES AND MAKE THEM AVAILABLE //
 						/////////////////////////////////////////////////
-						if(resource.equals("intervalrules")){
-							hmIntervalPattern.put(pattern,rule_name);
-							hmIntervalNormalization.put(rule_name, rule_normalization);
-						}
+						hmIntervalPattern.put(pattern,rule_name);
+						hmIntervalNormalization.put(rule_name, rule_normalization);
 					}
 				}
-			}
-		} catch (IOException e) {
-			LOG.error(e.getMessage(), e);
-			throw new ResourceInitializationException();
-		} finally {
-			try {
-				if(br != null) {
-					br.close();
-				}
-				if(isr != null) {
-					isr.close();
-				}
-				if(is != null) {
-					is.close();
-				}
-			} catch(Exception e) {
+			} catch (IOException e) {
 				LOG.error(e.getMessage(), e);
+				throw new ResourceInitializationException();
 			}
 		}
 	}

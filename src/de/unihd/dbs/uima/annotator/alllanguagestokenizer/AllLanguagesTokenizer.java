@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.FSIterator;
+import org.apache.uima.cas.text.AnnotationIndex;
 import org.apache.uima.jcas.JCas;
 
 import de.unihd.dbs.uima.types.heideltime.Sentence;
@@ -60,135 +61,127 @@ public class AllLanguagesTokenizer extends JCasAnnotator_ImplBase {
 				if(line.matches("^<.*>$")) {
 					// SGML tag
 					outBuf.append(line + "\n");
-				} else {
-					// add a blank at the beginning and the end of each segment
-					line = " " + line + " ";
-					
-					// insert missing blanks after punctuation
-					line = line.replaceAll("\\.\\.\\.", " ... ");
-					line = line.replaceAll("([;\\!\\?])([^ ])", "$1 $2");
-					line = line.replaceAll("([.,:])([^ 0-9.])", "$1 $2");
-					
-					String[] lines = line.split(" ");
-					
-					for(String token : lines) {
-						// remove some whitespaces that \s doesn't catch
-						if(token.equals(""))
-							continue;
-						
-						String suffix = "";
-						
-						// separate punctuation and parentheses from words
-						Boolean finished = false;
-						Matcher m;
-						do {
-							finished = true;
-							
-							// cut off preceding punctuation
-							m = Pattern.compile("^([" + PChar + "])(.)").matcher(token);
-							if(m.find()) {
-								token = token.replaceAll("^([" + PChar + "])(.)", "$2");
-								outBuf.append(m.group(1) + "\n");
-								finished = false;
+					continue;
+				}
+				// add a blank at the beginning and the end of each segment
+				line = " " + line + " ";
+
+				// insert missing blanks after punctuation
+				line = line.replaceAll("\\.\\.\\.", " ... ");
+				line = line.replaceAll("([;\\!\\?])([^ ])", "$1 $2");
+				line = line.replaceAll("([.,:])([^ 0-9.])", "$1 $2");
+
+				String[] lines = line.split(" ");
+
+				for(String token : lines) {
+					// remove some whitespaces that \s doesn't catch
+					if(token.equals(""))
+						continue;
+
+					String suffix = "";
+
+					// separate punctuation and parentheses from words
+					boolean finished = false;
+					Matcher m;
+					do {
+						finished = true;
+
+						// cut off preceding punctuation
+						m = Pattern.compile("^([" + PChar + "])(.)").matcher(token);
+						if(m.find()) {
+							token = token.replaceAll("^([" + PChar + "])(.)", "$2");
+							outBuf.append(m.group(1) + "\n");
+							finished = false;
+						}
+
+						// cut off trailing punctuation
+						m = Pattern.compile("(.)([" + FChar + "])$").matcher(token);
+						if(m.find()) {
+							token = token.replaceAll("(.)([" + FChar + "])$", "$1");
+							suffix = m.group(2) + "\n" + suffix;
+							finished = false;
+						}
+
+						// cut off trailing periods if punctuation precedes
+						m = Pattern.compile("([" + FChar + "])\\.$").matcher(token);
+						if(m.find()) {
+							token = token.replaceAll("([" + FChar + "])\\.$", "");
+							suffix = ".\n" + suffix;
+
+							if(token.equals("")) {
+								token = m.group(1);
+							} else {
+								suffix = m.group(1) + "\n" + suffix;
 							}
-							
-							// cut off trailing punctuation
-							m = Pattern.compile("(.)([" + FChar + "])$").matcher(token);
-							if(m.find()) {
-								token = token.replaceAll("(.)([" + FChar + "])$", "$1");
-								suffix = m.group(2) + "\n" + suffix;
-								finished = false;
-							}
-							
-							// cut off trailing periods if punctuation precedes
-							m = Pattern.compile("([" + FChar + "])\\.$").matcher(token);
-							if(m.find()) {
-								token = token.replaceAll("([" + FChar + "])\\.$", "");
-								suffix = ".\n" + suffix;
-								
-								if(token.equals("")) {
-									token = m.group(1);
-								} else {
-									suffix = m.group(1) + "\n" + suffix;
-								}
-								
-								finished = false;
-							}
-						} while(!finished);
-						/* TODO:commented out because those are language-specific
+
+							finished = false;
+						}
+					} while(!finished);
+					/* TODO:commented out because those are language-specific
 						// handle explicitly listed tokens
 						if(abbreviations.contains(token)) {
 							outBuf.append(token + "\n" + suffix);
 							continue;
 						}*/
-						
-						// abbreviations of the form A. or U.S.A.
-						if(token.matches("^([A-Za-z-]\\.)+$")) {
-							outBuf.append(token + "\n" + suffix);
-							continue;
-						}
-						
-						// disambiguate periods
-						m = Pattern.compile("^(..*)\\.$").matcher(token);
-						if(m.matches() && !line.equals("...") 
-								/* TODO:commented out because those are language-specific: && !(flags.contains(Flag.GALICIAN) && token.matches("^[0-9]+\\.$"))*/) {
-							token = m.group(1);
-							suffix = ".\n" + suffix;
-							/* TODO:commented out because those are language-specific
+
+					// abbreviations of the form A. or U.S.A.
+					if(token.matches("^([A-Za-z-]\\.)+$")) {
+						outBuf.append(token + "\n" + suffix);
+						continue;
+					}
+
+					// disambiguate periods
+					m = Pattern.compile("^(..*)\\.$").matcher(token);
+					if(m.matches() && !line.equals("...") 
+							/* TODO:commented out because those are language-specific: && !(flags.contains(Flag.GALICIAN) && token.matches("^[0-9]+\\.$"))*/) {
+						token = m.group(1);
+						suffix = ".\n" + suffix;
+						/* TODO:commented out because those are language-specific
 							if(abbreviations.contains(token)) {
 								outBuf.append(token + "\n" + suffix);
 								continue;
 							}*/
-						}
-						
-						// cut off clitics
+					}
+
+					// cut off clitics
+					while(true) {
+						m = Pattern.compile("^(--)(.)").matcher(token);
+						if(!m.find())
+							break;
+
+						token = token.replaceAll("^(--)(.)", "$2");
+						outBuf.append(m.group(1) + "\n");
+					}
+					if(!PClitic.equals("")) {
 						while(true) {
-							m = Pattern.compile("^(--)(.)").matcher(token);
-							
-							if(!m.find()) {
+							m = Pattern.compile("^(" + PClitic + ")(.)").matcher(token);
+							if(!m.find())
 								break;
-							}
-							
-							token = token.replaceAll("^(--)(.)", "$2");
+
+							token = token.replaceAll("^(" + PClitic + ")(.)", "$2");
 							outBuf.append(m.group(1) + "\n");
 						}
-						if(!PClitic.equals("")) {
-							while(true) {
-								m = Pattern.compile("^(" + PClitic + ")(.)").matcher(token);
-								
-								if(!m.find()) {
-									break;
-								}
-								
-								token = token.replaceAll("^(" + PClitic + ")(.)", "$2");
-								outBuf.append(m.group(1) + "\n");
-							}
-						}
-	
+					}
+
+					while(true) {
+						m = Pattern.compile("^(--)(.)").matcher(token);
+						if(!m.find())
+							break;
+
+						token = token.replaceAll("^(--)(.)", "$1");
+						suffix = m.group(2) + "\n" + suffix;
+					}
+					if(!FClitic.equals("")) {
 						while(true) {
-							m = Pattern.compile("^(--)(.)").matcher(token);
-							
-							if(!m.find()) {
+							m = Pattern.compile("(.)(" + FClitic + ")$").matcher(token);
+							if(!m.find())
 								break;
-							}
-							
-							token = token.replaceAll("^(--)(.)", "$1");
+
+							token = token.replaceAll("(.)(" + FClitic + ")$", "$1");
 							suffix = m.group(2) + "\n" + suffix;
 						}
-						if(!FClitic.equals("")) {
-							while(true) {
-								m = Pattern.compile("(.)(" + FClitic + ")$").matcher(token);
-								
-								if(!m.find()) {
-									break;
-								}
-								
-								token = token.replaceAll("(.)(" + FClitic + ")$", "$1");
-								suffix = m.group(2) + "\n" + suffix;
-							}
-						}
-						outBuf.append(token + "\n" + suffix);
 					}
+					outBuf.append(token + "\n" + suffix);
 				}
 			}
 		}
@@ -196,11 +189,11 @@ public class AllLanguagesTokenizer extends JCasAnnotator_ImplBase {
 		// find the tokens in the original text and create token annotations
 		LinkedList<Token> outList = new LinkedList<Token>();
 		String origText = jcas.getDocumentText();
-		Integer origTextOffset = 0;
+		int origTextOffset = 0;
 		
 		for(String s : outBuf.toString().split("\n")) {
-			Integer begin = origText.indexOf(s, origTextOffset);
-			Integer end = begin + s.length();
+			int begin = origText.indexOf(s, origTextOffset);
+			int end = begin + s.length();
 			
 			Token t = new Token(jcas);
 			t.setBegin(begin);
@@ -219,17 +212,17 @@ public class AllLanguagesTokenizer extends JCasAnnotator_ImplBase {
 	
 	public List<Sentence> sentenceTokenize(JCas jcas) {
 		List<Sentence> outList = new LinkedList<Sentence>();
-		FSIterator tokIt = jcas.getAnnotationIndex(Token.type).iterator();
+		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
+		FSIterator<Token> tokIt = tokens.iterator();
 		
 		Sentence s = new Sentence(jcas);
-		Boolean sentenceStarted = false;
+		boolean sentenceStarted = false;
 		Token tOld = null;
 		Token t = null;
 		while(tokIt.hasNext()) {
-			if (!(t == null)){
+			if (t != null)
 				tOld = t;
-			}
-			t = (Token) tokIt.next();
+			t = tokIt.next();
 			
 			// set sentence beginning
 			if(sentenceStarted == false) {
@@ -243,8 +236,7 @@ public class AllLanguagesTokenizer extends JCasAnnotator_ImplBase {
 			 */
 			if(!tokIt.hasNext() ||
 					(t.getCoveredText().matches("[.:!\\?]+") && 
-							(!((tOld != null && tOld.getCoveredText().matches("[\\d]+")) ||
-							((jcas.getDocumentText().substring(t.getEnd()).length() > 2) && (jcas.getDocumentText().substring(t.getEnd(),t.getEnd()+3)).matches(" [A-Z][.-]")))))){
+							!((tOld != null && tOld.getCoveredText().matches("[\\d]+")) || (jcas.getDocumentText().substring(t.getEnd()).length() > 2 && jcas.getDocumentText().substring(t.getEnd(),t.getEnd()+3).matches(" [A-Z][.-]"))))){
 //							((!(tOld.getCoveredText().matches("[\\d]+")))) && (!((jcas.getDocumentText().substring(t.getEnd())).matches("^[\\s]*"))))) {
 //					(t.getCoveredText().matches("[.:!\\?]+") && (!(tOld.getCoveredText().matches("[\\d]+"))))) { // das funktioniert ok
 				sentenceStarted = false;
@@ -252,7 +244,7 @@ public class AllLanguagesTokenizer extends JCasAnnotator_ImplBase {
 
 				// check for whether the punctuation mark is followed by a closing quotation mark
 				if(tokIt.hasNext()) {
-					Token tNext = (Token) tokIt.next();
+					Token tNext = tokIt.next();
 					
 					if(tNext.getCoveredText().matches("[»’'\"‛”‟›〞』」﹄＂＇｣﹂]+")) {
 						s.setEnd(tNext.getEnd());

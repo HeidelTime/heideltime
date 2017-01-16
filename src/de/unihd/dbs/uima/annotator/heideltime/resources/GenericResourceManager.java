@@ -27,7 +27,7 @@ public abstract class GenericResourceManager {
 
 	private static final Pattern WHITESPACE = Pattern.compile("(?: |\\\\[sS])");
 
-	protected static String replaceSpaces(String inText) {
+	public static String replaceSpaces(String inText) {
 		Matcher m = WHITESPACE.matcher(inText);
 		if (!m.find())
 			return inText;

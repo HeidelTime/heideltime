@@ -127,7 +127,7 @@ public class RePatternManager extends GenericResourceManager {
 			Pattern c = Pattern.compile(rePattern);
 			int groupcount = c.matcher("").groupCount();
 			if (groupcount != 1)
-				LOG.warn("rePattern {} is expected to have only one group, has: ", groupcount);
+				LOG.error("rePattern {} contains unexpected groups: {}\nPattern: {}", name, groupcount - 1, orig);
 			compiled.put(name, c);
 		} catch(PatternSyntaxException e) {
 			LOG.error("Failed to compile RePattern {}:\n{}\nbefore transformations: {}", name, rePattern, orig);

@@ -143,6 +143,7 @@ public class RuleManager extends GenericResourceManager {
 					rule_extraction = replaceSpaces(rule_extraction);
 					Pattern pattern = null;
 					try {
+						LOG.trace("Compiling pattern: {}", rule_extraction);
 						pattern = Pattern.compile(rule_extraction);
 					} catch (java.util.regex.PatternSyntaxException e) {
 						LOG.error("Compiling rules resulted in errors.", e);
@@ -204,7 +205,7 @@ public class RuleManager extends GenericResourceManager {
 
 	private static final Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]*)");
 
-	private static String expandVariables(CharSequence rule_name, String str, RePatternManager rpm) {
+	public static String expandVariables(CharSequence rule_name, String str, RePatternManager rpm) {
 		Matcher matcher = paVariable.matcher(str);
 		// Shortcut if no matches:
 		if (!matcher.find())
