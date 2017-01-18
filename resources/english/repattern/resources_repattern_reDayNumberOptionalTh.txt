@@ -1,0 +1,26 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for day digit th.
+// FORMAT: one line is one disjunction of the pattern
+// 2016-01-18 reDayNumberTh + reDayNumber -- Erich
+// 1, 10-19
+1
+1st
+2
+2nd
+3
+3rd
+1[0-9]
+1[0-9]th
+2[0-9]
+20th
+21st
+22nd
+23rd
+2[4-9]th
+3[01]?
+30th
+31st
+[4-9]
+[4-9]th

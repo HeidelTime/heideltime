@@ -105,8 +105,8 @@ RULENAME="time_r7b",EXTRACTION="\b((%reApproximate )?%reTimeHour%reTimeMinute %r
 // time_r8
 // EXAMPLE r8a: the morning of April 18, 1775
 // EXAMPLE r8b: the morning of April 18
-RULENAME="time_r8a",EXTRACTION="\b(?:[Tt]he )?%rePartOfDay of %reMonthLongShort (%reDayNumberTh|%reDayNumber)[\s]?,? %reYear4Digit(?:, %reWeekday)?",NORM_VALUE="group(6)-%normMonth(group(2))-%normDay(group(3))T%normPartOfDay(group(1))"
-RULENAME="time_r8b",EXTRACTION="\b(?:[Tt]he )?%rePartOfDay of %reMonthLongShort (%reDayNumberTh|%reDayNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(3))T%normPartOfDay(group(1))"
-RULENAME="time_r8c",EXTRACTION="\b(?:[Tt]he )?%rePartOfDay of (?:the )?(%reDayWordTh|%reDayNumberTh|%reDayNumber) (?:of )?%reMonthLongShort %reYear4Digit",NORM_VALUE="group(7)-%normMonth(group(6))-%normDay(group(2))T%normPartOfDay(group(1))"
-RULENAME="time_r8d",EXTRACTION="\b(?:[Tt]he )?%rePartOfDay of (?:the )?(%reDayWordTh|%reDayNumberTh|%reDayNumber) (?:of )?%reMonthLongShort",NORM_VALUE="UNDEF-year-%normMonth(group(6))-%normDay(group(2))T%normPartOfDay(group(1))"
+RULENAME="time_r8a",EXTRACTION="\b(?:[Tt]he )?%rePartOfDay of %reMonthLongShort %reDayNumberOptionalTh\s?,? %reYear4Digit(?:, %reWeekday)?",NORM_VALUE="group(4)-%normMonth(group(2))-%normDay(group(3))T%normPartOfDay(group(1))"
+RULENAME="time_r8b",EXTRACTION="\b(?:[Tt]he )?%rePartOfDay of %reMonthLongShort %reDayNumberOptionalTh",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(3))T%normPartOfDay(group(1))"
+RULENAME="time_r8c",EXTRACTION="\b(?:[Tt]he )?%rePartOfDay of (?:the )?%reDayAny (?:of )?%reMonthLongShort %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(3))-%normDay(group(2))T%normPartOfDay(group(1))"
+RULENAME="time_r8d",EXTRACTION="\b(?:[Tt]he )?%rePartOfDay of (?:the )?%reDayAny (?:of )?%reMonthLongShort",NORM_VALUE="UNDEF-year-%normMonth(group(3))-%normDay(group(2))T%normPartOfDay(group(1))"
 

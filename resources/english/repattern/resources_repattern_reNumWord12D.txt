@@ -3,15 +3,40 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for number word 1 or 2 digits.
 // FORMAT: one line is one disjunction of the pattern
-// 2016-01-13 Folded patterns by prefixes for performance, as Java is not good at optimizing REs -- Erich
 [Oo]ne
-// 2, 3, 10, 12, 2X, 13, 30, 3X
-[Tt](?:wo|hree|en|welve|wenty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine))|hirteen|hirty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
-// 4, 5, 14, 15, 4X, 5X
-[Ff](?:our|ive|ourteen|ifteen|orty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine))|ifty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
-// 6, 7, 16, 17, 6X, 7X
-[Ss](?:ix|even|ixteen|eventeen|ixty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine))|eventy(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
-// 8, 11, 18, 8X
-[Ee](?:ight|leven|ighteen|ighty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
-// 9, 19, 9X
-[Nn](?:ine|ineteen|inety(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
+[Tt]wo
+[Tt]hree
+[Ff]our
+[Ff]ive
+[Ss]ix
+[Ss]even
+[Ee]ight
+[Nn]ine
+//
+[Tt]en
+[Ee]leven
+[Tt]welve
+[Tt]hirteen
+[Ff]ourteen
+[Ff]ifteen
+[Ss]ixteen
+[Ss]eventeen
+[Ee]ighteen
+[Nn]ineteen
+//
+[Tt]wenty
+[Tt]wenty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
+[Tt]hirty
+[Tt]hirty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
+[Ff]orty
+[Ff]orty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
+[Ff]ifty
+[Ff]ifty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
+[Ss]ixty
+[Ss]ixty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
+[Ss]eventy
+[Ss]eventy[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
+[Ee]ighty
+[Ee]ighty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
+[Nn]inety
+[Nn]inety[ -]?(?:one|two|three|four|five|six|seven|eight|nine)

@@ -3,10 +3,12 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for number word 1 digits.
 // FORMAT: one line is one disjunction of the pattern
-// 2016-01-13 Folded patterns by prefixes for performance, as Java is not good at optimizing REs -- Erich
 [Oo]ne
-[Tt](?:wo|hree)
-[Ff](?:our|ive)
-[Ss](?:ix|even)
+[Tt]wo
+[Tt]hree
+[Ff]our
+[Ff]ive
+[Ss]ix
+[Ss]even
 [Ee]ight
 [Nn]ine

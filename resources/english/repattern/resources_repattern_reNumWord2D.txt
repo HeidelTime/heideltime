@@ -4,14 +4,30 @@
 // This file contains regular expression patterns for 
 // number word 2 digits: reNumWord2D
 // FORMAT: one line is one disjunction of the pattern
-// 2016-01-13 Folded patterns by prefixes for performance, as Java is not good at optimizing REs -- Erich
-// 10, 12, 2X, 13, 30, 3X
-[Tt](?:en|welve|wenty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine))|hirteen|hirty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
-// 11, 18, 8X
-[Ee](?:leven|ighteen|ighty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
-// 14, 15, 4X, 5X
-[Ff](?:ourteen|ifteen|orty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine))|ifty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
-// 16, 17, 6X, 7X
-[Ss](?:ixteen|eventeen|ixty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine))|eventy(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
-// 19, 9X
-[Nn](?:ineteen|inety(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
+[Tt]en
+[Ee]leven
+[Tt]welve
+[Tt]hirteen
+[Ff]ourteen
+[Ff]ifteen
+[Ss]ixteen
+[Ss]eventeen
+[Ee]ighteen
+[Nn]ineteen
+//
+[Tt]wenty
+[Tt]wenty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
+[Tt]hirty
+[Tt]hirty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
+[Ff]orty
+[Ff]orty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
+[Ff]ifty
+[Ff]ifty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
+[Ss]ixty
+[Ss]ixty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
+[Ss]eventy
+[Ss]eventy[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
+[Ee]ighty
+[Ee]ighty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
+[Nn]inety
+[Nn]inety[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
