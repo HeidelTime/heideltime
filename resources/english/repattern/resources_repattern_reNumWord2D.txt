@@ -6,12 +6,12 @@
 // FORMAT: one line is one disjunction of the pattern
 // 2016-01-13 Folded patterns by prefixes for performance, as Java is not good at optimizing REs -- Erich
 // 10, 12, 2X, 13, 30, 3X
-[Tt](?:en|welve|wenty(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?|hirteen|hirty(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?)
+[Tt](?:en|welve|wenty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine))|hirteen|hirty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
 // 11, 18, 8X
-[Ee](?:leven|ighteen|ighty(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?)
+[Ee](?:leven|ighteen|ighty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
 // 14, 15, 4X, 5X
-[Ff](?:ourteen|ifteen|[Ff]orty(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?|[Ff]ifty(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?)
+[Ff](?:ourteen|ifteen|orty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine))|ifty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
 // 16, 17, 6X, 7X
-[Ss](?:ixteen|eventeen|ixty(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?|eventy(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?)
+[Ss](?:ixteen|eventeen|ixty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine))|eventy(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
 // 19, 9X
-[Nn](?:ineteen|inety(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?)
+[Nn](?:ineteen|inety(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))

@@ -6,12 +6,12 @@
 // 2016-01-13 Folded patterns by prefixes for performance, as Java is not good at optimizing REs -- Erich
 [Oo]ne
 // 2, 3, 10, 12, 2X, 13, 30, 3X
-[Tt](?:wo|hree|en|welve|wenty(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?|hirteen|hirty(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?)
+[Tt](?:wo|hree|en|welve|wenty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine))|hirteen|hirty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
 // 4, 5, 14, 15, 4X, 5X
-[Ff](?:our|ive|ourteen|ifteen|orty(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?|ifty(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?)
+[Ff](?:our|ive|ourteen|ifteen|orty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine))|ifty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
 // 6, 7, 16, 17, 6X, 7X
-[Ss](?:ix|even|ixteen|eventeen|ixty(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?|eventy(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?)
+[Ss](?:ix|even|ixteen|eventeen|ixty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine))|eventy(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
 // 8, 11, 18, 8X
-[Ee](?:ight|leven|ighteen|ighty(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?)
+[Ee](?:ight|leven|ighteen|ighty(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
 // 9, 19, 9X
-[Nn](?:ine|ineteen|inety(?:[ -]?(?:one|two|three|four|five|six|seven|eight|nine)?)?)
+[Nn](?:ine|ineteen|inety(?:|[ -]?(?:one|two|three|four|five|six|seven|eight|nine)))
