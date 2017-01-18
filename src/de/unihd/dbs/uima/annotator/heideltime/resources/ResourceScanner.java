@@ -127,7 +127,7 @@ public class ResourceScanner {
 			Pattern rulePattern = Pattern.compile(language + "/rules/resources_rules_(.+)\\.txt$");
 			
 			if (entry.getValue().isDirectory()) {
-				LOG.debug("Testing {}", entry.getKey());
+				LOG.trace("Testing {}", entry.getKey());
 				/*
 				 * our conditions for something being a resources folder: the resource
 				 * folder must contain at least the following folders:
@@ -155,11 +155,11 @@ public class ResourceScanner {
 				}
 				
 				if(!repatternExists || !normalizationExists || !ruleExists) {
-					LOG.debug("We need at least one readable resource file of each type to run.");
+					LOG.debug("We need at least one readable resource file of each type to run (in {})", entry.getKey());
 					continue;
 				}
 		
-				LOG.debug("Valid resource folder.");
+				LOG.trace("Valid resource folder: {}", entry.getKey());
 
 				// at this point, the folder is obviously a language resource folder => collect streams
 				this.repatterns.put(language, new ResourceMap());
@@ -193,7 +193,7 @@ public class ResourceScanner {
 		for (File supposedLanguagePath : pathContents) {
 			String language = supposedLanguagePath.getName();
 			if (supposedLanguagePath.isDirectory()) {
-				LOG.debug("Testing {}", supposedLanguagePath.getAbsolutePath());
+				LOG.trace("Testing {}", supposedLanguagePath);
 		
 				if (!supposedLanguagePath.exists()) {
 					LOG.debug("This path doesn't exist.");
@@ -217,8 +217,7 @@ public class ResourceScanner {
 				if (!repatternFolder.exists() || !repatternFolder.canRead() || !repatternFolder.isDirectory()
 						|| !normalizationFolder.exists() || !normalizationFolder.canRead() || !normalizationFolder.isDirectory() 
 						|| !ruleFolder.exists() || !ruleFolder.canRead() || !ruleFolder.isDirectory()) {
-					LOG.debug("We need at least the folders repattern, normalization and rules in this folder.");
-					
+					LOG.debug("We need at least the folders repattern, normalization and rules in folder '{}'.", supposedLanguagePath);					
 					continue;
 				}
 		
@@ -246,11 +245,11 @@ public class ResourceScanner {
 						|| !repatternFiles[0].exists() || !repatternFiles[0].canRead() || !repatternFiles[0].isFile()
 						|| !normalizationFiles[0].exists() || !normalizationFiles[0].canRead() || !normalizationFiles[0].isFile()
 						|| !ruleFiles[0].exists() || !ruleFiles[0].canRead() || !ruleFiles[0].isFile()) {
-					LOG.debug("We need at least one readable resource file of each type to run.");
+					LOG.debug("We need at least one readable resource file of each type to run in '{}'", supposedLanguagePath);
 					continue;
 				}
 		
-				LOG.debug("Valid resource folder.");
+				LOG.trace("Valid resource folder: {}", supposedLanguagePath);
 
 				// at this point, the folder is obviously a language resource folder => collect streams
 				this.repatterns.put(language, new ResourceMap());

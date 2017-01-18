@@ -96,7 +96,7 @@ public class NormalizationManager extends GenericResourceManager {
 			// read normalization resources with "Temponym" only if temponym tagging is selected
 			if (resource.contains("Temponym") &&
 					!(load_temponym_resources && resource.contains("Temponym"))) {
-				LOG.debug("No Temponym Tagging selected. Skipping normalization resource: {}", resource);
+				LOG.trace("No Temponym tagging selected. Skipping normalization resource: {}", resource);
 				continue;
 			}
 			LOG.debug("Adding normalization resource: {}", resource);
