@@ -116,7 +116,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private boolean deleteOverlapping = true;
 
 	// To profile regular expression matching.
-	private static final boolean PROFILE_REGEXP = true;
+	private static final boolean PROFILE_REGEXP = false;
 
 	private HashMap<String, Long> profileData = PROFILE_REGEXP ? new HashMap<String, Long>() : null;
 
