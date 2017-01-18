@@ -1817,35 +1817,56 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		AnnotationIndex<Timex3> timexes = jcas.getAnnotationIndex(Timex3.type);
 		HashSet<Timex3> hsTimexesToRemove = new HashSet<Timex3>();
 		for (Timex3 t1 : timexes) {
+			if (hsTimexesToRemove.contains(t1)) {
+				continue;
+			}
 			for (Timex3 t2 : timexes) {
+				if (t1 == t2 || hsTimexesToRemove.contains(t2)) {
+					continue;
+				}
 				if ( // t1 starts inside or with t2 and ends before t2 -> remove t1
-				((t1.getBegin() >= t2.getBegin()) && (t1.getEnd() < t2.getEnd())) ||
-				// t1 starts inside t2 and ends with or before t2 -> remove t1
-						((t1.getBegin() > t2.getBegin()) && (t1.getEnd() <= t2.getEnd()))) {
+				((t1.getBegin() >= t2.getBegin()) && (t1.getEnd() < t2.getEnd()))
+						// t1 starts inside t2 and ends with or before t2 -> remove t1
+						|| ((t1.getBegin() > t2.getBegin()) && (t1.getEnd() <= t2.getEnd()))) {
+					logRemove(t1, "overlaps and begins later than", t2);
 					hsTimexesToRemove.add(t1);
-					// t2 starts inside or with t1 and ends before t1 -> remove t2
-				} else if (((t2.getBegin() >= t1.getBegin()) && (t2.getEnd() < t1.getEnd())) ||
-				// t2 starts inside t1 and ends with or before t1 -> remove t2
-						((t2.getBegin() > t1.getBegin()) && (t2.getEnd() <= t1.getEnd()))) {
+					continue;
+				}
+				// t2 starts inside or with t1 and ends before t1 -> remove t2
+				if (((t2.getBegin() >= t1.getBegin()) && (t2.getEnd() < t1.getEnd()))
+						// t2 starts inside t1 and ends with or before t1 -> remove t2
+						|| ((t2.getBegin() > t1.getBegin()) && (t2.getEnd() <= t1.getEnd()))) {
+					logRemove(t2, "overlaps and begins later than", t1);
 					hsTimexesToRemove.add(t2);
+					continue;
 				}
 				// identical length
-				if (!t1.equals(t2) && (t1.getBegin() == t2.getBegin()) && (t1.getEnd() == t2.getEnd())) {
-					if ((t1.getTimexValue().startsWith("UNDEF")) && (!(t2.getTimexValue().startsWith("UNDEF")))) {
+				if ((t1.getBegin() == t2.getBegin()) && (t1.getEnd() == t2.getEnd())) {
+					if (t1.getTimexValue().startsWith("UNDEF") && !t2.getTimexValue().startsWith("UNDEF")) {
+						logRemove(t1, "is UNDEF, compared to", t2);
 						hsTimexesToRemove.add(t1);
-					} else if ((!(t1.getTimexValue().startsWith("UNDEF"))) && (t2.getTimexValue().startsWith("UNDEF"))) {
+					} else if (!t1.getTimexValue().startsWith("UNDEF") && t2.getTimexValue().startsWith("UNDEF")) {
+						logRemove(t2, "is UNDEF, compared to", t1);
 						hsTimexesToRemove.add(t2);
 					}
 					// t1 is explicit, but t2 is not
-					else if ((t1.getFoundByRule().endsWith("explicit")) && (!(t2.getFoundByRule().endsWith("explicit")))) {
+					else if (t1.getFoundByRule().endsWith("explicit") && !t2.getFoundByRule().endsWith("explicit")) {
+						logRemove(t2, "is not explicit, compared to", t1);
 						hsTimexesToRemove.add(t2);
 					}
 					// remove timexes that are identical, but one has an emptyvalue
-					else if (t2.getEmptyValue().length() == 0 && t1.getEmptyValue().length() > 0) {
+					else if (t2.getEmptyValue().isEmpty() && !t1.getEmptyValue().isEmpty()) {
+						logRemove(t2, "has emptyvalue, compared to", t1);
+						hsTimexesToRemove.add(t2);
+					}
+					// REMOVE REAL DUPLICATES (prefer longer timexID, to prefer BC)
+					else if (t1.getTimexValue().length() > t2.getTimexValue().length()) {
+						logRemove(t2, "has shorter value than", t1);
 						hsTimexesToRemove.add(t2);
 					}
 					// REMOVE REAL DUPLICATES (the one with the lower timexID)
-					else if ((Integer.parseInt(t1.getTimexId().substring(1)) < Integer.parseInt(t2.getTimexId().substring(1)))) {
+					else if (Integer.parseInt(t1.getTimexId().substring(1)) < Integer.parseInt(t2.getTimexId().substring(1))) {
+						logRemove(t1, "has lower id value than", t2);
 						hsTimexesToRemove.add(t1);
 					}
 				}
@@ -1853,11 +1874,17 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		}
 		// remove, finally
 		for (Timex3 t : hsTimexesToRemove) {
-			if (LOG.isDebugEnabled())
-				LOG.debug("REMOVE DUPLICATE: " + t.getCoveredText() + "(id:" + t.getTimexId() + " value:" + t.getTimexValue() + " found by:" + t.getFoundByRule() + ")");
-
 			t.removeFromIndexes();
 			timex_counter--;
+		}
+	}
+
+	private void logRemove(Timex3 t1, String reason, Timex3 t2) {
+		if (LOG.isTraceEnabled()) {
+			LOG.trace("DUPLICATE: {} (id:{} value:{} found by:{}) removed because it {} {} (id:{} value:{} found by:{})", //
+					t1.getCoveredText(), t1.getTimexId(), t1.getTimexValue(), t1.getFoundByRule(), //
+					reason,
+					t2.getCoveredText(), t2.getTimexId(), t2.getTimexValue(), t2.getFoundByRule());
 		}
 	}
 
