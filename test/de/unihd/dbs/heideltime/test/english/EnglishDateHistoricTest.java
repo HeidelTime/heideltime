@@ -1,5 +1,6 @@
 package de.unihd.dbs.heideltime.test.english;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class EnglishDateHistoricTest extends AbstractHeideltimeTest {
@@ -106,11 +107,11 @@ public class EnglishDateHistoricTest extends AbstractHeideltimeTest {
 	}
 
 	@Test
-	public void testdate_historic_5c_BCADhint() {
+	public void testdate_historic_5ca_BCADhint() {
 		// find "2nd century BC"
 		testSingleCase("2nd or 3rd century BC", //
 				new String[] { "date_historic_5c-BCADhint", "2nd", "BC01" }, //
-				new String[] { "date_historic_5c-BCADhint", "3rd century BC", "BC02" });
+				new String[] { "date_historic_5a-BCADhint", "3rd century BC", "BC02" });
 	}
 
 	@Test
@@ -168,10 +169,12 @@ public class EnglishDateHistoricTest extends AbstractHeideltimeTest {
 	@Test
 	public void testdate_historic_8ab() {
 		// 2-digit year
-		testSingleCase("in 90,", new String[] { "date_historic_8ab", "0090" });
-		testSingleCase("in 90", new String[] { "date_historic_8ab", "0090" });
+		testSingleCase("in 90,", new String[] { "date_historic_8ab", "90", "0090" });
+		testSingleCase("in 90", new String[] { "date_historic_8ab", "90", "0090" });
 	}
 
+	// FIXME: add POS tags for unit test
+	@Ignore("Needs POS")
 	@Test
 	public void testdate_historic_0ab_negative() {
 		// 2- to 4-digit year
