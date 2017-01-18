@@ -43,13 +43,13 @@ public class RuleExpansion {
 			// replace other groups
 			expandGroups(tonormalize, mr, m, rule);
 			// apply the substring function
-			expandSubstringFunction(tonormalize, mr);
+			expandSubstringFunction(tonormalize, mr, m, rule);
 			if (language.useLowercase()) {
 				expandLowerCaseFunction(tonormalize, mr);
 				expandUpperCaseFunction(tonormalize, mr);
 			}
 			// replace sum, concatenation
-			expandSumFunction(tonormalize, mr);
+			expandSumFunction(tonormalize, mr, m, rule);
 			// replace normalization function without group
 			expandNormalizationFull(tonormalize, mr, norm, rule);
 			// replace Chinese with Arabic numerals
@@ -83,7 +83,7 @@ public class RuleExpansion {
 			String value = m.group(groupid);
 			if (value == null) {
 				// This is not unusual to happen
-				LOG.debug("Empty part to normalize in {}, rule {}", normfunc, rule);
+				LOG.debug("Empty part to normalize in {}, rule {}, '{}'", normfunc, rule, m.group());
 				tonormalize.delete(start, end);
 				continue;
 			}
@@ -148,13 +148,18 @@ public class RuleExpansion {
 		}
 	}
 
-	private static void expandSubstringFunction(StringBuilder tonormalize, Matcher mr) {
+	private static void expandSubstringFunction(StringBuilder tonormalize, Matcher mr, MatchResult m, String rule) {
 		mr.usePattern(paSubstring).reset(tonormalize);
 		for (int pos = 0; mr.find(pos);) {
-			String rep = mr.group(1).substring(Integer.parseInt(mr.group(2)), Integer.parseInt(mr.group(3)));
 			int start = mr.start(), end = mr.end();
-			tonormalize.replace(start, end, rep);
-			pos = start + rep.length();
+			try {
+				String rep = mr.group(1).substring(Integer.parseInt(mr.group(2)), Integer.parseInt(mr.group(3)));
+				tonormalize.replace(start, end, rep);
+				pos = start + rep.length();
+			} catch (StringIndexOutOfBoundsException e) {
+				LOG.error("Substring out of bounds: '{}' for '{}' with rule '{}'", mr.group(), m.group(), rule, e);
+				tonormalize.delete(start, end);
+			}
 		}
 	}
 
@@ -178,13 +183,18 @@ public class RuleExpansion {
 		}
 	}
 
-	private static void expandSumFunction(StringBuilder tonormalize, Matcher mr) {
+	private static void expandSumFunction(StringBuilder tonormalize, Matcher mr, MatchResult m, String rule) {
 		mr.usePattern(paSum).reset(tonormalize);
 		for (int pos = 0; mr.find(pos);) {
-			String rep = Integer.toString(Integer.parseInt(mr.group(1)) + Integer.parseInt(mr.group(2)));
 			int start = mr.start(), end = mr.end();
-			tonormalize.replace(start, end, rep);
-			pos = start + rep.length();
+			try {
+				String rep = Integer.toString(Integer.parseInt(mr.group(1)) + Integer.parseInt(mr.group(2)));
+				tonormalize.replace(start, end, rep);
+				pos = start + rep.length();
+			} catch (NumberFormatException e) {
+				LOG.error("Failed to expand sum: '{}' for '{}' with rule '{}'", mr.group(), m.group(), rule, e);
+				tonormalize.delete(start, end);
+			}
 		}
 	}
 
