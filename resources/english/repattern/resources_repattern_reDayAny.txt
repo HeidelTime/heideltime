@@ -4,30 +4,50 @@
 // This file contains regular expression patterns for day word th.
 // FORMAT: one line is one disjunction of the pattern
 // 2016-01-18 Combination of reDayNumberTh + reDayWordTh + reDayNumber, to reduce grouping in patterns -- Erich
-// 1, 4, 14, 5, 15
-[Ff](?:irst|ourt(?:h|eenth)|ift(?:h|eenth))
-// 2, 6, 16, 7, 17
-[Ss](?:econd|ixt(?:h|eenth)|event(?:h|eenth))
-// 3, 10, 12, 20, 2X, 30, 31
-[Tt](?:hird|enth|welfth|went(?:ieth|y-(?:first|second|third|fourth|fifth|sixth|seventh|eighth|ninth))|hirt(?:eenth|ieth|y-first))
-// 8, 11, 18
-[Ee](?:leventh|ight(?:h|ighteenth))
-// 9, 19
-[Nn]in(?:th|eteenth)
-// 1, 10-19
-1(?:st|[0-9]th)
-// 2, 20-29
-2(?:nd|0th|1st|2nd|3rd|[4-9]th)
-// 3, 30-31
-3(?:rd|0th|1st)
-// 4-9
-[4-9]th
-// Numbers, with optional dot:
 0[1-9]
-[12][0-9]
+1[0-9]?
+2[0-9]?
 3[01]?
 [4-9]
-0[1-9]\.
-[12][0-9]\.
-3[01]?\.
-[4-9]\.
+1st
+01st
+2nd
+02nd
+3rd
+03rd
+[4-9]th
+0[4-9]th
+1[0-9]th
+20th
+21st
+22nd
+23rd
+2[4-9]th
+30th
+31st
+[Ff]irst
+[Ss]econd
+[Tt]hird
+[Ff]ourth
+[Ff]ifth
+[Ss]ixth
+[Ss]eventh
+[Ee]ighth
+[Nn]inth
+// 10
+[Tt]enth
+[Ee]leventh
+[Tt]welfth
+[Tt]hirteenth
+[Ff]ourteenth
+[Ff]ifteenth
+[Ss]ixteenth
+[Ss]eventeenth
+[Ee]ighteenth
+[Nn]ineteenth
+// 20
+[Tt]wentieth
+[Tt]wenty-(?:first|second|third|fourth|fifth|sixth|seventh|eighth|ninth)
+// 30
+[Tt]hirtieth
+[Tt]hirty-first

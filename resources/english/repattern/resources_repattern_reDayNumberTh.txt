@@ -3,12 +3,19 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for day digit th.
 // FORMAT: one line is one disjunction of the pattern
-// 2016-01-13 Rearranged patterns by first letter for performance -- Erich
-// 1, 10-19
-1(?:st|[0-9]th)
-// 2, 20-29
-2(?:nd|0th|1st|2nd|3rd|[4-9]th)
-// 3, 30-31
-3(?:rd|0th|1st)
-// 4-9
+1st
+01st
+2nd
+02nd
+3rd
+03rd
 [4-9]th
+0[4-9]th
+1[0-9]th
+20th
+21st
+22nd
+23rd
+2[4-9]th
+30th
+31st
