@@ -230,6 +230,7 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 				new String[] { "date_r10a", "the third quarter of 2001", "2001-Q3" });
 	}
 
+	@Ignore("Disabled, false positives: shot a goal in the second half")
 	@Test
 	public void testdate_r10b() {
 		testSingleCase("the second half", //
@@ -483,6 +484,18 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	public void testdate_r20d() {
 		testSingleCase("a week later", //
 				new String[] { "date_r20d", "a week later", "XXXX-XX-XX" });
+	}
+
+	@Test
+	public void testdate_r20f() {
+		testSingleCase("on 30 minutes something happened", //
+				new String[] { "date_r20f", "on 30 minutes", "UNDEF-REF-minute-PLUS-30" });
+	}
+
+	@Test
+	public void testdate_r20g() {
+		testSingleCase("on approximately thirty minutes something happened", //
+				new String[] { "date_r20g", "on approximately thirty minutes", "UNDEF-REF-minute-PLUS-30" });
 	}
 
 	@Test
