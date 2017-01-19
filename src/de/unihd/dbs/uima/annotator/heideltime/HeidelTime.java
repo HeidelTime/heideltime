@@ -81,9 +81,6 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	public int timex_counter = 0;
 	public int timex_counter_global = 0;
 
-	// FLAG (for historic expressions referring to BC)
-	public boolean flagHistoricDates = false;
-
 	// COUNTER FOR TIMEX IDS
 	private int timexID = 0;
 
@@ -119,6 +116,9 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	private static final boolean PROFILE_REGEXP = false;
 
 	private HashMap<String, Long> profileData = PROFILE_REGEXP ? new HashMap<String, Long>() : null;
+
+	// Whether to generate "allTokIds" strings.
+	private boolean doAllTokIds = false;
 
 	/**
 	 * @see AnalysisComponent#initialize(UimaContext)
@@ -226,7 +226,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 
 		timex_counter = 0;
 
-		flagHistoricDates = false;
+		boolean flagHistoricDates = false;
 
 		boolean documentTypeNarrative = typeToProcess.equals("narrative") || typeToProcess.equals("narratives");
 
@@ -293,13 +293,12 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		specifyAmbiguousValues(jcas);
 
 		// disambiguate historic dates
-		// check dates without explicit hints to AD or BC if they might refer to
-		// BC dates
+		// check dates without explicit hints to AD or BC if they might refer to BC dates
 		if (flagHistoricDates)
 			try {
 				disambiguateHistoricDates(jcas);
 			} catch (Exception e) {
-				LOG.error("Something went wrong disambiguating historic dates.", e);
+				LOG.error("Failed disambiguating historic dates: {}", e.getMessage(), e);
 			}
 
 		if (find_temponyms)
@@ -348,19 +347,20 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		annotation.setEmptyValue(emptyValue);
 
 		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
-		// TODO: these strings are quite expensive. Do we always want/need them?
-		StringBuilder allTokIds = new StringBuilder();
-		for (FSIterator<Token> iterToken = tokens.subiterator(sentence); iterToken.hasNext();) {
-			Token tok = iterToken.next();
-			if (tok.getBegin() <= begin && tok.getEnd() > begin) {
-				annotation.setFirstTokId(tok.getTokenId());
-				allTokIds.setLength(0);
-				allTokIds.append("BEGIN<-->").append(tok.getTokenId());
+		if (doAllTokIds) {
+			StringBuilder allTokIds = new StringBuilder();
+			for (FSIterator<Token> iterToken = tokens.subiterator(sentence); iterToken.hasNext();) {
+				Token tok = iterToken.next();
+				if (tok.getBegin() <= begin && tok.getEnd() > begin) {
+					annotation.setFirstTokId(tok.getTokenId());
+					allTokIds.setLength(0);
+					allTokIds.append("BEGIN<-->").append(tok.getTokenId());
+				}
+				if ((tok.getBegin() > begin) && (tok.getEnd() <= end))
+					allTokIds.append("<-->").append(tok.getTokenId());
 			}
-			if ((tok.getBegin() > begin) && (tok.getEnd() <= end))
-				allTokIds.append("<-->").append(tok.getTokenId());
+			annotation.setAllTokIds(allTokIds.toString());
 		}
-		annotation.setAllTokIds(allTokIds.toString());
 		annotation.setTimexType(timexType);
 		annotation.setTimexValue(timexValue);
 		annotation.setTimexId(timexId);
@@ -408,47 +408,48 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		//////////////////////////////////////////////
 		for (int i = 1; i < linearDates.size(); i++) {
 			Timex3 t_i = linearDates.get(i);
+			if (t_i.getFoundByRule().contains("-BCADhint"))
+				continue;
 			String value_i = t_i.getTimexValue(), newValue = value_i;
+			if (value_i.charAt(0) != '0')
+				continue;
 			boolean change = false;
-			if (!t_i.getFoundByRule().contains("-BCADhint")) {
-				if (value_i.startsWith("0")) {
-					int offset = 1, counter = 1;
-					do {
-						if ((i == 1 || (i > 1 && !change)) && linearDates.get(i - offset).getTimexValue().startsWith("BC")) {
-							if (value_i.length() > 1) {
-								if ((linearDates.get(i - offset).getTimexValue().startsWith("BC" + value_i.substring(0, 2))) || (linearDates.get(i - offset)
-										.getTimexValue().startsWith("BC" + String.format("%02d", (Integer.parseInt(value_i.substring(0, 2)) + 1))))) {
-									if (((value_i.startsWith("00")) && (linearDates.get(i - offset).getTimexValue().startsWith("BC00")))
-											|| ((value_i.startsWith("01")) && (linearDates.get(i - offset).getTimexValue().startsWith("BC01")))) {
-										if ((value_i.length() > 2) && (linearDates.get(i - offset).getTimexValue().length() > 4)) {
-											if (Integer.parseInt(value_i.substring(0, 3)) <= Integer
-													.parseInt(linearDates.get(i - offset).getTimexValue().substring(2, 5))) {
-												newValue = "BC" + value_i;
-												change = true;
-												if (LOG.isDebugEnabled())
-													LOG.debug("DisambiguateHistoricDates: " + value_i + " to " + newValue + ". Expression "
-															+ t_i.getCoveredText() + " due to "
-															+ linearDates.get(i - offset).getCoveredText());
-											}
-										}
-									} else {
+			int offset = 1, counter = 1;
+			do {
+				String txval = linearDates.get(i - offset).getTimexValue();
+				if ((i == 1 || (i > 1 && !change)) && txval.startsWith("BC")) {
+					if (value_i.length() > 1) {
+						if (txval.startsWith("BC" + value_i.substring(0, 2)) //
+								|| txval.startsWith(String.format("BC%02d", Integer.parseInt(value_i.substring(0, 2)) + 1))) {
+							if ((value_i.startsWith("00") && txval.startsWith("BC00"))
+									|| (value_i.startsWith("01") && txval.startsWith("BC01"))) {
+								if ((value_i.length() > 2) && (txval.length() > 4)) {
+									if (Integer.parseInt(value_i.substring(0, 3)) <= Integer
+											.parseInt(txval.substring(2, 5))) {
 										newValue = "BC" + value_i;
 										change = true;
 										if (LOG.isDebugEnabled())
-											LOG.debug("DisambiguateHistoricDates: " + value_i + " to " + newValue + ". Expression " + t_i.getCoveredText()
-													+ " due to " + linearDates.get(i - offset).getCoveredText());
+											LOG.debug("DisambiguateHistoricDates: " + value_i + " to " + newValue + ". Expression "
+													+ t_i.getCoveredText() + " due to "
+													+ linearDates.get(i - offset).getCoveredText());
 									}
 								}
+							} else {
+								newValue = "BC" + value_i;
+								change = true;
+								if (LOG.isDebugEnabled())
+									LOG.debug("DisambiguateHistoricDates: " + value_i + " to " + newValue + ". Expression " + t_i.getCoveredText()
+									+ " due to " + linearDates.get(i - offset).getCoveredText());
 							}
 						}
-
-						if ((linearDates.get(i - offset).getTimexType().equals("TIME") || linearDates.get(i - offset).getTimexType().equals("DATE"))
-								&& (linearDates.get(i - offset).getTimexValue().matches("^\\d.*"))) {
-							counter++;
-						}
-					} while (counter < 5 && ++offset < i);
+					}
 				}
-			}
+
+				String txtype = linearDates.get(i - offset).getTimexType();
+				if ((txtype.equals("TIME") || txtype.equals("DATE")) && txval.matches("^\\d.*")) {
+					counter++;
+				}
+			} while (counter < 5 && ++offset < i);
 			if (!newValue.equals(value_i)) {
 				t_i.removeFromIndexes();
 				LOG.debug("DisambiguateHistoricDates: value changed to BC");
@@ -480,7 +481,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			timex3.removeFromIndexes();
 			this.timex_counter--;
 			if (LOG.isDebugEnabled())
-				LOG.debug(timex3.getTimexId() + " REMOVING PHASE: " + "found by:" + timex3.getFoundByRule() + " text:" + timex3.getCoveredText() + " value:" + timex3.getTimexValue());
+				LOG.debug("{} REMOVING PHASE: found by: {} text:{} value:{}", timex3.getTimexId(), timex3.getFoundByRule(), timex3.getCoveredText(), timex3.getTimexValue());
 		}
 	}
 
@@ -1859,11 +1860,6 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						logRemove(t2, "has emptyvalue, compared to", t1);
 						hsTimexesToRemove.add(t2);
 					}
-					// REMOVE REAL DUPLICATES (prefer longer timexID, to prefer BC)
-					else if (t1.getTimexValue().length() > t2.getTimexValue().length()) {
-						logRemove(t2, "has shorter value than", t1);
-						hsTimexesToRemove.add(t2);
-					}
 					// REMOVE REAL DUPLICATES (the one with the lower timexID)
 					else if (Integer.parseInt(t1.getTimexId().substring(1)) < Integer.parseInt(t2.getTimexId().substring(1))) {
 						logRemove(t1, "has lower id value than", t2);
@@ -1883,7 +1879,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		if (LOG.isTraceEnabled()) {
 			LOG.trace("DUPLICATE: {} (id:{} value:{} found by:{}) removed because it {} {} (id:{} value:{} found by:{})", //
 					t1.getCoveredText(), t1.getTimexId(), t1.getTimexValue(), t1.getFoundByRule(), //
-					reason,
+					reason, //
 					t2.getCoveredText(), t2.getTimexId(), t2.getTimexValue(), t2.getFoundByRule());
 		}
 	}
@@ -1982,7 +1978,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						allSameTypes = false;
 					}
 				}
-				LOG.debug("Are these overlapping timexes of same type? => {}", allSameTypes);
+				LOG.trace("Are these overlapping timexes of same type? => {}", allSameTypes);
 
 				// check timex value attribute string length
 				if (longestTimex == null) {
@@ -2007,11 +2003,13 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				LOG.debug("Selected combined constraints: {}:{}", combinedBegin, combinedEnd);
 
 				// disassemble and remember the token ids
-				String[] tokenizedTokenIds = t.getAllTokIds().split("<-->");
-				for (int i = 1; i < tokenizedTokenIds.length; i++) {
-					int tokid = Integer.parseInt(tokenizedTokenIds[i]);
-					if (!tokenIds.contains(tokid))
-						tokenIds.add(tokid);
+				if (doAllTokIds) {
+					String[] tokenizedTokenIds = t.getAllTokIds().split("<-->");
+					for (int i = 1; i < tokenizedTokenIds.length; i++) {
+						int tokid = Integer.parseInt(tokenizedTokenIds[i]);
+						if (!tokenIds.contains(tokid))
+							tokenIds.add(tokid);
+					}
 				}
 			}
 
