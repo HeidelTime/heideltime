@@ -663,32 +663,32 @@ public class ContextAnalyzer {
 			Token t = iterToken.next();
 
 			// Check begin
-			if (r.start() + offset == t.getBegin()) {
+			if (r.start() + offset == t.getBegin() || r.start() + offset == t.getEnd()) {
 				beginOK = true;
 			}
-			// Tokenizer does not split number from some symbols (".", "/", "-", "–"),
+			// Tokenizer might not split number from some symbols (".", "/", "-", "–"),
 			// e.g., "...12 August-24 August..."
 			else if (r.start() > 0) {
 				char prev = cov.charAt(r.start() - 1);
-				if (prev == '.' || prev == '/' || prev == '-' || prev == '–')
+				if (prev == '.' || prev == ',' || prev == '/' || prev == '-' || prev == '–')
 					beginOK = true;
 			}
 
 			// Check end
-			if (r.end() + offset == t.getEnd()) {
+			if (r.end() + offset == t.getEnd() || r.end() + offset == t.getBegin()) {
 				endOK = true;
 			}
-			// Tokenizer does not split number from some symbols (".", "/", "-", "–"),
+			// Tokenizer might not split number from some symbols (".", "/", "-", "–"),
 			// e.g., "... in 1990. New Sentence ..."
 			else if (r.end() < cov.length()) {
 				char last = cov.charAt(r.end());
-				if (last == '.' || last == '/' || last == '-' || last == '–')
+				if (last == '.' || last == ',' || last == '/' || last == '-' || last == '–')
 					endOK = true;
 			}
 
 			if (beginOK && endOK)
 				return true;
 		}
-		return false;
+		return beginOK && endOK;
 	}
 }
