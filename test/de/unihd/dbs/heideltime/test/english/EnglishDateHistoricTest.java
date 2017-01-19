@@ -1,9 +1,36 @@
 package de.unihd.dbs.heideltime.test.english;
 
+import org.apache.uima.UIMAFramework;
+import org.apache.uima.resource.metadata.TypeSystemDescription;
+import org.apache.uima.util.XMLInputSource;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import de.unihd.dbs.heideltime.standalone.Config;
+import de.unihd.dbs.heideltime.standalone.DocumentType;
+import de.unihd.dbs.heideltime.standalone.HeidelTimeStandalone;
+import de.unihd.dbs.heideltime.standalone.components.impl.JCasFactoryImpl;
+import de.unihd.dbs.heideltime.standalone.components.impl.UimaContextImpl;
+import de.unihd.dbs.uima.annotator.heideltime.HeidelTime;
+import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
+
 public class EnglishDateHistoricTest extends AbstractHeideltimeTest {
+	@Before
+	public void init() {
+		try {
+			if (!Config.isInitialized())
+				HeidelTimeStandalone.readConfigFile("test/test.props");
+			TypeSystemDescription[] descriptions = new TypeSystemDescription[] {
+					UIMAFramework.getXMLParser().parseTypeSystemDescription(new XMLInputSource(this.getClass().getClassLoader().getResource(Config.get(Config.TYPESYSTEMHOME)))) };
+			jcasFactory = new JCasFactoryImpl(descriptions);
+			heideltime = new HeidelTime();
+			heideltime.initialize(new UimaContextImpl(Language.ENGLISH, DocumentType.NARRATIVES, false));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	@Test
 	public void testdate_historic_1a_BCADhint() {
 		// 1- to 4-digit year
@@ -146,9 +173,9 @@ public class EnglishDateHistoricTest extends AbstractHeideltimeTest {
 		testSingleCase("in 190", new String[] { "date_historic_7ab", "190", "0190" });
 	}
 
+	@Ignore("Disabled, as this is also matched by the regular year pattern")
 	@Test
 	public void testdate_historic_7c() {
-		// (2- to 4-digit year
 		testSingleCase("\n190\n", new String[] { "date_historic_7c", "190", "0190" });
 	}
 
