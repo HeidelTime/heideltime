@@ -29,18 +29,23 @@ public class DateCalculator {
 	private static final Logger LOG = LoggerFactory.getLogger(DateCalculator.class);
 
 	// two formatters depending if BC or not
-	static final DateTimeFormatter YEARFORMATTER = DateTimeFormatter.ofPattern("yyyy", Locale.ROOT);
+	// "u" allows 0, "y" does not (BC0001, then AD0001)
+	static final DateTimeFormatter YEARFORMATTER = DateTimeFormatter.ofPattern("uuuu", Locale.ROOT);
 	static final DateTimeFormatter YEARFORMATTERBC = DateTimeFormatter.ofPattern("GGyyyy", Locale.ROOT);
 
-	static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ROOT);
+	static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.ROOT);
+	static final DateTimeFormatter FORMATTERBC = DateTimeFormatter.ofPattern("GGyyyy-MM-dd", Locale.ROOT);
 
-	static final DateTimeFormatter MONTHFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM", Locale.ROOT);
+	static final DateTimeFormatter MONTHFORMATTER = DateTimeFormatter.ofPattern("uuuu-MM", Locale.ROOT);
+	static final DateTimeFormatter MONTHFORMATTERBC = DateTimeFormatter.ofPattern("GGyyyy-MM", Locale.ROOT);
 
 	static final DateTimeFormatter WEEKFORMATTER = new DateTimeFormatterBuilder().appendPattern("YYYY-['W']w").parseDefaulting(WeekFields.ISO.dayOfWeek(), 1).toFormatter(Locale.ROOT);
 
 	private static Year parseBC(String date) throws DateTimeParseException {
 		if (date.length() == 0)
 			throw new DateTimeParseException("Empty date string.", date, 0);
+		if ("BC0000".equals(date))
+			return Year.of(-1);
 		return Year.from(((Character.isDigit(date.charAt(0)) ? YEARFORMATTER : YEARFORMATTERBC)//
 				.parse(date, new ParsePosition(0))));
 	}
@@ -57,8 +62,8 @@ public class DateCalculator {
 	}
 
 	public static String getXNextDecade(String date, int x) {
-		date = date + "0"; // deal with years not with centuries
 		try {
+			date = date + "0"; // deal with years not with centuries
 			Year d = parseBC(date).plusYears(10 * x);
 			return d.format((d.get(ChronoField.ERA) == 1) ? YEARFORMATTER : YEARFORMATTERBC);
 		} catch (DateTimeParseException e) {
@@ -68,9 +73,8 @@ public class DateCalculator {
 	}
 
 	public static String getXNextCentury(String date, int x) {
-		date = date + "00"; // deal with years not with centuries
-
 		try {
+			date = date + "00"; // deal with years not with centuries
 			Year d = parseBC(date);
 			int oldEra = d.get(ChronoField.ERA);
 			d = d.plusYears(x * 100);
@@ -80,13 +84,13 @@ public class DateCalculator {
 			if (newEra == 1) {
 				if (oldEra == 0) {
 					// -100 if from BC to AD
-					d = d.minusYears(100); // FIXME: Why?
+					d = d.minusYears(100);
 				}
 				return d.format(YEARFORMATTER).substring(0, 2);
 			} else {
 				if (oldEra == 1) {
 					// +100 if from AD to BC
-					d = d.plusYears(100); // FIXME: Why?
+					d = d.plusYears(100);
 				}
 				return d.format(YEARFORMATTERBC).substring(0, 4);
 			}
@@ -108,7 +112,7 @@ public class DateCalculator {
 	 */
 	public static String getXNextDay(String date, int x) {
 		try {
-			return LocalDate.parse(date, FORMATTER).plusDays(x).format(FORMATTER);
+			return LocalDate.from(FORMATTER.parse(date, new ParsePosition(0))).plusDays(x).format(FORMATTER);
 		} catch (DateTimeParseException e) {
 			LOG.error(e.getMessage(), e);
 			return "";
@@ -126,8 +130,8 @@ public class DateCalculator {
 	 */
 	public static String getXNextMonth(String date, int x) {
 		try {
-			YearMonth d = MONTHFORMATTER.parse(date, YearMonth::from).plusMonths(x);
-			return d.format(MONTHFORMATTER);
+			YearMonth d = YearMonth.from((Character.isDigit(date.charAt(0)) ? MONTHFORMATTER : MONTHFORMATTERBC).parse(date, new ParsePosition(0))).plusMonths(x);
+			return d.format((d.get(ChronoField.ERA) == 1) ? MONTHFORMATTER : MONTHFORMATTERBC);
 
 		} catch (DateTimeParseException e) {
 			LOG.error(e.getMessage(), e);
@@ -147,7 +151,7 @@ public class DateCalculator {
 	public static String getXNextWeek(String date, int x, Language language) {
 		NormalizationManager nm = NormalizationManager.getInstance(language, false);
 		try {
-			LocalDate d = LocalDate.parse(date, WEEKFORMATTER).plusWeeks(x);
+			LocalDate d = LocalDate.from(WEEKFORMATTER.parse(date, new ParsePosition(0))).plusWeeks(x);
 			String newDate = d.format(WEEKFORMATTER);
 			// TODO: use cheaper normalization?
 			return newDate.substring(0, 4) + "-W" + nm.getFromNormNumber(newDate.substring(5));
@@ -168,7 +172,7 @@ public class DateCalculator {
 	 */
 	public static int getWeekdayOfDate(String date) {
 		try {
-			return LocalDate.parse(date, FORMATTER).getDayOfWeek().getValue();
+			return LocalDate.from(FORMATTER.parse(date, new ParsePosition(0))).getDayOfWeek().getValue();
 		} catch (DateTimeParseException e) {
 			LOG.error(e.getMessage(), e);
 			return 0;
@@ -184,7 +188,7 @@ public class DateCalculator {
 	 */
 	public static int getWeekOfDate(String date) {
 		try {
-			return LocalDate.parse(date, FORMATTER).get(WeekFields.ISO.weekOfWeekBasedYear());
+			return LocalDate.from(FORMATTER.parse(date, new ParsePosition(0))).get(WeekFields.ISO.weekOfWeekBasedYear());
 		} catch (DateTimeParseException e) {
 			LOG.error(e.getMessage(), e);
 			return 0;
