@@ -67,14 +67,14 @@
 
 
 // http://en.wikipedia.org/wiki/Christmas
-"Christmas Eve","12-24"
+"Christmas [Ee]ve","12-24"
 "Christmas(?: [Dd]ay)?","12-25" 
-"X(?:mas|MAS)","12-25"
+"X-?(?:mas|MAS)","12-25"
 "Noel","12-25"
 "Yule","12-25"
 
 // http://en.wikipedia.org/wiki/New_Year%27s_Eve
-"New Year'?s Eve","12-31"
+"New Year'?s [Ee]ve","12-31"
 "Hogmanay","12-31"
 "Calennig","12-31"
 

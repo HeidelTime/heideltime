@@ -221,7 +221,7 @@ RULENAME="date_r9d",EXTRACTION="\b(?:%rePartWords |[Tt]he |)%reSeason (?:of )?%r
 // EXAMPLE r10b_1: the second half
 // EXAMPLE r10c_1: the 2001 third quarter
 RULENAME="date_r10a",EXTRACTION="\b(?:[Tt]he )?%rePartOfYear (?:of )?%reYear4Digit",NORM_VALUE="group(2)-%normPartOfYear(group(1))"
-RULENAME="date_r10b",EXTRACTION="\b(?:[Tt]he )?%rePartOfYear",NORM_VALUE="UNDEF-year-%normPartOfYear(group(1))"
+// disabled: false positives from sports RULENAME="date_r10b",EXTRACTION="\b(?:[Tt]he )?%rePartOfYear",NORM_VALUE="UNDEF-year-%normPartOfYear(group(1))"
 RULENAME="date_r10c",EXTRACTION="\b(?:[Tt]he )?%reYear4Digit %rePartOfYear",NORM_VALUE="group(1)-%normPartOfYear(group(2))"
 
 // date_r11
@@ -341,11 +341,15 @@ RULENAME="date_r19e",EXTRACTION="\bcoming %reUnit",NORM_VALUE="FUTURE_REF",FAST_
 // EXAMPLE r20b_1: about twenty days later
 // EXAMPLE r20c_1: about 20  days later
 // EXAMPLE r20d_1: a week later 
-RULENAME="date_r20a",EXTRACTION="\b(?:%reApproximate )?(?:several|a couple of|some|a few|many) %reUnitFine later",NORM_VALUE="FUTURE_REF",FAST_CHECK="\slater"
-RULENAME="date_r20b",EXTRACTION="\b(%reApproximate )?%reNumWord12D %reUnitFine later",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-%normDurationNumber(group(3))",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\slater"
-RULENAME="date_r20c",EXTRACTION="\b(%reApproximate )?(\d+) %reUnitFine later",NORM_VALUE="UNDEF-REF-%normUnit(group(4))-PLUS-group(3)",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\slater"
-RULENAME="date_r20d",EXTRACTION="\b(%reApproximate )?an? %reUnitFine later",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-1",NORM_MOD="%normApprox4Dates(group(2))",FAST_CHECK="\slater"
-RULENAME="date_r20e",EXTRACTION="\brecent %reUnit",NORM_VALUE="PAST_REF",FAST_CHECK="recent\s"
+// EXAMPLE r20f_1: on 30 minutes [something happened] 
+// EXAMPLE r20g_1: on approximately thirty minutes [something happened]
+RULENAME="date_r20a",EXTRACTION="\b(?:%reApproximate )?(?:several|a couple of|some|a few|many) %reUnitFine (?:later|into)",NORM_VALUE="FUTURE_REF"
+RULENAME="date_r20b",EXTRACTION="\b(?:%reApproximate )?%reNumWord12D %reUnitFine (?:later|into)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-%normDurationNumber(group(2))",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="date_r20c",EXTRACTION="\b(?:%reApproximate )?(\d+) %reUnitFine (?:later|into)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-group(2)",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="date_r20d",EXTRACTION="\b(?:%reApproximate )?an? %reUnitFine (?:later|into)",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-PLUS-1",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="date_r20e",EXTRACTION="\brecent %reUnit",NORM_VALUE="PAST_REF"
+RULENAME="date_r20f",EXTRACTION="\b[Oo]n (?:%reApproximate )?(\d+) %reUnitFine",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-group(2)",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="date_r20g",EXTRACTION="\b[Oo]n (?:%reApproximate )?%reNumWord12D %reUnitFine",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-%normDurationNumber(group(2))",NORM_MOD="%normApprox4Dates(group(1))"
 
 // date_r21 (earlier)
 // EXAMPLE r21a_1: twenty days earlier
@@ -449,3 +453,7 @@ RULENAME="x_date_r9a_negative",EXTRACTION="\b(?:[Ee]uro|EUR|Dollar|USD|[$€£¥
 // Issue # 29 - addressed Sept 16, 2015 (heideltime 2.0)
 // EXAMPLE"in his 20s"
 RULENAME="x_date_r11a_negative",EXTRACTION="\b[Ii]n (?:his|her|their) \d\ds",NORM_VALUE="REMOVE"
+
+// 2017-01-18 false positives: third half-century, sixth half-hour episode
+RULENAME="date_r10a_negative",EXTRACTION="\shalf-%reUnit",NORM_VALUE="REMOVE"
+RULENAME="date_r10b_negative",EXTRACTION="\b(?:[Tt]hird|[Ff](?:ourth|ifth)|[Ss](?:ixth|eventh)) [Hh]alf",NORM_VALUE="REMOVE"

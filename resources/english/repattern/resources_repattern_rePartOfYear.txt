@@ -3,12 +3,13 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for parts of year.
 // FORMAT: one line is one disjunction of the pattern
-// 2016-01-13 Folded patterns by first letter for performance -- Erich
-[Ff](?:iscal[ -](?:first|second|third|fou?rth)[ -](?:half|quarter)|irst[ -](?:half|quarter)|ou?rth[ -](?:half|quarter))
+[Ff]iscal[ -](?:first|second|third|fou?rth)[ -](?:half|quarter)
+[Ff]irst[ -](?:half|quarter)
 [Ss]econd[ -](?:half|quarter)
-[Tt]hird[ -](?:half|quarter)
+[Tt]hird[ -]quarter
+[Ff]ou?rth[ -]quarter
 [Ll]ast[ -](?:half|quarter)
-1st (?:half|quarter)
-2nd (?:half|quarter)
-3rd quarter
-4th quarter
+1st[ -](?:half|quarter)
+2nd[ -](?:half|quarter)
+3rd[ -]quarter
+4th[ -]quarter
