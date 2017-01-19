@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -197,7 +196,6 @@ public class RuleManager extends GenericResourceManager {
 
 					rules.add(rule);
 				}
-				Collections.sort(rules);
 			} catch (IOException e) {
 				LOG.error(e.getMessage(), e);
 				System.exit(1);
