@@ -32,7 +32,7 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  */
 public class AbstractHeideltimeTest {
 
-	private JCasFactoryImpl jcasFactory;
+	protected JCasFactoryImpl jcasFactory;
 	protected HeidelTime heideltime;
 	private boolean debugTokenization = false;
 	static final Pattern LINEWRAP = Pattern.compile("\\s*[\\n\\r]+\\s*");
@@ -47,7 +47,7 @@ public class AbstractHeideltimeTest {
 					UIMAFramework.getXMLParser().parseTypeSystemDescription(new XMLInputSource(this.getClass().getClassLoader().getResource(Config.get(Config.TYPESYSTEMHOME)))) };
 			jcasFactory = new JCasFactoryImpl(descriptions);
 			heideltime = new HeidelTime();
-			heideltime.initialize(new UimaContextImpl(Language.ENGLISH, DocumentType.NARRATIVES, false));
+			heideltime.initialize(new UimaContextImpl(Language.ENGLISH, DocumentType.COLLOQUIAL, false));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

@@ -38,8 +38,7 @@ public class EnglishTimeTest extends AbstractHeideltimeTest {
 	@Test
 	public void testtime_r2a() {
 		testSingleCase("09-24-99 1145EST", //
-				new String[] { "time_r2a", "09-24-99 1145EST", "0099-09-24T11:45-05" });
-		// TODO: 0099? can't we do better?
+				new String[] { "time_r2a", "09-24-99 1145EST", "1999-09-24T11:45-05" });
 	}
 
 	@Test

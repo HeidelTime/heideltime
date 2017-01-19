@@ -13,8 +13,7 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	@Test
 	public void testdate_r0b() {
 		testSingleCase("10-29-99", //
-				new String[] { "date_r0b", "10-29-99", "0099-10-29" });
-		// TODO: really? better 1999
+				new String[] { "date_r0b", "10-29-99", "1999-10-29" });
 	}
 
 	@Test
@@ -26,8 +25,7 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	@Test
 	public void testdate_r0d() {
 		testSingleCase("09/26/99", //
-				new String[] { "date_r0d", "09/26/99", "0099-09-26" });
-		// TODO: really? better 1999
+				new String[] { "date_r0d", "09/26/99", "1999-09-26" });
 	}
 
 	@Test
@@ -39,7 +37,7 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	@Test
 	public void testdate_r0g() {
 		testSingleCase("1.3.99", //
-				new String[] { "date_r0g", "1.3.99", "0099-03-01" });
+				new String[] { "date_r0g", "1.3.99", "1999-03-01" });
 	}
 
 	@Test
@@ -62,6 +60,8 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	public void testdate_r1b() {
 		testSingleCase("25 February 2009", //
 				new String[] { "date_r1b", "25 February 2009", "2009-02-25" });
+		testSingleCase("On 1 July 1913,", //
+				new String[] { "date_r1b", "1 July 1913", "1913-07-01" });
 	}
 
 	@Test
@@ -220,8 +220,7 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	@Test
 	public void testdate_r9c() {
 		testSingleCase("summer of 69", //
-				new String[] { "date_r9c", "summer of 69", "0069-SU" });
-		// FIXME: shouldn't this be 1969-SU?
+				new String[] { "date_r9c", "summer of 69", "1969-SU" });
 	}
 
 	@Test
@@ -373,20 +372,23 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 
 	@Test
 	public void testdate_r17a() {
-		testSingleCase("this year", //
-				new String[] { "date_r17a", "this year", "XXXX" });
+		testSingleCase("In 2010, this year", //
+				new String[] { "date_r12a", "2010", "2010" }, //
+				new String[] { "date_r17a", "this year", "2010" });
 	}
 
 	@Test
 	public void testdate_r17b() {
-		testSingleCase("this November", //
-				new String[] { "date_r17b", "this November", "XXXX-11" });
+		testSingleCase("In 1999, this November", //
+				new String[] { "date_r12a", "1999", "1999" }, //
+				new String[] { "date_r17b", "this November", "1999-11" });
 	}
 
 	@Test
 	public void testdate_r17c() {
-		testSingleCase("this November 24", //
-				new String[] { "date_r17c", "this November 24", "XXXX-11-24" });
+		testSingleCase("In 1998, this November 24", //
+				new String[] { "date_r12a", "1998", "1998" }, //
+				new String[] { "date_r17c", "this November 24", "1998-11-24" });
 	}
 
 	@Test
@@ -403,9 +405,9 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 
 	@Test
 	public void testdate_r17f() {
-		// using UNDEF-REF normalization
-		testSingleCase("this day", //
-				new String[] { "date_r17f", "this day", "XXXX-XX-XX" });
+		testSingleCase("On November 24 1998, this day", //
+				new String[] { "date_r1a", "November 24 1998", "1998-11-24" }, //
+				new String[] { "date_r17f", "this day", "1998-11-24" });
 	}
 
 	@Test
@@ -446,8 +448,9 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 
 	@Test
 	public void testdate_r19b() {
-		testSingleCase("about twenty years ago", //
-				new String[] { "date_r19b", "about twenty years ago", "XXXX" });
+		testSingleCase("In 2010, about twenty years ago", //
+				new String[] { "date_r12a", "2010", "2010" }, //
+				new String[] { "date_r19b", "about twenty years ago", "1990" });
 	}
 
 	@Test
@@ -458,8 +461,9 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 
 	@Test
 	public void testdate_r19d() {
-		testSingleCase("a month ago", //
-				new String[] { "date_r19d", "a month ago", "XXXX-XX" });
+		testSingleCase("January 24 1998, a month ago", //
+				new String[] { "date_r1a", "January 24 1998", "1998-01-24" }, //
+				new String[] { "date_r19d", "a month ago", "1997-12" });
 	}
 
 	@Test
@@ -482,8 +486,9 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 
 	@Test
 	public void testdate_r20d() {
-		testSingleCase("a week later", //
-				new String[] { "date_r20d", "a week later", "XXXX-XX-XX" });
+		testSingleCase("December 29 1998, a week later", //
+				new String[] { "date_r1a", "December 29 1998", "1998-12-29" }, //
+				new String[] { "date_r20d", "a week later", "1999-01-05" });
 	}
 
 	@Test
@@ -500,14 +505,16 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 
 	@Test
 	public void testdate_r21a() {
-		testSingleCase("twenty days earlier", //
-				new String[] { "date_r21a", "twenty days earlier", "XXXX-XX-XX" });
+		testSingleCase("14 January 1998, twenty days earlier", //
+				new String[] { "date_r1b", "14 January 1998", "1998-01-14" }, //
+				new String[] { "date_r21a", "twenty days earlier", "1997-12-25" });
 	}
 
 	@Test
 	public void testdate_r21b() {
-		testSingleCase("about 20 days earlier", //
-				new String[] { "date_r21b", "about 20 days earlier", "XXXX-XX-XX" });
+		testSingleCase("14 January 1998, about 20 days earlier", //
+				new String[] { "date_r1b", "14 January 1998", "1998-01-14" }, //
+				new String[] { "date_r21b", "about 20 days earlier", "1997-12-25" });
 	}
 
 	@Test
@@ -518,14 +525,18 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 
 	@Test
 	public void testdate_r22a() {
+		testSingleCase("14 January 1998, a year ago", //
+				new String[] { "date_r1b", "14 January 1998", "1998-01-14" }, //
+				new String[] { "date_r22a", "a year ago", "1997-01-14" });
 		testSingleCase("a year ago", //
 				new String[] { "date_r22a", "a year ago", "XXXX" });
 	}
 
 	@Test
 	public void testdate_r22b() {
-		testSingleCase("a year later", //
-				new String[] { "date_r22b", "a year later", "XXXX" });
+		testSingleCase("14 January 1998, a year later", //
+				new String[] { "date_r1b", "14 January 1998", "1998-01-14" }, //
+				new String[] { "date_r22b", "a year later", "1999-01-14" });
 	}
 
 	@Test
@@ -561,15 +572,16 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	@Test
 	public void testdate_r24cd() {
 		testSingleCase("Christmas 87", //
-				new String[] { "date_r24cd", "Christmas 87", "0087-12-25" });
+				new String[] { "date_r24cd", "Christmas 87", "1987-12-25" });
 		testSingleCase("Christmas '87", //
-				new String[] { "date_r24cd", "Christmas '87", "0087-12-25" });
+				new String[] { "date_r24cd", "Christmas '87", "1987-12-25" });
 	}
 
 	@Test
 	public void testdate_r25a() {
-		testSingleCase("Easter Sunday", //
-				new String[] { "date_r25a", "Easter Sunday", "XXXX-XX-XX" });
+		testSingleCase("In 2010, on Easter Sunday", //
+				new String[] { "date_r12a", "2010", "2010" }, //
+				new String[] { "date_r25a", "Easter Sunday", "2010-04-04" });
 	}
 
 	@Test
@@ -581,11 +593,9 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	@Test
 	public void testdate_r25cd() {
 		testSingleCase("Easter Sunday 87", //
-				new String[] { "date_r25cd", "Easter Sunday 87", "0087-04-06" });
-		// TODO: 1987?
+				new String[] { "date_r25cd", "Easter Sunday 87", "1987-04-19" });
 		testSingleCase("Easter Sunday '87", //
-				new String[] { "date_r25cd", "Easter Sunday '87", "0087-04-06" });
-		// TODO: 1987?
+				new String[] { "date_r25cd", "Easter Sunday '87", "1987-04-19" });
 	}
 
 	@Test
