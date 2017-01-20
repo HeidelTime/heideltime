@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Function;
-import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -593,102 +592,5 @@ public class ContextAnalyzer {
 		LOG.trace("TENSE: {}", lastTense);
 
 		return lastTense;
-	}
-
-	/**
-	 * Check token boundaries of expressions.
-	 * 
-	 * @param r
-	 *                MatchResult
-	 * @param s
-	 *                Respective sentence
-	 * @return whether or not the MatchResult is a clean one
-	 */
-	public static boolean checkInfrontBehind(MatchResult r, Sentence s) {
-		// get rid of expressions such as "1999" in 53453.1999
-		String cov = s.getCoveredText();
-		if (r.start() >= 1) {
-			char prev = cov.charAt(r.start() - 1);
-			if (r.start() >= 2 && prev == '.' && Character.isDigit(cov.charAt(r.start() - 2)))
-				return false;
-
-			// get rid of expressions if there is a character or symbol ($+) directly in front of the expression
-			if (prev == '(' || prev == '$' || prev == '+' || Character.isAlphabetic(prev))
-				return false;
-		}
-
-		final int len = cov.length();
-		if (r.end() < len) {
-			char succ = cov.charAt(r.end());
-			if (succ == ')' || succ == '°' || Character.isAlphabetic(succ))
-				return false;
-			if (r.end() + 1 < len && Character.isDigit(succ)) {
-				char succ2 = cov.charAt(r.end() + 1);
-				if (succ2 == '.' || succ2 == ',')
-					return false;
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * Check token boundaries using token information
-	 *
-	 * @param r
-	 *                MatchResult
-	 * @param s
-	 *                respective Sentence
-	 * @param jcas
-	 *                current CAS object
-	 * @return whether or not the MatchResult is a clean one
-	 */
-	public static boolean checkTokenBoundaries(MatchResult r, Sentence s, JCas jcas) {
-		// whole expression is marked as a sentence
-		final int offset = s.getBegin();
-		if (r.end() - r.start() == s.getEnd() - offset)
-			return true;
-
-		// Only check Token boundaries if no white-spaces in front of and behind the match-result
-		String cov = s.getCoveredText();
-		boolean beginOK = r.start() == 0 || r.start() == s.getBegin() //
-				|| (r.start() < cov.length() && cov.charAt(r.start() - 1) == ' ');
-		boolean endOK = r.end() == cov.length() || r.end() == s.getEnd() //
-				|| (r.end() < cov.length() && cov.charAt(r.end()) == ' ');
-		if (beginOK && endOK)
-			return true;
-
-		// other token boundaries than white-spaces
-		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
-		for (FSIterator<Token> iterToken = tokens.subiterator(s); iterToken.hasNext();) {
-			Token t = iterToken.next();
-
-			// Check begin
-			if (r.start() + offset == t.getBegin() || r.start() + offset == t.getEnd()) {
-				beginOK = true;
-			}
-			// Tokenizer might not split number from some symbols (".", "/", "-", "–"),
-			// e.g., "...12 August-24 August..."
-			else if (r.start() > 0) {
-				char prev = cov.charAt(r.start() - 1);
-				if (prev == '.' || prev == ',' || prev == '/' || prev == '-' || prev == '–')
-					beginOK = true;
-			}
-
-			// Check end
-			if (r.end() + offset == t.getEnd() || r.end() + offset == t.getBegin()) {
-				endOK = true;
-			}
-			// Tokenizer might not split number from some symbols (".", "/", "-", "–"),
-			// e.g., "... in 1990. New Sentence ..."
-			else if (r.end() < cov.length()) {
-				char last = cov.charAt(r.end());
-				if (last == '.' || last == ',' || last == '/' || last == '-' || last == '–')
-					endOK = true;
-			}
-
-			if (beginOK && endOK)
-				return true;
-		}
-		return beginOK && endOK;
 	}
 }

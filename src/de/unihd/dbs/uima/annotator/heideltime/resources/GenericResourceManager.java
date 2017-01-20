@@ -60,9 +60,11 @@ public abstract class GenericResourceManager {
 			}
 			buf.append(inText, lastpos, start);
 			if (chargroup) {
-				buf.append(negative ? "\\P{javaWhitespace}" : "\\p{javaWhitespace}");
+				// buf.append(negative ? "\\P{javaWhitespace}" : "\\p{javaWhitespace}");
+				buf.append(negative ? "\\S" : "\\s");
 			} else {
-				buf.append(negative ? "[\\P{javaWhitespace}]" : "[\\p{javaWhitespace}]");
+				// buf.append(negative ? "[\\P{javaWhitespace}]" : "[\\p{javaWhitespace}]");
+				buf.append(negative ? "\\S" : "\\s");
 				if (extra != null)
 					buf.append(extra);
 			}

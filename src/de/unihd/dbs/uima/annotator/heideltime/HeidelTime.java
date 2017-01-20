@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,6 +45,7 @@ import de.unihd.dbs.uima.annotator.heideltime.utilities.DateCalculator;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.DurationSimplification;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.ContextAnalyzer;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.LocaleException;
+import de.unihd.dbs.uima.annotator.heideltime.utilities.TokenBoundaryMatcher;
 import de.unihd.dbs.uima.types.heideltime.Dct;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Timex3;
@@ -112,11 +112,6 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	// FOR DEBUGGING PURPOSES (IF FALSE)
 	private boolean deleteOverlapping = true;
 
-	// To profile regular expression matching.
-	private static final boolean PROFILE_REGEXP = false;
-
-	private HashMap<String, Long> profileData = PROFILE_REGEXP ? new HashMap<String, Long>() : null;
-
 	// Whether to generate "allTokIds" strings.
 	private boolean doAllTokIds = false;
 
@@ -125,11 +120,6 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 */
 	public void initialize(UimaContext aContext) throws ResourceInitializationException {
 		super.initialize(aContext);
-
-		/////////////////////////////////
-		// DEBUGGING PARAMETER SETTING //
-		/////////////////////////////////
-		this.deleteOverlapping = true;
 
 		/////////////////////////////////
 		// HANDLE LOCALE //
@@ -242,12 +232,18 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					+ "do its work. Please check your UIMA workflow and add an analysis engine that creates " + "these sentence tokens.");
 		}
 
+		TokenBoundaryMatcher matcher = new TokenBoundaryMatcher();
 		for (Sentence s : sentences) {
 			try {
+				final CharSequence coveredText = TokenBoundaryMatcher.simplifyString(s.getCoveredText());
+
+				// Build a list of "good" token positions to anchor matches:
+				matcher.tokenBoundaries(coveredText, s, jcas);
+
 				if (find_dates)
-					findTimexes("DATE", rulem.getHmDateRules(), s, jcas);
+					findTimexes("DATE", rulem.getHmDateRules(), matcher, s, jcas, coveredText);
 				if (find_times)
-					findTimexes("TIME", rulem.getHmTimeRules(), s, jcas);
+					findTimexes("TIME", rulem.getHmTimeRules(), matcher, s, jcas, coveredText);
 
 				/*
 				 * check for historic dates/times starting with BC to check if post-processing step is required
@@ -263,11 +259,11 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				}
 
 				if (find_sets)
-					findTimexes("SET", rulem.getHmSetRules(), s, jcas);
+					findTimexes("SET", rulem.getHmSetRules(), matcher, s, jcas, coveredText);
 				if (find_durations)
-					findTimexes("DURATION", rulem.getHmDurationRules(), s, jcas);
+					findTimexes("DURATION", rulem.getHmDurationRules(), matcher, s, jcas, coveredText);
 				if (find_temponyms)
-					findTimexes("TEMPONYM", rulem.getHmTemponymRules(), s, jcas);
+					findTimexes("TEMPONYM", rulem.getHmTemponymRules(), matcher, s, jcas, coveredText);
 			} catch (NullPointerException npe) {
 				LOG.error("HeidelTime's execution has been interrupted by an exception that " + "is likely rooted in faulty normalization resource files. "
 						+ "Please consider opening an issue report containing the following "
@@ -421,25 +417,22 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 					if (value_i.length() > 1) {
 						if (txval.startsWith("BC" + value_i.substring(0, 2)) //
 								|| txval.startsWith(String.format("BC%02d", Integer.parseInt(value_i.substring(0, 2)) + 1))) {
-							if ((value_i.startsWith("00") && txval.startsWith("BC00"))
-									|| (value_i.startsWith("01") && txval.startsWith("BC01"))) {
+							if ((value_i.startsWith("00") && txval.startsWith("BC00")) || (value_i.startsWith("01") && txval.startsWith("BC01"))) {
 								if ((value_i.length() > 2) && (txval.length() > 4)) {
-									if (Integer.parseInt(value_i.substring(0, 3)) <= Integer
-											.parseInt(txval.substring(2, 5))) {
+									if (Integer.parseInt(value_i.substring(0, 3)) <= Integer.parseInt(txval.substring(2, 5))) {
 										newValue = "BC" + value_i;
 										change = true;
 										if (LOG.isDebugEnabled())
-											LOG.debug("DisambiguateHistoricDates: " + value_i + " to " + newValue + ". Expression "
-													+ t_i.getCoveredText() + " due to "
-													+ linearDates.get(i - offset).getCoveredText());
+											LOG.debug("DisambiguateHistoricDates: " + value_i + " to " + newValue + ". Expression " + t_i.getCoveredText()
+													+ " due to " + linearDates.get(i - offset).getCoveredText());
 									}
 								}
 							} else {
 								newValue = "BC" + value_i;
 								change = true;
 								if (LOG.isDebugEnabled())
-									LOG.debug("DisambiguateHistoricDates: " + value_i + " to " + newValue + ". Expression " + t_i.getCoveredText()
-									+ " due to " + linearDates.get(i - offset).getCoveredText());
+									LOG.debug("DisambiguateHistoricDates: " + value_i + " to " + newValue + ". Expression " + t_i.getCoveredText() + " due to "
+											+ linearDates.get(i - offset).getCoveredText());
 							}
 						}
 					}
@@ -2070,14 +2063,21 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 * Apply the extraction rules, normalization rules
 	 * 
 	 * @param timexType
+	 *                Type to find
 	 * @param sortedRules
 	 *                sorted rules
+	 * @param startpos
+	 *                Valid starting positions
+	 * @param endpos
+	 *                Valid end positions
 	 * @param s
+	 *                Sentence
 	 * @param jcas
+	 *                JCas
+	 * @param coveredText
+	 *                covered text
 	 */
-	public void findTimexes(String timexType, List<Rule> sortedRules, Sentence s, JCas jcas) {
-		final String coveredText = s.getCoveredText();
-
+	public void findTimexes(String timexType, List<Rule> sortedRules, TokenBoundaryMatcher matcher, Sentence s, JCas jcas, CharSequence coveredText) {
 		// Iterator over the rules by sorted by the name of the rules
 		// this is important since later, the timexId will be used to
 		// decide which of two expressions shall be removed if both
@@ -2087,17 +2087,11 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			// validate fast check first, if no fast match, everything else is
 			// not required anymore
 			Pattern f = rule.getFastCheck();
-			if (f != null && !timeRegexp(f.matcher(coveredText), key))
+			if (f != null && matcher.matchNext(0, f.matcher(coveredText), key) < 0)
 				continue;
 
 			Matcher m = rule.getPattern().matcher(coveredText);
-			while (timeRegexp(m, key)) {
-				// improved token boundary checking
-				if (!ContextAnalyzer.checkTokenBoundaries(m, s, jcas))
-					continue;
-				if (!ContextAnalyzer.checkInfrontBehind(m, s))
-					continue;
-
+			for (int tpos = 0; (tpos = matcher.matchNext(tpos, m, key)) >= 0;) {
 				// CHECK POS CONSTRAINTS
 				String constraint = rule.getPosConstratint();
 				if (constraint != null && !checkPosConstraint(key, s, constraint, m, jcas))
@@ -2129,40 +2123,6 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				}
 			}
 		}
-	}
-
-	private boolean timeRegexp(Matcher m, String key) {
-		if (!PROFILE_REGEXP)
-			return m.find();
-		long begin = PROFILE_REGEXP ? System.nanoTime() : 0;
-		boolean found = m.find();
-		long dur = System.nanoTime() - begin;
-		Long old = profileData.get(key);
-		profileData.put(key, dur + (old != null ? (long) old : 0L));
-		return found;
-	}
-
-	/**
-	 * Output profiling data, if enabled.
-	 */
-	public void logProfilingData() {
-		if (!PROFILE_REGEXP)
-			return;
-		long sum = 0;
-		for (Long v : profileData.values())
-			sum += v;
-		double avg = sum / (double) profileData.size();
-
-		StringBuilder buf = new StringBuilder();
-		buf.append("Profiling data:\n");
-		buf.append("Average: ").append(avg).append("\n");
-		buf.append("Rules with above average cost:\n");
-		for (Map.Entry<String, Long> ent : profileData.entrySet()) {
-			long v = ent.getValue();
-			if (v > 2 * avg)
-				buf.append(v).append('\t').append(ent.getKey()).append('\t').append(v / avg).append("\n");
-		}
-		LOG.warn(buf.toString());
 	}
 
 	static Pattern paConstraint = Pattern.compile("group\\(([0-9]+)\\):(.*?):");

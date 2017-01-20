@@ -659,4 +659,14 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	public void testx_date_r11a_negative() {
 		testSingleCase("in his 20s");
 	}
+
+	@Test
+	public void testTokenBoundaryFilter() {
+		testSingleCase("$2016 is not a date.");
+		testSingleCase("2016° is too hot");
+		testSingleCase("1234.2016 or 2016.1234 are not a date either.");
+		testSingleCase("2016dimensional nonsense");
+		testSingleCase("Okay: (2016).", //
+				new String[] { "date_r12a", "2016", "2016" });
+	}
 }
