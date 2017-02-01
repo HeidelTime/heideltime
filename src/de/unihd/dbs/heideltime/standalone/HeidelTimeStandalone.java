@@ -46,6 +46,7 @@ import de.unihd.dbs.heideltime.standalone.components.impl.IntervalTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.JCasFactoryImpl;
 import de.unihd.dbs.heideltime.standalone.components.impl.JVnTextProWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.StanfordPOSTaggerWrapper;
+import de.unihd.dbs.heideltime.standalone.components.impl.ListResultFormatter; 
 import de.unihd.dbs.heideltime.standalone.components.impl.TimeMLResultFormatter;
 import de.unihd.dbs.heideltime.standalone.components.impl.TreeTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.UimaContextImpl;
@@ -428,8 +429,12 @@ public class HeidelTimeStandalone {
 	private ResultFormatter getFormatter() {
 		if (outputType.toString().equals("xmi")){
 			return new XMIResultFormatter();
-		} else {
-			return new TimeMLResultFormatter();
+		} 
+		else if (outputType.toString().equals("list")) {
+			return new ListResultFormatter();
+		}
+		else{
+			return new TimeMLResultFormatter();	
 		}
 	}
 
