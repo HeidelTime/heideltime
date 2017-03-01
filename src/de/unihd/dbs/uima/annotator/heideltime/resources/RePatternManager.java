@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
@@ -136,6 +137,10 @@ public class RePatternManager extends GenericResourceManager {
 					LOG.warn("Pattern '{}' for '{}' contains a too complex regexp construct, cannot optimize: {}", s, name, e.getMessage());
 					return inpatterns;
 				}
+			}
+			if (expanded.isEmpty()) {
+				LOG.info("Regexp pattern {} is empty.", name);
+				return Collections.emptyList();
 			}
 			String pattern = RegexpOptimizer.combinePatterns(expanded);
 			LOG.debug("Combined {} into: {}", name, pattern);

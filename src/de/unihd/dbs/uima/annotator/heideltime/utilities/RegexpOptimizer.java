@@ -321,6 +321,8 @@ public class RegexpOptimizer {
 		}
 		if (l < ps.length)
 			LOG.trace("Removed {} duplicate strings.", ps.length - l);
+		if (l == 0)
+			return "";
 		ArrayList<String> toplevel = new ArrayList<>();
 		build(ps, 0, l, 0, x -> toplevel.add(x.toString()));
 		StringBuilder buf = new StringBuilder();
