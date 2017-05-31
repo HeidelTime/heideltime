@@ -66,7 +66,7 @@ RULENAME="date_historic_6b",EXTRACTION="(Jahr(e)?([ns])?) (\d\d\d)",NORM_VALUE="
 // EXAMPLE date_historic_0a_negative: MiG-190      (1- to 4-digit year)
 // EXAMPLE date_historic_0b_negative: 90 Menschen  (2-digit year)
 RULENAME="date_historic_0a_negative",EXTRACTION="(MiG(-)%reYearBC)",NORM_VALUE="REMOVE"
-RULENAME="date_historic_0b_negative",EXTRACTION="(%reYear2Digit )([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(3):NN:",OFFSET="group(1)-group(1)"
+RULENAME="date_historic_0b_negative",EXTRACTION="(%reYear2Digit )(\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(3):NN:",OFFSET="group(1)-group(1)"
 
 ////////////////////
 // POSITIVE RULES //
@@ -307,11 +307,15 @@ RULENAME="date_r29b",EXTRACTION="([Ee]inigen?|[Ww]enigen?|[Vv]ielen?) %reUnit (f
 ////////////////////
 // CHECK THESE RULES (the German tag set is not equal to the English tag set)
 RULENAME="date_r1a_negative",EXTRACTION="(2[3456789]\d\d)",NORM_VALUE="REMOVE"
-RULENAME="date_r1b1_negative",EXTRACTION="%reYear4Digit ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NN:"
-RULENAME="date_r1b2_negative",EXTRACTION="%reYear4Digit (respektive|von|oder) (%reYear4Digit|[\d]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(5):NN:"
-RULENAME="date_r1c1_negative",EXTRACTION="%reYear4Digit ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ADJA:group(3):NN:"
-RULENAME="date_r1c2_negative",EXTRACTION="%reYear4Digit ([\S]+) ([\S]+) ([\S]+) ([\S]+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ADJA:group(3):KON:group(4):ADJA:group(5):NN:"
-RULENAME="date_r1d_negative",EXTRACTION="%reYear4Digit (m\b|km\b|ft\b|yr\b|dg\b|cm\b|ha\b|sq\b|PS\b)",NORM_VALUE="REMOVE"
+// March 2017 reduced range: many missing matches e.g. in Heidelberg University Wiki article.
+RULENAME="date_r1b1_negative",EXTRACTION="(1[0-7]\d\d|0\d\d\d|2[1-9]\d\d) (\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NN:"
+RULENAME="date_r1c1_negative",EXTRACTION="(1[0-7]\d\d|0\d\d\d|2[1-9]\d\d) (\S+) (\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ADJA:group(3):NN:"
+RULENAME="date_r1c2_negative",EXTRACTION="(1[0-7]\d\d|0\d\d\d|2[1-9]\d\d) (\S+) (\S+) (\S+) (\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ADJA:group(3):KON:group(4):ADJA:group(5):NN:"
+//RULENAME="date_r1b1_negative",EXTRACTION="%reYear4Digit (\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):NN:"
+RULENAME="date_r1b2_negative",EXTRACTION="%reYear4Digit (respektive|von|oder) (%reYear4Digit|[\d]+) (\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(5):NN:"
+//RULENAME="date_r1c1_negative",EXTRACTION="%reYear4Digit (\S+) (\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ADJA:group(3):NN:"
+//RULENAME="date_r1c2_negative",EXTRACTION="%reYear4Digit (\S+) (\S+) (\S+) (\S+)",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(2):ADJA:group(3):KON:group(4):ADJA:group(5):NN:"
+RULENAME="date_r1d_negative",EXTRACTION="%reYear4Digit (m\b|km\b|ft\b|yr\b|dg\b|cm\b|ha\b|sq\b|PS\b|Euro)",NORM_VALUE="REMOVE"
 
 // Further negative rules (March 2015, Jannik Strötgen)
 // typical fairy tail expression    
@@ -326,10 +330,10 @@ RULENAME="date_r1e2_negative",EXTRACTION="1001(-| )Nacht",NORM_VALUE="REMOVE"
 // EXAMPLE r2b_negative: 1010 Wien
 // EXAMPLE r2c_negative: 1600 Pennsylvania Avenue
 // EXAMPLE r2d_negative: Sitzungssaal 1901
-RULENAME="date_r2a_negative",EXTRACTION="([A-Z][\S]+)?([Ss]traße|[Ss]trasse|[Gg]asse|[Ww]eg) (\d)+, %reYear4Digit ([A-Z][\S]+\b)",NORM_VALUE="REMOVE"
+RULENAME="date_r2a_negative",EXTRACTION="([A-Z]\S+)?([Ss]traße|[Ss]trasse|[Gg]asse|[Ww]eg) (\d)+, %reYear4Digit ([A-Z]\S+\b)",NORM_VALUE="REMOVE"
 RULENAME="date_r2b_negative",EXTRACTION="%reYear4Digit (Wien|Graz|Linz|Salzburg|Innsbruck)",NORM_VALUE="REMOVE"
-RULENAME="date_r2c_negative",EXTRACTION="%reYear4Digit [A-Z]([\S]+) (Avenue|Street)",NORM_VALUE="REMOVE"
-RULENAME="date_r2d_negative",EXTRACTION="([A-Z][\S]+)?([Ss]aal|[Rr]aum|[Zz]immer) %reYear4Digit",NORM_VALUE="REMOVE"
+RULENAME="date_r2c_negative",EXTRACTION="%reYear4Digit [A-Z](\S+) (Avenue|Street|Ave)",NORM_VALUE="REMOVE"
+RULENAME="date_r2d_negative",EXTRACTION="([A-Z]\S+)?([Ss]aal|[Rr]aum|[Zz]immer) %reYear4Digit",NORM_VALUE="REMOVE"
 
 // Further negative rules (March 2015, Jannik Strötgen)
 // EXAMPLE r3a_negative: 1200 davon [sind tot]
