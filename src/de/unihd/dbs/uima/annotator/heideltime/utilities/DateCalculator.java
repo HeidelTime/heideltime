@@ -14,9 +14,6 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
-import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
-
 /**
  * 
  * This class contains methods that rely on calendar functions to calculate data.
@@ -40,6 +37,7 @@ public class DateCalculator {
 	static final DateTimeFormatter MONTHFORMATTERBC = DateTimeFormatter.ofPattern("GGyyyy-MM", Locale.ROOT);
 
 	static final DateTimeFormatter WEEKFORMATTER = new DateTimeFormatterBuilder().appendPattern("YYYY-['W']w").parseDefaulting(WeekFields.ISO.dayOfWeek(), 1).toFormatter(Locale.ROOT);
+	static final DateTimeFormatter WEEKFORMATTER_WIDE = new DateTimeFormatterBuilder().appendPattern("YYYY-['W']ww").parseDefaulting(WeekFields.ISO.dayOfWeek(), 1).toFormatter(Locale.ROOT);
 
 	private static Year parseBC(String date) throws DateTimeParseException {
 		if (date.length() == 0)
@@ -166,13 +164,10 @@ public class DateCalculator {
 	 *                amount of weeks to go forward
 	 * @return new week
 	 */
-	public static String getXNextWeek(String date, int x, Language language) {
-		NormalizationManager nm = NormalizationManager.getInstance(language, false);
+	public static String getXNextWeek(String date, int x) {
 		try {
 			LocalDate d = LocalDate.from(WEEKFORMATTER.parse(date, new ParsePosition(0))).plusWeeks(x);
-			String newDate = d.format(WEEKFORMATTER);
-			// TODO: use cheaper normalization?
-			return newDate.substring(0, 4) + "-W" + nm.getFromNormNumber(newDate.substring(5));
+			return d.format(WEEKFORMATTER_WIDE);
 		} catch (DateTimeParseException e) {
 			LOG.error(e.getMessage(), e);
 			return "";
