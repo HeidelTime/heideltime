@@ -178,6 +178,14 @@ public class EnglishTimeTest extends AbstractHeideltimeTest {
 	}
 
 	@Test
+	public void testtime_r7a() {
+		testSingleCase("16:00 CET", //
+				new String[] { "time_r7a", "16:00 CET", "XXXX-XX-XXT16:00" });
+		testSingleCase("1600 CET", //
+				new String[] { "time_r7a", "1600 CET", "XXXX-XX-XXT16:00" });
+	}
+
+	@Test
 	public void testtime_r8a() {
 		testSingleCase("the morning of April 18, 1775", //
 				new String[] { "time_r8a", "the morning of April 18, 1775", "1775-04-18TMO" });
