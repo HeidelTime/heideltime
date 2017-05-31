@@ -49,7 +49,7 @@ class ResolveAmbiguousValues {
 		String dctHalf = "";
 		int dctWeekday = 0;
 		int dctWeek = 0;
-	
+
 		public boolean read(JCas jcas) {
 			AnnotationIndex<Dct> dcts = jcas.getAnnotationIndex(Dct.type);
 			FSIterator<Dct> dctIter = dcts.iterator();
@@ -74,12 +74,12 @@ class ResolveAmbiguousValues {
 			}
 			dctQuarter = DateCalculator.getQuarterOfMonth(dctMonth);
 			dctHalf = DateCalculator.getHalfYearOfMonth(dctMonth);
-	
+
 			// season, week, weekday, have to be calculated
 			dctSeason = DateCalculator.getSeasonOfMonth(dctMonth);
 			dctWeekday = DateCalculator.getWeekdayOfDate(dctYear, dctMonth, dctDay);
 			dctWeek = DateCalculator.getWeekOfDate(dctYear, dctMonth, dctDay);
-	
+
 			if (LOG.isDebugEnabled()) {
 				LOG.debug("dctCentury: {}", dctCentury);
 				LOG.debug("dctYear: {}", dctYear);
@@ -205,6 +205,7 @@ class ResolveAmbiguousValues {
 		// DISAMBIGUATION PHASE //
 		//////////////////////////
 
+		final boolean useDct = dctAvailable && (documentTypeNews || documentTypeColloquial || documentTypeScientific);
 		////////////////////////////////////////////////////
 		// IF YEAR IS COMPLETELY UNSPECIFIED (UNDEF-year) //
 		////////////////////////////////////////////////////
@@ -214,24 +215,18 @@ class ResolveAmbiguousValues {
 			// vi has month (ignore day)
 			if (viHasMonth && !viHasSeason) {
 				// WITH DOCUMENT CREATION TIME
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					// Tense is FUTURE
 					if (last_used_tense.equals("FUTURE") || last_used_tense.equals("PRESENTFUTURE")) {
-						// if dct-month is larger than vi-month,
-						// than add 1 to dct-year
-						if (dct.dctMonth > viThisMonth) {
-							int intNewYear = dct.dctYear + 1;
-							newYearValue = Integer.toString(intNewYear);
-						}
+						// if dct-month is larger than vi-month, then add 1 to dct-year
+						if (dct.dctMonth > viThisMonth)
+							newYearValue = Integer.toString(dct.dctYear + 1);
 					}
 					// Tense is PAST
 					if (last_used_tense.equals("PAST")) {
-						// if dct-month is smaller than vi month,
-						// than substrate 1 from dct-year
-						if (dct.dctMonth < viThisMonth) {
-							int intNewYear = dct.dctYear - 1;
-							newYearValue = Integer.toString(intNewYear);
-						}
+						// if dct-month is smaller than vi month, then subtract 1 from dct-year
+						if (dct.dctMonth < viThisMonth)
+							newYearValue = Integer.toString(dct.dctYear - 1);
 					}
 				}
 				// WITHOUT DOCUMENT CREATION TIME
@@ -242,37 +237,27 @@ class ResolveAmbiguousValues {
 			// vi has quaurter
 			if (viHasQuarter) {
 				// WITH DOCUMENT CREATION TIME
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					// Tense is FUTURE
-					if ((last_used_tense.equals("FUTURE")) || (last_used_tense.equals("PRESENTFUTURE"))) {
-						if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1))) {
-							int intNewYear = dct.dctYear + 1;
-							newYearValue = Integer.toString(intNewYear);
-						}
+					if ((last_used_tense.equals("FUTURE")) || last_used_tense.equals("PRESENTFUTURE")) {
+						if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1)))
+							newYearValue = Integer.toString(dct.dctYear + 1);
 					}
 					// Tense is PAST
 					if (last_used_tense.equals("PAST")) {
-						if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1))) {
-							int intNewYear = dct.dctYear - 1;
-							newYearValue = Integer.toString(intNewYear);
-						}
+						if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1)))
+							newYearValue = Integer.toString(dct.dctYear - 1);
 					}
 					// IF NO TENSE IS FOUND
 					if (last_used_tense.length() == 0) {
 						if (documentTypeColloquial) {
-							// IN COLLOQUIAL: future temporal
-							// expressions
-							if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1))) {
-								int intNewYear = dct.dctYear + 1;
-								newYearValue = Integer.toString(intNewYear);
-							}
+							// IN COLLOQUIAL: future temporal expressions
+							if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1)))
+								newYearValue = Integer.toString(dct.dctYear + 1);
 						} else {
-							// IN NEWS: past temporal
-							// expressions
-							if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1))) {
-								int intNewYear = dct.dctYear - 1;
-								newYearValue = Integer.toString(intNewYear);
-							}
+							// IN NEWS: past temporal expressions
+							if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1)))
+								newYearValue = Integer.toString(dct.dctYear - 1);
 						}
 					}
 				}
@@ -284,38 +269,23 @@ class ResolveAmbiguousValues {
 			// vi has half
 			if (viHasHalf) {
 				// WITH DOCUMENT CREATION TIME
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					// Tense is FUTURE
 					if (last_used_tense.equals("FUTURE") || last_used_tense.equals("PRESENTFUTURE")) {
-						if (Integer.parseInt(dct.dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1))) {
-							int intNewYear = dct.dctYear + 1;
-							newYearValue = Integer.toString(intNewYear);
-						}
+						if (Integer.parseInt(dct.dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1)))
+							newYearValue = Integer.toString(dct.dctYear + 1);
 					}
 					// Tense is PAST
 					if (last_used_tense.equals("PAST")) {
-						if (Integer.parseInt(dct.dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1))) {
-							int intNewYear = dct.dctYear - 1;
-							newYearValue = Integer.toString(intNewYear);
-						}
+						if (Integer.parseInt(dct.dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1)))
+							newYearValue = Integer.toString(dct.dctYear - 1);
 					}
 					// IF NO TENSE IS FOUND
 					if (last_used_tense.length() == 0) {
-						if (documentTypeColloquial) {
-							// IN COLLOQUIAL: future temporal
-							// expressions
-							if (Integer.parseInt(dct.dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1))) {
-								int intNewYear = dct.dctYear + 1;
-								newYearValue = Integer.toString(intNewYear);
-							}
-						} else {
-							// IN NEWS: past temporal
-							// expressions
-							if (Integer.parseInt(dct.dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1))) {
-								int intNewYear = dct.dctYear - 1;
-								newYearValue = Integer.toString(intNewYear);
-							}
-						}
+						if (Integer.parseInt(dct.dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1)))
+							// IN COLLOQUIAL: future temporal expressions
+							// IN NEWS: past temporal expressions
+							newYearValue = Integer.toString(dct.dctYear + (documentTypeColloquial ? 1 : -1));
 					}
 				}
 				// WITHOUT DOCUMENT CREATION TIME
@@ -325,36 +295,16 @@ class ResolveAmbiguousValues {
 			}
 
 			// vi has season
-			if (!viHasMonth && !viHasDay && viHasSeason) {
+			if (!viHasMonth && !viHasDay && viHasSeason)
 				// TODO check tenses?
-				// WITH DOCUMENT CREATION TIME
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
-					newYearValue = Integer.toString(dct.dctYear);
-				}
-				// WITHOUT DOCUMENT CREATION TIME
-				else {
-					newYearValue = ContextAnalyzer.getLastMentionedYear(linearDates, i);
-				}
-			}
+				newYearValue = useDct ? Integer.toString(dct.dctYear) : ContextAnalyzer.getLastMentionedYear(linearDates, i);
 			// vi has week
-			if (viHasWeek) {
-				// WITH DOCUMENT CREATION TIME
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
-					newYearValue = Integer.toString(dct.dctYear);
-				}
-				// WITHOUT DOCUMENT CREATION TIME
-				else {
-					newYearValue = ContextAnalyzer.getLastMentionedYear(linearDates, i);
-				}
-			}
+			if (viHasWeek)
+				newYearValue = useDct ? Integer.toString(dct.dctYear) : ContextAnalyzer.getLastMentionedYear(linearDates, i);
 
 			// REPLACE THE UNDEF-YEAR WITH THE NEWLY CALCULATED YEAR AND ADD
 			// TIMEX TO INDEXES
-			if (newYearValue.length() == 0) {
-				valueNew = ambigString.replaceFirst("UNDEF-year", "XXXX");
-			} else {
-				valueNew = ambigString.replaceFirst("UNDEF-year", newYearValue);
-			}
+			valueNew = ambigString.replaceFirst("UNDEF-year", newYearValue.isEmpty() ? "XXXX" : newYearValue);
 		}
 
 		///////////////////////////////////////////////////
@@ -364,7 +314,7 @@ class ResolveAmbiguousValues {
 			String newCenturyValue = Integer.toString(dct.dctCentury);
 
 			// NEWS and COLLOQUIAL DOCUMENTS
-			if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable && !ambigString.equals("UNDEF-century")) {
+			if (useDct && !ambigString.equals("UNDEF-century")) {
 				int viThisDecade = Integer.parseInt(ambigString.substring(13, 14));
 
 				if (LOG.isDebugEnabled())
@@ -400,25 +350,17 @@ class ResolveAmbiguousValues {
 					newCenturyValue = "00";
 				}
 			}
-			if (newCenturyValue.length() == 0) {
-				if (!documentTypeNarrative) {
-					// always assume that sixties, twenties, and so on
+			valueNew = ambigString.replaceFirst("UNDEF-century", //
+					!newCenturyValue.isEmpty() ? newCenturyValue : //
+					// LREC change: assume in narrative-style documents that
+					// if no other century was mentioned before, 1st century
+					// Otherwise, assume that sixties, twenties, and so on
 					// are 19XX if no century found (LREC change)
-					valueNew = ambigString.replaceFirst("UNDEF-century", "19");
-				}
-				// LREC change: assume in narrative-style documents that
-				// if no other century was mentioned before, 1st century
-				else {
-					valueNew = ambigString.replaceFirst("UNDEF-century", "00");
-				}
-			} else {
-				valueNew = ambigString.replaceFirst("UNDEF-century", newCenturyValue);
-			}
+							documentTypeNarrative ? "00" : "19");
 			// always assume that sixties, twenties, and so on are 19XX -- if
 			// not narrative document (LREC change)
-			if ((valueNew.matches("\\d\\d\\d")) && !documentTypeNarrative) {
+			if (valueNew.matches("\\d\\d\\d") && !documentTypeNarrative)
 				valueNew = "19" + valueNew.substring(2);
-			}
 		}
 
 		////////////////////////////////////////////////////
@@ -428,13 +370,7 @@ class ResolveAmbiguousValues {
 			Matcher m;
 			valueNew = ambigString;
 			if (ambigString.equals("UNDEF-REFDATE")) {
-				if (i > 0) {
-					Timex3 anyDate = linearDates.get(i - 1);
-					String lmDate = anyDate.getTimexValue();
-					valueNew = lmDate;
-				} else {
-					valueNew = "XXXX-XX-XX";
-				}
+				valueNew = i > 0 ? linearDates.get(i - 1).getTimexValue() : "XXXX-XX-XX";
 
 				//////////////////
 				// TO CALCULATE //
@@ -444,24 +380,24 @@ class ResolveAmbiguousValues {
 				String checkUndef = m.group(1);
 				String ltn = m.group(2);
 				String unit = m.group(3);
-				String op = m.group(4);
-				String sDiff = m.group(5);
+				boolean positive = "PLUS".equals(m.group(4)); // May only be PLUS or MINUS.
 				int diff = 0;
 				try {
-					diff = Integer.parseInt(sDiff);
+					diff = Integer.parseInt(m.group(5));
 				} catch (Exception e) {
 					LOG.error("Expression difficult to normalize: ");
 					LOG.error(ambigString);
-					LOG.error("{} probably too long for parsing as integer.", sDiff);
+					LOG.error("{} probably too long for parsing as integer.", m.group(5));
 					LOG.error("set normalized value as PAST_REF / FUTURE_REF:");
-					valueNew = op.equals("PLUS") ? "FUTURE_REF" : "PAST_REF";
+					valueNew = positive ? "FUTURE_REF" : "PAST_REF";
 					return valueNew;
 				}
+				int sdiff = positive ? diff : -diff; // Signed diff
 
 				// do the processing for SCIENTIFIC documents (TPZ
 				// identification could be improved)
 				if (documentTypeScientific) {
-					char opSymbol = op.equals("PLUS") ? '+' : '-';
+					char opSymbol = positive ? '+' : '-';
 					if (unit.equals("year")) {
 						valueNew = String.format(Locale.ROOT, "TPZ%c%04d", opSymbol, diff);
 					} else if (unit.equals("month")) {
@@ -481,100 +417,51 @@ class ResolveAmbiguousValues {
 					// check for REFUNIT (only allowed for "year")
 					if (ltn.equals("REFUNIT") && unit.equals("year")) {
 						String dateWithYear = ContextAnalyzer.getLastMentionedDateYear(linearDates, i);
-						String year = dateWithYear;
 						if (dateWithYear.length() == 0) {
 							valueNew = valueNew.replace(checkUndef, "XXXX");
 						} else {
-							if (dateWithYear.startsWith("BC")) {
-								year = dateWithYear.substring(0, 6);
-							} else {
-								year = dateWithYear.substring(0, 4);
-							}
-							if (op.equals("MINUS")) {
-								diff = diff * (-1);
-							}
-							String yearNew = DateCalculator.getXNextYear(dateWithYear, diff);
-							String rest = dateWithYear.substring(4);
+							String year = dateWithYear.substring(0, dateWithYear.startsWith("BC") ? 6 : 4);
+							String yearNew = DateCalculator.getXNextYear(year, sdiff);
+							// FIXME: Why could we have "rest" (= tail)?
+							String rest = dateWithYear.substring(dateWithYear.startsWith("BC") ? 6 : 4);
 							valueNew = valueNew.replace(checkUndef, yearNew + rest);
 						}
 					}
 
 					// REF and this are handled here
 					if (unit.equals("century")) {
-						if ((documentTypeNews | documentTypeColloquial || documentTypeScientific) && dctAvailable && ltn.equals("this")) {
-							int century = dct.dctCentury;
-							if (op.equals("MINUS")) {
-								century = dct.dctCentury - diff;
-							} else if (op.equals("PLUS")) {
-								century = dct.dctCentury + diff;
-							}
-							valueNew = valueNew.replace(checkUndef, Integer.toString(century));
+						if (useDct && ltn.equals("this")) {
+							valueNew = valueNew.replace(checkUndef, Integer.toString(dct.dctCentury + sdiff));
 						} else {
 							String lmCentury = ContextAnalyzer.getLastMentionedCentury(linearDates, i);
-							if (lmCentury.length() == 0) {
-								valueNew = valueNew.replace(checkUndef, "XX");
-							} else {
-								if (op.equals("MINUS")) {
-									diff = (-1) * diff;
-								}
-								lmCentury = DateCalculator.getXNextCentury(lmCentury, diff);
-								valueNew = valueNew.replace(checkUndef, lmCentury);
-							}
+							valueNew = valueNew.replace(checkUndef, lmCentury.isEmpty() ? "XX" : DateCalculator.getXNextCentury(lmCentury, sdiff));
 						}
 					} else if (unit.equals("decade")) {
-						if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable && ltn.equals("this")) {
-							int dctDecadeLong = Integer.parseInt(dct.dctCentury + "" + dct.dctDecade);
-							int decade = dctDecadeLong;
-							if (op.equals("MINUS")) {
-								decade = dctDecadeLong - diff;
-							} else if (op.equals("PLUS")) {
-								decade = dctDecadeLong + diff;
-							}
+						if (useDct && ltn.equals("this")) {
+							int decade = dct.dctCentury * 10 + dct.dctDecade + sdiff;
 							valueNew = valueNew.replace(checkUndef, decade + "X");
 						} else {
 							String lmDecade = ContextAnalyzer.getLastMentionedDecade(linearDates, i);
-							if (lmDecade.length() == 0) {
-								valueNew = valueNew.replace(checkUndef, "XXX");
-							} else {
-								if (op.equals("MINUS")) {
-									diff = (-1) * diff;
-								}
-								lmDecade = DateCalculator.getXNextDecade(lmDecade, diff);
-								valueNew = valueNew.replace(checkUndef, lmDecade);
-							}
+							valueNew = valueNew.replace(checkUndef, lmDecade.isEmpty() ? "XXX" : DateCalculator.getXNextDecade(lmDecade, sdiff));
 						}
 					} else if (unit.equals("year")) {
-						if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable && ltn.equals("this")) {
-							int intValue = dct.dctYear;
-							if (op.equals("MINUS")) {
-								intValue = dct.dctYear - diff;
-							} else if (op.equals("PLUS")) {
-								intValue = dct.dctYear + diff;
-							}
-							valueNew = valueNew.replace(checkUndef, Integer.toString(intValue));
+						if (useDct && ltn.equals("this")) {
+							valueNew = valueNew.replace(checkUndef, Integer.toString(dct.dctYear + sdiff));
 						} else {
 							String lmYear = ContextAnalyzer.getLastMentionedYear(linearDates, i);
-							if (lmYear.length() == 0) {
-								valueNew = valueNew.replace(checkUndef, "XXXX");
-							} else {
-								if (op.equals("MINUS")) {
-									diff = (-1) * diff;
-								}
-								lmYear = DateCalculator.getXNextYear(lmYear, diff);
-								valueNew = valueNew.replace(checkUndef, lmYear);
-							}
+							valueNew = valueNew.replace(checkUndef, lmYear.isEmpty() ? "XXXX" : DateCalculator.getXNextYear(lmYear, sdiff));
 						}
 						// TODO BC years
 					} else if (unit.equals("quarter")) {
-						if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable && ltn.equals("this")) {
+						if (useDct && ltn.equals("this")) {
 							int intYear = dct.dctYear;
 							int intQuarter = Integer.parseInt(dct.dctQuarter.substring(1));
 							int diffQuarters = diff % 4;
 							diff = diff - diffQuarters;
 							int diffYears = diff / 4;
-							if (op.equals("MINUS")) {
-								diffQuarters = diffQuarters * (-1);
-								diffYears = diffYears * (-1);
+							if (!positive) {
+								diffQuarters = -diffQuarters;
+								diffYears = -diffYears;
 							}
 							intYear = intYear + diffYears;
 							intQuarter = intQuarter + diffQuarters;
@@ -589,9 +476,9 @@ class ResolveAmbiguousValues {
 								int diffQuarters = diff % 4;
 								diff = diff - diffQuarters;
 								int diffYears = diff / 4;
-								if (op.equals("MINUS")) {
-									diffQuarters = diffQuarters * (-1);
-									diffYears = diffYears * (-1);
+								if (!positive) {
+									diffQuarters = -diffQuarters;
+									diffYears = -diffYears;
 								}
 								intYear = intYear + diffYears;
 								intQuarter = intQuarter + diffQuarters;
@@ -599,59 +486,25 @@ class ResolveAmbiguousValues {
 							}
 						}
 					} else if (unit.equals("month")) {
-						if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable && ltn.equals("this")) {
-							if (op.equals("MINUS")) {
-								diff = diff * (-1);
-							}
-							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(dct.dctYear + "-" + norm.normNumber(dct.dctMonth), diff));
+						if (useDct && ltn.equals("this")) {
+							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(dct.dctYear + "-" + norm.normNumber(dct.dctMonth), sdiff));
 						} else {
 							String lmMonth = ContextAnalyzer.getLastMentionedMonth(linearDates, i);
-							if (lmMonth.length() == 0) {
-								valueNew = valueNew.replace(checkUndef, "XXXX-XX");
-							} else {
-								if (op.equals("MINUS")) {
-									diff = diff * (-1);
-								}
-								valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(lmMonth, diff));
-							}
+							valueNew = valueNew.replace(checkUndef, lmMonth.isEmpty() ? "XXXX-XX" : DateCalculator.getXNextMonth(lmMonth, sdiff));
 						}
 					} else if (unit.equals("week")) {
-						if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable && ltn.equals("this")) {
-							if (op.equals("MINUS")) {
-								diff = diff * (-1);
-							} else if (op.equals("PLUS")) {
-								// diff = diff * 7;
-							}
-							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), diff));
+						if (useDct && ltn.equals("this")) {
+							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), sdiff));
 						} else {
 							String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
-							if (lmDay.length() == 0) {
-								valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
-							} else {
-								if (op.equals("MINUS")) {
-									diff = diff * 7 * (-1);
-								} else if (op.equals("PLUS")) {
-									diff = diff * 7;
-								}
-								valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
-							}
+							valueNew = valueNew.replace(checkUndef, lmDay.isEmpty() ? "XXXX-XX-XX" : DateCalculator.getXNextDay(lmDay, sdiff * 7));
 						}
 					} else if (unit.equals("day")) {
-						if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable && ltn.equals("this")) {
-							if (op.equals("MINUS")) {
-								diff = diff * (-1);
-							}
-							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dct.dctYear, dct.dctMonth, dct.dctDay, diff));
+						if (useDct && ltn.equals("this")) {
+							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dct.dctYear, dct.dctMonth, dct.dctDay, sdiff));
 						} else {
 							String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
-							if (lmDay.length() == 0) {
-								valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
-							} else {
-								if (op.equals("MINUS")) {
-									diff = diff * (-1);
-								}
-								valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
-							}
+							valueNew = valueNew.replace(checkUndef, lmDay.isEmpty() ? "XXXX-XX-XX" : DateCalculator.getXNextDay(lmDay, sdiff));
 						}
 					}
 				}
@@ -660,129 +513,87 @@ class ResolveAmbiguousValues {
 			// century
 			else if (ambigString.startsWith("UNDEF-last-century")) {
 				String checkUndef = "UNDEF-last-century";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, norm.normNumber(dct.dctCentury - 1));
 				} else {
 					String lmCentury = ContextAnalyzer.getLastMentionedCentury(linearDates, i);
-					if (lmCentury.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XX");
-					} else {
-						lmCentury = DateCalculator.getXNextCentury(lmCentury, -1);
-						valueNew = valueNew.replace(checkUndef, lmCentury);
-					}
+					valueNew = valueNew.replace(checkUndef, lmCentury.isEmpty() ? "XX" : DateCalculator.getXNextCentury(lmCentury, -1));
 				}
 			} else if (ambigString.startsWith("UNDEF-this-century")) {
 				String checkUndef = "UNDEF-this-century";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, norm.normNumber(dct.dctCentury));
 				} else {
 					String lmCentury = ContextAnalyzer.getLastMentionedCentury(linearDates, i);
-					if (lmCentury.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XX");
-					} else {
-						valueNew = valueNew.replace(checkUndef, lmCentury);
-					}
+					valueNew = valueNew.replace(checkUndef, lmCentury.isEmpty() ? "XX" : lmCentury);
 				}
 			} else if (ambigString.startsWith("UNDEF-next-century")) {
 				String checkUndef = "UNDEF-next-century";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, norm.normNumber(dct.dctCentury + 1));
 				} else {
 					String lmCentury = ContextAnalyzer.getLastMentionedCentury(linearDates, i);
-					if (lmCentury.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XX");
-					} else {
-						lmCentury = DateCalculator.getXNextCentury(lmCentury, +1);
-						valueNew = valueNew.replace(checkUndef, lmCentury);
-					}
+					valueNew = valueNew.replace(checkUndef, lmCentury.isEmpty() ? "XX" : DateCalculator.getXNextCentury(lmCentury, +1));
 				}
 			}
 
 			// decade
 			else if (ambigString.startsWith("UNDEF-last-decade")) {
 				String checkUndef = "UNDEF-last-decade";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, (Integer.toString(dct.dctYear - 10)).substring(0, 3));
 				} else {
 					String lmDecade = ContextAnalyzer.getLastMentionedDecade(linearDates, i);
-					if (lmDecade.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX");
-					} else {
-						lmDecade = DateCalculator.getXNextDecade(lmDecade, -1);
-						valueNew = valueNew.replace(checkUndef, lmDecade);
-					}
+					valueNew = valueNew.replace(checkUndef, lmDecade.isEmpty() ? "XXXX" : DateCalculator.getXNextDecade(lmDecade, -1));
 				}
 			} else if (ambigString.startsWith("UNDEF-this-decade")) {
 				String checkUndef = "UNDEF-this-decade";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, (Integer.toString(dct.dctYear)).substring(0, 3));
 				} else {
 					String lmDecade = ContextAnalyzer.getLastMentionedDecade(linearDates, i);
-					if (lmDecade.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX");
-					} else {
-						valueNew = valueNew.replace(checkUndef, lmDecade);
-					}
+					valueNew = valueNew.replace(checkUndef, lmDecade.isEmpty() ? "XXXX" : lmDecade);
 				}
 			} else if (ambigString.startsWith("UNDEF-next-decade")) {
 				String checkUndef = "UNDEF-next-decade";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, (Integer.toString(dct.dctYear + 10)).substring(0, 3));
 				} else {
 					String lmDecade = ContextAnalyzer.getLastMentionedDecade(linearDates, i);
-					if (lmDecade.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX");
-					} else {
-						lmDecade = DateCalculator.getXNextDecade(lmDecade, 1);
-						valueNew = valueNew.replace(checkUndef, lmDecade);
-					}
+					valueNew = valueNew.replace(checkUndef, lmDecade.isEmpty() ? "XXXX" : DateCalculator.getXNextDecade(lmDecade, 1));
 				}
 			}
 
 			// year
 			else if (ambigString.startsWith("UNDEF-last-year")) {
 				String checkUndef = "UNDEF-last-year";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, Integer.toString(dct.dctYear - 1));
 				} else {
 					String lmYear = ContextAnalyzer.getLastMentionedYear(linearDates, i);
-					if (lmYear.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX");
-					} else {
-						lmYear = DateCalculator.getXNextYear(lmYear, -1);
-						valueNew = valueNew.replace(checkUndef, lmYear);
-					}
+					valueNew = valueNew.replace(checkUndef, lmYear.isEmpty() ? "XXXX" : DateCalculator.getXNextYear(lmYear, -1));
 				}
 				if (valueNew.endsWith("-FY")) {
 					valueNew = "FY" + valueNew.substring(0, Math.min(valueNew.length(), 4));
 				}
 			} else if (ambigString.startsWith("UNDEF-this-year")) {
 				String checkUndef = "UNDEF-this-year";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, Integer.toString(dct.dctYear));
 				} else {
 					String lmYear = ContextAnalyzer.getLastMentionedYear(linearDates, i);
-					if (lmYear.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX");
-					} else {
-						valueNew = valueNew.replace(checkUndef, lmYear);
-					}
+					valueNew = valueNew.replace(checkUndef, lmYear.isEmpty() ? "XXXX" : lmYear);
 				}
 				if (valueNew.endsWith("-FY")) {
 					valueNew = "FY" + valueNew.substring(0, Math.min(valueNew.length(), 4));
 				}
 			} else if (ambigString.startsWith("UNDEF-next-year")) {
 				String checkUndef = "UNDEF-next-year";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, Integer.toString(dct.dctYear + 1));
 				} else {
 					String lmYear = ContextAnalyzer.getLastMentionedYear(linearDates, i);
-					if (lmYear.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX");
-					} else {
-						lmYear = DateCalculator.getXNextYear(lmYear, 1);
-						valueNew = valueNew.replace(checkUndef, lmYear);
-					}
+					valueNew = valueNew.replace(checkUndef, lmYear.isEmpty() ? "XXXX" : DateCalculator.getXNextYear(lmYear, 1));
 				}
 				if (valueNew.endsWith("-FY")) {
 					valueNew = "FY" + valueNew.substring(0, Math.min(valueNew.length(), 4));
@@ -792,132 +603,92 @@ class ResolveAmbiguousValues {
 			// month
 			else if (ambigString.startsWith("UNDEF-last-month")) {
 				String checkUndef = "UNDEF-last-month";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(dct.dctYear + "-" + norm.normNumber(dct.dctMonth), -1));
 				} else {
 					String lmMonth = ContextAnalyzer.getLastMentionedMonth(linearDates, i);
-					if (lmMonth.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX-XX");
-					} else {
-						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(lmMonth, -1));
-					}
+					valueNew = valueNew.replace(checkUndef, lmMonth.isEmpty() ? "XXXX-XX" : DateCalculator.getXNextMonth(lmMonth, -1));
 				}
 			} else if (ambigString.startsWith("UNDEF-this-month")) {
 				String checkUndef = "UNDEF-this-month";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, dct.dctYear + "-" + norm.normNumber(dct.dctMonth));
 				} else {
 					String lmMonth = ContextAnalyzer.getLastMentionedMonth(linearDates, i);
-					if (lmMonth.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX-XX");
-					} else {
-						valueNew = valueNew.replace(checkUndef, lmMonth);
-					}
+					valueNew = valueNew.replace(checkUndef, lmMonth.isEmpty() ? "XXXX-XX" : lmMonth);
 				}
 			} else if (ambigString.startsWith("UNDEF-next-month")) {
 				String checkUndef = "UNDEF-next-month";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(dct.dctYear + "-" + norm.normNumber(dct.dctMonth), 1));
 				} else {
 					String lmMonth = ContextAnalyzer.getLastMentionedMonth(linearDates, i);
-					if (lmMonth.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX-XX");
-					} else {
-						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextMonth(lmMonth, 1));
-					}
+					valueNew = valueNew.replace(checkUndef, lmMonth.isEmpty() ? "XXXX-XX" : DateCalculator.getXNextMonth(lmMonth, 1));
 				}
 			}
 
 			// day
 			else if (ambigString.startsWith("UNDEF-last-day")) {
 				String checkUndef = "UNDEF-last-day";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dct.dctYear, dct.dctMonth, dct.dctDay, -1));
 				} else {
 					String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
-					if (lmDay.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
-					} else {
-						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, -1));
-					}
+					valueNew = valueNew.replace(checkUndef, lmDay.isEmpty() ? "XXXX-XX-XX" : DateCalculator.getXNextDay(lmDay, -1));
 				}
 			} else if (ambigString.startsWith("UNDEF-this-day")) {
 				String checkUndef = "UNDEF-this-day";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, dct.dctYear + "-" + norm.normNumber(dct.dctMonth) + "-" + norm.normNumber(dct.dctDay));
 				} else {
-					String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
-					if (lmDay.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
-					} else {
-						valueNew = valueNew.replace(checkUndef, lmDay);
-					}
 					if (ambigString.equals("UNDEF-this-day")) {
 						valueNew = "PRESENT_REF";
+					} else {
+						String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
+						valueNew = valueNew.replace(checkUndef, lmDay.isEmpty() ? "XXXX-XX-XX" : lmDay);
 					}
 				}
 			} else if (ambigString.startsWith("UNDEF-next-day")) {
 				String checkUndef = "UNDEF-next-day";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dct.dctYear, dct.dctMonth, dct.dctDay, 1));
 				} else {
 					String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
-					if (lmDay.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
-					} else {
-						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, 1));
-					}
+					valueNew = valueNew.replace(checkUndef, lmDay.isEmpty() ? "XXXX-XX-XX" : DateCalculator.getXNextDay(lmDay, 1));
 				}
 			}
 
 			// week
 			else if (ambigString.startsWith("UNDEF-last-week")) {
 				String checkUndef = "UNDEF-last-week";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), -1));
 				} else {
 					String lmWeek = ContextAnalyzer.getLastMentionedWeek(linearDates, i);
-					if (lmWeek.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX-WXX");
-					} else {
-						String nextWeek = DateCalculator.getXNextWeek(lmWeek, -1);
-						if (nextWeek.length() == 0) {
-							valueNew = valueNew.replace(checkUndef, "XXXX-WXX");
-						} else {
-							valueNew = valueNew.replace(checkUndef, nextWeek);
-						}
-					}
+					valueNew = valueNew.replace(checkUndef, lmWeek.isEmpty() ? "XXXX-WXX" : DateCalculator.getXNextWeek(lmWeek, -1));
 				}
 			} else if (ambigString.startsWith("UNDEF-this-week")) {
 				String checkUndef = "UNDEF-this-week";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, dct.dctYear + "-W" + norm.normNumber(dct.dctWeek));
 				} else {
 					String lmWeek = ContextAnalyzer.getLastMentionedWeek(linearDates, i);
-					if (lmWeek.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX-WXX");
-					} else {
-						valueNew = valueNew.replace(checkUndef, lmWeek);
-					}
+					valueNew = valueNew.replace(checkUndef, lmWeek.isEmpty() ? "XXXX-WXX" : lmWeek);
 				}
 			} else if (ambigString.startsWith("UNDEF-next-week")) {
 				String checkUndef = "UNDEF-next-week";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), 1));
 				} else {
 					String lmWeek = ContextAnalyzer.getLastMentionedWeek(linearDates, i);
-					if (lmWeek.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX-WXX");
-					} else {
-						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextWeek(lmWeek, 1));
-					}
+					valueNew = valueNew.replace(checkUndef, lmWeek.isEmpty() ? "XXXX-WXX" : DateCalculator.getXNextWeek(lmWeek, 1));
 				}
 			}
 
 			// quarter
 			else if (ambigString.startsWith("UNDEF-last-quarter")) {
 				String checkUndef = "UNDEF-last-quarter";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					if (dct.dctQuarter.equals("Q1")) {
 						valueNew = valueNew.replace(checkUndef, dct.dctYear - 1 + "-Q4");
 					} else {
@@ -941,19 +712,15 @@ class ResolveAmbiguousValues {
 				}
 			} else if (ambigString.startsWith("UNDEF-this-quarter")) {
 				String checkUndef = "UNDEF-this-quarter";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					valueNew = valueNew.replace(checkUndef, dct.dctYear + "-" + dct.dctQuarter);
 				} else {
 					String lmQuarter = ContextAnalyzer.getLastMentionedQuarter(linearDates, i, language);
-					if (lmQuarter.length() == 0) {
-						valueNew = valueNew.replace(checkUndef, "XXXX-QX");
-					} else {
-						valueNew = valueNew.replace(checkUndef, lmQuarter);
-					}
+					valueNew = valueNew.replace(checkUndef, lmQuarter.isEmpty() ? "XXXX-QX" : lmQuarter);
 				}
 			} else if (ambigString.startsWith("UNDEF-next-quarter")) {
 				String checkUndef = "UNDEF-next-quarter";
-				if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+				if (useDct) {
 					if (dct.dctQuarter.equals("Q4")) {
 						valueNew = valueNew.replace(checkUndef, dct.dctYear + 1 + "-Q1");
 					} else {
@@ -986,7 +753,7 @@ class ResolveAmbiguousValues {
 				String daystr = m.group(5);
 				int day = (daystr != null && daystr.length() > 0) ? Integer.parseInt(daystr) : 0;
 				if (ltn.equals("last")) {
-					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+					if (useDct) {
 						// check day if dct-month and newMonth are
 						// equal
 						if ((dct.dctMonth == newMonthInt) && (!(day == 0))) {
@@ -1026,18 +793,14 @@ class ResolveAmbiguousValues {
 						}
 					}
 				} else if (ltn.equals("this")) {
-					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+					if (useDct) {
 						valueNew = valueNew.replace(checkUndef, dct.dctYear + "-" + newMonth);
 					} else {
 						String lmMonth = ContextAnalyzer.getLastMentionedMonthDetails(linearDates, i);
-						if (lmMonth.length() == 0) {
-							valueNew = valueNew.replace(checkUndef, "XXXX-XX");
-						} else {
-							valueNew = valueNew.replace(checkUndef, lmMonth.substring(0, 4) + "-" + newMonth);
-						}
+						valueNew = valueNew.replace(checkUndef, lmMonth.isEmpty() ? "XXXX-XX" : lmMonth.substring(0, 4) + "-" + newMonth);
 					}
 				} else if (ltn.equals("next")) {
-					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+					if (useDct) {
 						// check day if dct-month and newMonth are
 						// equal
 						if ((dct.dctMonth == newMonthInt) && (!(day == 0))) {
@@ -1073,7 +836,7 @@ class ResolveAmbiguousValues {
 				String ltn = m.group(2);
 				String newSeason = m.group(3);
 				if (ltn.equals("last")) {
-					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+					if (useDct) {
 						if (dct.dctSeason.equals("SP")) {
 							valueNew = valueNew.replace(checkUndef, dct.dctYear - 1 + "-" + newSeason);
 						} else if (dct.dctSeason.equals("SU")) {
@@ -1129,20 +892,16 @@ class ResolveAmbiguousValues {
 						}
 					}
 				} else if (ltn.equals("this")) {
-					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+					if (useDct) {
 						// TODO include tense of sentence?
 						valueNew = valueNew.replace(checkUndef, dct.dctYear + "-" + newSeason);
 					} else {
 						// TODO include tense of sentence?
 						String lmSeason = ContextAnalyzer.getLastMentionedSeason(linearDates, i, language);
-						if (lmSeason.length() == 0) {
-							valueNew = valueNew.replace(checkUndef, "XXXX-XX");
-						} else {
-							valueNew = valueNew.replace(checkUndef, lmSeason.substring(0, 4) + "-" + newSeason);
-						}
+						valueNew = valueNew.replace(checkUndef, lmSeason.isEmpty() ? "XXXX-XX" : (lmSeason.substring(0, 4) + "-" + newSeason));
 					}
 				} else if (ltn.equals("next")) {
-					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+					if (useDct) {
 						if (dct.dctSeason.equals("SP")) {
 							if (newSeason.equals("SP")) {
 								valueNew = valueNew.replace(checkUndef, dct.dctYear + 1 + "-" + newSeason);
@@ -1204,11 +963,9 @@ class ResolveAmbiguousValues {
 				String newWeekday = m.group(3);
 				int newWeekdayInt = Integer.parseInt(norm.getFromNormDayInWeek(newWeekday));
 				if (ltnd.equals("last")) {
-					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
-						int diff = (-1) * (dct.dctWeekday - newWeekdayInt);
-						if (diff >= 0) {
-							diff = diff - 7;
-						}
+					if (useDct) {
+						int diff = -(dct.dctWeekday - newWeekdayInt);
+						diff = (diff >= 0) ? diff - 7 : diff;
 						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff));
 					} else {
 						String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
@@ -1216,24 +973,16 @@ class ResolveAmbiguousValues {
 							valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
 						} else {
 							int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
-							int diff = (-1) * (lmWeekdayInt - newWeekdayInt);
-							if (diff >= 0) {
-								diff = diff - 7;
-							}
+							int diff = -(lmWeekdayInt - newWeekdayInt);
+							diff = (diff >= 0) ? diff - 7 : diff;
 							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
 						}
 					}
 				} else if (ltnd.equals("this")) {
-					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+					if (useDct) {
 						// TODO tense should be included?!
-						int diff = (-1) * (dct.dctWeekday - newWeekdayInt);
-						if (diff >= 0) {
-							diff = diff - 7;
-						}
-						if (diff == -7) {
-							diff = 0;
-						}
-
+						int diff = -(dct.dctWeekday - newWeekdayInt);
+						diff = (diff > 0) ? diff - 7 : diff;
 						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff));
 					} else {
 						// TODO tense should be included?!
@@ -1243,21 +992,14 @@ class ResolveAmbiguousValues {
 						} else {
 							int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
 							int diff = (-1) * (lmWeekdayInt - newWeekdayInt);
-							if (diff >= 0) {
-								diff = diff - 7;
-							}
-							if (diff == -7) {
-								diff = 0;
-							}
+							diff = (diff > 0) ? diff - 7 : diff;
 							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
 						}
 					}
 				} else if (ltnd.equals("next")) {
-					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+					if (useDct) {
 						int diff = newWeekdayInt - dct.dctWeekday;
-						if (diff <= 0) {
-							diff = diff + 7;
-						}
+						diff = (diff <= 0) ? diff + 7 : diff;
 						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff));
 					} else {
 						String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
@@ -1266,25 +1008,18 @@ class ResolveAmbiguousValues {
 						} else {
 							int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
 							int diff = newWeekdayInt - lmWeekdayInt;
-							if (diff <= 0) {
-								diff = diff + 7;
-							}
+							diff = (diff <= 0) ? diff + 7 : diff;
 							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
 						}
 					}
 				} else if (ltnd.equals("day")) {
-					if ((documentTypeNews || documentTypeColloquial || documentTypeScientific) && dctAvailable) {
+					if (useDct) {
 						// TODO tense should be included?!
-						int diff = (-1) * (dct.dctWeekday - newWeekdayInt);
-						if (diff >= 0) {
-							diff = diff - 7;
-						}
-						if (diff == -7) {
-							diff = 0;
-						}
+						int diff = -(dct.dctWeekday - newWeekdayInt);
+						diff = (diff > 0) ? diff - 7 : diff;
 						// Tense is FUTURE
 						if ((last_used_tense.equals("FUTURE")) && diff != 0) {
-							diff = diff + 7;
+							diff += 7;
 						}
 						// Tense is PAST
 						if ((last_used_tense.equals("PAST"))) {
@@ -1298,13 +1033,8 @@ class ResolveAmbiguousValues {
 							valueNew = valueNew.replace(checkUndef, "XXXX-XX-XX");
 						} else {
 							int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
-							int diff = (-1) * (lmWeekdayInt - newWeekdayInt);
-							if (diff >= 0) {
-								diff = diff - 7;
-							}
-							if (diff == -7) {
-								diff = 0;
-							}
+							int diff = -(lmWeekdayInt - newWeekdayInt);
+							diff = (diff > 0) ? diff - 7 : diff;
 							valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(lmDay, diff));
 						}
 					}
@@ -1349,15 +1079,13 @@ class ResolveAmbiguousValues {
 				valueNew = specifyAmbiguousValuesString(value_i, t_i, i, linearDates, jcas);
 
 			// handle the emptyValue attribute for any type
-			if (t_i.getEmptyValue() != null && t_i.getEmptyValue().length() > 0) {
-				String emptyValueNew = specifyAmbiguousValuesString(t_i.getEmptyValue(), t_i, i, linearDates, jcas);
-				t_i.setEmptyValue(emptyValueNew);
-			}
+			if (t_i.getEmptyValue() != null && t_i.getEmptyValue().length() > 0)
+				t_i.setEmptyValue(specifyAmbiguousValuesString(t_i.getEmptyValue(), t_i, i, linearDates, jcas));
 
 			t_i.removeFromIndexes();
 			if (LOG.isDebugEnabled())
-				LOG.debug("{} DISAMBIGUATION PHASE: foundBy: {} text: {} value: {} NEW value: {} ", t_i.getTimexId(), t_i.getFoundByRule(), t_i.getCoveredText(),
-						t_i.getTimexValue(), valueNew);
+				LOG.debug("{} DISAMBIGUATION PHASE: foundBy: {} text: {} value: {} NEW value: {} ", //
+						t_i.getTimexId(), t_i.getFoundByRule(), t_i.getCoveredText(), t_i.getTimexValue(), valueNew);
 
 			t_i.setTimexValue(valueNew);
 			t_i.addToIndexes();
@@ -1374,7 +1102,7 @@ class ResolveAmbiguousValues {
 	public static boolean isValidDCT(JCas jcas) {
 		AnnotationIndex<Dct> dcts = jcas.getAnnotationIndex(Dct.type);
 		FSIterator<Dct> dctIter = dcts.iterator();
-	
+
 		if (!dctIter.hasNext())
 			return true;
 		String dctVal = dctIter.next().getValue();
