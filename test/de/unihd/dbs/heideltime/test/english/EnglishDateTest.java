@@ -669,4 +669,11 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 		testSingleCase("Okay: (2016).", //
 				new String[] { "date_r12a", "2016", "2016" });
 	}
+	
+	@Test
+	public void testNextQuarter() {
+		testSingleCase("November 2015, 1 quarter later",
+				new String[] { "date_r7a", "November 2015", "2015-11"},
+				new String[] { "date_r20c", "1 quarter later", "2016-Q1"});
+	}
 }

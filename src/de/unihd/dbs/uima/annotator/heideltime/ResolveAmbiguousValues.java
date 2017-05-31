@@ -451,38 +451,20 @@ class ResolveAmbiguousValues {
 							String lmYear = ContextAnalyzer.getLastMentionedYear(linearDates, i);
 							valueNew = valueNew.replace(checkUndef, lmYear.isEmpty() ? "XXXX" : DateCalculator.getXNextYear(lmYear, sdiff));
 						}
-						// TODO BC years
 					} else if (unit.equals("quarter")) {
+						// TODO BC years
 						if (useDct && ltn.equals("this")) {
-							int intYear = dct.dctYear;
-							int intQuarter = Integer.parseInt(dct.dctQuarter.substring(1));
-							int diffQuarters = diff % 4;
-							diff = diff - diffQuarters;
-							int diffYears = diff / 4;
-							if (!positive) {
-								diffQuarters = -diffQuarters;
-								diffYears = -diffYears;
-							}
-							intYear = intYear + diffYears;
-							intQuarter = intQuarter + diffQuarters;
-							valueNew = valueNew.replace(checkUndef, intYear + "-Q" + intQuarter);
+							// Use quarters, 0 to 3, for computation.
+							int quarters = (dct.dctYear << 2) + Integer.parseInt(dct.dctQuarter.substring(1)) - 1 + diff;
+							valueNew = valueNew.replace(checkUndef, (quarters >> 2) + "-Q" + ((quarters & 0x3) + 1));
 						} else {
 							String lmQuarter = ContextAnalyzer.getLastMentionedQuarter(linearDates, i, language);
 							if (lmQuarter.length() == 0) {
 								valueNew = valueNew.replace(checkUndef, "XXXX-XX");
 							} else {
-								int intYear = Integer.parseInt(lmQuarter.substring(0, 4));
-								int intQuarter = Integer.parseInt(lmQuarter.substring(6));
-								int diffQuarters = diff % 4;
-								diff = diff - diffQuarters;
-								int diffYears = diff / 4;
-								if (!positive) {
-									diffQuarters = -diffQuarters;
-									diffYears = -diffYears;
-								}
-								intYear = intYear + diffYears;
-								intQuarter = intQuarter + diffQuarters;
-								valueNew = valueNew.replace(checkUndef, intYear + "-Q" + intQuarter);
+								// Use quarters, 0 to 3, for computation.
+								int quarters = (Integer.parseInt(lmQuarter.substring(0, 4)) << 2) + Integer.parseInt(lmQuarter.substring(6)) - 1 + diff;
+								valueNew = valueNew.replace(checkUndef, (quarters >> 2) + "-Q" + ((quarters & 0x3) + 1));
 							}
 						}
 					} else if (unit.equals("month")) {
@@ -724,8 +706,7 @@ class ResolveAmbiguousValues {
 					if (dct.dctQuarter.equals("Q4")) {
 						valueNew = valueNew.replace(checkUndef, dct.dctYear + 1 + "-Q1");
 					} else {
-						int newQuarter = Integer.parseInt(dct.dctQuarter.substring(1, 2)) + 1;
-						valueNew = valueNew.replace(checkUndef, dct.dctYear + "-Q" + newQuarter);
+						valueNew = valueNew.replace(checkUndef, dct.dctYear + "-Q" + (Integer.parseInt(dct.dctQuarter.substring(1, 2)) + 1));
 					}
 				} else {
 					String lmQuarter = ContextAnalyzer.getLastMentionedQuarter(linearDates, i, language);
@@ -737,8 +718,7 @@ class ResolveAmbiguousValues {
 						if (lmQuarterOnly == 4) {
 							valueNew = valueNew.replace(checkUndef, lmYearOnly + 1 + "-Q1");
 						} else {
-							int newQuarter = lmQuarterOnly + 1;
-							valueNew = valueNew.replace(checkUndef, lmYearOnly + "-Q" + newQuarter);
+							valueNew = valueNew.replace(checkUndef, lmYearOnly + "-Q" + (lmQuarterOnly + 1));
 						}
 					}
 				}
