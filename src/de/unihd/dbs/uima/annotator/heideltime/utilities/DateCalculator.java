@@ -198,6 +198,23 @@ public class DateCalculator {
 	}
 
 	/**
+	 * Get the weekday of date
+	 * 
+	 * Important: with the switch to Java 8, sunday became 7 rather than 1!
+	 * 
+	 * @param year
+	 *                Year
+	 * @param month
+	 *                Month
+	 * @param day
+	 *                Day of Month
+	 * @return day of week
+	 */
+	public static int getWeekdayOfDate(int year, int month, int day) {
+		return LocalDate.of(year, month, day).getDayOfWeek().getValue();
+	}
+
+	/**
 	 * Get the week of date
 	 * 
 	 * @param date
@@ -211,5 +228,53 @@ public class DateCalculator {
 			LOG.error(e.getMessage(), e);
 			return 0;
 		}
+	}
+
+	/**
+	 * Get the week of date
+	 * 
+	 * @param year
+	 *                Year
+	 * @param month
+	 *                Month
+	 * @param day
+	 *                Day of Month
+	 * @return week of year
+	 */
+	public static int getWeekOfDate(int year, int month, int day) {
+		return LocalDate.of(year, month, day).get(WeekFields.ISO.weekOfWeekBasedYear());
+	}
+
+	/**
+	 * Get the quarter of the year, as string.
+	 * 
+	 * @param dctMonth
+	 *                Month
+	 * @return Quarter
+	 */
+	public static String getQuarterOfMonth(int dctMonth) {
+		return dctMonth <= 3 ? "Q1" : dctMonth <= 6 ? "Q2" : dctMonth <= 9 ? "Q3" : "Q4";
+	}
+
+	/**
+	 * Get the half year, as string
+	 * 
+	 * @param dctMonth
+	 *                Month
+	 * @return Half year
+	 */
+	public static String getHalfYearOfMonth(int dctMonth) {
+		return (dctMonth <= 6) ? "H1" : "H2";
+	}
+
+	/**
+	 * Get the season of a month, as string
+	 * 
+	 * @param dctMonth
+	 *                Month
+	 * @return Season
+	 */
+	public static String getSeasonOfMonth(int dctMonth) {
+		return dctMonth <= 2 ? "WI" : dctMonth <= 5 ? "SP" : dctMonth <= 8 ? "SU" : dctMonth <= 11 ? "FA" : "WI";
 	}
 }
