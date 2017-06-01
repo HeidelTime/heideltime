@@ -78,7 +78,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	// supported types (2012-05-19): news (english, german, dutch), narrative
 	// (english, german, dutch), colloquial
 	private Language language = Language.ENGLISH;
-	private String typeToProcess = "news";
+	private DocumentType typeToProcess = DocumentType.NEWS;
 
 	// INPUT PARAMETER HANDLING WITH UIMA (which types shall be extracted)
 	private String PARAM_DATE = "Date";
@@ -138,7 +138,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		//////////////////////////////////
 		language = Language.getLanguageFromString((String) aContext.getConfigParameterValue(PARAM_LANGUAGE));
 
-		typeToProcess = (String) aContext.getConfigParameterValue(PARAM_TYPE_TO_PROCESS);
+		typeToProcess = DocumentType.of((String) aContext.getConfigParameterValue(PARAM_TYPE_TO_PROCESS));
 		find_dates = (Boolean) aContext.getConfigParameterValue(PARAM_DATE);
 		find_times = (Boolean) aContext.getConfigParameterValue(PARAM_TIME);
 		find_durations = (Boolean) aContext.getConfigParameterValue(PARAM_DURATION);
@@ -180,7 +180,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			LOG.debug("Getting Sets...");
 		if (find_temponyms)
 			LOG.debug("Getting Temponyms...");
-		
+
 		if (resolver == null)
 			resolver = new ResolveAmbiguousValues();
 		resolver.init(language, find_temponyms, typeToProcess);
@@ -207,8 +207,6 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		timex_counter = 0;
 
 		boolean flagHistoricDates = false;
-
-		boolean documentTypeNarrative = typeToProcess.equals("narrative") || typeToProcess.equals("narratives");
 
 		////////////////////////////////////////////
 		// CHECK SENTENCE BY SENTENCE FOR TIMEXES //
@@ -238,14 +236,13 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				/*
 				 * check for historic dates/times starting with BC to check if post-processing step is required
 				 */
-				if (documentTypeNarrative) {
+				if (typeToProcess == DocumentType.NARRATIVE) {
 					AnnotationIndex<Timex3> dates = jcas.getAnnotationIndex(Timex3.type);
-					for (Timex3 t : dates) {
+					for (Timex3 t : dates)
 						if (t.getTimexValue().startsWith("BC")) {
 							flagHistoricDates = true;
 							break;
 						}
-					}
 				}
 
 				if (find_sets)

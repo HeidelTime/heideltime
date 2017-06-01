@@ -95,27 +95,20 @@ class ResolveAmbiguousValues {
 		}
 	}
 
-	boolean documentTypeNews, documentTypeNarrative, documentTypeColloquial, documentTypeScientific;
-
 	NormalizationManager norm;
 
 	Language language;
 
+	private DocumentType documentType;
+
 	private static final Pattern VALID_DCT = Pattern.compile("\\d{4}.\\d{2}.\\d{2}|\\d{8}");
 
-	public void init(Language language, boolean find_temponyms, String typeToProcess) {
+	public void init(Language language, boolean find_temponyms, DocumentType typeToProcess) {
 		if (this.language != language) {
 			this.language = language;
 			norm = NormalizationManager.getInstance(language, find_temponyms);
 		}
-
-		// ////////////////////////////
-		// DOCUMENT TYPE TO PROCESS //
-		// //////////////////////////
-		documentTypeNews = typeToProcess.equals("news");
-		documentTypeNarrative = typeToProcess.equals("narrative") || typeToProcess.equals("narratives");
-		documentTypeColloquial = typeToProcess.equals("colloquial");
-		documentTypeScientific = typeToProcess.equals("scientific");
+		this.documentType = typeToProcess;
 	}
 
 	public String specifyAmbiguousValuesString(String ambigString, Timex3 t_i, int i, List<Timex3> linearDates, JCas jcas) {
@@ -205,7 +198,7 @@ class ResolveAmbiguousValues {
 		// DISAMBIGUATION PHASE //
 		//////////////////////////
 
-		final boolean useDct = dctAvailable && (documentTypeNews || documentTypeColloquial || documentTypeScientific);
+		final boolean useDct = dctAvailable && (documentType != DocumentType.NARRATIVE);
 		////////////////////////////////////////////////////
 		// IF YEAR IS COMPLETELY UNSPECIFIED (UNDEF-year) //
 		////////////////////////////////////////////////////
@@ -250,7 +243,7 @@ class ResolveAmbiguousValues {
 					}
 					// IF NO TENSE IS FOUND
 					if (last_used_tense.length() == 0) {
-						if (documentTypeColloquial) {
+						if (documentType == DocumentType.COLLOQUIAL) {
 							// IN COLLOQUIAL: future temporal expressions
 							if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1)))
 								newYearValue = Integer.toString(dct.dctYear + 1);
@@ -285,7 +278,7 @@ class ResolveAmbiguousValues {
 						if (Integer.parseInt(dct.dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1)))
 							// IN COLLOQUIAL: future temporal expressions
 							// IN NEWS: past temporal expressions
-							newYearValue = Integer.toString(dct.dctYear + (documentTypeColloquial ? 1 : -1));
+							newYearValue = Integer.toString(dct.dctYear + (documentType == DocumentType.COLLOQUIAL ? 1 : -1));
 					}
 				}
 				// WITHOUT DOCUMENT CREATION TIME
@@ -356,10 +349,10 @@ class ResolveAmbiguousValues {
 					// if no other century was mentioned before, 1st century
 					// Otherwise, assume that sixties, twenties, and so on
 					// are 19XX if no century found (LREC change)
-							documentTypeNarrative ? "00" : "19");
+						documentType == DocumentType.NARRATIVE ? "00" : "19");
 			// always assume that sixties, twenties, and so on are 19XX -- if
 			// not narrative document (LREC change)
-			if (valueNew.matches("\\d\\d\\d") && !documentTypeNarrative)
+			if (valueNew.matches("\\d\\d\\d") && documentType != DocumentType.NARRATIVE)
 				valueNew = "19" + valueNew.substring(2);
 		}
 
@@ -396,7 +389,7 @@ class ResolveAmbiguousValues {
 
 				// do the processing for SCIENTIFIC documents (TPZ
 				// identification could be improved)
-				if (documentTypeScientific) {
+				if (documentType == DocumentType.SCIENTIFIC) {
 					char opSymbol = positive ? '+' : '-';
 					if (unit.equals("year")) {
 						valueNew = String.format(Locale.ROOT, "TPZ%c%04d", opSymbol, diff);

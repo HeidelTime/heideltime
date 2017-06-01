@@ -8,10 +8,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import de.unihd.dbs.heideltime.standalone.Config;
-import de.unihd.dbs.heideltime.standalone.DocumentType;
 import de.unihd.dbs.heideltime.standalone.HeidelTimeStandalone;
 import de.unihd.dbs.heideltime.standalone.components.impl.JCasFactoryImpl;
 import de.unihd.dbs.heideltime.standalone.components.impl.UimaContextImpl;
+import de.unihd.dbs.uima.annotator.heideltime.DocumentType;
 import de.unihd.dbs.uima.annotator.heideltime.HeidelTime;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 
@@ -25,7 +25,7 @@ public class EnglishDateHistoricTest extends AbstractHeideltimeTest {
 					UIMAFramework.getXMLParser().parseTypeSystemDescription(new XMLInputSource(this.getClass().getClassLoader().getResource(Config.get(Config.TYPESYSTEMHOME)))) };
 			jcasFactory = new JCasFactoryImpl(descriptions);
 			heideltime = new HeidelTime();
-			heideltime.initialize(new UimaContextImpl(Language.ENGLISH, DocumentType.NARRATIVES, false));
+			heideltime.initialize(new UimaContextImpl(Language.ENGLISH, DocumentType.NARRATIVE, false));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

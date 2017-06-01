@@ -51,6 +51,7 @@ import de.unihd.dbs.heideltime.standalone.components.impl.TreeTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.UimaContextImpl;
 import de.unihd.dbs.heideltime.standalone.components.impl.XMIResultFormatter;
 import de.unihd.dbs.heideltime.standalone.exceptions.DocumentCreationTimeMissingException;
+import de.unihd.dbs.uima.annotator.heideltime.DocumentType;
 import de.unihd.dbs.uima.annotator.heideltime.HeidelTime;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.ResourceScanner;

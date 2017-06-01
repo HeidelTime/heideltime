@@ -15,10 +15,10 @@ import org.apache.uima.util.XMLInputSource;
 import org.junit.Before;
 
 import de.unihd.dbs.heideltime.standalone.Config;
-import de.unihd.dbs.heideltime.standalone.DocumentType;
 import de.unihd.dbs.heideltime.standalone.HeidelTimeStandalone;
 import de.unihd.dbs.heideltime.standalone.components.impl.JCasFactoryImpl;
 import de.unihd.dbs.heideltime.standalone.components.impl.UimaContextImpl;
+import de.unihd.dbs.uima.annotator.heideltime.DocumentType;
 import de.unihd.dbs.uima.annotator.heideltime.HeidelTime;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
