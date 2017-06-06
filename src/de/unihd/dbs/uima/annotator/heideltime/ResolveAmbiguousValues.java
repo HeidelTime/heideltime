@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.ContextAnalyzer;
+import de.unihd.dbs.uima.annotator.heideltime.utilities.ContextAnalyzer.Tense;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.DateCalculator;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.Season;
 import de.unihd.dbs.uima.types.heideltime.Dct;
@@ -189,7 +190,7 @@ class ResolveAmbiguousValues {
 		}
 		// get the last tense (depending on the part of speech tags used in front
 		// or behind the expression)
-		String last_used_tense = ContextAnalyzer.getLastTense(t_i, jcas, language);
+		Tense last_used_tense = ContextAnalyzer.getLastTense(t_i, jcas, language);
 
 		//////////////////////////
 		// DISAMBIGUATION PHASE //
@@ -207,13 +208,13 @@ class ResolveAmbiguousValues {
 				// WITH DOCUMENT CREATION TIME
 				if (useDct) {
 					// Tense is FUTURE
-					if (last_used_tense.equals("FUTURE") || last_used_tense.equals("PRESENTFUTURE")) {
+					if (last_used_tense == Tense.FUTURE || last_used_tense== Tense.PRESENTFUTURE) {
 						// if dct-month is larger than vi-month, then add 1 to dct-year
 						if (dct.dctMonth > viThisMonth)
 							newYearValue = Integer.toString(dct.dctYear + 1);
 					}
 					// Tense is PAST
-					if (last_used_tense.equals("PAST")) {
+					if (last_used_tense == Tense.PAST) {
 						// if dct-month is smaller than vi month, then subtract 1 from dct-year
 						if (dct.dctMonth < viThisMonth)
 							newYearValue = Integer.toString(dct.dctYear - 1);
@@ -229,17 +230,17 @@ class ResolveAmbiguousValues {
 				// WITH DOCUMENT CREATION TIME
 				if (useDct) {
 					// Tense is FUTURE
-					if (last_used_tense.equals("FUTURE") || last_used_tense.equals("PRESENTFUTURE")) {
+					if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
 						if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1)))
 							newYearValue = Integer.toString(dct.dctYear + 1);
 					}
 					// Tense is PAST
-					if (last_used_tense.equals("PAST")) {
+					if (last_used_tense == Tense.PAST) {
 						if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1)))
 							newYearValue = Integer.toString(dct.dctYear - 1);
 					}
 					// IF NO TENSE IS FOUND
-					if (last_used_tense.length() == 0) {
+					if (last_used_tense == null) {
 						if (documentType == DocumentType.COLLOQUIAL) {
 							// IN COLLOQUIAL: future temporal expressions
 							if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1)))
@@ -261,17 +262,17 @@ class ResolveAmbiguousValues {
 				// WITH DOCUMENT CREATION TIME
 				if (useDct) {
 					// Tense is FUTURE
-					if (last_used_tense.equals("FUTURE") || last_used_tense.equals("PRESENTFUTURE")) {
+					if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
 						if (Integer.parseInt(dct.dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1)))
 							newYearValue = Integer.toString(dct.dctYear + 1);
 					}
 					// Tense is PAST
-					if (last_used_tense.equals("PAST")) {
+					if (last_used_tense == Tense.PAST) {
 						if (Integer.parseInt(dct.dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1)))
 							newYearValue = Integer.toString(dct.dctYear - 1);
 					}
 					// IF NO TENSE IS FOUND
-					if (last_used_tense.length() == 0) {
+					if (last_used_tense == null) {
 						if (Integer.parseInt(dct.dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1)))
 							// IN COLLOQUIAL: future temporal expressions
 							// IN NEWS: past temporal expressions
@@ -313,7 +314,7 @@ class ResolveAmbiguousValues {
 				newCenturyValue = Integer.toString(dct.dctCentury);
 
 				// Tense is FUTURE
-				if (last_used_tense.equals("FUTURE") || last_used_tense.equals("PRESENTFUTURE")) {
+				if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
 					if (viThisDecade < dct.dctDecade) {
 						newCenturyValue = Integer.toString(dct.dctCentury + 1);
 					} else {
@@ -321,7 +322,7 @@ class ResolveAmbiguousValues {
 					}
 				}
 				// Tense is PAST
-				if (last_used_tense.equals("PAST")) {
+				if (last_used_tense == Tense.PAST) {
 					if (dct.dctDecade < viThisDecade) {
 						newCenturyValue = Integer.toString(dct.dctCentury - 1);
 					} else {
@@ -988,11 +989,11 @@ class ResolveAmbiguousValues {
 						int diff = -(dct.dctWeekday - newWeekdayInt);
 						diff = (diff > 0) ? diff - 7 : diff;
 						// Tense is FUTURE
-						if ((last_used_tense.equals("FUTURE")) && diff != 0) {
+						if ((last_used_tense == Tense.FUTURE) && diff != 0) {
 							diff += 7;
 						}
 						// Tense is PAST
-						if ((last_used_tense.equals("PAST"))) {
+						if ((last_used_tense == Tense.PAST)) {
 
 						}
 						valueNew = valueNew.replace(checkUndef, DateCalculator.getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff));
