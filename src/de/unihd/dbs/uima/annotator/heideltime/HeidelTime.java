@@ -194,9 +194,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 	 * @see JCasAnnotator_ImplBase#process(JCas)
 	 */
 	public void process(JCas jcas) {
-		// check whether a given DCT (if any) is of the correct format and if not,
-		// skip this call
-		if (!ResolveAmbiguousValues.isValidDCT(jcas)) {
+		// check whether a given DCT (if any) is of the correct format and if not,skip this call
+		if (!ResolveAmbiguousValues.ParsedDct.isValidDCT(jcas)) {
 			LOG.error("The reader component of this workflow has set an incorrect DCT." + " HeidelTime expects either \"YYYYMMDD\" or \"YYYY-MM-DD...\". This document was skipped.");
 			return;
 		}
