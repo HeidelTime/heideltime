@@ -673,215 +673,235 @@ class ResolveAmbiguousValues {
 					}
 				}
 			}
-
 			// MONTH NAMES
-			else if ((m = UNDEF_MONTH.matcher(ambigString)).matches()) {
-				String ltn = m.group(1);
-				String newMonth = norm.getFromNormMonthName(m.group(2));
-				int newMonthInt = parseInt(newMonth);
-				String daystr = m.group(4);
-				int day = (daystr != null && daystr.length() > 0) ? parseInt(daystr) : 0;
-				if (ltn.equals("last")) {
-					if (dct != null) {
-						int newYear = dct.dctYear;
-						// check day if dct-month and newMonth are equal
-						if (dct.dctMonth == newMonthInt) {
-							if (day != 0 && dct.dctDay <= day)
-								--newYear;
-						} else if (dct.dctMonth <= newMonthInt)
-							--newYear;
-						valueNew.replace(0, m.end(), newYear + "-" + newMonth);
-					} else {
-						String lmMonth = ContextAnalyzer.getLastMentionedMonthDetails(linearDates, i);
-						if (lmMonth.length() == 0) {
-							valueNew.replace(0, m.end(), "XXXX-XX");
-						} else {
-							int lmMonthInt = parseInt(lmMonth, 5, 7);
-							//
-							int lmDayInt = 0;
-							if (lmMonth.length() > 9 && TWO_DIGITS.matcher(lmMonth.subSequence(8, 10)).matches())
-								lmDayInt = parseInt(lmMonth, 8, 10);
-							int newYear = parseInt(lmMonth, 0, 4);
-							if (lmMonthInt == newMonthInt) {
-								if (lmDayInt != 0 && day != 0 && lmDayInt <= day)
-									--newYear;
-							} else if (lmMonthInt <= newMonthInt)
-								--newYear;
-							valueNew.replace(0, m.end(), newYear + "-" + newMonth);
-						}
-					}
-				} else if (ltn.equals("this")) {
-					if (dct != null) {
-						valueNew.replace(0, m.end(), dct.dctYear + "-" + newMonth);
-					} else {
-						String lmMonth = ContextAnalyzer.getLastMentionedMonthDetails(linearDates, i);
-						valueNew.replace(0, m.end(), lmMonth.isEmpty() ? "XXXX-XX" : lmMonth.substring(0, 4) + "-" + newMonth);
-					}
-				} else if (ltn.equals("next")) {
-					if (dct != null) {
-						int newYear = dct.dctYear;
-						// check day if dct-month and newMonth are equal
-						if (dct.dctMonth == newMonthInt) {
-							if (day != 0 && dct.dctDay >= day)
-								++newYear;
-						} else if (dct.dctMonth >= newMonthInt)
-							++newYear;
-						valueNew.replace(0, m.end(), newYear + "-" + newMonth);
-					} else {
-						String lmMonth = ContextAnalyzer.getLastMentionedMonthDetails(linearDates, i);
-						if (lmMonth.length() == 0) {
-							valueNew.replace(0, m.end(), "XXXX-XX");
-						} else {
-							int lmMonthInt = parseInt(lmMonth, 5, 7);
-							int newYear = parseInt(lmMonth, 0, 4);
-							if (lmMonthInt >= newMonthInt)
-								++newYear;
-							valueNew.replace(0, m.end(), newYear + "-" + newMonth);
-						}
-					}
-				}
+			else if (handleUndefMonth(ambigString, valueNew, linearDates, i, dct)) {
+				// Resolved undefined month.
 			}
-
 			// SEASONS NAMES
-			else if ((m = UNDEF_SEASON.matcher(ambigString)).matches()) {
-				String checkUndef = m.group(1);
-				String ltn = m.group(2);
-				Season newSeason = Season.of(ambigString, m.start(3));
-				if (ltn.equals("last")) {
-					if (dct != null) {
-						int newYear = dct.dctYear - (newSeason.ord() < dct.dctSeason.ord() //
-								|| (dct.dctSeason == Season.WINTER && dct.dctMonth < 12) //
-										? 1 : 0);
-						replace(valueNew, checkUndef, newYear + "-" + newSeason);
-					} else { // NARRATVIE DOCUMENT
-						String lmSeason = ContextAnalyzer.getLastMentionedSeason(linearDates, i, language);
-						if (lmSeason == null || lmSeason.length() == 0) {
-							replace(valueNew, checkUndef, "XXXX-XX");
-						} else {
-							Season se = Season.of(lmSeason, 5);
-							int newYear = parseInt(lmSeason, 0, 4) //
-									- (newSeason.ord() < se.ord() ? 1 : 0);
-							replace(valueNew, checkUndef, newYear + "-" + newSeason);
-						}
-					}
-				} else if (ltn.equals("this")) {
-					if (dct != null) {
-						// TODO use tense of sentence?
-						replace(valueNew, checkUndef, dct.dctYear + "-" + newSeason);
-					} else {
-						// TODO use tense of sentence?
-						String lmSeason = ContextAnalyzer.getLastMentionedSeason(linearDates, i, language);
-						replace(valueNew, checkUndef, lmSeason.isEmpty() ? "XXXX-XX" : (lmSeason.substring(0, 4) + "-" + newSeason));
-					}
-				} else if (ltn.equals("next")) {
-					if (dct != null) {
-						int newYear = dct.dctYear + (newSeason.ord() <= dct.dctSeason.ord() ? 1 : 0);
-						replace(valueNew, checkUndef, newYear + "-" + newSeason);
-					} else { // NARRATIVE DOCUMENT
-						String lmSeason = ContextAnalyzer.getLastMentionedSeason(linearDates, i, language);
-						if (lmSeason.length() == 0) {
-							replace(valueNew, checkUndef, "XXXX-XX");
-						} else {
-							Season se = Season.of(lmSeason, 5);
-							int newYear = parseInt(lmSeason, 0, 4) //
-									+ (newSeason.ord() <= se.ord() ? 1 : 0);
-							replace(valueNew, checkUndef, newYear + "-" + newSeason);
-						}
-					}
-				}
+			else if (handleUndefSeason(ambigString, valueNew, linearDates, i, dct)) {
+				// Resolved undefined season.
 			}
-
 			// WEEKDAY NAMES
-			// TODO the calculation is strange, but works
-			// TODO tense should be included?!
-			else if ((m = UNDEF_WEEKDAY.matcher(ambigString)).matches()) {
-				String checkUndef = m.group(1);
-				String ltnd = m.group(2);
-				String newWeekday = m.group(3);
-				int newWeekdayInt = parseInt(norm.getFromNormDayInWeek(newWeekday));
-				if (ltnd.equals("last")) {
-					if (dct != null) {
-						int diff = -(dct.dctWeekday - newWeekdayInt);
-						diff = (diff >= 0) ? diff - 7 : diff;
-						replace(valueNew, checkUndef, DateCalculator.getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff));
-					} else {
-						String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
-						if (lmDay.length() == 0) {
-							replace(valueNew, checkUndef, "XXXX-XX-XX");
-						} else {
-							int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
-							int diff = -(lmWeekdayInt - newWeekdayInt);
-							diff = (diff >= 0) ? diff - 7 : diff;
-							replace(valueNew, checkUndef, DateCalculator.getXNextDay(lmDay, diff));
-						}
-					}
-				} else if (ltnd.equals("this")) {
-					if (dct != null) {
-						// TODO tense should be included?!
-						int diff = -(dct.dctWeekday - newWeekdayInt);
-						diff = (diff > 0) ? diff - 7 : diff;
-						replace(valueNew, checkUndef, DateCalculator.getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff));
-					} else {
-						// TODO tense should be included?!
-						String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
-						if (lmDay.length() == 0) {
-							replace(valueNew, checkUndef, "XXXX-XX-XX");
-						} else {
-							int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
-							int diff = (-1) * (lmWeekdayInt - newWeekdayInt);
-							diff = (diff > 0) ? diff - 7 : diff;
-							replace(valueNew, checkUndef, DateCalculator.getXNextDay(lmDay, diff));
-						}
-					}
-				} else if (ltnd.equals("next")) {
-					if (dct != null) {
-						int diff = newWeekdayInt - dct.dctWeekday;
-						diff = (diff <= 0) ? diff + 7 : diff;
-						replace(valueNew, checkUndef, DateCalculator.getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff));
-					} else {
-						String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
-						if (lmDay.length() == 0) {
-							replace(valueNew, checkUndef, "XXXX-XX-XX");
-						} else {
-							int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
-							int diff = newWeekdayInt - lmWeekdayInt;
-							diff = (diff <= 0) ? diff + 7 : diff;
-							replace(valueNew, checkUndef, DateCalculator.getXNextDay(lmDay, diff));
-						}
-					}
-				} else if (ltnd.equals("day")) {
-					if (dct != null) {
-						// TODO tense should be included?!
-						int diff = -(dct.dctWeekday - newWeekdayInt);
-						diff = (diff > 0) ? diff - 7 : diff;
-						// Tense is FUTURE
-						if ((last_used_tense == Tense.FUTURE) && diff != 0) {
-							diff += 7;
-						}
-						// Tense is PAST
-						if ((last_used_tense == Tense.PAST)) {
-
-						}
-						replace(valueNew, checkUndef, DateCalculator.getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff));
-					} else {
-						// TODO tense should be included?!
-						String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
-						if (lmDay.length() == 0) {
-							replace(valueNew, checkUndef, "XXXX-XX-XX");
-						} else {
-							int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
-							int diff = -(lmWeekdayInt - newWeekdayInt);
-							diff = (diff > 0) ? diff - 7 : diff;
-							replace(valueNew, checkUndef, DateCalculator.getXNextDay(lmDay, diff));
-						}
-					}
-				}
+			else if (handleUndefWeekday(ambigString, valueNew, linearDates, i, dct, last_used_tense)) {
+				// Resolved undefined weekday.
 			} else {
 				LOG.debug("ATTENTION: UNDEF value for: {} is not handled in disambiguation phase!", valueNew);
 			}
 		}
 
 		return valueNew.toString();
+	}
+
+	private boolean handleUndefMonth(String ambigString, StringBuilder valueNew, List<Timex3> linearDates, int i, ParsedDct dct) {
+		Matcher m = UNDEF_MONTH.matcher(ambigString);
+		if (!m.matches())
+			return false;
+		String ltn = m.group(1);
+		String newMonth = norm.getFromNormMonthName(m.group(2));
+		int newMonthInt = parseInt(newMonth);
+		String daystr = m.group(4);
+		int day = (daystr != null && daystr.length() > 0) ? parseInt(daystr) : 0;
+		if (ltn.equals("last")) {
+			if (dct != null) {
+				int newYear = dct.dctYear;
+				// check day if dct-month and newMonth are equal
+				if (dct.dctMonth == newMonthInt) {
+					if (day != 0 && dct.dctDay <= day)
+						--newYear;
+				} else if (dct.dctMonth <= newMonthInt)
+					--newYear;
+				valueNew.replace(0, m.end(), newYear + "-" + newMonth);
+			} else {
+				String lmMonth = ContextAnalyzer.getLastMentionedMonthDetails(linearDates, i);
+				if (lmMonth.length() == 0) {
+					valueNew.replace(0, m.end(), "XXXX-XX");
+				} else {
+					int lmMonthInt = parseInt(lmMonth, 5, 7);
+					//
+					int lmDayInt = 0;
+					if (lmMonth.length() > 9 && TWO_DIGITS.matcher(lmMonth.subSequence(8, 10)).matches())
+						lmDayInt = parseInt(lmMonth, 8, 10);
+					int newYear = parseInt(lmMonth, 0, 4);
+					if (lmMonthInt == newMonthInt) {
+						if (lmDayInt != 0 && day != 0 && lmDayInt <= day)
+							--newYear;
+					} else if (lmMonthInt <= newMonthInt)
+						--newYear;
+					valueNew.replace(0, m.end(), newYear + "-" + newMonth);
+				}
+			}
+		} else if (ltn.equals("this")) {
+			if (dct != null) {
+				valueNew.replace(0, m.end(), dct.dctYear + "-" + newMonth);
+			} else {
+				String lmMonth = ContextAnalyzer.getLastMentionedMonthDetails(linearDates, i);
+				valueNew.replace(0, m.end(), lmMonth.isEmpty() ? "XXXX-XX" : lmMonth.substring(0, 4) + "-" + newMonth);
+			}
+		} else if (ltn.equals("next")) {
+			if (dct != null) {
+				int newYear = dct.dctYear;
+				// check day if dct-month and newMonth are equal
+				if (dct.dctMonth == newMonthInt) {
+					if (day != 0 && dct.dctDay >= day)
+						++newYear;
+				} else if (dct.dctMonth >= newMonthInt)
+					++newYear;
+				valueNew.replace(0, m.end(), newYear + "-" + newMonth);
+			} else {
+				String lmMonth = ContextAnalyzer.getLastMentionedMonthDetails(linearDates, i);
+				if (lmMonth.length() == 0) {
+					valueNew.replace(0, m.end(), "XXXX-XX");
+				} else {
+					int newYear = parseInt(lmMonth, 0, 4), lmMonthInt = parseInt(lmMonth, 5, 7);
+					if (lmMonthInt >= newMonthInt)
+						++newYear;
+					valueNew.replace(0, m.end(), newYear + "-" + newMonth);
+				}
+			}
+		}
+		return true;
+	}
+
+	private boolean handleUndefSeason(String ambigString, StringBuilder valueNew, List<Timex3> linearDates, int i, ParsedDct dct) {
+		Matcher m = UNDEF_SEASON.matcher(ambigString);
+		if (!m.matches())
+			return false;
+		String checkUndef = m.group(1);
+		String ltn = m.group(2);
+		Season newSeason = Season.of(ambigString, m.start(3));
+		if (ltn.equals("last")) {
+			if (dct != null) {
+				int newYear = dct.dctYear - (newSeason.ord() < dct.dctSeason.ord() //
+						|| (dct.dctSeason == Season.WINTER && dct.dctMonth < 12) //
+								? 1 : 0);
+				replace(valueNew, checkUndef, newYear + "-" + newSeason);
+			} else { // NARRATVIE DOCUMENT
+				String lmSeason = ContextAnalyzer.getLastMentionedSeason(linearDates, i, language);
+				if (lmSeason == null || lmSeason.length() == 0) {
+					replace(valueNew, checkUndef, "XXXX-XX");
+				} else {
+					Season se = Season.of(lmSeason, 5);
+					int newYear = parseInt(lmSeason, 0, 4) //
+							- (newSeason.ord() < se.ord() ? 1 : 0);
+					replace(valueNew, checkUndef, newYear + "-" + newSeason);
+				}
+			}
+		} else if (ltn.equals("this")) {
+			if (dct != null) {
+				// TODO use tense of sentence?
+				replace(valueNew, checkUndef, dct.dctYear + "-" + newSeason);
+			} else {
+				// TODO use tense of sentence?
+				String lmSeason = ContextAnalyzer.getLastMentionedSeason(linearDates, i, language);
+				replace(valueNew, checkUndef, lmSeason.isEmpty() ? "XXXX-XX" : (lmSeason.substring(0, 4) + "-" + newSeason));
+			}
+		} else if (ltn.equals("next")) {
+			if (dct != null) {
+				int newYear = dct.dctYear + (newSeason.ord() <= dct.dctSeason.ord() ? 1 : 0);
+				replace(valueNew, checkUndef, newYear + "-" + newSeason);
+			} else { // NARRATIVE DOCUMENT
+				String lmSeason = ContextAnalyzer.getLastMentionedSeason(linearDates, i, language);
+				if (lmSeason.length() == 0) {
+					replace(valueNew, checkUndef, "XXXX-XX");
+				} else {
+					Season se = Season.of(lmSeason, 5);
+					int newYear = parseInt(lmSeason, 0, 4) //
+							+ (newSeason.ord() <= se.ord() ? 1 : 0);
+					replace(valueNew, checkUndef, newYear + "-" + newSeason);
+				}
+			}
+		}
+		return true;
+	}
+
+	private boolean handleUndefWeekday(String ambigString, StringBuilder valueNew, List<Timex3> linearDates, int i, ParsedDct dct, Tense last_used_tense) {
+		Matcher m = UNDEF_WEEKDAY.matcher(ambigString);
+		if (!m.matches())
+			return false;
+		// TODO (before refactoring:) the calculation is strange, but works
+		// TODO tense should be included?!
+		String checkUndef = m.group(1);
+		String ltnd = m.group(2);
+		String newWeekday = m.group(3);
+		int newWeekdayInt = parseInt(norm.getFromNormDayInWeek(newWeekday));
+		if (ltnd.equals("last")) {
+			if (dct != null) {
+				int diff = -(dct.dctWeekday - newWeekdayInt);
+				diff = (diff >= 0) ? diff - 7 : diff;
+				replace(valueNew, checkUndef, DateCalculator.getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff));
+			} else {
+				String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
+				if (lmDay.length() == 0) {
+					replace(valueNew, checkUndef, "XXXX-XX-XX");
+				} else {
+					int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
+					int diff = -(lmWeekdayInt - newWeekdayInt);
+					diff = (diff >= 0) ? diff - 7 : diff;
+					replace(valueNew, checkUndef, DateCalculator.getXNextDay(lmDay, diff));
+				}
+			}
+		} else if (ltnd.equals("this")) {
+			if (dct != null) {
+				// TODO tense should be included?!
+				int diff = -(dct.dctWeekday - newWeekdayInt);
+				diff = (diff > 0) ? diff - 7 : diff;
+				replace(valueNew, checkUndef, DateCalculator.getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff));
+			} else {
+				// TODO tense should be included?!
+				String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
+				if (lmDay.length() == 0) {
+					replace(valueNew, checkUndef, "XXXX-XX-XX");
+				} else {
+					int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
+					int diff = (-1) * (lmWeekdayInt - newWeekdayInt);
+					diff = (diff > 0) ? diff - 7 : diff;
+					replace(valueNew, checkUndef, DateCalculator.getXNextDay(lmDay, diff));
+				}
+			}
+		} else if (ltnd.equals("next")) {
+			if (dct != null) {
+				int diff = newWeekdayInt - dct.dctWeekday;
+				diff = (diff <= 0) ? diff + 7 : diff;
+				replace(valueNew, checkUndef, DateCalculator.getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff));
+			} else {
+				String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
+				if (lmDay.length() == 0) {
+					replace(valueNew, checkUndef, "XXXX-XX-XX");
+				} else {
+					int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
+					int diff = newWeekdayInt - lmWeekdayInt;
+					diff = (diff <= 0) ? diff + 7 : diff;
+					replace(valueNew, checkUndef, DateCalculator.getXNextDay(lmDay, diff));
+				}
+			}
+		} else if (ltnd.equals("day")) {
+			if (dct != null) {
+				// TODO tense should be included?!
+				int diff = -(dct.dctWeekday - newWeekdayInt);
+				diff = (diff > 0) ? diff - 7 : diff;
+				// Tense is FUTURE
+				if ((last_used_tense == Tense.FUTURE) && diff != 0) {
+					diff += 7;
+				}
+				// Tense is PAST
+				if ((last_used_tense == Tense.PAST)) {
+
+				}
+				replace(valueNew, checkUndef, DateCalculator.getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff));
+			} else {
+				// TODO tense should be included?!
+				String lmDay = ContextAnalyzer.getLastMentionedDay(linearDates, i);
+				if (lmDay.length() == 0) {
+					replace(valueNew, checkUndef, "XXXX-XX-XX");
+				} else {
+					int lmWeekdayInt = DateCalculator.getWeekdayOfDate(lmDay);
+					int diff = -(lmWeekdayInt - newWeekdayInt);
+					diff = (diff > 0) ? diff - 7 : diff;
+					replace(valueNew, checkUndef, DateCalculator.getXNextDay(lmDay, diff));
+				}
+			}
+		}
+		return true;
 	}
 
 	/**
