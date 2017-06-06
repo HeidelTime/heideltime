@@ -46,7 +46,7 @@ class ResolveAmbiguousValues {
 		int dctDecade = 0;
 		int dctMonth = 0;
 		int dctDay = 0;
-		String dctSeason = "";
+		Season dctSeason = null;
 		String dctQuarter = "";
 		String dctHalf = "";
 		int dctWeekday = 0;
@@ -195,20 +195,19 @@ class ResolveAmbiguousValues {
 		//////////////////////////
 		// DISAMBIGUATION PHASE //
 		//////////////////////////
-
 		final boolean useDct = dctAvailable && (documentType != DocumentType.NARRATIVE);
 		////////////////////////////////////////////////////
 		// IF YEAR IS COMPLETELY UNSPECIFIED (UNDEF-year) //
 		////////////////////////////////////////////////////
 		String valueNew = ambigString;
 		if (ambigString.startsWith("UNDEF-year")) {
-			String newYearValue = Integer.toString(dct.dctYear);
+			String newYearValue = useDct ? Integer.toString(dct.dctYear) : "";
 			// vi has month (ignore day)
 			if (viThisMonth > 0 && viThisSeason == null) {
 				// WITH DOCUMENT CREATION TIME
 				if (useDct) {
 					// Tense is FUTURE
-					if (last_used_tense == Tense.FUTURE || last_used_tense== Tense.PRESENTFUTURE) {
+					if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
 						// if dct-month is larger than vi-month, then add 1 to dct-year
 						if (dct.dctMonth > viThisMonth)
 							newYearValue = Integer.toString(dct.dctYear + 1);
@@ -285,8 +284,9 @@ class ResolveAmbiguousValues {
 				}
 			}
 
+			// TODO: the logic of this part is messy.
 			// vi has season
-			if (viThisMonth == 0 && viThisDay == 0 && viThisSeason != null)
+			if (viThisMonth <= 0 && viThisDay <= 0 && viThisSeason == null)
 				// TODO check tenses?
 				newYearValue = useDct ? Integer.toString(dct.dctYear) : ContextAnalyzer.getLastMentionedYear(linearDates, i);
 			// vi has week
@@ -302,14 +302,14 @@ class ResolveAmbiguousValues {
 		// just century is unspecified (UNDEF-century86) //
 		///////////////////////////////////////////////////
 		else if (ambigString.startsWith("UNDEF-century")) {
-			String newCenturyValue = Integer.toString(dct.dctCentury);
+			String newCenturyValue = useDct ? Integer.toString(dct.dctCentury) : "";
 
 			// NEWS and COLLOQUIAL DOCUMENTS
 			if (useDct && !ambigString.equals("UNDEF-century")) {
 				int viThisDecade = Integer.parseInt(ambigString.substring(13, 14));
 
 				if (LOG.isDebugEnabled())
-					LOG.debug("dctCentury" + dct.dctCentury);
+					LOG.debug("dctCentury {}", dct.dctCentury);
 
 				newCenturyValue = Integer.toString(dct.dctCentury);
 
@@ -371,16 +371,15 @@ class ResolveAmbiguousValues {
 				String checkUndef = m.group(1);
 				String ltn = m.group(2);
 				String unit = m.group(3);
-				boolean positive = "PLUS".equals(m.group(4)); // May only be PLUS or MINUS.
+				boolean positive = ambigString.regionMatches(m.start(4), "PLUS", 0, 4); // May only be PLUS or MINUS.
 				int diff = 0;
 				try {
 					diff = Integer.parseInt(m.group(5));
 				} catch (Exception e) {
-					LOG.error("Expression difficult to normalize: ");
-					LOG.error(ambigString);
+					LOG.error("Expression difficult to normalize: {}", ambigString);
 					LOG.error("{} probably too long for parsing as integer.", m.group(5));
-					LOG.error("set normalized value as PAST_REF / FUTURE_REF:");
 					valueNew = positive ? "FUTURE_REF" : "PAST_REF";
+					LOG.error("Set normalized value as PAST_REF / FUTURE_REF: {}", valueNew);
 					return valueNew;
 				}
 				int sdiff = positive ? diff : -diff; // Signed diff
@@ -546,9 +545,8 @@ class ResolveAmbiguousValues {
 					String lmYear = ContextAnalyzer.getLastMentionedYear(linearDates, i);
 					valueNew = valueNew.replace(checkUndef, lmYear.isEmpty() ? "XXXX" : DateCalculator.getXNextYear(lmYear, -1));
 				}
-				if (valueNew.endsWith("-FY")) {
+				if (valueNew.endsWith("-FY"))
 					valueNew = "FY" + valueNew.substring(0, Math.min(valueNew.length(), 4));
-				}
 			} else if (ambigString.startsWith("UNDEF-this-year")) {
 				String checkUndef = "UNDEF-this-year";
 				if (useDct) {
@@ -557,9 +555,8 @@ class ResolveAmbiguousValues {
 					String lmYear = ContextAnalyzer.getLastMentionedYear(linearDates, i);
 					valueNew = valueNew.replace(checkUndef, lmYear.isEmpty() ? "XXXX" : lmYear);
 				}
-				if (valueNew.endsWith("-FY")) {
+				if (valueNew.endsWith("-FY"))
 					valueNew = "FY" + valueNew.substring(0, Math.min(valueNew.length(), 4));
-				}
 			} else if (ambigString.startsWith("UNDEF-next-year")) {
 				String checkUndef = "UNDEF-next-year";
 				if (useDct) {
@@ -568,9 +565,8 @@ class ResolveAmbiguousValues {
 					String lmYear = ContextAnalyzer.getLastMentionedYear(linearDates, i);
 					valueNew = valueNew.replace(checkUndef, lmYear.isEmpty() ? "XXXX" : DateCalculator.getXNextYear(lmYear, 1));
 				}
-				if (valueNew.endsWith("-FY")) {
+				if (valueNew.endsWith("-FY"))
 					valueNew = "FY" + valueNew.substring(0, Math.min(valueNew.length(), 4));
-				}
 			}
 
 			// month
@@ -805,121 +801,46 @@ class ResolveAmbiguousValues {
 			else if ((m = UNDEF_SEASON.matcher(ambigString)).matches()) {
 				String checkUndef = m.group(1);
 				String ltn = m.group(2);
-				String newSeason = m.group(3);
+				Season newSeason = Season.of(ambigString, m.start(3));
 				if (ltn.equals("last")) {
 					if (useDct) {
-						if (dct.dctSeason.equals("SP")) {
-							valueNew = valueNew.replace(checkUndef, dct.dctYear - 1 + "-" + newSeason);
-						} else if (dct.dctSeason.equals("SU")) {
-							if (newSeason.equals("SP")) {
-								valueNew = valueNew.replace(checkUndef, dct.dctYear + "-" + newSeason);
-							} else {
-								valueNew = valueNew.replace(checkUndef, dct.dctYear - 1 + "-" + newSeason);
-							}
-						} else if (dct.dctSeason.equals("FA")) {
-							if ((newSeason.equals("SP")) || (newSeason.equals("SU"))) {
-								valueNew = valueNew.replace(checkUndef, dct.dctYear + "-" + newSeason);
-							} else {
-								valueNew = valueNew.replace(checkUndef, dct.dctYear - 1 + "-" + newSeason);
-							}
-						} else if (dct.dctSeason.equals("WI")) {
-							if (newSeason.equals("WI")) {
-								valueNew = valueNew.replace(checkUndef, dct.dctYear - 1 + "-" + newSeason);
-							} else {
-								if (dct.dctMonth < 12) {
-									valueNew = valueNew.replace(checkUndef, dct.dctYear - 1 + "-" + newSeason);
-								} else {
-									valueNew = valueNew.replace(checkUndef, dct.dctYear + "-" + newSeason);
-								}
-							}
-						}
+						int newYear = dct.dctYear - (newSeason.ord() < dct.dctSeason.ord() //
+								|| (dct.dctSeason == Season.WINTER && dct.dctMonth < 12) //
+										? 1 : 0);
+						valueNew = valueNew.replace(checkUndef, newYear + "-" + newSeason);
 					} else { // NARRATVIE DOCUMENT
 						String lmSeason = ContextAnalyzer.getLastMentionedSeason(linearDates, i, language);
-						if (lmSeason.length() == 0) {
+						if (lmSeason == null || lmSeason.length() == 0) {
 							valueNew = valueNew.replace(checkUndef, "XXXX-XX");
 						} else {
-							String se = lmSeason.substring(5, 7);
-							if (se.equals("SP")) {
-								valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0, 4)) - 1 + "-" + newSeason);
-							} else if (se.equals("SU")) {
-								if (se.equals("SP")) {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0, 4)) + "-" + newSeason);
-								} else {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0, 4)) - 1 + "-" + newSeason);
-								}
-							} else if (se.equals("FA")) {
-								if ((newSeason.equals("SP")) || (newSeason.equals("SU"))) {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0, 4)) + "-" + newSeason);
-								} else {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0, 4)) - 1 + "-" + newSeason);
-								}
-							} else if (se.equals("WI")) {
-								if (newSeason.equals("WI")) {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0, 4)) - 1 + "-" + newSeason);
-								} else {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0, 4)) + "-" + newSeason);
-								}
-							}
+							Season se = Season.of(lmSeason, 5);
+							int newYear = Integer.parseInt(lmSeason.substring(0, 4)) //
+									- (newSeason.ord() < se.ord() ? 1 : 0);
+							valueNew = valueNew.replace(checkUndef, newYear + "-" + newSeason);
 						}
 					}
 				} else if (ltn.equals("this")) {
 					if (useDct) {
-						// TODO include tense of sentence?
+						// TODO use tense of sentence?
 						valueNew = valueNew.replace(checkUndef, dct.dctYear + "-" + newSeason);
 					} else {
-						// TODO include tense of sentence?
+						// TODO use tense of sentence?
 						String lmSeason = ContextAnalyzer.getLastMentionedSeason(linearDates, i, language);
 						valueNew = valueNew.replace(checkUndef, lmSeason.isEmpty() ? "XXXX-XX" : (lmSeason.substring(0, 4) + "-" + newSeason));
 					}
 				} else if (ltn.equals("next")) {
 					if (useDct) {
-						if (dct.dctSeason.equals("SP")) {
-							if (newSeason.equals("SP")) {
-								valueNew = valueNew.replace(checkUndef, dct.dctYear + 1 + "-" + newSeason);
-							} else {
-								valueNew = valueNew.replace(checkUndef, dct.dctYear + "-" + newSeason);
-							}
-						} else if (dct.dctSeason.equals("SU")) {
-							if ((newSeason.equals("SP")) || (newSeason.equals("SU"))) {
-								valueNew = valueNew.replace(checkUndef, dct.dctYear + 1 + "-" + newSeason);
-							} else {
-								valueNew = valueNew.replace(checkUndef, dct.dctYear + "-" + newSeason);
-							}
-						} else if (dct.dctSeason.equals("FA")) {
-							if (newSeason.equals("WI")) {
-								valueNew = valueNew.replace(checkUndef, dct.dctYear + "-" + newSeason);
-							} else {
-								valueNew = valueNew.replace(checkUndef, dct.dctYear + 1 + "-" + newSeason);
-							}
-						} else if (dct.dctSeason.equals("WI")) {
-							valueNew = valueNew.replace(checkUndef, dct.dctYear + 1 + "-" + newSeason);
-						}
+						int newYear = dct.dctYear + (newSeason.ord() <= dct.dctSeason.ord() ? 1 : 0);
+						valueNew = valueNew.replace(checkUndef, newYear + "-" + newSeason);
 					} else { // NARRATIVE DOCUMENT
 						String lmSeason = ContextAnalyzer.getLastMentionedSeason(linearDates, i, language);
 						if (lmSeason.length() == 0) {
 							valueNew = valueNew.replace(checkUndef, "XXXX-XX");
 						} else {
-							if (lmSeason.regionMatches(5, "SP", 0, 2)) {
-								if (newSeason.equals("SP")) {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0, 4)) + 1 + "-" + newSeason);
-								} else {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0, 4)) + "-" + newSeason);
-								}
-							} else if (lmSeason.regionMatches(5, "SU", 0, 2)) {
-								if (newSeason.equals("SP") || newSeason.equals("SU")) {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0, 4)) + 1 + "-" + newSeason);
-								} else {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0, 4)) + "-" + newSeason);
-								}
-							} else if (lmSeason.regionMatches(5, "FA", 0, 2)) {
-								if (newSeason.equals("WI")) {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0, 4)) + "-" + newSeason);
-								} else {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0, 4)) + 1 + "-" + newSeason);
-								}
-							} else if (lmSeason.regionMatches(5, "WI", 0, 2)) {
-								valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmSeason.substring(0, 4)) + 1 + "-" + newSeason);
-							}
+							Season se = Season.of(lmSeason, 5);
+							int newYear = Integer.parseInt(lmSeason.substring(0, 4)) //
+									+ (newSeason.ord() <= se.ord() ? 1 : 0);
+							valueNew = valueNew.replace(checkUndef, newYear + "-" + newSeason);
 						}
 					}
 				}

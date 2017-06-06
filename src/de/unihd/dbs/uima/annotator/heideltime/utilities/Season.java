@@ -15,17 +15,35 @@ public enum Season {
 		return str;
 	}
 
-	public static Season of(String s) {
-		switch (s) {
-		case "SP":
-			return SPRING;
-		case "SU":
-			return SUMMER;
-		case "FA":
-			return FALL;
-		case "WI":
-			return WINTER;
+	/**
+	 * Ordinal representation, spring = 0, summer = 1, fall = 2, winter = 3
+	 *
+	 * @return Ordinal
+	 */
+	public int ord() {
+		return off;
+	}
+
+	public static Season of(CharSequence s, int b) {
+		if (b + 1 >= s.length())
+			return null;
+		char c1 = s.charAt(b), c2 = s.charAt(b + 1);
+		if (c1 == 'S') {
+			if (c2 == 'P')
+				return SPRING;
+			if (c2 == 'U')
+				return SUMMER;
+		} else if (c1 == 'F') {
+			if (c2 == 'A')
+				return FALL;
+		} else if (c1 == 'W') {
+			if (c2 == 'I')
+				return WINTER;
 		}
 		return null;
+	}
+
+	public static Season of(CharSequence s) {
+		return of(s, 0);
 	}
 }

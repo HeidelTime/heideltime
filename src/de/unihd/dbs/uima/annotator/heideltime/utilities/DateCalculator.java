@@ -269,7 +269,7 @@ public class DateCalculator {
 	 *                Month
 	 * @return Season
 	 */
-	public static String getSeasonOfMonth(int dctMonth) {
-		return dctMonth <= 2 ? "WI" : dctMonth <= 5 ? "SP" : dctMonth <= 8 ? "SU" : dctMonth <= 11 ? "FA" : "WI";
+	public static Season getSeasonOfMonth(int dctMonth) {
+		return dctMonth <= 2 ? Season.WINTER : dctMonth <= 5 ? Season.SPRING : dctMonth <= 8 ? Season.SUMMER : dctMonth <= 11 ? Season.FALL : Season.WINTER;
 	}
 }
