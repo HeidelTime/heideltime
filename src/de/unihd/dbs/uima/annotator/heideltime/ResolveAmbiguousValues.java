@@ -16,6 +16,7 @@ import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.NormalizationManager;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.ContextAnalyzer;
 import de.unihd.dbs.uima.annotator.heideltime.utilities.DateCalculator;
+import de.unihd.dbs.uima.annotator.heideltime.utilities.Season;
 import de.unihd.dbs.uima.types.heideltime.Dct;
 import de.unihd.dbs.uima.types.heideltime.Timex3;
 
@@ -120,72 +121,68 @@ class ResolveAmbiguousValues {
 
 		// check if value_i has month, day, season, week (otherwise no UNDEF-year
 		// is possible)
-		boolean viHasMonth = false;
-		boolean viHasDay = false;
-		boolean viHasSeason = false;
-		boolean viHasWeek = false;
-		boolean viHasQuarter = false;
-		boolean viHasHalf = false;
-		int viThisMonth = 0;
-		int viThisDay = 0;
-		String viThisSeason = "";
-		String viThisQuarter = "";
-		String viThisHalf = "";
+		int viThisMonth = -1, viThisDay = -1, viThisWeek = -1;
+		Season viThisSeason = null;
+		String viThisQuarter = null, viThisHalf = null;
 		String[] valueParts = ambigString.split("-");
 		// check if UNDEF-year or UNDEF-century
 		if (ambigString.startsWith("UNDEF-year") || ambigString.startsWith("UNDEF-century")) {
 			if (valueParts.length > 2) {
+				final String part2 = valueParts[2];
 				// get vi month
-				if (TWO_DIGITS.matcher(valueParts[2]).matches()) {
-					viHasMonth = true;
-					viThisMonth = Integer.parseInt(valueParts[2]);
+				if (TWO_DIGITS.matcher(part2).matches()) {
+					// FIXME: check range?
+					viThisMonth = Integer.parseInt(part2);
 				}
 				// get vi season
-				else if (valueParts[2].equals("SP") || valueParts[2].equals("SU") || valueParts[2].equals("FA") || valueParts[2].equals("WI")) {
-					viHasSeason = true;
-					viThisSeason = valueParts[2];
+				else if ((viThisSeason = Season.of(part2)) != null) {
+					// Season is assigned in if statement.
 				}
-				// get v1 quarter
-				else if (valueParts[2].equals("Q1") || valueParts[2].equals("Q2") || valueParts[2].equals("Q3") || valueParts[2].equals("Q4")) {
-					viHasQuarter = true;
-					viThisQuarter = valueParts[2];
+				// get vi quarter
+				else if (part2.charAt(0) == 'Q' && (part2.equals("Q1") || part2.equals("Q2") || part2.equals("Q3") || part2.equals("Q4"))) {
+					viThisQuarter = part2;
 				}
-				// get v1 half
-				else if (valueParts[2].equals("H1") || valueParts[2].equals("H2")) {
-					viHasHalf = true;
-					viThisHalf = valueParts[2];
+				// get vi half
+				else if (part2.charAt(0) == 'Q' && (part2.equals("H1") || part2.equals("H2"))) {
+					viThisHalf = part2;
+				}
+				// get vi Week
+				else if (part2.charAt(0) == 'W') {
+					viThisWeek = Integer.parseInt(part2.substring(1));
 				}
 				// get vi day
 				if (valueParts.length > 3 && TWO_DIGITS.matcher(valueParts[3]).matches()) {
-					viHasDay = true;
+					// FIXME: check range?
 					viThisDay = Integer.parseInt(valueParts[3]);
 				}
 			}
 		} else {
 			if (valueParts.length > 1) {
+				final String part1 = valueParts[1];
 				// get vi month
-				if (TWO_DIGITS.matcher(valueParts[1]).matches()) {
-					viHasMonth = true;
-					viThisMonth = Integer.parseInt(valueParts[1]);
+				if (TWO_DIGITS.matcher(part1).matches()) {
+					// FIXME: check range?
+					viThisMonth = Integer.parseInt(part1);
 				}
 				// get vi season
-				else if (valueParts[1].equals("SP") || valueParts[1].equals("SU") || valueParts[1].equals("FA") || valueParts[1].equals("WI")) {
-					viHasSeason = true;
-					viThisSeason = valueParts[1];
+				else if ((viThisSeason = Season.of(part1)) != null) {
+					// Season is assigned in if statement.
 				}
 				// get v1 quarter
-				else if (valueParts[1].equals("Q1") || valueParts[1].equals("Q2") || valueParts[1].equals("Q3") || valueParts[1].equals("Q4")) {
-					viHasQuarter = true;
-					viThisQuarter = valueParts[1];
+				else if (part1.charAt(0) == 'Q' && (part1.equals("Q1") || part1.equals("Q2") || part1.equals("Q3") || part1.equals("Q4"))) {
+					viThisQuarter = part1;
 				}
 				// get v1 half
-				else if (valueParts[1].equals("H1") || valueParts[1].equals("H2")) {
-					viHasHalf = true;
-					viThisHalf = valueParts[1];
+				else if (part1.charAt(0) == 'H' && (part1.equals("H1") || part1.equals("H2"))) {
+					viThisHalf = part1;
+				}
+				// get vi Week
+				else if (part1.charAt(0) == 'W') {
+					viThisWeek = Integer.parseInt(part1.substring(1));
 				}
 				// get vi day
 				if (valueParts.length > 2 && TWO_DIGITS.matcher(valueParts[2]).matches()) {
-					viHasDay = true;
+					// FIXME: check range?
 					viThisDay = Integer.parseInt(valueParts[2]);
 				}
 			}
@@ -206,7 +203,7 @@ class ResolveAmbiguousValues {
 		if (ambigString.startsWith("UNDEF-year")) {
 			String newYearValue = Integer.toString(dct.dctYear);
 			// vi has month (ignore day)
-			if (viHasMonth && !viHasSeason) {
+			if (viThisMonth > 0 && viThisSeason == null) {
 				// WITH DOCUMENT CREATION TIME
 				if (useDct) {
 					// Tense is FUTURE
@@ -228,11 +225,11 @@ class ResolveAmbiguousValues {
 				}
 			}
 			// vi has quaurter
-			if (viHasQuarter) {
+			if (viThisQuarter != null) {
 				// WITH DOCUMENT CREATION TIME
 				if (useDct) {
 					// Tense is FUTURE
-					if ((last_used_tense.equals("FUTURE")) || last_used_tense.equals("PRESENTFUTURE")) {
+					if (last_used_tense.equals("FUTURE") || last_used_tense.equals("PRESENTFUTURE")) {
 						if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1)))
 							newYearValue = Integer.toString(dct.dctYear + 1);
 					}
@@ -260,7 +257,7 @@ class ResolveAmbiguousValues {
 				}
 			}
 			// vi has half
-			if (viHasHalf) {
+			if (viThisHalf != null) {
 				// WITH DOCUMENT CREATION TIME
 				if (useDct) {
 					// Tense is FUTURE
@@ -288,11 +285,11 @@ class ResolveAmbiguousValues {
 			}
 
 			// vi has season
-			if (!viHasMonth && !viHasDay && viHasSeason)
+			if (viThisMonth == 0 && viThisDay == 0 && viThisSeason != null)
 				// TODO check tenses?
 				newYearValue = useDct ? Integer.toString(dct.dctYear) : ContextAnalyzer.getLastMentionedYear(linearDates, i);
 			// vi has week
-			if (viHasWeek)
+			if (viThisWeek > -1)
 				newYearValue = useDct ? Integer.toString(dct.dctYear) : ContextAnalyzer.getLastMentionedYear(linearDates, i);
 
 			// REPLACE THE UNDEF-YEAR WITH THE NEWLY CALCULATED YEAR AND ADD
@@ -349,7 +346,7 @@ class ResolveAmbiguousValues {
 					// if no other century was mentioned before, 1st century
 					// Otherwise, assume that sixties, twenties, and so on
 					// are 19XX if no century found (LREC change)
-						documentType == DocumentType.NARRATIVE ? "00" : "19");
+							documentType == DocumentType.NARRATIVE ? "00" : "19");
 			// always assume that sixties, twenties, and so on are 19XX -- if
 			// not narrative document (LREC change)
 			if (valueNew.matches("\\d\\d\\d") && documentType != DocumentType.NARRATIVE)
