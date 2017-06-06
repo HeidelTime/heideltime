@@ -14,6 +14,9 @@
 
 package de.unihd.dbs.uima.annotator.heideltime;
 
+import static de.unihd.dbs.uima.annotator.heideltime.utilities.ParseInteger.parseInt;
+import static de.unihd.dbs.uima.annotator.heideltime.utilities.ParseInteger.parseIntAt;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,6 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.uima.UimaContext;
+import org.apache.uima.analysis_component.AnalysisComponent;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.cas.FSIterator;
 import org.apache.uima.cas.text.AnnotationIndex;
@@ -404,10 +408,10 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				if ((i == 1 || (i > 1 && !change)) && txval.startsWith("BC")) {
 					if (value_i.length() > 1) {
 						if (txval.startsWith("BC" + value_i.substring(0, 2)) //
-								|| txval.startsWith(String.format("BC%02d", Integer.parseInt(value_i.substring(0, 2)) + 1))) {
+								|| txval.startsWith(String.format("BC%02d", parseInt(value_i, 0, 2) + 1))) {
 							if ((value_i.startsWith("00") && txval.startsWith("BC00")) || (value_i.startsWith("01") && txval.startsWith("BC01"))) {
 								if ((value_i.length() > 2) && (txval.length() > 4)) {
-									if (Integer.parseInt(value_i.substring(0, 3)) <= Integer.parseInt(txval.substring(2, 5))) {
+									if (parseInt(value_i, 0, 3) <= parseInt(txval, 2, 5)) {
 										newValue = "BC" + value_i;
 										change = true;
 										if (LOG.isDebugEnabled())
@@ -516,7 +520,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						hsTimexesToRemove.add(t2);
 					}
 					// REMOVE REAL DUPLICATES (the one with the lower timexID)
-					else if (Integer.parseInt(t1.getTimexId().substring(1)) < Integer.parseInt(t2.getTimexId().substring(1))) {
+					else if (parseIntAt(t1.getTimexId(), 1) < parseIntAt(t2.getTimexId(), 1)) {
 						logRemove(t1, "has lower id value than", t2);
 						hsTimexesToRemove.add(t1);
 					}
@@ -661,7 +665,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				if (doAllTokIds) {
 					String[] tokenizedTokenIds = t.getAllTokIds().split("<-->");
 					for (int i = 1; i < tokenizedTokenIds.length; i++) {
-						int tokid = Integer.parseInt(tokenizedTokenIds[i]);
+						int tokid = parseInt(tokenizedTokenIds[i]);
 						if (!tokenIds.contains(tokid))
 							tokenIds.add(tokid);
 					}
@@ -766,8 +770,8 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 				if (offset != null) {
 					Matcher mr = paOffset.matcher(offset);
 					if (mr.matches()) {
-						timexStart = m.start(Integer.parseInt(mr.group(1)));
-						timexEnd = m.end(Integer.parseInt(mr.group(2)));
+						timexStart = m.start(parseInt(mr.group(1)));
+						timexEnd = m.end(parseInt(mr.group(2)));
 					} else {
 						LOG.warn("Offset pattern does not match: {}", offset);
 					}
@@ -804,7 +808,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 		Matcher mr = paConstraint.matcher(posConstraint);
 		while (mr.find()) {
 			try {
-				int groupNumber = Integer.parseInt(mr.group(1));
+				int groupNumber = parseInt(mr.group(1));
 				int tokenBegin = s.getBegin() + m.start(groupNumber);
 				int tokenEnd = s.getBegin() + m.end(groupNumber);
 				String pos = mr.group(2);

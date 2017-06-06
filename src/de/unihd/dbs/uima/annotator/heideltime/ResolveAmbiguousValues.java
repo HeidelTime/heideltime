@@ -1,5 +1,8 @@
 package de.unihd.dbs.uima.annotator.heideltime;
 
+import static de.unihd.dbs.uima.annotator.heideltime.utilities.ParseInteger.parseInt;
+import static de.unihd.dbs.uima.annotator.heideltime.utilities.ParseInteger.parseIntAt;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -62,17 +65,17 @@ class ResolveAmbiguousValues {
 			dctValue = dctIter.next().getValue();
 			// year, month, day as mentioned in the DCT
 			if (EIGHT_DIGITS.matcher(dctValue).matches()) {
-				dctCentury = Integer.parseInt(dctValue.substring(0, 2));
-				dctYear = Integer.parseInt(dctValue.substring(0, 4));
-				dctDecade = Integer.parseInt(dctValue.substring(2, 3));
-				dctMonth = Integer.parseInt(dctValue.substring(4, 6));
-				dctDay = Integer.parseInt(dctValue.substring(6, 8));
+				dctCentury = parseInt(dctValue, 0, 2);
+				dctYear = parseInt(dctValue, 0, 4);
+				dctDecade = parseInt(dctValue, 2, 3);
+				dctMonth = parseInt(dctValue, 4, 6);
+				dctDay = parseInt(dctValue, 6, 8);
 			} else {
-				dctCentury = Integer.parseInt(dctValue.substring(0, 2));
-				dctYear = Integer.parseInt(dctValue.substring(0, 4));
-				dctDecade = Integer.parseInt(dctValue.substring(2, 3));
-				dctMonth = Integer.parseInt(dctValue.substring(5, 7));
-				dctDay = Integer.parseInt(dctValue.substring(8, 10));
+				dctCentury = parseInt(dctValue, 0, 2);
+				dctYear = parseInt(dctValue, 0, 4);
+				dctDecade = parseInt(dctValue, 2, 3);
+				dctMonth = parseInt(dctValue, 5, 7);
+				dctDay = parseInt(dctValue, 8, 10);
 			}
 			dctQuarter = DateCalculator.getQuarterOfMonth(dctMonth);
 			dctHalf = DateCalculator.getHalfYearOfMonth(dctMonth);
@@ -133,7 +136,7 @@ class ResolveAmbiguousValues {
 				// get vi month
 				if (TWO_DIGITS.matcher(part2).matches()) {
 					// FIXME: check range?
-					viThisMonth = Integer.parseInt(part2);
+					viThisMonth = parseInt(part2);
 				}
 				// get vi season
 				else if ((viThisSeason = Season.of(part2)) != null) {
@@ -149,12 +152,12 @@ class ResolveAmbiguousValues {
 				}
 				// get vi Week
 				else if (part2.charAt(0) == 'W') {
-					viThisWeek = Integer.parseInt(part2.substring(1));
+					viThisWeek = parseIntAt(part2, 1);
 				}
 				// get vi day
 				if (valueParts.length > 3 && TWO_DIGITS.matcher(valueParts[3]).matches()) {
 					// FIXME: check range?
-					viThisDay = Integer.parseInt(valueParts[3]);
+					viThisDay = parseInt(valueParts[3]);
 				}
 			}
 		} else {
@@ -163,7 +166,7 @@ class ResolveAmbiguousValues {
 				// get vi month
 				if (TWO_DIGITS.matcher(part1).matches()) {
 					// FIXME: check range?
-					viThisMonth = Integer.parseInt(part1);
+					viThisMonth = parseInt(part1);
 				}
 				// get vi season
 				else if ((viThisSeason = Season.of(part1)) != null) {
@@ -179,12 +182,12 @@ class ResolveAmbiguousValues {
 				}
 				// get vi Week
 				else if (part1.charAt(0) == 'W') {
-					viThisWeek = Integer.parseInt(part1.substring(1));
+					viThisWeek = parseIntAt(part1, 1);
 				}
 				// get vi day
 				if (valueParts.length > 2 && TWO_DIGITS.matcher(valueParts[2]).matches()) {
 					// FIXME: check range?
-					viThisDay = Integer.parseInt(valueParts[2]);
+					viThisDay = parseInt(valueParts[2]);
 				}
 			}
 		}
@@ -230,23 +233,23 @@ class ResolveAmbiguousValues {
 				if (useDct) {
 					// Tense is FUTURE
 					if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
-						if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1)))
+						if (parseIntAt(dct.dctQuarter, 1) < parseIntAt(viThisQuarter, 1))
 							newYearValue = Integer.toString(dct.dctYear + 1);
 					}
 					// Tense is PAST
 					if (last_used_tense == Tense.PAST) {
-						if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1)))
+						if (parseIntAt(dct.dctQuarter, 1) < parseIntAt(viThisQuarter, 1))
 							newYearValue = Integer.toString(dct.dctYear - 1);
 					}
 					// IF NO TENSE IS FOUND
 					if (last_used_tense == null) {
 						if (documentType == DocumentType.COLLOQUIAL) {
 							// IN COLLOQUIAL: future temporal expressions
-							if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1)))
+							if (parseIntAt(dct.dctQuarter, 1) < parseIntAt(viThisQuarter, 1))
 								newYearValue = Integer.toString(dct.dctYear + 1);
 						} else {
 							// IN NEWS: past temporal expressions
-							if (Integer.parseInt(dct.dctQuarter.substring(1)) < Integer.parseInt(viThisQuarter.substring(1)))
+							if (parseIntAt(dct.dctQuarter, 1) < parseIntAt(viThisQuarter, 1))
 								newYearValue = Integer.toString(dct.dctYear - 1);
 						}
 					}
@@ -262,17 +265,17 @@ class ResolveAmbiguousValues {
 				if (useDct) {
 					// Tense is FUTURE
 					if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
-						if (Integer.parseInt(dct.dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1)))
+						if (parseIntAt(dct.dctHalf, 1) < parseIntAt(viThisHalf, 1))
 							newYearValue = Integer.toString(dct.dctYear + 1);
 					}
 					// Tense is PAST
 					if (last_used_tense == Tense.PAST) {
-						if (Integer.parseInt(dct.dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1)))
+						if (parseIntAt(dct.dctHalf, 1) < parseIntAt(viThisHalf, 1))
 							newYearValue = Integer.toString(dct.dctYear - 1);
 					}
 					// IF NO TENSE IS FOUND
 					if (last_used_tense == null) {
-						if (Integer.parseInt(dct.dctHalf.substring(1)) < Integer.parseInt(viThisHalf.substring(1)))
+						if (parseIntAt(dct.dctHalf, 1) < parseIntAt(viThisHalf, 1))
 							// IN COLLOQUIAL: future temporal expressions
 							// IN NEWS: past temporal expressions
 							newYearValue = Integer.toString(dct.dctYear + (documentType == DocumentType.COLLOQUIAL ? 1 : -1));
@@ -306,7 +309,7 @@ class ResolveAmbiguousValues {
 
 			// NEWS and COLLOQUIAL DOCUMENTS
 			if (useDct && !ambigString.equals("UNDEF-century")) {
-				int viThisDecade = Integer.parseInt(ambigString.substring(13, 14));
+				int viThisDecade = parseInt(ambigString, 13, 14);
 
 				if (LOG.isDebugEnabled())
 					LOG.debug("dctCentury {}", dct.dctCentury);
@@ -334,7 +337,7 @@ class ResolveAmbiguousValues {
 			else {
 				newCenturyValue = ContextAnalyzer.getLastMentionedCentury(linearDates, i);
 				if (!newCenturyValue.startsWith("BC")) {
-					if (newCenturyValue.matches("^\\d\\d.*") && Integer.parseInt(newCenturyValue.substring(0, 2)) < 10) {
+					if (newCenturyValue.matches("^\\d\\d.*") && parseInt(newCenturyValue, 0, 2) < 10) {
 						newCenturyValue = "00";
 					}
 				} else {
@@ -374,7 +377,7 @@ class ResolveAmbiguousValues {
 				boolean positive = ambigString.regionMatches(m.start(4), "PLUS", 0, 4); // May only be PLUS or MINUS.
 				int diff = 0;
 				try {
-					diff = Integer.parseInt(m.group(5));
+					diff = parseInt(m.group(5));
 				} catch (Exception e) {
 					LOG.error("Expression difficult to normalize: {}", ambigString);
 					LOG.error("{} probably too long for parsing as integer.", m.group(5));
@@ -445,7 +448,7 @@ class ResolveAmbiguousValues {
 						// TODO BC years
 						if (useDct && ltn.equals("this")) {
 							// Use quarters, 0 to 3, for computation.
-							int quarters = (dct.dctYear << 2) + Integer.parseInt(dct.dctQuarter.substring(1)) - 1 + diff;
+							int quarters = (dct.dctYear << 2) + parseIntAt(dct.dctQuarter, 1) - 1 + diff;
 							valueNew = valueNew.replace(checkUndef, (quarters >> 2) + "-Q" + ((quarters & 0x3) + 1));
 						} else {
 							String lmQuarter = ContextAnalyzer.getLastMentionedQuarter(linearDates, i, language);
@@ -453,7 +456,7 @@ class ResolveAmbiguousValues {
 								valueNew = valueNew.replace(checkUndef, "XXXX-XX");
 							} else {
 								// Use quarters, 0 to 3, for computation.
-								int quarters = (Integer.parseInt(lmQuarter.substring(0, 4)) << 2) + Integer.parseInt(lmQuarter.substring(6)) - 1 + diff;
+								int quarters = (parseInt(lmQuarter, 0, 4) << 2) + parseIntAt(lmQuarter, 6) - 1 + diff;
 								valueNew = valueNew.replace(checkUndef, (quarters >> 2) + "-Q" + ((quarters & 0x3) + 1));
 							}
 						}
@@ -661,7 +664,7 @@ class ResolveAmbiguousValues {
 					if (dct.dctQuarter.equals("Q1")) {
 						valueNew = valueNew.replace(checkUndef, dct.dctYear - 1 + "-Q4");
 					} else {
-						int newQuarter = Integer.parseInt(dct.dctQuarter.substring(1, 2)) - 1;
+						int newQuarter = parseInt(dct.dctQuarter, 1, 2) - 1;
 						valueNew = valueNew.replace(checkUndef, dct.dctYear + "-Q" + newQuarter);
 					}
 				} else {
@@ -669,8 +672,8 @@ class ResolveAmbiguousValues {
 					if (lmQuarter.length() == 0) {
 						valueNew = valueNew.replace(checkUndef, "XXXX-QX");
 					} else {
-						int lmQuarterOnly = Integer.parseInt(lmQuarter.substring(6, 7));
-						int lmYearOnly = Integer.parseInt(lmQuarter.substring(0, 4));
+						int lmQuarterOnly = parseInt(lmQuarter, 6, 7);
+						int lmYearOnly = parseInt(lmQuarter, 0, 4);
 						if (lmQuarterOnly == 1) {
 							valueNew = valueNew.replace(checkUndef, lmYearOnly - 1 + "-Q4");
 						} else {
@@ -693,15 +696,15 @@ class ResolveAmbiguousValues {
 					if (dct.dctQuarter.equals("Q4")) {
 						valueNew = valueNew.replace(checkUndef, dct.dctYear + 1 + "-Q1");
 					} else {
-						valueNew = valueNew.replace(checkUndef, dct.dctYear + "-Q" + (Integer.parseInt(dct.dctQuarter.substring(1, 2)) + 1));
+						valueNew = valueNew.replace(checkUndef, dct.dctYear + "-Q" + (parseInt(dct.dctQuarter, 1, 2) + 1));
 					}
 				} else {
 					String lmQuarter = ContextAnalyzer.getLastMentionedQuarter(linearDates, i, language);
 					if (lmQuarter.length() == 0) {
 						valueNew = valueNew.replace(checkUndef, "XXXX-QX");
 					} else {
-						int lmQuarterOnly = Integer.parseInt(lmQuarter.substring(6, 7));
-						int lmYearOnly = Integer.parseInt(lmQuarter.substring(0, 4));
+						int lmQuarterOnly = parseInt(lmQuarter, 6, 7);
+						int lmYearOnly = parseInt(lmQuarter, 0, 4);
 						if (lmQuarterOnly == 4) {
 							valueNew = valueNew.replace(checkUndef, lmYearOnly + 1 + "-Q1");
 						} else {
@@ -716,9 +719,9 @@ class ResolveAmbiguousValues {
 				String checkUndef = m.group(1);
 				String ltn = m.group(2);
 				String newMonth = norm.getFromNormMonthName((m.group(3)));
-				int newMonthInt = Integer.parseInt(newMonth);
+				int newMonthInt = parseInt(newMonth);
 				String daystr = m.group(5);
-				int day = (daystr != null && daystr.length() > 0) ? Integer.parseInt(daystr) : 0;
+				int day = (daystr != null && daystr.length() > 0) ? parseInt(daystr) : 0;
 				if (ltn.equals("last")) {
 					if (useDct) {
 						// check day if dct-month and newMonth are
@@ -739,21 +742,21 @@ class ResolveAmbiguousValues {
 						if (lmMonth.length() == 0) {
 							valueNew = valueNew.replace(checkUndef, "XXXX-XX");
 						} else {
-							int lmMonthInt = Integer.parseInt(lmMonth.substring(5, 7));
+							int lmMonthInt = parseInt(lmMonth, 5, 7);
 							//
 							int lmDayInt = 0;
 							if ((lmMonth.length() > 9) && TWO_DIGITS.matcher(lmMonth.subSequence(8, 10)).matches()) {
-								lmDayInt = Integer.parseInt(lmMonth.subSequence(8, 10).toString());
+								lmDayInt = parseInt(lmMonth, 8, 10);
 							}
 							if ((lmMonthInt == newMonthInt) && (!(lmDayInt == 0)) && (!(day == 0))) {
 								if (lmDayInt > day) {
 									valueNew = valueNew.replace(checkUndef, lmMonth.substring(0, 4) + "-" + newMonth);
 								} else {
-									valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmMonth.substring(0, 4)) - 1 + "-" + newMonth);
+									valueNew = valueNew.replace(checkUndef, parseInt(lmMonth, 0, 4) - 1 + "-" + newMonth);
 								}
 							}
 							if (lmMonthInt <= newMonthInt) {
-								valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmMonth.substring(0, 4)) - 1 + "-" + newMonth);
+								valueNew = valueNew.replace(checkUndef, parseInt(lmMonth, 0, 4) - 1 + "-" + newMonth);
 							} else {
 								valueNew = valueNew.replace(checkUndef, lmMonth.substring(0, 4) + "-" + newMonth);
 							}
@@ -786,9 +789,9 @@ class ResolveAmbiguousValues {
 						if (lmMonth.length() == 0) {
 							valueNew = valueNew.replace(checkUndef, "XXXX-XX");
 						} else {
-							int lmMonthInt = Integer.parseInt(lmMonth.substring(5, 7));
+							int lmMonthInt = parseInt(lmMonth, 5, 7);
 							if (lmMonthInt >= newMonthInt) {
-								valueNew = valueNew.replace(checkUndef, Integer.parseInt(lmMonth.substring(0, 4)) + 1 + "-" + newMonth);
+								valueNew = valueNew.replace(checkUndef, parseInt(lmMonth, 0, 4) + 1 + "-" + newMonth);
 							} else {
 								valueNew = valueNew.replace(checkUndef, lmMonth.substring(0, 4) + "-" + newMonth);
 							}
@@ -814,7 +817,7 @@ class ResolveAmbiguousValues {
 							valueNew = valueNew.replace(checkUndef, "XXXX-XX");
 						} else {
 							Season se = Season.of(lmSeason, 5);
-							int newYear = Integer.parseInt(lmSeason.substring(0, 4)) //
+							int newYear = parseInt(lmSeason, 0, 4) //
 									- (newSeason.ord() < se.ord() ? 1 : 0);
 							valueNew = valueNew.replace(checkUndef, newYear + "-" + newSeason);
 						}
@@ -838,7 +841,7 @@ class ResolveAmbiguousValues {
 							valueNew = valueNew.replace(checkUndef, "XXXX-XX");
 						} else {
 							Season se = Season.of(lmSeason, 5);
-							int newYear = Integer.parseInt(lmSeason.substring(0, 4)) //
+							int newYear = parseInt(lmSeason, 0, 4) //
 									+ (newSeason.ord() <= se.ord() ? 1 : 0);
 							valueNew = valueNew.replace(checkUndef, newYear + "-" + newSeason);
 						}
@@ -853,7 +856,7 @@ class ResolveAmbiguousValues {
 				String checkUndef = m.group(1);
 				String ltnd = m.group(2);
 				String newWeekday = m.group(3);
-				int newWeekdayInt = Integer.parseInt(norm.getFromNormDayInWeek(newWeekday));
+				int newWeekdayInt = parseInt(norm.getFromNormDayInWeek(newWeekday));
 				if (ltnd.equals("last")) {
 					if (useDct) {
 						int diff = -(dct.dctWeekday - newWeekdayInt);
