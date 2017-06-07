@@ -494,13 +494,13 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	@Test
 	public void testdate_r20f() {
 		testSingleCase("on 30 minutes something happened", //
-				new String[] { "date_r20f", "on 30 minutes", "UNDEF-REF-minute-PLUS-30" });
+				new String[] { "date_r20f", "on 30 minutes", "FUTURE_REF" });
 	}
 
 	@Test
 	public void testdate_r20g() {
 		testSingleCase("on approximately thirty minutes something happened", //
-				new String[] { "date_r20g", "on approximately thirty minutes", "UNDEF-REF-minute-PLUS-30" });
+				new String[] { "date_r20g", "on approximately thirty minutes", "FUTURE_REF" });
 	}
 
 	@Test
@@ -520,7 +520,7 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	@Test
 	public void testdate_r21c() {
 		testSingleCase("a week earlier", //
-				new String[] { "date_r21c", "a week earlier", "XXXX-XX-XX" });
+				new String[] { "date_r21c", "a week earlier", "XXXX-WXX" });
 	}
 
 	@Test

@@ -29,6 +29,8 @@ class ResolveAmbiguousValues {
 
 	private static final Pattern UNDEF_PATTERN = Pattern.compile("^UNDEF-(this|REFUNIT|REF)-(.*?)-(MINUS|PLUS)-([0-9]+)");
 
+	private static final Pattern UNDEF_UNIT = Pattern.compile("^UNDEF-(last|this|next)-(century|decade|year|quarter|month|week|day)");
+
 	private static final Pattern UNDEF_MONTH = Pattern.compile("^UNDEF-(last|this|next)-(january|february|march|april|may|june|july|august|september|october|november|december)(?:-([0-9][0-9]))?");
 
 	private static final Pattern UNDEF_SEASON = Pattern.compile("^UNDEF-(last|this|next)-(SP|SU|FA|WI)");
@@ -50,14 +52,7 @@ class ResolveAmbiguousValues {
 		String dctHalf = "";
 		int dctWeekday = 0, dctWeek = 0;
 
-		public boolean read(JCas jcas) {
-			AnnotationIndex<Dct> dcts = jcas.getAnnotationIndex(Dct.type);
-			FSIterator<Dct> dctIter = dcts.iterator();
-			if (!dctIter.hasNext()) {
-				LOG.debug("No DCT available...");
-				return false;
-			}
-			dctValue = dctIter.next().getValue();
+		private ParsedDct(String dctValue) {
 			// year, month, day as mentioned in the DCT
 			dctYear = parseInt(dctValue, 0, 4);
 			dctCentury = dctYear / 100;
@@ -89,7 +84,16 @@ class ResolveAmbiguousValues {
 				LOG.debug("dctWeekday: {}", dctWeekday);
 				LOG.debug("dctWeek: {}", dctWeek);
 			}
-			return true;
+		}
+
+		public static ParsedDct read(JCas jcas) {
+			AnnotationIndex<Dct> dcts = jcas.getAnnotationIndex(Dct.type);
+			FSIterator<Dct> dctIter = dcts.iterator();
+			if (!dctIter.hasNext()) {
+				LOG.debug("No DCT available...");
+				return null;
+			}
+			return new ParsedDct(dctIter.next().getValue());
 		}
 
 		private static final Pattern VALID_DCT = Pattern.compile("\\d{4}.\\d{2}.\\d{2}|\\d{8}");
@@ -129,422 +133,216 @@ class ResolveAmbiguousValues {
 	}
 
 	public String specifyAmbiguousValuesString(String ambigString, Timex3 t_i, int i, List<Timex3> linearDates, JCas jcas) {
-		// ////////////////////////////////////////////
-		// INFORMATION ABOUT DOCUMENT CREATION TIME //
-		// ////////////////////////////////////////////
-		ParsedDct dct = null;
-		if (documentType != DocumentType.NARRATIVE) {
-			dct = new ParsedDct();
-			if (!dct.read(jcas))
-				dct = null;
-		}
+		if (!ambigString.startsWith("UNDEF"))
+			return ambigString;
+		// If available, parse document creation time:
+		ParsedDct dct = (documentType != DocumentType.NARRATIVE) ? ParsedDct.read(jcas) : null;
 
 		// get the last tense (depending on the part of speech tags used in front or behind the expression)
 		Tense last_used_tense = getLastTense(t_i, jcas, language);
 
-		//////////////////////////
-		// DISAMBIGUATION PHASE //
-		//////////////////////////
-		////////////////////////////////////////////////////
-		// IF YEAR IS COMPLETELY UNSPECIFIED (UNDEF-year) //
-		////////////////////////////////////////////////////
-		StringBuilder valueNew = new StringBuilder(ambigString);
-		if (handleUndefYear(ambigString, valueNew, linearDates, i, dct, last_used_tense)) {
-			// Resolved undefined year
+		// DISAMBIGUATION PHASE:
+		if (ambigString.equals("UNDEF-REFDATE"))
+			return i > 0 ? linearDates.get(i - 1).getTimexValue() : "XXXX-XX-XX";
+		// Different patterns:
+		String repl = handleUndefYear(ambigString, linearDates, i, dct, last_used_tense);
+		repl = repl != null ? repl : handleUndefCentury(ambigString, linearDates, i, dct, last_used_tense);
+		repl = repl != null ? repl : handleUndefPlusMinus(ambigString, linearDates, i, dct);
+		repl = repl != null ? repl : handleUndefNextPrevThis(ambigString, linearDates, i, dct);
+		repl = repl != null ? repl : handleUndefMonth(ambigString, linearDates, i, dct);
+		repl = repl != null ? repl : handleUndefSeason(ambigString, linearDates, i, dct);
+		repl = repl != null ? repl : handleUndefWeekday(ambigString, linearDates, i, dct, last_used_tense);
+		if (repl == null) {
+			LOG.warn("Unhandled UNDEF value: {}", ambigString);
+			return ambigString;
 		}
+		return repl;
+	}
 
-		///////////////////////////////////////////////////
-		// just century is unspecified (UNDEF-century86) //
-		///////////////////////////////////////////////////
-		else if (handleUndefCentury(ambigString, valueNew, linearDates, i, dct, last_used_tense)) {
-			// Resolved undefined century
+	private String handleUndefPlusMinus(String ambigString, List<Timex3> linearDates, int i, ParsedDct dct) {
+		Matcher m = UNDEF_PATTERN.matcher(ambigString);
+		if (!m.find())
+			return null;
+		boolean fuzz = !ambigString.regionMatches(m.start(1), "REFUNIT", 0, 7);
+		String unit = m.group(2);
+		boolean positive = ambigString.regionMatches(m.start(3), "PLUS", 0, 4); // May only be PLUS or MINUS.
+		try {
+			int diff = parseInt(ambigString, m.start(4), m.end(4));
+			diff = positive ? diff : -diff; // Signed diff
+			String rep = adjustByUnit(linearDates, i, dct, unit, diff, fuzz);
+			StringBuilder valueNew = join(rep, ambigString, m.end());
+			if ("year".equals(unit))
+				handleFiscalYear(valueNew);
+			return valueNew.toString();
+		} catch (Exception e) {
+			LOG.error("Invalid integer {} in {}", m.group(4), ambigString);
+			return positive ? "FUTURE_REF" : "PAST_REF";
 		}
+	}
 
-		////////////////////////////////////////////////////
-		// CHECK IMPLICIT EXPRESSIONS STARTING WITH UNDEF //
-		////////////////////////////////////////////////////
-		else if (ambigString.startsWith("UNDEF")) {
-			Matcher m;
-			if (ambigString.equals("UNDEF-REFDATE"))
-				return i > 0 ? linearDates.get(i - 1).getTimexValue() : "XXXX-XX-XX";
-
-			//////////////////
-			// TO CALCULATE //
-			//////////////////
-			// year to calculate
-			if ((m = UNDEF_PATTERN.matcher(ambigString)).find()) {
-				String ltn = m.group(1), unit = m.group(2);
-				boolean positive = ambigString.regionMatches(m.start(3), "PLUS", 0, 4); // May only be PLUS or MINUS.
-				int diff = 0;
-				try {
-					diff = parseInt(ambigString, m.start(4), m.end(4));
-				} catch (Exception e) {
-					LOG.error("Expression difficult to normalize: {}", ambigString);
-					LOG.error("{} probably too long for parsing as integer.", m.group(4));
-					LOG.error("Set normalized value as PAST_REF / FUTURE_REF: {}", valueNew);
-					return positive ? "FUTURE_REF" : "PAST_REF";
-				}
-				int sdiff = positive ? diff : -diff; // Signed diff
-
-				// do the processing for SCIENTIFIC documents (TPZ identification could be improved)
-				if (documentType == DocumentType.SCIENTIFIC) {
-					String fmt;
-					switch (unit) {
-					case "year":
-						fmt = "TPZ%c%04d";
-						break;
-					case "month":
-						fmt = "TPZ%c0000-%02d";
-						break;
-					case "week":
-						fmt = "TPZ%c0000-W%02d";
-						break;
-					case "day":
-						fmt = "TPZ%c0000-00-%02d";
-						break;
-					case "hour":
-						fmt = "TPZ%c0000-00-00T%02d";
-						break;
-					case "minute":
-						fmt = "TPZ%c0000-00-00T00:%02d";
-						break;
-					case "second":
-						fmt = "TPZ%c0000-00-00T00:00:%02d";
-						break;
-					default:
-						LOG.error("no scientific format for unit type {}", unit);
-						return valueNew.toString();
-					}
-					return String.format(Locale.ROOT, fmt, positive ? '+' : '-', diff);
-				}
-				// check for REFUNIT (only allowed for "year")
-				if (ltn.equals("REFUNIT") && unit.equals("year")) {
-					String dateWithYear = getLastMentionedDateYear(linearDates, i);
-					if (dateWithYear.length() == 0) {
-						valueNew.replace(0, m.end(), "XXXX");
-					} else {
-						String year = dateWithYear.substring(0, dateWithYear.startsWith("BC") ? 6 : 4);
-						String yearNew = getXNextYear(year, sdiff);
-						// FIXME: Why could we have "rest" (= tail)?
-						String rest = dateWithYear.substring(dateWithYear.startsWith("BC") ? 6 : 4);
-						valueNew.replace(0, m.end(), yearNew + rest);
-					}
-				}
-
-				// REF and this are handled here
-				else if (unit.equals("century")) {
-					if (dct != null && ltn.equals("this")) {
-						valueNew.replace(0, m.end(), Integer.toString(dct.dctCentury + sdiff));
-					} else {
-						String lmCentury = getLastMentionedCentury(linearDates, i);
-						valueNew.replace(0, m.end(), lmCentury.isEmpty() ? "XX" : getXNextCentury(lmCentury, sdiff));
-					}
-				} else if (unit.equals("decade")) {
-					if (dct != null && ltn.equals("this")) {
-						int decade = dct.dctCentury * 10 + dct.dctDecade + sdiff;
-						valueNew.replace(0, m.end(), decade + "X");
-					} else {
-						String lmDecade = getLastMentionedDecade(linearDates, i);
-						valueNew.replace(0, m.end(), lmDecade.isEmpty() ? "XXX" : getXNextDecade(lmDecade, sdiff));
-					}
-				} else if (unit.equals("year")) {
-					if (dct != null && ltn.equals("this")) {
-						valueNew.replace(0, m.end(), Integer.toString(dct.dctYear + sdiff));
-					} else {
-						String lmYear = getLastMentionedYear(linearDates, i);
-						valueNew.replace(0, m.end(), lmYear.isEmpty() ? "XXXX" : getXNextYear(lmYear, sdiff));
-					}
-				} else if (unit.equals("quarter")) {
-					// TODO BC years
-					if (dct != null && ltn.equals("this")) {
-						// Use quarters, 0 to 3, for computation.
-						int quarters = (dct.dctYear << 2) + parseIntAt(dct.dctQuarter, 1) - 1 + diff;
-						valueNew.replace(0, m.end(), (quarters >> 2) + "-Q" + ((quarters & 0x3) + 1));
-					} else {
-						String lmQuarter = getLastMentionedQuarter(linearDates, i, language);
-						if (lmQuarter.length() == 0) {
-							valueNew.replace(0, m.end(), "XXXX-XX");
-						} else {
-							// Use quarters, 0 to 3, for computation.
-							int quarters = (parseInt(lmQuarter, 0, 4) << 2) + parseIntAt(lmQuarter, 6) - 1 + diff;
-							valueNew.replace(0, m.end(), (quarters >> 2) + "-Q" + ((quarters & 0x3) + 1));
-						}
-					}
-				} else if (unit.equals("month")) {
-					if (dct != null && ltn.equals("this")) {
-						valueNew.replace(0, m.end(), getXNextMonth(dct.dctYear + "-" + norm.normNumber(dct.dctMonth), sdiff));
-					} else {
-						String lmMonth = getLastMentionedMonth(linearDates, i);
-						valueNew.replace(0, m.end(), lmMonth.isEmpty() ? "XXXX-XX" : getXNextMonth(lmMonth, sdiff));
-					}
-				} else if (unit.equals("week")) {
-					if (dct != null && ltn.equals("this")) {
-						valueNew.replace(0, m.end(), getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), sdiff));
-					} else {
-						String lmDay = getLastMentionedDay(linearDates, i);
-						valueNew.replace(0, m.end(), lmDay.isEmpty() ? "XXXX-XX-XX" : getXNextDay(lmDay, sdiff * 7));
-					}
-				} else if (unit.equals("day")) {
-					if (dct != null && ltn.equals("this")) {
-						valueNew.replace(0, m.end(), getXNextDay(dct.dctYear, dct.dctMonth, dct.dctDay, sdiff));
-					} else {
-						String lmDay = getLastMentionedDay(linearDates, i);
-						valueNew.replace(0, m.end(), lmDay.isEmpty() ? "XXXX-XX-XX" : getXNextDay(lmDay, sdiff));
-					}
-				}
-			}
-
-			// century
-			else if (ambigString.startsWith("UNDEF-last-century")) {
-				String checkUndef = "UNDEF-last-century";
-				if (dct != null) {
-					replace(valueNew, checkUndef, norm.normNumber(dct.dctCentury - 1));
-				} else {
-					String lmCentury = getLastMentionedCentury(linearDates, i);
-					replace(valueNew, checkUndef, lmCentury.isEmpty() ? "XX" : getXNextCentury(lmCentury, -1));
-				}
-			} else if (ambigString.startsWith("UNDEF-this-century")) {
-				String checkUndef = "UNDEF-this-century";
-				if (dct != null) {
-					replace(valueNew, checkUndef, norm.normNumber(dct.dctCentury));
-				} else {
-					String lmCentury = getLastMentionedCentury(linearDates, i);
-					replace(valueNew, checkUndef, lmCentury.isEmpty() ? "XX" : lmCentury);
-				}
-			} else if (ambigString.startsWith("UNDEF-next-century")) {
-				String checkUndef = "UNDEF-next-century";
-				if (dct != null) {
-					replace(valueNew, checkUndef, norm.normNumber(dct.dctCentury + 1));
-				} else {
-					String lmCentury = getLastMentionedCentury(linearDates, i);
-					replace(valueNew, checkUndef, lmCentury.isEmpty() ? "XX" : getXNextCentury(lmCentury, +1));
-				}
-			}
-
-			// decade
-			else if (ambigString.startsWith("UNDEF-last-decade")) {
-				String checkUndef = "UNDEF-last-decade";
-				if (dct != null) {
-					replace(valueNew, checkUndef, (Integer.toString(dct.dctYear - 10)).substring(0, 3));
-				} else {
-					String lmDecade = getLastMentionedDecade(linearDates, i);
-					replace(valueNew, checkUndef, lmDecade.isEmpty() ? "XXXX" : getXNextDecade(lmDecade, -1));
-				}
-			} else if (ambigString.startsWith("UNDEF-this-decade")) {
-				String checkUndef = "UNDEF-this-decade";
-				if (dct != null) {
-					replace(valueNew, checkUndef, (Integer.toString(dct.dctYear)).substring(0, 3));
-				} else {
-					String lmDecade = getLastMentionedDecade(linearDates, i);
-					replace(valueNew, checkUndef, lmDecade.isEmpty() ? "XXXX" : lmDecade);
-				}
-			} else if (ambigString.startsWith("UNDEF-next-decade")) {
-				String checkUndef = "UNDEF-next-decade";
-				if (dct != null) {
-					replace(valueNew, checkUndef, (Integer.toString(dct.dctYear + 10)).substring(0, 3));
-				} else {
-					String lmDecade = getLastMentionedDecade(linearDates, i);
-					replace(valueNew, checkUndef, lmDecade.isEmpty() ? "XXXX" : getXNextDecade(lmDecade, 1));
-				}
-			}
-
-			// year
-			else if (ambigString.startsWith("UNDEF-last-year")) {
-				String checkUndef = "UNDEF-last-year";
-				if (dct != null) {
-					replace(valueNew, checkUndef, Integer.toString(dct.dctYear - 1));
-				} else {
-					String lmYear = getLastMentionedYear(linearDates, i);
-					replace(valueNew, checkUndef, lmYear.isEmpty() ? "XXXX" : getXNextYear(lmYear, -1));
-				}
-				handleFiscalYear(valueNew);
-			} else if (ambigString.startsWith("UNDEF-this-year")) {
-				String checkUndef = "UNDEF-this-year";
-				if (dct != null) {
-					replace(valueNew, checkUndef, Integer.toString(dct.dctYear));
-				} else {
-					String lmYear = getLastMentionedYear(linearDates, i);
-					replace(valueNew, checkUndef, lmYear.isEmpty() ? "XXXX" : lmYear);
-				}
-				handleFiscalYear(valueNew);
-			} else if (ambigString.startsWith("UNDEF-next-year")) {
-				String checkUndef = "UNDEF-next-year";
-				if (dct != null) {
-					replace(valueNew, checkUndef, Integer.toString(dct.dctYear + 1));
-				} else {
-					String lmYear = getLastMentionedYear(linearDates, i);
-					replace(valueNew, checkUndef, lmYear.isEmpty() ? "XXXX" : getXNextYear(lmYear, 1));
-				}
-				handleFiscalYear(valueNew);
-			}
-
-			// month
-			else if (ambigString.startsWith("UNDEF-last-month")) {
-				String checkUndef = "UNDEF-last-month";
-				if (dct != null) {
-					replace(valueNew, checkUndef, getXNextMonth(dct.dctYear + "-" + norm.normNumber(dct.dctMonth), -1));
-				} else {
-					String lmMonth = getLastMentionedMonth(linearDates, i);
-					replace(valueNew, checkUndef, lmMonth.isEmpty() ? "XXXX-XX" : getXNextMonth(lmMonth, -1));
-				}
-			} else if (ambigString.startsWith("UNDEF-this-month")) {
-				String checkUndef = "UNDEF-this-month";
-				if (dct != null) {
-					replace(valueNew, checkUndef, dct.dctYear + "-" + norm.normNumber(dct.dctMonth));
-				} else {
-					String lmMonth = getLastMentionedMonth(linearDates, i);
-					replace(valueNew, checkUndef, lmMonth.isEmpty() ? "XXXX-XX" : lmMonth);
-				}
-			} else if (ambigString.startsWith("UNDEF-next-month")) {
-				String checkUndef = "UNDEF-next-month";
-				if (dct != null) {
-					replace(valueNew, checkUndef, getXNextMonth(dct.dctYear + "-" + norm.normNumber(dct.dctMonth), 1));
-				} else {
-					String lmMonth = getLastMentionedMonth(linearDates, i);
-					replace(valueNew, checkUndef, lmMonth.isEmpty() ? "XXXX-XX" : getXNextMonth(lmMonth, 1));
-				}
-			}
-
-			// day
-			else if (ambigString.startsWith("UNDEF-last-day")) {
-				String checkUndef = "UNDEF-last-day";
-				if (dct != null) {
-					replace(valueNew, checkUndef, getXNextDay(dct.dctYear, dct.dctMonth, dct.dctDay, -1));
-				} else {
-					String lmDay = getLastMentionedDay(linearDates, i);
-					replace(valueNew, checkUndef, lmDay.isEmpty() ? "XXXX-XX-XX" : getXNextDay(lmDay, -1));
-				}
-			} else if (ambigString.startsWith("UNDEF-this-day")) {
-				String checkUndef = "UNDEF-this-day";
-				if (dct != null) {
-					replace(valueNew, checkUndef, dct.dctYear + "-" + norm.normNumber(dct.dctMonth) + "-" + norm.normNumber(dct.dctDay));
-				} else {
-					if (ambigString.equals("UNDEF-this-day")) {
-						return "PRESENT_REF";
-					} else {
-						String lmDay = getLastMentionedDay(linearDates, i);
-						replace(valueNew, checkUndef, lmDay.isEmpty() ? "XXXX-XX-XX" : lmDay);
-					}
-				}
-			} else if (ambigString.startsWith("UNDEF-next-day")) {
-				String checkUndef = "UNDEF-next-day";
-				if (dct != null) {
-					replace(valueNew, checkUndef, getXNextDay(dct.dctYear, dct.dctMonth, dct.dctDay, 1));
-				} else {
-					String lmDay = getLastMentionedDay(linearDates, i);
-					replace(valueNew, checkUndef, lmDay.isEmpty() ? "XXXX-XX-XX" : getXNextDay(lmDay, 1));
-				}
-			}
-
-			// week
-			else if (ambigString.startsWith("UNDEF-last-week")) {
-				String checkUndef = "UNDEF-last-week";
-				if (dct != null) {
-					replace(valueNew, checkUndef, getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), -1));
-				} else {
-					String lmWeek = getLastMentionedWeek(linearDates, i);
-					replace(valueNew, checkUndef, lmWeek.isEmpty() ? "XXXX-WXX" : getXNextWeek(lmWeek, -1));
-				}
-			} else if (ambigString.startsWith("UNDEF-this-week")) {
-				String checkUndef = "UNDEF-this-week";
-				if (dct != null) {
-					replace(valueNew, checkUndef, dct.dctYear + "-W" + norm.normNumber(dct.dctWeek));
-				} else {
-					String lmWeek = getLastMentionedWeek(linearDates, i);
-					replace(valueNew, checkUndef, lmWeek.isEmpty() ? "XXXX-WXX" : lmWeek);
-				}
-			} else if (ambigString.startsWith("UNDEF-next-week")) {
-				String checkUndef = "UNDEF-next-week";
-				if (dct != null) {
-					replace(valueNew, checkUndef, getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), 1));
-				} else {
-					String lmWeek = getLastMentionedWeek(linearDates, i);
-					replace(valueNew, checkUndef, lmWeek.isEmpty() ? "XXXX-WXX" : getXNextWeek(lmWeek, 1));
-				}
-			}
-
-			// quarter
-			else if (ambigString.startsWith("UNDEF-last-quarter")) {
-				String checkUndef = "UNDEF-last-quarter";
-				if (dct != null) {
-					if (dct.dctQuarter.equals("Q1")) {
-						replace(valueNew, checkUndef, dct.dctYear - 1 + "-Q4");
-					} else {
-						int newQuarter = parseInt(dct.dctQuarter, 1, 2) - 1;
-						replace(valueNew, checkUndef, dct.dctYear + "-Q" + newQuarter);
-					}
-				} else {
-					String lmQuarter = getLastMentionedQuarter(linearDates, i, language);
-					if (lmQuarter.length() == 0) {
-						replace(valueNew, checkUndef, "XXXX-QX");
-					} else {
-						int lmQuarterOnly = parseInt(lmQuarter, 6, 7);
-						int lmYearOnly = parseInt(lmQuarter, 0, 4);
-						if (lmQuarterOnly == 1) {
-							replace(valueNew, checkUndef, lmYearOnly - 1 + "-Q4");
-						} else {
-							int newQuarter = lmQuarterOnly - 1;
-							replace(valueNew, checkUndef, lmYearOnly + "-Q" + newQuarter);
-						}
-					}
-				}
-			} else if (ambigString.startsWith("UNDEF-this-quarter")) {
-				String checkUndef = "UNDEF-this-quarter";
-				if (dct != null) {
-					replace(valueNew, checkUndef, dct.dctYear + "-" + dct.dctQuarter);
-				} else {
-					String lmQuarter = getLastMentionedQuarter(linearDates, i, language);
-					replace(valueNew, checkUndef, lmQuarter.isEmpty() ? "XXXX-QX" : lmQuarter);
-				}
-			} else if (ambigString.startsWith("UNDEF-next-quarter")) {
-				String checkUndef = "UNDEF-next-quarter";
-				if (dct != null) {
-					if (dct.dctQuarter.equals("Q4")) {
-						replace(valueNew, checkUndef, dct.dctYear + 1 + "-Q1");
-					} else {
-						replace(valueNew, checkUndef, dct.dctYear + "-Q" + (parseInt(dct.dctQuarter, 1, 2) + 1));
-					}
-				} else {
-					String lmQuarter = getLastMentionedQuarter(linearDates, i, language);
-					if (lmQuarter.length() == 0) {
-						replace(valueNew, checkUndef, "XXXX-QX");
-					} else {
-						int lmQuarterOnly = parseInt(lmQuarter, 6, 7);
-						int lmYearOnly = parseInt(lmQuarter, 0, 4);
-						if (lmQuarterOnly == 4) {
-							replace(valueNew, checkUndef, lmYearOnly + 1 + "-Q1");
-						} else {
-							replace(valueNew, checkUndef, lmYearOnly + "-Q" + (lmQuarterOnly + 1));
-						}
-					}
-				}
-			}
-			// MONTH NAMES
-			else if (handleUndefMonth(ambigString, valueNew, linearDates, i, dct)) {
-				// Resolved undefined month.
-			}
-			// SEASONS NAMES
-			else if (handleUndefSeason(ambigString, valueNew, linearDates, i, dct)) {
-				// Resolved undefined season.
-			}
-			// WEEKDAY NAMES
-			else if (handleUndefWeekday(ambigString, valueNew, linearDates, i, dct, last_used_tense)) {
-				// Resolved undefined weekday.
-			} else {
-				LOG.debug("ATTENTION: UNDEF value for: {} is not handled in disambiguation phase!", valueNew);
-			}
+	private String handleUndefNextPrevThis(String ambigString, List<Timex3> linearDates, int i, ParsedDct dct) {
+		Matcher m = UNDEF_UNIT.matcher(ambigString);
+		if (!m.find())
+			return null;
+		String rel = m.group(1), unit = m.group(2);
+		int sdiff = 0;
+		switch (rel) {
+		case "this":
+			break;
+		case "last":
+			sdiff = -1;
+			break;
+		case "next":
+			sdiff = +1;
+			break;
+		default:
+			LOG.warn("Unknown relationship {} in {}", rel, ambigString);
+			return null;
 		}
-
+		String rep = adjustByUnit(linearDates, i, dct, unit, sdiff, true);
+		StringBuilder valueNew = join(rep, ambigString, m.end());
+		if ("year".equals(unit))
+			handleFiscalYear(valueNew);
 		return valueNew.toString();
 	}
 
-	private boolean handleUndefYear(String ambigString, StringBuilder valueNew, List<Timex3> linearDates, int i, ParsedDct dct, Tense last_used_tense) {
+	/**
+	 * Adjust a date.
+	 *
+	 * @param linearDates
+	 *                Date mentions
+	 * @param i
+	 *                Position
+	 * @param dct
+	 *                Document creation time
+	 * @param unit
+	 *                Unit
+	 * @param sdiff
+	 *                Difference
+	 * @param fuzz
+	 *                Fuzzing factor
+	 * @return Adjusted date, or null.
+	 */
+	private String adjustByUnit(List<Timex3> linearDates, int i, ParsedDct dct, String unit, int sdiff, boolean fuzz) {
+		// do the processing for SCIENTIFIC documents (TPZ identification could be improved)
+		if (documentType == DocumentType.SCIENTIFIC)
+			return formatScientific(unit, sdiff);
+		// TODO: BC dates are likely not handled correctly everywhere, although some cases may never occur, because we won't have day information BC.
+		switch (unit) {
+		case "century":
+			if (dct != null)
+				return norm.normNumber(dct.dctCentury + sdiff);
+			String lmCentury = getLastMentionedCentury(linearDates, i);
+			return lmCentury.isEmpty() ? "XX" : getXNextCentury(lmCentury, sdiff);
+		case "decade":
+			if (dct != null)
+				return (Integer.toString(dct.dctYear + sdiff * 10)).substring(0, 3);
+			String lmDecade = getLastMentionedDecade(linearDates, i);
+			return lmDecade.isEmpty() ? "XXXX" : getXNextDecade(lmDecade, sdiff);
+		case "year":
+			if (fuzz) { // Use year precision
+				if (dct != null)
+					return Integer.toString(dct.dctYear + sdiff);
+				String lmYear = getLastMentionedYear(linearDates, i);
+				return lmYear.isEmpty() ? "XXXX" : getXNextYear(lmYear, sdiff);
+			}
+			// Use day precision, if possible
+			// FIXME: Use dct?
+			String dateWithYear = getLastMentionedDateYear(linearDates, i);
+			if (dateWithYear.length() == 0)
+				return "XXXX";
+			// FIXME: clean up BC handling!
+			final int p = dateWithYear.startsWith("BC") ? 6 : 4;
+			String year = dateWithYear.substring(0, p);
+			String rest = dateWithYear.substring(p);
+			String yearNew = getXNextYear(year, sdiff);
+			return yearNew + rest;
+		case "quarter":
+			// TODO: assert not BC?
+			if (dct != null) {
+				// Use quarters, 0 to 3, for computation.
+				int quarters = (dct.dctYear << 2) + parseIntAt(dct.dctQuarter, 1) - 1 + sdiff;
+				return (quarters >> 2) + "-Q" + ((quarters & 0x3) + 1);
+			}
+			String lmQuarter = getLastMentionedQuarter(linearDates, i, language);
+			if (lmQuarter.isEmpty())
+				return "XXXX-XX";
+			// Use quarters, 0 to 3, for computation.
+			int quarters = (parseInt(lmQuarter, 0, 4) << 2) + parseIntAt(lmQuarter, 6) - 1 + sdiff;
+			return (quarters >> 2) + "-Q" + ((quarters & 0x3) + 1);
+		case "month":
+			// TODO: assert not BC?
+			if (dct != null)
+				return getXNextMonth(dct.dctYear + "-" + norm.normNumber(dct.dctMonth), sdiff);
+			String lmMonth = getLastMentionedMonth(linearDates, i);
+			return lmMonth.isEmpty() ? "XXXX-XX" : getXNextMonth(lmMonth, sdiff);
+		case "week":
+			// TODO: assert not BC?
+			if (fuzz && (sdiff > 1 || sdiff < -1)) { // Use week precision
+				if (dct != null)
+					return getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), sdiff);
+				String lmWeek = getLastMentionedWeek(linearDates, i);
+				return lmWeek.isEmpty() ? "XXXX-WXX" : getXNextWeek(lmWeek, sdiff);
+			}
+			// Use day precision, if possible
+			if (dct != null)
+				return getXNextDay(dct.dctYear, dct.dctMonth, dct.dctDay, sdiff * 7);
+			String lmDayW = getLastMentionedDay(linearDates, i);
+			return lmDayW.isEmpty() ? "XXXX-WXX" : getXNextDay(lmDayW, sdiff * 7);
+		case "day":
+			if (dct != null)
+				return getXNextDay(dct.dctYear, dct.dctMonth, dct.dctDay, sdiff);
+			String lmDay = getLastMentionedDay(linearDates, i);
+			return lmDay.isEmpty() ? "XXXX-XX-XX" : getXNextDay(lmDay, sdiff);
+		case "minute":
+		case "second":
+		case "hour":
+			// FIXME: support these, too?
+			return null;
+		default:
+			LOG.warn("Unknown unit {}", unit);
+			return null;
+		}
+	}
+
+	private String formatScientific(String unit, int sdiff) {
+		final String fmt;
+		switch (unit) {
+		case "year":
+			fmt = "TPZ%c%04d";
+			break;
+		case "month":
+			fmt = "TPZ%c0000-%02d";
+			break;
+		case "week":
+			fmt = "TPZ%c0000-W%02d";
+			break;
+		case "day":
+			fmt = "TPZ%c0000-00-%02d";
+			break;
+		case "hour":
+			fmt = "TPZ%c0000-00-00T%02d";
+			break;
+		case "minute":
+			fmt = "TPZ%c0000-00-00T00:%02d";
+			break;
+		case "second":
+			fmt = "TPZ%c0000-00-00T00:00:%02d";
+			break;
+		default:
+			LOG.error("no scientific format for unit type {}", unit);
+			return null;
+		}
+		return String.format(Locale.ROOT, fmt, sdiff >= 0 ? '+' : '-', Math.abs(sdiff));
+	}
+
+	private String handleUndefYear(String ambigString, List<Timex3> linearDates, int i, ParsedDct dct, Tense last_used_tense) {
 		if (!ambigString.startsWith("UNDEF-year"))
-			return false;
-		String repl = "";
+			return null;
 		// In COLLOQUIAL, default to present/future, otherwise assume past (if undefined).
 		last_used_tense = last_used_tense != null ? last_used_tense : (documentType == DocumentType.COLLOQUIAL ? Tense.PRESENTFUTURE : Tense.PAST);
 		String[] valueParts = ambigString.split("-");
+		String repl;
 		if (dct != null && valueParts.length > 2) {
 			int newYear = dct.dctYear;
 			String part2 = valueParts[2];
@@ -628,15 +426,16 @@ class ResolveAmbiguousValues {
 			repl = Integer.toString(newYear);
 		} else {
 			repl = getLastMentionedYear(linearDates, i);
+			if (repl.isEmpty())
+				repl = "XXXX";
 		}
-		// REPLACE THE UNDEF-YEAR WITH THE NEWLY CALCULATED YEAR AND ADD TIMEX TO INDEXES
-		valueNew.replace(0, "UNDEF-year".length(), !repl.isEmpty() ? repl : "XXXX");
-		return true;
+		// REPLACE THE UNDEF-YEAR WITH THE NEWLY CALCULATED YEAR
+		return join(repl, ambigString, "UNDEF-year".length()).toString();
 	}
 
-	private boolean handleUndefCentury(String ambigString, StringBuilder valueNew, List<Timex3> linearDates, int i, ParsedDct dct, Tense last_used_tense) {
+	private String handleUndefCentury(String ambigString, List<Timex3> linearDates, int i, ParsedDct dct, Tense last_used_tense) {
 		if (!ambigString.startsWith("UNDEF-century"))
-			return false;
+			return null;
 		String repl = dct != null ? Integer.toString(dct.dctCentury) : "";
 
 		// FIXME: supposed to be NEWS and COLLOQUIAL DOCUMENTS
@@ -665,18 +464,18 @@ class ResolveAmbiguousValues {
 		// are 19XX if no century found (LREC change)
 		if (repl.isEmpty())
 			repl = (documentType == DocumentType.NARRATIVE ? "00" : "19");
-		valueNew.replace(0, "UNDEF-century".length(), repl);
+		StringBuilder valueNew = join(repl, ambigString, "UNDEF-century".length());
 		// always assume that sixties, twenties, and so on are 19XX -- if
 		// not narrative document (LREC change)
 		if (documentType != DocumentType.NARRATIVE && THREE_DIGITS.matcher(valueNew).matches())
 			valueNew.replace(0, 2, "19");
-		return true;
+		return valueNew.toString();
 	}
 
-	private boolean handleUndefMonth(String ambigString, StringBuilder valueNew, List<Timex3> linearDates, int i, ParsedDct dct) {
+	private String handleUndefMonth(String ambigString, List<Timex3> linearDates, int i, ParsedDct dct) {
 		Matcher m = UNDEF_MONTH.matcher(ambigString);
 		if (!m.find())
-			return false;
+			return null;
 		String ltn = m.group(1), newMonth = norm.getFromNormMonthName(m.group(2)), daystr = m.group(3);
 		String repl = "XXXX-XX";
 		if (ltn.equals("last")) {
@@ -747,14 +546,13 @@ class ResolveAmbiguousValues {
 		} else {
 			LOG.warn("Unhandled undef-month: {}", ltn);
 		}
-		valueNew.replace(0, m.end(), repl);
-		return true;
+		return join(repl, ambigString, m.end()).toString();
 	}
 
-	private boolean handleUndefSeason(String ambigString, StringBuilder valueNew, List<Timex3> linearDates, int i, ParsedDct dct) {
+	private String handleUndefSeason(String ambigString, List<Timex3> linearDates, int i, ParsedDct dct) {
 		Matcher m = UNDEF_SEASON.matcher(ambigString);
 		if (!m.find())
-			return false;
+			return null;
 		String ltn = m.group(1);
 		Season newSeason = Season.of(ambigString, m.start(2));
 		String repl = "XXXX-XX";
@@ -801,14 +599,13 @@ class ResolveAmbiguousValues {
 		} else {
 			LOG.warn("Unhandled undef-season: {}", ltn);
 		}
-		valueNew.replace(0, m.end(), repl);
-		return true;
+		return join(repl, ambigString, m.end()).toString();
 	}
 
-	private boolean handleUndefWeekday(String ambigString, StringBuilder valueNew, List<Timex3> linearDates, int i, ParsedDct dct, Tense last_used_tense) {
+	private String handleUndefWeekday(String ambigString, List<Timex3> linearDates, int i, ParsedDct dct, Tense last_used_tense) {
 		Matcher m = UNDEF_WEEKDAY.matcher(ambigString);
 		if (!m.find())
-			return false;
+			return null;
 		// TODO (before refactoring:) the calculation is strange, but works
 		// But we improved this during refactoring, is it less strange now?
 		// TODO tense should be included?!
@@ -883,23 +680,25 @@ class ResolveAmbiguousValues {
 		} else {
 			LOG.warn("Unhandled undef-weekday: {}", ltnd);
 		}
-		valueNew.replace(0, m.end(), repl);
-		return true;
+		return join(repl, ambigString, m.end()).toString();
 	}
 
 	/**
-	 * Replace part of a buffer.
-	 *
-	 * @param buf
-	 *                Buffer
-	 * @param exp
-	 *                Expected beginning of the buffer
-	 * @param rep
-	 *                Replacement
+	 * Join pre-string + post-string beginning at offsetPost, effectively replacing the first offsetPost characters with the pre string.
+	 * 
+	 * @param pre
+	 *                Prefix
+	 * @param post
+	 *                Postfix
+	 * @param offsetPost
+	 *                Number of chars in postfix to skip.
+	 * @return String builder, for futher modification
 	 */
-	private static void replace(StringBuilder buf, String exp, String rep) {
-		assert (buf.substring(0, exp.length()).equals(exp));
-		buf.replace(0, exp.length(), rep);
+	private static StringBuilder join(String pre, String post, final int offsetPost) {
+		StringBuilder valueNew = new StringBuilder(pre.length() + post.length() - offsetPost);
+		valueNew.append(pre);
+		valueNew.append(post, offsetPost, post.length());
+		return valueNew;
 	}
 
 	/**
