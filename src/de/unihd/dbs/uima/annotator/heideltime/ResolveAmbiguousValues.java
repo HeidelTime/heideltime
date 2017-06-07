@@ -541,137 +541,96 @@ class ResolveAmbiguousValues {
 	private boolean handleUndefYear(String ambigString, StringBuilder valueNew, List<Timex3> linearDates, int i, ParsedDct dct, Tense last_used_tense) {
 		if (!ambigString.startsWith("UNDEF-year"))
 			return false;
-		String repl = dct != null ? Integer.toString(dct.dctYear) : "";
-		// FIXME: refactor this, to handle the different cases below properly.
-		// check if value_i has month, day, season, week (otherwise no UNDEF-year is possible)
-		int viThisMonth = -1, viThisDay = -1, viThisWeek = -1;
-		Season viThisSeason = null;
-		String viThisQuarter = null, viThisHalf = null;
+		String repl = "";
+		// In COLLOQUIAL, default to present/future, otherwise assume past (if undefined).
+		last_used_tense = last_used_tense != null ? last_used_tense : (documentType == DocumentType.COLLOQUIAL ? Tense.PRESENTFUTURE : Tense.PAST);
 		String[] valueParts = ambigString.split("-");
-		if (valueParts.length > 2) {
-			final String part2 = valueParts[2];
+		if (dct != null && valueParts.length > 2) {
+			int newYear = dct.dctYear;
+			String part2 = valueParts[2];
+			Season viThisSeason;
 			// get vi month
 			if (TWO_DIGITS.matcher(part2).matches()) {
-				// FIXME: check range?
-				viThisMonth = parseInt(part2);
-			}
-			// get vi season
-			else if ((viThisSeason = Season.of(part2)) != null) {
-				// Season is already assigned in the if statement!
-			}
-			// get vi quarter
-			else if (part2.charAt(0) == 'Q' && (part2.equals("Q1") || part2.equals("Q2") || part2.equals("Q3") || part2.equals("Q4"))) {
-				viThisQuarter = part2;
-			}
-			// get vi half
-			else if (part2.charAt(0) == 'H' && (part2.equals("H1") || part2.equals("H2"))) {
-				viThisHalf = part2;
-			}
-			// get vi Week
-			else if (part2.charAt(0) == 'W') {
-				viThisWeek = parseIntAt(part2, 1);
-			}
-			// get vi day
-			if (valueParts.length > 3 && TWO_DIGITS.matcher(valueParts[3]).matches()) {
-				// FIXME: check range?
-				viThisDay = parseInt(valueParts[3]);
-			}
-		}
-		// vi has month (ignore day)
-		if (viThisMonth > 0 && viThisSeason == null) {
-			// WITH DOCUMENT CREATION TIME
-			if (dct != null) {
+				// FIXME: check range of month and day?
+				int viThisMonth = parseInt(part2);
+				// Get day in vi
+				int viThisDay = (valueParts.length > 3 && TWO_DIGITS.matcher(valueParts[3]).matches()) //
+						? parseInt(valueParts[3]) : -1;
 				// Tense is FUTURE
 				if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
 					// if dct-month is larger than vi-month, then add 1 to dct-year
-					if (dct.dctMonth > viThisMonth)
-						repl = Integer.toString(dct.dctYear + 1);
+					if (dct.dctMonth > viThisMonth || //
+							(dct.dctMonth == viThisMonth && viThisDay > 0 && dct.dctDay > viThisDay))
+						++newYear;
 				}
 				// Tense is PAST
-				if (last_used_tense == Tense.PAST) {
+				else if (last_used_tense == Tense.PAST) {
 					// if dct-month is smaller than vi month, then subtract 1 from dct-year
-					if (dct.dctMonth < viThisMonth)
-						repl = Integer.toString(dct.dctYear - 1);
+					if (dct.dctMonth < viThisMonth || //
+							(dct.dctMonth == viThisMonth && viThisDay > 0 && dct.dctDay < viThisDay))
+						--newYear;
 				}
 			}
-			// WITHOUT DOCUMENT CREATION TIME
-			else {
-				repl = getLastMentionedYear(linearDates, i);
-			}
-		}
-		// vi has quarter
-		if (viThisQuarter != null) {
-			// WITH DOCUMENT CREATION TIME
-			if (dct != null) {
+			// get vi season
+			else if ((viThisSeason = Season.of(part2)) != null) {
 				// Tense is FUTURE
 				if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
-					if (parseIntAt(dct.dctQuarter, 1) < parseIntAt(viThisQuarter, 1))
-						repl = Integer.toString(dct.dctYear + 1);
+					// if dct-month is larger than vi-month, then add 1 to dct-year
+					if (dct.dctSeason.ord() > viThisSeason.ord())
+						++newYear;
+				}
+				// Tense is PAST
+				else if (last_used_tense == Tense.PAST) {
+					// if dct-month is smaller than vi month, then subtract 1 from dct-year
+					if (dct.dctSeason.ord() < viThisSeason.ord())
+						--newYear;
+				}
+			}
+			// get vi quarter
+			else if (part2.charAt(0) == 'Q' && part2.charAt(1) >= '1' && part2.charAt(1) <= '4') {
+				// Tense is FUTURE
+				if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
+					if (parseIntAt(dct.dctQuarter, 1) > parseIntAt(part2, 1))
+						++newYear;
 				}
 				// Tense is PAST
 				if (last_used_tense == Tense.PAST) {
-					if (parseIntAt(dct.dctQuarter, 1) < parseIntAt(viThisQuarter, 1))
-						repl = Integer.toString(dct.dctYear - 1);
-				}
-				// IF NO TENSE IS FOUND
-				if (last_used_tense == null) {
-					if (documentType == DocumentType.COLLOQUIAL) {
-						// IN COLLOQUIAL: future temporal expressions
-						if (parseIntAt(dct.dctQuarter, 1) < parseIntAt(viThisQuarter, 1))
-							repl = Integer.toString(dct.dctYear + 1);
-					} else {
-						// IN NEWS: past temporal expressions
-						if (parseIntAt(dct.dctQuarter, 1) < parseIntAt(viThisQuarter, 1))
-							repl = Integer.toString(dct.dctYear - 1);
-					}
+					if (parseIntAt(dct.dctQuarter, 1) < parseIntAt(part2, 1))
+						--newYear;
 				}
 			}
-			// WITHOUT DOCUMENT CREATION TIME
-			else {
-				repl = getLastMentionedYear(linearDates, i);
-			}
-		}
-		// vi has half
-		if (viThisHalf != null) {
-			// WITH DOCUMENT CREATION TIME
-			if (dct != null) {
+			// get vi half
+			else if (part2.charAt(0) == 'H' && (part2.equals("H1") || part2.equals("H2"))) {
 				// Tense is FUTURE
 				if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
-					if (parseIntAt(dct.dctHalf, 1) < parseIntAt(viThisHalf, 1))
-						repl = Integer.toString(dct.dctYear + 1);
+					if (parseIntAt(dct.dctHalf, 1) > parseIntAt(part2, 1))
+						++newYear;
 				}
 				// Tense is PAST
 				if (last_used_tense == Tense.PAST) {
-					if (parseIntAt(dct.dctHalf, 1) < parseIntAt(viThisHalf, 1))
-						repl = Integer.toString(dct.dctYear - 1);
-				}
-				// IF NO TENSE IS FOUND
-				if (last_used_tense == null) {
-					if (parseIntAt(dct.dctHalf, 1) < parseIntAt(viThisHalf, 1))
-						// IN COLLOQUIAL: future temporal expressions
-						// IN NEWS: past temporal expressions
-						repl = Integer.toString(dct.dctYear + (documentType == DocumentType.COLLOQUIAL ? 1 : -1));
+					if (parseIntAt(dct.dctHalf, 1) < parseIntAt(part2, 1))
+						--newYear;
 				}
 			}
-			// WITHOUT DOCUMENT CREATION TIME
-			else {
-				repl = getLastMentionedYear(linearDates, i);
+			// get vi Week
+			else if (part2.charAt(0) == 'W') {
+				// Tense is FUTURE
+				if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
+					if (dct.dctWeek > parseIntAt(part2, 1))
+						++newYear;
+				}
+				// Tense is PAST
+				if (last_used_tense == Tense.PAST) {
+					if (dct.dctWeek < parseIntAt(part2, 1))
+						--newYear;
+				}
 			}
+			repl = Integer.toString(newYear);
+		} else {
+			repl = getLastMentionedYear(linearDates, i);
 		}
-
-		// TODO: the logic of this part is messy.
-		// vi has season
-		if (viThisMonth <= 0 && viThisDay <= 0 && viThisSeason == null)
-			// TODO check tenses?
-			repl = dct != null ? Integer.toString(dct.dctYear) : getLastMentionedYear(linearDates, i);
-		// vi has week
-		if (viThisWeek > -1)
-			repl = dct != null ? Integer.toString(dct.dctYear) : getLastMentionedYear(linearDates, i);
-
-		if (repl.isEmpty())
-			repl = "XXXX";
 		// REPLACE THE UNDEF-YEAR WITH THE NEWLY CALCULATED YEAR AND ADD TIMEX TO INDEXES
-		valueNew.replace(0, "UNDEF-year".length(), repl);
+		valueNew.replace(0, "UNDEF-year".length(), !repl.isEmpty() ? repl : "XXXX");
 		return true;
 	}
 
@@ -680,8 +639,8 @@ class ResolveAmbiguousValues {
 			return false;
 		String repl = dct != null ? Integer.toString(dct.dctCentury) : "";
 
-		// NEWS and COLLOQUIAL DOCUMENTS
-		if (dct != null && !ambigString.equals("UNDEF-century")) {
+		// FIXME: supposed to be NEWS and COLLOQUIAL DOCUMENTS
+		if (dct != null) {
 			int viThisDecade = parseInt(ambigString, 13, 14);
 			// Tense is FUTURE
 			if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE)
