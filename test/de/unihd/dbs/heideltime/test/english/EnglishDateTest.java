@@ -80,6 +80,9 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 				new String[] { "date_r2a", "January 19th", "XXXX-01-19" });
 		testSingleCase("January nineteenth", //
 				new String[] { "date_r2a", "January nineteenth", "XXXX-01-19" });
+		// Test with dct:
+		testSingleCase("Nov. 21", "19981102", //
+				new String[] { "date_r2a", "Nov. 21", "1998-11-21" });
 	}
 
 	@Test
@@ -163,6 +166,9 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	public void testdate_r5c() {
 		testSingleCase("Monday", //
 				new String[] { "date_r5c", "Monday", "XXXX-XX-XX" });
+		// Test with dct:
+		testSingleCase("Monday", "19981104", //
+				new String[] { "date_r5c", "Monday", "1998-11-02" });
 	}
 
 	@Test
@@ -229,11 +235,13 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 				new String[] { "date_r10a", "the third quarter of 2001", "2001-Q3" });
 	}
 
-	@Ignore("Disabled, false positives: shot a goal in the second half")
+	// @Ignore("Disabled, false positives: shot a goal in the second half")
 	@Test
 	public void testdate_r10b() {
 		testSingleCase("the second half", //
 				new String[] { "date_r10b", "the second half", "XXXX-H2" });
+		testSingleCase("the third-quarter", "2010-12-01", //
+				new String[] { "date_r10b", "the third-quarter", "2010-Q3" });
 	}
 
 	@Test
@@ -494,13 +502,13 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	@Test
 	public void testdate_r20f() {
 		testSingleCase("on 30 minutes something happened", //
-				new String[] { "date_r20f", "on 30 minutes", "FUTURE_REF" });
+				new String[] { "date_r20f", "on 30 minutes", "UNDEF-REF-minute-PLUS-30" });
 	}
 
 	@Test
 	public void testdate_r20g() {
 		testSingleCase("on approximately thirty minutes something happened", //
-				new String[] { "date_r20g", "on approximately thirty minutes", "FUTURE_REF" });
+				new String[] { "date_r20g", "on approximately thirty minutes", "UNDEF-REF-minute-PLUS-30" });
 	}
 
 	@Test
@@ -543,6 +551,8 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	public void testdate_r23a() {
 		testSingleCase("the year-earlier first quarter", //
 				new String[] { "date_r23a", "the year-earlier first quarter", "XXXX-Q1" });
+		testSingleCase("the year-earlier first quarter", "2010-12-01", //
+				new String[] { "date_r23a", "the year-earlier first quarter", "2009-Q1" });
 	}
 
 	@Test
@@ -653,6 +663,7 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	@Test
 	public void testdate_r4a_negative() {
 		testSingleCase("W2000.1920");
+		testSingleCase("to 1462.93.");
 	}
 
 	@Test

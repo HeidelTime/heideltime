@@ -21,6 +21,7 @@ import de.unihd.dbs.heideltime.standalone.components.impl.UimaContextImpl;
 import de.unihd.dbs.uima.annotator.heideltime.DocumentType;
 import de.unihd.dbs.uima.annotator.heideltime.HeidelTime;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
+import de.unihd.dbs.uima.types.heideltime.Dct;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Timex3;
 import de.unihd.dbs.uima.types.heideltime.Token;
@@ -36,7 +37,7 @@ public class AbstractHeideltimeTest {
 	protected HeidelTime heideltime;
 	private boolean debugTokenization = false;
 	static final Pattern LINEWRAP = Pattern.compile("\\s*[\\n\\r]+\\s*");
-	static final Pattern WORDS = Pattern.compile("([^\\s\\w]*)(\\w+)([^\\s\\w]*)");
+	static final Pattern WORDS = Pattern.compile("([^\\s\\w]*)(\\w+(?:\\.\\d+)?)([^\\s\\w]*)");
 
 	@Before
 	public void init() {
@@ -102,9 +103,14 @@ public class AbstractHeideltimeTest {
 			System.out.println();
 	}
 
-	protected JCas analyze(String fragment) {
+	protected JCas analyze(String fragment, String dctv) {
 		try {
 			JCas jcas = tokenize(fragment);
+			if (dctv != null) {
+			Dct dct = new Dct(jcas);
+			dct.setValue(dctv);
+			dct.addToIndexes();
+			}
 			heideltime.process(jcas);
 			// intervaltagger.process(jcas);
 			return jcas;
@@ -114,7 +120,11 @@ public class AbstractHeideltimeTest {
 	}
 
 	protected void testSingleCase(String fragment, String[]... expectf) {
-		JCas jcas = analyze(fragment);
+		testSingleCase(fragment, null, expectf);
+	}
+
+	protected void testSingleCase(String fragment, String dctv, String[]... expectf) {
+		JCas jcas = analyze(fragment, dctv);
 		AnnotationIndex<Timex3> times = jcas.getAnnotationIndex(Timex3.type);
 		int cnt = 0;
 		for (Timex3 timex3 : times) {
@@ -140,5 +150,4 @@ public class AbstractHeideltimeTest {
 		}
 		assertEquals("Number of results do not match.", expectf.length, cnt);
 	}
-
 }
