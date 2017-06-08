@@ -37,8 +37,6 @@ class ResolveAmbiguousValues {
 
 	private static final Pattern UNDEF_WEEKDAY = Pattern.compile("^UNDEF-(last|this|next|day)-(monday|tuesday|wednesday|thursday|friday|saturday|sunday)");
 
-	private static final Pattern EIGHT_DIGITS = Pattern.compile("^\\d\\d\\d\\d\\d\\d\\d\\d$");
-
 	private static final Pattern TWO_DIGITS = Pattern.compile("^\\d\\d$");
 
 	private static final Pattern THREE_DIGITS = Pattern.compile("^\\d\\d\\d$");
@@ -58,7 +56,7 @@ class ResolveAmbiguousValues {
 			dctCentury = dctYear / 100;
 			dctDecade = parseInt(dctValue, 2, 3);
 			// Could be separated by slashes, or not.
-			if (EIGHT_DIGITS.matcher(dctValue).matches()) {
+			if (Character.isDigit(dctValue.charAt(4))) {
 				dctMonth = parseInt(dctValue, 4, 6);
 				dctDay = parseInt(dctValue, 6, 8);
 			} else {
@@ -87,16 +85,17 @@ class ResolveAmbiguousValues {
 		}
 
 		public static ParsedDct read(JCas jcas) {
-			AnnotationIndex<Dct> dcts = jcas.getAnnotationIndex(Dct.type);
-			FSIterator<Dct> dctIter = dcts.iterator();
-			if (!dctIter.hasNext()) {
-				LOG.debug("No DCT available...");
-				return null;
-			}
-			return new ParsedDct(dctIter.next().getValue());
+			String dctString = getDct(jcas);
+			return dctString != null ? new ParsedDct(dctString) : null;
 		}
 
-		private static final Pattern VALID_DCT = Pattern.compile("\\d{4}.\\d{2}.\\d{2}|\\d{8}");
+		public static String getDct(JCas jcas) {
+			AnnotationIndex<Dct> dcts = jcas.getAnnotationIndex(Dct.type);
+			FSIterator<Dct> dctIter = dcts.iterator();
+			return dctIter.hasNext() ? dctIter.next().getValue() : null;
+		}
+
+		private static final Pattern VALID_DCT = Pattern.compile("^\\d{4}[.-]?\\d{2}[.-]?\\d{2}");
 
 		/**
 		 * Check whether or not a jcas object has a correct DCT value. If there is no DCT present, we canonically return true since fallback calculation takes care of that scenario.
@@ -105,16 +104,9 @@ class ResolveAmbiguousValues {
 		 * @return Whether or not the given jcas contains a valid DCT
 		 */
 		public static boolean isValidDCT(JCas jcas) {
-			AnnotationIndex<Dct> dcts = jcas.getAnnotationIndex(Dct.type);
-			FSIterator<Dct> dctIter = dcts.iterator();
-
-			if (!dctIter.hasNext())
-				return true;
-			String dctVal = dctIter.next().getValue();
-			if (dctVal == null)
-				return false;
+			String dctString = getDct(jcas);
 			// Something like 20041224 or 2004-12-24
-			return VALID_DCT.matcher(dctVal).matches();
+			return dctString == null || VALID_DCT.matcher(dctString).find();
 		}
 	}
 
@@ -170,11 +162,13 @@ class ResolveAmbiguousValues {
 			int diff = parseInt(ambigString, m.start(4), m.end(4));
 			diff = positive ? diff : -diff; // Signed diff
 			String rep = adjustByUnit(linearDates, i, dct, unit, diff, fuzz);
+			if (rep == null)
+				return ambigString;
 			StringBuilder valueNew = join(rep, ambigString, m.end());
 			if ("year".equals(unit))
 				handleFiscalYear(valueNew);
 			return valueNew.toString();
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 			LOG.error("Invalid integer {} in {}", m.group(4), ambigString);
 			return positive ? "FUTURE_REF" : "PAST_REF";
 		}
@@ -339,8 +333,9 @@ class ResolveAmbiguousValues {
 	private String handleUndefYear(String ambigString, List<Timex3> linearDates, int i, ParsedDct dct, Tense last_used_tense) {
 		if (!ambigString.startsWith("UNDEF-year"))
 			return null;
-		// In COLLOQUIAL, default to present/future, otherwise assume past (if undefined).
-		last_used_tense = last_used_tense != null ? last_used_tense : (documentType == DocumentType.COLLOQUIAL ? Tense.PRESENTFUTURE : Tense.PAST);
+		last_used_tense = last_used_tense != null ? last_used_tense //
+				// In COLLOQUIAL, default to present/future, otherwise assume past (if undefined).
+				: (documentType == DocumentType.COLLOQUIAL ? Tense.PRESENTFUTURE : Tense.PAST);
 		String[] valueParts = ambigString.split("-");
 		String repl;
 		if (dct != null && valueParts.length > 2) {
@@ -355,7 +350,7 @@ class ResolveAmbiguousValues {
 				int viThisDay = (valueParts.length > 3 && TWO_DIGITS.matcher(valueParts[3]).matches()) //
 						? parseInt(valueParts[3]) : -1;
 				// Tense is FUTURE
-				if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
+				if (last_used_tense == Tense.FUTURE) { // || last_used_tense == Tense.PRESENTFUTURE) {
 					// if dct-month is larger than vi-month, then add 1 to dct-year
 					if (dct.dctMonth > viThisMonth || //
 							(dct.dctMonth == viThisMonth && viThisDay > 0 && dct.dctDay > viThisDay))
@@ -372,7 +367,7 @@ class ResolveAmbiguousValues {
 			// get vi season
 			else if ((viThisSeason = Season.of(part2)) != null) {
 				// Tense is FUTURE
-				if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
+				if (last_used_tense == Tense.FUTURE) { // || last_used_tense == Tense.PRESENTFUTURE) {
 					// if dct-month is larger than vi-month, then add 1 to dct-year
 					if (dct.dctSeason.ord() > viThisSeason.ord())
 						++newYear;
@@ -387,7 +382,7 @@ class ResolveAmbiguousValues {
 			// get vi quarter
 			else if (part2.charAt(0) == 'Q' && part2.charAt(1) >= '1' && part2.charAt(1) <= '4') {
 				// Tense is FUTURE
-				if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
+				if (last_used_tense == Tense.FUTURE) { // || last_used_tense == Tense.PRESENTFUTURE) {
 					if (parseIntAt(dct.dctQuarter, 1) > parseIntAt(part2, 1))
 						++newYear;
 				}
@@ -400,7 +395,7 @@ class ResolveAmbiguousValues {
 			// get vi half
 			else if (part2.charAt(0) == 'H' && (part2.equals("H1") || part2.equals("H2"))) {
 				// Tense is FUTURE
-				if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
+				if (last_used_tense == Tense.FUTURE) { // || last_used_tense == Tense.PRESENTFUTURE) {
 					if (parseIntAt(dct.dctHalf, 1) > parseIntAt(part2, 1))
 						++newYear;
 				}
@@ -413,7 +408,7 @@ class ResolveAmbiguousValues {
 			// get vi Week
 			else if (part2.charAt(0) == 'W') {
 				// Tense is FUTURE
-				if (last_used_tense == Tense.FUTURE || last_used_tense == Tense.PRESENTFUTURE) {
+				if (last_used_tense == Tense.FUTURE) { // || last_used_tense == Tense.PRESENTFUTURE) {
 					if (dct.dctWeek > parseIntAt(part2, 1))
 						++newYear;
 				}
@@ -616,7 +611,7 @@ class ResolveAmbiguousValues {
 			if (dct != null) {
 				int diff = -(dct.dctWeekday - newWeekdayInt);
 				diff = (diff >= 0) ? diff - 7 : diff;
-				repl = getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff);
+				repl = getXNextDay(dct.dctYear, dct.dctMonth, dct.dctDay, diff);
 			} else {
 				String lmDay = getLastMentionedDay(linearDates, i);
 				if (!lmDay.isEmpty()) {
@@ -631,7 +626,7 @@ class ResolveAmbiguousValues {
 				// TODO tense should be included?!
 				int diff = -(dct.dctWeekday - newWeekdayInt);
 				diff = (diff > 0) ? diff - 7 : diff;
-				repl = getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff);
+				repl = getXNextDay(dct.dctYear, dct.dctMonth, dct.dctDay, diff);
 			} else {
 				// TODO tense should be included?!
 				String lmDay = getLastMentionedDay(linearDates, i);
@@ -646,7 +641,7 @@ class ResolveAmbiguousValues {
 			if (dct != null) {
 				int diff = newWeekdayInt - dct.dctWeekday;
 				diff = (diff <= 0) ? diff + 7 : diff;
-				repl = getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff);
+				repl = getXNextDay(dct.dctYear, dct.dctMonth, dct.dctDay, diff);
 			} else {
 				String lmDay = getLastMentionedDay(linearDates, i);
 				if (!lmDay.isEmpty()) {
@@ -666,7 +661,7 @@ class ResolveAmbiguousValues {
 					diff += 7;
 				// Tense is PAST
 				// if ((last_used_tense == Tense.PAST)) ?
-				repl = getXNextDay(dct.dctYear + "-" + dct.dctMonth + "-" + dct.dctDay, diff);
+				repl = getXNextDay(dct.dctYear, dct.dctMonth, dct.dctDay, diff);
 			} else {
 				// TODO tense should be included?!
 				String lmDay = getLastMentionedDay(linearDates, i);
