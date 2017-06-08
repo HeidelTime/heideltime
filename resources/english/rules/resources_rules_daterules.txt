@@ -134,7 +134,8 @@ RULENAME="date_r9d",EXTRACTION="(?:%rePartWords |[Tt]he |)%reSeason (?:of )?%reN
 // EXAMPLE r10b_1: the second half
 // EXAMPLE r10c_1: the 2001 third quarter
 RULENAME="date_r10a",EXTRACTION="(?:[Tt]he )?%rePartOfYear (?:of )?%reYear4Digit",NORM_VALUE="group(2)-%normPartOfYear(group(1))"
-// disabled: false positives from sports RULENAME="date_r10b",EXTRACTION="(?:[Tt]he )?%rePartOfYear",NORM_VALUE="UNDEF-year-%normPartOfYear(group(1))"
+// TODO: causes many false positives from sports, but helps with finance
+RULENAME="date_r10b",EXTRACTION="(?:[Tt]he )?%rePartOfYear",NORM_VALUE="UNDEF-year-%normPartOfYear(group(1))"
 RULENAME="date_r10c",EXTRACTION="(?:[Tt]he )?%reYear4Digit %rePartOfYear",NORM_VALUE="group(1)-%normPartOfYear(group(2))"
 
 // date_r11

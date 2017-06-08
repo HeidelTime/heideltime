@@ -115,7 +115,7 @@ public class TokenBoundaryMatcher {
 						--right;
 					if (left == right) {
 						char sep = coveredText.charAt(left);
-						if (sep == '/' || sep == '-' || sep == '.' || sep == ',') {
+						if (sep == '/' /* || sep == '-' || sep == '.' || sep == ',' */) {
 							endpos.add(left);
 							startpos.add(left + 1);
 						}
