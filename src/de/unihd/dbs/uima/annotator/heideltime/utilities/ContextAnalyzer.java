@@ -433,7 +433,7 @@ public class ContextAnalyzer {
 			}
 		}
 	}
-	
+
 	/**
 	 * Get the last tense used in the sentence
 	 * 
@@ -452,7 +452,7 @@ public class ContextAnalyzer {
 
 		// Get the sentence
 		AnnotationIndex<Sentence> sentences = jcas.getAnnotationIndex(Sentence.type);
-		Sentence s = new Sentence(jcas);
+		Sentence s = null;
 		for (FSIterator<Sentence> iterSentence = sentences.iterator(); iterSentence.hasNext();) {
 			s = iterSentence.next();
 			if (s.getBegin() <= timex.getBegin() && s.getEnd() >= timex.getEnd())
@@ -462,8 +462,11 @@ public class ContextAnalyzer {
 		// Get the tokens
 		TreeMap<Integer, Token> tmToken = new TreeMap<Integer, Token>();
 		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
-		for (Token token : tokens)
+		FSIterator<Token> iter = (s != null) ? tokens.subiterator(s) : tokens.iterator();
+		while (iter.hasNext()) {
+			Token token = iter.next();
 			tmToken.put(token.getEnd(), token);
+		}
 
 		// Get the last VERB token
 		for (Map.Entry<Integer, Token> ent : tmToken.entrySet()) {
@@ -484,19 +487,15 @@ public class ContextAnalyzer {
 
 				if (tensePos4PresentFuture != null && tensePos4PresentFuture.reset(pos).matches()) {
 					lastTense = Tense.PRESENTFUTURE;
-					LOG.debug("this tense: {}", lastTense);
 				} else if (tensePos4Past != null && tensePos4Past.reset(pos).matches()) {
 					lastTense = Tense.PAST;
-					LOG.debug("this tense: {}", lastTense);
 				} else if (tensePos4Future != null && tensePos4Future.reset(pos).matches()) {
 					if (tenseWord4Future.reset(coveredText).matches()) {
 						lastTense = Tense.FUTURE;
-						LOG.debug("this tense: {}", lastTense);
 					}
 				}
 				if (coveredText.equals("since") || coveredText.equals("depuis")) {
 					lastTense = Tense.PAST;
-					LOG.debug("this tense: {}", lastTense);
 				}
 			}
 			if (lastTense == null && ent.getKey() > timex.getEnd()) {
@@ -511,21 +510,19 @@ public class ContextAnalyzer {
 					LOG.debug("CHECK TOKEN:" + pos);
 				}
 
-				if (pos == null) {
-
-				} else if (tensePos4PresentFuture != null && tensePos4PresentFuture.reset(pos).matches()) {
-					lastTense = Tense.PRESENTFUTURE;
-					LOG.debug("this tense: {}", lastTense);
-				} else if (tensePos4Past != null && tensePos4Past.reset(pos).matches()) {
-					lastTense = Tense.PAST;
-					LOG.debug("this tense: {}", lastTense);
-				} else if (tensePos4Future != null && tensePos4Future.reset(pos).matches()) {
-					if (tenseWord4Future.reset(token.getCoveredText()).matches()) {
-						lastTense = Tense.FUTURE;
-						LOG.debug("this tense: {}", lastTense);
+				if (pos != null) {
+					if (tensePos4PresentFuture != null && tensePos4PresentFuture.reset(pos).matches()) {
+						lastTense = Tense.PRESENTFUTURE;
+					} else if (tensePos4Past != null && tensePos4Past.reset(pos).matches()) {
+						lastTense = Tense.PAST;
+					} else if (tensePos4Future != null && tensePos4Future.reset(pos).matches()) {
+						if (tenseWord4Future.reset(token.getCoveredText()).matches())
+							lastTense = Tense.FUTURE;
 					}
 				}
 			}
+			if (lastTense != null)
+				LOG.debug("this tense: {} {}", ent.getValue().getCoveredText(), lastTense);
 		}
 		// check for double POS Constraints (not included in the rule language, yet) TODO
 		// VHZ VNN and VHZ VNN and VHP VNN and VBP VVN
