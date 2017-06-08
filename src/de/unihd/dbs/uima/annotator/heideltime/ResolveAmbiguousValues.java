@@ -272,7 +272,7 @@ class ResolveAmbiguousValues {
 			return lmMonth.isEmpty() ? "XXXX-XX" : getXNextMonth(lmMonth, sdiff);
 		case "week":
 			// TODO: assert not BC?
-			if (fuzz && (sdiff > 1 || sdiff < -1)) { // Use week precision
+			if (fuzz /* && (sdiff > 1 || sdiff < -1) */) { // Use week precision
 				if (dct != null)
 					return getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), sdiff);
 				String lmWeek = getLastMentionedWeek(linearDates, i);

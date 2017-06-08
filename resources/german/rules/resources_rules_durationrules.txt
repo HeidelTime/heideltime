@@ -12,14 +12,14 @@
 // EXAMPLE r1b_1: etwa 20 Tage
 // EXAMPLE r1c_1: etwa fünf Stunden
 // EXAMPLE r1d_1: etwa 20 Stunden
-RULENAME="duration_r1a1",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(6))"
-RULENAME="duration_r1b1",EXTRACTION="(%reApproximate )?([\d]+) %reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(4))"
-RULENAME="duration_r1c1",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D) (Minuten?|Stunden?)",NORM_VALUE="PT%normDurationNumber(group(3))%normUnit4Duration(group(6))"
-RULENAME="duration_r1d1",EXTRACTION="(%reApproximate )?([\d]+) (Minuten?|Stunden?)",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(4))"
-RULENAME="duration_r1a2",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D)%reAndOrTo(%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(10))",OFFSET="group(0)-group(3)"
-RULENAME="duration_r1b2",EXTRACTION="(%reApproximate )?([\d]+)%reAndOrTo([\d]+) %reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(6))",OFFSET="group(0)-group(3)"
-RULENAME="duration_r1c2",EXTRACTION="(%reApproximate )?(%reNumWord2D|%reNumWord1D)%reAndOrTo(%reNumWord2D|%reNumWord1D) (Minuten?|Stunden?)",NORM_VALUE="PT%normDurationNumber(group(3))%normUnit4Duration(group(10))"
-RULENAME="duration_r1d2",EXTRACTION="(%reApproximate )?([\d]+)%reAndOrTo([\d]+) (Minuten?|Stunden?)",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(6))"
+RULENAME="duration_r1a1",EXTRACTION="([Dd]en |%reApproximate )?(%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(6))"
+RULENAME="duration_r1b1",EXTRACTION="([Dd]en |%reApproximate )?([\d]+) %reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(4))"
+RULENAME="duration_r1c1",EXTRACTION="([Dd]en |%reApproximate )?(%reNumWord2D|%reNumWord1D) (Minuten?|Stunden?)",NORM_VALUE="PT%normDurationNumber(group(3))%normUnit4Duration(group(6))"
+RULENAME="duration_r1d1",EXTRACTION="([Dd]en |%reApproximate )?([\d]+) (Minuten?|Stunden?)",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(4))"
+RULENAME="duration_r1a2",EXTRACTION="([Dd]en |%reApproximate )?(%reNumWord2D|%reNumWord1D)%reAndOrTo(%reNumWord2D|%reNumWord1D) %reUnit",NORM_VALUE="P%normDurationNumber(group(3))%normUnit4Duration(group(10))",OFFSET="group(0)-group(3)"
+RULENAME="duration_r1b2",EXTRACTION="([Dd]en |%reApproximate )?([\d]+)%reAndOrTo([\d]+) %reUnit",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(6))",OFFSET="group(0)-group(3)"
+RULENAME="duration_r1c2",EXTRACTION="([Dd]en |%reApproximate )?(%reNumWord2D|%reNumWord1D)%reAndOrTo(%reNumWord2D|%reNumWord1D) (Minuten?|Stunden?)",NORM_VALUE="PT%normDurationNumber(group(3))%normUnit4Duration(group(10))"
+RULENAME="duration_r1d2",EXTRACTION="([Dd]en |%reApproximate )?([\d]+)%reAndOrTo([\d]+) (Minuten?|Stunden?)",NORM_VALUE="PTgroup(3)%normUnit4Duration(group(6))"
 
 // duration_r2
 // EXAMPLE r2a_1: die nächsten zwanzig Tage
@@ -46,7 +46,7 @@ RULENAME="duration_r3c",EXTRACTION="([\d]+)( |-)tägige?[ns]?",NORM_VALUE="PTgro
 RULENAME="duration_r3d",EXTRACTION="([\d]+)( |-)stündige?[ns]?",NORM_VALUE="PTgroup(1)D"
 
 // reUnitPlural
-RULENAME="duration_r4a",EXTRACTION="[Dd](ie|en) ([\S]+) %reUnitPlural",NORM_VALUE="PX%normUnit4Duration(group(3))","POS_CONSTRAINT="group(2):ADJA:"
+RULENAME="duration_r4a",EXTRACTION="[Dd](ie|en) ([\S]+) %reUnitPlural",NORM_VALUE="PX%normUnit4Duration(group(3))",POS_CONSTRAINT="group(2):ADJA:"
 RULENAME="duration_r4b",EXTRACTION="[Dd](ie|en) %reUnitPlural",NORM_VALUE="PX%normUnit4Duration(group(2))"
 RULENAME="duration_r4c",EXTRACTION="([Ee]inigen?|[Ww]enigen?|[Vv]ielen?) %reUnitPlural",NORM_VALUE="PX%normUnit4Duration(group(2))"
 RULENAME="duration_r4d",EXTRACTION="([Ss]eit) %reUnitPlural",NORM_VALUE="PX%normUnit4Duration(group(2))",OFFSET="group(2)-group(2)"

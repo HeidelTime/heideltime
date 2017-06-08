@@ -198,6 +198,7 @@ RULENAME="date_r16a",EXTRACTION="%reNumWordTeen( |-|)%reNumWord2D",NORM_VALUE="%
 // EXAMPLE 2: the seventh century
 RULENAME="date_r17a",EXTRACTION="(Das )?(%reDayNumber[\.]?|%reDayWordTh) Jahrhundert[s]?",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))"
 RULENAME="date_r17b",EXTRACTION="(Das )?(%reDayNumber[\.]?|%reDayWordTh)%reAndOrTo(%reDayNumber[\.]?|%reDayWordTh) Jahrhundert[s]?",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))",OFFSET="group(2)-group(2)"
+RULENAME="date_r17c",EXTRACTION="%rePartWords des (%reDayNumber[\.]?|%reDayWordTh) Jahrhundert[s]?",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))",NORM_MOD="%normPartWords(group(1))"
 
 ///////////////////////////////////
 // GRANULARITY INDEPENDENT RULES //
