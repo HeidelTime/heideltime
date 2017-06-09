@@ -119,7 +119,7 @@ public class RePatternManager extends GenericResourceManager {
 	 *                Input patterns
 	 * @return Optimized regular expression set
 	 */
-	private List<String> optimizePatterns(String name, List<String> inpatterns) {
+	public static List<String> optimizePatterns(CharSequence name, List<String> inpatterns) {
 		// Since we already have some rules written as res,
 		// We try to expand some basic constructs first.
 		try {
