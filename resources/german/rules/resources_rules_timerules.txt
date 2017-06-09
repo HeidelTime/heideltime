@@ -62,7 +62,7 @@ RULENAME="time_r4b",EXTRACTION="(?:%reApproximate )?%rePartOfDay des %reDayNumbe
 // EXAMPLE r5b-1: nächsten Morgen
 // EXAMPLE r5c-1: (am) Morgen desselben Tages
 RULENAME="time_r5a",EXTRACTION="(?:[Aa]m) %rePartOfDay",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(1))",OFFSET="group(1)-group(1)"
-RULENAME="time_r5b",EXTRACTION="%reThisNextLast %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normPartOfDay(group(2))"
+RULENAME="time_r5b",EXTRACTION="(?:[Aa]m) %reThisNextLast %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normPartOfDay(group(2))"
 RULENAME="time_r5c",EXTRACTION="(?:de[rm]selben?) %rePartOfDay",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normPartOfDay(group(1))"
-RULENAME="time_r5d",EXTRACTION="%rePartOfDay (?:desselben|dieses) Tages",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normPartOfDay(group(1))"
+RULENAME="time_r5d",EXTRACTION="(?:[Aa]m) %rePartOfDay (?:desselben|dieses) Tages",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normPartOfDay(group(1))"
 

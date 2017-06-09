@@ -103,7 +103,8 @@ RULENAME="date_r61",EXTRACTION="(?:the|that) weekend",NORM_VALUE="UNDEF-last-wee
 // EXAMPLE r7b_1: May and June 2011 (find May 2001)
 RULENAME="date_r7a",EXTRACTION="%reMonthLong%|reMonthShort (?:of )?%reYear4Digit",NORM_VALUE="group(2)-%normMonth(group(1))"
 RULENAME="date_r7b",EXTRACTION="%reMonthLong%|reMonthShort (?:of )?%reNumWordTeen[ -]%reNumWord2D",NORM_VALUE="%normDurationNumber(group(2))%normDurationNumber(group(3))-%normMonth(group(1))"
-RULENAME="date_r7c",EXTRACTION="%reMonthLong%|reMonthShort (?:and|or|to|until) %reMonthLong%|reMonthShort %reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="date_r7c",EXTRACTION="%reMonthLong%|reMonthShort%reAndOrTo%reMonthLong%|reMonthShort %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="date_r7d",EXTRACTION="%reMonthLong%|reMonthShort%reAndOrTo%reMonthLong%|reMonthShort %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(3))",OFFSET="group(3)-group(4)"
 
 // date_r8
 // EXAMPLE r8a_1: November next year
@@ -161,6 +162,8 @@ RULENAME="date_r12b",EXTRACTION="%reYear4Digit%reAndOrTo%reYear2Digit",NORM_VALU
 RULENAME="date_r12c",EXTRACTION="%reNumWordTeen[ -]%reNumWord2D",NORM_VALUE="%normDurationNumber(group(1))%normDurationNumber(group(2))"
 RULENAME="date_r12d",EXTRACTION="two[ -]thousand(?: and)? %reNumWord1D%|reNumWord2D",NORM_VALUE="20%normDurationNumber(group(1))"
 RULENAME="date_r12e",EXTRACTION="[Tt]he year two[ -]thousand",NORM_VALUE="2000"
+RULENAME="date_r12f1",EXTRACTION="%reYear4Digit%reAndOrTo%reYear4Digit",NORM_VALUE="group(1)",OFFSET="group(1)-group(1)"
+RULENAME="date_r12f2",EXTRACTION="%reYear4Digit%reAndOrTo%reYear4Digit",NORM_VALUE="group(3)",OFFSET="group(3)-group(3)"
 
 ////////////////////////
 // DECADE GRANULARITY //

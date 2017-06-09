@@ -37,7 +37,7 @@ public class AbstractHeideltimeTest {
 	protected HeidelTime heideltime;
 	private boolean debugTokenization = false;
 	static final Pattern LINEWRAP = Pattern.compile("\\s*[\\n\\r]+\\s*");
-	static final Pattern WORDS = Pattern.compile("([^\\s\\w]*)(\\w+(?:\\.\\d+)?)([^\\s\\w]*)");
+	static final Pattern WORDS = Pattern.compile("([^\\s\\w]*)([\\w/]+(?:\\.\\d+)?)([^\\s\\w]*)");
 
 	@Before
 	public void init() {
