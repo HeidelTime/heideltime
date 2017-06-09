@@ -194,11 +194,14 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	}
 
 	@Test
-	public void testdate_r7ac() {
+	public void testdate_r7cd() {
 		// find May 2001 AND June 2011
 		testSingleCase("May and June 2011", //
 				new String[] { "date_r7c", "May", "2011-05" }, //
-				new String[] { "date_r7a", "June 2011", "2011-06" });
+				new String[] { "date_r7d", "June 2011", "2011-06" });
+		testSingleCase("May/June 2011", //
+				new String[] { "date_r7c", "May", "2011-05" }, //
+				new String[] { "date_r7d", "June 2011", "2011-06" });
 	}
 
 	@Test
@@ -299,6 +302,13 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	}
 
 	@Test
+	public void testdate_r12f() {
+		testSingleCase("1940/1941", //
+				new String[] { "date_r12f1", "1940", "1940" }, //
+				new String[] { "date_r12f2", "1941", "1941" });
+	}
+
+	@Test
 	public void testdate_r13a() {
 		testSingleCase("the 1990s", //
 				new String[] { "date_r13a", "the 1990s", "199" });
@@ -352,6 +362,20 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 				new String[] { "date_r15a", "the 19th century", "18" });
 		testSingleCase("the seventh century", //
 				new String[] { "date_r15a", "the seventh century", "06" });
+	}
+
+	@Test
+	public void testdate_r15c() {
+		testSingleCase("19th and 20th century", //
+				new String[] { "date_r15c", "19th", "18" }, //
+				new String[] { "date_r15a", "20th century", "19" });
+	}
+
+	@Test
+	public void testdate_r15b() {
+		testSingleCase("19th and early 20th century", //
+				new String[] { "date_r15c", "19th", "18" }, //
+				new String[] { "date_r15b", "early 20th century", "19" });
 	}
 
 	@Test
@@ -679,5 +703,12 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 		testSingleCase("2016dimensional nonsense");
 		testSingleCase("Okay: (2016).", //
 				new String[] { "date_r12a", "2016", "2016" });
+	}
+
+	@Test
+	public void testNextQuarter() {
+		testSingleCase("November 2015, 1 quarter later", //
+				new String[] { "date_r7a", "November 2015", "2015-11" }, //
+				new String[] { "date_r20c", "1 quarter later", "2016-Q1" });
 	}
 }
