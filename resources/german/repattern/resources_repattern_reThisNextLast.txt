@@ -5,6 +5,7 @@
 // FORMAT: one line is one disjunction of the pattern
 [Ll]etzte[rsnm]?
 [Nn]ächste[rsnm]?
+[Nn]eue[rsnm]?
 [Ff]olgende[rsnm]?
 [Dd]iese[rsnm]?
 [Vv]orige[rsnm]?

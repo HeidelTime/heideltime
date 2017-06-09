@@ -6,18 +6,17 @@
 // For example, the normalized value of "2" is "february"
 // FORMAT: "month-word","normalized-month-word"
 
-
-
 // January
 "[Jj]an\.?","january"
-"[Jj]anuar(ii)?","january"
+"[Jj]anuar(ii|y|)","january"
 "[Jj]änner","january"
 // February
 "[Ff]eb\.?","february"
-"[Ff]ebruar(ii)?","february"
+"[Ff]ebruar(ii|y|)","february"
 "[Hh]ornung","february"
 // March
 "[Mm]är[z.]?","march"
+"[Mm]arch","march"
 "[Mm]aerz","march"
 "[Mm]art(ii)?","march"
 "[Mm]erz","march"
@@ -25,14 +24,13 @@
 "[Aa]pr\.?","april"
 "[Aa]pril(is)?","april"
 // May
-"[Mm]ai[i.]?","may"
-"[Mm]ay","may"
+"[Mm]a(ii?|y)\.?","may"
 // June
 "[Jj]un\.?","june"
-"[Jj]unii?","june"
+"[Jj]un(ii?|y)","june"
 // July
 "[Jj]ul\.?","july"
-"[Jj]ulii?","july"
+"[Jj]ul(ii?|y)","july"
 // August
 "[Aa]ug\.?","august"
 "[Aa]ugust","august"
@@ -42,16 +40,14 @@
 "[Ss]eptember","september"
 "[Ss]eptembr(is|\.)?","september"
 // October
-"[Oo]kt\.?","october"
-"[Oo]ktober","october"
-"[Oo]ctober","october"
+"[Oo][ck]t\.?","october"
+"[Oo][ck]tober","october"
 "[Oo]ctobr(is|\.)?","october"
 // November
 "[Nn]ov\.?","november"
 "[Nn]ovember","november"
 "[Nn]ovembr(is|\.)?","november"
 // December
-"[Dd]ez\.?","december"
-"[Dd]ezember","december"
-"[Dd]ecember","december"
+"[Dd]e[cz]\.?","december"
+"[Dd]e[cz]ember","december"
 "[Dd]ecembr(is|\.)?","december"
