@@ -46,6 +46,21 @@ public class RuleManager extends GenericResourceManager {
 		}
 	}
 
+	/**
+	 * Exception thrown when a pattern could not be built.
+	 */
+	public static class InvalidPatternException extends RuntimeException {
+		private static final long serialVersionUID = 1L;
+
+		public InvalidPatternException(String msg) {
+			super(msg);
+		}
+
+		public InvalidPatternException(String msg, Throwable cause) {
+			super(msg, cause);
+		}
+	}
+
 	List<Rule> hmDateRules = new ArrayList<>();
 	List<Rule> hmDurationRules = new ArrayList<>();
 	List<Rule> hmTimeRules = new ArrayList<>();
@@ -150,7 +165,7 @@ public class RuleManager extends GenericResourceManager {
 						LOG.error("Compiling rules resulted in errors.", e);
 						LOG.error("Problematic rule is {}", rule_name);
 						LOG.error("Cannot compile pattern: {}", rule_extraction);
-						System.exit(1);
+						throw new InvalidPatternException("Pattern compilation error in '" + rule_name + "'", e);
 					}
 					// Pattern pattern = Pattern.compile(rule_extraction);
 					Rule rule = new Rule(rule_name, pattern, rule_normalization);
@@ -186,7 +201,7 @@ public class RuleManager extends GenericResourceManager {
 									LOG.error("Compiling rules resulted in errors.", e);
 									LOG.error("Problematic rule is {}", rule_name);
 									LOG.error("Cannot compile pattern: {}", rule_fast_check);
-									System.exit(1);
+									throw new InvalidPatternException("Pattern compilation error in '" + rule_name + "'", e);
 								}
 							} else {
 								LOG.warn("Unknown additional constraint: {}", maAdditional.group());
@@ -198,7 +213,7 @@ public class RuleManager extends GenericResourceManager {
 				}
 			} catch (IOException e) {
 				LOG.error(e.getMessage(), e);
-				System.exit(1);
+				throw new RuntimeException("Cannot load patterns: " + e.getMessage(), e);
 			}
 		}
 	}
@@ -210,7 +225,7 @@ public class RuleManager extends GenericResourceManager {
 		// Shortcut if no matches:
 		if (!matcher.find())
 			return str;
-		StringBuilder buf = new StringBuilder();
+		StringBuilder buf = new StringBuilder(1000);
 		int pos = 0;
 		do {
 			// Too verbose: if (LOG.isTraceEnabled()) LOG.trace("replacing pattern {}", matcher.group());
@@ -218,7 +233,7 @@ public class RuleManager extends GenericResourceManager {
 			String rep = rpm.get(varname);
 			if (rep == null) {
 				LOG.error("Error expanding rule '{}': RePattern not defined: '%{}'", rule_name, varname);
-				System.exit(1); // TODO: throw an error instead.
+				throw new InvalidPatternException("Rule '" + rule_name + "' referenced missing pattern '" + varname + "'");
 			}
 			int start = matcher.start(), end = matcher.end();
 			if (pos < start)
