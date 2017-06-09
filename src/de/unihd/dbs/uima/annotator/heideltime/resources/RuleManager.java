@@ -223,7 +223,7 @@ public class RuleManager extends GenericResourceManager {
 			int start = matcher.start(), end = matcher.end();
 			if (pos < start)
 				buf.append(str, pos, start);
-			buf.append(rep);
+			buf.append('(').append(rep).append(')');
 			pos = end;
 		} while (matcher.find());
 		if (pos < str.length())

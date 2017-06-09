@@ -109,11 +109,6 @@ public class RePatternManager extends GenericResourceManager {
 				LOG.error(e.getMessage(), e);
 			}
 		}
-		////////////////////////////
-		// FINALIZE THE REPATTERN //
-		////////////////////////////
-		for (String which : hmAllRePattern.keySet())
-			finalizeRePattern(which, hmAllRePattern.get(which));
 	}
 
 	/**
@@ -152,39 +147,6 @@ public class RePatternManager extends GenericResourceManager {
 	}
 
 	/**
-	 * Pattern containing regular expression is finalized, i.e., created correctly and added to hmAllRePattern.
-	 * 
-	 * @param name
-	 *                key name
-	 * @param rePattern
-	 *                repattern value
-	 */
-	private void finalizeRePattern(String name, String rePattern) {
-		String orig = rePattern;
-		// create correct regular expression
-		// rePattern = rePattern.replaceFirst("\\|", "");
-		/*
-		 * this was added to reduce the danger of getting unusable groups from user-made repattern files with group-producing parentheses (i.e. "(foo|bar)" while matching against the
-		 * documents.
-		 */
-		// rePattern = rePattern.replaceAll("\\(([^?])", "(?:$1");
-		rePattern = "(" + rePattern + ")";
-		// rePattern = rePattern.replaceAll("\\\\", "\\\\\\\\");
-		// add rePattern to hmAllRePattern
-		hmAllRePattern.put(name, rePattern);
-		try {
-			Pattern c = Pattern.compile(rePattern);
-			int groupcount = c.matcher("").groupCount();
-			if (groupcount != 1)
-				LOG.error("rePattern {} contains unexpected groups: {}\nPattern: {}", name, groupcount - 1, orig);
-			compiled.put(name, c);
-		} catch (PatternSyntaxException e) {
-			LOG.error("Failed to compile RePattern {}:\n{}\nbefore transformations: {}", name, rePattern, orig);
-			throw e;
-		}
-	}
-
-	/**
 	 * proxy method to access the hmAllRePattern member
 	 * 
 	 * @param key
@@ -196,17 +158,6 @@ public class RePatternManager extends GenericResourceManager {
 	}
 
 	/**
-	 * proxy method to access the compiled hmAllRePattern member
-	 * 
-	 * @param key
-	 *                Key to retrieve data from
-	 * @return String from the map
-	 */
-	public Pattern getCompiled(String key) {
-		return compiled.get(key);
-	}
-
-	/**
 	 * proxy method to access the hmAllRePattern member
 	 * 
 	 * @param key
@@ -215,6 +166,31 @@ public class RePatternManager extends GenericResourceManager {
 	 */
 	public String get(String key) {
 		return hmAllRePattern.get(key);
+	}
+
+	/**
+	 * proxy method to access the compiled hmAllRePattern member
+	 * 
+	 * @param key
+	 *                Key to retrieve data from
+	 * @return String from the map
+	 */
+	public Pattern getCompiled(String key) {
+		Pattern p = compiled.get(key);
+		if (p != null)
+			return p;
+		String rePattern = hmAllRePattern.get(key);
+		try {
+			Pattern c = Pattern.compile(rePattern);
+			int groupcount = c.matcher("").groupCount();
+			if (groupcount != 0)
+				LOG.error("rePattern {} contains unexpected groups: {}\nPattern: {}", key, groupcount - 1, rePattern);
+			compiled.put(key, c);
+			return c;
+		} catch (PatternSyntaxException e) {
+			LOG.error("Failed to compile RePattern {}:\n{}", key, rePattern);
+			throw e;
+		}
 	}
 
 }
