@@ -35,14 +35,11 @@ public class ContextAnalyzer {
 		PRESENTFUTURE, PAST, FUTURE
 	}
 
-	private static final Pattern TWO_DIGITS = Pattern.compile("^[0-9][0-9]");
-	private static final Pattern BC_TWO_DIGITS = Pattern.compile("^BC[0-9][0-9]");
-	private static final Pattern THREE_DIGITS = Pattern.compile("^[0-9][0-9][0-9]");
-	private static final Pattern BC_THREE_DIGITS = Pattern.compile("^BC[0-9][0-9][0-9]");
-	private static final Pattern FOUR_DIGITS = Pattern.compile("^[0-9][0-9][0-9][0-9]");
-	private static final Pattern BC_FOUR_DIGITS = Pattern.compile("^BC[0-9][0-9][0-9][0-9]");
+	private static final Pattern BC_TWO_DIGITS = Pattern.compile("^(?:BC)?[0-9][0-9]");
+	private static final Pattern BC_THREE_DIGITS = Pattern.compile("^(?:BC)?[0-9][0-9][0-9]");
+	private static final Pattern BC_FOUR_DIGITS = Pattern.compile("^(?:BC)?[0-9][0-9][0-9][0-9]");
+	private static final Pattern BC_YEAR_MON = Pattern.compile("^(?:BC)?[0-9][0-9][0-9][0-9]-[0-9][0-9]");
 	private static final Pattern YEAR_MON = Pattern.compile("^[0-9][0-9][0-9][0-9]-[0-9][0-9]");
-	private static final Pattern BC_YEAR_MON = Pattern.compile("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9]");
 	private static final Pattern YEAR_MON_WK = Pattern.compile("^[0-9][0-9][0-9][0-9]-W[0-9][0-9]");
 	private static final Pattern YEAR_MON_DAY = Pattern.compile("^([0-9][0-9][0-9][0-9])-([0-9][0-9])-([0-9][0-9])");
 	private static final Pattern YEAR_QUARTER = Pattern.compile("^[0-9][0-9][0-9][0-9]-Q[1234]");
@@ -90,13 +87,8 @@ public class ContextAnalyzer {
 	 * @return last mentioned century
 	 */
 	public static String getLastMentionedCentury(List<Timex3> linearDates, int i) {
-		return getLastMentionedX(linearDates, i, value -> {
-			if (TWO_DIGITS.matcher(value).find())
-				return value.substring(0, 2);
-			if (BC_TWO_DIGITS.matcher(value).find())
-				return value.substring(0, 4);
-			return null;
-		});
+		Matcher m = BC_TWO_DIGITS.matcher("");
+		return getLastMentionedX(linearDates, i, value -> m.reset(value).find() ? m.group(0) : null);
 	}
 
 	/**
@@ -109,13 +101,8 @@ public class ContextAnalyzer {
 	 * @return last mentioned decade
 	 */
 	public static String getLastMentionedDecade(List<Timex3> linearDates, int i) {
-		return getLastMentionedX(linearDates, i, value -> {
-			if (THREE_DIGITS.matcher(value).find())
-				return value.substring(0, 3);
-			if (BC_THREE_DIGITS.matcher(value).find())
-				return value.substring(0, 5);
-			return null;
-		});
+		Matcher m = BC_THREE_DIGITS.matcher("");
+		return getLastMentionedX(linearDates, i, value -> m.reset(value).find() ? m.group(0) : null);
 	}
 
 	/**
@@ -128,13 +115,8 @@ public class ContextAnalyzer {
 	 * @return last mentioned year
 	 */
 	public static String getLastMentionedYear(List<Timex3> linearDates, int i) {
-		return getLastMentionedX(linearDates, i, value -> {
-			if (FOUR_DIGITS.matcher(value).find())
-				return value.substring(0, 4);
-			if (BC_FOUR_DIGITS.matcher(value).find())
-				return value.substring(0, 6);
-			return null;
-		});
+		Matcher m = BC_FOUR_DIGITS.matcher("");
+		return getLastMentionedX(linearDates, i, value -> m.reset(value).find() ? m.group(0) : null);
 	}
 
 	/**
@@ -147,13 +129,9 @@ public class ContextAnalyzer {
 	 * @return last mentioned date year
 	 */
 	public static String getLastMentionedDateYear(List<Timex3> linearDates, int i) {
-		return getLastMentionedX(linearDates, i, value -> {
-			if (FOUR_DIGITS.matcher(value).find())
-				return value; // .substring?
-			if (BC_FOUR_DIGITS.matcher(value).find())
-				return value; // .substring?
-			return null;
-		});
+		final Matcher m = BC_FOUR_DIGITS.matcher("");
+		// TODO: return group instead of value?
+		return getLastMentionedX(linearDates, i, value -> m.reset(value).find() ? value : null);
 	}
 
 	/**
@@ -166,13 +144,8 @@ public class ContextAnalyzer {
 	 * @return last mentioned month
 	 */
 	public static String getLastMentionedMonth(List<Timex3> linearDates, int i) {
-		return getLastMentionedX(linearDates, i, value -> {
-			if (YEAR_MON.matcher(value).find())
-				return value.substring(0, 7);
-			if (BC_YEAR_MON.matcher(value).find())
-				return value.substring(0, 9);
-			return null;
-		});
+		Matcher m = BC_YEAR_MON.matcher("");
+		return getLastMentionedX(linearDates, i, value -> m.reset(value).find() ? m.group(0) : null);
 	}
 
 	/**
@@ -185,13 +158,8 @@ public class ContextAnalyzer {
 	 * @return last mentioned month with details
 	 */
 	public static String getLastMentionedMonthDetails(List<Timex3> linearDates, int i) {
-		return getLastMentionedX(linearDates, i, value -> {
-			if (YEAR_MON.matcher(value).find())
-				return value; // .substring?
-			// else if (value.matches(YEAR_MON_BC.matcher(value).find())
-			// return value;
-			return null;
-		});
+		Matcher m = YEAR_MON.matcher("");
+		return getLastMentionedX(linearDates, i, value -> m.reset(value).find() ? m.group(0) : null);
 	}
 
 	/**
@@ -204,13 +172,8 @@ public class ContextAnalyzer {
 	 * @return last mentioned day
 	 */
 	public static String getLastMentionedDay(List<Timex3> linearDates, int i) {
-		return getLastMentionedX(linearDates, i, value -> {
-			if (YEAR_MON_DAY.matcher(value).find())
-				return value.substring(0, 10);
-			// else if (value.matches("^BC[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*"))
-			// return value.substring(0,12);
-			return null;
-		});
+		final Matcher m = YEAR_MON_DAY.matcher("");
+		return getLastMentionedX(linearDates, i, value -> m.reset(value).find() ? value.substring(0, 10) : null);
 	}
 
 	/**
@@ -223,15 +186,12 @@ public class ContextAnalyzer {
 	 * @return last mentioned weeh
 	 */
 	public static String getLastMentionedWeek(List<Timex3> linearDates, int i) {
-		return getLastMentionedX(linearDates, i, value -> {
-			Matcher matcher = YEAR_MON_DAY.matcher(value);
-			if (matcher.find())
-				return matcher.group(1) + "-W" + DateCalculator.getWeekOfDate(matcher.group(0));
-			if (YEAR_MON_WK.matcher(value).find())
-				return value; // .substring?
-			// TODO check what to do for BC times
-			return null;
-		});
+		Matcher m1 = YEAR_MON_DAY.matcher("");
+		Matcher m2 = YEAR_MON_WK.matcher("");
+		return getLastMentionedX(linearDates, i, value -> //
+		m1.reset(value).find() ? (m1.group(1) + "-W" + DateCalculator.getWeekOfDate(m1.group(0))) : //
+				m2.reset(value).find() ? value /* group? */ : null //
+		);
 	}
 
 	/**
@@ -246,8 +206,10 @@ public class ContextAnalyzer {
 	 * @return last mentioned quarter
 	 */
 	public static String getLastMentionedQuarter(List<Timex3> linearDates, int i, Language language) {
+		final Matcher m1 = YEAR_MON.matcher("");
+		final Matcher m2 = YEAR_QUARTER.matcher("");
 		return getLastMentionedX(linearDates, i, value -> {
-			if (YEAR_MON.matcher(value).find()) {
+			if (m1.reset(value).find()) {
 				NormalizationManager nm = NormalizationManager.getInstance(language, true);
 				String month = value.substring(5, 7);
 				String quarter = nm.getFromNormMonthInQuarter(month);
@@ -255,10 +217,7 @@ public class ContextAnalyzer {
 					quarter = "1";
 				return value.substring(0, 4) + "-Q" + quarter;
 			}
-			if (YEAR_QUARTER.matcher(value).find())
-				return value.substring(0, 7);
-			// TODO check what to do for BC times
-			return null;
+			return m2.reset(value).find() ? value.substring(0, 7) : null;
 		});
 	}
 
@@ -272,12 +231,8 @@ public class ContextAnalyzer {
 	 * @return last mentioned century
 	 */
 	public static String getLastMentionedDateQuarter(List<Timex3> linearDates, int i) {
-		return getLastMentionedX(linearDates, i, value -> {
-			if (YEAR_QUARTER.matcher(value).find())
-				return value.substring(0, 7);
-			// TODO check what to do for BC times
-			return null;
-		});
+		final Matcher m = YEAR_QUARTER.matcher("");
+		return getLastMentionedX(linearDates, i, value -> m.reset(value).find() ? value.substring(0, 7) : null);
 	}
 
 	/**
@@ -290,8 +245,10 @@ public class ContextAnalyzer {
 	 * @return last mentioned season
 	 */
 	public static String getLastMentionedSeason(List<Timex3> linearDates, int i, Language language) {
+		final Matcher m1 = YEAR_MON.matcher("");
+		final Matcher m2 = YEAR_SEASON.matcher("");
 		return getLastMentionedX(linearDates, i, value -> {
-			if (YEAR_MON.matcher(value).find()) {
+			if (m1.reset(value).find()) {
 				NormalizationManager nm = NormalizationManager.getInstance(language, true);
 				String month = value.substring(5, 7);
 				String season = nm.getFromNormMonthInSeason(month);
@@ -302,7 +259,7 @@ public class ContextAnalyzer {
 			// String season = nm.getFromNormMonthInSeason(month);
 			// return value.substring(0,6)+"-"+season;
 			// }
-			if (YEAR_SEASON.matcher(value).find())
+			if (m2.reset(value).find())
 				return value.substring(0, 7);
 			// else if (value.matches("^BC[0-9][0-9][0-9][0-9]-(SP|SU|FA|WI).*")) {
 			// return value.substring(0,9);
@@ -333,10 +290,10 @@ public class ContextAnalyzer {
 
 		// Get the sentence
 		AnnotationIndex<Sentence> sentences = jcas.getAnnotationIndex(Sentence.type);
-		Sentence s = new Sentence(jcas);
+		Sentence s = null;
 		for (FSIterator<Sentence> iterSentence = sentences.iterator(); iterSentence.hasNext();) {
-			s = (Sentence) iterSentence.next();
-			if ((s.getBegin() <= timex.getBegin()) && (s.getEnd() >= timex.getEnd())) {
+			s = iterSentence.next();
+			if (s.getBegin() <= timex.getBegin() && s.getEnd() >= timex.getEnd()) {
 				break;
 			}
 		}
@@ -344,7 +301,9 @@ public class ContextAnalyzer {
 		// Get the tokens
 		TreeMap<Integer, Token> tmToken = new TreeMap<Integer, Token>();
 		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
-		for (Token token : tokens) {
+		FSIterator<Token> iter = (s != null) ? tokens.subiterator(s) : tokens.iterator();
+		while (iter.hasNext()) {
+			Token token = iter.next();
 			tmToken.put(token.getEnd(), token);
 		}
 
@@ -502,12 +461,12 @@ public class ContextAnalyzer {
 				Token token = ent.getValue();
 				String pos = token.getPos();
 
-				if (LOG.isDebugEnabled()) {
-					LOG.debug("GET NEXT TENSE: string:" + token.getCoveredText() + " pos:" + pos);
-					LOG.debug("hmAllRePattern.containsKey(tensePos4PresentFuture):" + tensePos4PresentFuture.pattern().pattern());
-					LOG.debug("hmAllRePattern.containsKey(tensePos4Future):" + tensePos4Future.pattern().pattern());
-					LOG.debug("hmAllRePattern.containsKey(tensePos4Past):" + tensePos4Past.pattern().pattern());
-					LOG.debug("CHECK TOKEN:" + pos);
+				if (LOG.isTraceEnabled()) {
+					LOG.trace("GET NEXT TENSE: string:" + token.getCoveredText() + " pos:" + pos);
+					LOG.trace("hmAllRePattern.containsKey(tensePos4PresentFuture):" + tensePos4PresentFuture.pattern().pattern());
+					LOG.trace("hmAllRePattern.containsKey(tensePos4Future):" + tensePos4Future.pattern().pattern());
+					LOG.trace("hmAllRePattern.containsKey(tensePos4Past):" + tensePos4Past.pattern().pattern());
+					LOG.trace("CHECK TOKEN:" + pos);
 				}
 
 				if (pos != null) {
@@ -522,7 +481,7 @@ public class ContextAnalyzer {
 				}
 			}
 			if (lastTense != null)
-				LOG.debug("this tense: {} {}", ent.getValue().getCoveredText(), lastTense);
+				LOG.trace("this tense: {} {}", ent.getValue().getCoveredText(), lastTense);
 		}
 		// check for double POS Constraints (not included in the rule language, yet) TODO
 		// VHZ VNN and VHZ VNN and VHP VNN and VBP VVN
