@@ -813,7 +813,7 @@ public class HeidelTimeStandalone {
 			configStream.close();
 		} catch (FileNotFoundException e) {
 			LOG.error("couldn't open configuration file \"{}\". quitting.", configPath);
-			System.exit(1);
+			throw new RuntimeException("Cannot read HeidelTime configuration.");
 		} catch (IOException e) {
 			LOG.warn("couldn't close config file handle", e);
 		}

@@ -15,9 +15,9 @@
 // EXAMPLE date_historic_1d-BCADhint: Anfang 190 v. Chr.         (1- to 4-digit year)
 // EXAMPLE date_historic_1e-BCADhint: Anfang v. Chr. 190 v. Chr. (1- to 4-digit year)
 // EXAMPLE date_historic_1f-BCADhint: Anfang 190 bis 180 v. Chr. (find "Anfang 190 v. Chr."; 1- to 4-digit year)
-RULENAME="date_historic_1a-BCADhint",EXTRACTION="(?:%reApproximate )?(?:Jahre?[ns]? )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(3))%normYearBC(group(2))"
-RULENAME="date_historic_1b-BCADhint",EXTRACTION="(?:%reApproximate )?(?:Jahre?[ns]? )?%reYearPrefix %reYearBC",NORM_VALUE="%normYearPrefix(group(2))%normYearBC(group(3))"
-RULENAME="date_historic_1c-BCADhint",EXTRACTION="(?:%reApproximate )?(?:Jahre?[ns]? )?%reYearBC%reAndOrTo%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(2))",OFFSET="group(0)-group(2)"
+RULENAME="date_historic_1a-BCADhint",EXTRACTION="(?:%reApproximate |)(?:Jahre?[ns]? )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(3))%normYearBC(group(2))"
+RULENAME="date_historic_1b-BCADhint",EXTRACTION="(?:%reApproximate |)(?:Jahre?[ns]? )?%reYearPrefix %reYearBC",NORM_VALUE="%normYearPrefix(group(2))%normYearBC(group(3))"
+RULENAME="date_historic_1c-BCADhint",EXTRACTION="(?:%reApproximate |)(?:Jahre?[ns]? )?%reYearBC%reAndOrTo%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(2))",OFFSET="group(0)-group(2)"
 RULENAME="date_historic_1d-BCADhint",EXTRACTION="(?:%rePartWords )(?:Jahre?[ns]? )?%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(3))%normYearBC(group(2))"
 RULENAME="date_historic_1e-BCADhint",EXTRACTION="(?:%rePartWords )(?:Jahre?[ns]? )?%reYearPrefix %reYearBC",NORM_VALUE="%normYearPrefix(group(2))%normYearBC(group(3))"
 RULENAME="date_historic_1f-BCADhint",EXTRACTION="(?:%rePartWords )(?:Jahre?[ns]? )?%reYearBC%reAndOrTo%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(5))%normYearBC(group(2))",OFFSET="group(0)-group(2)"
@@ -29,9 +29,9 @@ RULENAME="date_historic_1f-BCADhint",EXTRACTION="(?:%rePartWords )(?:Jahre?[ns]?
 // EXAMPLE date_historic_2d-BCADhint: Anfang Januar 190 v. Chr. (1- to 4-digit year)
 // EXAMPLE date_historic_2e:          Anfang Januar 190         (3-digit year)
 // EXAMPLE date_historic_2f:          Anfang Januar 90          (2-digit year)
-RULENAME="date_historic_2a-BCADhint",EXTRACTION="(?:%reApproximate )?%reMonthLong%|reMonthShort %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))"
-RULENAME="date_historic_2b",EXTRACTION="(?:%reApproximate )?%reMonthLong%|reMonthShort (\d\d\d)",NORM_VALUE="%normYearBC(group(3))-%normMonth(group(2))"
-RULENAME="date_historic_2c",EXTRACTION="(?:%reApproximate )?%reMonthLong%|reMonthShort (\d\d)",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(2))"
+RULENAME="date_historic_2a-BCADhint",EXTRACTION="(?:%reApproximate |)%reMonthLong%|reMonthShort %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))"
+RULENAME="date_historic_2b",EXTRACTION="(?:%reApproximate |)%reMonthLong%|reMonthShort (\d\d\d)",NORM_VALUE="%normYearBC(group(3))-%normMonth(group(2))"
+RULENAME="date_historic_2c",EXTRACTION="(?:%reApproximate |)%reMonthLong%|reMonthShort (\d\d)",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(2))"
 RULENAME="date_historic_2d-BCADhint",EXTRACTION="(?:%rePartWords )%reMonthLong%|reMonthShort %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))"
 RULENAME="date_historic_2e",EXTRACTION="(?:%rePartWords )%reMonthLong%|reMonthShort (\d\d\d)",NORM_VALUE="%normYearBC(group(3))-%normMonth(group(2))"
 RULENAME="date_historic_2f",EXTRACTION="(?:%rePartWords )%reMonthLong%|reMonthShort (\d\d)",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(2))"
@@ -49,7 +49,7 @@ RULENAME="date_historic_3d",EXTRACTION="(%reDayNumber\.?)%reAndOrTo%reDayNumber\
 // historic dates; season granularity
 // EXAMPLE date_historic_4a-BCADhint: Winter 190 v. Chr.      (1- to 4-digit year)
 // EXAMPLE date_historic_4b-BCADhint: Mitte Winter 190 v.Chr. (1- to 4-digit year)
-RULENAME="date_historic_4a-BCADhint",EXTRACTION="(?:%reApproximate )?%reSeason %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normSeason(group(2))",
+RULENAME="date_historic_4a-BCADhint",EXTRACTION="(?:%reApproximate |)%reSeason %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normSeason(group(2))",
 RULENAME="date_historic_4b-BCADhint",EXTRACTION="(?:%rePartWords )%reSeason %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normSeason(group(2))",
 
 // historic dates; century granularity
@@ -208,10 +208,10 @@ RULENAME="date_r17c",EXTRACTION="%rePartWords des %reDayNumber%|reDayNumberTh%|r
 // EXAMPLE r18b_1: Anfang 1999
 // EXAMPLE r18c_1: Anfang November 1999
 // EXAMPLE r18d_1: Anfang November 2000
-RULENAME="date_r18a",EXTRACTION="(?:%reApproximate )?%reMonthLong%|reMonthShort",NORM_VALUE="UNDEF-year-%normMonth(group(2))"
-RULENAME="date_r18b",EXTRACTION="(?:%reApproximate )?%rePartWords ?%reYear4Digit",NORM_VALUE="group(3)",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r18c",EXTRACTION="(?:%reApproximate )?%rePartWords ?%reMonthLong%|reMonthShort %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(3))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r18d",EXTRACTION="(?:%reApproximate )?%rePartWords ?%reMonthLong%|reMonthShort",NORM_VALUE="UNDEF-year-%normMonth(group(3))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r18a",EXTRACTION="(?:%reApproximate |)%reMonthLong%|reMonthShort",NORM_VALUE="UNDEF-year-%normMonth(group(2))"
+RULENAME="date_r18b",EXTRACTION="(?:%reApproximate |)%rePartWords ?%reYear4Digit",NORM_VALUE="group(3)",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r18c",EXTRACTION="(?:%reApproximate |)%rePartWords ?%reMonthLong%|reMonthShort %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(3))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r18d",EXTRACTION="(?:%reApproximate |)%rePartWords ?%reMonthLong%|reMonthShort",NORM_VALUE="UNDEF-year-%normMonth(group(3))",NORM_MOD="%normPartWords(group(2))"
 
 // date_r19
 // EXAMPLE r19a_1: die 1920er Jahre 
@@ -231,8 +231,8 @@ RULENAME="date_r19f",EXTRACTION="(?:[Dd]ie |[Dd]en )?%rePartWords der %reDecadeW
 // EXAMPLE r20c_1: diesen November
 // EXAMPLE r20d_1: diesen Montag
 // EXAMPLE r20e_1: diesen Sommer
-RULENAME="date_r20a",EXTRACTION="(?:[Dd]er |[Dd]ie |[Dd]as |[Dd]es )?%reThisNextLast %reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normUnit(group(2))"
-RULENAME="date_r20b",EXTRACTION="(?:[Ss]elbe[nrs]?|[Gg]leiche[nrs]?) Tag",NORM_VALUE="UNDEF-REF-day-PLUS-0"
+RULENAME="date_r20a",EXTRACTION="(?:[Dd]er |[Dd]ie |[Dd]as |[Dd]es |[Ii]m |[Aa]m )?%reThisNextLast %reUnit(?:e?s?)",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normUnit(group(2))"
+RULENAME="date_r20b",EXTRACTION="(?:[Aa]m |)(?:[Ss]elbe[nrs]?|[Gg]leiche[nrs]?) Tag",NORM_VALUE="UNDEF-REF-day-PLUS-0"
 RULENAME="date_r20c",EXTRACTION="%reThisNextLast %reMonthLong",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normMonthToEnglish(group(2))"
 RULENAME="date_r20d",EXTRACTION="%reThisNextLast %reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normWeekday(group(2))"
 RULENAME="date_r20e",EXTRACTION="%reThisNextLast %reSeason",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normSeason(group(2))"
@@ -260,8 +260,8 @@ RULENAME="date_r23b",EXTRACTION="(?:[Dd]er|[Dd]ie|[Dd]as) Quartals?",NORM_VALUE=
 // date_r24
 // EXAMPLE r24a_1: ein Jahr früher
 // EXAMPLE r24b_2: ein Jahr später
-RULENAME="date_r24a",EXTRACTION="[Ee]in Jahr (?:früher|vorher|davor)",NORM_VALUE="UNDEF-REF-year-MINUS-1"
-RULENAME="date_r24b",EXTRACTION="[Ee]in Jahr (?:später|danach)",NORM_VALUE="UNDEF-REF-year-PLUS-1"
+RULENAME="date_r24a",EXTRACTION="[Ee]in Jahr (?:früher|vorher|davor|vor)",NORM_VALUE="UNDEF-REF-year-MINUS-1"
+RULENAME="date_r24b",EXTRACTION="[Ee]in Jahr (?:später|danach|nach)",NORM_VALUE="UNDEF-REF-year-PLUS-1"
 
 // date_r25
 // EXAMPLE r25a_1: etwa zehn Tage später
@@ -270,15 +270,12 @@ RULENAME="date_r24b",EXTRACTION="[Ee]in Jahr (?:später|danach)",NORM_VALUE="UND
 // EXAMPLE r25d_1: etwa zehn Tage früher
 // EXAMPLE r25e_1: etwa 20 Tage früher
 // EXAMPLE r25f_1: etwa ein Tag früher
-RULENAME="date_r26a",EXTRACTION="(?:%reApproximate )?%reNumWord2D%|reNumWord1D %reUnitFine (?:später|danach)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-%normDurationNumber(group(2))"
-RULENAME="date_r26b",EXTRACTION="(?:%reApproximate )?(\d+) %reUnitFine (?:später|danach)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-group(2)"
-RULENAME="date_r26c",EXTRACTION="(?:%reApproximate )?(?:[Ee]inen|[Ee]ine|[Ee]in) %reUnitFine (?:später|danach)",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-PLUS-1"
-RULENAME="date_r26d",EXTRACTION="(?:%reApproximate )?%reNumWord2D%|reNumWord1D %reUnitFine (?:früher|vorher|davor)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-%normDurationNumber(group(2))"
-RULENAME="date_r26e",EXTRACTION="(?:%reApproximate )?(\d+) %reUnitFine (?:früher|vorher|davor)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-group(2)"
-RULENAME="date_r26f",EXTRACTION="(?:%reApproximate )?(?:[Ee]inen|[Ee]ine|[Ee]in) %reUnitFine (?:früher|vorher|davor)",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-MINUS-1"
-RULENAME="date_r26g",EXTRACTION="[Nn]ach (?:%reApproximate )?%reNumWord2D%|reNumWord1D %reUnitFine",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-%normDurationNumber(group(2))"
-RULENAME="date_r26h",EXTRACTION="[Nn]ach (?:%reApproximate )?(\d+) %reUnitFine",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-group(2)"
-RULENAME="date_r26i",EXTRACTION="[Nn]ach (?:%reApproximate )?(?:[Ee]inen|[Ee]ine|[Ee]in) %reUnitFine",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-PLUS-1"
+RULENAME="date_r26a",EXTRACTION="(?:%reApproximate |)%reNumWord2D%|reNumWord1D %reUnitFine (?:später|danach|nach)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-%normDurationNumber(group(2))"
+RULENAME="date_r26b",EXTRACTION="(?:%reApproximate |)(\d+) %reUnitFine (?:später|danach|nach)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-group(2)"
+RULENAME="date_r26c",EXTRACTION="(?:%reApproximate |)(?:[Ee]inen|[Ee]ine|[Ee]in) %reUnitFine (?:später|danach|nach)",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-PLUS-1"
+RULENAME="date_r26d",EXTRACTION="(?:%reApproximate |)%reNumWord2D%|reNumWord1D %reUnitFine (?:früher|vorher|davor|vor)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-%normDurationNumber(group(2))"
+RULENAME="date_r26e",EXTRACTION="(?:%reApproximate |)(\d+) %reUnitFine (?:früher|vorher|davor|vor)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-group(2)"
+RULENAME="date_r26f",EXTRACTION="(?:%reApproximate |)(?:[Ee]inen|[Ee]ine|[Ee]in) %reUnitFine (?:früher|vorher|davor|vor)",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-MINUS-1"
 
 ///////////////////
 // HOLIDAY RULES //

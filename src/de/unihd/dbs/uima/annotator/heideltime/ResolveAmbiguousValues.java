@@ -128,7 +128,7 @@ class ResolveAmbiguousValues {
 		if (!ambigString.startsWith("UNDEF"))
 			return ambigString;
 		// If available, parse document creation time:
-		ParsedDct dct = (documentType != DocumentType.NARRATIVE) ? ParsedDct.read(jcas) : null;
+		ParsedDct dct = null; //(documentType != DocumentType.NARRATIVE) ? ParsedDct.read(jcas) : null;
 
 		// get the last tense (depending on the part of speech tags used in front or behind the expression)
 		Tense last_used_tense = getLastTense(t_i, jcas, language);
@@ -732,9 +732,9 @@ class ResolveAmbiguousValues {
 				t_i.setEmptyValue(specifyAmbiguousValuesString(t_i.getEmptyValue(), t_i, i, linearDates, jcas));
 
 			t_i.removeFromIndexes();
-			if (LOG.isDebugEnabled())
-				LOG.debug("{} DISAMBIGUATION PHASE: foundBy: {} text: {} value: {} NEW value: {} ", //
-						t_i.getTimexId(), t_i.getFoundByRule(), t_i.getCoveredText(), t_i.getTimexValue(), valueNew);
+			if (LOG.isDebugEnabled() && !valueNew.equals(t_i.getTimexValue()))
+				LOG.debug("{} {} DISAMBIGUATION: foundBy: {} text: {} value: {} NEW value: {} ", //
+						t_i.getSentId(), t_i.getTimexId(), t_i.getFoundByRule(), t_i.getCoveredText(), t_i.getTimexValue(), valueNew);
 
 			t_i.setTimexValue(valueNew);
 			t_i.addToIndexes();

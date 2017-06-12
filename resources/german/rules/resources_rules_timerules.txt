@@ -41,21 +41,21 @@ RULENAME="time_r2d",EXTRACTION="%reDateWord (?:des )?%rePartOfDay",NORM_VALUE="%
 // EXAMPLE r3a_1: 14:30 Uhr
 // EXAMPLE r3b_1: 14 Uhr 30
 // EXAMPLE r3c_1: 15 Uhr
-RULENAME="time_r3a",EXTRACTION="(?:%reApproximate )?%reTimeHour:%reTimeMinute(?: Uhr)?",NORM_VALUE="UNDEF-this-dayT%normDay(group(2)):group(3)"
-RULENAME="time_r3b",EXTRACTION="(?:%reApproximate )?%reTimeHour (?:Uhr) %reTimeMinute",NORM_VALUE="UNDEF-this-dayT%normDay(group(2)):group(3)"
-RULENAME="time_r3c",EXTRACTION="(?:%reApproximate )?%reTimeHour Uhr",NORM_VALUE="UNDEF-this-dayT%normDay(group(2)):00"
+RULENAME="time_r3a",EXTRACTION="(?:%reApproximate |)%reTimeHour:%reTimeMinute(?: Uhr)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):group(3)"
+RULENAME="time_r3b",EXTRACTION="(?:%reApproximate |)%reTimeHour (?:Uhr) %reTimeMinute",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):group(3)"
+RULENAME="time_r3c",EXTRACTION="(?:%reApproximate |)%reTimeHour Uhr",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):00"
 
-RULENAME="time_r3d1",EXTRACTION="(?:%reApproximate )?%reTimeHourWord Uhr(?: morgens)?",NORM_VALUE="UNDEF-this-dayT%normDay(group(2)):00"
-RULENAME="time_r3d2",EXTRACTION="(?:%reApproximate )?%reTimeHourWord Uhr (?:abends|nachmittags)",NORM_VALUE="UNDEF-this-dayT%SUM%(%normDay(group(2)),12):00"
-RULENAME="time_r3d3",EXTRACTION="(?:%reApproximate )?%reTimeHourWordAll Uhr",NORM_VALUE="UNDEF-this-dayT%normDay(group(2)):00"
+RULENAME="time_r3d1",EXTRACTION="(?:%reApproximate |)%reTimeHourWord Uhr(?: morgens)?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):00"
+RULENAME="time_r3d2",EXTRACTION="(?:%reApproximate |)%reTimeHourWord Uhr (?:abends|nachmittags)",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(2)),12):00"
+RULENAME="time_r3d3",EXTRACTION="(?:%reApproximate |)%reTimeHourWordAll Uhr",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):00"
 
 
 
 // time_r4
 // EXAMPLE r4a_1: Morgen des 1. August 2000
 // EXAMPLE r4b_1: Morgen des 1. August
-RULENAME="time_r4a",EXTRACTION="(?:%reApproximate )?%rePartOfDay des %reDayNumber%|reDayNumberTh%|reDayWordTh %reMonthLong%|reMonthShort%|reMonthNumber\.?,? %reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(3))T%normPartOfDay(group(2))"
-RULENAME="time_r4b",EXTRACTION="(?:%reApproximate )?%rePartOfDay des %reDayNumber%|reDayNumberTh%|reDayWordTh %reMonthLong%|reMonthShort%|reMonthNumber",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(3))T%normPartOfDay(group(2))"
+RULENAME="time_r4a",EXTRACTION="(?:%reApproximate |)%rePartOfDay des %reDayNumber%|reDayNumberTh%|reDayWordTh %reMonthLong%|reMonthShort%|reMonthNumber\.?,? %reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(3))T%normPartOfDay(group(2))"
+RULENAME="time_r4b",EXTRACTION="(?:%reApproximate |)%rePartOfDay des %reDayNumber%|reDayNumberTh%|reDayWordTh %reMonthLong%|reMonthShort%|reMonthNumber",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(3))T%normPartOfDay(group(2))"
 
 // time_r5
 // EXAMPLE r5a-1: (am) Morgen 

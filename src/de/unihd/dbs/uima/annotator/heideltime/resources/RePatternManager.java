@@ -138,7 +138,7 @@ public class RePatternManager extends GenericResourceManager {
 				return Collections.emptyList();
 			}
 			String pattern = RegexpOptimizer.combinePatterns(expanded);
-			LOG.debug("Combined {} into: {}", name, pattern);
+			LOG.trace("Combined {} into: {}", name, pattern);
 			return Arrays.asList(pattern);
 		} catch (OptimizerException e) {
 			LOG.warn("Pattern '{}' contains a too complex regexp construct, cannot optimize: {}", name, e.getMessage());

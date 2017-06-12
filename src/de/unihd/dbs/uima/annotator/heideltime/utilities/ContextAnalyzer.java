@@ -50,6 +50,8 @@ public class ContextAnalyzer {
 	/**
 	 * The value of the x of the last mentioned Timex is calculated.
 	 * 
+	 * Within the same sentence, prefer a longer timex (e.g. a day vs. a year).
+	 * 
 	 * @param linearDates
 	 *                list of previous linear dates
 	 * @param i
@@ -61,20 +63,61 @@ public class ContextAnalyzer {
 	public static String getLastMentionedX(List<Timex3> linearDates, int i, Function<String, String> func) {
 		// Timex for which to get the last mentioned x (i.e., Timex i)
 		Timex3 t_i = linearDates.get(i);
+		final int t_i_begin = t_i.getBegin();
 
+		String bestrep = null, bestin = null;
+		int bestsen = -1, besti = -1;
 		for (int j = i - 1; j >= 0; --j) {
 			Timex3 timex = linearDates.get(j);
+			if (j < besti - 5 || bestrep != null && timex.getSentId() < bestsen - 1)
+				break; // Don't go further back.
 			// check that the two timexes to compare do not have the same offset:
-			if (t_i.getBegin() == timex.getBegin())
+			if (t_i_begin == timex.getBegin())
 				continue;
 			String value = timex.getTimexValue();
+			if (bestrep != null && value.length() <= bestin.length())
+				continue; // Only try to find more precise dates.
 			if (value.contains("funcDate"))
 				continue;
 			String rep = func.apply(value);
-			if (rep != null)
-				return rep;
+			if (rep != null) {
+				bestrep = rep;
+				bestin = value;
+				bestsen = timex.getSentId();
+				// We don't care beyond month resolution, or we don't have sentences.
+				if (value.length() >= 6 || bestsen == 0)
+					break;
+			}
 		}
-		return "";
+		// If we did not find in the same sentence, try also looking forward a little bit
+		final int curSen = t_i.getSentId();
+		if (besti != curSen && curSen > 0) {
+			final int t_i_end = t_i.getEnd();
+			int end = Math.min(i + 2, linearDates.size());
+			for (int j = i + 1; j < end; j++) {
+				Timex3 timex = linearDates.get(j);
+				if (bestrep != null && timex.getSentId() > curSen)
+					break; // Don't go further forward.
+				// check that the two timexes to compare do not have the same offset:
+				if (t_i_end > timex.getBegin())
+					continue;
+				String value = timex.getTimexValue();
+				if (bestrep != null && value.length() <= bestin.length())
+					continue; // Only try to find more precise dates.
+				if (value.contains("funcDate"))
+					continue;
+				String rep = func.apply(value);
+				if (rep != null) {
+					bestrep = rep;
+					bestin = value;
+					bestsen = timex.getSentId();
+					// We don't care beyond month resolution, or we don't have sentences.
+					if (value.length() >= 6 || bestsen == 0)
+						break;
+				}
+			}
+		}
+		return bestrep != null ? bestrep : "";
 	}
 
 	/**

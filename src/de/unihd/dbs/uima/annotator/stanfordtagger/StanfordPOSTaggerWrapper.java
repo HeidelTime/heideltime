@@ -103,6 +103,7 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 		fac.setOptions("ptb3Escaping=false,untokenizable=noneKeep");
 		List<List<HasWord>> tokenArray = MaxentTagger.tokenizeText(new StringReader(docText), fac);
 		
+		int sentences = 0;
 		// iterate over sentences in this document
 		for(List<HasWord> sentenceToken : tokenArray) {
 			List<TaggedWord> taggedSentence = mt.tagSentence(sentenceToken);
@@ -110,6 +111,7 @@ public class StanfordPOSTaggerWrapper extends JCasAnnotator_ImplBase {
 			
 			// create a sentence object. gets added to index or discarded depending on configuration
 			Sentence sentence = new Sentence(jcas);
+			sentence.setSentenceId(++sentences);
 			sentence.setBegin(offset);
 			
 			int wordCount = 0;

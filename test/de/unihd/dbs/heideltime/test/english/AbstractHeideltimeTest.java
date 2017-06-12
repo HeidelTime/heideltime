@@ -37,7 +37,7 @@ public class AbstractHeideltimeTest {
 	protected HeidelTime heideltime;
 	private boolean debugTokenization = false;
 	static final Pattern LINEWRAP = Pattern.compile("\\s*[\\n\\r]+\\s*");
-	static final Pattern WORDS = Pattern.compile("([^\\s\\w]*)([\\w/]+(?:\\.\\d+)?)([^\\s\\w]*)");
+	static final Pattern WORDS = Pattern.compile("(?U)([^\\s\\w]*)([\\w/]+(?:\\.\\d+)?)([^\\s\\w]*)");
 
 	@Before
 	public void init() {
@@ -107,9 +107,9 @@ public class AbstractHeideltimeTest {
 		try {
 			JCas jcas = tokenize(fragment);
 			if (dctv != null) {
-			Dct dct = new Dct(jcas);
-			dct.setValue(dctv);
-			dct.addToIndexes();
+				Dct dct = new Dct(jcas);
+				dct.setValue(dctv);
+				dct.addToIndexes();
 			}
 			heideltime.process(jcas);
 			// intervaltagger.process(jcas);
