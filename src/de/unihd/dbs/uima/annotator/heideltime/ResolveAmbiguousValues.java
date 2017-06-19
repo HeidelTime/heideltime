@@ -128,7 +128,7 @@ class ResolveAmbiguousValues {
 		if (!ambigString.startsWith("UNDEF"))
 			return ambigString;
 		// If available, parse document creation time:
-		ParsedDct dct = null; //(documentType != DocumentType.NARRATIVE) ? ParsedDct.read(jcas) : null;
+		ParsedDct dct = null; // (documentType != DocumentType.NARRATIVE) ? ParsedDct.read(jcas) : null;
 
 		// get the last tense (depending on the part of speech tags used in front or behind the expression)
 		Tense last_used_tense = getLastTense(t_i, jcas, language);
@@ -293,6 +293,19 @@ class ResolveAmbiguousValues {
 		case "hour":
 			// FIXME: support these, too?
 			return null;
+		case "week-WE":
+			// TODO: assert not BC?
+			if (fuzz /* && (sdiff > 1 || sdiff < -1) */) { // Use week precision
+				if (dct != null)
+					return getXNextWeek(dct.dctYear + "-W" + norm.normNumber(dct.dctWeek), sdiff);
+				String lmWeek = getLastMentionedWeek(linearDates, i);
+				return lmWeek.isEmpty() ? "XXXX-WXX-WE" : getXNextWeek(lmWeek, sdiff);
+			}
+			// Use day precision, if possible
+			if (dct != null)
+				return getXNextWeek(dct.dctYear, dct.dctMonth, dct.dctDay, sdiff) + "-WE";
+			String lmWeek = getLastMentionedWeek(linearDates, i);
+			return lmWeek.isEmpty() ? "XXXX-WXX-WE" : getXNextWeek(lmWeek, sdiff) + "-WE";
 		default:
 			LOG.warn("Unknown unit {}", unit);
 			return null;

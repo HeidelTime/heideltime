@@ -175,6 +175,25 @@ public class DateCalculator {
 	}
 
 	/**
+	 * get the x-next week of date
+	 * 
+	 * @param date
+	 *                current date
+	 * @param x
+	 *                amount of weeks to go forward
+	 * @return new week
+	 */
+	public static String getXNextWeek(int year, int month, int day, int x) {
+		try {
+			LocalDate d = LocalDate.of(year, month, day).plusWeeks(x);
+			return d.format(WEEKFORMATTER_WIDE);
+		} catch (DateTimeParseException e) {
+			LOG.error(e.getMessage(), e);
+			return "";
+		}
+	}
+
+	/**
 	 * Get the weekday of date
 	 * 
 	 * Important: with the switch to Java 8, sunday became 7 rather than 1!
