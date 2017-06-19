@@ -573,7 +573,7 @@ class ResolveAmbiguousValues {
 				repl = newYear + "-" + newSeason;
 			} else { // NARRATVIE DOCUMENT
 				String lmSeason = getLastMentionedSeason(linearDates, i, language);
-				if (lmSeason != null && lmSeason.isEmpty()) {
+				if (lmSeason != null && !lmSeason.isEmpty()) {
 					Season se = Season.of(lmSeason, 5);
 					int newYear = parseInt(lmSeason, 0, 4) - (newSeason.ord() < se.ord() ? 1 : 0);
 					// TODO: 'format' year? could be < 1000.
