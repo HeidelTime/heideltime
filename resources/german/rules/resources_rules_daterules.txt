@@ -110,7 +110,7 @@ RULENAME="date_r3a",EXTRACTION="%reDayNumber\.? %reMonthLong%|reMonthShort(?: de
 // EXAMPLE r4b_1: 19. November
 // EXAMPLE r4c_1: November 15 - 18   (find November 18)
 // EXAMPLE r4d_1: 19. und 20. Januar (find 19. Januar)
-RULENAME="date_r4a",EXTRACTION="%reMonthLong%|reMonthShort %reDayWordTh%|reDayNumberTh%|reDayNumber",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(1))"
+RULENAME="date_r4a",EXTRACTION="%reMonthLong%|reMonthShort %reDayWordTh%|reDayNumberTh%|reDayNumber",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(2))"
 RULENAME="date_r4b",EXTRACTION="%reDayWordTh%|reDayNumberTh%|reDayNumber %reMonthLong%|reMonthShort",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(1))"
 RULENAME="date_r4c",EXTRACTION="%reMonthLong%|reMonthShort %reDayWordTh%|reDayNumberTh%|reDayNumber\s*%reAndOrTo\s*%reDayWordTh%|reDayNumberTh%|reDayNumber",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(4))",OFFSET="group(4)-group(4)"
 RULENAME="date_r4d",EXTRACTION="%reDayWordTh%|reDayNumberTh%|reDayNumber%reAndOrTo%reDayWordTh%|reDayNumberTh%|reDayNumber %reMonthLong%|reMonthShort",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(1))",OFFSET="group(1)-group(1)"
