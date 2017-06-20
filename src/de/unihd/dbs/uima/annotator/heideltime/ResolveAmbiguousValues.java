@@ -194,6 +194,8 @@ class ResolveAmbiguousValues {
 			return null;
 		}
 		String rep = adjustByUnit(linearDates, i, dct, unit, sdiff, true);
+		if (rep == null)
+			return ambigString;
 		StringBuilder valueNew = join(rep, ambigString, m.end());
 		if ("year".equals(unit))
 			handleFiscalYear(valueNew);
