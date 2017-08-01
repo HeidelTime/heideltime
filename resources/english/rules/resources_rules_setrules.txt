@@ -14,7 +14,7 @@
 // EXAMPLE r1d-1: every summer
 RULENAME="set_r1a",EXTRACTION="([Ee]very|[Ee]ach) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_QUANT="%UPPERCASE%(group(1))"
 RULENAME="set_r1b",EXTRACTION="([Ee]very|[Ee]ach) %reWeekday",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1W"
-RULENAME="set_r1c",EXTRACTION="([Ee]very|[Ee]ach) %reMonthLong%|reMonthShort",NORM_VALUE="XXXX-%normMonth(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1M"
+RULENAME="set_r1c",EXTRACTION="([Ee]very|[Ee]ach) %(reMonthLong|reMonthShort)",NORM_VALUE="XXXX-%normMonth(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1M"
 RULENAME="set_r1d",EXTRACTION="([Ee]very|[Ee]ach) %reSeason",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1S"
 
 // set_r2
@@ -26,7 +26,7 @@ RULENAME="set_r1d",EXTRACTION="([Ee]very|[Ee]ach) %reSeason",NORM_VALUE="XXXX-%n
 // EXAMPLE r2f-1: a minute
 RULENAME="set_r2a",EXTRACTION="[Oo]nce (?:a|per) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(1)),0,1))",NORM_FREQ="1"
 RULENAME="set_r2b",EXTRACTION="[Tt]wice (?:a|per) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(1)),0,1))",NORM_FREQ="2"
-RULENAME="set_r2c",EXTRACTION="%reNumWord1D%|reNumWord2D times? (?:a|per) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_FREQ="%normDurationNumber(group(1))"
+RULENAME="set_r2c",EXTRACTION="%(reNumWord1D|reNumWord2D) times? (?:a|per) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_FREQ="%normDurationNumber(group(1))"
 RULENAME="set_r2d",EXTRACTION="([\d]+) times? (?:a|per) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_FREQ="group(1)"
 RULENAME="set_r2e",EXTRACTION="(?:a|an)[\s-]%reUnit",NORM_VALUE="P1%normUnit4Duration(group(1))",NORM_FREQ="1"
 RULENAME="set_r2f",EXTRACTION="(?:a|an)[\s-](minutes?|hours?)",NORM_VALUE="PT1%normUnit4Duration(group(1))",NORM_FREQ="1"
@@ -35,7 +35,7 @@ RULENAME="set_r2f",EXTRACTION="(?:a|an)[\s-](minutes?|hours?)",NORM_VALUE="PT1%n
 // EXAMPLE r3a-1: every 5 years
 // EXAMPLE r3b-1: every two days
 RULENAME="set_r3a",EXTRACTION="([Ee]very) (\d+) %reUnit",NORM_VALUE="Pgroup(2)%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_QUANT="%UPPERCASE%(group(1))"
-RULENAME="set_r3b",EXTRACTION="([Ee]very) %reNumWord1D%|reNumWord2D %reUnit",NORM_VALUE="P%normDurationNumber(group(2))%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_QUANT="%UPPERCASE%(group(1))"
+RULENAME="set_r3b",EXTRACTION="([Ee]very) %(reNumWord1D|reNumWord2D) %reUnit",NORM_VALUE="P%normDurationNumber(group(2))%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_QUANT="%UPPERCASE%(group(1))"
 
 // set_r4
 // EXAMPLE r4a-1: 2 days each week

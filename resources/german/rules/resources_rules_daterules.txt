@@ -29,22 +29,22 @@ RULENAME="date_historic_1f-BCADhint",EXTRACTION="(?:%rePartWords )(?:Jahre?[ns]?
 // EXAMPLE date_historic_2d-BCADhint: Anfang Januar 190 v. Chr. (1- to 4-digit year)
 // EXAMPLE date_historic_2e:          Anfang Januar 190         (3-digit year)
 // EXAMPLE date_historic_2f:          Anfang Januar 90          (2-digit year)
-RULENAME="date_historic_2a-BCADhint",EXTRACTION="(?:%reApproximate |)%reMonthLong%|reMonthShort %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))"
-RULENAME="date_historic_2b",EXTRACTION="(?:%reApproximate |)%reMonthLong%|reMonthShort (\d\d\d)",NORM_VALUE="%normYearBC(group(3))-%normMonth(group(2))"
-RULENAME="date_historic_2c",EXTRACTION="(?:%reApproximate |)%reMonthLong%|reMonthShort (\d\d)",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(2))"
-RULENAME="date_historic_2d-BCADhint",EXTRACTION="(?:%rePartWords )%reMonthLong%|reMonthShort %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))"
-RULENAME="date_historic_2e",EXTRACTION="(?:%rePartWords )%reMonthLong%|reMonthShort (\d\d\d)",NORM_VALUE="%normYearBC(group(3))-%normMonth(group(2))"
-RULENAME="date_historic_2f",EXTRACTION="(?:%rePartWords )%reMonthLong%|reMonthShort (\d\d)",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(2))"
+RULENAME="date_historic_2a-BCADhint",EXTRACTION="(?:%reApproximate |)%(reMonthLong|reMonthShort) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))"
+RULENAME="date_historic_2b",EXTRACTION="(?:%reApproximate |)%(reMonthLong|reMonthShort) (\d\d\d)",NORM_VALUE="%normYearBC(group(3))-%normMonth(group(2))"
+RULENAME="date_historic_2c",EXTRACTION="(?:%reApproximate |)%(reMonthLong|reMonthShort) (\d\d)",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(2))"
+RULENAME="date_historic_2d-BCADhint",EXTRACTION="(?:%rePartWords )%(reMonthLong|reMonthShort) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))"
+RULENAME="date_historic_2e",EXTRACTION="(?:%rePartWords )%(reMonthLong|reMonthShort) (\d\d\d)",NORM_VALUE="%normYearBC(group(3))-%normMonth(group(2))"
+RULENAME="date_historic_2f",EXTRACTION="(?:%rePartWords )%(reMonthLong|reMonthShort) (\d\d)",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(2))"
 
 // historic dates; day granularity
 // EXAMPLE date_historic_3a-BCADhint: 1. Januar 190 v. Chr. (1- to 4-digit year)
 // EXAMPLE date_historic_3b:          1. Januar 190         (3-digit year)
 // EXAMPLE date_historic_3c:          1. Januar 90          (2-digit year)
 // EXAMPLE date_historic_3d:          1. - 15. Januar 90    (find "1. Januar 90"; 2-digit year)
-RULENAME="date_historic_3a-BCADhint",EXTRACTION="%reDayNumber\.? %reMonthLong%|reMonthShort(?: des Jahres| im Jahre|) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))-%normDay(group(1))"
-RULENAME="date_historic_3b",EXTRACTION="%reDayNumber\.? %reMonthLong%|reMonthShort(?: des Jahres| im Jahre|) (\d\d\d)",NORM_VALUE="%normYearBC(group(3))-%normMonth(group(2))-%normDay(group(1))"
-RULENAME="date_historic_3c",EXTRACTION="%reDayNumber\.? %reMonthLong%|reMonthShort(?: des Jahres| im Jahre|) %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(2))-%normDay(group(1))"
-RULENAME="date_historic_3d",EXTRACTION="(%reDayNumber\.?)%reAndOrTo%reDayNumber\.? %reMonthLong%|reMonthShort(?: des Jahres| im Jahre|) %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(6)-%normMonth(group(5))-%normDay(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="date_historic_3a-BCADhint",EXTRACTION="%reDayNumber\.? %(reMonthLong|reMonthShort)(?: des Jahres| im Jahre|) %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(4))%normYearBC(group(3))-%normMonth(group(2))-%normDay(group(1))"
+RULENAME="date_historic_3b",EXTRACTION="%reDayNumber\.? %(reMonthLong|reMonthShort)(?: des Jahres| im Jahre|) (\d\d\d)",NORM_VALUE="%normYearBC(group(3))-%normMonth(group(2))-%normDay(group(1))"
+RULENAME="date_historic_3c",EXTRACTION="%reDayNumber\.? %(reMonthLong|reMonthShort)(?: des Jahres| im Jahre|) %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normMonth(group(2))-%normDay(group(1))"
+RULENAME="date_historic_3d",EXTRACTION="(%reDayNumber\.?)%reAndOrTo%reDayNumber\.? %(reMonthLong|reMonthShort)(?: des Jahres| im Jahre|) %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(6)-%normMonth(group(5))-%normDay(group(1))",OFFSET="group(1)-group(1)"
 
 // historic dates; season granularity
 // EXAMPLE date_historic_4a-BCADhint: Winter 190 v. Chr.      (1- to 4-digit year)
@@ -54,7 +54,7 @@ RULENAME="date_historic_4b-BCADhint",EXTRACTION="(?:%rePartWords )%reSeason %reY
 
 // historic dates; century granularity
 // EXAMPLE date_historic_5a-BCADhint: das 5. Jahrhundert v. Chr.
-RULENAME="date_historic_5a-BCADhint",EXTRACTION="(?:[Dd]as )?%reDayNumber%|reDayNumberTh%|reDayWordTh J(?:ahrhunderts?|h\.) %reYearPrefix",NORM_VALUE="%normYearPrefix(group(2))%normDay(%SUM%(%normDay(group(1)),-1))"
+RULENAME="date_historic_5a-BCADhint",EXTRACTION="(?:[Dd]as )?%(reDayNumber|reDayNumberTh|reDayWordTh) J(?:ahrhunderts?|h\.) %reYearPrefix",NORM_VALUE="%normYearPrefix(group(2))%normDay(%SUM%(%normDay(group(1)),-1))"
 
 // historic dates; year granularity
 // EXAMPLE date_historic_6a: Jahr 90  (2-digit year)
@@ -96,38 +96,38 @@ RULENAME="date_r1b",EXTRACTION="%reDayNumber\.%reMonthNumber\.%reYear4Digit",NOR
 // date_r2 (keep though it is English date format)
 // EXAMPLE r2a_1: Februar 25, 2009
 // EXAMPLE r2a_2: Feb. 25, 2009
-RULENAME="date_r2a",EXTRACTION="%reMonthLong%|reMonthShort %reDayNumber\s?, %reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(1))-%normDay(group(2))"
+RULENAME="date_r2a",EXTRACTION="%(reMonthLong|reMonthShort) %reDayNumber\s?, %reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(1))-%normDay(group(2))"
 
 // date_r3
 // EXAMPLE r3a_1: 25. Februar 2009
 // EXAMPLE r3a_2: 25 Feb 2009
 // EXAMPLE r3a_3: 25 Feb. 2009
 // EXAMPLE r3a_4: 25. November des Jahres 2001
-RULENAME="date_r3a",EXTRACTION="%reDayNumber\.? %reMonthLong%|reMonthShort(?: des Jahres| im Jahre|) %reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))"
+RULENAME="date_r3a",EXTRACTION="%reDayNumber\.? %(reMonthLong|reMonthShort)(?: des Jahres| im Jahre|) %reYear4Digit",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))"
 
 // date_r4
 // EXAMPLE r4a_1: November 19
 // EXAMPLE r4b_1: 19. November
 // EXAMPLE r4c_1: November 15 - 18   (find November 18)
 // EXAMPLE r4d_1: 19. und 20. Januar (find 19. Januar)
-RULENAME="date_r4a",EXTRACTION="%reMonthLong%|reMonthShort %reDayWordTh%|reDayNumberTh%|reDayNumber",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(2))"
-RULENAME="date_r4b",EXTRACTION="%reDayWordTh%|reDayNumberTh%|reDayNumber %reMonthLong%|reMonthShort",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(1))"
-RULENAME="date_r4c",EXTRACTION="%reMonthLong%|reMonthShort %reDayWordTh%|reDayNumberTh%|reDayNumber\s*%reAndOrTo\s*%reDayWordTh%|reDayNumberTh%|reDayNumber",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(4))",OFFSET="group(4)-group(4)"
-RULENAME="date_r4d",EXTRACTION="%reDayWordTh%|reDayNumberTh%|reDayNumber%reAndOrTo%reDayWordTh%|reDayNumberTh%|reDayNumber %reMonthLong%|reMonthShort",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="date_r4a",EXTRACTION="%(reMonthLong|reMonthShort) %(reDayNumber|reDayNumberTh|reDayWordTh)",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(2))"
+RULENAME="date_r4b",EXTRACTION="%(reDayNumber|reDayNumberTh|reDayWordTh) %(reMonthLong|reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(1))"
+RULENAME="date_r4c",EXTRACTION="%(reMonthLong|reMonthShort) %(reDayNumber|reDayNumberTh|reDayWordTh)\s*%reAndOrTo\s*%(reDayNumber|reDayNumberTh|reDayWordTh)",NORM_VALUE="UNDEF-year-%normMonth(group(1))-%normDay(group(4))",OFFSET="group(4)-group(4)"
+RULENAME="date_r4d",EXTRACTION="%(reDayNumber|reDayNumberTh|reDayWordTh)%reAndOrTo%(reDayNumber|reDayNumberTh|reDayWordTh) %(reMonthLong|reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(4))-%normDay(group(1))",OFFSET="group(1)-group(1)"
 
 // date_r5
 // EXAMPLE r5a_1: Freitag Oktober 13
 // EXAMPLE r5b_1: Freitag 13. Oktober
-RULENAME="date_r5a",EXTRACTION="%reWeekday,? %reMonthLong%|reMonthShort %reDayWordTh%|reDayNumberTh%|reDayNumber",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(3))"
-RULENAME="date_r5b",EXTRACTION="%reWeekday,? %reDayWordTh%|reDayNumberTh%|reDayNumber\.? %reMonthLong%|reMonthShort",NORM_VALUE="UNDEF-year-%normMonth(group(3))-%normDay(group(2))"
+RULENAME="date_r5a",EXTRACTION="%reWeekday,? %(reMonthLong|reMonthShort) %(reDayNumber|reDayNumberTh|reDayWordTh)",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(3))"
+RULENAME="date_r5b",EXTRACTION="%reWeekday,? %(reDayNumber|reDayNumberTh|reDayWordTh)\.? %(reMonthLong|reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(3))-%normDay(group(2))"
 
 // date_r6
 // EXAMPLE r6a_1: 14. und 15. September 2010 (find: 14. September 2010)
-RULENAME="date_r6a",EXTRACTION="%reDayNumberTh%|reDayNumber%reAndOrTo%reDayNumberTh%|reDayNumber %reMonthLong%|reMonthShort %reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="date_r6a",EXTRACTION="%(reDayNumberTh|reDayWordTh)%reAndOrTo%(reDayNumberTh|reDayWordTh) %(reMonthLong|reMonthShort) %reYear4Digit",NORM_VALUE="group(5)-%normMonth(group(4))-%normDay(group(1))",OFFSET="group(1)-group(1)"
 
 // date_r7
 // EXAMPLE r7a_1: Friday Oktober 13 2009
-RULENAME="date_r7a",EXTRACTION="%reWeekday,? %reMonthLong%|reMonthShort %reDayWordTh%|reDayNumberTh%|reDayNumber,? %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(2))-%normDay(group(3))"
+RULENAME="date_r7a",EXTRACTION="%reWeekday,? %(reMonthLong|reMonthShort) %(reDayNumber|reDayNumberTh|reDayWordTh),? %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(2))-%normDay(group(3))"
 
 // date_r8
 // EXAMPLE 8a_1: tomorrow
@@ -144,8 +144,8 @@ RULENAME="date_r9a",EXTRACTION="%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(g
 // EXAMPLE r10a_1: November 2001
 // EXAMPLE r10a_2: Nov. 2001
 // EXAMPLE r10b_1: Mai and Juni 2011 (find Mai 2001)
-RULENAME="date_r10a",EXTRACTION="(?:%reMonthLong%|reMonthShort%reAndOrTo)?%reMonthLong%|reMonthShort %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(3))",OFFSET="group(3)-group(4)"
-RULENAME="date_r10b",EXTRACTION="%reMonthLong%|reMonthShort%reAndOrTo%reMonthLong%|reMonthShort %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="date_r10a",EXTRACTION="(?:%(reMonthLong|reMonthShort)%reAndOrTo)?%(reMonthLong|reMonthShort) %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(3))",OFFSET="group(3)-group(4)"
+RULENAME="date_r10b",EXTRACTION="%(reMonthLong|reMonthShort)%reAndOrTo%(reMonthLong|reMonthShort) %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(1))",OFFSET="group(1)-group(1)"
 
 // date_r11
 // EXAMPLE r11a_1: November diesen Jahres
@@ -196,9 +196,9 @@ RULENAME="date_r16a",EXTRACTION="%reNumWordTeen(?: |-|)%reNumWord2D",NORM_VALUE=
 // EXAMPLE r17a_1: Das 20. Jahrhundert
 // EXAMPLE r17b_1: Im 18. und 19. Jahrhundert (find: 17. Jahrhundert)
 // EXAMPLE 2: the seventh century
-RULENAME="date_r17a",EXTRACTION="(?:Das )?%reDayNumber%|reDayNumberTh%|reDayWordTh Jahrhunderts?",NORM_VALUE="%normDay(%SUM%(%normDay(group(1)),-1))"
-RULENAME="date_r17b",EXTRACTION="(?:Das )?%reDayNumber%|reDayNumberTh%|reDayWordTh%reAndOrTo%reDayNumber%|reDayNumberTh%|reDayWordTh Jahrhunderts?",NORM_VALUE="%normDay(%SUM%(%normDay(group(1)),-1))",OFFSET="group(1)-group(1)"
-RULENAME="date_r17c",EXTRACTION="%rePartWords des %reDayNumber%|reDayNumberTh%|reDayWordTh Jahrhunderts?",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))",NORM_MOD="%normPartWords(group(1))"
+RULENAME="date_r17a",EXTRACTION="(?:Das )?%(reDayNumber|reDayNumberTh|reDayWordTh) Jahrhunderts?",NORM_VALUE="%normDay(%SUM%(%normDay(group(1)),-1))"
+RULENAME="date_r17b",EXTRACTION="(?:Das )?%(reDayNumber|reDayNumberTh|reDayWordTh)%reAndOrTo%(reDayNumber|reDayNumberTh|reDayWordTh) Jahrhunderts?",NORM_VALUE="%normDay(%SUM%(%normDay(group(1)),-1))",OFFSET="group(1)-group(1)"
+RULENAME="date_r17c",EXTRACTION="%rePartWords des %(reDayNumber|reDayNumberTh|reDayWordTh) Jahrhunderts?",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))",NORM_MOD="%normPartWords(group(1))"
 
 ///////////////////////////////////
 // GRANULARITY INDEPENDENT RULES //
@@ -208,10 +208,10 @@ RULENAME="date_r17c",EXTRACTION="%rePartWords des %reDayNumber%|reDayNumberTh%|r
 // EXAMPLE r18b_1: Anfang 1999
 // EXAMPLE r18c_1: Anfang November 1999
 // EXAMPLE r18d_1: Anfang November 2000
-RULENAME="date_r18a",EXTRACTION="(?:%reApproximate |)%reMonthLong%|reMonthShort",NORM_VALUE="UNDEF-year-%normMonth(group(2))"
+RULENAME="date_r18a",EXTRACTION="(?:%reApproximate |)%(reMonthLong|reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(2))"
 RULENAME="date_r18b",EXTRACTION="(?:%reApproximate |)%rePartWords ?%reYear4Digit",NORM_VALUE="group(3)",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r18c",EXTRACTION="(?:%reApproximate |)%rePartWords ?%reMonthLong%|reMonthShort %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(3))",NORM_MOD="%normPartWords(group(2))"
-RULENAME="date_r18d",EXTRACTION="(?:%reApproximate |)%rePartWords ?%reMonthLong%|reMonthShort",NORM_VALUE="UNDEF-year-%normMonth(group(3))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r18c",EXTRACTION="(?:%reApproximate |)%rePartWords ?%(reMonthLong|reMonthShort) %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(3))",NORM_MOD="%normPartWords(group(2))"
+RULENAME="date_r18d",EXTRACTION="(?:%reApproximate |)%rePartWords ?%(reMonthLong|reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(3))",NORM_MOD="%normPartWords(group(2))"
 
 // date_r19
 // EXAMPLE r19a_1: die 1920er Jahre 
@@ -270,10 +270,10 @@ RULENAME="date_r24b",EXTRACTION="[Ee]in Jahr (?:später|danach|nach)",NORM_VALUE
 // EXAMPLE r25d_1: etwa zehn Tage früher
 // EXAMPLE r25e_1: etwa 20 Tage früher
 // EXAMPLE r25f_1: etwa ein Tag früher
-RULENAME="date_r26a",EXTRACTION="(?:%reApproximate |)%reNumWord2D%|reNumWord1D %reUnitFine (?:später|danach|nach)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-%normDurationNumber(group(2))"
+RULENAME="date_r26a",EXTRACTION="(?:%reApproximate |)%(reNumWord1D|reNumWord2D) %reUnitFine (?:später|danach|nach)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-%normDurationNumber(group(2))"
 RULENAME="date_r26b",EXTRACTION="(?:%reApproximate |)(\d+) %reUnitFine (?:später|danach|nach)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-group(2)"
 RULENAME="date_r26c",EXTRACTION="(?:%reApproximate |)(?:[Ee]inen|[Ee]ine|[Ee]in) %reUnitFine (?:später|danach|nach)",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-PLUS-1"
-RULENAME="date_r26d",EXTRACTION="(?:%reApproximate |)%reNumWord2D%|reNumWord1D %reUnitFine (?:früher|vorher|davor|vor)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-%normDurationNumber(group(2))"
+RULENAME="date_r26d",EXTRACTION="(?:%reApproximate |)%(reNumWord1D|reNumWord2D) %reUnitFine (?:früher|vorher|davor|vor)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-%normDurationNumber(group(2))"
 RULENAME="date_r26e",EXTRACTION="(?:%reApproximate |)(\d+) %reUnitFine (?:früher|vorher|davor|vor)",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-group(2)"
 RULENAME="date_r26f",EXTRACTION="(?:%reApproximate |)(?:[Ee]inen|[Ee]ine|[Ee]in) %reUnitFine (?:früher|vorher|davor|vor)",NORM_VALUE="UNDEF-REF-%normUnit(group(2))-MINUS-1"
 

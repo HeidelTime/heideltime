@@ -29,8 +29,8 @@ RULENAME="time_r1f",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber-%reTimeH
 // EXAMPLE r2d-2: 1 Feb 2005 16:13:33 +1300
 RULENAME="time_r2a",EXTRACTION="%reMonthNumber-%reDayNumber-%reYear2Digit %reTimeHour:?%reTimeMinute%reTimezone",NORM_VALUE="UNDEF-centurygroup(3)-group(1)-group(2)T%normMinute(group(4)):%normMinute(group(5))%normTimezone(group(6))"
 RULENAME="time_r2b",EXTRACTION="%reMonthLong %reDayNumber, %reYear4Digit %reTimeHour:?%reTimeMinute %reTimezone",NORM_VALUE="group(3)-%normMonth(group(1))-%normDay(group(2))T%normMinute(group(4)):%normMinute(group(5))"
-// matched by r2d RULENAME="time_r2c",EXTRACTION="(?:Mon, |Tue, |Wed, |Thu, |Fri, |Sat, |Sun, )?%reDayNumber %reMonthLong%|reMonthShort %reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute (\+|-)0000",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))Tgroup(4):group(5):group(6)"
-RULENAME="time_r2d",EXTRACTION="(?:Mon, |Tue, |Wed, |Thu, |Fri, |Sat, |Sun, )?%reDayNumber %reMonthLong%|reMonthShort %reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute (\+|-)(\d\d)00",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))Tgroup(4):group(5):group(6)group(7)group(8)"
+// matched by r2d RULENAME="time_r2c",EXTRACTION="(?:Mon, |Tue, |Wed, |Thu, |Fri, |Sat, |Sun, )?%reDayNumber %(reMonthLong|reMonthShort) %reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute (\+|-)0000",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))Tgroup(4):group(5):group(6)"
+RULENAME="time_r2d",EXTRACTION="(?:Mon, |Tue, |Wed, |Thu, |Fri, |Sat, |Sun, )?%reDayNumber %(reMonthLong|reMonthShort) %reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute (\+|-)(\d\d)00",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))Tgroup(4):group(5):group(6)group(7)group(8)"
 RULENAME="time_r2e",EXTRACTION="(%reMonthLong %reDayNumber, %reTimeHour %reTimezone) in %reYear4Digit",NORM_VALUE="group(6)-%normMonth(group(2))-%normDay(group(3))T%normMinute(group(4)):00",OFFSET="group(1)-group(1)"
 RULENAME="time_r2f",EXTRACTION="(%reMonthLong %reDayNumber, %reTimeHour:%reTimeMinute%reTimezone) in %reYear4Digit",NORM_VALUE="group(7)-%normMonth(group(2))-%normDay(group(3))T%normMinute(group(4)):%normMinute(group(5))",OFFSET="group(1)-group(1)"
 
@@ -105,8 +105,8 @@ RULENAME="time_r7b",EXTRACTION="((%reApproximate )?%reTimeHour:?%reTimeMinute %r
 // time_r8
 // EXAMPLE r8a: the morning of April 18, 1775
 // EXAMPLE r8b: the morning of April 18
-RULENAME="time_r8a",EXTRACTION="(?:[Tt]he )?%rePartOfDay of %reMonthLong%|reMonthShort %reDayNumber%|reDayNumberTh\s?,? %reYear4Digit(?:, %reWeekday)?",NORM_VALUE="group(4)-%normMonth(group(2))-%normDay(group(3))T%normPartOfDay(group(1))"
-RULENAME="time_r8b",EXTRACTION="(?:[Tt]he )?%rePartOfDay of %reMonthLong%|reMonthShort %reDayNumber%|reDayNumberTh",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(3))T%normPartOfDay(group(1))"
-RULENAME="time_r8c",EXTRACTION="(?:[Tt]he )?%rePartOfDay of (?:the )?%reDayNumber%|reDayNumberTh%|reDayWordTh (?:of )?%reMonthLong%|reMonthShort %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(3))-%normDay(group(2))T%normPartOfDay(group(1))"
-RULENAME="time_r8d",EXTRACTION="(?:[Tt]he )?%rePartOfDay of (?:the )?%reDayNumber%|reDayNumberTh%|reDayWordTh (?:of )?%reMonthLong%|reMonthShort",NORM_VALUE="UNDEF-year-%normMonth(group(3))-%normDay(group(2))T%normPartOfDay(group(1))"
+RULENAME="time_r8a",EXTRACTION="(?:[Tt]he )?%rePartOfDay of %(reMonthLong|reMonthShort) %(reDayNumber|reDayNumberTh)\s?,? %reYear4Digit(?:, %reWeekday)?",NORM_VALUE="group(4)-%normMonth(group(2))-%normDay(group(3))T%normPartOfDay(group(1))"
+RULENAME="time_r8b",EXTRACTION="(?:[Tt]he )?%rePartOfDay of %(reMonthLong|reMonthShort) %(reDayNumber|reDayNumberTh)",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(3))T%normPartOfDay(group(1))"
+RULENAME="time_r8c",EXTRACTION="(?:[Tt]he )?%rePartOfDay of (?:the )?%(reDayNumber|reDayNumberTh|reDayWordTh) (?:of )?%(reMonthLong|reMonthShort) %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(3))-%normDay(group(2))T%normPartOfDay(group(1))"
+RULENAME="time_r8d",EXTRACTION="(?:[Tt]he )?%rePartOfDay of (?:the )?%(reDayNumber|reDayNumberTh|reDayWordTh) (?:of )?%(reMonthLong|reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(3))-%normDay(group(2))T%normPartOfDay(group(1))"
 

@@ -217,8 +217,8 @@ public class RuleManager extends GenericResourceManager {
 		}
 	}
 
-	private static final Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]+(%\\|re[a-zA-Z0-9]+)*)");
-	private static final Pattern paSplit = Pattern.compile("%\\|");
+	private static final Pattern paVariable = Pattern.compile("%(?:(re[a-zA-Z0-9]+)|\\((re[a-zA-Z0-9]+(?:\\|re[a-zA-Z0-9]+)*)\\))");
+	private static final Pattern paSplit = Pattern.compile("%?\\|");
 
 	public static String expandVariables(CharSequence rule_name, String str, RePatternManager rpm) {
 		Matcher matcher = paVariable.matcher(str);
@@ -228,15 +228,27 @@ public class RuleManager extends GenericResourceManager {
 		StringBuilder buf = new StringBuilder(1000);
 		int pos = 0;
 		do {
-			String[] parts = paSplit.split(matcher.group(1));
-			List<String> pats = new ArrayList<>(parts.length);
-			for (int i = 0; i < parts.length; i++) {
-				String rep = rpm.get(parts[i]);
+			List<String> pats = new ArrayList<>();
+			String g1 = matcher.group(1);
+			if (g1 != null) {
+				// Only one group matched.
+				String rep = rpm.get(g1);
 				if (rep == null) {
-					LOG.error("Error expanding rule '{}': RePattern not defined: '%{}'", rule_name, parts[i]);
-					throw new InvalidPatternException("Rule '" + rule_name + "' referenced missing pattern '" + parts[i] + "'");
+					LOG.error("Error expanding rule '{}': RePattern not defined: '%{}'", rule_name, g1);
+					throw new InvalidPatternException("Rule '" + rule_name + "' referenced missing pattern '" + g1 + "'");
 				}
 				pats.add(rep);
+			} else {
+				// Split, lookup, and join group(2).
+				String[] parts = paSplit.split(matcher.group(2));
+				for (int i = 0; i < parts.length; i++) {
+					String rep = rpm.get(parts[i]);
+					if (rep == null) {
+						LOG.error("Error expanding rule '{}': RePattern not defined: '%{}'", rule_name, parts[i]);
+						throw new InvalidPatternException("Rule '" + rule_name + "' referenced missing pattern '" + parts[i] + "'");
+					}
+					pats.add(rep);
+				}
 			}
 			if (pats.size() > 1)
 				pats = RePatternManager.optimizePatterns(rule_name, pats);
@@ -244,7 +256,7 @@ public class RuleManager extends GenericResourceManager {
 			if (pos < start)
 				buf.append(str, pos, start);
 			Iterator<String> it = pats.iterator();
-			buf.append('(').append(it.next());
+			buf.append('(').append(it.next()); // first
 			while (it.hasNext())
 				buf.append('|').append(it.next());
 			buf.append(')');
