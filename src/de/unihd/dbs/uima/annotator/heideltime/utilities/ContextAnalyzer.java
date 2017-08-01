@@ -1,8 +1,8 @@
 package de.unihd.dbs.uima.annotator.heideltime.utilities;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,11 +21,9 @@ import de.unihd.dbs.uima.types.heideltime.Timex3;
 import de.unihd.dbs.uima.types.heideltime.Token;
 
 /**
- * 
  * This class contains methods that work with the dependence of a subject with its surrounding data; namely via the jcas element or a subset list.
  * 
  * @author jannik stroetgen
- *
  */
 public class ContextAnalyzer {
 	/** Class logger */
@@ -331,30 +329,12 @@ public class ContextAnalyzer {
 		int lastid = 0, nextid = 0;
 		int tid = 0;
 
-		// Get the sentence
-		AnnotationIndex<Sentence> sentences = jcas.getAnnotationIndex(Sentence.type);
-		Sentence s = null;
-		for (FSIterator<Sentence> iterSentence = sentences.iterator(); iterSentence.hasNext();) {
-			s = iterSentence.next();
-			if (s.getBegin() <= timex.getBegin() && s.getEnd() >= timex.getEnd()) {
-				break;
-			}
-		}
-
-		// Get the tokens
-		TreeMap<Integer, Token> tmToken = new TreeMap<Integer, Token>();
-		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
-		FSIterator<Token> iter = (s != null) ? tokens.subiterator(s) : tokens.iterator();
-		while (iter.hasNext()) {
-			Token token = iter.next();
-			tmToken.put(token.getEnd(), token);
-		}
+		ArrayList<Token> tmToken = getCloseTokens(timex, jcas);
 
 		// Get the last VERB token
-		for (Map.Entry<Integer, Token> ent : tmToken.entrySet()) {
+		for (Token token : tmToken) {
 			tokenCounter++;
-			if (ent.getKey() < timex.getBegin()) {
-				Token token = ent.getValue();
+			if (token.getEnd() < timex.getBegin()) {
 				String pos = token.getPos();
 				if (pos == null)
 					continue; // POS not available?
@@ -385,11 +365,10 @@ public class ContextAnalyzer {
 			}
 		}
 		tokenCounter = 0;
-		for (Map.Entry<Integer, Token> ent : tmToken.entrySet()) {
+		for (Token token : tmToken) {
 			tokenCounter++;
 			if (nextTense == null) {
-				if (ent.getKey() > timex.getEnd()) {
-					Token token = ent.getValue();
+				if (token.getEnd() > timex.getEnd()) {
 					String pos = token.getPos();
 					if (pos == null)
 						continue; // No POS available?
@@ -453,27 +432,11 @@ public class ContextAnalyzer {
 		Tense lastTense = null;
 
 		// Get the sentence
-		AnnotationIndex<Sentence> sentences = jcas.getAnnotationIndex(Sentence.type);
-		Sentence s = null;
-		for (FSIterator<Sentence> iterSentence = sentences.iterator(); iterSentence.hasNext();) {
-			s = iterSentence.next();
-			if (s.getBegin() <= timex.getBegin() && s.getEnd() >= timex.getEnd())
-				break;
-		}
-
-		// Get the tokens
-		TreeMap<Integer, Token> tmToken = new TreeMap<Integer, Token>();
-		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
-		FSIterator<Token> iter = (s != null) ? tokens.subiterator(s) : tokens.iterator();
-		while (iter.hasNext()) {
-			Token token = iter.next();
-			tmToken.put(token.getEnd(), token);
-		}
+		ArrayList<Token> tmToken = getCloseTokens(timex, jcas);
 
 		// Get the last VERB token
-		for (Map.Entry<Integer, Token> ent : tmToken.entrySet()) {
-			if (ent.getKey() < timex.getBegin()) {
-				Token token = ent.getValue();
+		for (Token token : tmToken) {
+			if (token.getEnd() < timex.getBegin()) {
 				String coveredText = token.getCoveredText();
 				String pos = token.getPos();
 				if (pos == null)
@@ -500,8 +463,7 @@ public class ContextAnalyzer {
 					lastTense = Tense.PAST;
 				}
 			}
-			if (lastTense == null && ent.getKey() > timex.getEnd()) {
-				Token token = ent.getValue();
+			if (lastTense == null && token.getEnd() > timex.getEnd()) {
 				String pos = token.getPos();
 
 				if (LOG.isTraceEnabled()) {
@@ -524,16 +486,15 @@ public class ContextAnalyzer {
 				}
 			}
 			if (lastTense != null)
-				LOG.trace("this tense: {} {}", ent.getValue().getCoveredText(), lastTense);
+				LOG.trace("this tense: {} {}", token.getCoveredText(), lastTense);
 		}
 		// check for double POS Constraints (not included in the rule language, yet) TODO
 		// VHZ VNN and VHZ VNN and VHP VNN and VBP VVN
 		String prevPos = "";
 		Tense longTense = null;
 		if (lastTense == Tense.PRESENTFUTURE) {
-			for (Map.Entry<Integer, Token> ent : tmToken.entrySet()) {
-				if (ent.getKey() < timex.getBegin()) {
-					Token token = ent.getValue();
+			for (Token token : tmToken) {
+				if (token.getEnd() < timex.getBegin()) {
 					String pos = token.getPos();
 					if ("VHZ".equals(prevPos) || "VBZ".equals(prevPos) || "VHP".equals(prevPos) || "VBP".equals(prevPos) || prevPos.equals("VER:pres")) {
 						if ("VVN".equals(pos) || "VER:pper".equals(pos)) {
@@ -546,8 +507,7 @@ public class ContextAnalyzer {
 					}
 					prevPos = pos;
 				}
-				if (longTense == null && ent.getKey() > timex.getEnd()) {
-					Token token = ent.getValue();
+				if (longTense == null && token.getEnd() > timex.getEnd()) {
 					if ("VHZ".equals(prevPos) || "VBZ".equals(prevPos) || "VHP".equals(prevPos) || "VBP".equals(prevPos) || "VER:pres".equals(prevPos)) {
 						if ("VVN".equals(token.getPos()) || "VER:pper".equals(token.getPos())) {
 							String covered = token.getCoveredText();
@@ -563,9 +523,8 @@ public class ContextAnalyzer {
 		}
 		// French: VER:pres VER:pper
 		if (lastTense == Tense.PAST) {
-			for (Map.Entry<Integer, Token> ent : tmToken.entrySet()) {
-				if (ent.getKey() < timex.getBegin()) {
-					Token token = ent.getValue();
+			for (Token token : tmToken) {
+				if (token.getEnd() < timex.getBegin()) {
 					String pos = token.getPos();
 					if ("VER:pres".equals(prevPos) && "VER:pper".equals(pos)) {
 						if (PREVUE_ENVISAGEE.matcher(token.getCoveredText()).matches()) {
@@ -576,8 +535,7 @@ public class ContextAnalyzer {
 					prevPos = pos;
 				}
 				if (longTense == null) {
-					if (ent.getKey() > timex.getEnd()) {
-						Token token = ent.getValue();
+					if (token.getEnd() > timex.getEnd()) {
 						String pos = token.getPos();
 						if ("VER:pres".equals(prevPos) && "VER:pper".equals(pos)) {
 							if (PREVUE_ENVISAGEE.matcher(token.getCoveredText()).matches()) {
@@ -591,7 +549,44 @@ public class ContextAnalyzer {
 			}
 		}
 		LOG.trace("TENSE: {}", lastTense);
-
 		return lastTense;
 	}
+
+	/**
+	 * Get the tokens close to the given timex (i.e. the same sentence).
+	 *
+	 * @param timex
+	 *                Timex
+	 * @param jcas
+	 *                Cas
+	 * @return Tokens, sorted by end.
+	 */
+	private static ArrayList<Token> getCloseTokens(Timex3 timex, JCas jcas) {
+		// Get the sentence
+		AnnotationIndex<Sentence> sentences = jcas.getAnnotationIndex(Sentence.type);
+		Sentence s = null;
+		for (FSIterator<Sentence> iterSentence = sentences.iterator(); iterSentence.hasNext();) {
+			s = iterSentence.next();
+			if (s.getBegin() <= timex.getBegin() && s.getEnd() >= timex.getEnd())
+				break;
+		}
+
+		// Get the tokens
+		AnnotationIndex<Token> tokens = jcas.getAnnotationIndex(Token.type);
+		FSIterator<Token> iter = (s != null) ? tokens.subiterator(s) : tokens.iterator();
+		ArrayList<Token> tmToken = new ArrayList<Token>();
+		while (iter.hasNext())
+			tmToken.add(iter.next());
+		tmToken.sort(SORT_TOKENS);
+		return tmToken;
+	}
+
+	/**
+	 * Sort tokens by the token end.
+	 */
+	private static final Comparator<Token> SORT_TOKENS = new Comparator<Token>() {
+		public int compare(Token o1, Token o2) {
+			return Integer.compare(o1.getEnd(), o2.getEnd());
+		}
+	};
 }
