@@ -30,5 +30,10 @@ public enum OutputType {
 		public String toString() {
 			return "xmi";
 		}
+	},
+	JSON {
+		public String toString() {
+			return "json";
+		}
 	}
 }

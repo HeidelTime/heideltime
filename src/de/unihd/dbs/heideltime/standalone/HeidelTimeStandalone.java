@@ -44,6 +44,7 @@ import de.unihd.dbs.heideltime.standalone.components.impl.AllLanguagesTokenizerW
 import de.unihd.dbs.heideltime.standalone.components.impl.HunPosTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.IntervalTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.JCasFactoryImpl;
+import de.unihd.dbs.heideltime.standalone.components.impl.JSONResultFormatter;
 import de.unihd.dbs.heideltime.standalone.components.impl.JVnTextProWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.StanfordPOSTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.TimeMLResultFormatter;
@@ -428,7 +429,9 @@ public class HeidelTimeStandalone {
 	private ResultFormatter getFormatter() {
 		if (outputType.toString().equals("xmi")){
 			return new XMIResultFormatter();
-		} else {
+		} else if (outputType.toString().equals("json")){
+			return new JSONResultFormatter();
+		} else{
 			return new TimeMLResultFormatter();
 		}
 	}
