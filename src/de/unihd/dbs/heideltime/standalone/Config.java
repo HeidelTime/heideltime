@@ -55,6 +55,8 @@ public abstract class Config {
 	public static final String HUNPOS_PATH = "hunpos_path";
 	public static final String HUNPOS_MODEL_PATH = "hunpos_model_name";
 	
+	public static final String PYTHON_SCRIPT_PATH = "python_script_path";
+	
 	public static final String TYPESYSTEMHOME = "typeSystemHome";
 	public static final String TYPESYSTEMHOME_DKPRO = "typeSystemHome_DKPro";
 	

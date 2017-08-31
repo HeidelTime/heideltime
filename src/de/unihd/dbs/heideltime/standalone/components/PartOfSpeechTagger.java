@@ -47,5 +47,11 @@ public interface PartOfSpeechTagger extends UIMAAnnotator {
 	public static final String HUNPOS_ANNOTATE_SENTENCES = "annotate_sentences";
 	public static final String HUNPOS_ANNOTATE_POS = "annotate_pos";
 	
+	public static final String PYTHON_LANGUAGE = "language";
+	public static final String PYTHON_ANNOTATE_TOKENS = "annotate_tokens";
+	public static final String PYTHON_ANNOTATE_SENTENCES = "annotate_sentences";
+	public static final String PYTHON_ANNOTATE_POS = "annotate_pos";
+	public static final String PYTHON_SCRIPT_PATH = "python_script_path";
+	
 	public void reset();
 }

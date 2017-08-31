@@ -46,6 +46,7 @@ import de.unihd.dbs.heideltime.standalone.components.impl.IntervalTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.JCasFactoryImpl;
 import de.unihd.dbs.heideltime.standalone.components.impl.JSONResultFormatter;
 import de.unihd.dbs.heideltime.standalone.components.impl.JVnTextProWrapper;
+import de.unihd.dbs.heideltime.standalone.components.impl.PythonTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.StanfordPOSTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.TimeMLResultFormatter;
 import de.unihd.dbs.heideltime.standalone.components.impl.TreeTaggerWrapper;
@@ -327,8 +328,9 @@ public class HeidelTimeStandalone {
 	 * Establishes preconditions for jcas to be processed by HeidelTime
 	 * 
 	 * @param jcas
+	 * @throws Exception 
 	 */
-	private void establishHeidelTimePreconditions(JCas jcas) {
+	private void establishHeidelTimePreconditions(JCas jcas)throws Exception {
 		// Token information & sentence structure
 		establishPartOfSpeechInformation(jcas);
 	}
@@ -337,8 +339,9 @@ public class HeidelTimeStandalone {
 	 * Establishes part of speech information for cas object.
 	 * 
 	 * @param jcas
+	 * @throws Exception 
 	 */
-	private void establishPartOfSpeechInformation(JCas jcas) {
+	private void establishPartOfSpeechInformation(JCas jcas) throws Exception {
 		logger.log(Level.FINEST, "Establishing part of speech information...");
 
 		PartOfSpeechTagger partOfSpeechTagger = null;
@@ -410,6 +413,13 @@ public class HeidelTimeStandalone {
 					settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_POS, true);
 					settings.put(PartOfSpeechTagger.HUNPOS_ANNOTATE_SENTENCES, true);
 					settings.put(PartOfSpeechTagger.HUNPOS_MODEL_PATH, Config.get(Config.HUNPOS_MODEL_PATH));
+				} else if(POSTagger.PYTHON.equals(posTagger)) {
+					partOfSpeechTagger = new PythonTaggerWrapper();
+					settings.put(PartOfSpeechTagger.PYTHON_LANGUAGE, language);
+					settings.put(PartOfSpeechTagger.PYTHON_ANNOTATE_TOKENS, true);
+					settings.put(PartOfSpeechTagger.PYTHON_ANNOTATE_POS, true);
+					settings.put(PartOfSpeechTagger.PYTHON_ANNOTATE_SENTENCES, true);
+					settings.put(PartOfSpeechTagger.PYTHON_SCRIPT_PATH, Config.get(Config.PYTHON_SCRIPT_PATH));
 				} else if(POSTagger.NO.equals(posTagger)) {
 					partOfSpeechTagger = new AllLanguagesTokenizerWrapper();
 					logger.log(Level.INFO, "Be aware that you use the AllLanguagesTokenizer instead of specific preprocessing for the selected language. "
