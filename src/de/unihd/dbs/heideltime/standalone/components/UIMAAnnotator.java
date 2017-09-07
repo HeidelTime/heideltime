@@ -1,6 +1,7 @@
 package de.unihd.dbs.heideltime.standalone.components;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.uima.jcas.JCas;
@@ -18,8 +19,9 @@ public interface UIMAAnnotator {
 	 * @param language Language of document
 	 * @throws FileNotFoundException 
 	 * @throws IllegalArgumentException 
+	 * @throws IOException 
 	 */
-	public abstract void initialize(Properties settings) throws IllegalArgumentException, FileNotFoundException;
+	public abstract void initialize(Properties settings) throws IllegalArgumentException, FileNotFoundException, IOException;
 	
 	/**
 	 * Processes jcas object.

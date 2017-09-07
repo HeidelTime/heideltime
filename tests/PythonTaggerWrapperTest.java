@@ -1,8 +1,6 @@
 /**
  * 
  */
-package de.unihd.dbs.heideltime.standalone.components.impl;
-
 
 import java.io.FileNotFoundException;
 import java.util.Properties;
@@ -15,11 +13,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.EnvironmentVariables;
-import org.python.core.PyException;
 import org.junit.Rule;
 
 import de.unihd.dbs.heideltime.standalone.components.JCasFactory;
 import de.unihd.dbs.heideltime.standalone.components.PartOfSpeechTagger;
+import de.unihd.dbs.heideltime.standalone.components.impl.JCasFactoryImpl;
+import de.unihd.dbs.heideltime.standalone.components.impl.PythonTaggerWrapper;
 
 /**
  * @author reboutli

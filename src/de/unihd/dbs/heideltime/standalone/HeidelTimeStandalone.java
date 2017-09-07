@@ -45,6 +45,7 @@ import de.unihd.dbs.heideltime.standalone.components.impl.HunPosTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.IntervalTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.JCasFactoryImpl;
 import de.unihd.dbs.heideltime.standalone.components.impl.JSONResultFormatter;
+import de.unihd.dbs.heideltime.standalone.components.impl.JSONTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.JVnTextProWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.PythonTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.StanfordPOSTaggerWrapper;
@@ -235,6 +236,7 @@ public class HeidelTimeStandalone {
 		
 		try {
 			heidelTime = new HeidelTime();
+			logger.log(Level.INFO, "HeidelTime initializing");
 			heidelTime.initialize(new UimaContextImpl(language, typeToProcess, CLISwitch.VERBOSITY2.getIsActive()));
 			logger.log(Level.INFO, "HeidelTime initialized");
 		} catch (Exception e) {
@@ -415,11 +417,16 @@ public class HeidelTimeStandalone {
 					settings.put(PartOfSpeechTagger.HUNPOS_MODEL_PATH, Config.get(Config.HUNPOS_MODEL_PATH));
 				} else if(POSTagger.PYTHON.equals(posTagger)) {
 					partOfSpeechTagger = new PythonTaggerWrapper();
-					settings.put(PartOfSpeechTagger.PYTHON_LANGUAGE, language);
 					settings.put(PartOfSpeechTagger.PYTHON_ANNOTATE_TOKENS, true);
 					settings.put(PartOfSpeechTagger.PYTHON_ANNOTATE_POS, true);
 					settings.put(PartOfSpeechTagger.PYTHON_ANNOTATE_SENTENCES, true);
 					settings.put(PartOfSpeechTagger.PYTHON_SCRIPT_PATH, Config.get(Config.PYTHON_SCRIPT_PATH));
+				} else if(POSTagger.JSON.equals(posTagger)) {
+					partOfSpeechTagger = new JSONTaggerWrapper();
+					settings.put(PartOfSpeechTagger.JSON_ANNOTATE_TOKENS, true);
+					settings.put(PartOfSpeechTagger.JSON_ANNOTATE_POS, true);
+					settings.put(PartOfSpeechTagger.JSON_ANNOTATE_SENTENCES, true);
+					settings.put(PartOfSpeechTagger.JSON_CONFIG_PATH, Config.get(Config.JSON_CONFIG_PATH));
 				} else if(POSTagger.NO.equals(posTagger)) {
 					partOfSpeechTagger = new AllLanguagesTokenizerWrapper();
 					logger.log(Level.INFO, "Be aware that you use the AllLanguagesTokenizer instead of specific preprocessing for the selected language. "

@@ -10,5 +10,5 @@ package de.unihd.dbs.heideltime.standalone;
  *
  */
 public enum POSTagger {
-	STANFORDPOSTAGGER, TREETAGGER, HUNPOS, PYTHON, NO
+	STANFORDPOSTAGGER, TREETAGGER, HUNPOS, PYTHON, JSON, NO
 }

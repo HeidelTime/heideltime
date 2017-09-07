@@ -39,6 +39,12 @@
 			<email>zell@informatik.uni-heidelberg.de</email>
 			<url>https://github.com/jzell</url>
 		</developer>
+		<developer>
+			<id>reboutli-crim</id>
+			<name>Lise Rebout</name>
+			<email>lise.rebout@crim.ca</email>
+			<url>https://github.com/reboutli-criml</url>
+		</developer>
 	</developers>
 
 	<scm>
@@ -192,6 +198,12 @@
 			<version>3.3.1</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- for the JsonPOSTagger -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
 		<!-- for the JsonResultWritter -->
 		<dependency>
 			<groupId>org.apache.uima</groupId>
@@ -203,6 +215,7 @@
     		<groupId>org.python</groupId>
    			 <artifactId>jython-standalone</artifactId>
    			 <version>2.7.1b2</version>
+   			 <scope>provided</scope>
 		</dependency>		
 		<!-- these are for JVnTextPro -->
 		<dependency>

@@ -57,6 +57,8 @@ public abstract class Config {
 	
 	public static final String PYTHON_SCRIPT_PATH = "python_script_path";
 	
+	public static final String JSON_CONFIG_PATH = "json_config_path";
+	
 	public static final String TYPESYSTEMHOME = "typeSystemHome";
 	public static final String TYPESYSTEMHOME_DKPRO = "typeSystemHome_DKPro";
 	

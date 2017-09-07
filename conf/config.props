@@ -21,7 +21,7 @@ considerTemponym = false
 # Path to TreeTagger home directory
 ###################################
 # Ensure there is no white space in path (try to escape white spaces)
-treeTaggerHome = SET ME IN CONFIG.PROPS! (e.g., /home/jannik/treetagger)
+treeTaggerHome = /misc/home/reco/reboutli/Dev/Java/Treetagger 
 # This one is only necessary if you want to process chinese documents.
 chineseTokenizerPath = SET ME IN CONFIG.PROPS! (e.g., /home/jannik/treetagger/chinese-tokenizer)
 
@@ -45,7 +45,15 @@ config_path =
 hunpos_path = SET ME IN CONFIG.PROPS! (e.g., /home/jannik/hunpos)
 hunpos_model_name = SET ME IN CONFIG.PROPS! (e.g., model.hunpos.mte5.defnpout)
 
+########################################
+## paths to PythonTaggerscript:
+########################################
+python_script_path = SET ME IN CONFIG.PROPS! (e.g., /misc/home/reco/reboutli/Dev/Python/PythonPOSTaggerWrapper/JythonPOSTaggerWrapper.py)
 
+########################################
+## paths to JSONTaggerConfig:
+########################################
+json_config_path = SET ME IN CONFIG.PROPS! (e.g., /misc/home/reco/reboutli/Dev/Python/temporal_annotation/config_JSONReader.txt)
 
 # DO NOT CHANGE THE FOLLOWING
 ################################
