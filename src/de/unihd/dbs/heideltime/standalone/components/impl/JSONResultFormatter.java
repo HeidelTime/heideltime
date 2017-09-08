@@ -29,12 +29,12 @@ public class JSONResultFormatter implements ResultFormatter {
 		String outText = "";
 		
 		try {
-			l.log(Level.WARNING, "Preparing to serialize the results in JSON");
+			l.log(Level.FINEST, "Preparing to serialize the results in JSON");
 			JsonCasSerializer serializer = new JsonCasSerializer();
 
 			serializer.serialize(jcas.getCas(), output);
 			outText = output.toString();
-			l.log(Level.WARNING, "JSON-serialization finished.");
+			l.log(Level.FINEST, "JSON-serialization finished.");
 		}
 		finally {
 			output.close();

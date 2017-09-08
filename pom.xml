@@ -2,13 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.github.heideltime</groupId>
-	<artifactId>heideltime</artifactId>
-	<version>2.2.1</version>
+	<groupId>ca.crim.nlp</groupId>
+	<artifactId>crim-heideltime</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 
 	<name>HeidelTime</name>
-	<description>HeidelTime is a multilingual cross-domain temporal tagger that extracts temporal expressions from documents and normalizes them according to the TIMEX3 annotation standard.</description>
-	<url>https://github.com/HeidelTime/heideltime/</url>
+	<description> This version of HeidelTime extends the well-known multilingual cross-domain temporal tagger (com.github.hiedltime) that extracts temporal expressions from documents and normalizes them according to the TIMEX3 annotation standard.</description>
+	<url>https://github.com/reboutli-crim/heideltime</url>
 
 	<licenses>
 		<license>
@@ -18,7 +18,7 @@
 	</licenses>
 
 	<issueManagement>
-		<url>https://github.com/HeidelTime/heideltime/issues</url>
+		<url>https://github.com/reboutli-crim/heideltime/issues</url>
 		<system>GitHub</system>
 	</issueManagement>
 
@@ -48,9 +48,9 @@
 	</developers>
 
 	<scm>
-		<url>https://github.com/HeidelTime/heideltime</url>
-		<connection>scm:git:git@github.com:HeidelTime/heideltime.git</connection>
-		<developerConnection>scm:git:git@github.com:HeidelTime/heideltime.git</developerConnection>
+		<url>https://github.com/reboutli-crim/heideltime</url>
+		<connection>scm:git:git@github.com:reboutli-crim/heideltime.git</connection>
+		<developerConnection>scm:git:git@github.com:reboutli-crim/heideltime.git</developerConnection>
 	</scm>
 
 	<build>
@@ -70,7 +70,6 @@
 				</includes>
 			</resource>
 		</resources>
-		<finalName>de.unihd.dbs.heideltime.standalone</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -110,22 +109,6 @@
 								</transformer>
 							</transformers>
 						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
-				<configuration>
-					<excludeResources>true</excludeResources>
-				</configuration>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
 					</execution>
 				</executions>
 			</plugin>
