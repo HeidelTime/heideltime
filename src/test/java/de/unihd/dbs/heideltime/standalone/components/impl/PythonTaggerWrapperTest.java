@@ -59,25 +59,6 @@ public class PythonTaggerWrapperTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-
-	/**
-	 * Test method for {@link de.unihd.dbs.heideltime.standalone.components.impl.PythonTaggerWrapper#process(org.apache.uima.jcas.JCas)}.
-	 * Test to check if the environment variables are read.
-	 */
-	@Test
-	public void testProcess() throws Exception {
-		
-		environmentVariables.set("SENTENCE_ANNOTATION_FILE_PATH", ClassLoader.getSystemResource("sentences.json").getPath());
-		environmentVariables.set("POS_ANNOTATION_FILE_PATH", ClassLoader.getSystemResource("pos.json").getPath());
-		
-		PythonTaggerWrapper wrapper ;
-		wrapper = new PythonTaggerWrapper();
-		Properties settings = new Properties();
-		settings.setProperty(PartOfSpeechTagger.PYTHON_SCRIPT_PATH, ClassLoader.getSystemResource("JythonPOSTaggerWrapper.py").getPath());
-		wrapper.initialize(settings);
-		
-		wrapper.process(jcas);
-	}
 	
 	/**
 	 * Test method for {@link de.unihd.dbs.heideltime.standalone.components.impl.PythonTaggerWrapper#initialize(java.util.Properties)}.
