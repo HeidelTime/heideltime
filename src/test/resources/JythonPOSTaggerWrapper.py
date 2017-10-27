@@ -32,11 +32,11 @@ with open(pos_file_path, 'r') as pos_file :
 
 # Create annotations and add it to jcas. This is then accessible from UIMA
 for s in sentences_json:
-    sentence = Sentence(jcas, s['offsets'][0]['begin'], s['offsets'][0]['end'])
+    sentence = Sentence(jcas, int(s['offsets'][0]['begin']), int(s['offsets'][0]['end']))
     sentence.addToIndexes()
 
 for t in pos_json:
-    token = Token(jcas, t['offsets'][0]['begin'], t['offsets'][0]['end'])
+    token = Token(jcas, int(t['offsets'][0]['begin']), int(t['offsets'][0]['end']))
     token.setPos(t['category'])
     token.addToIndexes()
 
