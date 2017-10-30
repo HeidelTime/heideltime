@@ -64,9 +64,10 @@
 				</includes>
 			</resource>
 			<resource>
-				<directory>${basedir}/main/resources/</directory>
+				<directory>${basedir}</directory>
 				<includes>
-					<include>**/*.txt</include>
+					<include>/main/resources/**/*.txt</include>
+					<include>/test/resources/**/*.txt</include>
 				</includes>
 			</resource>
 		</resources>
