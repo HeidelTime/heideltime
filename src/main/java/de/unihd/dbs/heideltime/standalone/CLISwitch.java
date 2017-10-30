@@ -24,8 +24,8 @@ public enum CLISwitch {
 	LOCALE		("Locale", "-locale", null),
 	POSTAGGER	("Part of Speech tagger", "-pos", POSTagger.TREETAGGER),
 	INTERVALS	("Interval Tagger", "-it"),
-	POSFILE		("Path to the JSON-file describing the POS", "-pf"),
-	SENTENCEFILE("Path to the JSON-file describing the sentences", "-sf"),
+	POSFILE		("Path to the JSON-file describing the POS", "-pf", null),
+	SENTENCEFILE("Path to the JSON-file describing the sentences", "-sf", null),
 	HELP		("This screen", "-h"),
 	;
 	
