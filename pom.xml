@@ -4,7 +4,7 @@
 
 	<groupId>ca.crim.nlp</groupId>
 	<artifactId>crim-heideltime</artifactId>
-	<version>3.0.3-SNAPSHOT</version>
+	<version>3.0.4-SNAPSHOT</version>
 
 	<name>HeidelTime</name>
 	<description> This version of HeidelTime extends the well-known multilingual cross-domain temporal tagger (com.github.hiedltime) that extracts temporal expressions from documents and normalizes them according to the TIMEX3 annotation standard.</description>
