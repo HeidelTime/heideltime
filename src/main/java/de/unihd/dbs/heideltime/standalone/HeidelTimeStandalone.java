@@ -844,7 +844,25 @@ public class HeidelTimeStandalone {
 			}
 			
 			// double-newstring should not be necessary, but without this, it's not running on Windows (?)
-			String input = new String(new String(inArr, encodingType).getBytes("UTF-8"), "UTF-8");
+			String input_raw = new String(new String(inArr, encodingType).getBytes("UTF-8"), "UTF-8");
+			String input ;
+			
+			// Elimination of code points encoded as two 16-bit code units (they were counted as 2 characters)
+			if (outputType.equals(OutputType.JSON)) {
+				StringBuilder sb = new StringBuilder();
+				for (int i = 0; i< input_raw.length(); ++i) {
+					if  (Character.isHighSurrogate(input_raw.charAt(i))) {
+						sb.append('?');
+					}
+					else if (Character.isLowSurrogate(input_raw.charAt(i)))
+						continue;
+					else
+					sb.append(input_raw.charAt(i));
+				}
+				input = sb.toString();
+			}
+			else 
+				input = input_raw;
 			
 			HeidelTimeStandalone standalone = new HeidelTimeStandalone(language, type, outputType, null, posTagger, doIntervalTagging);
 			String out = standalone.process(input, dct, pos_file, sentence_file);

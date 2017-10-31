@@ -31,7 +31,7 @@ public class JSONResultFormatter implements ResultFormatter {
 		try {
 			l.log(Level.FINEST, "Preparing to serialize the results in JSON");
 			JsonCasSerializer serializer = new JsonCasSerializer();
-
+			serializer.setPrettyPrint(true);
 			serializer.serialize(jcas.getCas(), output);
 			outText = output.toString();
 			l.log(Level.FINEST, "JSON-serialization finished.");
