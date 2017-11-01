@@ -1,0 +1,45 @@
+{	"details" :
+	[
+	{
+		"schemaType":"TOKEN_GENERIC",
+       		 "_corpusID":1,
+        	"_documentID":1,
+        	"offsets": [
+			{
+				"begin":0,
+				"end":4
+			}
+			],
+        	"string": "1996",
+        	"category": "CD"
+
+	},
+		{
+		"schemaType":"TOKEN_GENERIC",
+       		 "_corpusID":1,
+        	"_documentID":1,
+        	"offsets": [
+			{
+				"begin":0,
+				"end":4
+			}
+			],
+        	"string": "1996",
+        	"category": ""
+
+	},
+		{
+		"schemaType":"TOKEN_GENERIC",
+       		 "_corpusID":1,
+        	"_documentID":1,
+        	"offsets": [
+			{
+				"begin":0,
+				"end":4
+			}
+			],
+        	"string": "1996"
+	}
+
+]
+}

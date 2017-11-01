@@ -1,0 +1,18 @@
+{"details" :[
+	{
+		"schemaType":"sentence",
+       		 "_corpusID":1,
+        	"_documentID":1,
+        	"offsets": [
+			{
+				"begin":0,
+				"end":4
+			}
+			],
+        "string": "1996",
+        "length":4
+
+	}
+
+]
+}

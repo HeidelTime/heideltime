@@ -2,6 +2,32 @@
 
 **HeidelTime contains automatically created resources for 200+ languages in addition to manually created ones for 13 languages. For further details, take a look at our [EMNLP 2015 paper](https://aclweb.org/anthology/D/D15/D15-1063.pdf).**
 
+## About CRIM-Heideltime
+CRIM-Heideltime extends Heideltime by offering two other part-of-speech-tagger wrappers and a JSON result formatter.
+
+### Part-of-speech-tagger wrappers
+* **Python part-of-speech-tagger wrapper** : the wrapper calls a Python script that returns the CAS tagged with the POS and the sentences. The path to the Python script has to be configured in the `config.props` file.
+* **JSON part-of-speech-tagger wrapper** : the wrapper reads 2 JSON files, one containing the sentence annotations, the other the POS annotations. The paths to the JSON files have to be set as environment variables (_SENTENCE_ANNOTATION_FILE_PATH_ and _POS_ANNOTATION_FILE_PATH_). The JSONtaggerWrapper reads a configuration file (configured in `config.props`) containing the way to retrieve following elements within the JSON files :
+    * sentence_begin
+    * sentence_end
+    * token_begin
+    * token_end
+    * token_pos   
+
+The format of the file is on each line :   
+`element_to_retrieve\t[key|index] [key|index] ...`
+
+Example :
+
+```text
+sentence_begin	offsets 0 begin
+sentence_end	offsets 0 end
+token_begin	offsets 0 begin  
+token_end	offsets 0 end   
+token_pos	category
+```  
+
+
 ## About HeidelTime
 **HeidelTime** is a multilingual, domain-sensitive temporal tagger developed at the [Database Systems Research Group](http://dbs.ifi.uni-heidelberg.de/) at [Heidelberg University](http://www.uni-heidelberg.de/index_e.html). It extracts temporal expressions from documents and normalizes them according to the TIMEX3 annotation standard. HeidelTime is available as [UIMA](http://uima.apache.org/) annotator and as standalone version.
 
@@ -13,7 +39,7 @@ Want to see what it can do before you delve in? Take a look at our **[online dem
 
 ![HeidelTime demo picture](https://drive.google.com/uc?export=download&id=0BwqFBQjz9NUicWEzaWlzT1J1SzQ)
 
-## Latest downloads
+## HeidelTime - Latest downloads
 
 * Our latest as well as past releases are always available on the [Releases page](https://github.com/HeidelTime/heideltime/releases).
 * Bleeding edge version is available via our Git repository.

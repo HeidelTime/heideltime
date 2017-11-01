@@ -2,13 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.github.heideltime</groupId>
-	<artifactId>heideltime</artifactId>
-	<version>2.2.1</version>
+	<groupId>ca.crim.nlp</groupId>
+	<artifactId>crim-heideltime</artifactId>
+	<version>3.0.8-SNAPSHOT</version>
 
 	<name>HeidelTime</name>
-	<description>HeidelTime is a multilingual cross-domain temporal tagger that extracts temporal expressions from documents and normalizes them according to the TIMEX3 annotation standard.</description>
-	<url>https://github.com/HeidelTime/heideltime/</url>
+	<description> This version of HeidelTime extends the well-known multilingual cross-domain temporal tagger (com.github.hiedltime) that extracts temporal expressions from documents and normalizes them according to the TIMEX3 annotation standard.</description>
+	<url>https://github.com/reboutli-crim/heideltime</url>
 
 	<licenses>
 		<license>
@@ -18,7 +18,7 @@
 	</licenses>
 
 	<issueManagement>
-		<url>https://github.com/HeidelTime/heideltime/issues</url>
+		<url>https://github.com/reboutli-crim/heideltime/issues</url>
 		<system>GitHub</system>
 	</issueManagement>
 
@@ -39,16 +39,22 @@
 			<email>zell@informatik.uni-heidelberg.de</email>
 			<url>https://github.com/jzell</url>
 		</developer>
+		<developer>
+			<id>reboutli-crim</id>
+			<name>Lise Rebout</name>
+			<email>lise.rebout@crim.ca</email>
+			<url>https://github.com/reboutli-criml</url>
+		</developer>
 	</developers>
 
 	<scm>
-		<url>https://github.com/HeidelTime/heideltime</url>
-		<connection>scm:git:git@github.com:HeidelTime/heideltime.git</connection>
-		<developerConnection>scm:git:git@github.com:HeidelTime/heideltime.git</developerConnection>
+		<url>https://github.com/reboutli-crim/heideltime</url>
+		<connection>scm:git:git@github.com:reboutli-crim/heideltime.git</connection>
+		<developerConnection>scm:git:git@github.com:reboutli-crim/heideltime.git</developerConnection>
 	</scm>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
 		<outputDirectory>${basedir}/class</outputDirectory>
 		<resources>
 			<resource>
@@ -58,13 +64,12 @@
 				</includes>
 			</resource>
 			<resource>
-				<directory>resources/</directory>
+				<directory>src/main/resources/</directory>
 				<includes>
 					<include>**/*.txt</include>
 				</includes>
 			</resource>
 		</resources>
-		<finalName>de.unihd.dbs.heideltime.standalone</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -109,22 +114,6 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
-				<configuration>
-					<excludeResources>true</excludeResources>
-				</configuration>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.9.1</version>
 				<executions>
@@ -139,52 +128,15 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.5</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.3</version>
-				<extensions>true</extensions>
-				<configuration>
-					<serverId>ossrh</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>false</autoReleaseAfterClose>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 	
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-		</repository>
-	</distributionManagement>
-
 	<dependencies>
 		<!-- for practically every component -->
 		<dependency>
 			<groupId>org.apache.uima</groupId>
 			<artifactId>uimaj-core</artifactId>
 			<version>2.8.1</version>
-			<scope>provided</scope>
 		</dependency>
 		<!-- for the StanfordPOSTaggerWrapper -->
 		<dependency>
@@ -193,6 +145,25 @@
 			<version>3.3.1</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- for the JsonPOSTagger -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+		<!-- for the JsonResultWritter -->
+		<dependency>
+			<groupId>org.apache.uima</groupId>
+			<artifactId>uimaj-json</artifactId>
+			<version>2.8.1</version>
+		</dependency>
+		<!-- For the Python POSTAger -->
+		<dependency>
+    		<groupId>org.python</groupId>
+   			 <artifactId>jython-standalone</artifactId>
+   			 <version>2.7.1b2</version>
+   			 <scope>provided</scope>
+		</dependency>		
 		<!-- these are for JVnTextPro -->
 		<dependency>
 			<groupId>args4j</groupId>
@@ -205,6 +176,19 @@
 			<artifactId>lbfgs</artifactId>
 			<version>0.1</version>
 			<scope>provided</scope>
+		</dependency>
+		<!-- For testing -->
+		<dependency>
+    		<groupId>junit</groupId>
+    		<artifactId>junit</artifactId>
+   			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+ 			<groupId>com.github.stefanbirkner</groupId>
+  			<artifactId>system-rules</artifactId>
+  			<version>1.16.0</version>
+  			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

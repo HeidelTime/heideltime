@@ -1,0 +1,7 @@
+sentences	details
+sentence_begin	offsets 0 begin
+sentence_end	offsets 0 end
+tokens	details
+token_begin	offsets 0 begin
+token_end	offsets 0 end
+token_pos	category
