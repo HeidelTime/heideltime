@@ -243,7 +243,8 @@ public class AllLanguagesTokenizer extends JCasAnnotator_ImplBase {
 			 */
 			if(!tokIt.hasNext() ||
 					(t.getCoveredText().matches("[.:!\\?]+") && 
-							(!((tOld.getCoveredText().matches("[\\d]+")) || ((jcas.getDocumentText().substring(t.getEnd()).length() > 2) && (jcas.getDocumentText().substring(t.getEnd(),t.getEnd()+3)).matches(" [A-Z][.-]")))))){
+							(!((tOld != null && tOld.getCoveredText().matches("[\\d]+")) ||
+							((jcas.getDocumentText().substring(t.getEnd()).length() > 2) && (jcas.getDocumentText().substring(t.getEnd(),t.getEnd()+3)).matches(" [A-Z][.-]")))))){
 //							((!(tOld.getCoveredText().matches("[\\d]+")))) && (!((jcas.getDocumentText().substring(t.getEnd())).matches("^[\\s]*"))))) {
 //					(t.getCoveredText().matches("[.:!\\?]+") && (!(tOld.getCoveredText().matches("[\\d]+"))))) { // das funktioniert ok
 				sentenceStarted = false;
