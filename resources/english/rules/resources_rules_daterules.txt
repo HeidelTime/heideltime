@@ -195,7 +195,7 @@ RULENAME="date_r14d",EXTRACTION="(?:[Tt]he )?%rePartWords\s?%reNumWordTeen %reDe
 //// EXAMPLE r15a_2: the seventh century
 RULENAME="date_r15a",EXTRACTION="(?:[Tt]he )?%(reDayNumberTh|reDayWordTh) [Cc]entur(?:y|ies)",NORM_VALUE="%normDay(%SUM%(%normDay(group(1)),-1))"
 RULENAME="date_r15b",EXTRACTION="%rePartWords(?: the)? %(reDayNumberTh|reDayWordTh) [Cc]entur(?:y|ies)",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))",NORM_MOD="%normPartWords(group(1))"
-RULENAME="date_r15c",EXTRACTION="(?:[Tt]he )?%(reDayNumberTh|reDayWordTh)%reAndOrTo(?:the )?%(reDayNumberTh|reDayWordTh) [Cc]entur(?:y|ies)",NORM_VALUE="%normDay(%SUM%(%normDay(group(1)),-1))",OFFSET="group(0)-group(1)"
+RULENAME="date_r15c",EXTRACTION="(?:[Tt]he )?%(reDayNumberTh|reDayWordTh)%reAndOrTo(?:the )?(?:%rePartWords )?%(reDayNumberTh|reDayWordTh) [Cc]entur(?:y|ies)",NORM_VALUE="%normDay(%SUM%(%normDay(group(1)),-1))",OFFSET="group(0)-group(1)"
 RULENAME="date_r15d",EXTRACTION="%rePartWords(?: the)? %(reDayNumberTh|reDayWordTh)%reAndOrTo(?:the )?%(reDayNumberTh|reDayWordTh) [Cc]entur(?:y|ies)?",NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))",OFFSET="group(0)-group(2)",NORM_MOD="%normPartWords(group(1))"
 
 ///////////////////////////////////

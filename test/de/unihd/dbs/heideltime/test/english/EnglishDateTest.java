@@ -365,6 +365,20 @@ public class EnglishDateTest extends AbstractHeideltimeTest {
 	}
 
 	@Test
+	public void testdate_r15c() {
+		testSingleCase("19th and 20th century", //
+				new String[] { "date_r15c", "19th", "18" }, //
+				new String[] { "date_r15a", "20th century", "19" });
+	}
+
+	@Test
+	public void testdate_r15b() {
+		testSingleCase("19th and early 20th century", //
+				new String[] { "date_r15c", "19th", "18" }, //
+				new String[] { "date_r15b", "early 20th century", "19" });
+	}
+
+	@Test
 	public void testdate_r16a() {
 		testSingleCase("March", //
 				new String[] { "date_r16a", "March", "XXXX-03" });
