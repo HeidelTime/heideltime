@@ -322,7 +322,6 @@ set the environment variables.
             set "Annotate_tokens" to "true"
             set "Annotate_partofspeech" to "true"
             set "Annotate_sentences" to "true"
-            set "Improvegermansentences" to "false"
         - HeidelTime located at
             HEIDELTIME_HOME/desc/annotator/HeidelTime.xml
             set "Date" to "true"
