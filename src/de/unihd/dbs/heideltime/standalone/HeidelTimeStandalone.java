@@ -14,13 +14,15 @@
 
 package de.unihd.dbs.heideltime.standalone;
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.text.DateFormat;
@@ -38,8 +40,8 @@ import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.apache.uima.util.XMLInputSource;
 
 import de.unihd.dbs.heideltime.standalone.components.JCasFactory;
-import de.unihd.dbs.heideltime.standalone.components.ResultFormatter;
 import de.unihd.dbs.heideltime.standalone.components.PartOfSpeechTagger;
+import de.unihd.dbs.heideltime.standalone.components.ResultFormatter;
 import de.unihd.dbs.heideltime.standalone.components.impl.AllLanguagesTokenizerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.HunPosTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.IntervalTaggerWrapper;
@@ -125,7 +127,21 @@ public class HeidelTimeStandalone {
 	 * @param outputType
 	 */
 	public HeidelTimeStandalone(Language language, DocumentType typeToProcess, OutputType outputType) {
-		this(language, typeToProcess, outputType, null);
+		this(language, typeToProcess, outputType, (URL)null);
+	}
+	
+	@Deprecated
+	public HeidelTimeStandalone(Language language, DocumentType typeToProcess, OutputType outputType, String configPath) {
+	  this.language = language;
+    this.documentType = typeToProcess;
+    this.outputType = outputType;
+    
+    try {
+      this.initialize(language, typeToProcess, outputType, (new File(configPath).toURI().toURL()));
+    } catch(MalformedURLException e) {
+      logger.log(Level.WARNING,"Malformed URL means HeidelTime cannot be initialized");
+      throw new RuntimeException(e);
+    }
 	}
 	
 	/**
@@ -136,7 +152,7 @@ public class HeidelTimeStandalone {
 	 * @param outputType
 	 * @param configPath
 	 */
-	public HeidelTimeStandalone(Language language, DocumentType typeToProcess, OutputType outputType, String configPath) {
+	public HeidelTimeStandalone(Language language, DocumentType typeToProcess, OutputType outputType, URL configPath) {
 		this.language = language;
 		this.documentType = typeToProcess;
 		this.outputType = outputType;
@@ -153,12 +169,27 @@ public class HeidelTimeStandalone {
 	 * @param configPath
 	 * @param posTagger
 	 */
-	public HeidelTimeStandalone(Language language, DocumentType typeToProcess, OutputType outputType, String configPath, POSTagger posTagger) {
+	public HeidelTimeStandalone(Language language, DocumentType typeToProcess, OutputType outputType, URL configPath, POSTagger posTagger) {
 		this.language = language;
 		this.documentType = typeToProcess;
 		this.outputType = outputType;
 		
 		this.initialize(language, typeToProcess, outputType, configPath, posTagger);
+	}
+	
+	@Deprecated
+	public HeidelTimeStandalone(Language language, DocumentType typeToProcess, OutputType outputType, String configPath, POSTagger posTagger, Boolean doIntervalTagging) {
+	  this.language = language;
+    this.documentType = typeToProcess;
+    this.outputType = outputType;
+    this.doIntervalTagging = doIntervalTagging;
+    
+    try {
+      this.initialize(language, typeToProcess, outputType, (new File(configPath)).toURI().toURL(), posTagger, doIntervalTagging);
+    } catch(MalformedURLException e) {
+      logger.log(Level.WARNING,"Malformed URL means HeidelTime cannot be initialized");
+      throw new RuntimeException(e);
+    }
 	}
 	
 	/**
@@ -170,7 +201,7 @@ public class HeidelTimeStandalone {
 	 * @param configPath
 	 * @param posTagger
 	 */
-	public HeidelTimeStandalone(Language language, DocumentType typeToProcess, OutputType outputType, String configPath, POSTagger posTagger, Boolean doIntervalTagging) {
+	public HeidelTimeStandalone(Language language, DocumentType typeToProcess, OutputType outputType, URL configPath, POSTagger posTagger, Boolean doIntervalTagging) {
 		this.language = language;
 		this.documentType = typeToProcess;
 		this.outputType = outputType;
@@ -179,6 +210,16 @@ public class HeidelTimeStandalone {
 		this.initialize(language, typeToProcess, outputType, configPath, posTagger, doIntervalTagging);
 	}
 
+	@Deprecated
+	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, String configPath) {
+    try {
+      initialize(language,typeToProcess,outputType,(new File(configPath)).toURI().toURL(),POSTagger.TREETAGGER,false);
+    } catch(MalformedURLException e) {
+      logger.log(Level.WARNING,"Malformed URL means HeidelTime cannot be initialized");
+      throw new RuntimeException(e);
+    }
+	}
+	
 	/**
 	 * Method that initializes all vital prerequisites
 	 * 
@@ -187,10 +228,20 @@ public class HeidelTimeStandalone {
 	 * @param outputType	Output type
 	 * @param configPath	Path to the configuration file for HeidelTimeStandalone
 	 */
-	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, String configPath) {
+	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, URL configPath) {
 		initialize(language, typeToProcess, outputType, configPath, POSTagger.TREETAGGER);
 	}
 
+	@Deprecated
+	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, String configPath, POSTagger posTagger) {
+    try {
+      initialize(language,typeToProcess,outputType,(new File(configPath)).toURI().toURL(),posTagger,false);
+    } catch(MalformedURLException e) {
+      logger.log(Level.WARNING,"Malformed URL means HeidelTime cannot be initialized");
+      throw new RuntimeException(e);
+    }
+  }
+	
 	/**
 	 * Method that initializes all vital prerequisites, including POS Tagger
 	 * 
@@ -200,10 +251,20 @@ public class HeidelTimeStandalone {
 	 * @param configPath	Path to the configuration file for HeidelTimeStandalone
 	 * @param posTagger		POS Tagger to use for preprocessing
 	 */
-	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, String configPath, POSTagger posTagger) {
+	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, URL configPath, POSTagger posTagger) {
 		initialize(language, typeToProcess, outputType, configPath, posTagger, false);
 	}
 
+	@Deprecated
+	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, String configPath, POSTagger posTagger, Boolean doIntervalTagging) {
+	  try {
+      initialize(language,typeToProcess,outputType,(new File(configPath)).toURI().toURL(),posTagger,doIntervalTagging);
+    } catch(MalformedURLException e) {
+      logger.log(Level.WARNING,"Malformed URL means HeidelTime cannot be initialized");
+      throw new RuntimeException(e);
+    }
+	}
+	
 	/**
 	 * Method that initializes all vital prerequisites, including POS Tagger
 	 * 
@@ -214,7 +275,7 @@ public class HeidelTimeStandalone {
 	 * @param posTagger		POS Tagger to use for preprocessing
 	 * @param doIntervalTagging	Whether or not to invoke the IntervalTagger
 	 */
-	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, String configPath, POSTagger posTagger, Boolean doIntervalTagging) {
+	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, URL configPath, POSTagger posTagger, Boolean doIntervalTagging) {
 		logger.log(Level.INFO, "HeidelTimeStandalone initialized with language " + this.language.getName());
 
 		// set the POS tagger
@@ -225,10 +286,16 @@ public class HeidelTimeStandalone {
 		
 		// read in configuration in case it's not yet initialized
 		if(!Config.isInitialized()) {
+		  try {
 			if(configPath == null)
-				readConfigFile(CLISwitch.CONFIGFILE.getValue().toString());
+				readConfigFile((new File(CLISwitch.CONFIGFILE.getValue().toString())).toURI().toURL());
 			else
 				readConfigFile(configPath);
+		  }
+		  catch (MalformedURLException e) {
+		    logger.log(Level.WARNING,"Malformed URL means HeidelTime cannot be initialized");
+		    throw new RuntimeException(e);
+		  }
 		}
 		
 		try {
@@ -236,8 +303,8 @@ public class HeidelTimeStandalone {
 			heidelTime.initialize(new UimaContextImpl(language, typeToProcess, CLISwitch.VERBOSITY2.getIsActive()));
 			logger.log(Level.INFO, "HeidelTime initialized");
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.log(Level.WARNING, "HeidelTime could not be initialized");
+			throw new RuntimeException(e);
 		}
 
 		// Initialize JCas factory -------------
@@ -255,8 +322,8 @@ public class HeidelTimeStandalone {
 			jcasFactory = new JCasFactoryImpl(descriptions);
 			logger.log(Level.INFO, "JCas factory initialized");
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.log(Level.WARNING, "JCas factory could not be initialized");
+			throw new RuntimeException(e);
 		}
 	}
 	
@@ -711,7 +778,7 @@ public class HeidelTimeStandalone {
 		try {
 			logger.log(Level.INFO, "Configuration path '-c': "+configPath);
 
-			readConfigFile(configPath);
+			readConfigFile((new File(configPath)).toURI().toURL());
 
 			logger.log(Level.FINE, "Config initialized");
 		} catch (Exception e) {
@@ -778,7 +845,7 @@ public class HeidelTimeStandalone {
 			// double-newstring should not be necessary, but without this, it's not running on Windows (?)
 			String input = new String(new String(inArr, encodingType).getBytes("UTF-8"), "UTF-8");
 			
-			HeidelTimeStandalone standalone = new HeidelTimeStandalone(language, type, outputType, null, posTagger, doIntervalTagging);
+			HeidelTimeStandalone standalone = new HeidelTimeStandalone(language, type, outputType, (URL)null, posTagger, doIntervalTagging);
 			String out = standalone.process(input, dct);
 			
 			// Print output always as UTF-8
@@ -806,11 +873,11 @@ public class HeidelTimeStandalone {
 		}
 	}
 	
-	public static void readConfigFile(String configPath) {
+	public static void readConfigFile(URL configPath) {
 		InputStream configStream = null;
 		try {
 			logger.log(Level.INFO, "trying to read in file "+configPath);
-			configStream = new FileInputStream(configPath);
+			configStream = configPath.openStream();
 			
 			Properties props = new Properties();
 			props.load(configStream);
@@ -820,7 +887,7 @@ public class HeidelTimeStandalone {
 			configStream.close();
 		} catch (FileNotFoundException e) {
 			logger.log(Level.WARNING, "couldn't open configuration file \""+configPath+"\". quitting.");
-			System.exit(-1);
+			throw new RuntimeException("Config file is missing:",e);
 		} catch (IOException e) {
 			logger.log(Level.WARNING, "couldn't close config file handle");
 			e.printStackTrace();
