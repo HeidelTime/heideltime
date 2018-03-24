@@ -1980,7 +1980,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 			// compare this timex to all other timexes and mark those that have an overlap
 			while(innerTimexIter.hasNext()) {
 				Timex3 myInnerTimex = (Timex3) innerTimexIter.next();
-				if (!(myTimex.getTimexType().equals("TEMPONYM"))) {
+				if (!(myInnerTimex.getTimexType().equals("TEMPONYM"))) {
 					if((myTimex.getBegin() <= myInnerTimex.getBegin() && myTimex.getEnd() > myInnerTimex.getBegin()) || // timex1 starts, timex2 is partial overlap
 					   (myInnerTimex.getBegin() <= myTimex.getBegin() && myInnerTimex.getEnd() > myTimex.getBegin()) || // same as above, but in reverse
 					   (myInnerTimex.getBegin() <= myTimex.getBegin() && myTimex.getEnd() <= myInnerTimex.getEnd()) || // timex 1 is contained within or identical to timex2
@@ -2185,7 +2185,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
             // validate fast check fist, if no fast match, everything else is not required anymore
             if (timexType.equals("DATE")) {
             	f = hmDateFastCheck.get(hmPattern.get(p));
-            } else if (timexType.equals("Time")) {
+            } else if (timexType.equals("TIME")) {
             	f = hmTimeFastCheck.get(hmPattern.get(p));
             } else if (timexType.equals("DURATION")) {
             	f = hmDurationFastCheck.get(hmPattern.get(p));
@@ -2230,7 +2230,7 @@ public class HeidelTime extends JCasAnnotator_ImplBase {
 						}
 					} else if (timexType.equals("TEMPONYM")) {
 						if (hmTemponymPosConstraint.containsKey(hmPattern.get(p))) {
-							posConstraintOK = checkPosConstraint(s , hmSetPosConstraint.get(hmPattern.get(p)), r, jcas);
+							posConstraintOK = checkPosConstraint(s , hmTemponymPosConstraint.get(hmPattern.get(p)), r, jcas);
 						}
 					}
 					
