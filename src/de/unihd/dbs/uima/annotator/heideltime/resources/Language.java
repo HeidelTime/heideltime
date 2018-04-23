@@ -1,6 +1,6 @@
 package de.unihd.dbs.uima.annotator.heideltime.resources;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Hardcoded Language information for use with HeidelTime/Standalone. Contains
@@ -61,7 +61,7 @@ public enum Language {
 	 */
 	public final static Language getLanguageFromString(String name) {
 		if(name == null) {
-			Logger.printError("Language parameter was specified as NULL.");
+			LoggerFactory.getLogger(Language.class).error("Language parameter was specified as NULL.");
 			throw new NullPointerException();
 		}
 		
@@ -97,6 +97,10 @@ public enum Language {
 	
 	public final String getResourceFolder() {
 		return this.resourceFolder;
+	}
+	
+	public final boolean useLowercase() {
+		return this != ARABIC;
 	}
 	
 	@Override

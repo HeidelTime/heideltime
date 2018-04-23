@@ -3,9 +3,5 @@
 // date:   2013-10-17
 // This file contains regular expression patterns for "and", "or", "to" words.
 // FORMAT: one line is one disjunction of the pattern
-[\s]?\–[\s]?
-[\s]?-[\s]?
-[\s]?–[\s]?
- and 
- or 
- to 
+\s(?:and|or|to)\s
+\s?[/–‒‑-]\s?

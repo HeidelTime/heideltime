@@ -9,23 +9,28 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.regex.MatchResult;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.FSIterator;
+import org.apache.uima.cas.text.AnnotationIndex;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.RePatternManager;
 import de.unihd.dbs.uima.annotator.heideltime.resources.ResourceMap;
 import de.unihd.dbs.uima.annotator.heideltime.resources.ResourceScanner;
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
+import de.unihd.dbs.uima.annotator.heideltime.resources.RuleManager;
 import de.unihd.dbs.uima.types.heideltime.IntervalCandidateSentence;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Timex3;
@@ -37,9 +42,10 @@ import de.unihd.dbs.uima.types.heideltime.Timex3Interval;
  *
  */
 public class IntervalTagger extends JCasAnnotator_ImplBase {
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(IntervalTagger.class);
 
-	// TOOL NAME (may be used as componentId)
-	private Class<?> component = this.getClass();
+	private static final TimeZone GMT = TimeZone.getTimeZone("GMT");
 	
 	// descriptor parameter names
 	public static String PARAM_LANGUAGE = "language";
@@ -47,8 +53,8 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 	public static String PARAM_INTERVAL_CANDIDATES = "annotate_interval_candidates";
 	// descriptor configuration
 	private Language language = null;
-	private Boolean find_intervals = true;
-	private Boolean find_interval_candidates = true;
+	private boolean find_intervals = true;
+	private boolean find_interval_candidates = true;
 	
 	private HashMap<Pattern, String> hmIntervalPattern = new HashMap<Pattern, String>();
 	private HashMap<String, String> hmIntervalNormalization = new HashMap<String, String>();
@@ -83,89 +89,60 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 	 * @throws ResourceInitializationException
 	 */
 	private void readResources(ResourceMap hmResourcesRules) throws ResourceInitializationException {
-		Pattern paReadRules = Pattern.compile("RULENAME=\"(.*?)\",EXTRACTION=\"(.*?)\",NORM_VALUE=\"(.*?)\"(.*)");
-		Pattern paVariable = Pattern.compile("%(re[a-zA-Z0-9]*)");
+		Matcher maReadRules = Pattern.compile("RULENAME=\"(.*?)\",EXTRACTION=\"(.*?)\",NORM_VALUE=\"(.*?)\"(.*)").matcher("");
 		
 		// read normalization data
-		InputStream is = null;
-		InputStreamReader isr = null;
-		BufferedReader br = null;
-		try {
-			for (String resource : hmResourcesRules.keySet()) {
-				is = hmResourcesRules.getInputStream(resource);
-				isr = new InputStreamReader(is, "UTF-8");
-				br = new BufferedReader(isr);
-				Logger.printDetail(component, "Adding rule resource: " + resource);
+		for (String resource : hmResourcesRules.keySet()) {
+			if(!resource.equals("intervalrules"))
+				continue;
+			try (InputStream is = hmResourcesRules.getInputStream(resource);//
+				InputStreamReader isr = new InputStreamReader(is, "UTF-8");//
+				BufferedReader br = new BufferedReader(isr)) {
+				LOG.debug("Adding rule resource: {}", resource);
 				for(String line; (line = br.readLine()) != null; ) {
-					if(line.startsWith("//") || line.equals("")) {
+					if(line.startsWith("//") || line.equals(""))
 						continue;
-					}
 					
-					Logger.printDetail("DEBUGGING: reading rules..."+ line);
+					LOG.debug("reading rules... {}", line);
 					// check each line for the name, extraction, and normalization part
-					for (MatchResult r : Toolbox.findMatches(paReadRules, line)) {
-						String rule_name          = r.group(1);
-						String rule_extraction    = r.group(2);
-						String rule_normalization = r.group(3);
+					for (maReadRules.reset(line); maReadRules.find(); ) {
+						String rule_name          = maReadRules.group(1);
+						String rule_extraction    = maReadRules.group(2);
+						String rule_normalization = maReadRules.group(3);
 						
 						////////////////////////////////////////////////////////////////////
 						// RULE EXTRACTION PARTS ARE TRANSLATED INTO REGULAR EXPRESSSIONS //
 						////////////////////////////////////////////////////////////////////
 						// create pattern for rule extraction part
 						RePatternManager rpm = RePatternManager.getInstance(language, false);
-						for (MatchResult mr : Toolbox.findMatches(paVariable,rule_extraction)) {
-							Logger.printDetail("DEBUGGING: replacing patterns..."+ mr.group());
-							if (!(rpm.containsKey(mr.group(1)))) {
-								Logger.printError("Error creating rule:"+rule_name);
-								Logger.printError("The following pattern used in this rule does not exist, does it? %"+mr.group(1));
-								System.exit(-1);
-							}
-							rule_extraction = rule_extraction.replaceAll("%"+mr.group(1), rpm.get(mr.group(1)));
-						}
-						rule_extraction = rule_extraction.replaceAll(" ", "[\\\\s]+");
+						rule_extraction = RuleManager.expandVariables(rule_name, rule_extraction, rpm);
+						rule_extraction = RuleManager.replaceSpaces(rule_extraction);
 						Pattern pattern = null;
 						try{
 							pattern = Pattern.compile(rule_extraction);
 						}
-						catch (java.util.regex.PatternSyntaxException e) {
-							Logger.printError("Compiling rules resulted in errors.");
-							Logger.printError("Problematic rule is "+rule_name);
-							Logger.printError("Cannot compile pattern: "+rule_extraction);
-							e.printStackTrace();
-							System.exit(-1);
+						catch (PatternSyntaxException e) {
+							LOG.error("Compiling rules resulted in errors.", e);
+							LOG.error("Problematic rule is: {}\nCannot compile pattern: {}", rule_name, rule_extraction);
+							System.exit(1);
 						}
 						
 						/////////////////////////////////////////////////
 						// READ INTERVAL RULES AND MAKE THEM AVAILABLE //
 						/////////////////////////////////////////////////
-						if(resource.equals("intervalrules")){
-							hmIntervalPattern.put(pattern,rule_name);
-							hmIntervalNormalization.put(rule_name, rule_normalization);
-						}
+						hmIntervalPattern.put(pattern,rule_name);
+						hmIntervalNormalization.put(rule_name, rule_normalization);
 					}
 				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new ResourceInitializationException();
-		} finally {
-			try {
-				if(br != null) {
-					br.close();
-				}
-				if(isr != null) {
-					isr.close();
-				}
-				if(is != null) {
-					is.close();
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
+			} catch (IOException e) {
+				LOG.error(e.getMessage(), e);
+				throw new ResourceInitializationException();
 			}
 		}
 	}
 	
-	
+	Pattern pNorm=Pattern.compile("group\\(([1-9]+)\\)-group\\(([1-9]+)\\)");
+
 	/**
 	 * Extract Timex3Intervals, delimited by two Timex3Intervals in a sentence.
 	 * finsInterval needs to be run with jcas before.
@@ -175,141 +152,134 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 	private void findSentenceIntervals(JCas jcas){
 		HashSet<Timex3Interval> timexesToRemove = new HashSet<Timex3Interval>();
 		
-		FSIterator iterSentence = jcas.getAnnotationIndex(Sentence.type).iterator();
-		while (iterSentence.hasNext()) {
-			Sentence s=(Sentence)iterSentence.next();
+		AnnotationIndex<Sentence> sentences = jcas.getAnnotationIndex(Sentence.type);
+		for(Sentence s : sentences) {
 			String sString=s.getCoveredText();
-			FSIterator iterInter = jcas.getAnnotationIndex(Timex3Interval.type).subiterator(s);
+			AnnotationIndex<Timex3Interval> intervals = jcas.getAnnotationIndex(Timex3Interval.type);
+			
 			int count=0;
 			List<Timex3Interval> txes=new ArrayList<Timex3Interval>();
-			List<Timex3Interval> sentenceTxes=new ArrayList<Timex3Interval>();
-			
-			while(iterInter.hasNext()){
+
+			for(FSIterator<Timex3Interval> iterInter = intervals.subiterator(s); iterInter.hasNext(); ){
 				Timex3Interval t=(Timex3Interval)iterInter.next();
 				sString=sString.replace(t.getCoveredText(), "<TX3_"+count+">");
 				count++;
 				txes.add(t);
 			}
 
-			if(count>0){
+			if(count == 0)
+				continue;
 
-				if (find_interval_candidates){
-					IntervalCandidateSentence sI=new IntervalCandidateSentence(jcas);
-					sI.setBegin(s.getBegin());
-					sI.setEnd(s.getEnd());
-					sI.addToIndexes();
-				}
-				for(Pattern p: hmIntervalPattern.keySet()){
-					
-					String name=hmIntervalPattern.get(p);
-					List<MatchResult>results=(List<MatchResult>)Toolbox.findMatches(p,sString);
-					if(results.size()>0){
-						//Interval in Sentence s found by Pattern p!
-						for(MatchResult r: results){
-							Pattern pNorm=Pattern.compile("group\\(([1-9]+)\\)-group\\(([1-9]+)\\)");
-							String norm=hmIntervalNormalization.get(name);
+			if (find_interval_candidates){
+				IntervalCandidateSentence sI=new IntervalCandidateSentence(jcas);
+				sI.setBegin(s.getBegin());
+				sI.setEnd(s.getEnd());
+				sI.addToIndexes();
+			}
+			List<Timex3Interval> sentenceTxes=new ArrayList<Timex3Interval>();
+			for(Map.Entry<Pattern,String> ent : hmIntervalPattern.entrySet()){
+				String name=ent.getValue();
+				Matcher m = ent.getKey().matcher(sString);
+				while (m.find()) {
+					String norm=hmIntervalNormalization.get(name);
 							
-							Matcher mNorm=pNorm.matcher(norm);
-							if(!mNorm.matches()){
-								System.err.println("Problem with the Norm in rule "+name);
-							}
-							Timex3Interval startTx=null,endTx=null;
-							try{
-								int startId=Integer.parseInt(mNorm.group(1));
-								int endId=Integer.parseInt(mNorm.group(2));
-								
-								startTx=txes.get(Integer.parseInt(r.group(startId)));
-								endTx=txes.get(Integer.parseInt(r.group(endId)));
-							}catch(Exception e){
-								e.printStackTrace();
-								return;
-							}
-							Timex3Interval annotation=new Timex3Interval(jcas);
-							annotation.setBegin(startTx.getBegin()>endTx.getBegin()?endTx.getBegin():startTx.getBegin());
-							annotation.setEnd(startTx.getEnd()>endTx.getEnd()?startTx.getEnd():endTx.getEnd());
-							
-							//Does the interval already exist,
-							//found by another pattern?
-							boolean duplicate=false;
-							for(Timex3Interval tx:sentenceTxes){
-								if(tx.getBegin()==annotation.getBegin() &&
-										tx.getEnd()==annotation.getEnd()){
-									duplicate=true;
-									break;
-								}
-							}
-							
-							if(!duplicate){
-								annotation.setTimexValueEB(startTx.getTimexValueEB());
-								annotation.setTimexValueLB(startTx.getTimexValueLE());
-								annotation.setTimexValueEE(endTx.getTimexValueEB());
-								annotation.setTimexValueLE(endTx.getTimexValueLE());
-								annotation.setTimexType(startTx.getTimexType());
-								annotation.setFoundByRule(name);
-								
-								
-								// create emptyvalue value
-								String emptyValue = createEmptyValue(startTx, endTx, jcas);
-								annotation.setEmptyValue(emptyValue);
-								annotation.setBeginTimex(startTx.getBeginTimex());
-								annotation.setEndTimex(endTx.getEndTimex());
-								
-								try {
-									sentenceTxes.add(annotation);
-								} catch(NumberFormatException e) {
-									Logger.printError(component, "Couldn't do emptyValue calculation on accont of a faulty normalization in " 
-											+ annotation.getTimexValueEB() + " or " + annotation.getTimexValueEE());
-								}
-								
-								// prepare tx3intervals to remove
-								timexesToRemove.add(startTx);
-								timexesToRemove.add(endTx);
-								
-								annotation.addToIndexes();
-//								System.out.println(emptyValue);
-							}
-						}
+					Matcher mNorm=pNorm.matcher(norm);
+					if(!mNorm.matches()){
+						LOG.warn("Problem with the Norm in rule "+name);
+						continue;
 					}
+					Timex3Interval startTx=null,endTx=null;
+					try{
+						int startId=Integer.parseInt(mNorm.group(1));
+						int endId=Integer.parseInt(mNorm.group(2));
+
+						startTx=txes.get(Integer.parseInt(m.group(startId)));
+						endTx=txes.get(Integer.parseInt(m.group(endId)));
+					}catch(Exception e){
+						LOG.error(e.getMessage(), e);
+						return;
+					}
+					Timex3Interval annotation=new Timex3Interval(jcas);
+					annotation.setBegin(startTx.getBegin()>endTx.getBegin()?endTx.getBegin():startTx.getBegin());
+					annotation.setEnd(startTx.getEnd()>endTx.getEnd()?startTx.getEnd():endTx.getEnd());
+
+					//Does the interval already exist,
+					//found by another pattern?
+					boolean duplicate=false;
+					for(Timex3Interval tx:sentenceTxes)
+						if(tx.getBegin()==annotation.getBegin() &&
+						tx.getEnd()==annotation.getEnd()){
+							duplicate=true;
+							break;
+						}
+					if(duplicate)
+						continue;
+
+					annotation.setTimexValueEB(startTx.getTimexValueEB());
+					annotation.setTimexValueLB(startTx.getTimexValueLE());
+					annotation.setTimexValueEE(endTx.getTimexValueEB());
+					annotation.setTimexValueLE(endTx.getTimexValueLE());
+					annotation.setTimexType(startTx.getTimexType());
+					annotation.setFoundByRule(name);
+
+					// create emptyvalue value
+					String emptyValue = createEmptyValue(startTx, endTx, jcas);
+					annotation.setEmptyValue(emptyValue);
+					annotation.setBeginTimex(startTx.getBeginTimex());
+					annotation.setEndTimex(endTx.getEndTimex());
+
+					try {
+						sentenceTxes.add(annotation);
+					} catch(NumberFormatException e) {
+						LOG.error("Couldn't do emptyValue calculation on accont of a faulty normalization in {} or {}", 
+								annotation.getTimexValueEB(), annotation.getTimexValueEE());
+					}
+
+					// prepare tx3intervals to remove
+					timexesToRemove.add(startTx);
+					timexesToRemove.add(endTx);
+
+					annotation.addToIndexes();
 				}
 			}
 		}
 		
-		for(Timex3Interval txi : timexesToRemove) {
+		for(Timex3Interval txi : timexesToRemove)
 			txi.removeFromIndexes();
-		}
 	}
+	
+	Pattern datep = Pattern.compile("(\\d{1,4})?-?(\\d{2})?-?(\\d{2})?(T)?(\\d{2})?:?(\\d{2})?:?(\\d{2})?");
+	//				 1            2          3        4   5          6          7
 	
 	private String createEmptyValue(Timex3Interval startTx, Timex3Interval endTx, JCas jcas) throws NumberFormatException {
 		String dateStr = "", timeStr = "";
 
 		// find granularity for start/end timex values
-		Pattern p = Pattern.compile("(\\d{1,4})?-?(\\d{2})?-?(\\d{2})?(T)?(\\d{2})?:?(\\d{2})?:?(\\d{2})?");
-		//							 1            2          3        4   5          6          7
-		Matcher mStart = p.matcher(startTx.getTimexValue());
-		Matcher mEnd = p.matcher(endTx.getTimexValue());
-		Integer granularityStart = -1;
-		Integer granularityEnd = -2;
-		Integer granularity = -1;
+		Matcher mStart = datep.matcher(startTx.getTimexValue());
+		Matcher mEnd = datep.matcher(endTx.getTimexValue());
+		
+		if(!mStart.find() || !mEnd.find())
+			return "";
 		
 		// find the highest granularity in each timex
-		if(mStart.find() && mEnd.find()) {
-			for(Integer i = 1; i <= mStart.groupCount(); i++) {
-				if(mStart.group(i) != null)
-					granularityStart = i;
-				if(mEnd.group(i) != null)
-					granularityEnd = i;
-			}
-		}
+		int granularityStart = -1;
+		for(int i = 1; i <= mStart.groupCount(); i++)
+			if(mStart.group(i) != null)
+				granularityStart = i;
+		int granularityEnd = -2;
+		for(int i = 1; i <= mEnd.groupCount(); i++)
+			if(mEnd.group(i) != null)
+				granularityEnd = i;
 		
 		// if granularities aren't the same, we can't do anything here.
-		if(granularityEnd != granularityStart) {
+		if(granularityEnd != granularityStart)
 			return "";
-		} else { // otherwise, set maximum granularity
-			granularity = granularityStart;
-		}
+
+		// otherwise, set maximum granularity
+		int granularity = granularityStart;
 
 		// check all the different granularities, starting with seconds, calculate differences, add carries
-		Integer myYears = 0,
+		int myYears = 0,
 				myMonths = 0,
 				myDays = 0,
 				myHours = 0,
@@ -343,7 +313,7 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 		if(granularity >= 3 && mStart.group(3) != null && mEnd.group(3) != null) {
 			myDays += Integer.parseInt(mEnd.group(3)) - Integer.parseInt(mStart.group(3));
 			if(myDays < 0) {
-				Calendar cal = Calendar.getInstance();
+				Calendar cal = Calendar.getInstance(GMT, Locale.ROOT);
 				cal.set(Calendar.YEAR, Integer.parseInt(mStart.group(1)));
 				cal.set(Calendar.MONTH, Integer.parseInt(mStart.group(2)));
 
@@ -402,6 +372,17 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 		return "P" + dateStr + (timeStr.length() > 0 ? "T" + timeStr : "");
 	}
 
+	//DATE Pattern
+	Pattern pDate = Pattern.compile("(?:BC)?(\\d\\d\\d\\d)(-(\\d+))?(-(\\d+))?(T(\\d+))?(:(\\d+))?(:(\\d+))?");
+	Pattern pCentury = Pattern.compile("(\\d\\d)");
+	Pattern pDecade = Pattern.compile("(\\d\\d\\d)");
+	Pattern pQuarter = Pattern.compile("(\\d+)-Q([1-4])");
+	Pattern pHalf = Pattern.compile("(\\d+)-H([1-2])");
+	Pattern pSeason = Pattern.compile("(\\d+)-(SP|SU|FA|WI)");
+	Pattern pWeek = Pattern.compile("(\\d+)-W(\\d+)");
+	Pattern pWeekend = Pattern.compile("(\\d+)-W(\\d+)-WE");
+	Pattern pTimeOfDay = Pattern.compile("(\\d+)-(\\d+)-(\\d+)T(AF|DT|MI|MO|EV|NI)");
+	
 	/**
 	 * Build Timex3Interval-Annotations out of Timex3Annotations in jcas.
 	 * @author Manuel Dewald
@@ -410,63 +391,29 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 	private void findIntervals(JCas jcas) {
 		ArrayList<Timex3Interval> newAnnotations = new ArrayList<Timex3Interval>();
 		
-		FSIterator iterTimex3 = jcas.getAnnotationIndex(Timex3.type).iterator();
-		while (iterTimex3.hasNext()) {
+		Matcher mDate   = pDate.matcher("");
+		Matcher mCentury= pCentury.matcher("");
+		Matcher mDecade = pDecade.matcher("");
+		Matcher mQuarter= pQuarter.matcher("");
+		Matcher mHalf   = pHalf.matcher("");
+		Matcher mSeason = pSeason.matcher("");
+		Matcher mWeek   = pWeek.matcher("");
+		Matcher mWeekend= pWeekend.matcher("");
+		Matcher mTimeOfDay= pTimeOfDay.matcher("");
+		
+		AnnotationIndex<Timex3> timexes = jcas.getAnnotationIndex(Timex3.type);
+		for (Timex3 timex3 : timexes) {
 			Timex3Interval annotation=new Timex3Interval(jcas);
-			Timex3 timex3 = (Timex3) iterTimex3.next();
+			String timexValue = timex3.getTimexValue();
 			
-			//DATE Pattern
-			Pattern pDate = Pattern.compile("(?:BC)?(\\d\\d\\d\\d)(-(\\d+))?(-(\\d+))?(T(\\d+))?(:(\\d+))?(:(\\d+))?");
-			Pattern pCentury = Pattern.compile("(\\d\\d)");
-			Pattern pDecate = Pattern.compile("(\\d\\d\\d)");
-			Pattern pQuarter = Pattern.compile("(\\d+)-Q([1-4])");
-			Pattern pHalf = Pattern.compile("(\\d+)-H([1-2])");
-			Pattern pSeason = Pattern.compile("(\\d+)-(SP|SU|FA|WI)");
-			Pattern pWeek = Pattern.compile("(\\d+)-W(\\d+)");
-			Pattern pWeekend = Pattern.compile("(\\d+)-W(\\d+)-WE");
-			Pattern pTimeOfDay = Pattern.compile("(\\d+)-(\\d+)-(\\d+)T(AF|DT|MI|MO|EV|NI)");
+			String beginYear="UNDEF", endYear="UNDEF";
+			String beginMonth="01", endMonth="12";
+			String beginDay="01", endDay="31";
+			String beginHour="00", endHour="23";
+			String beginMinute="00", endMinute="59";
+			String beginSecond="00", endSecond="59";
 			
-			Matcher mDate   = pDate.matcher(timex3.getTimexValue());
-			Matcher mCentury= pCentury.matcher(timex3.getTimexValue());
-			Matcher mDecade = pDecate.matcher(timex3.getTimexValue());
-			Matcher mQuarter= pQuarter.matcher(timex3.getTimexValue());
-			Matcher mHalf   = pHalf.matcher(timex3.getTimexValue());
-			Matcher mSeason = pSeason.matcher(timex3.getTimexValue());
-			Matcher mWeek   = pWeek.matcher(timex3.getTimexValue());
-			Matcher mWeekend= pWeekend.matcher(timex3.getTimexValue());
-			Matcher mTimeOfDay= pTimeOfDay.matcher(timex3.getTimexValue());
-			
-			boolean matchesDate=mDate.matches();
-			boolean matchesCentury=mCentury.matches();
-			boolean matchesDecade=mDecade.matches();
-			boolean matchesQuarter=mQuarter.matches();
-			boolean matchesHalf=mHalf.matches();
-			boolean matchesSeason=mSeason.matches();
-			boolean matchesWeek=mWeek.matches();
-			boolean matchesWeekend=mWeekend.matches();
-			boolean matchesTimeOfDay=mTimeOfDay.matches();
-			
-			String beginYear, endYear;
-			String beginMonth, endMonth;
-			String beginDay, endDay;
-			String beginHour, endHour;
-			String beginMinute, endMinute;
-			String beginSecond, endSecond;
-
-			beginYear=endYear="UNDEF";
-			beginMonth="01";
-			endMonth="12";
-			beginDay="01";
-			endDay="31";
-			beginHour="00";
-			endHour="23";
-			beginMinute="00";
-			endMinute="59";
-			beginSecond="00";
-			endSecond="59";
-			
-			if(matchesDate){
-				
+			if(mDate.reset(timexValue).matches()){
 				//Get Year(1)
 				beginYear=endYear=mDate.group(1);
 				
@@ -476,9 +423,9 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 					
 					//Get Day(5)
 					if(mDate.group(5)==null){
-						Calendar c=Calendar.getInstance();
+						Calendar c=Calendar.getInstance(GMT, Locale.ROOT);
 						c.set(Integer.parseInt(beginYear), Integer.parseInt(beginMonth)-1, 1);
-						endDay=""+c.getActualMaximum(Calendar.DAY_OF_MONTH);
+						endDay=Integer.toString(+c.getActualMaximum(Calendar.DAY_OF_MONTH));
 						beginDay="01";
 					}else{
 						beginDay=endDay=mDate.group(5);
@@ -501,29 +448,29 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 					}
 				}
 				
-			}else if(matchesCentury){
+			}else if(mCentury.reset(timexValue).matches()){
 				beginYear=mCentury.group(1)+"00";
 				endYear=mCentury.group(1)+"99";
-			}else if(matchesDecade){
+			}else if(mDecade.reset(timexValue).matches()){
 				beginYear=mDecade.group(1)+"0";
 				endYear=mDecade.group(1)+"9";
-			}else if(matchesQuarter){
+			}else if(mQuarter.reset(timexValue).matches()){
 				beginYear=endYear=mQuarter.group(1);
 				int beginMonthI=3*(Integer.parseInt(mQuarter.group(2))-1)+1;
-				beginMonth=""+beginMonthI;
-				endMonth=""+(beginMonthI+2);
-				Calendar c=Calendar.getInstance();
+				beginMonth=Integer.toString(beginMonthI);
+				endMonth=Integer.toString(beginMonthI+2);
+				Calendar c=Calendar.getInstance(GMT, Locale.ROOT);
 				c.set(Integer.parseInt(beginYear), Integer.parseInt(endMonth)-1, 1);
-				endDay=""+c.getActualMaximum(Calendar.DAY_OF_MONTH);
-			}else if(matchesHalf){
+				endDay=Integer.toString(+c.getActualMaximum(Calendar.DAY_OF_MONTH));
+			}else if(mHalf.reset(timexValue).matches()){
 				beginYear=endYear=mHalf.group(1);
 				int beginMonthI=6*(Integer.parseInt(mHalf.group(2))-1)+1;
-				beginMonth=""+beginMonthI;
-				endMonth=""+(beginMonthI+5);
-				Calendar c=Calendar.getInstance();
+				beginMonth=Integer.toString(beginMonthI);
+				endMonth=Integer.toString(beginMonthI+5);
+				Calendar c=Calendar.getInstance(GMT, Locale.ROOT);
 				c.set(Integer.parseInt(beginYear), Integer.parseInt(endMonth)-1, 1);
-				endDay=""+c.getActualMaximum(Calendar.DAY_OF_MONTH);
-			}else if(matchesSeason){
+				endDay=Integer.toString(+c.getActualMaximum(Calendar.DAY_OF_MONTH));
+			}else if(mSeason.reset(timexValue).matches()){
 				beginYear=mSeason.group(1);
 				endYear=beginYear;
 				if(mSeason.group(2).equals("SP")){
@@ -542,37 +489,37 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 					endMonth="12";
 					endDay="21";
 				}else if(mSeason.group(2).equals("WI")){
-					endYear=""+(Integer.parseInt(beginYear)+1);
+					endYear=Integer.toString(Integer.parseInt(beginYear)+1);
 					beginMonth="12";
 					beginDay="22";
 					endMonth="03";
 					endDay="20";
 				}
-			}else if(matchesWeek){
+			}else if(mWeek.reset(timexValue).matches()){
 				beginYear=endYear=mWeek.group(1);
-				Calendar c=Calendar.getInstance();
+				Calendar c=Calendar.getInstance(GMT, Locale.ROOT);
 				c.setFirstDayOfWeek(Calendar.MONDAY);
 				c.set(Calendar.YEAR,Integer.parseInt(beginYear));
 				c.set(Calendar.WEEK_OF_YEAR, Integer.parseInt(mWeek.group(2)));
 				c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-				beginDay=""+c.get(Calendar.DAY_OF_MONTH);
-				beginMonth=""+(c.get(Calendar.MONTH)+1);
+				beginDay=Integer.toString(+c.get(Calendar.DAY_OF_MONTH));
+				beginMonth=Integer.toString(c.get(Calendar.MONTH)+1);
 				c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-				endDay=""+(c.get(Calendar.DAY_OF_MONTH));
-				endMonth=""+(c.get(Calendar.MONTH)+1);
-			}else if(matchesWeekend){
+				endDay=Integer.toString(c.get(Calendar.DAY_OF_MONTH));
+				endMonth=Integer.toString(c.get(Calendar.MONTH)+1);
+			}else if(mWeekend.reset(timexValue).matches()){
 				beginYear=endYear=mWeekend.group(1);
-				Calendar c=Calendar.getInstance();
+				Calendar c=Calendar.getInstance(GMT, Locale.ROOT);
 				c.setFirstDayOfWeek(Calendar.MONDAY);
 				c.set(Calendar.YEAR,Integer.parseInt(beginYear));
 				c.set(Calendar.WEEK_OF_YEAR, Integer.parseInt(mWeekend.group(2)));
 				c.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-				beginDay=""+c.get(Calendar.DAY_OF_MONTH);
-				beginMonth=""+(c.get(Calendar.MONTH)+1);
+				beginDay=Integer.toString(+c.get(Calendar.DAY_OF_MONTH));
+				beginMonth=Integer.toString(c.get(Calendar.MONTH)+1);
 				c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-				endDay=""+(c.get(Calendar.DAY_OF_MONTH));
-				endMonth=""+(c.get(Calendar.MONTH)+1);
-			}else if(matchesTimeOfDay){
+				endDay=Integer.toString(c.get(Calendar.DAY_OF_MONTH));
+				endMonth=Integer.toString(c.get(Calendar.MONTH)+1);
+			}else if(mTimeOfDay.reset(timexValue).matches()){
 				beginYear=endYear=mTimeOfDay.group(1);
 				beginMonth=endMonth=mTimeOfDay.group(2);
 				beginDay=endDay=mTimeOfDay.group(3);
@@ -607,7 +554,7 @@ public class IntervalTagger extends JCasAnnotator_ImplBase {
 				annotation.setTimexMod(timex3.getTimexMod());
 				annotation.setTimexQuant(timex3.getTimexMod());
 				annotation.setTimexType(timex3.getTimexType());
-				annotation.setTimexValue(timex3.getTimexValue());
+				annotation.setTimexValue(timexValue);
 				annotation.setSentId(timex3.getSentId());
 				annotation.setBegin(timex3.getBegin());
 				annotation.setFoundByRule(timex3.getFoundByRule());

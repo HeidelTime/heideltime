@@ -5,22 +5,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
- * 
  * This class fills the role of a manager of all the Normalization resources.
  * It reads the data from a file system and fills up a bunch of HashMaps
  * with their information.
+ * 
  * @author jannik stroetgen
- *
  */
 public class NormalizationManager extends GenericResourceManager {
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(NormalizationManager.class);
+	
 	protected static HashMap<String, NormalizationManager> instances = new HashMap<String, NormalizationManager>();
-	// PATTERNS TO READ RESOURCES "RULES" AND "NORMALIZATION"
-	private Pattern paReadNormalizations = Pattern.compile("\"(.*?)\",\"(.*?)\"");
 
 	// STORE PATTERNS AND NORMALIZATIONS
 	private HashMap<String, RegexHashMap<String>> hmAllNormalization;
@@ -31,6 +33,8 @@ public class NormalizationManager extends GenericResourceManager {
 	private HashMap<String, String> normMonthName;
 	private HashMap<String, String> normMonthInSeason; 
 	private HashMap<String, String> normMonthInQuarter;
+
+	private String[] normNumbers;
 
 	/**
 	 * Constructor calls the parent constructor that sets language/resource parameters,
@@ -60,9 +64,8 @@ public class NormalizationManager extends GenericResourceManager {
 		ResourceScanner rs = ResourceScanner.getInstance();
 		ResourceMap hmResourcesNormalization = rs.getNormalizations(language);
 		
-		for (String which : hmResourcesNormalization.keySet()) {
+		for (String which : hmResourcesNormalization.keySet())
 			hmAllNormalization.put(which, new RegexHashMap<String>());
-		}
 		
 		readNormalizationResources(hmResourcesNormalization, load_temponym_resources);
 	}
@@ -72,12 +75,12 @@ public class NormalizationManager extends GenericResourceManager {
 	 * @return singleton instance of NormalizationManager
 	 */
 	public static NormalizationManager getInstance(Language language, Boolean load_temponym_resources) {
-		if(!instances.containsKey(language.getName())) {
-			NormalizationManager nm = new NormalizationManager(language.getResourceFolder(), load_temponym_resources);
+		NormalizationManager nm = instances.get(language.getName());
+		if(nm == null) {
+			nm = new NormalizationManager(language.getResourceFolder(), load_temponym_resources);
 			instances.put(language.getName(), nm);
 		}
-		
-		return instances.get(language.getName());
+		return nm;
 	}
 	
 	/**
@@ -87,61 +90,40 @@ public class NormalizationManager extends GenericResourceManager {
 	 * @param load_temponym_resources whether temponym resources are loaded
 	 */
 	public void readNormalizationResources(ResourceMap hmResourcesNormalization, Boolean load_temponym_resources) {
+		// PATTERNS TO READ RESOURCES "RULES" AND "NORMALIZATION"
+		Matcher maReadNormalizations = Pattern.compile("\"(.*?)\",\"(.*?)\"").matcher("");
+		for (String resource : hmResourcesNormalization.keySet()) {
+			// read normalization resources with "Temponym" only if temponym tagging is selected
+			if (resource.contains("Temponym") &&
+					!(load_temponym_resources && resource.contains("Temponym"))) {
+				LOG.trace("No Temponym tagging selected. Skipping normalization resource: {}", resource);
+				continue;
+			}
+			LOG.debug("Adding normalization resource: {}", resource);
+			// create a buffered reader for every normalization resource file
+			try(InputStream is = hmResourcesNormalization.getInputStream(resource); //
+					InputStreamReader isr = new InputStreamReader(is, "UTF-8");//
+					BufferedReader br = new BufferedReader(isr)) {
+				for (String line; (line=br.readLine()) != null; ) {
+					if (line.startsWith("//") || line.length() == 0) continue; // ignore comments and empty lines
 
-		InputStream is = null;
-		InputStreamReader isr = null;
-		BufferedReader br = null;
-		try {
-			for (String resource : hmResourcesNormalization.keySet()) {
-				// read normalization resources with "Temponym" only if temponym tagging is selected
-				if ( (!(resource.contains("Temponym"))) ||
-						((load_temponym_resources) && (resource.contains("Temponym")))){
-					
-					Logger.printDetail(component, "Adding normalization resource: "+resource);
-					// create a buffered reader for every normalization resource file
-					is = hmResourcesNormalization.getInputStream(resource);
-					isr = new InputStreamReader(is, "UTF-8");
-					br = new BufferedReader(isr);
-					for ( String line; (line=br.readLine()) != null; ) {
-						if (line.startsWith("//")) continue; // ignore comments
-						
-						// check each line for the normalization format (defined in paReadNormalizations)
-						boolean correctLine = false;
-						for (MatchResult r : Toolbox.findMatches(paReadNormalizations, line)) {
-							correctLine = true;
-							String resource_word   = replaceSpaces(r.group(1));
-							String normalized_word = r.group(2);
-							for (String which : hmAllNormalization.keySet()) {
-								if (resource.equals(which)) {
-									hmAllNormalization.get(which).put(resource_word,normalized_word);
-								}
-							}
-							if ((correctLine == false) && (!(line.matches("")))) {
-								Logger.printError("["+component+"] Cannot read one of the lines of normalization resource "+resource);
-								Logger.printError("["+component+"] Line: "+line);
-							}
+					// check each line for the normalization format (defined in paReadNormalizations)
+					maReadNormalizations.reset(line);
+					if (!maReadNormalizations.find()) {
+						LOG.error("Cannot read one of the lines of normalization resource {}\nLine: {}", resource, line);
+						continue;
+					}
+					String resource_word = maReadNormalizations.group(1);
+					String normalized_word = maReadNormalizations.group(2);
+					for (String which : hmAllNormalization.keySet()) {
+						if (resource.equals(which)) {
+							hmAllNormalization.get(which).put(resource_word, normalized_word);
 						}
 					}
 				}
-				else {
-					Logger.printDetail(component, "No Temponym Tagging selected. Skipping normalization resource: "+resource);
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(br != null) {
-					br.close();
-				}
-				if(isr != null) {
-					isr.close();
-				}
-				if(is != null) {
-					is.close();
-				}
-			} catch(Exception e) {
-				e.printStackTrace();
+			} catch (IOException e) {
+				LOG.error(e.getMessage(), e);
+				System.exit(1);
 			}
 		}
 	}
@@ -151,7 +133,6 @@ public class NormalizationManager extends GenericResourceManager {
 	 * sets a couple of rudimentary normalization parameters
 	 */
 	private void readGlobalNormalizationInformation() {
-
 		// MONTH IN QUARTER
 		normMonthInQuarter.put("01","1");
 		normMonthInQuarter.put("02","1");
@@ -167,7 +148,7 @@ public class NormalizationManager extends GenericResourceManager {
 		normMonthInQuarter.put("12","4");
 		
 		// MONTH IN SEASON
-		normMonthInSeason.put("", "");
+		normMonthInSeason.put("", ""); // FIXME: why?
 		normMonthInSeason.put("01","WI");
 		normMonthInSeason.put("02","WI");
 		normMonthInSeason.put("03","SP");
@@ -182,34 +163,34 @@ public class NormalizationManager extends GenericResourceManager {
 		normMonthInSeason.put("12","WI");
 		
 		// DAY IN WEEK
-		normDayInWeek.put("sunday","1");
-		normDayInWeek.put("monday","2");
-		normDayInWeek.put("tuesday","3");
-		normDayInWeek.put("wednesday","4");
-		normDayInWeek.put("thursday","5");
-		normDayInWeek.put("friday","6");
-		normDayInWeek.put("saturday","7");
-		normDayInWeek.put("Sunday","1");
-		normDayInWeek.put("Monday","2");
-		normDayInWeek.put("Tuesday","3");
-		normDayInWeek.put("Wednesday","4");
-		normDayInWeek.put("Thursday","5");
-		normDayInWeek.put("Friday","6");
-		normDayInWeek.put("Saturday","7");
-//		normDayInWeek.put("sunday","7");
-//		normDayInWeek.put("monday","1");
-//		normDayInWeek.put("tuesday","2");
-//		normDayInWeek.put("wednesday","3");
-//		normDayInWeek.put("thursday","4");
-//		normDayInWeek.put("friday","5");
-//		normDayInWeek.put("saturday","6");
-//		normDayInWeek.put("Sunday","7");
-//		normDayInWeek.put("Monday","1");
-//		normDayInWeek.put("Tuesday","2");
-//		normDayInWeek.put("Wednesday","3");
-//		normDayInWeek.put("Thursday","4");
-//		normDayInWeek.put("Friday","5");
-//		normDayInWeek.put("Saturday","6");
+//		normDayInWeek.put("sunday","1");
+//		normDayInWeek.put("monday","2");
+//		normDayInWeek.put("tuesday","3");
+//		normDayInWeek.put("wednesday","4");
+//		normDayInWeek.put("thursday","5");
+//		normDayInWeek.put("friday","6");
+//		normDayInWeek.put("saturday","7");
+//		normDayInWeek.put("Sunday","1");
+//		normDayInWeek.put("Monday","2");
+//		normDayInWeek.put("Tuesday","3");
+//		normDayInWeek.put("Wednesday","4");
+//		normDayInWeek.put("Thursday","5");
+//		normDayInWeek.put("Friday","6");
+//		normDayInWeek.put("Saturday","7");
+		normDayInWeek.put("sunday","7");
+		normDayInWeek.put("monday","1");
+		normDayInWeek.put("tuesday","2");
+		normDayInWeek.put("wednesday","3");
+		normDayInWeek.put("thursday","4");
+		normDayInWeek.put("friday","5");
+		normDayInWeek.put("saturday","6");
+		normDayInWeek.put("Sunday","7");
+		normDayInWeek.put("Monday","1");
+		normDayInWeek.put("Tuesday","2");
+		normDayInWeek.put("Wednesday","3");
+		normDayInWeek.put("Thursday","4");
+		normDayInWeek.put("Friday","5");
+		normDayInWeek.put("Saturday","6");
 		
 		
 		// NORM MINUTE
@@ -285,6 +266,12 @@ public class NormalizationManager extends GenericResourceManager {
 		normNumber.put("59","59");
 		normNumber.put("60","60");
 		
+		normNumbers = new String[61];
+		for (int i = 0; i < 10; i++)
+			normNumbers[i] = "0"+i;
+		for (int i = 10; i <= 60; i++)
+			normNumbers[i] = Integer.toString(i);
+		
 		// NORM MONTH
 		normMonthName.put("january","01");
 		normMonthName.put("february","02");
@@ -308,6 +295,10 @@ public class NormalizationManager extends GenericResourceManager {
 
 	public final String getFromNormNumber(String key) {
 		return normNumber.get(key);
+	}
+
+	public final String normNumber(int key) {
+		return key >= 0 && key <= 60 ? normNumbers[key] : null;
 	}
 
 	public final String getFromNormDayInWeek(String key) {

@@ -19,3 +19,5 @@
 "Friday","5"
 "Saturday","6"
 "Sunday","7"
+// Popular spelling mistakes
+"[Ww]e[dn][nd]e?sday","3"

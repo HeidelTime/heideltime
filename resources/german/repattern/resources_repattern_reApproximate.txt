@@ -7,6 +7,9 @@
 [Ee]twa
 [Uu]ngefähr
 [Cc]irca
+[Gg]egen
+[Ff]rüh(?:en)
+[Ss]pät(?:en)
 // less
 [Nn]icht mehr als
 [Nn]icht länger als

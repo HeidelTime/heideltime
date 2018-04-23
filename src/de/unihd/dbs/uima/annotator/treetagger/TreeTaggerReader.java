@@ -15,7 +15,7 @@ public class TreeTaggerReader implements Runnable {
 	private List<Token> tokens;
 	private BufferedReader reader;
 	private JCas jcas;
-	private Boolean annotate_sentences;
+	private boolean annotate_sentences;
 	
 	private int i; // position in list
 
@@ -32,7 +32,7 @@ public class TreeTaggerReader implements Runnable {
 			})
 		);
 	
-	public TreeTaggerReader(List<Token> tokens, BufferedReader reader, JCas jcas, Boolean annotate_sentences) {
+	public TreeTaggerReader(List<Token> tokens, BufferedReader reader, JCas jcas, boolean annotate_sentences) {
 		this.tokens = tokens;
 		this.reader = reader;
 		this.jcas = jcas;
@@ -43,7 +43,7 @@ public class TreeTaggerReader implements Runnable {
 	public void run() {
 		i = 0;
 		try {
-			Boolean isStarted = false;
+			boolean isStarted = false;
 			Sentence sentence = null;
 			String s = null;
 			// wait for the starting token to arrive
@@ -53,6 +53,7 @@ public class TreeTaggerReader implements Runnable {
 					break;
 				}
 			}
+			int sentences = 0;
 			
 			// iterate over all the output lines and tokens array (which have the same source and are hence symmetric)
 			while(null != (s = reader.readLine()) && isStarted) {
@@ -84,6 +85,7 @@ public class TreeTaggerReader implements Runnable {
 						// Finish current sentence if end-of-sentence pos was found or document ended
 						sentence.setEnd(token.getEnd());
 						if(sentence.getBegin() < sentence.getEnd()){
+							sentence.setSentenceId(++sentences);
 							sentence.addToIndexes();
 						}
 						
@@ -112,6 +114,7 @@ public class TreeTaggerReader implements Runnable {
 					// Finish current sentence if end-of-sentence pos was found or document ended
 					if(hsEndOfSentenceTag.contains(pos) || i == tokens.size()) {
 						sentence.setEnd(token.getEnd());
+						sentence.setSentenceId(++sentences);
 						sentence.addToIndexes();
 						
 						// Make sure current sentence is not active anymore so that a new one might be created
@@ -125,6 +128,7 @@ public class TreeTaggerReader implements Runnable {
 				
 				if(sentence != null) {
 					sentence.setEnd(tokens.get(tokens.size() - 1).getEnd());
+					sentence.setSentenceId(++sentences);
 					sentence.addToIndexes();
 				}
 				

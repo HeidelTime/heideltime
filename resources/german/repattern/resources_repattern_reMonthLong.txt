@@ -3,27 +3,26 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for long months.
 // FORMAT: one line is one disjunction of the pattern
-[Jj]anuar(ii)?
+[Jj]anuar(?:ii|y|)
 [Jj]änner
-[Ff]ebruar(ii)?
+[Ff]ebruar(?:ii|y|)
 [Hh]ornung
 [Mm]ärz
 [Mm]aerz
+[Mm]arch
 [Mm]erz
-[Mm]art(ii)?
-[Aa]pril(is)?
-[Mm]ai(i)?
+[Mm]art(?:ii)?
+[Aa]pril(?:is)?
+[Mm]aii?
 [Mm]ay
-[Jj]uni(i)?
-[Jj]uli(i)?
-[Aa]ugust(i)?
+[Jj]un(?:ii?|y)
+[Jj]ul(?:ii?|y)
+[Aa]ugusti?
 [Ss]eptember
-[Ss]eptembr(is|.)?
-[Oo]ktober
-[Oo]ctober
-[Oo]ctobr(is|.)
+[Ss]eptembr(?:is|\.)?
+[Oo][ck]tober
+[Oo]ctobr(?:is|\.)?
 [Nn]ovember
-[Nn]ovembr(is|.)
-[Dd]ezember
-[Dd]ecember
-[Dd]ecembr(is|.)
+[Nn]ovembr(?:is|\.)?
+[Dd]e[cz]ember
+[Dd]ecembr(?:is|\.)?

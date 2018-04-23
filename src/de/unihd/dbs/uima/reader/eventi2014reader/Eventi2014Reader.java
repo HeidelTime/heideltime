@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.uima.cas.CAS;
@@ -33,9 +33,9 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.FileUtils;
 import org.apache.uima.util.Progress;
 import org.apache.uima.util.ProgressImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Toolbox;
 import de.unihd.dbs.uima.types.heideltime.Dct;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Token;
@@ -44,7 +44,8 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  * CollectionReader for TempEval Data 
  */
 public class Eventi2014Reader extends CollectionReader_ImplBase {
-	private Class<?> component = this.getClass();
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(Eventi2014Reader.class);
 	
 	// uima descriptor parameter name
 	private String PARAM_INPUTDIR = "InputDirectory";
@@ -54,10 +55,10 @@ public class Eventi2014Reader extends CollectionReader_ImplBase {
 	// For improving the formatting of the documentText 
 	// -> to not have a space between all the tokens
 	// HashSet containing tokens in front of which no white space is added
-	private HashSet<String> hsNoSpaceBefore = new HashSet<String>();
-	private HashSet<String> hsNoSpaceBehind = new HashSet<String>();
+	private HashSet<String> hsNoSpaceBefore = new HashSet<>();
+	private HashSet<String> hsNoSpaceBehind = new HashSet<>();
 	
-	private Queue<File> files = new LinkedList<File>();
+	private Queue<File> files = new LinkedList<>();
 	
 	public void initialize() throws ResourceInitializationException {
 		String dirPath = (String) getConfigParameterValue(PARAM_INPUTDIR);
@@ -113,24 +114,21 @@ public class Eventi2014Reader extends CollectionReader_ImplBase {
 	    String lastTok = "";
 	    int sentBegin = 0;
 	    int sentEnd  = -1;
-	    
+
+	    Pattern paConstraint = Pattern.compile("<Document doc_name=\"(.*?)\">");
+	    Pattern paToken = Pattern.compile("<token t_id=\"(.*?)\" sentence=\"(.*?)\" number=\"(.*?)\">(.*?)</token>");
+	    Pattern paTimex3 = Pattern.compile("(<TIMEX3 .*? TAG_DESCRIPTOR=\"D[CP]T\" .*? value=\"(.*?)\".*?/>)");
+
 	    for (String line : lines) {
-	    	
-	    	// get document name
-			if (line.startsWith("<Document doc_name=")){
-				Pattern paConstraint = Pattern.compile("<Document doc_name=\"(.*?)\">");
-				for (MatchResult mr : Toolbox.findMatches(paConstraint,line)) {
+		    // get document name
+			if (line.startsWith("<Document doc_name="))
+				for (Matcher mr = paConstraint.matcher(line); mr.find(); )
 					filename = mr.group(1);
-				}
-			}
 			
 			// handle the tokens
 			if (line.startsWith("<token")){
-				
 				// get token text, token ID, token number, sentence number
-				Pattern paConstraint = Pattern.compile("<token t_id=\"(.*?)\" sentence=\"(.*?)\" number=\"(.*?)\">(.*?)</token>");
-				for (MatchResult mr : Toolbox.findMatches(paConstraint,line)) {
-
+				for (Matcher mr = paToken.matcher(line); mr.find(); ) {
 					String token   = mr.group(4); 
 //					System.err.println("INPUT: -->" + token + "<--");
 					int tokID   = Integer.parseInt(mr.group(1));
@@ -165,7 +163,7 @@ public class Eventi2014Reader extends CollectionReader_ImplBase {
 //						}
 						else{
 							// tokens without space behind the tokens
-							if (!(hsNoSpaceBehind.contains(lastTok))){
+							if (!hsNoSpaceBehind.contains(lastTok)){
 								tokBegin = text.length()+ 1;
 								text  = text + " " + token;
 							}
@@ -194,11 +192,10 @@ public class Eventi2014Reader extends CollectionReader_ImplBase {
 			
 			// get the document creation time
 			if (line.startsWith("<TIMEX3")){
-				Pattern paConstraint = Pattern.compile("(<TIMEX3 .*? TAG_DESCRIPTOR=\"D[CP]T\" .*? value=\"(.*?)\".*?/>)");
-				for (MatchResult mr : Toolbox.findMatches(paConstraint,line)) {
+				for (Matcher mr = paTimex3.matcher(line); mr.find(); ) {
 					fullDctTag = mr.group(1); 
 					dct = mr.group(2);
-					System.err.println("DCT: " + dct);
+					LOG.debug("DCT: {}", dct);
 				}
 			}
 	    }
@@ -207,7 +204,7 @@ public class Eventi2014Reader extends CollectionReader_ImplBase {
 	    jcas.setDocumentText(text);
 	    
 	    // add DCT to jcas
-	    if (!(dct.equals(""))){
+	    if (!dct.equals("")){
 		    Dct dctAnnotation  = new Dct(jcas);
 		    dctAnnotation.setBegin(0);
 		    dctAnnotation.setEnd(text.length());
@@ -260,7 +257,7 @@ public class Eventi2014Reader extends CollectionReader_ImplBase {
 		// check for existence and readability; add handle to the list
 		for(File f : myFiles) {
 			if(!f.exists() || !f.isFile() || !f.canRead()) {
-				Logger.printDetail(component, "File \""+f.getAbsolutePath()+"\" was ignored because it either didn't exist, wasn't a file or wasn't readable.");
+				LOG.debug("File \"{}\" was ignored because it either didn't exist, wasn't a file or wasn't readable.", f.getAbsolutePath());
 			} else {
 				files.add(f);
 			}

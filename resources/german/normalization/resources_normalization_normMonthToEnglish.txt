@@ -1,78 +1,53 @@
 // author: Jannik Strötgen
-// email:  stroetgen@uni-hd.de
+// email:  stroetgen@uni-hd\.de
 // date:   2011-09-13
 // This file contains "month words" and their English expressions
-// according to TIMEX3 format.
+// according to TIMEX3 format\.
 // For example, the normalized value of "2" is "february"
 // FORMAT: "month-word","normalized-month-word"
 
-
-
 // January
-"[Jj]an","january"
-"[Jj]an.","january"
-"[Jj]anuar","january"
-"[Jj]anuarii","january"
+"[Jj]an\.?","january"
+"[Jj]anuar(ii|y|)","january"
 "[Jj]änner","january"
 // February
-"[Ff]eb","february"
-"[Ff]eb.","february"
-"[Ff]ebruar","february"
-"[Ff]ebruarii","february"
+"[Ff]eb\.?","february"
+"[Ff]ebruar(ii|y|)","february"
 "[Hh]ornung","february"
 // March
-"[Mm]är","march"
-"[Mm]är.","march"
+"[Mm]är[z.]?","march"
+"[Mm]arch","march"
 "[Mm]aerz","march"
-"[Mm]ärz","march"
 "[Mm]art(ii)?","march"
 "[Mm]erz","march"
 // April
-"[Aa]pr","april"
-"[Aa]pr.","april"
-"[Aa]pril","april"
-"[Aa]prilis","april"
+"[Aa]pr\.?","april"
+"[Aa]pril(is)?","april"
 // May
-"[Mm]ai","may"
-"[Mm]ai.","may"
-"[Mm]aii","may"
-"[Mm]ay","may"
+"[Mm]a(ii?|y)\.?","may"
 // June
-"[Jj]un","june"
-"[Jj]un.","june"
-"[Jj]uni","june"
-"[Jj]unii","june"
+"[Jj]un\.?","june"
+"[Jj]un(ii?|y)","june"
 // July
-"[Jj]ul","july"
-"[Jj]ul.","july"
-"[Jj]uli","july"
-"[Jj]ulii","july"
+"[Jj]ul\.?","july"
+"[Jj]ul(ii?|y)","july"
 // August
-"[Aa]ug","august"
-"[Aa]ug.","august"
+"[Aa]ug\.?","august"
 "[Aa]ugust","august"
-"[Aa]ugusti","august"
+"[Aa]ugusti?","august"
 // September
-"[Ss]ept?","september"
-"[Ss]ept?.","september"
-"Sept","september"
-"sept","september"
+"[Ss]ept?\.?","september"
 "[Ss]eptember","september"
-"[Ss]eptembr(is|.)?","september"
+"[Ss]eptembr(is|\.)?","september"
 // October
-"[Oo]kt","october"
-"[Oo]kt.","october"
-"[Oo]ktober","october"
-"[Oo]ctober","october"
-"[Oo]ctobr(is|.)","october"
+"[Oo][ck]t\.?","october"
+"[Oo][ck]tober","october"
+"[Oo]ctobr(is|\.)?","october"
 // November
-"[Nn]ov","november"
-"[Nn]ov.","november"
+"[Nn]ov\.?","november"
 "[Nn]ovember","november"
-"[Nn]ovembr(is|.)","november"
+"[Nn]ovembr(is|\.)?","november"
 // December
-"[Dd]ez","december"
-"[Dd]ez.","december"
-"[Dd]ezember","december"
-"[Dd]ecember","december"
-"[Dd]ecembr(is|.)","december"
+"[Dd]e[cz]\.?","december"
+"[Dd]e[cz]ember","december"
+"[Dd]ecembr(is|\.)?","december"

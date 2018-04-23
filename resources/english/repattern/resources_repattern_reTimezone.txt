@@ -3,6 +3,12 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for time zones.
 // FORMAT: one line is one disjunction of the pattern
-EST
-EDT
+// 2016-01-13 Added more (important) time zones -- Erich
 GMT
+UTC
+// Important US time zones (Omitted Alaska)
+[EPCMH][SD]T
+// Central Europe
+CE[SD]?T(?: DST)?
+// Japan
+JST

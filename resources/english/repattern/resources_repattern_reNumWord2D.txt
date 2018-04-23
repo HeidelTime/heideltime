@@ -14,83 +14,20 @@
 [Ss]eventeen
 [Ee]ighteen
 [Nn]ineteen
-[Tt]wenty[ -]one
-[Tt]hirty[ -]one
-[Ff]orty[ -]one
-[Ff]ifty[ -]one
-[Ss]ixty[ -]one
-[Ss]eventy[ -]one
-[Ee]ighty[ -]one
-[Nn]inety[ -]one
-[Tt]wenty[ -]two
-[Tt]hirty[ -]two
-[Ff]orty[ -]two
-[Ff]ifty[ -]two
-[Ss]ixty[ -]two
-[Ss]eventy[ -]two
-[Ee]ighty[ -]two
-[Nn]inety[ -]two
-[Tt]wenty[ -]three
-[Tt]hirty[ -]three
-[Ff]orty[ -]three
-[Ff]ifty[ -]three
-[Ss]ixty[ -]three
-[Ss]eventy[ -]three
-[Ee]ighty[ -]three
-[Nn]inety[ -]three
-[Tt]wenty[ -]four
-[Tt]hirty[ -]four
-[Ff]orty[ -]four
-[Ff]ifty[ -]four
-[Ss]ixty[ -]four
-[Ss]eventy[ -]four
-[Ee]ighty[ -]four
-[Nn]inety[ -]four
-[Tt]wenty[ -]five
-[Tt]hirty[ -]five
-[Ff]orty[ -]five
-[Ff]ifty[ -]five
-[Ss]ixty[ -]five
-[Ss]eventy[ -]five
-[Ee]ighty[ -]five
-[Nn]inety[ -]five
-[Tt]wenty[ -]six
-[Tt]hirty[ -]six
-[Ff]orty[ -]six
-[Ff]ifty[ -]six
-[Ss]ixty[ -]six
-[Ss]eventy[ -]six
-[Ee]ighty[ -]six
-[Nn]inety[ -]six
-[Tt]wenty[ -]seven
-[Tt]hirty[ -]seven
-[Ff]orty[ -]seven
-[Ff]ifty[ -]seven
-[Ss]ixty[ -]seven
-[Ss]eventy[ -]seven
-[Ee]ighty[ -]seven
-[Nn]inety[ -]seven
-[Tt]wenty[ -]eight
-[Tt]hirty[ -]eight
-[Ff]orty[ -]eight
-[Ff]ifty[ -]eight
-[Ss]ixty[ -]eight
-[Ss]eventy[ -]eight
-[Ee]ighty[ -]eight
-[Nn]inety[ -]eight
-[Tt]wenty[ -]nine
-[Tt]hirty[ -]nine
-[Ff]orty[ -]nine
-[Ff]ifty[ -]nine
-[Ss]ixty[ -]nine
-[Ss]eventy[ -]nine
-[Ee]ighty[ -]nine
-[Nn]inety[ -]nine
+//
 [Tt]wenty
+[Tt]wenty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
 [Tt]hirty
+[Tt]hirty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
 [Ff]orty
+[Ff]orty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
 [Ff]ifty
+[Ff]ifty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
 [Ss]ixty
+[Ss]ixty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
 [Ss]eventy
+[Ss]eventy[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
 [Ee]ighty
+[Ee]ighty[ -]?(?:one|two|three|four|five|six|seven|eight|nine)
 [Nn]inety
+[Nn]inety[ -]?(?:one|two|three|four|five|six|seven|eight|nine)

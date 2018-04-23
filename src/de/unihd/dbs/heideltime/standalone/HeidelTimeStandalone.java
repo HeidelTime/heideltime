@@ -29,13 +29,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.uima.UIMAFramework;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.apache.uima.util.XMLInputSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.unihd.dbs.heideltime.standalone.components.JCasFactory;
 import de.unihd.dbs.heideltime.standalone.components.ResultFormatter;
@@ -51,6 +51,7 @@ import de.unihd.dbs.heideltime.standalone.components.impl.TreeTaggerWrapper;
 import de.unihd.dbs.heideltime.standalone.components.impl.UimaContextImpl;
 import de.unihd.dbs.heideltime.standalone.components.impl.XMIResultFormatter;
 import de.unihd.dbs.heideltime.standalone.exceptions.DocumentCreationTimeMissingException;
+import de.unihd.dbs.uima.annotator.heideltime.DocumentType;
 import de.unihd.dbs.uima.annotator.heideltime.HeidelTime;
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
 import de.unihd.dbs.uima.annotator.heideltime.resources.ResourceScanner;
@@ -64,6 +65,11 @@ import de.unihd.dbs.uima.types.heideltime.Dct;
  * @version 1.01
  */
 public class HeidelTimeStandalone {
+
+	/**
+	 * Logging engine
+	 */
+	private static final Logger LOG = LoggerFactory.getLogger(HeidelTimeStandalone.class);
 
 	/**
 	 * Used document type
@@ -100,12 +106,6 @@ public class HeidelTimeStandalone {
 	 */
 	private Boolean doIntervalTagging;
 
-	/**
-	 * Logging engine
-	 */
-	private static Logger logger = Logger.getLogger("HeidelTimeStandalone");
-
-	
 	/**
 	 * empty constructor.
 	 * 
@@ -215,7 +215,7 @@ public class HeidelTimeStandalone {
 	 * @param doIntervalTagging	Whether or not to invoke the IntervalTagger
 	 */
 	public void initialize(Language language, DocumentType typeToProcess, OutputType outputType, String configPath, POSTagger posTagger, Boolean doIntervalTagging) {
-		logger.log(Level.INFO, "HeidelTimeStandalone initialized with language " + this.language.getName());
+		LOG.info("HeidelTimeStandalone initialized with language {}", language.getName());
 
 		// set the POS tagger
 		this.posTagger = posTagger;
@@ -234,14 +234,13 @@ public class HeidelTimeStandalone {
 		try {
 			heidelTime = new HeidelTime();
 			heidelTime.initialize(new UimaContextImpl(language, typeToProcess, CLISwitch.VERBOSITY2.getIsActive()));
-			logger.log(Level.INFO, "HeidelTime initialized");
+			LOG.info("HeidelTime initialized");
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.log(Level.WARNING, "HeidelTime could not be initialized");
+			LOG.warn("HeidelTime could not be initialized", e);
 		}
 
 		// Initialize JCas factory -------------
-		logger.log(Level.FINE, "Initializing JCas factory...");
+		LOG.debug("Initializing JCas factory...");
 		try {
 			TypeSystemDescription[] descriptions = new TypeSystemDescription[] {
 					UIMAFramework
@@ -253,10 +252,9 @@ public class HeidelTimeStandalone {
 													.getResource(
 															Config.get(Config.TYPESYSTEMHOME)))) };
 			jcasFactory = new JCasFactoryImpl(descriptions);
-			logger.log(Level.INFO, "JCas factory initialized");
+			LOG.info("JCas factory initialized");
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.log(Level.WARNING, "JCas factory could not be initialized");
+			LOG.warn("JCas factory could not be initialized", e);
 		}
 	}
 	
@@ -265,7 +263,7 @@ public class HeidelTimeStandalone {
 	 * @param jcas jcas object
 	 */
 	private void runIntervalTagger(JCas jcas) {
-		logger.log(Level.FINEST, "Running Interval Tagger...");
+		LOG.debug("Running Interval Tagger...");
 		Integer beforeAnnotations = jcas.getAnnotationIndex().size();
 		
 		// Prepare the options for IntervalTagger's execution
@@ -280,8 +278,8 @@ public class HeidelTimeStandalone {
 		iTagger.process(jcas);
 		
 		// debug output
-		Integer afterAnnotations = jcas.getAnnotationIndex().size();
-		logger.log(Level.FINEST, "Annotation delta: " + (afterAnnotations - beforeAnnotations));
+		int afterAnnotations = jcas.getAnnotationIndex().size();
+		LOG.debug("Annotation delta: {}", afterAnnotations - beforeAnnotations);
 	}
 
 	/**
@@ -338,7 +336,7 @@ public class HeidelTimeStandalone {
 	 * @param jcas
 	 */
 	private void establishPartOfSpeechInformation(JCas jcas) {
-		logger.log(Level.FINEST, "Establishing part of speech information...");
+		LOG.debug("Establishing part of speech information...");
 
 		PartOfSpeechTagger partOfSpeechTagger = null;
 		Properties settings = new Properties();
@@ -346,7 +344,7 @@ public class HeidelTimeStandalone {
 			case ARABIC:
 				if(POSTagger.NO.equals(posTagger)) {
 					partOfSpeechTagger = new AllLanguagesTokenizerWrapper();
-					logger.log(Level.INFO, "Be aware that you use the AllLanguagesTokenizer instead of specific preprocessing for Arabic. "
+					LOG.info("Be aware that you use the AllLanguagesTokenizer instead of specific preprocessing for Arabic. "
 							+ "Thus, tagging results might be very different (and worse).");
 				} else {
 					partOfSpeechTagger = new StanfordPOSTaggerWrapper();
@@ -360,7 +358,7 @@ public class HeidelTimeStandalone {
 			case VIETNAMESE:
 				if(POSTagger.NO.equals(posTagger)) {
 					partOfSpeechTagger = new AllLanguagesTokenizerWrapper();
-					logger.log(Level.INFO, "Be aware that you use the AllLanguagesTokenizer instead of specific preprocessing for Vietnamese. "
+					LOG.info("Be aware that you use the AllLanguagesTokenizer instead of specific preprocessing for Vietnamese. "
 							+ "Thus, tagging results might be very different (and worse).");
 				} else {
 					partOfSpeechTagger = new JVnTextProWrapper();
@@ -375,7 +373,7 @@ public class HeidelTimeStandalone {
 			case CROATIAN:
 				if(POSTagger.NO.equals(posTagger)) {
 					partOfSpeechTagger = new AllLanguagesTokenizerWrapper();
-					logger.log(Level.INFO, "Be aware that you use the AllLanguagesTokenizer instead of specific preprocessing for Croatian. "
+					LOG.info("Be aware that you use the AllLanguagesTokenizer instead of specific preprocessing for Croatian. "
 							+ "Thus, tagging results might be very different (and worse).");
 				} else {
 					partOfSpeechTagger = new HunPosTaggerWrapper();
@@ -411,18 +409,18 @@ public class HeidelTimeStandalone {
 					settings.put(PartOfSpeechTagger.HUNPOS_MODEL_PATH, Config.get(Config.HUNPOS_MODEL_PATH));
 				} else if(POSTagger.NO.equals(posTagger)) {
 					partOfSpeechTagger = new AllLanguagesTokenizerWrapper();
-					logger.log(Level.INFO, "Be aware that you use the AllLanguagesTokenizer instead of specific preprocessing for the selected language. "
+					LOG.info("Be aware that you use the AllLanguagesTokenizer instead of specific preprocessing for the selected language. "
 							+ "If proper preprocessing for the specified language (." + language.getName() + ") is available, this might results in better "
 									+ "temporal tagging quality.");
 				} else {
-					logger.log(Level.FINEST, "Sorry, but you can't use that tagger.");
+					LOG.warn("Sorry, but you can't use that tagger.");
 				}
 		}
 		partOfSpeechTagger.initialize(settings);
 		partOfSpeechTagger.process(jcas);
 		partOfSpeechTagger.reset();
 
-		logger.log(Level.FINEST, "Part of speech information established");
+		LOG.trace("Part of speech information established");
 	}
 
 	private ResultFormatter getFormatter() {
@@ -495,33 +493,31 @@ public class HeidelTimeStandalone {
 	 */
 	public String process(String document, Date documentCreationTime, ResultFormatter resultFormatter)
 			throws DocumentCreationTimeMissingException {
-		logger.log(Level.INFO, "Processing started");
+		LOG.info("Processing started");
 
 		// Generate jcas object ----------
-		logger.log(Level.FINE, "Generate CAS object");
+		LOG.debug("Generate CAS object");
 		JCas jcas = null;
 		try {
 			jcas = jcasFactory.createJCas();
 			jcas.setDocumentText(document);
-			logger.log(Level.FINE, "CAS object generated");
+			LOG.debug("CAS object generated");
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.log(Level.WARNING, "Cas object could not be generated");
+			LOG.warn("Cas object could not be generated", e);
 		}
 
 		// Process jcas object -----------
 		try {
-			logger.log(Level.FINER, "Establishing preconditions...");
+			LOG.trace("Establishing preconditions...");
 			provideDocumentCreationTime(jcas, documentCreationTime);
 			establishHeidelTimePreconditions(jcas);
-			logger.log(Level.FINER, "Preconditions established");
+			LOG.trace("Preconditions established");
 
 			heidelTime.process(jcas);
 
-			logger.log(Level.INFO, "Processing finished");
+			LOG.info("Processing finished");
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.log(Level.WARNING, "Processing aborted due to errors");
+			LOG.warn("Processing aborted due to errors", e);
 		}
 
 		// process interval tagging ---
@@ -529,15 +525,14 @@ public class HeidelTimeStandalone {
 			runIntervalTagger(jcas);
 		
 		// Process results ---------------
-		logger.log(Level.FINE, "Formatting result...");
+		LOG.debug("Formatting result...");
 		// PrintAnnotations.printAnnotations(jcas.getCas(), System.out);
 		String result = null;
 		try {
 			result = resultFormatter.format(jcas);
-			logger.log(Level.INFO, "Result formatted");
+			LOG.info("Result formatted");
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.log(Level.WARNING, "Result could not be formatted");
+			LOG.warn("Result could not be formatted", e);
 		}
 
 		return result;
@@ -553,16 +548,16 @@ public class HeidelTimeStandalone {
 				// get the relevant enum
 				CLISwitch sw = CLISwitch.getEnumFromSwitch(args[i]);
 				if(sw == null) { // unsupported CLI switch
-					logger.log(Level.WARNING, "Unsupported switch: "+args[i]+". Quitting.");
-					System.exit(-1);
+					LOG.warn("Unsupported switch: "+args[i]+". Quitting.");
+					System.exit(1);
 				}
 				
 				if(sw.getHasFollowingValue()) { // handle values for switches
 					if(args.length > i+1 && !args[i+1].startsWith("-")) { // we still have an array index after this one and it's not a switch
 						sw.setValue(args[++i]);
 					} else { // value is missing or malformed
-						logger.log(Level.WARNING, "Invalid or missing parameter after "+args[i]+". Quitting.");
-						System.exit(-1);
+						LOG.warn("Invalid or missing parameter after "+args[i]+". Quitting.");
+						System.exit(1);
 					}
 				} else { // activate the value-less switches
 					sw.setValue(null);
@@ -582,43 +577,43 @@ public class HeidelTimeStandalone {
 		// start off with the verbosity recognition -- lots of the other 
 		// stuff can be skipped if this is set too high
 		if(CLISwitch.VERBOSITY2.getIsActive()) {
-			logger.setLevel(Level.ALL);
-			logger.log(Level.INFO, "Verbosity: '-vv'; Logging level set to ALL.");
+			// FIXME: not available in slf4j facade. LOG.setLevel(Level.ALL);
+			LOG.info("Verbosity: '-vv'; Logging level set to ALL.");
 			
 			// output the found language resource folders
 			String languagesList = "";
 			for(String language : ResourceScanner.getInstance().getDetectedResourceFolders()) {
 				languagesList += System.getProperty("line.separator") + "- " + language;
 			}
-			logger.log(Level.INFO, "Listing detected language folders:" + languagesList);
+			LOG.info("Listing detected language folders:" + languagesList);
 		} else if(CLISwitch.VERBOSITY.getIsActive()) {
-			logger.setLevel(Level.INFO);
-			logger.log(Level.INFO, "Verbosity: '-v'; Logging level set to INFO and above.");
+			// FIXME: not available in slf4j facade. LOG.setLevel(Level.INFO);
+			LOG.info("Verbosity: '-v'; Logging level set to INFO and above.");
 		} else {
-			logger.setLevel(Level.WARNING);
-			logger.log(Level.INFO, "Verbosity -v/-vv NOT FOUND OR RECOGNIZED; Logging level set to WARNING and above.");
+			// FIXME: not available in slf4j facade. LOG.setLevel(Level.WARNING);
+			LOG.info("Verbosity -v/-vv NOT FOUND OR RECOGNIZED; Logging level set to WARNING and above.");
 		}
 		
 		// Check input encoding
 		String encodingType = null;
 		if(CLISwitch.ENCODING.getIsActive()) {
 			encodingType = CLISwitch.ENCODING.getValue().toString();
-			logger.log(Level.INFO, "Encoding '-e': "+encodingType);
+			LOG.info("Encoding '-e': "+encodingType);
 		} else {
 			// Encoding type not found
 			encodingType = CLISwitch.ENCODING.getValue().toString();
-			logger.log(Level.INFO, "Encoding '-e': NOT FOUND OR RECOGNIZED; set to 'UTF-8'");
+			LOG.info("Encoding '-e': NOT FOUND OR RECOGNIZED; set to 'UTF-8'");
 		}
 		
 		// Check output format
 		OutputType outputType = null;
 		if(CLISwitch.OUTPUTTYPE.getIsActive()) {
 			outputType = OutputType.valueOf(CLISwitch.OUTPUTTYPE.getValue().toString().toUpperCase());
-			logger.log(Level.INFO, "Output '-o': "+outputType.toString().toUpperCase());
+			LOG.info("Output '-o': "+outputType.toString().toUpperCase());
 		} else {
 			// Output type not found
 			outputType = (OutputType) CLISwitch.OUTPUTTYPE.getValue();
-			logger.log(Level.INFO, "Output '-o': NOT FOUND OR RECOGNIZED; set to "+outputType.toString().toUpperCase());
+			LOG.info("Output '-o': NOT FOUND OR RECOGNIZED; set to "+outputType.toString().toUpperCase());
 		}
 		
 		// Check language
@@ -627,16 +622,16 @@ public class HeidelTimeStandalone {
 			language = Language.getLanguageFromString((String) CLISwitch.LANGUAGE.getValue());
 			
 			if(language == Language.WILDCARD && !ResourceScanner.getInstance().getDetectedResourceFolders().contains(language.getName())) {
-				logger.log(Level.SEVERE, "Language '-l': "+CLISwitch.LANGUAGE.getValue()+" NOT RECOGNIZED; aborting.");
+				LOG.error("Language '-l': {} NOT RECOGNIZED; aborting.", CLISwitch.LANGUAGE.getValue());
 				printHelp();
-				System.exit(-1);
+				System.exit(1);
 			} else {
-				logger.log(Level.INFO, "Language '-l': "+language.getName());	
+				LOG.info("Language '-l': "+language.getName());	
 			}
 		} else {
 			// Language not found
 			language = Language.getLanguageFromString((String) CLISwitch.LANGUAGE.getValue());
-			logger.log(Level.INFO, "Language '-l': NOT FOUND; set to "+language.toString().toUpperCase());
+			LOG.info("Language '-l': NOT FOUND; set to {}", language.toString().toUpperCase());
 		}
 
 		// Check type
@@ -648,14 +643,14 @@ public class HeidelTimeStandalone {
 				}
 				type = DocumentType.valueOf(CLISwitch.DOCTYPE.getValue().toString().toUpperCase());
 			} catch(IllegalArgumentException e) {
-				logger.log(Level.WARNING, "Type '-t': NOT RECOGNIZED. These are the available options: " + Arrays.asList(DocumentType.values()));
-				System.exit(-1);
+				LOG.warn("Type '-t': NOT RECOGNIZED. These are the available options: {}", Arrays.asList(DocumentType.values()));
+				System.exit(1);
 			}
-			logger.log(Level.INFO, "Type '-t': "+type.toString().toUpperCase());
+			LOG.info("Type '-t': "+type.toString().toUpperCase());
 		} else {
 			// Type not found
 			type = (DocumentType) CLISwitch.DOCTYPE.getValue();
-			logger.log(Level.INFO, "Type '-t': NOT FOUND; set to "+type.toString().toUpperCase());
+			LOG.info("Type '-t': NOT FOUND; set to {}", type.toString().toUpperCase());
 		}
 
 		// Check document creation time
@@ -664,21 +659,20 @@ public class HeidelTimeStandalone {
 			try {
 				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				dct = formatter.parse(CLISwitch.DCT.getValue().toString());
-				logger.log(Level.INFO, "Document Creation Time '-dct': "+dct.toString());
+				LOG.info("Document Creation Time '-dct': {}", dct.toString());
 			} catch (Exception e) {
 				// DCT was not parseable
-				logger.log(Level.WARNING, "Document Creation Time '-dct': NOT RECOGNIZED. Quitting.");
+				LOG.warn("Document Creation Time '-dct': NOT RECOGNIZED. Quitting.");
 				printHelp();
-				System.exit(-1);
+				System.exit(1);
 			}
 		} else {
 			if ((type == DocumentType.NEWS) || (type == DocumentType.COLLOQUIAL)) {
 				// Dct needed
 				dct = (Date) CLISwitch.DCT.getValue();
-				logger.log(Level.INFO, "Document Creation Time '-dct': NOT FOUND; set to local date ("
-						+ dct.toString() + ").");
+				LOG.info("Document Creation Time '-dct': NOT FOUND; set to local date ({}).", dct.toString());
 			} else {
-				logger.log(Level.INFO, "Document Creation Time '-dct': NOT FOUND; skipping.");
+				LOG.info("Document Creation Time '-dct': NOT FOUND; skipping.");
 			}
 		}
 		
@@ -694,32 +688,31 @@ public class HeidelTimeStandalone {
 			
 			try {
 				Locale.setDefault(myLocale); // try to set the locale
-				logger.log(Level.INFO, "Locale '-locale': "+myLocale.toString());
+				LOG.info("Locale '-locale': "+myLocale.toString());
 			} catch(Exception e) { // if the above fails, spit out error message and available locales
-				logger.log(Level.WARNING, "Supplied locale parameter couldn't be resolved to a working locale. Try one of these:");
-				logger.log(Level.WARNING, Arrays.asList(Locale.getAvailableLocales()).toString()); // list available locales
+				LOG.warn("Supplied locale parameter couldn't be resolved to a working locale. Try one of these:");
+				LOG.warn(Arrays.asList(Locale.getAvailableLocales()).toString()); // list available locales
 				printHelp();
-				System.exit(-1);
+				System.exit(1);
 			}
 		} else {
 			// no -locale parameter supplied: just show default locale
-			logger.log(Level.INFO, "Locale '-locale': NOT FOUND, set to environment locale: "+Locale.getDefault().toString());
+			LOG.info("Locale '-locale': NOT FOUND, set to environment locale: {}", Locale.getDefault().toString());
 		}
 		
 		// Read configuration from file
 		String configPath = CLISwitch.CONFIGFILE.getValue().toString();
 		try {
-			logger.log(Level.INFO, "Configuration path '-c': "+configPath);
+			LOG.info("Configuration path '-c': "+configPath);
 
 			readConfigFile(configPath);
 
-			logger.log(Level.FINE, "Config initialized");
+			LOG.debug("Config initialized");
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.log(Level.WARNING, "Config could not be initialized! Please supply the -c switch or "
-					+ "put a config.props into this directory.");
+			LOG.warn("Config could not be initialized! Please supply the -c switch or "
+					+ "put a config.props into this directory.", e);
 			printHelp();
-			System.exit(-1);
+			System.exit(1);
 		}
 
 		// Set the preprocessing POS tagger
@@ -728,31 +721,31 @@ public class HeidelTimeStandalone {
 			try {
 				posTagger = POSTagger.valueOf(CLISwitch.POSTAGGER.getValue().toString().toUpperCase());
 			} catch(IllegalArgumentException e) {
-				logger.log(Level.WARNING, "Given POS Tagger doesn't exist. Please specify a valid one as listed in the help.");
+				LOG.warn("Given POS Tagger doesn't exist. Please specify a valid one as listed in the help.");
 				printHelp();
-				System.exit(-1);
+				System.exit(1);
 			}
-			logger.log(Level.INFO, "POS Tagger '-pos': "+posTagger.toString().toUpperCase());
+			LOG.info("POS Tagger '-pos': {}", posTagger.toString().toUpperCase());
 		} else {
 			// Type not found
 			posTagger = (POSTagger) CLISwitch.POSTAGGER.getValue();
-			logger.log(Level.INFO, "POS Tagger '-pos': NOT FOUND OR RECOGNIZED; set to "+posTagger.toString().toUpperCase());
+			LOG.info("POS Tagger '-pos': NOT FOUND OR RECOGNIZED; set to {}", posTagger.toString().toUpperCase());
 		}
 
 		// Set whether or not to use the Interval Tagger
 		Boolean doIntervalTagging = false;
 		if(CLISwitch.INTERVALS.getIsActive()) {
 			doIntervalTagging = CLISwitch.INTERVALS.getIsActive();
-			logger.log(Level.INFO, "Interval Tagger '-it': " + doIntervalTagging.toString());
+			LOG.info("Interval Tagger '-it': {}", doIntervalTagging.toString());
 		} else {
-			logger.log(Level.INFO, "Interval Tagger '-it': NOT FOUND OR RECOGNIZED; set to " + doIntervalTagging.toString());
+			LOG.info("Interval Tagger '-it': NOT FOUND OR RECOGNIZED; set to {}", doIntervalTagging.toString());
 		}
 		
 		// make sure we have a document path
 		if (docPath == null) {
-			logger.log(Level.WARNING, "No input file given; aborting.");
+			LOG.warn("No input file given; aborting.");
 			printHelp();
-			System.exit(-1);
+			System.exit(1);
 		}
 		
 		
@@ -763,7 +756,7 @@ public class HeidelTimeStandalone {
 		FileChannel inChannel = null;
 		PrintWriter pwOut = null;
 		try {
-			logger.log(Level.INFO, "Reading document using charset: " + encodingType);
+			LOG.info("Reading document using charset: " + encodingType);
 			
 			aFile = new RandomAccessFile(docPath, "r");
 			inChannel = aFile.getChannel();
@@ -785,7 +778,7 @@ public class HeidelTimeStandalone {
 			pwOut = new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"));
 			pwOut.println(out);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.warn(e.getMessage(), e);
 		} finally {
 			if(pwOut != null) {
 				pwOut.close();
@@ -809,7 +802,7 @@ public class HeidelTimeStandalone {
 	public static void readConfigFile(String configPath) {
 		InputStream configStream = null;
 		try {
-			logger.log(Level.INFO, "trying to read in file "+configPath);
+			LOG.info("trying to read in file "+configPath);
 			configStream = new FileInputStream(configPath);
 			
 			Properties props = new Properties();
@@ -819,11 +812,10 @@ public class HeidelTimeStandalone {
 			
 			configStream.close();
 		} catch (FileNotFoundException e) {
-			logger.log(Level.WARNING, "couldn't open configuration file \""+configPath+"\". quitting.");
-			System.exit(-1);
+			LOG.error("couldn't open configuration file \"{}\". quitting.", configPath);
+			throw new RuntimeException("Cannot read HeidelTime configuration.");
 		} catch (IOException e) {
-			logger.log(Level.WARNING, "couldn't close config file handle");
-			e.printStackTrace();
+			LOG.warn("couldn't close config file handle", e);
 		}
 	}
 	

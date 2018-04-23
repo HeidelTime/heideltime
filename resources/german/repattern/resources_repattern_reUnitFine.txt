@@ -1,0 +1,20 @@
+// author: Jannik Strötgen
+// email:  stroetgen@uni-hd.de
+// date:   2011-06-10
+// This file contains regular expression patterns for unit words.
+// FORMAT: one line is one disjunction of the pattern
+[Ss]tunden?
+[Mm]inuten?
+[Ss]ekunden?
+[Hh]andelstag(?:en|e|)
+[Tt]ag(?:en|e|)
+[Ww]ochenenden?
+[Ww]ochen?
+[Mm]onat(?:en|e|)
+[Qq]uartal(?:en|e|)
+[Jj]ahr(?:en|e|)
+[Jj]ahrzehnt(?:en|e|)
+[Jj]ahrhundert(?:en|e|)
+Jh\.
+Jhd\.
+Jhdt\.

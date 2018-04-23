@@ -4,7 +4,7 @@
 
 	<groupId>com.github.heideltime</groupId>
 	<artifactId>heideltime</artifactId>
-	<version>2.2.1</version>
+	<version>2.2.2-SNAPSHOT</version>
 
 	<name>HeidelTime</name>
 	<description>HeidelTime is a multilingual cross-domain temporal tagger that extracts temporal expressions from documents and normalizes them according to the TIMEX3 annotation standard.</description>
@@ -24,6 +24,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.test.skip>true</maven.test.skip>
+		<gpg.skip>true</gpg.skip>
 	</properties>
 
 	<developers>
@@ -50,6 +52,8 @@
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<outputDirectory>${basedir}/class</outputDirectory>
+		<testSourceDirectory>test</testSourceDirectory>
+		<testOutputDirectory>${basedir}/testclass</testOutputDirectory>
 		<resources>
 			<resource>
 				<directory>${basedir}</directory>
@@ -70,8 +74,17 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<configuration>
+					<outputDirectory>
+						${project.build.directory}/lib
+					</outputDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -183,21 +196,21 @@
 		<dependency>
 			<groupId>org.apache.uima</groupId>
 			<artifactId>uimaj-core</artifactId>
-			<version>2.8.1</version>
+			<version>2.10.2</version>
 			<scope>provided</scope>
 		</dependency>
 		<!-- for the StanfordPOSTaggerWrapper -->
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
 			<artifactId>stanford-corenlp</artifactId>
-			<version>3.3.1</version>
+			<version>3.8.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<!-- these are for JVnTextPro -->
 		<dependency>
 			<groupId>args4j</groupId>
 			<artifactId>args4j</artifactId>
-			<version>2.32</version>
+			<version>2.33</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -205,6 +218,33 @@
 			<artifactId>lbfgs</artifactId>
 			<version>0.1</version>
 			<scope>provided</scope>
+		</dependency>
+		<!-- Logging facade -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.25</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Default logging - you can mask these -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>[1.2.3,)</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>[1.2.3,)</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- JUnit4 testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>[4.12,5)</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

@@ -27,9 +27,10 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ConfigurationManager;
 import org.apache.uima.resource.impl.ConfigurationManager_impl;
 import org.apache.uima.resource.impl.ResourceManager_impl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.unihd.dbs.uima.annotator.heideltime.resources.Language;
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 import de.unihd.dbs.uima.types.heideltime.Sentence;
 import de.unihd.dbs.uima.types.heideltime.Token;
 
@@ -41,6 +42,8 @@ import de.unihd.dbs.uima.types.heideltime.Token;
  *
  */
 public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(HunPosTaggerWrapper.class);
 	
 	public static final String PARAM_LANGUAGE = "language";
 	public static final String PARAM_PATH = "hunpos_path";
@@ -164,7 +167,7 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 			}
 			
 			if(hunposRoot == null || !new File(hunposRoot).exists()) {
-				Logger.printError(HunPosWrapper.class, "The environment variable HUNPOS_HOME was not set, or set to \"" + hunposRoot + "\", which does not exist.");
+				LOG.error("The environment variable HUNPOS_HOME was not set, or set to \"" + hunposRoot + "\", which does not exist.");
 				System.exit(-1);
 			}
 			File hunPosRootFile = new File(hunposRoot);
@@ -176,7 +179,7 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 			if(modelFile.exists()) {
 				command.add(modelFile.getAbsolutePath());
 			} else {
-				Logger.printError(HunPosWrapper.class, "The supplied model path " + modelPath + " does not exist.");
+				LOG.error("The supplied model path " + modelPath + " does not exist.");
 				System.exit(-1);
 			}
 		}
@@ -190,13 +193,12 @@ public class HunPosTaggerWrapper extends JCasAnnotator_ImplBase{
 			try {
 				p = Runtime.getRuntime().exec(cmd);
 			} catch (IOException e2) {
-				Logger.printError(HunPosWrapper.class, "An error occured while trying to call HunPos at " + System.getenv(HUNPOS_HOME));
-				e2.printStackTrace();
+				LOG.error("An error occured while trying to call HunPos at " + System.getenv(HUNPOS_HOME), e2);
 			}
 			
 			Writer writer = new OutputStreamWriter(p.getOutputStream());
 
-			Logger.printDetail(HunPosWrapper.class, "Starting the POS tagging process.");
+			LOG.debug("Starting the POS tagging process.");
 			
 			final List<Token> tokens = new ArrayList<Token>();
 			

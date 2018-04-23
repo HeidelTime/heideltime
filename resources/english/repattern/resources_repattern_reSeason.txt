@@ -3,8 +3,7 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for seasons.
 // FORMAT: one line is one disjunction of the pattern
-[Ss]pring
-[Ss]ummer
+[Ss](?:pring|ummer)
 [Ff]all
 [Aa]utumn
 [Ww]inter

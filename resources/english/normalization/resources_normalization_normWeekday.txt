@@ -18,4 +18,4 @@
 "Friday","friday"
 "Saturday","saturday"
 "Sunday","sunday"
-
+"[Ww]e[dn][nd]e?sday","wednesday"

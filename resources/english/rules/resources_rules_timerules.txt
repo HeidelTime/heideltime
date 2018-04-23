@@ -14,12 +14,12 @@
 // EXAMPLE r1c-1: 12/29/2000 20:29
 // EXAMPLE r1d-1: 12/29/2000 20:29:29
 // EXAMPLE r1e-1: 12/29/2000 20:29:29.79
-RULENAME="time_r1a",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )%reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7):group(8)"
-RULENAME="time_r1b",EXTRACTION="(%reYear4Digit-%reMonthNumber-%reDayNumber)(T| )%reTimeHour:%reTimeMinute",NORM_VALUE="group(2)-group(3)-group(4)Tgroup(6):group(7)"
-RULENAME="time_r1c",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6)"
-RULENAME="time_r1d",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6):group(7)"
-RULENAME="time_r1e",EXTRACTION="(%reMonthNumber/%reDayNumber/%reYear4Digit) %reTimeHour:%reTimeMinute:%reTimeMinute\.%reYear2Digit",NORM_VALUE="group(4)-group(2)-group(3)Tgroup(5):group(6):group(7).group(8)"
-RULENAME="time_r1f",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber-%reTimeHour(?:-|:)%reTimeMinute(?:-|:)%reTimeMinute",NORM_VALUE="group(1)-group(2)-group(3)Tgroup(4):group(5):group(6)"
+RULENAME="time_r1a",EXTRACTION="%reYear4Digit-%reMonthNumber-%reDayNumber[T ]%reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(1)-group(2)-group(3)Tgroup(4):group(5):group(6)"
+RULENAME="time_r1b",EXTRACTION="%reYear4Digit-%reMonthNumber-%reDayNumber[T ]%reTimeHour:%reTimeMinute",NORM_VALUE="group(1)-group(2)-group(3)Tgroup(4):group(5)"
+RULENAME="time_r1c",EXTRACTION="%reMonthNumber/%reDayNumber/%reYear4Digit %reTimeHour:%reTimeMinute",NORM_VALUE="group(3)-group(1)-group(2)Tgroup(4):group(5)"
+RULENAME="time_r1d",EXTRACTION="%reMonthNumber/%reDayNumber/%reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute",NORM_VALUE="group(3)-group(1)-group(2)Tgroup(4):group(5):group(6)"
+RULENAME="time_r1e",EXTRACTION="%reMonthNumber/%reDayNumber/%reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute\.%reYear2Digit",NORM_VALUE="group(3)-group(1)-group(2)Tgroup(4):group(5):group(6).group(7)"
+RULENAME="time_r1f",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber-%reTimeHour[-:]%reTimeMinute[-:]%reTimeMinute",NORM_VALUE="group(1)-group(2)-group(3)Tgroup(4):group(5):group(6)"
 
 // time_r2
 // EXAMPLE r2a-1: 09-24-99 1145EST (TimeStamp style with timezone information)
@@ -27,10 +27,10 @@ RULENAME="time_r1f",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber-%reTimeH
 // EXAMPLE r2c-1: Wed, 29 Dec 2004 00:28:16 +0000
 // EXAMPLE r2d-1: Sat, 29 Jan 2005 17:21:13 -0600
 // EXAMPLE r2d-2: 1 Feb 2005 16:13:33 +1300
-RULENAME="time_r2a",EXTRACTION="(%reMonthNumber-%reDayNumber-%reYear2Digit)( %reTimeHour(:)?%reTimeMinute)%reTimezone",NORM_VALUE="UNDEF-centurygroup(4)-group(2)-group(3)T%normMinute(group(6)):%normMinute(group(8))%normTimezone(group(9))"
-RULENAME="time_r2b",EXTRACTION="%reMonthLong %reDayNumber, %reYear4Digit %reTimeHour(:)?%reTimeMinute %reTimezone",NORM_VALUE="group(3)-%normMonth(group(1))-%normDay(group(2))T%normMinute(group(4)):%normMinute(group(6))"
-RULENAME="time_r2c",EXTRACTION="((Mon|Tue|Wed|Thu|Fri|Sat|Sun), )?%reDayNumber (%reMonthLong|%reMonthShort) %reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute (\+|-)0000",NORM_VALUE="group(7)-%normMonth(group(4))-%normDay(group(3))Tgroup(8):group(9):group(10)"
-RULENAME="time_r2d",EXTRACTION="((Mon|Tue|Wed|Thu|Fri|Sat|Sun), )?%reDayNumber (%reMonthLong|%reMonthShort) %reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute (\+|-)(\d\d)00",NORM_VALUE="group(7)-%normMonth(group(4))-%normDay(group(3))Tgroup(8):group(9):group(10)group(11)group(12)"
+RULENAME="time_r2a",EXTRACTION="%reMonthNumber-%reDayNumber-%reYear2Digit %reTimeHour:?%reTimeMinute%reTimezone",NORM_VALUE="UNDEF-centurygroup(3)-group(1)-group(2)T%normMinute(group(4)):%normMinute(group(5))%normTimezone(group(6))"
+RULENAME="time_r2b",EXTRACTION="%reMonthLong %reDayNumber, %reYear4Digit %reTimeHour:?%reTimeMinute %reTimezone",NORM_VALUE="group(3)-%normMonth(group(1))-%normDay(group(2))T%normMinute(group(4)):%normMinute(group(5))"
+// matched by r2d RULENAME="time_r2c",EXTRACTION="(?:Mon, |Tue, |Wed, |Thu, |Fri, |Sat, |Sun, )?%reDayNumber %(reMonthLong|reMonthShort) %reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute (\+|-)0000",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))Tgroup(4):group(5):group(6)"
+RULENAME="time_r2d",EXTRACTION="(?:Mon, |Tue, |Wed, |Thu, |Fri, |Sat, |Sun, )?%reDayNumber %(reMonthLong|reMonthShort) %reYear4Digit %reTimeHour:%reTimeMinute:%reTimeMinute (\+|-)(\d\d)00",NORM_VALUE="group(3)-%normMonth(group(2))-%normDay(group(1))Tgroup(4):group(5):group(6)group(7)group(8)"
 RULENAME="time_r2e",EXTRACTION="(%reMonthLong %reDayNumber, %reTimeHour %reTimezone) in %reYear4Digit",NORM_VALUE="group(6)-%normMonth(group(2))-%normDay(group(3))T%normMinute(group(4)):00",OFFSET="group(1)-group(1)"
 RULENAME="time_r2f",EXTRACTION="(%reMonthLong %reDayNumber, %reTimeHour:%reTimeMinute%reTimezone) in %reYear4Digit",NORM_VALUE="group(7)-%normMonth(group(2))-%normDay(group(3))T%normMinute(group(4)):%normMinute(group(5))",OFFSET="group(1)-group(1)"
 
@@ -59,7 +59,7 @@ RULENAME="time_r3e",EXTRACTION="%reThisNextLast %reWeekday %rePartOfDay",NORM_VA
 // EXAMPLE r4a-1: earlier this afternoon
 // EXAMPLE r4a-2: later last night
 // EXAMPLE r4b-1: tonight
-RULENAME="time_r4a",EXTRACTION="(([Ee]arlier|[Ll]ater|[Ee]arly) )?%reThisNextLast %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(3))-dayT%normPartOfDay(group(4))"
+RULENAME="time_r4a",EXTRACTION="(?:[Ee]arlier |[Ll]ater |[Ee]arly )?%reThisNextLast %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normPartOfDay(group(2))"
 RULENAME="time_r4b",EXTRACTION="([Tt]onight)",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(1))"
 
 ///////////////////////////
@@ -72,15 +72,15 @@ RULENAME="time_r4b",EXTRACTION="([Tt]onight)",NORM_VALUE="UNDEF-this-dayT%normPa
 // EXAMPLE r5c-1: 11:30 a.m.
 // EXAMPLE r5d-1: 9:30 p.m.
 // EXAMPLE r5e-1: 10:30:34 a.m.
-// EXAMPLE r5e-1: 10:30:34 p.m.
-RULENAME="time_r5a",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(3)):00",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r5b",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(3)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r5c",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r5d",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r5e",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r5f",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r5g",EXTRACTION="(%reApproximate )?%reTimeHour%reTimeMinute[\s]*[Aa][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r5h",EXTRACTION="(%reApproximate )?%reTimeHour%reTimeMinute[\s]*[Pp][\.]?[Mm][\.]?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+// EXAMPLE r5f-1: 10:30:34 p.m.
+RULENAME="time_r5a",EXTRACTION="(?:%reApproximate )?%reTimeHour\s*[Aa]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):00",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r5b",EXTRACTION="(?:%reApproximate )?%reTimeHour\s*[Pp]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(2)),12):00",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r5c",EXTRACTION="(?:%reApproximate )?%reTimeHour:%reTimeMinute\s*[Aa]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):group(3)",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r5d",EXTRACTION="(?:%reApproximate )?%reTimeHour:%reTimeMinute\s*[Pp]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(2)),12):group(3)",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r5e",EXTRACTION="(?:%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute\s*[Aa]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):group(3):group(4)",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r5f",EXTRACTION="(?:%reApproximate )?%reTimeHour:%reTimeMinute:%reTimeMinute\s*[Pp]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(2)),12):group(3):group(4)",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r5g",EXTRACTION="(?:%reApproximate )?%reTimeHour%reTimeMinute\s*[Aa]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(2)):group(3)",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r5h",EXTRACTION="(?:%reApproximate )?%reTimeHour%reTimeMinute\s*[Pp]\.?[Mm]\.?",NORM_VALUE="UNDEF-REF-day-PLUS-0T%SUM%(%normDay(group(2)),12):group(3)",NORM_MOD="%normApprox4Dates(group(1))"
 
 
 // time_r6
@@ -89,24 +89,24 @@ RULENAME="time_r5h",EXTRACTION="(%reApproximate )?%reTimeHour%reTimeMinute[\s]*[
 // EXAMPLE r6b-1: 9 pm Wednesday
 // EXAMPLE r6c-1: 9:30 a.m. Wednesday
 // EXAMPLE r6d-1: 9:30 p.m. Wednesday
-RULENAME="time_r6a",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*[Aa][\.]?[Mm][\.]? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(4))T%normDay(group(3)):00",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r6b",EXTRACTION="(%reApproximate )?%reTimeHour[\s]*[Pp][\.]?[Mm][\.]? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(4))T%SUM%(%normDay(group(3)),12):00",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r6c",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*[Aa][\.]?[Mm][\.]? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(5))T%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r6d",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute[\s]*[Pp][\.]?[Mm][\.]? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(5))T%SUM%(%normDay(group(3)),12):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r6e",EXTRACTION="(%reApproximate )?%reTimeHour:%reTimeMinute %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(5))T%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r6a",EXTRACTION="(?:%reApproximate )?%reTimeHour\s*[Aa]\.?[Mm]\.? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(3))T%normDay(group(2)):00",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r6b",EXTRACTION="(?:%reApproximate )?%reTimeHour\s*[Pp]\.?[Mm]\.? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(3))T%SUM%(%normDay(group(2)),12):00",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r6c",EXTRACTION="(?:%reApproximate )?%reTimeHour:%reTimeMinute\s*[Aa]\.?[Mm]\.? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(4))T%normDay(group(2)):group(3)",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r6d",EXTRACTION="(?:%reApproximate )?%reTimeHour:%reTimeMinute\s*[Pp]\.?[Mm]\.? %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(4))T%SUM%(%normDay(group(2)),12):group(3)",NORM_MOD="%normApprox4Dates(group(1))"
+RULENAME="time_r6e",EXTRACTION="(?:%reApproximate )?%reTimeHour:%reTimeMinute %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(4))T%normDay(group(2)):group(3)",NORM_MOD="%normApprox4Dates(group(1))"
 
 
 // time_r7
 // added 2015-03-18 (jannik)
-RULENAME="time_r7a",EXTRACTION="(%reApproximate )?%reTimeHour%reTimeMinute %reTimezone",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
-RULENAME="time_r7b",EXTRACTION="((%reApproximate )?%reTimeHour%reTimeMinute %reTimezone) on %reMonthLong %reDayNumber",NORM_VALUE="UNDEF-year-%normMonth(group(7))-%normDay(group(8))T%normDay(group(4)):group(5)",NORM_MOD="%normApprox4Dates(group(3))",OFFSET="group(1)-group(1)"
+RULENAME="time_r7a",EXTRACTION="(%reApproximate )?%reTimeHour:?%reTimeMinute %reTimezone",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normDay(group(3)):group(4)",NORM_MOD="%normApprox4Dates(group(2))"
+RULENAME="time_r7b",EXTRACTION="((%reApproximate )?%reTimeHour:?%reTimeMinute %reTimezone) on %reMonthLong %reDayNumber",NORM_VALUE="UNDEF-year-%normMonth(group(7))-%normDay(group(8))T%normDay(group(4)):group(5)",NORM_MOD="%normApprox4Dates(group(3))",OFFSET="group(1)-group(1)"
 
 
 // time_r8
 // EXAMPLE r8a: the morning of April 18, 1775
-// EXAMPLE r8c: the morning of April 18
-RULENAME="time_r8a",EXTRACTION="([Tt]he )?%rePartOfDay of (%reMonthLong|%reMonthShort) (%reDayNumberTh|%reDayNumber)[\s]?,? %reYear4Digit(, %reWeekday)?",NORM_VALUE="group(9)-%normMonth(group(3))-%normDay(group(6))T%normPartOfDay(group(2))"
-RULENAME="time_r8b",EXTRACTION="([Tt]he )?%rePartOfDay of (%reMonthLong|%reMonthShort) (%reDayNumberTh|%reDayNumber)",NORM_VALUE="UNDEF-year-%normMonth(group(3))-%normDay(group(6))T%normPartOfDay(group(2))"
-RULENAME="time_r8c",EXTRACTION="([Tt]he )?%rePartOfDay of (the )?(%reDayWordTh|%reDayNumberTh|%reDayNumber)( of | )(%reMonthLong|%reMonthShort) %reYear4Digit",NORM_VALUE="group(12)-%normMonth(group(9))-%normDay(group(4))T%normPartOfDay(group(2))"
-RULENAME="time_r8d",EXTRACTION="([Tt]he )?%rePartOfDay of (the )?(%reDayWordTh|%reDayNumberTh|%reDayNumber)( of | )(%reMonthLong|%reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(9))-%normDay(group(4)))T%normPartOfDay(group(2))"
+// EXAMPLE r8b: the morning of April 18
+RULENAME="time_r8a",EXTRACTION="(?:[Tt]he )?%rePartOfDay of %(reMonthLong|reMonthShort) %(reDayNumber|reDayNumberTh)\s?,? %reYear4Digit(?:, %reWeekday)?",NORM_VALUE="group(4)-%normMonth(group(2))-%normDay(group(3))T%normPartOfDay(group(1))"
+RULENAME="time_r8b",EXTRACTION="(?:[Tt]he )?%rePartOfDay of %(reMonthLong|reMonthShort) %(reDayNumber|reDayNumberTh)",NORM_VALUE="UNDEF-year-%normMonth(group(2))-%normDay(group(3))T%normPartOfDay(group(1))"
+RULENAME="time_r8c",EXTRACTION="(?:[Tt]he )?%rePartOfDay of (?:the )?%(reDayNumber|reDayNumberTh|reDayWordTh) (?:of )?%(reMonthLong|reMonthShort) %reYear4Digit",NORM_VALUE="group(4)-%normMonth(group(3))-%normDay(group(2))T%normPartOfDay(group(1))"
+RULENAME="time_r8d",EXTRACTION="(?:[Tt]he )?%rePartOfDay of (?:the )?%(reDayNumber|reDayNumberTh|reDayWordTh) (?:of )?%(reMonthLong|reMonthShort)",NORM_VALUE="UNDEF-year-%normMonth(group(3))-%normDay(group(2))T%normPartOfDay(group(1))"
 

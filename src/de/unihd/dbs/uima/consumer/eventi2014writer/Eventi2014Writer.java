@@ -30,15 +30,17 @@ import org.apache.uima.collection.CasConsumer_ImplBase;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.ResourceProcessException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
 import de.unihd.dbs.uima.types.heideltime.Dct;
 import de.unihd.dbs.uima.types.heideltime.Timex3;
 import de.unihd.dbs.uima.types.heideltime.Timex3Interval;
 import de.unihd.dbs.uima.types.heideltime.Token;
 
 public class Eventi2014Writer extends CasConsumer_ImplBase {
-	private Class<?> component = this.getClass();
+	/** Class logger */
+	private static final Logger LOG = LoggerFactory.getLogger(Eventi2014Writer.class);
 
 	private static final String PARAM_OUTPUTDIR = "OutputDir";
 	
@@ -52,13 +54,13 @@ public class Eventi2014Writer extends CasConsumer_ImplBase {
 		
 		if (!mOutputDir.exists()) {
 			if(!mOutputDir.mkdirs()) {
-				Logger.printError(component, "Couldn't create non-existant folder "+mOutputDir.getAbsolutePath());
+				LOG.error("Couldn't create non-existant folder "+mOutputDir.getAbsolutePath());
 				throw new ResourceInitializationException();
 			}
 		}
 		
 		if(!mOutputDir.canWrite()) {
-			Logger.printError(component, "Folder "+mOutputDir.getAbsolutePath()+" is not writable.");
+			LOG.error("Folder "+mOutputDir.getAbsolutePath()+" is not writable.");
 			throw new ResourceInitializationException();
 		}
 	}
@@ -234,14 +236,12 @@ public class Eventi2014Writer extends CasConsumer_ImplBase {
 			bw.append(fullDocument);
 			
 		} catch (IOException e) { // something went wrong with the bufferedwriter
-			e.printStackTrace();
-			Logger.printError(component, "File "+outFile.getAbsolutePath()+" could not be written.");
+			LOG.error("File "+outFile.getAbsolutePath()+" could not be written.", e);
 		} finally { // clean up for the bufferedwriter
 			try {
 				bw.close();
 			} catch(IOException e) {
-				e.printStackTrace();
-				Logger.printError(component, "File "+outFile.getAbsolutePath()+" could not be closed.");
+				LOG.error("File "+outFile.getAbsolutePath()+" could not be closed.", e);
 			}
 		}
 	}

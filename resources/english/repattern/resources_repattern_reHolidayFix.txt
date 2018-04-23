@@ -5,62 +5,48 @@
 // FORMAT: one line is one disjunction of the pattern
 
 // http://en.wikipedia.org/wiki/New_Year%27s_Day
-New Year's Day
+New Year'?s [Dd]ay
 
 // http://en.wikipedia.org/wiki/Groundhog_Day
-Groundhog Day
+Groundhog [Dd]ay
 
 // http://en.wikipedia.org/wiki/Valentine%27s_Day
-Saint Valentines Day
-St\. Valentines Day
-Valentines Day
-St\. Valentine's Day
-Saint Valentine's Day
-Valentine's Day
-Saint Valentines' Day
-St\. Valentines' Day
-Valentines' Day
+(?:Saint |St\. )?Valentine'?s'? [Dd]ay
 
 // http://en.wikipedia.org/wiki/Patriots%27_Day
-Patriots Day
-Patriots' Day
-Patriot's Day
+Patriot'?s'? [Dd]ay
 
 // http://en.wikipedia.org/wiki/German-American_Day
-German-American Day
+German-American [Dd]ay
 
 // http://en.wikipedia.org/wiki/White_Cane_Safety_Day
-White Cane Safety Day
+White Cane Safety [Dd]ay
 
 // http://en.wikipedia.org/wiki/Boss%27s_Day
-Boss's Day
-Bosses Day
-Bosses' Day
+Boss(?:'s|es|es') [Dd]ay
 //won't work, because of the "$" in the string
-//The Bo$$ Day
-National Boss Day
+The Bo\$\$ [Dd]ay
+National Boss [Dd]ay
 
 // http://en.wikipedia.org/wiki/Independence_Day_%28US%29
-Independence Day
+Independence [Dd]ay
 Fourth of July
 
 // http://en.wikipedia.org/wiki/Veterans_Day
-Veterans Day
-Armistice Day
+Veterans [Dd]ay
+Armistice [Dd]ay
 
 // http://en.wikipedia.org/wiki/Remembrance_Day
-Remembrance Day
-Poppy Day
+Remembrance [Dd]ay
+Poppy [Dd]ay
 
 // http://en.wikipedia.org/wiki/Epiphany_%28holiday%29
 Epiphany
 Theophany
 
 // http://en.wikipedia.org/wiki/Hallowe%27en
-Halloween
-All Hallows’ Evening
-Hallowe'en
-All Hallows' Eve
+Hallowe'?en
+All Hallows' [Ee]ve(?:ning)?
 
 // http://en.wikipedia.org/wiki/Assumption_of_Mary
 Assumption of Mary
@@ -68,65 +54,35 @@ Assumption of the Blessed Virgin Mary into Heaven
 The Assumption
 
 // http://en.wikipedia.org/wiki/Reformation_Day
-Reformation Day
+Reformation [Dd]ay
 
 // http://en.wikipedia.org/wiki/All_Saints%27_Day
-All Saints' Day
-All Saints
+All Saints'?(?: [Dd]ay)?
 Solemnity of All Saints
 All Hallows
 Hallowmas
 
 
 // http://en.wikipedia.org/wiki/Christmas
-Christmas Eve
-Christmas Day
-Christmas
-Xmas
-XMAS
+Christmas(?: [Ee]ve| [Dd]ay)?
+X-?(?:mas|MAS)
 Noel
 Yule
 
 // http://en.wikipedia.org/wiki/New_Year%27s_Eve
-New Year's Eve
+New Year'?s [Ee]ve
 Hogmanay
 Calennig
 
 // http://en.wikipedia.org/wiki/May_Day
-May Day
-International Workers Day
-International Worker's Day
-International Workers' Day
+May [Dd]ay
+International Worker'?s'? [Dd]ay
 
 // http://en.wikipedia.org/wiki/Boxing_Day
-Boxing Day
+Boxing [Dd]ay
 
 // http://en.wikipedia.org/wiki/St._Patrick%27s_Day
-Saint Patricks Day
-St\. Patricks Day
-St\. Paddys Day
-Saint Paddys Day
-St\. Pattys Day
-Saint Pattys Day
-
-Saint Patrick's Day
-St\. Patrick's Day
-St\. Paddy's Day
-Saint Paddy's Day
-St\. Patty's Day
-Saint Patty's Day
-
-Saint Patricks' Day
-St\. Patricks' Day
-St\. Paddys' Day
-Saint Paddys' Day
-St\. Pattys' Day
-Saint Pattys' Day
+(?:Saint|St\.) Pa(?:trick|ddy|tty)'?s'? [Dd]ay
 
 // http://en.wikipedia.org/wiki/St._Andrew%27s_Day
-Saint Andrews Day
-Saint Andrew's Day
-Saint Andrews' Day
-St\. Andrews Day
-St\. Andrew's Day
-St\. Andrews' Day
+(?:Saint|St\.) Andrew'?s'? [Dd]ay

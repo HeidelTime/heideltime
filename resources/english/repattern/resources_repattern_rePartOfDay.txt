@@ -3,12 +3,9 @@
 // date:   2011-06-10
 // This file contains regular expression patterns for parts of days.
 // FORMAT: one line is one disjunction of the pattern
-[Mm]id-afternoon
+// 2016-01-13 Folded patterns by first letter for performance -- Erich
+[Mm](?:orning|id-afternoon|idnight|id-day)
+[Nn](?:oon|ight)
 [Aa]fternoon
-[Nn]oon
-[Mm]idnight
-[Mm]id-day
-[Nn]ight
 [Tt]onight
-[Mm]orning
 [Ee]vening

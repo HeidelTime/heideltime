@@ -5,8 +5,8 @@
 // FORMAT: one line is one disjunction of the pattern
 [Vv]ormittag
 [Nn]achmittag
-[Mm]ittag
+[Mm]ittag(?:sstunden|)
 [Mm]itternacht
-[Nn]acht
-[Mm]orgen
-[Aa]bend
+[Nn]acht(?:stunden|)
+[Mm]orgen(?:stunden|)
+[Aa]bend(?:stunden|)

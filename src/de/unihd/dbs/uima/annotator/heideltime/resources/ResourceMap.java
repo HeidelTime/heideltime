@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import de.unihd.dbs.uima.annotator.heideltime.utilities.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ResourceMap implements Map<String, String> {
 	HashMap<String, File> outerFiles = new HashMap<String, File>();
@@ -52,7 +52,7 @@ public class ResourceMap implements Map<String, String> {
 			try {
 				is = new FileInputStream(outerFiles.get(key));
 			} catch(FileNotFoundException e) {
-				Logger.printError("File " + key + " disppeared while loading resources.");
+				LoggerFactory.getLogger(ResourceMap.class).error("File " + key + " disppeared while loading resources.");
 			}
 		} else if(innerFiles.containsKey(key)) {
 			is = this.getClass().getClassLoader().getResourceAsStream(innerFiles.get(key));
