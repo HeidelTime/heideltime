@@ -128,7 +128,7 @@ class ResolveAmbiguousValues {
 		if (!ambigString.startsWith("UNDEF"))
 			return ambigString;
 		// If available, parse document creation time:
-		ParsedDct dct = null; // (documentType != DocumentType.NARRATIVE) ? ParsedDct.read(jcas) : null;
+		ParsedDct dct = ParsedDct.read(jcas); // was: (documentType != DocumentType.NARRATIVE) ? ParsedDct.read(jcas) : null;
 
 		// get the last tense (depending on the part of speech tags used in front or behind the expression)
 		Tense last_used_tense = getLastTense(t_i, jcas, language);
