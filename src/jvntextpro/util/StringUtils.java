@@ -524,25 +524,19 @@ public class StringUtils {
 	/**
 	 * Counts the number of occurrences of a character in the specified <tt>String</tt>.
 	 * 
-	 * @param s   the <tt>String</tt> to analyze.
-	 * @param c   the character to search for.
+	 * @param value   the <tt>String</tt> to analyze.
+	 * @param match   the character to search for.
 	 * 
 	 * @return number of occurrences found.
 	 */
-	public static int countOccurrences( String s, char c )
-	{
-		int count = 0;
-		int index = 0;
-		while( true )
-		{
-			index = s.indexOf( c, index );
-			if( index == -1 )
-			{
-				break;
-			}
-			count++;
+	public static int countOccurrences(String value, char match) {
+	    int count = 0;
+	    for (char c : value.toCharArray()) {
+		if (c == match) {
+		   ++count;
 		}
-		return count;
+	    }
+	    return count;
 	}
 	
 	/**
