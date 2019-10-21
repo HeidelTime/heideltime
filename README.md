@@ -64,6 +64,7 @@ We want to thank the following researchers for their efforts to develop HeidelTi
 3. Russian resources: Elena Klyachko
 4. [Croatian resources](http://nl.ijs.si/isjt14/proceedings/isjt2014_17.pdf): Luka Skukan, University of Zagreb
 5. Portuguese resources: Zunsik Lim
+6. Swedish resources: Maja Geulig
 
 Please feel free to use our automatically created resources as starting point, if you plan to manually address a language. 
 
