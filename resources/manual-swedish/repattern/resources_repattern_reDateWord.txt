@@ -1,0 +1,21 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+[Ff]örrgår
+[Ii] förrgår
+[Ii]förrgår
+[Gg]årdag
+[Ii] går
+[Ii]går
+[Dd]agen innan
+[Dd]ag innan
+[Ii]dag
+[Ii] dag
+[Ii]morgon
+[Ii] morgon
+[Mm]orgondag
+[Nn]ästa dag
+[Öö]vermorgon
+[Ii] övermorgon
+
+[Dd]agen därpå

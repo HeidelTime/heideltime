@@ -1,0 +1,22 @@
+// author: Maja Geulig, using on German resources created by H. Pfeiffer
+// date:   2019-10-01
+// This file contains "moveable holidays". They can be calculated realtive to the Eastersunday like many christian holidays or relative to a date.
+// The placeholders are replaced with the value from the ruleset.
+// available functions: EasterSunday(<YEAR>, <numberOfDaysToAdd>), WeekdayRelativeTo(<DateToBeRelativeTo>, <Weekday>, <numberOfWeekdays>, <countItself>)
+// available placeholder: DATE, YEAR, MONTH, DAY 
+// sunday=1, monday=2, tuesday=3, wednesday=4, thursday=5, friday=6, saturday=7
+// FORMAT: "holiday","funcDateCalc(<function>(<arguments>))"
+// the reference of the values is given in the repattern file
+
+"[Kk]risti himmelsfärdsdag","funcDateCalc(EasterSunday(YEAR, 39))"
+"[Kk]risti himmelsfärdsdagen","funcDateCalc(EasterSunday(YEAR, 39))"
+"[Pp]ingstdagen","funcDateCalc(EasterSunday(YEAR, 49))"
+"[Pp]ingstafton","funcDateCalc(EasterSunday(YEAR, 48))"
+"[Pp]ingst","funcDateCalc(EasterSunday(YEAR, 49))"
+"[Pp]åskdag","funcDateCalc(EasterSunday(YEAR, 0))"
+"[Pp]åskdagen","funcDateCalc(EasterSunday(YEAR, 0))"
+"[Aa]nnandag [Pp]åsk","funcDateCalc(EasterSunday(YEAR, 1))"
+"[Pp]åsk","funcDateCalc(EasterSunday(YEAR, 0))"
+"[Pp]åskafton","funcDateCalc(EasterSunday(YEAR, -1))"
+"[Ll]ångfredagen","funcDateCalc(EasterSunday(YEAR, -2))"
+"[Ss]kärtorsdagen","funcDateCalc(EasterSunday(YEAR, -3))"

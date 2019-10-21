@@ -1,0 +1,7 @@
+// author: Maja Geulig
+// date:   2019-10-01
+// words that can only come after a unit
+
+[Ss]edan
+[Tt]illbaka
+[Dd]ärpå

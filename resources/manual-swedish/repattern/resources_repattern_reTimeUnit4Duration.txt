@@ -1,0 +1,9 @@
+// author: Maja Geulig
+// date:   2019-10-01
+
+[Tt]imme
+[Tt]immar
+[Mm]inut(en)?
+[Mm]inuter(na)?
+[Ss]ekund
+[Ss]ekunder(na)?

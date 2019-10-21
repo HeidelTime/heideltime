@@ -1,0 +1,10 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+"[Ff].Kr","BC"
+"[Ff].v.t.","BC"
+"[Ff]vt","BC"
+"[Ee].Kr.",""
+"[Vv]t",""
+"[Vv].t.",""
+"[Ee].v.t.",""

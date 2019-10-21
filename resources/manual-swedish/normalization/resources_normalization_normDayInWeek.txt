@@ -1,0 +1,10 @@
+// author: Maja Geulig
+// date:   2019-10-01
+
+"[Mm]åndags?","1"
+"[Tt]isdags?","2"
+"[Oo]nsdags?","3"
+"[Tt]orsdags?","4"
+"[Ff]redags?","5"
+"[Ll]ördags?","6"
+"[Ss]öndags?","7"

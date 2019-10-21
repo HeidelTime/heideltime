@@ -1,0 +1,19 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+[Dd]en här
+[Dd]enna
+[Dd]en
+[Dd]et här
+[Dd]etta
+[Nn]uvarande
+[Nn]ästa
+[Nn]ära
+[Nn]ärmast
+[Nn]äst
+[Ss]ist
+[Ss]enast
+[Ff]örra
+[Ss]enaste
+[Ff]örra
+[Ff]öregående

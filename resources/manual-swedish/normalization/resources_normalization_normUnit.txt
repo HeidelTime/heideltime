@@ -1,0 +1,30 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+"[Dd]ygn","day"
+"[Dd]ag","day"
+"[Dd]aget,"day"
+"[Dd]agar,"day"
+"[Dd]agarna,"day"
+"[Hh]elg","week-WE"
+"[Vv]eckoslut","week-WE"
+"[Vv]ecka","week"
+"[Vv]eckan","week"
+"[Mm]ånad","month"
+"[Mm]ånaden","month"
+"[Kk]vartal","quarter"
+"[Kk]vartalet","quarter"
+"[Rr]äkenskapsår","year"
+"[Ff]inansår","year"
+"[Bb]udgetår","year"
+"[Rr]äkenskapsåret","year
+"[Ff]inansåret","year
+"[Bb]udgetåret","year
+"[Åå]r","year"
+"[Åå]ret","year"
+"[Dd]ekad","decade"
+"[Åå]rtionde","decade"
+"[Dd]ecennium","decade"
+"[Ss]ekel","century"
+"[Ss]eklet","century"
+"[Åå]rhundrade","century"

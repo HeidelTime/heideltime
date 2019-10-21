@@ -1,0 +1,10 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+[Ff].Kr
+[Ff].v.t.
+[Ff]vt
+[Ee].Kr.
+[Vv]t
+[Vv].t.
+[Ee].v.t.

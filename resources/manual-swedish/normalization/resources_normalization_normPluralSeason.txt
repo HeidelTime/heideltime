@@ -1,0 +1,7 @@
+// author: Maja Geulig
+// date:   2019-10-01
+
+"[Vv]årarna","SP"
+"[Ss]ommarna","SU"
+"[Hh]östarna","FA"
+"[Vv]intrarna","WI"

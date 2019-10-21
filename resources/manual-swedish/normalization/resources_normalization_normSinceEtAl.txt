@@ -1,0 +1,5 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+"[Ss]edan","since"
+"[Tt]ills","until"

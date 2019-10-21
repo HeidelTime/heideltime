@@ -1,0 +1,5 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+"[Dd]ygn","day"
+"[Dd]ag","day"

@@ -1,0 +1,10 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+"[Mm]åndags?","monday"
+"[Tt]isdags?","tuesday"
+"[Oo]nsdags?","wednesday"
+"[Tt]orsdags?","thursday"
+"[Ff]redags?","friday"
+"[Ll]ördags?","saturday"
+"[Ss]öndags?","sunday"

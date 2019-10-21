@@ -1,0 +1,15 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+[Jj]anuari
+[Ff]ebruari
+[Mm]ars
+[Aa]pril
+[Mm]aj
+[Jj]uni
+[Jj]uli
+[Aa]ugusti
+[Ss]eptember
+[Oo]ktober
+[Nn]ovember
+[Dd]ecember

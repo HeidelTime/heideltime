@@ -1,0 +1,50 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+// This file contains rules for the temporal expressions of the type set: setrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""
+//(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+// r1a: varje vecka
+// r1b: varje fredag
+// r1c: varje juli
+// r1d: varje sommar
+// r1e: varje morgon
+RULENAME="set_r1a",EXTRACTION="%reEachEvery %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(2)),0,1))",NORM_QUANT="%UPPERCASE%(%normEachEvery(group(1)))"
+RULENAME="set_r1b",EXTRACTION="%reEachEvery %reWeekday",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1W"
+RULENAME="set_r1c",EXTRACTION="%reEachEvery %reMonthName",NORM_VALUE="XXXX-%normMonthName(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1M"
+RULENAME="set_r1d",EXTRACTION="%reEachEvery %reSeason",NORM_VALUE="XXXX-%normSeason(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1S"
+RULENAME="set_r1e",EXTRACTION="%reEachEvery %rePartOfDay",NORM_VALUE="XXXX-WXX-XT%normPartOfDay(group(2))",NORM_QUANT="%UPPERCASE%(group(1))",NORM_FREQ="1D"
+
+//r2: plurals
+//kvällarna
+// fredagskvällarna
+RULENAME="set_r2a",EXTRACTION="%rePluralPartOfDay",NORM_VALUE="XXXX-WXX-XT%normPluralPartOfDay(group(1))",NORM_QUANT="EVERY",NORM_FREQ="1D"
+RULENAME="set_r2b",EXTRACTION="%reWeekday%rePluralPartOfDay",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(1))T%normPluralPartOfDay(group(2))",NORM_QUANT="EVERY",NORM_FREQ="1W"
+
+//r3: fredagarna
+RULENAME="set_r3",EXTRACTION="%rePluralWeekday",NORM_VALUE="XXXX-WXX-%normPluralWeekday(group(1))",NORM_QUANT="EVERY",NORM_FREQ="1W"
+
+//r4: höstarna
+RULENAME="set_r4",EXTRACTION="%rePluralSeason",NORM_VALUE="XXXX-%normPluralSeason(group(1))",NORM_QUANT="EVERY",NORM_FREQ="1S"
+
+//r5
+// en gang per ar / i manad / i veckan / i dygn /  per timme / i sekunden
+// type="SET" value="P1Y" freq="1X">
+RULENAME="set_r5",EXTRACTION="%reFrequencyNumber (gång|gånger) (per|i) %reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(4)),0,1))",NORM_QUANT="%normFrequencyNumber(group(1))X"
+
+//r6: tva ganger om aret 
+RULENAME="set_r6",EXTRACTION="%reFrequencyNumber (gång|gånger) (om) året",NORM_VALUE="P1Y",NORM_QUANT="%normFrequencyNumber(group(1))X"
+
+//r7: per/i timme
+//per/i minuten
+//per/i sekunden
+RULENAME="set_r7a",EXTRACTION="%reFrequencyNumber (gång|gånger) (i timmen|per timme|i timme)",NORM_VALUE="PT1H",NORM_QUANT="%normFrequencyNumber(group(1))X"
+RULENAME="set_r7b",EXTRACTION="%reFrequencyNumber (gång|gånger) (i minuten|per minuten|per minut)",NORM_VALUE="PT1M",NORM_QUANT="%normFrequencyNumber(group(1))X"
+RULENAME="set_r7c",EXTRACTION="%reFrequencyNumber (gång|gånger) (i sekunden|per sekunden|per sekund)",NORM_VALUE="PT1S",NORM_QUANT="%normFrequencyNumber(group(1))X"
+
+//r8: om dagen / om dygnet
+RULENAME="set_r8",EXTRACTION="%reFrequencyNumber (gång|gånger) (om dagen|om dygnet)",NORM_VALUE="P1D",NORM_QUANT="%normFrequencyNumber(group(1))X"
+
+//r9: set words, e.g. årlig
+RULENAME="set_r9",EXTRACTION="%reSetWords",NORM_VALUE="%normSetWords(group(1))"
+
