@@ -1,0 +1,10 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+"[Vv]år(en)?","SP"
+"[Ss]ommar(en)?","SU"
+"[Ss]omr","SU"
+"[Hh]öst(en)?","FA"
+"[Vv]inter","WI"
+"[Vv]intr(en)?","WI"
+"[Vv]intern","WI"

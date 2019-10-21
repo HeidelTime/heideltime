@@ -1,0 +1,26 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+[Mm]orgon
+[Mm]orgonen
+[Ff]örmiddag
+[Ff]örmiddagen
+[Mm]iddag
+[Mm]iddagen
+[Ee]ftermiddag
+[Ee]ftermiddagen
+[Kk]väll
+[Kk]vällen
+[Aa]fton
+[Aa]ftonen
+[Nn]att
+[Nn]atten
+[Ii]natt
+[Ii] natt
+[Mm]idnatt
+[Mm]idnatten
+[Ii]kväll
+[Ii]morse
+[Mm]orse
+[Ii] kväll
+[Ii] morse

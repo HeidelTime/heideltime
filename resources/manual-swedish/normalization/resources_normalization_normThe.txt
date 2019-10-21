@@ -1,0 +1,8 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+"[Dd]en","the"
+"[Dd]et","the"
+"[Dd]e","the"
+"[Ee]n","an"
+"[Ee]tt","an"

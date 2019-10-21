@@ -1,0 +1,11 @@
+// author: Maja Geulig
+// date:   2019-10-01
+
+"[Åå]rlig","P1Y"
+"[Mm]ånadsvis","P1M"
+"[Mm]ånatlig","P1M"
+"[Mm]ånatligen","P1M"
+"[Dd]aglig","P1D"
+"[Dd]agligen","P1D"
+"[Dd]agligt","P1D"
+"[Vv]eckolig","P1W"

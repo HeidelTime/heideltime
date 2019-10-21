@@ -1,0 +1,19 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+"[Dd]en här","this"
+"[Dd]enna","this"
+"[Dd]en","this"
+"[Dd]et här","this"
+"[Dd]etta","this"
+"[Nn]uvarande","this"
+"[Nn]ästa","next"
+"[Nn]ära","next"
+"[Nn]ärmast","next"
+"[Nn]äst","next"
+"[Ss]ist","last"
+"[Ss]enast","last"
+"[Ff]örra","last"
+"[Ss]enaste","last"
+"[Ff]örra","last"
+"[Ff]öregående","last"

@@ -1,0 +1,37 @@
+// author: Maja Geulig
+// date:   2019-10-01
+
+[Ff]örste
+[Ff]örsta
+[Ff]örst
+[Aa]ndra
+[Ss]ekund
+[Tt]redje
+[Ff]järde
+[Ff]emte
+[Ss]jätte
+[Ss]junde
+[Åå]ttonde
+[Nn]ionde
+[Tt]ionde
+[Ee]lfte
+[Tt]olfte
+[Tt]rettonde
+[Ff]jortonde
+[Ff]emtonde
+[Ss]extonde
+[Ss]juttonde
+[Aa]rtonde
+[Nn]ittonde
+[Tt]jugonde
+[Tt]jugoandra
+[Tt]jugosekunde
+[Tt]jugotredje
+[Tt]jugofjärde
+[Tt]jugofemte
+[Tt]jugosjätte
+[Tt]jugosjunde
+[Tt]jugoåttonde
+[Tt]jugonittonde
+[Tt]rettionde
+

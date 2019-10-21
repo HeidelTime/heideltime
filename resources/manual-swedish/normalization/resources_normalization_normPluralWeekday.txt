@@ -1,0 +1,10 @@
+// author: Maja Geulig
+// date:   2019-10-01
+
+"[Mm]åndagarna","1"
+"[Tt]isdagarna","2"
+"[Oo]nsdagarna","3"
+"[Tt]orsdagarna","4"
+"[Ff]redagarna","5"
+"[Ll]ördagarna","6"
+"[Ss]öndagarna","7"

@@ -1,0 +1,26 @@
+// author: Maja Geulig
+// date:   2019-10-01
+// This file contains regular expression patterns for holidays on a fix date.
+
+"Nyår","01-01"
+"Nyårsdag","01-01"
+"Nyårsdagen","01-01"
+"Nyårsafton","12-31"
+
+"Trettondedag Jul","01-06"
+"Trettondedag jul","01-06"
+"Trettondagsafton","01-05"
+
+"Luciadagen","12-13"
+"Luciadag","12-13"
+"Sveriges Nationaldag","06-06"
+"Sveriges nationaldag","06-06"
+"Valborgsmässoafton","04-30"
+
+"Jul(en)?","12-24"
+"Julafton","12-24"
+"Juldagen","12-25"
+"jul(en)?","12-24"
+"julafton","12-24"
+"juldagen","12-25"
+"Annandag jul","12-26"

@@ -1,0 +1,19 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+[Dd]ygn
+[Dd]ag
+[Hh]elg
+[Vv]eckoslut
+[Vv]ecka
+[Mm]ånad
+[Kk]vartal
+[Rr]äkenskapsår
+[Ff]inansår
+[Bb]udgetår
+[Åå]r
+[Dd]ekad
+[Åå]rtionde
+[Dd]ecennium
+[Ss]ekel
+[Åå]rhundrade

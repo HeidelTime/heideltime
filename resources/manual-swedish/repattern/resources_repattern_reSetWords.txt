@@ -1,0 +1,11 @@
+// author: Maja Geulig
+// date:   2019-10-01
+
+[Åå]rlig
+[Mm]ånadsvis
+[Mm]ånatlig
+[Mm]ånatligen
+[Dd]aglig
+[Dd]agligen
+[Dd]agligt
+[Vv]eckolig

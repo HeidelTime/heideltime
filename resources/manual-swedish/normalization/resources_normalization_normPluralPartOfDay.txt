@@ -1,0 +1,10 @@
+// author: Maja Geulig
+// date:   2019-10-01
+
+"[Mm]orgnarna","MO"
+"[Ff]örmiddagarna","MO"
+"[Mm]iddagarna","MD"
+"[Ee]ftermiddagarna","AF"
+"[Kk]vällarna","EV"
+"[Aa]ftonerna","EV"
+"[Nn]atterna","NI

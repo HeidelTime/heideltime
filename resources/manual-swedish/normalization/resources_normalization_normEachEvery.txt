@@ -1,0 +1,10 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+"[Vv]arje","each"
+"[Vv]ar","each"
+"[Pp]er styck","each"
+"à","each"
+"[Vv]arje","every"
+"[Vv]ar","every"
+"[Aa]lla","every"

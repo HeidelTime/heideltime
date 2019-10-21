@@ -1,0 +1,22 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+[Dd]ygn(et)?
+[Dd]ag(et)?
+[Hh]elg(en)?
+[Vv]eckoslut(en)?
+[Vv]ecka(n)?
+[Mm]ånad(en)?
+[Mm]ånader
+[Kk]vartal(et)?
+[Rr]äkenskapsår(et)?
+[Ff]inansår(et)?
+[Bb]udgetår(et)?
+[Åå]r(et)?
+[Dd]ekad(en)?
+[Åå]rtionde(et)?
+[Dd]ecennium
+[Ss]ekel
+[Ss]eklet
+[Åå]rhundrade(n)?
+[Dd]agar(na)?

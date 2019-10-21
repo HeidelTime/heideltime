@@ -1,0 +1,30 @@
+// author: Maja Geulig
+// date:   2019-10-01
+
+[Ee]tt
+[Ee]n
+[Tt]vå
+[Tt]re
+[Ff]yra
+[Ff]em
+[Ss]ex
+[Ss]ju
+[Åå]tta
+[Nn]io
+[Tt]io
+[Ee]lva
+[Tt]olv
+[Tt]retton
+[Ff]jorton
+[Ff]emton
+[Ss]exton
+[Ss]jutton
+[Aa]rton
+[Aa]derton
+[Nn]itton
+[Tt]jugo
+[Tt]jugoett
+[Tt]jugoen
+[Tt]jugotvå
+[Tt]jugotre
+[Tt]jugofyra

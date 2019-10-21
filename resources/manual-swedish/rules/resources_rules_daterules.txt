@@ -1,0 +1,168 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+// This file contains rules for the temporal expressions of the type date
+// RULENAME="",EXTRACTION="",NORM_VALUE=""
+//(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+// BC and AD rules year
+RULENAME="date_historic_1a-BCADhint",EXTRACTION="%reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(2))%normYearBC(group(1))"
+RULENAME="date_historic_1b-BCADhint",EXTRACTION="%reYearPrefix %reYearBC",NORM_VALUE="%normYearPrefix(group(1))%normYearBC(group(2))"
+// BC and AD rules month, year
+RULENAME="date_historic_2a-BCADhint",EXTRACTION="%reMonthName %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(3))%normYearBC(group(2))-%normMonthName(group(1))"
+RULENAME="date_historic_2b",EXTRACTION="%reMonthName ([\d][\d][\d])",NORM_VALUE="%normYearBC(group(2))-%normMonthName(group(1))"
+// BC and AD rules season, year
+RULENAME="date_historic_3a-BCADhint",EXTRACTION="%reSeason %reYearBC %reYearPrefix",NORM_VALUE="%normYearPrefix(group(3))%normYearBC(group(2))-%normSeason(group(1))"
+RULENAME="date_historic_3b",EXTRACTION="%reSeason ([\d][\d][\d])",NORM_VALUE="%normYearBC(group(2))-%normSeason(group(1))"
+
+// r1a: 30 August 2000 (with "." and "," and very short words in between allowed)
+RULENAME="date_r1a",EXTRACTION="(%reWeekday ([\S][\S]? )?)?%reDayNumber\.?( [\S][\S]?)? %reMonthName,?( [\S][\S]?)? %reYear4Digit",NORM_VALUE="group(8)-%normMonthName(group(6))-%normDayNumber(group(4))"
+RULENAME="date_r1b",EXTRACTION="(%reWeekday ([\S][\S]? )?)?%reDayNumberWord( [\S][\S]?)? %reMonthName,?( [\S][\S]?)? %reYear4Digit",NORM_VALUE="group(8)-%normMonthName(group(6))-%normDayNumberWord(group(4))"
+RULENAME="date_r1c",EXTRACTION="(%reWeekday ([\S][\S]? )?)?%reDayNumberWordTh( [\S][\S]?)? %reMonthName,?( [\S][\S]?)? %reYear4Digit",NORM_VALUE="group(8)-%normMonthName(group(6))-%normDayNumberWordTh(group(4))"
+
+// r3a: March 30, 2000
+// r3b: March 30
+RULENAME="date_r3a",EXTRACTION="%reMonthName %reDayNumber,? %reYear4Digit",NORM_VALUE="group(3)-%normMonthName(group(1))-%normDayNumber(group(2))"
+RULENAME="date_r3b",EXTRACTION="%reMonthName %reDayNumber",NORM_VALUE="UNDEF-year-%normMonthName(group(1))-%normDayNumber(group(2))"
+
+// r4b: July 2000, July of 2010, etc.
+// r4c: July 99, July of 99, etc.
+RULENAME="date_r4b",EXTRACTION="%reMonthName( [\S][\S]?)? %reYear4Digit",NORM_VALUE="group(3)-%normMonthName(group(1))"
+RULENAME="date_r4c",EXTRACTION="%reMonthName( [\S][\S]?)? %reYear2Digit",NORM_VALUE="UNDEF-centurygroup(3)-%normMonthName(group(1))"
+
+// r5a: today, tomorrow, etc.
+RULENAME="date_r5a",EXTRACTION="%reDateWord",NORM_VALUE="%normDateWord(group(1))"
+
+// r7a: this week, next year, etc.
+// r7b: this March, next June, etc.
+// r7c: this Friday, last Monday, etc.
+// r7d: this summer, next winter, etc.
+RULENAME="date_r7a",EXTRACTION="%reThisNextLast %reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normUnit(group(2))"
+//RULENAME="date_r7b",EXTRACTION="%reThisNextLast %reMonthName",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%LOWERCASE%(group(2))"
+RULENAME="date_r7c",EXTRACTION="%reThisNextLast %reWeekday",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%LOWERCASE%(%normWeekday(group(2)))"
+RULENAME="date_r7d",EXTRACTION="%reThisNextLast %reSeason",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normSeason(group(2))"
+
+//RULENAME="date_r7e",EXTRACTION="%reUnit %reThisNextLastAfterWord",NORM_VALUE="UNDEF-%normThisNextLastAfterWord(group(2))-%normUnit(group(1))"
+
+// r8a: since|until|in 2000
+RULENAME="date_r8a",EXTRACTION="%reSinceEtAl %reYear4Digit",NORM_VALUE="group(2)",OFFSET="group(2)-group(2)"
+
+// r9a: day 15 month 2 year 2000
+RULENAME="date_r9a",EXTRACTION="(%reDayToken )?%reDayNumber[\.]?[\s]?(%reMonthToken )?%reMonthNumber[\.]?[\s]?(%reYearToken )?%reYear4Digit",NORM_VALUE="group(9)-%normMonthNumber(group(6))-%normDayNumber(group(3))"
+RULENAME="date_r9b",EXTRACTION="(%reMonthToken )?%reMonthNumber[\.]?[\s]?(%reYearToken )?%reYear4Digit",NORM_VALUE="group(6)-%normMonthNumber(group(3))"
+
+//r10a: 2015-03-15
+//r10b:  15/3
+RULENAME="date_r10a",EXTRACTION="%reYear4Digit-%reMonthNumber-%reDayNumber",NORM_VALUE="group(1)-group(2)-%normDayNumber(group(3))"
+//RULENAME="date_r10b",EXTRACTION="%reDayNumber/%reMonthNumber",NORM_VALUE="UNDEF-year-%normMonthNumber(group(2))-%normDayNumber(group(1))"
+
+// r11a: en vecka sedan
+// r11b: till veckan
+RULENAME="date_r11a",EXTRACTION="([Ee]n vecka|veckan) (sedan|tillbaka|sen|innan)",NORM_VALUE="UNDEF-last-week"
+RULENAME="date_r11b",EXTRACTION="[Tt]ill veckan?",NORM_VALUE="UNDEF-this-week"
+
+//r12: en månad sedan
+RULENAME="date_r12",EXTRACTION="[Ee]n [Mm]ånad(en)? (sedan|tillbaka|innan)",NORM_VALUE="UNDEF-REF-month-MINUS-1"
+
+//r13a-b: år sedan
+//r13c: [Åå]r därpå
+RULENAME="date_r13a",EXTRACTION="[Ee]tt [Åå]r (sedan|tillbaka|innan)",NORM_VALUE="UNDEF-this-year-MINUS-1"
+RULENAME="date_r13b",EXTRACTION="[Åå]ret (sedan|tillbaka|innan)",NORM_VALUE="UNDEF-this-year-MINUS-1"
+RULENAME="date_r13c",EXTRACTION="[Åå]ret (därpå)",NORM_VALUE="UNDEF-next-year"
+
+//r14: på en vecka/...
+RULENAME="date_r14a",EXTRACTION="([Pp]å|[Oo]m) [Ee]n [Vv]ecka från (idag|i dag)",NORM_VALUE="UNDEF-this-day-PLUS-7"
+RULENAME="date_r14b",EXTRACTION="([Pp]å|[Oo]m) [Ee]n [Vv]ecka",NORM_VALUE="UNDEF-this-week-PLUS-1"
+RULENAME="date_r14c",EXTRACTION="([Pp]å|[Oo]m) [Ee]n [Mm]ånad",NORM_VALUE="UNDEF-this-month-PLUS-1"
+RULENAME="date_r14d",EXTRACTION="([Pp]å|[Oo]m) [Ee]tt år",NORM_VALUE="UNDEF-this-year-PLUS-1"
+
+//r15: I fjol
+RULENAME="date_r15a",EXTRACTION="[Ii] fjol",NORM_VALUE="UNDEF-last-year"
+RULENAME="date_r15b",EXTRACTION="[Ii]fjol",NORM_VALUE="UNDEF-last-year"
+
+//r16: i  år
+RULENAME="date_r16",EXTRACTION="[Ii] år",NORM_VALUE="UNDEF-this-year"
+
+//r17: [Month] om ett år / förra året
+RULENAME="date_r17a",EXTRACTION="%reMonthName ([Ff]örra år(et)?|år(et)? [Ii]nnan)",NORM_VALUE="UNDEF-this-year-MINUS-1-%normMonthName(group(1))"
+RULENAME="date_r17b",EXTRACTION="%reMonthName ([Nn]ästa år(et)?|år(et)? [Dd]ärpå|[Oo]m [Ee]tt år)",NORM_VALUE="UNDEF-this-year-PLUS-1-%normMonthName(group(1))"
+
+//r18a: mars år 2000
+//r18b: [MONAT]dag år [NUM]
+RULENAME="date_r18a",EXTRACTION="%reMonthName år(et)? %reYear4Digit",NORM_VALUE="group(3)-%normMonthName(group(1))"
+RULENAME="date_r18b",EXTRACTION="%reMonthName(dag) år %reYear4Digit",NORM_VALUE="group(3)-%normMonthName(group(1))-XX"
+
+//r19: SINGLE MONTH e.g. "mars"
+RULENAME="date_r19",EXTRACTION="%reMonthName (månad)?",NORM_VALUE="UNDEF-year-%normMonthName(group(1))"
+
+//r20: [NUM] dagar sedan
+RULENAME="date_r20a",EXTRACTION="%reYear2Digit (dag|dagar) (sedan|tillbaka|sen|innan)",NORM_VALUE="UNDEF-this-day-MINUS-(group(1))"
+RULENAME="date_r20b",EXTRACTION="%reDayNumberWord4Duration (dag|dagar) (sedan|tillbaka|sen|innan)",NORM_VALUE="UNDEF-this-day-MINUS-%normDayNumberWord4Duration(group(1))"
+RULENAME="date_r20c",EXTRACTION="[Oo]m %reYear2Digit (dag|dagar)",NORM_VALUE="UNDEF-this-day-PLUS-(group(1))"
+RULENAME="date_r20d",EXTRACTION="[Oo]m %reDayNumberWord4Duration (dag|dagar)",NORM_VALUE="UNDEF-this-day-PLUS-%normDayNumberWord4Duration(group(1))"
+
+//r21: [NUM] veckor sedan
+RULENAME="date_r21a",EXTRACTION="%reYear2Digit (vecka|veckor) (sedan|tillbaka|sen|innan)",NORM_VALUE="UNDEF-this-week-MINUS-(group(1))"
+RULENAME="date_r21b",EXTRACTION="%reDayNumberWord4Duration (vecka|veckor) (sedan|tillbaka|sen|innan)",NORM_VALUE="UNDEF-this-week-MINUS-%normDayNumberWord4Duration(group(1))"
+
+//r22: [NUM] månader sedan
+RULENAME="date_r22a",EXTRACTION="%reYear2Digit (månad|månader) (sedan|tillbaka|sen|innan)",NORM_VALUE="UNDEF-this-month-MINUS-(group(1))"
+RULENAME="date_r22b",EXTRACTION="%reDayNumberWord4Duration (månad|månader) (sedan|tillbaka|sen|innan)",NORM_VALUE="UNDEF-this-month-MINUS-%normDayNumberWord4Duration(group(1))"
+
+//r23: [NUM] år sedan, senare
+RULENAME="date_r23a",EXTRACTION="%reYear2Digit år (sedan|tillbaka|sen|innan)",NORM_VALUE="UNDEF-this-year-MINUS-(group(1))"
+RULENAME="date_r23b",EXTRACTION="%reDayNumberWord4Duration år (sedan|tillbaka|sen|innan)",NORM_VALUE="UNDEF-this-year-MINUS-%normDayNumberWord4Duration(group(1))"
+RULENAME="date_r23c",EXTRACTION="%reYear2Digit år senare",NORM_VALUE="UNDEF-this-year-PLUS-(group(1))"
+RULENAME="date_r23d",EXTRACTION="%reDayNumberWord4Duration år senare",NORM_VALUE="UNDEF-this-year-PLUS-%normDayNumberWord4Duration(group(1))"
+
+//r24: femtonde i tredje manaden
+RULENAME="date_r24",EXTRACTION="%reDayNumberWordTh [iI] %reDayNumberWordTh [Mm]ånaden",NORM_VALUE="UNDEF-year-%normDayNumberWordTh(group(2))-%normDayNumberWordTh(group(1))"
+
+//r25: Seasons: this/next/last - i vintras
+RULENAME="date_r25a",EXTRACTION="([Ii]|[Pp]å) %reSeason",NORM_VALUE="UNDEF-this-year-%normSeason(group(2))"
+RULENAME="date_r25b",EXTRACTION="[Ii] (%reSeason|[Vv]intr|[Ss]omr)as",NORM_VALUE="UNDEF-last-year-%normSeason(group(1))"
+RULENAME="date_r25c",EXTRACTION="[Tt]ill %reSeason",NORM_VALUE="UNDEF-next-year-%normSeason(group(1))"
+
+//r26: Season 1999
+RULENAME="date_r26",EXTRACTION="%reSeason %reYear4Digit",NORM_VALUE="group(2)-%normSeason(group(1))"
+
+//r27: fixed holidays
+RULENAME="date_r27a",EXTRACTION="([Ff]öre|[Ff]örra) %reHolidayFix",NORM_VALUE="UNDEF-last-year-%normHolidayFix(group(2))"
+RULENAME="date_r27b",EXTRACTION="%reHolidayFix",NORM_VALUE="UNDEF-year-%normHolidayFix(group(1))"
+RULENAME="date_r27c",EXTRACTION="%reHolidayFix %reYear4Digit",NORM_VALUE="group(2)-%normHolidayFix(group(1))"
+RULENAME="date_r27d",EXTRACTION="[Ii] [Jj]ulas",NORM_VALUE="UNDEF-last-year-12-24"
+
+//r28: moving holidays
+RULENAME="date_r28a",EXTRACTION="[Ii] %reHolidayVar",NORM_VALUE="UNDEF-this-year-00-00 %normHolidayVar(group(1))"
+RULENAME="date_r28b",EXTRACTION="([Nn]ästa|[Tt]ill) %reHolidayVar",NORM_VALUE="UNDEF-next-year-00-00 %normHolidayVar(group(2))"
+RULENAME="date_r28c",EXTRACTION="%reHolidayVar",NORM_VALUE="UNDEF-year-00-00 %normHolidayVar(group(1))"
+RULENAME="date_r28d",EXTRACTION="%reHolidayVar %reYear4Digit",NORM_VALUE="group(2)-00-00 %normHolidayVar(group(1))"
+RULENAME="date_r28e",EXTRACTION="[Ii] (%reHolidayVar)as",NORM_VALUE="UNDEF-last-year-00-00 %normHolidayVar(group(1))"
+
+//r29: Wednesday, Thursday, etc.
+RULENAME="date_r29a",EXTRACTION="[Pp]å %reWeekday",NORM_VALUE="UNDEF-next-%normWeekday(group(1))"
+RULENAME="date_r29b",EXTRACTION="%reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(1))"
+
+//r30: -talet
+RULENAME="date_r30a",EXTRACTION="(%reYear2Digit)00-talet",NORM_VALUE="%SUM%(group(1),+1)"
+RULENAME="date_r30b",EXTRACTION="90-talet",NORM_VALUE="10"
+//NORM_VALUE="%normDay(%SUM%(%normDay(group(2)),-1))"
+
+//r31: år [4DIGIT]
+RULENAME="date_r31a",EXTRACTION="år %reYear4Digit",NORM_VALUE="group(1)"
+RULENAME="date_r31b",EXTRACTION="%reYear4Digit",NORM_VALUE="group(1)"
+
+//r32: Weekday? 30 March
+//måndag den femtonde mars
+RULENAME="date_r32a",EXTRACTION="%reWeekday(en)? (den|det) %reDayNumberWordTh %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(5))-%normDayNumberWordTh(group(4))"
+RULENAME="date_r32b",EXTRACTION="%reWeekday(en)? (den|det) %reDayNumber %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(5))-%normDayNumber(group(4))"
+RULENAME="date_r32c",EXTRACTION="(%reWeekday ([\S][\S]? )?)?%reDayNumber\.? %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(5))-%normDayNumber(group(4))"
+RULENAME="date_r32d",EXTRACTION="(%reWeekday ([\S][\S]? )?)?%reDayNumber\.? [\S] %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(5))-%normDayNumber(group(4))"
+RULENAME="date_r32e",EXTRACTION="(%reWeekday ([\S][\S]? )?)?%reDayNumber\.? [\S][\S] %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(5))-%normDayNumber(group(4))"
+
+//r33: unspecified reference, not for strax, because too ambiguous
+RULENAME="date_r33a",EXTRACTION="([Nn]u|[Nn]yss|[Pp]recis)",NORM_VALUE="PRESENT_REF"
+RULENAME="date_r33b",EXTRACTION="[Nn]yligen",NORM_VALUE="PAST_REF"
+RULENAME="date_r33c",EXTRACTION="[Ss]nart",NORM_VALUE="FUTURE_REF"
+
+//r34: NEGATIVE RULES - äta middag (not time of day)
+RULENAME="date_neg_r1",EXTRACTION="ät(a|it|er) (middag)",NORM_VALUE="REMOVE"

@@ -1,0 +1,86 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+// This file contains rules for the temporal expressions of the type duration: durationrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""
+//(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+// r1a: morning
+RULENAME="time_r1a",EXTRACTION="%rePartOfDay",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(1))"
+RULENAME="time_r1b",EXTRACTION="[Ii] (%rePartOfDay)s",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(1))"
+RULENAME="time_r1c",EXTRACTION="%rePartOfDay %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(2))T%normPartOfDay(group(1))"
+RULENAME="time_r1d",EXTRACTION="%reWeekday %rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normPartOfDay(group(2))"
+RULENAME="time_r1e",EXTRACTION="%reWeekday%rePartOfDay",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normPartOfDay(group(2))"
+RULENAME="time_r1f",EXTRACTION="%rePartOfDay %reDateWord",NORM_VALUE="%normDateWord(group(2))T%normPartOfDay(group(1))"
+RULENAME="time_r1g",EXTRACTION="%reDateWord %rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
+RULENAME="time_r1h",EXTRACTION="%reThisNextLast %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normPartOfDay(group(2))"
+RULENAME="time_r1i",EXTRACTION="%reDateWord %rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
+
+//r2: 10 tiden
+RULENAME="time_r2a",EXTRACTION="%reDateWord vid ([0-2]\d|[1-9]) [Tt]iden",NORM_VALUE="%normDateWord(group(1))Tgroup(2):00"
+RULENAME="time_r2b",EXTRACTION="([0-2]\d|[1-9]) [Tt]iden",NORM_VALUE="UNDEF-this-dayTgroup(1):00"
+RULENAME="time_r2c",EXTRACTION="%reTimeNumberWord [Tt]iden",NORM_VALUE="UNDEF-this-dayT%normTimeNumberWord(group(1)):00"
+RULENAME="time_r2d",EXTRACTION="([0-2]\d|[1-9])-tiden",NORM_VALUE="UNDEF-this-dayTgroup(1):00"
+RULENAME="time_r2e",EXTRACTION="(%reTimeNumberWord)tiden",NORM_VALUE="UNDEF-this-dayT%normTimeNumberWord(group(1)):00"
+
+//r3: klockan 10/tio
+//klockan 10 idag
+RULENAME="time_r3a",EXTRACTION="%reClock ([0-2]\d|[1-9]) på %rePartOfDay",NORM_VALUE="UNDEF-this-dayTgroup(2):00"
+RULENAME="time_r3b",EXTRACTION="%reClock %reTimeNumberWord på %rePartOfDay",NORM_VALUE="UNDEF-this-dayT%normTimeNumberWord(group(2)):00"
+RULENAME="time_r3c",EXTRACTION="%reClock ([0-2]\d|[1-9])(\.|:)(\d\d) på %rePartOfDay",NORM_VALUE="UNDEF-this-dayTgroup(2):group(4)"
+RULENAME="time_r3d",EXTRACTION="%reClock %reHour(\.|:)(\d\d) %reDateWord",NORM_VALUE="%normDateWord(group(5))T%normHour(group(2)):group(4)"
+RULENAME="time_r3e",EXTRACTION="%reClock %reHour %reDateWord",NORM_VALUE="%normDateWord(group(3))T%normHour(group(2)):00"
+
+//r4: fem minuter över tio
+RULENAME="time_r4a",EXTRACTION="([10-59]) [Mm]inuter över %reTimeNumberWord",NORM_VALUE="UNDEF-this-dayT%normTimeNumberWord(group(1)):group(2)"
+RULENAME="time_r4b",EXTRACTION="([1-9]) [Mm]inuter över %reTimeNumberWord",NORM_VALUE="UNDEF-this-dayT%normTimeNumberWord(group(1)):0group(2)"
+RULENAME="time_r4c",EXTRACTION="%reMinuteNumberWord [Mm]inuter över %reTimeNumberWord",NORM_VALUE="UNDEF-this-dayT%normTimeNumberWord(group(2)):%normMinuteNumberWord(group(1))"
+
+//r5: klockan halv tio
+RULENAME="time_r5a",EXTRACTION="%reClock [Hh]alv ([0-2]\d|[1-9]) på %rePartOfDay",NORM_VALUE="UNDEF-this-dayT%normMinusTimeNumberWord(group(2)):30"
+RULENAME="time_r5b",EXTRACTION="%reClock [Hh]alv ([0-2]\d|[1-9])",NORM_VALUE="UNDEF-this-dayT%normMinusTimeNumberWord(group(2)):30"
+RULENAME="time_r5c",EXTRACTION="%reClock [Hh]alv %reTimeNumberWord på %rePartOfDay",NORM_VALUE="UNDEF-this-dayT%normMinusTimeNumberWord(group(2)):30"
+RULENAME="time_r5d",EXTRACTION="%reClock [Hh]alv %reTimeNumberWord",NORM_VALUE="UNDEF-this-dayT%normMinusTimeNumberWord(group(2)):30"
+
+//r6: klockan tio
+RULENAME="time_r6a",EXTRACTION="%reClock %reHour(\.|:)(\d\d)",NORM_VALUE="UNDEF-this-dayT%normHour(group(2)):group(4)"
+RULENAME="time_r6b",EXTRACTION="%reClock %reHour",NORM_VALUE="UNDEF-this-dayT%normHour(group(2)):00"
+
+//r7: fem i tio, tio i tio, femton i tio
+RULENAME="time_r7a",EXTRACTION="%reClock fem i %reHour",NORM_VALUE="UNDEF-this-dayT%normMinusTimeNumberWord(group(2)):55"
+RULENAME="time_r7b",EXTRACTION="%reClock tio i %reHour",NORM_VALUE="UNDEF-this-dayT%normMinusTimeNumberWord(group(2)):50"
+RULENAME="time_r7c",EXTRACTION="%reClock femton i %reHour",NORM_VALUE="UNDEF-this-dayT%normMinusTimeNumberWord(group(2)):45"
+RULENAME="time_r7d",EXTRACTION="fem i %reHour",NORM_VALUE="UNDEF-this-dayT%normMinusTimeNumberWord(group(1)):55"
+RULENAME="time_r7e",EXTRACTION="tio i %reHour",NORM_VALUE="UNDEF-this-dayT%normMinusTimeNumberWord(group(1)):50"
+RULENAME="time_r7f",EXTRACTION="femton i %reHour",NORM_VALUE="UNDEF-this-dayT%normMinusTimeNumberWord(group(1)):45"
+
+//r8: kvällen (PM)
+RULENAME="time_r8a",EXTRACTION="%reClock %reHour(\.|:)(\d\d) på kvällen",NORM_VALUE="UNDEF-this-dayT%normHourPM(group(2)):group(4)"
+RULENAME="time_r8b",EXTRACTION="%reClock %reHour på kvällen",NORM_VALUE="UNDEF-this-dayT%normHourPM(group(2)):00"
+RULENAME="time_r8c",EXTRACTION="%reHour(\.|:)(\d\d) på kvällen",NORM_VALUE="UNDEF-this-dayT%normHourPM(group(1)):group(3)"
+RULENAME="time_r8d",EXTRACTION="%reHour på kvällen",NORM_VALUE="UNDEF-this-dayT%normHourPM(group(1)):00"
+
+//r9: 15/3 (kl) 18:00
+RULENAME="time_r9a",EXTRACTION="%reDayNumber/%reMonthNumber %reClock %reHour(\.|:)(\d\d)",NORM_VALUE="UNDEF-year-%normMonthNumber(group(2))-%normDayNumber(group(1))T%normHour(group(4)):group(6)"
+RULENAME="time_r9b",EXTRACTION="%reDayNumber/%reMonthNumber %reClock %reHour",NORM_VALUE="UNDEF-year-%normMonthNumber(group(2))-%normDayNumber(group(1))T%normHour(group(4)):00"
+RULENAME="time_r9c",EXTRACTION="%reDayNumber/%reMonthNumber %reHour(\.|:)(\d\d)",NORM_VALUE="UNDEF-year-%normMonthNumber(group(2))-%normDayNumber(group(1))T%normHour(group(3)):group(5)"
+RULENAME="time_r9d",EXTRACTION="%reDayNumber/%reMonthNumber %reHour",NORM_VALUE="UNDEF-year-%normMonthNumber(group(2))-%normDayNumber(group(1))T%normHour(group(3)):00"
+
+//r10: imorgon bitti, kvällen innan, morgonen därpå
+// 2019-09-21-TMO
+RULENAME="time_r10a",EXTRACTION="([Ii] morgon|[Ii]morgon) bitti",NORM_VALUE="UNDEF-next-dayTMO"
+RULENAME="time_r10b",EXTRACTION="%rePartOfDay [Ii]nnan",NORM_VALUE="UNDEF-last-dayT%normPartOfDay(group(1))"
+RULENAME="time_r10c",EXTRACTION="%rePartOfDay [Dd]ärpå",NORM_VALUE="UNDEF-next-dayT%normPartOfDay(group(1))"
+
+//r11: kvällen den 9 juli, kvällen Juli 9, eftermiddagen den 4:e September
+RULENAME="time_r11a",EXTRACTION="%rePartOfDay [Dd]en %reDayNumber %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(3))-%normDayNumber(group(2))T%normPartOfDay(group(1))"
+RULENAME="time_r11b",EXTRACTION="%rePartOfDay %reMonthName %reDayNumber",NORM_VALUE="UNDEF-year-%normMonthName(group(2))-%normDayNumber(group(3))T%normPartOfDay(group(1))"
+RULENAME="time_r11c",EXTRACTION="%rePartOfDay [Dd]en (%reDayNumber):e %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(4))-%normDayNumber(group(3))T%normPartOfDay(group(1))"
+RULENAME="time_r11d",EXTRACTION="%rePartOfDay [Dd]en %reDayNumberWordTh %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(3))-%normDayNumberWordTh(group(2))T%normPartOfDay(group(1))"
+
+//r12: torsday klockan 10.00
+RULENAME="time_r12a",EXTRACTION="%reWeekday %reClock %reHour(\.|:)(\d\d)",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normHour(group(3)):group(5)"
+RULENAME="time_r12b",EXTRACTION="%reWeekday %reClock %reHour",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normHour(group(3)):00"
+
+//r13: natten till tisdag, natten mellan tisdag och freday
+RULENAME="time_r13a",EXTRACTION="%rePartOfDay [Tt]ill %reWeekday(en)?",NORM_VALUE="UNDEF-day-%normWeekday(group(2))T%normPartOfDay(group(1))"
+RULENAME="time_r13b",EXTRACTION="[Nn]att(en)? mellan %reWeekday och %reWeekday",NORM_VALUE="UNDEF-day-%normWeekday(group(2))TNI"

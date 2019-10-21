@@ -1,0 +1,20 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+
+"[Ff]örrgår","UNDEF-this-day-MINUS-2"
+"[Ii] förrgår","UNDEF-this-day-MINUS-2"
+"[Ii]förrgår","UNDEF-this-day-MINUS-2"
+"[Gg]årdag","UNDEF-last-day"
+"[Ii] går","UNDEF-last-day"
+"[Ii]går","UNDEF-last-day"
+"[Dd]agen innan","UNDEF-last-day"
+"[Dd]ag innan","UNDEF-last-day"
+"[Ii]dag","UNDEF-this-day"
+"[Ii] dag","UNDEF-this-day"
+"[Ii]morgon","UNDEF-next-day"
+"[Ii] morgon","UNDEF-next-day"
+"[Mm]orgondag","UNDEF-next-day"
+"[Nn]ästa dag","UNDEF-next-day"
+"[Dd]agen därpå","UNDEF-next-day"
+"[Öö]vermorgon","UNDEF-this-day-PLUS-2"
+"[Ii] övermorgon","UNDEF-this-day-PLUS-2"

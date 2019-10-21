@@ -1,0 +1,17 @@
+// author: Jannik Strötgen, Maja Geulig
+// date:   2019-10-01
+// This file contains rules for the temporal expressions of the type duration: durationrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""
+//(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+//r1: 300 years (with flexible endings of reUnit patterns)
+RULENAME="duration_r1a",EXTRACTION="([\d]+) %reUnit",NORM_VALUE="Pgroup(1)%normUnit4Duration(group(2))"
+RULENAME="duration_r1b",EXTRACTION="([\d]+) [Mm]ånader",NORM_VALUE="Pgroup(1)M"
+
+//r2: two years
+RULENAME="duration_r2a",EXTRACTION="%reDayNumberWord4Duration %reUnit",NORM_VALUE="P%normDayNumberWord4Duration(group(1))%normUnit4Duration(group(2))"
+RULENAME="duration_r2b",EXTRACTION="%reDayNumberWord4Duration %reTimeUnit4Duration",NORM_VALUE="PT%normDayNumberWord4Duration(group(1))%normUnit4Duration(group(2))"
+
+//r3: en halv timme, tre kvart
+RULENAME="duration_r3a",EXTRACTION="[Ee]n [Hh]alv ([Tt]imme)",NORM_VALUE="PT30M"
+RULENAME="duration_r3b",EXTRACTION="[Tt]re [Kk]vart",NORM_VALUE="PT45M"

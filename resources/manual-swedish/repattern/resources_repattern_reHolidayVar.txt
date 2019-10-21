@@ -1,0 +1,15 @@
+// author: Maja Geulig
+// date:   2019-10-01
+// This file contains regular expression patterns for holidays on a moveable date.
+
+[Ss]kärtorsdagen
+[Ll]ångfredagen
+[Pp]åskafton
+[Pp]åskdagen
+[Pp]åsk
+[Aa]nnandag [Pp]åsk
+[Kk]risti [Hh]immelsfärdsdag
+[Kk]risti [Hh]immelsfärdsdagen
+[Pp]ingst
+[Pp]ingstafton
+[Pp]ingstdagen

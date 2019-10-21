@@ -1,0 +1,10 @@
+// author: Maja Geulig
+// date:   2019-10-01
+
+[Kk]lockan
+kl
+Kl
+
+// don't work because sentence splitting at point
+kl\.
+Kl\.
