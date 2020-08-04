@@ -1,0 +1,28 @@
+// author: Manolis Kapernaros
+// email:  mkapernaros@di.uoa.gr
+// date:   2020-05-13
+// Prefix for compound words that denote time.
+// EXAMPLE: δίλεπτο means 2 minutes, prefix "δί" for 2, suffix "λεπτο" for minute
+
+δί
+τρί
+τετρά
+πεντά
+εξά
+επτά
+οκτά
+εννιά
+δεκά
+εντεκά
+δωδεκά
+δεκατριά
+δεκατεσσερά
+δεκαπεντά
+δεκαεξά
+δεκαεπτά
+δεκαοκτά
+δεκαεννιά
+εικοσά
+τριαντά
+σαραντά
+πενηντά

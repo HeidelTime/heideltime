@@ -1,0 +1,12 @@
+// author: Manolis Kapernaros
+// email:  mkapernaros@di.uoa.gr
+// date:   2020-04-20
+// This file contains normalization information for weekday names.
+"Δευτέρας?","1"
+"Τρίτης?","2"
+"Τετάρτης?","3"
+"Πέμπτης?","4"
+"Παρασκευής?","5"
+"Σάββατο","6"
+"Σαββάτου","6"
+"Κυριακής?","7" 

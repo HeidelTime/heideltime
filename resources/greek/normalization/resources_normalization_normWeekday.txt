@@ -1,0 +1,19 @@
+// author: Manolis Kapernaros
+// email:  mkapernaros@di.uoa.gr
+// date:   2020-04-20
+// This file contains normalization information for weekday names.
+// english: Monday, monday
+"Δευτέρας?","monday"
+// english: Tuesday, tuesday
+"Τρίτης?","tuesday"
+// english: Wednesday, wednesday
+"Τετάρτης?","wednesday"
+// english: Thursday, thursday
+"Πέμπτης?","thursday"
+// english: Friday, friday
+"Παρασκευή[ς]","friday"
+// english: Saturday, saturday
+"Σάββατο","saturday"
+"Σαββάτου","saturday"
+// english: Sunday, sunday
+"Κυριακής?","sunday"

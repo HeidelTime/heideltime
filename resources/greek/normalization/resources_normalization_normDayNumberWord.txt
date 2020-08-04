@@ -1,0 +1,76 @@
+// english: one, 01
+"[εέ]να","01"
+// english: two, 02
+"δ[υύ]ο","02"
+// english: three, 03
+"τρ[ιί]α","03"
+"γ΄","03"
+// english: four, 04
+"δ΄","04"
+"τέσσερα","04"
+// english: five, 05
+"ε΄","05"
+"πέντε","05"
+// english: six, 06
+"έξι","06"
+"στ΄","06"
+// english: seven, 07
+"επτά","07"
+"ζ΄","07"
+// english: eight, 08
+"οκτώ","08"
+"η΄","08"
+// english: nine, 09
+"εννέα","09"
+"θ΄","09"
+// english: ten, 10
+"δέκα","10"
+"ι΄","10"
+// english: eleven, 11
+"έντεκα","11"
+// english: twelve, 12
+"δώδεκα","12"
+// english: thirteen, 13
+"δεκατρείς","13"
+"δεκατρία","13"
+// english: fourteen, 14
+"δεκατέσσερις","14"
+"δεκατέσσερα","14"
+// english: fifteen, 15
+"δεκαπέντε","15"
+// english: sixteen, 16
+"δεκαέξι","16"
+// english: seventeen, 17
+"δεκαεπτά","17"
+// english: eighteen, 18
+"δεκαοκτώ","18"
+// english: nineteen, 19
+"δεκαεννέα","19"
+"δεκαεννιά","19"
+// english: twenty, 20
+"είκοσι","20"
+"κ΄","20"
+// english: twenty-one, 21
+"είκοσι ένα","21"
+// english: twenty-two, 22
+"είκοσι δύο","22"
+// english: twenty-three, 23
+"είκοσι τρείς","23"
+// english: twenty-four, 24
+"είκοσι τέσσερα","24"
+// english: twenty-five, 25
+"είκοσι πέντε","25"
+// english: twenty-six, 26
+"είκοσι έξι","26"
+// english: twenty-seven, 27
+"είκοσι εφτά","27"
+"είκοσι επτά","27"
+// english: twenty-eight, 28
+"είκοσι-οκτώ","28"
+// english: twenty-nine, 29
+"είκοσι εννέα","29"
+// english: thirty, 30
+"τριάντα","30"
+"τριάκοντα","30"
+// english: thirty-one, 31
+"τριάντα ένα","31"

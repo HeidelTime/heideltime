@@ -1,0 +1,6 @@
+// english: past, PAST_REF
+παρελθόν
+παρελθόντος
+// english: future, FUTURE_REF
+μέλλον
+μέλλοντος

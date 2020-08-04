@@ -1,0 +1,41 @@
+// author: Manolis Kapernaros
+// email:  mkapernaros@di.uoa.gr
+// date:   2020-01-15
+// This file contains rules for the temporal expressions of the type set: setrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""
+//(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+
+/////////////////
+// EVERY UNIT  //
+/////////////////
+
+// EXAMPLE every_r1: κάθε μέρα/μήνα/χρόνο
+// EXAMPLE every_r2: κάθε Δευτέρα
+// EXAMPLE every_r3: κάθε Ιούλιο
+// EXAMPLE every_r4: κάθε καλοκαίρι
+RULENAME="every_unit_r1",EXTRACTION="[Κκ]άθε %reUnit4Duration",NORM_VALUE="P1%normUnit4Duration(group(1))",NORM_QUANT="EVERY"
+RULENAME="every_unit_r2",EXTRACTION="[Κκ]άθε %reWeekday",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(1))",NORM_QUANT="EVERY"
+RULENAME="every_unit_r3",EXTRACTION="[Κκ]άθε %reMonthName",NORM_VALUE="XXXX-%normMonthName(group(1))",NORM_QUANT="EVERY"
+RULENAME="every_unit_r4",EXTRACTION="[Κκ]άθε %reSeason",NORM_VALUE="XXXX-%normSeason(group(1))",NORM_QUANT="EVERY"
+
+
+////////////////
+// EVERY N    //
+////////////////
+
+// EXAMPLE r1a: κάθε 2 δεκαετίες
+// EXAMPLE r1b: κάθε δυο χρόνια
+// EXAMPLE r2a: κάθε 4 ώρες
+// EXAMPLE r2b: κάθε τέσσερα λεπτά
+RULENAME="every_n_r1",EXTRACTION="[Κκ]άθε ([\d]+) %reUnit4Duration",NORM_VALUE="Pgroup(1)%normUnit4Duration(group(2))"
+RULENAME="every_n_r1",EXTRACTION="[Κκ]άθε %reDayNumberWord4Duration %reUnit4Duration",NORM_VALUE="P%normDayNumberWord4Duration(group(1))%normUnit4Duration(group(2))"
+RULENAME="every_n_r2",EXTRACTION="[Κκ]άθε ([\d]+) %reUnitTime4Duration",NORM_VALUE="PTgroup(1)%normUnitTime4Duration(group(2))"
+RULENAME="every_n_r2",EXTRACTION="[Κκ]άθε %reDayNumberWord4Duration %reUnitTime4Duration",NORM_VALUE="PT%normDayNumberWord4Duration(group(1))%normUnitTime4Duration(group(2))"
+
+/////////////////
+// SET WORDS   //
+/////////////////
+
+// EXAMPLE setword_r1: καθημερινά
+RULENAME="setword_r1",EXTRACTION="%reSetWord",NORM_VALUE="%normSetWord(group(1))",NORM_QUANT="EVERY"

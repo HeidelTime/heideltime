@@ -1,0 +1,16 @@
+// english: since, since
+"εδώ και","since"
+"ἐκ","since"
+"από","since"
+"απο","since"
+// english: until, until
+"ως","until"
+"μέσφα","until"
+"μέχρι","until"
+"ἄχρι","until"
+"εἰς ὅ","until"
+"εἰς ὅτε","until"
+"πρίν","until"
+"έως","until"
+"εως","until"
+"πριν","until"

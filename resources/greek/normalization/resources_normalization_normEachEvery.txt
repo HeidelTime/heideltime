@@ -1,0 +1,7 @@
+// english: each, each
+"κάθε","each"
+"έκαστος","each"
+"καθένας","each"
+"κάθε ένας","each"
+// english: every, every
+"κάθε","every"

@@ -1,0 +1,6 @@
+// στο heideltime paper τα εχει ως rePartWords
+αρχές
+αρχής?
+μέσα
+τέλη
+τέλος

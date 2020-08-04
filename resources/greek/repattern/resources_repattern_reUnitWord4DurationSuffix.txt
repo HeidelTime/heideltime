@@ -1,0 +1,22 @@
+// author: Manolis Kapernaros
+// email:  mkapernaros@di.uoa.gr
+// date:   2020-01-23
+// Suffix for compound words that have a duration meaning.
+// EXAMPLE: δίμηνο means 2-months, prefix "δί" for 2, suffix "μηνο" for month
+
+// english: X-years, PXY
+χρονος?
+χρονης?
+χρονου
+ετής?
+ετίας?
+ετές
+ετούς
+// english : X-months, PXM 
+μηνος?
+μηνης?
+μηνου
+// english : X-days, PXD
+ήμερος?
+ήμερης?
+ήμερου

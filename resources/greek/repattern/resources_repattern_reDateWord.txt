@@ -1,0 +1,18 @@
+// english: day before yesterday, UNDEF-this-day-MINUS-2
+[Ππ]ροχθές
+[Ππ]ροχθεσιν[όή]ς?
+// english: yesterday, UNDEF-last-day
+[Χχ]θές
+[Χχ]θες
+[Χχ]τές
+[Χχ]τες
+[Χχ]θεσιν[όή]ς?
+// english: today, UNDEF-this-day
+[Σσ]ήμερα
+[Σσ]ημεριν[όή]ς?
+// english: tomorrow, UNDEF-next-day
+[Αα]ύριο
+[Αα]υριαν[όή]ς?
+// english: day after tomorrow, UNDEF-this-day-PLUS-2
+[Μμ]εθαύριο
+[Μμ]εθαυριαν[όή]ς?

@@ -1,0 +1,48 @@
+// english: January, january
+"Ιανουάριος?","january"
+"Ιανουαρίου","january"
+"Γενάρης?","january"
+// english: February, 02
+"Φεβρουάριος?","february"
+"Φεβρουαρίου","february"
+"Φλεβάρης?","february"
+// english: March, 03
+"Μάρτιος?","march"
+"Μαρτίου","march"
+"Μάρτης?","march"
+// english: April, 04
+"Απρίλιος?","april"
+"Απρίλης?","april"
+"Απριλίου","april"
+// english: May, 05
+"Μάιος?","may"
+"Μάης?","may"
+"Μαΐου","may"
+// english: June, 06
+"Ιούνιος?","june"
+"Ιούνης?","june"
+"Θεριστής?","june"
+"Ιουνίου","june"
+// english: July, 07
+"Ιούλιος?","july"
+"Ιουλίου","july"
+// english: August, 08
+"Αύγουστος?","august"
+"Αυγούστου","august"
+// english: September, 09
+"Τρυγητής?","september"
+"Σεπτέμβριος?","september"
+"Σεπτέμβρης?","september"
+"Σεπτεμβρίου","september"
+// english: October, 10
+"Οκτώβριος?","october"
+"Οκτώβρης?","october"
+"Οκτωβρίου","october"
+// english: November, 11
+"Νοέμβρης?","november"
+"Νοέμβριος?","november"
+"Νοεμβρίου","november"
+// english: December, 12
+"Δεκέμβριος?","december"
+"Δεκέμβρης?","december"
+"Δεκεμβρίου","december"

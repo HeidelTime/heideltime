@@ -1,0 +1,48 @@
+// english: day, day
+"ημερονύχτι[οα]","day"
+"η?μέρας?","day"
+"η?μέρες","day"
+"η?μερών","day"
+"εικοσιτετράωρ[οα]","day"
+"εικοσιτετράωρων","day"
+// english: weekend, week-WE
+"σαββατοκύριακ[οα]","week-WE"
+"σαββατοκύριακων","week-WE"
+// english: week, W
+"ε?βδομάδας?","week"
+"ε?βδομάδος?","week"
+"ε?βδομάδες","week"
+"ε?βδομάδων","week"
+"επταήμερ[οα]","week"
+"επταήμερων","week"
+// english: month, month
+"μήνας?","month"
+"μηνός?","month"
+"μήνες","month"
+"μηνών","month"
+// english: quarter, quarter
+"τρίμην[οα]","quarter"
+"τριμήνων","quarter"
+// english: year, year
+"χρόνος?","year"
+"χρόνου","year"
+"χρόνια","year"
+"χρονιάς?","year"
+"χρον[ι]ών","year"
+"χρόνων","year"
+"έτος","year"
+"έτους","year"
+"έτη","year"
+"ετών","year"
+// english: decade, decade
+"δεκαετίας?","decade"
+"δεκαετίες","decade"
+"δεκαετίων","decade"
+// english: century, century
+"αιώνας?","century"
+"αιώνος","century"
+"αιώνες","century"
+"αιώνων","century"
+"εκατονταετίας?","century"
+"εκατονταετίες","century"
+"εκατονταετίων","century"

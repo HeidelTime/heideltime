@@ -1,0 +1,20 @@
+// english: and, and
+"και","and"
+"δέ","and"
+"ϗ","and"
+"τε καί","and"
+"κι","and"
+"καί","and"
+"ἠδέ","and"
+"τε","and"
+// english: or, or
+"ή","or"
+"είτε","or"
+"ἤ","or"
+// english: to, to
+"προς","to"
+"εἰς","to"
+"-δε","to"
+"σε","to"
+"-σε","to"
+"πρός","to"

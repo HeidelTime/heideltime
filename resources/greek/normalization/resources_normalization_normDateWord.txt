@@ -1,0 +1,18 @@
+// english: day before yesterday, UNDEF-this-day-MINUS-2
+"[Ππ]ροχθές","UNDEF-this-day-MINUS-2"
+"[Ππ]ροχθεσιν[όή]ς?","UNDEF-this-day-MINUS-2"
+// english: yesterday, UNDEF-last-day
+"[Χχ]θές","UNDEF-last-day"
+"[Χχ]θες","UNDEF-last-day"
+"[Χχ]τές","UNDEF-last-day"
+"[Χχ]τες","UNDEF-last-day"
+"[Χχ]θεσιν[όή]ς?","UNDEF-last-day"
+// english: today, UNDEF-this-day
+"[Σσ]ήμερα","UNDEF-this-day"
+"[Σσ]ημεριν[όή]ς?","UNDEF-this-day"
+// english: tomorrow, UNDEF-next-day
+"[Αα]ύριο","UNDEF-next-day"
+"[Αα]υριαν[όή]ς?","UNDEF-next-day"
+// english: day after tomorrow, UNDEF-this-day-PLUS-2
+"[Μμ]εθαύριο","UNDEF-this-day-PLUS-2"
+"[Μμ]εθαυριαν[όή]ς?","UNDEF-this-day-PLUS-2"

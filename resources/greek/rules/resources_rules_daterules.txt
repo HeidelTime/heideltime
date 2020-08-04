@@ -1,0 +1,200 @@
+// author: Manolis Kapernaros
+// email:  mkapernaros@di.uoa.gr
+// date:   2019-11-26
+// This file contains rules for the temporal expressions of the type date: daterules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""
+// (,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+
+/////////////////
+// CENTURY     //
+/////////////////
+
+// EXAMPLE century_r1: 20ο αιώνα
+// EXAMPLE century_r2mod: αρχές του 20 αιώνα
+RULENAME="century_r1",EXTRACTION="\b(%reThe )?(\d\d?)(ο|ος|ου|ό|ός|ού) αιώνας?",NORM_VALUE="%SUM%(group(3),-1)"
+RULENAME="century_r2mod",EXTRACTION="\b(%reThe )?%rePointsDurations %reThe? (\d\d?)(ου|ού) αιώνα",NORM_VALUE="%SUM%(group(5),-1)",NORM_MOD="%normPointsDurations(group(3))"
+
+
+/////////////////
+// DECADE      //
+/////////////////
+
+// EXAMPLE decade_r1: δεκαετία του 1930
+// EXAMPLE decade_r2: δεκαετία του '80
+// EXAMPLE decade_r3: το '80
+// EXAMPLE decade_r1mod: τέλη της δεκαετία του 1930
+// EXAMPLE decade_r2mod: τέλη της δεκαετία του '80
+// EXAMPLE decade_r3mod: τέλη του '80
+
+RULENAME="decade_r1",EXTRACTION="\b(%reThe )?δεκαετίας? (%reThe )?%reYear4Digit",NORM_VALUE="%SUBSTRING%(group(5),0,3)"
+RULENAME="decade_r2",EXTRACTION="\b(%reThe )?δεκαετίας? (%reThe )?'(\d)0",NORM_VALUE="19group(5)"
+RULENAME="decade_r3",EXTRACTION="\b%reThe '%reYear2Digit",NORM_VALUE="19%SUBSTRING%(group(2),0,1)"
+RULENAME="decade_r1mod",EXTRACTION="(%reThe )?%rePointsDurations (%reThe )?δεκαετίας? (%reThe )?%reYear4Digit",NORM_VALUE="%SUBSTRING%(group(8),0,3)"
+RULENAME="decade_r2mod",EXTRACTION="\b(%reThe )?%rePointsDurations (%reThe )?δεκαετίας? (%reThe )?'(\d)0",NORM_VALUE="19group(8)"
+RULENAME="decade_r3mod",EXTRACTION="\b(%reThe )?%rePointsDurations (%reThe )?'%reYear2Digit",NORM_VALUE="19%SUBSTRING%(group(6),0,1)"
+
+
+/////////////////
+// YEAR        //
+/////////////////
+
+// EXAMPLE year_r1: το 2009, του 2009
+// EXAMPLE year_r2: (από) το 2000, (μέχρι) το 2000
+// EXAMPLE year_r3: το 1900 μ.Χ.
+// EXAMPLE year_r4: Ιούνιος 1900 μ.Χ.
+// EXAMPLE year_r5: Χειμώνας 1900 μ.Χ.
+// EXAMPLE year_r6mod: τέλη του 2019
+// EXAMPLE year_r1negative: 2000 μέτρα|εκατοστά|χιλιόμετρα|χλμ|δραχμές|δρχ|ευρώ|€
+RULENAME="year_r1",EXTRACTION="\b(%reThe )?%reYear4Digit",NORM_VALUE="group(3)"
+RULENAME="year_r2",EXTRACTION="%reSinceEtAl (το) %reYear4Digit",NORM_VALUE="group(3)",OFFSET="group(2)-group(3)"
+RULENAME="year_r3",EXTRACTION="\b(%reThe )?%reYearAllDigits %reYearBCAD",NORM_VALUE="%normYearBCAD(group(4))%normYearAllDigits(group(3))"
+RULENAME="year_r4",EXTRACTION="\b(%reThe )?%reMonthName (%reThe )?%reYearAllDigits %reYearBCAD",NORM_VALUE="%normYearBCAD(group(7))%normYearAllDigits(group(6))-%normMonthName(group(3))"
+RULENAME="year_r5",EXTRACTION="\b(%reThe )?%reSeason (%reThe )?%reYearAllDigits %reYearBCAD",NORM_VALUE="%normYearBCAD(group(7))%normYearAllDigits(group(6))-%normSeason(group(3))"
+RULENAME="year_r6mod",EXTRACTION="\b(%reThe )?%rePointsDurations (%reThe )?%reYear4Digit",NORM_VALUE="group(6)",NORM_MOD="%normPointsDurations(group(3))"
+RULENAME="year_r1negative",EXTRACTION="%reYear4Digit (μέτρα|εκατοστά|χιλιόμετρα|χλμ|δραχμές|δρχ|δολάρια|$|ευρώ|€)",NORM_VALUE="REMOVE"
+
+/////////////////
+// SEASON      //
+/////////////////
+
+// EXAMPLE season_r1: καλοκαίρι του 2000
+// EXAMPLE season_r2: 2000 φθινόπωρο
+// EXAMPLE season_r3: την άνοιξη
+// EXAMPLE season_r4: επόμενη άνοιξη
+RULENAME="season_r1",EXTRACTION="\b(%reThe )?%reSeason (%reThe )?%reYear4Digit",NORM_VALUE="group(6)-%normSeason(group(3))"
+RULENAME="season_r2",EXTRACTION="\b(%reThe )?%reYear4Digit (%reThe )?%reSeason",NORM_VALUE="group(3)-%normSeason(group(6))"
+RULENAME="season_r3",EXTRACTION="\b(%reThe )?%reSeason",NORM_VALUE="UNDEF-year-%normSeason(group(3))"
+RULENAME="season_r4np",EXTRACTION="\b(%reThe )?%reThisNextLast %reSeason",NORM_VALUE="UNDEF-%normThisNextLast(group(3))-%normSeason(group(4))"
+
+
+/////////////////
+// MONTH       //
+/////////////////
+
+// EXAMPLE month_r1: Ιούλιος
+// EXAMPLE month_r2: Ιούλιος 2010, Ιούλιος του 2010
+// EXAMPLE month_r3: Ιούλιος 99, Ιούλιος του 99
+// EXAMPLE month_r4np: επόμενο Μάρτιο, αυτόν τον Ιούνιο, κτλ.
+// EXAMPLE month_r5np: τον Οκτώβριο του προηγούμενου χρόνου
+// EXAMPLE month_r6mod: τέλη Ιουλίου
+// EXAMPLE month_r7mod: τέλη Ιουλίου 1945
+RULENAME="month_r1",EXTRACTION="\b(%reThe )?%reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(3))"
+RULENAME="month_r2",EXTRACTION="\b(%reThe )?%reMonthName (%reThe )?%reYear4Digit",NORM_VALUE="group(6)-%normMonthName(group(3))"
+RULENAME="month_r3",EXTRACTION="\b(%reThe )?%reMonthName (%reThe )?%reYear2Digit",NORM_VALUE="UNDEF-centurygroup(6)-%normMonthName(group(3))"
+RULENAME="month_r4np",EXTRACTION="\b(%reThe )?%reThisNextLast (%reThe )?%reMonthName",NORM_VALUE="UNDEF-%normThisNextLast(group(3))-%LOWERCASE%(%normMonthName(group(6)))"
+RULENAME="month_r5np",EXTRACTION="\b(%reThe )?%reMonthName %reThe %reThisNextLast %reYearToken",NORM_VALUE="UNDEF-%normThisNextLast(group(5))-%normMonthNameWord(group(3))"
+RULENAME="month_r6mod",EXTRACTION="\b(%reThe )?%rePointsDurations (%reThe )?%reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(6))",NORM_MOD="%normPointsDurations(group(3))"
+RULENAME="month_r7mod",EXTRACTION="\b(%reThe )?%rePointsDurations (%reThe )?%reMonthName (%reThe )?%reYear4Digit",NORM_VALUE="group(9)-%normMonthName(group(6))",NORM_MOD="%normPointsDurations(group(3))"
+
+
+/////////////////
+// DAY         //
+/////////////////
+
+// EXAMPLE day_r1: σήμερα, αύριο κτλ.
+// EXAMPLE day_r2: 30 του μήνα
+// EXAMPLE day_r3: (Παρασκευή) 30 Αυγούστου
+// EXAMPLE day_r4: (Παρασκευή) 30 Αυγούστου 2000, 1η Αυγούστου 2000
+// EXAMPLE day_r5: (Παρασκευή) δέκα Αυγούστου 2000
+// EXAMPLE day_r6: (Παρασκευή) πρώτη Αυγούστου 2000 
+// EXAMPLE day_r7: 17/6/1985
+// EXAMPLE day_r8: 17/6/85
+RULENAME="day_r1",EXTRACTION="\b(%reThe )?%reDateWord",NORM_VALUE="%normDateWord(group(3))"
+RULENAME="day_r2",EXTRACTION="\b(%reThe )?%reDayNumber %reThe (μήνα|μηνός)",NORM_VALUE="UNDEF-this-month-%normDayNumber(group(3))"
+RULENAME="day_r3",EXTRACTION="\b(%reThe )?(%reWeekday (%reThe )?)?%reDayNumber[ήηα]?ς? (%reThe )?%reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(10))-%normDayNumber(group(7))"
+RULENAME="day_r4",EXTRACTION="\b(%reThe )?(%reWeekday (%reThe )?)?%reDayNumber[ήηα]?ς? (%reThe )?%reMonthName,? (%reThe )?%reYear4Digit",NORM_VALUE="group(13)-%normMonthName(group(10))-%normDayNumber(group(7))"
+RULENAME="day_r5",EXTRACTION="\b(%reThe )?(%reWeekday (%reThe )?)?%reDayNumberWord (%reThe )?%reMonthName,? (%reThe )??%reYear4Digit",NORM_VALUE="group(13)-%normMonthName(group(10))-%normDayNumberWord(group(7))"
+RULENAME="day_r6",EXTRACTION="\b(%reThe )?(%reWeekday (%reThe )?)?%reDayNumberWordTh (%reThe )?%reMonthName,? (%reThe )??%reYear4Digit",NORM_VALUE="group(13)-%normMonthName(group(10))-%normDayNumberWordTh(group(7))"
+RULENAME="day_r7",EXTRACTION="\b(%reThe )?%reDayNumber/%reMonthNumber/%reYear4Digit",NORM_VALUE="group(5)-%normMonthNumber(group(4))-%normDayNumber(group(3))"
+RULENAME="day_r8",EXTRACTION="\b(%reThe )?%reDayNumber/%reMonthNumber/%reYear2Digit",NORM_VALUE="group(5)-%normMonthNumber(group(4))-%normDayNumber(group(3))"
+
+
+/////////////////
+// UNIT        //
+/////////////////
+
+// -- TODO : I put seasons in re/normUnit, should I also put months and days?
+
+// EXAMPLE unit_r1: (το) Unit
+// EXAMPLE unit_r2ago: πριν από 2 Unit
+// EXAMPLE unit_r3ago: πριν από δυο Unit
+// EXAMPLE unit_r4ago: 2 Unit πριν
+// EXAMPLE unit_r5ago: δυο Unit πριν
+// EXAMPLE unit_r6np: επόμενο (το) unit
+// EXAMPLE unit_r7mod: αρχές του unit
+RULENAME="unit_r1",EXTRACTION="\b(%reThe )?%reUnit",NORM_VALUE="UNDEF-this-%normUnit(group(3))"
+RULENAME="unit_r2ago",EXTRACTION="%reAgoLater (απ[όο] )?([\d]+) %reUnit",NORM_VALUE="UNDEF-this-%normUnit(group(4))-%normAgoLater(group(1))-group(3)"
+RULENAME="unit_r3ago",EXTRACTION="%reAgoLater (απ[όο] )?%reDayNumberWord %reUnit",NORM_VALUE="UNDEF-this-%normUnit(group(4))-%normAgoLater(group(1))-%normDayNumberWord(group(3))"
+RULENAME="unit_r4ago",EXTRACTION="([\d]+) %reUnit %reAgoLater",NORM_VALUE="UNDEF-this-%normUnit(group(2))-%normAgoLater(group(3))-group(1)"
+RULENAME="unit_r5ago",EXTRACTION="%reDayNumberWord %reUnit %reAgoLater",NORM_VALUE="UNDEF-this-%normUnit(group(2))-%normAgoLater(group(3))-%normDayNumberWord(group(1))"
+RULENAME="unit_r6np",EXTRACTION="\b(%reThe )?%reThisNextLast (%reThe )?%reUnit",NORM_VALUE="UNDEF-%normThisNextLast(group(3))-%normUnit(group(6))"
+RULENAME="unit_r7mod",EXTRACTION="\b(%reThe )?%rePointsDurations (%reThe )?%reUnit",NORM_VALUE="UNDEF-this-%normUnit(group(6))",NORM_MOD="%normPointsDurations(group(3))"
+
+
+/////////////////
+// RANGE RULES //
+/////////////////
+
+// EXAMPLE range_r1a,b: 1990-1992
+// EXAMPLE range_r2a,b: 1990-92
+// EXAMPLE range_r3a,b: 1990-2
+// EXAMPLE range_r4a,b: 27-28 Ιουνίου
+// EXAMPLE range_r5a,b: Ιούνιος - Ιούλιος
+// EXAMPLE range_r6a,b: 27 μέχρι 28 Ιουνίου
+// EXAMPLE range_r7a: 440 - 470 π.Χ.
+//RULENAME="range_r1a",EXTRACTION="%reYear4Digit[ ]?[-–/][ ]?%reYear4Digit",NORM_VALUE="group(1)",OFFSET="group(1)-group(1)"
+//RULENAME="range_r1b",EXTRACTION="%reYear4Digit[ ]?[-–/][ ]?%reYear4Digit",NORM_VALUE="group(2)",OFFSET="group(2)-group(2)"
+RULENAME="range_r2a",EXTRACTION="%reYear4Digit[ ]?[-–/][ ]?%reYear2Digit",NORM_VALUE="group(1)",OFFSET="group(1)-group(1)"
+RULENAME="range_r2b",EXTRACTION="%reYear4Digit[ ]?[-–/][ ]?%reYear2Digit",NORM_VALUE="%SUBSTRING%(group(1),0,2)group(2)",OFFSET="group(2)-group(2)"
+RULENAME="range_r3a",EXTRACTION="%reYear4Digit[ ]?[-–/][ ]?(\d)",NORM_VALUE="group(1)",OFFSET="group(1)-group(1)"
+RULENAME="range_r3b",EXTRACTION="%reYear4Digit[ ]?[-–/][ ]?(\d)",NORM_VALUE="%SUBSTRING%(group(1),0,3)group(2)",OFFSET="group(2)-group(2)"
+RULENAME="range_r4a",EXTRACTION="%reDayNumber[ ]?[-–/][ ]?%reDayNumber %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(3))-%normDayNumber(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="range_r4b",EXTRACTION="%reDayNumber[ ]?[-–/][ ]?%reDayNumber %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(3))-%normDayNumber(group(2))",OFFSET="group(2)-group(3)"
+RULENAME="range_r5a",EXTRACTION="%reMonthName[ ]?[-–/][ ]?%reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="range_r5b",EXTRACTION="%reMonthName[ ]?[-–/][ ]?%reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(2))",OFFSET="group(2)-group(2)"
+RULENAME="range_r6a",EXTRACTION="%reDayNumber %reSinceEtAl (%reThe )?%reDayNumber %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(6))-%normDayNumber(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="range_r6b",EXTRACTION="%reDayNumber %reSinceEtAl (%reThe )?%reDayNumber %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(6))-%normDayNumber(group(5))",OFFSET="group(5)-group(6)"
+RULENAME="range_r7a",EXTRACTION="\b(%reThe )?%reYearAllDigits[ ]?[-–/][ ]?%reYearAllDigits %reYearBCAD",NORM_VALUE="%normYearBCAD(group(5))group(3)"
+
+
+// -- TODO The following rules serve as solution to the problem of using OFFSET and ? quantifier in the same rule
+// EXAMPLE range_r1a,bthe: το 1990-1992
+// EXAMPLE range_r2a,bthe: το 1990-92
+// EXAMPLE range_r3a,bthe: το 1990-2
+// EXAMPLE range_r4a,bthe: το 27-28 Ιουνίου
+RULENAME="range_r1athe",EXTRACTION="\b%reThe %reYear4Digit[ ]?[-–/][ ]?%reYear4Digit",NORM_VALUE="group(2)",OFFSET="group(1)-group(2)"
+RULENAME="range_r1bthe",EXTRACTION="\b%reThe %reYear4Digit[ ]?[-–/][ ]?%reYear4Digit",NORM_VALUE="group(3)",OFFSET="group(3)-group(3)"
+RULENAME="range_r2athe",EXTRACTION="%reThe %reYear4Digit[ ]?[-–/][ ]?%reYear2Digit",NORM_VALUE="group(2)",OFFSET="group(1)-group(2)"
+RULENAME="range_r2bthe",EXTRACTION="%reThe %reYear4Digit[ ]?[-–/][ ]?%reYear2Digit",NORM_VALUE="%SUBSTRING%(group(2),0,2)group(3)",OFFSET="group(3)-group(3)"
+RULENAME="range_r3athe",EXTRACTION="%reThe %reYear4Digit[ ]?[-–/][ ]?(\d)",NORM_VALUE="group(2)",OFFSET="group(1)-group(2)"
+RULENAME="range_r3bthe",EXTRACTION="%reThe %reYear4Digit[ ]?[-–/][ ]?(\d)",NORM_VALUE="%SUBSTRING%(group(2),0,3)group(3)",OFFSET="group(3)-group(3)"
+RULENAME="range_r4athe",EXTRACTION="%reThe %reDayNumber[ ]?[-–/][ ]?%reDayNumber %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(4))-%normDayNumber(group(2))",OFFSET="group(1)-group(2)"
+RULENAME="range_r4bthe",EXTRACTION="%reThe %reDayNumber[ ]?[-–/][ ]?%reDayNumber %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(4))-%normDayNumber(group(3))",OFFSET="group(3)-group(4)"
+RULENAME="range_r5athe",EXTRACTION="%reThe %reMonthName[ ]?[-–/][ ]?%reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(2))",OFFSET="group(1)-group(2)"
+RULENAME="range_r5bthe",EXTRACTION="%reThe %reMonthName[ ]?[-–/][ ]?%reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(3))",OFFSET="group(1)-group(3)"
+
+
+//////////////////
+// AND/OR RULES //
+//////////////////
+
+// EXAMPLE andor_r1a,b: 1933 και 1934
+// EXAMPLE andor_r2a,b: 15 και 28 Σεπτεμβρίου
+RULENAME="andor_r1a",EXTRACTION="%reYear4Digit %reAndOrTo %reYear4Digit",NORM_VALUE="group(1)",OFFSET="group(1)-group(1)"
+RULENAME="andor_r1b",EXTRACTION="%reYear4Digit %reAndOrTo %reYear4Digit",NORM_VALUE="group(3)",OFFSET="group(3)-group(3)"
+RULENAME="andor_r2a",EXTRACTION="%reDayNumber %reAndOrTo %reDayNumber %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(4))-%normDayNumber(group(1))",OFFSET="group(1)-group(1)"
+RULENAME="andor_r2b",EXTRACTION="%reDayNumber %reAndOrTo %reDayNumber %reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(4))-%normDayNumber(group(3))",OFFSET="group(3)-group(4)"
+
+//////////////////
+// OTHER        //
+//////////////////
+
+// EXAMPLE pastfuture_r1: (το) παρελθόν
+RULENAME="pastfuture_r1",EXTRACTION="\b(%reThe )?%rePastFuture",NORM_VALUE="%normPastFuture(group(3))"
+
+// EXAMPLE parenthesis_r1: (1954)  -- TODO something for non years in parenthesis
+RULENAME="parenthesis_r1",EXTRACTION="\(%reYear4Digit\)",NORM_VALUE="group(1)",OFFSET="group(1)-group(1)"
+
+// EXAMPLE medieval: Μεσσαίωνας
+RULENAME="medieval",EXTRACTION="\b(%reThe )?([Μμ]εσαίωνας?|[Μμ]εσαιωνικ[όή]ς?|[Μμ]εσαιωνικού)",NORM_VALUE="PAST_REF"
