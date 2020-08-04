@@ -1,0 +1,4 @@
+// english: month, month
+μήνας
+μήνα
+μηνός

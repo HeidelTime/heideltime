@@ -1,0 +1,5 @@
+// english: year, year
+"χρόνος","year"
+"χρόνου","year"
+"έτος","year"
+"έτους","year"

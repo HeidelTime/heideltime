@@ -1,0 +1,36 @@
+// author: Manolis Kapernaros
+// email:  mkapernaros@di.uoa.gr
+// date:   2020-01-15
+// This file contains regular expression patterns for words of type SET
+
+// english: everyday P1D
+καθημεριν[όή]ς?
+καθημερινού
+καθημερινοί
+καθημερινές
+καθημερινά
+καθημερινών
+καθημερινώς
+
+ημερήσι[οα]ς?
+ημερήσιου
+ημερήσιων
+ημερήσιοι
+ημερήσιες
+ημερησίως
+
+// english monthly P1M
+μηνιαί[οα]ς?
+μηνιαίου
+μηνιαίοι
+μηνιαίες
+μηνιαίων
+μηνιαίως
+
+// english yearly P1Y
+ετήσι[οα]ς?
+ετήσιου
+ετήσιοι
+ετήσιες
+ετήσιων
+ετησίως

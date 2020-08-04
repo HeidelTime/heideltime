@@ -1,0 +1,7 @@
+// english: each, each
+κάθε
+έκαστος
+καθένας
+κάθε ένας
+// english: every, every
+κάθε

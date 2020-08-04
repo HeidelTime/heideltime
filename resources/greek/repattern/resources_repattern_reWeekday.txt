@@ -1,0 +1,19 @@
+// author: Manolis Kapernaros
+// email:  mkapernaros@di.uoa.gr
+// date:   2020-04-20
+// This file contains the Days of the week.
+// english: Monday
+Δευτέρας?
+// english: Tuesday
+Τρίτης?
+// english: Wednesday
+Τετάρτης?
+// english: Thursday
+Πέμπτης?
+// english: Friday
+Παρασκευής?
+// english: Saturday
+Σάββατο
+Σαββάτου
+// english: Sunday
+Κυριακής?

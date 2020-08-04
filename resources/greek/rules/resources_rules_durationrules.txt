@@ -1,0 +1,65 @@
+// author: Manolis Kapernaros
+// email:  mkapernaros@di.uoa.gr
+// date:   2020-05-11
+// This file contains rules for the temporal expressions of the type duration: durationrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""
+//(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+
+////////////////
+// UNIT       //
+////////////////
+
+// EXAMPLE r1a: 2 δεκαετίες
+// EXAMPLE r1b: δυο χρόνια
+// EXAMPLE r2a: 4 ώρες
+// EXAMPLE r2b: τέσσερα λεπτά
+RULENAME="duration_r1a",EXTRACTION="\b(%reThe )?([\d]+) %reUnit4Duration",NORM_VALUE="Pgroup(3)%normUnit4Duration(group(4))"
+RULENAME="duration_r1b",EXTRACTION="\b(%reThe )?%reDayNumberWord4Duration %reUnit4Duration",NORM_VALUE="P%normDayNumberWord4Duration(group(3))%normUnit4Duration(group(4))"
+RULENAME="duration_r2a",EXTRACTION="\b(%reThe )?([\d]+) %reUnitTime4Duration",NORM_VALUE="PTgroup(3)%normUnitTime4Duration(group(4))"
+RULENAME="duration_r2b",EXTRACTION="\b(%reThe )?%reDayNumberWord4Duration %reUnitTime4Duration",NORM_VALUE="PT%normDayNumberWord4Duration(group(3))%normUnitTime4Duration(group(4))"
+
+// EXAMPLE r1amod: τις τελευταίες 2 δεκαετίες
+// EXAMPLE r1bmod: τα τελευταίες δύο χρόνια
+// EXAMPLE r2amod: τις τελευταίες 4 ώρες
+// EXAMPLE r2bmod: τα τελευταίες τέσσερα λεπτά
+RULENAME="duration_r1amod",EXTRACTION="\b(%reThe )?%reThisNextLast ([\d]+) %reUnit4Duration",NORM_VALUE="Pgroup(4)%normUnit4Duration(group(5))"
+RULENAME="duration_r1bmod",EXTRACTION="\b(%reThe )?%reThisNextLast %reDayNumberWord4Duration %reUnit4Duration",NORM_VALUE="P%normDayNumberWord4Duration(group(4))%normUnit4Duration(group(5))"
+RULENAME="duration_r2amod",EXTRACTION="\b(%reThe )?%reThisNextLast ([\d]+) %reUnitTime4Duration",NORM_VALUE="PTgroup(4)%normUnitTime4Duration(group(5))"
+RULENAME="duration_r2bmod",EXTRACTION="\b(%reThe )?%reThisNextLast %reDayNumberWord4Duration %reUnitTime4Duration",NORM_VALUE="PT%normDayNumberWord4Duration(group(4))%normUnitTime4Duration(group(5))"
+
+/////////////////
+// UNSPECIFIED //
+/////////////////
+
+// EXAMPLE duration_units_r1: δεκαετίες
+// EXAMPLE duration_units_r2: κατά τα χρόνια/επί χρόνια
+// EXAMPLE duration_units_r3: μερικά χρόνια
+// EXAMPLE duration_units_r4: μερικά λεπτά
+RULENAME="duration_units_r1",EXTRACTION="\b(%reThe )?%reUnit4Duration",NORM_VALUE="PX%normUnit4Duration(group(3))"
+RULENAME="duration_units_r2",EXTRACTION="%reDuring (%reThe )?%reUnit4Duration",EXTRACTION="PX%normUnit4Duration(group(4))",OFFSET="group(4)-group(4)"
+RULENAME="duration_units_r3",EXTRACTION="%reFewMany %reUnit4Duration",NORM_VALUE="PX%normUnit4Duration(group(2))"
+RULENAME="duration_units_r4",EXTRACTION="%reFewMany %reUnitTime4Duration",NORM_VALUE="PX%normUnitTime4Duration(group(2))"
+//RULENAME="duration_units_negative_r1",EXTRACTION="([\S]+) \b(%reThe )?%reUnit4Duration",NORM_VALUE="REMOVE",POS_CONSTRAINT="group(1):Vb([\S]+):"
+
+
+//////////////////////////////
+// DURATION COMPOUND WORD   //
+//////////////////////////////
+
+// EXAMPLE duration_lenght_r1a: τριετία
+// EXAMPLE duration_lenght_r1b: 3ετία
+// EXAMPLE duration_lenght_r2a: οκτάωρο
+// EXAMPLE duration_lenght_r2b: 8ωρο
+RULENAME="duration_word_r1a",EXTRACTION="\b(%reThe )?%reUnitWord4DurationPrefix%reUnitWord4DurationSuffix",NORM_VALUE="P%normUnitWord4DurationPrefix(group(3))%normUnitWord4DurationSuffix(group(4))"
+RULENAME="duration_word_r1b",EXTRACTION="\b(%reThe )?(\d+)%reUnitWord4DurationSuffix",NORM_VALUE="Pgroup(3)%normUnitWord4DurationSuffix(group(4))"
+RULENAME="duration_word_r2a",EXTRACTION="\b(%reThe )?%reUnitTimeWord4DurationPrefix%reUnitTimeWord4DurationSuffix",NORM_VALUE="PT%normUnitTimeWord4DurationPrefix(group(3))%normUnitTimeWord4DurationSuffix(group(4))"
+RULENAME="duration_word_r2b",EXTRACTION="\b(%reThe )?(\d+)%reUnitTimeWord4DurationSuffix",NORM_VALUE="PTgroup(3)%normUnitTimeWord4DurationSuffix(group(4))"
+
+
+/////////////////
+// FRACTIONS   //
+/////////////////
+
+//EXAMPLE fractions_r1: κλάσματα του δευτερολέπτου
+RULENAME="fractions_r1",EXTRACTION="(δέκατα|κλάσματα) του δευτερολέπτου",NORM_VALUE="P1S",NORM_MOD="LESS_THAN"

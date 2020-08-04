@@ -1,0 +1,7 @@
+// author: Manolis Kapernaros
+// email: mkapernaros@di.uoa.gr
+// date: 2019-11-25
+// This file contains regular expression patterns for the hour part of time
+
+[0-1]?[0-9]
+2[0-4]

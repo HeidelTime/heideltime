@@ -1,0 +1,91 @@
+// author: Manolis Kapernaros
+// email:  mkapernaros@di.uoa.gr
+// date:   2020-05-11
+// This file contains rules for the temporal expressions of the type duration: durationrules
+// RULENAME="",EXTRACTION="",NORM_VALUE=""
+//(,OFFSET="")?(,POS_CONSTRAINT="")?(,NORM_MOD="")?(,NORM_QUANT="")?(,NORM_FREQ="")?
+
+
+/////////////////
+// PART OF DAY //
+/////////////////
+
+// EXAMPLE time_r1a: πρωί
+// EXAMPLE time_r1b: απόγευμα Δευτέρας
+// EXAMPLE time_r1c: Δευτέρα βράδυ
+// EXAMPLE time_r1d: χτες το μεσημέρι
+// EXAMPLE time_r1e: προηγούμενο βράδυ
+RULENAME="time_r1a",EXTRACTION="\b(%reThe )?%rePartOfDay",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(3))"
+RULENAME="time_r1b",EXTRACTION="\b(%reThe )?%rePartOfDay (%reThe )?%reWeekday",NORM_VALUE="UNDEF-day-%normDayInWeek(group(5))T%normPartOfDay(group(3))"
+RULENAME="time_r1c",EXTRACTION="\b(%reThe )?%reWeekday (%reThe )?%rePartOfDay",NORM_VALUE="UNDEF-day-%normDayInWeek(group(3))T%normPartOfDay(group(5))"
+RULENAME="time_r1d",EXTRACTION="%reDateWord( το)? %rePartOfDay",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(2))"
+RULENAME="time_r1e",EXTRACTION="\b(%reThe )?%reThisNextLast( το)? %rePartOfDay",NORM_VALUE="UNDEF-%normThisNextLast(group(3))-dayT%normPartOfDay(group(5))"
+
+// EXAMPLE time_r2a: απόγευμα στις 7 Οκτωβρίου του 1935
+RULENAME="time_r2a",EXTRACTION="\b(%reThe )?%rePartOfDay %reThe?[ ]?%reDayNumber %reMonthName %reThe? %reYear4Digit",NORM_VALUE="group(8)-%normMonthName(group(6))-%normDayNumber(group(5))T%normPartOfDay(group(3))"
+
+
+/////////////////
+// TIME        //
+/////////////////
+
+// r3 --TODO: [:.] instead of : and [΄'`] after minutes
+// EXAMPLE time_r3a: στις 16:00
+// EXAMPLE time_r3b: 16:00
+// EXAMPLE time_r3c: 4:00 μ.μ.
+// EXAMPLE time_r3d: 5:00 το απόγευμα
+// EXAMPLE time_r3e: 9 Μαΐου 1945, ώρα 0.43
+// EXAMPLE time_r3f: 9 Μαΐου 1945, ώρα 0.43 μ.μ.
+RULENAME="time_r3a",EXTRACTION="\b[Σσ]τις %reHour:%reMinute",NORM_VALUE="Tgroup(1):group(2)",OFFSET="group(1)-group(2)"
+RULENAME="time_r3b",EXTRACTION="\b%reThe %reHour:%reMinute",NORM_VALUE="Tgroup(2):group(3)"
+//RULENAME="time_r3c",EXTRACTION="\b(%reThe )?%reHour:%reMinute μ[\.]μ[\.]",NORM_VALUE="T%normHourPM(group(3)):group(4)"
+RULENAME="time_r3d",EXTRACTION="\b(%reThe )?%reHour:%reMinute %reThe %rePartOfDay",NORM_VALUE="T%normHourPM(group(3)):group(4)"
+RULENAME="time_r3e",EXTRACTION="\b(%reThe )?%reDayNumber %reMonthName %reYear4Digit (, |και )?(ώρα |%reThe )?%reHour:%reMinute",NORM_VALUE="group(5)-group(4)-group(3)Tgroup(9):group(10)"
+//RULENAME="time_r3f",EXTRACTION="\b(%reThe )?%reDayNumber %reMonthName %reYear4Digit (, |και )?(ώρα |%reThe )?%reHour:%reMinute μ[\.]μ[\.]",NORM_VALUE="group(5)-group(4)-group(3)T%normHourPM(group(9)):group(10)"
+
+
+/////////////////////////////
+// CONJOINED               //
+// DATE RULES WITH         //
+// PART OF DAY GRANULARITY //
+/////////////////////////////
+
+// EXAMPLE time_day_r1a: σήμερα το μεσημέρι, αύριο κτλ.
+// EXAMPLE time_day_r2a: μεσημέρι της 30 του μήνα
+// EXAMPLE time_day_r3a: μεσημέρι της (Παρασκευή) 30 Αυγούστου
+// EXAMPLE time_day_r4a: μεσημέρι της (Παρασκευή) 30 Αυγούστου 2000, 1η Αυγούστου 2000
+// EXAMPLE time_day_r5a: μεσημέρι της (Παρασκευή) δέκα Αυγούστου 2000
+// EXAMPLE time_day_r6a: μεσημέρι της (Παρασκευή) πρώτη Αυγούστου 2000 
+// EXAMPLE time_day_r7a: μεσημέρι της 17/6/1985
+// EXAMPLE time_day_r8a: μεσημέρι της 17/6/85
+RULENAME="time_day_r1a",EXTRACTION="\b(%reThe )?%reDateWord (%reThe )?%rePartOfDay",NORM_VALUE="%normDateWord(group(3))Τ%normPartOfDay(group(6))"
+RULENAME="time_day_r2a",EXTRACTION="\b(%reThe )?%rePartOfDay (%reThe )?%reDayNumber %reThe (μήνα|μηνός)",NORM_VALUE="UNDEF-this-month-%normDayNumber(group(6))T%normPartOfDay(group(3))"
+RULENAME="time_day_r3a",EXTRACTION="\b(%reThe )?%rePartOfDay (%reThe )?(%reWeekday (%reThe )?)?%reDayNumber[ήηα]?ς? (%reThe )?%reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(13))-%normDayNumber(group(10))T%normPartOfDay(group(3))"
+RULENAME="time_day_r4a",EXTRACTION="\b(%reThe )?%rePartOfDay (%reThe )?(%reWeekday (%reThe )?)?%reDayNumber[ήηα]?ς? (%reThe )?%reMonthName,? (%reThe )?%reYear4Digit",NORM_VALUE="group(16)-%normMonthName(group(13))-%normDayNumber(group(10))T%normPartOfDay(group(3))"
+RULENAME="time_day_r5a",EXTRACTION="\b(%reThe )?%rePartOfDay (%reThe )?(%reWeekday (%reThe )?)?%reDayNumberWord (%reThe )?%reMonthName,? (%reThe )??%reYear4Digit",NORM_VALUE="group(16)-%normMonthName(group(13))-%normDayNumberWord(group(10))T%normPartOfDay(group(3))"
+RULENAME="time_day_r6a",EXTRACTION="\b(%reThe )?%rePartOfDay (%reThe )?(%reWeekday (%reThe )?)?%reDayNumberWordTh (%reThe )?%reMonthName,? (%reThe )??%reYear4Digit",NORM_VALUE="group(16)-%normMonthName(group(13))-%normDayNumberWordTh(group(10))T%normPartOfDay(group(3))"
+RULENAME="time_day_r7a",EXTRACTION="\b(%reThe )?%rePartOfDay (%reThe )?%reDayNumber/%reMonthNumber/%reYear4Digit",NORM_VALUE="group(8)-%normMonthNumber(group(7))-%normDayNumber(group(6))T%normPartOfDay(group(3))"
+RULENAME="time_day_r8a",EXTRACTION="\b(%reThe )?%rePartOfDay (%reThe )?%reDayNumber/%reMonthNumber/%reYear2Digit",NORM_VALUE="group(8)-%normMonthNumber(group(7))-%normDayNumber(group(6))T%normPartOfDay(group(3))"
+
+//////////////////////
+// CONJOINED        //
+// DATE RULES WITH  //
+// ΤΙΜΕ GRANULARITY //
+//////////////////////
+
+// EXAMPLE time_day_r1b: 16:00 σήμερα, αύριο κτλ.
+// EXAMPLE time_day_r2b: 16:00 της 30 του μήνα
+// EXAMPLE time_day_r3b: 16:00 της (Παρασκευή) 30 Αυγούστου
+// EXAMPLE time_day_r4b: 16:00 της (Παρασκευή) 30 Αυγούστου 2000, 1η Αυγούστου 2000
+// EXAMPLE time_day_r5b: 16:00 της (Παρασκευή) δέκα Αυγούστου 2000
+// EXAMPLE time_day_r6b: 16:00 της (Παρασκευή) πρώτη Αυγούστου 2000 
+// EXAMPLE time_day_r7b: 16:00 της 17/6/1985
+// EXAMPLE time_day_r8b: 16:00 της 17/6/85
+RULENAME="time_day_r1b",EXTRACTION="\b(%reThe )?%reHour:%reMinute %reDateWord",NORM_VALUE="%normDateWord(group(5))Τgroup(3):group(4)"
+RULENAME="time_day_r2b",EXTRACTION="\b(%reThe )?%reHour:%reMinute (%reThe )?%reDayNumber %reThe (μήνα|μηνός)",NORM_VALUE="UNDEF-this-month-%normDayNumber(group(7))Tgroup(3):group(4)"
+RULENAME="time_day_r3b",EXTRACTION="\b(%reThe )?%reHour:%reMinute (%reThe )?(%reWeekday (%reThe )?)?%reDayNumber[ήηα]?ς? (%reThe )?%reMonthName",NORM_VALUE="UNDEF-year-%normMonthName(group(14))-%normDayNumber(group(11))Tgroup(3):group(4)"
+RULENAME="time_day_r4b",EXTRACTION="\b(%reThe )?%reHour:%reMinute (%reThe )?(%reWeekday (%reThe )?)?%reDayNumber[ήηα]?ς? (%reThe )?%reMonthName,? (%reThe )?%reYear4Digit",NORM_VALUE="group(17)-%normMonthName(group(14))-%normDayNumber(group(11))Tgroup(3):group(4)"
+RULENAME="time_day_r5b",EXTRACTION="\b(%reThe )?%reHour:%reMinute (%reThe )?(%reWeekday (%reThe )?)?%reDayNumberWord (%reThe )?%reMonthName,? (%reThe )??%reYear4Digit",NORM_VALUE="group(17)-%normMonthName(group(14))-%normDayNumberWord(group(11))Tgroup(3):group(4)"
+RULENAME="time_day_r6b",EXTRACTION="\b(%reThe )?%reHour:%reMinute (%reThe )?(%reWeekday (%reThe )?)?%reDayNumberWordTh (%reThe )?%reMonthName,? (%reThe )??%reYear4Digit",NORM_VALUE="group(17)-%normMonthName(group(14))-%normDayNumberWordTh(group(11))Tgroup(3):group(4)"
+RULENAME="time_day_r7b",EXTRACTION="\b(%reThe )?%reHour:%reMinute (%reThe )?%reDayNumber/%reMonthNumber/%reYear4Digit",NORM_VALUE="group(9)-%normMonthNumber(group(8))-%normDayNumber(group(7))Tgroup(3):group(4)"
+RULENAME="time_day_r8b",EXTRACTION="\b(%reThe )?%reHour:%reMinute (%reThe )?%reDayNumber/%reMonthNumber/%reYear2Digit",NORM_VALUE="group(9)-%normMonthNumber(group(8))-%normDayNumber(group(7))Tgroup(3):group(4)"

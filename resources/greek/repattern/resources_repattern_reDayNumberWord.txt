@@ -1,0 +1,76 @@
+// english: one, 01
+[εέ]να
+// english: two, 02
+δ[υύ]ο
+// english: three, 03
+τρ[ιί]α
+γ΄
+// english: four, 04
+δ΄
+τέσσερα
+// english: five, 05
+ε΄
+πέντε
+// english: six, 06
+έξι
+στ΄
+// english: seven, 07
+επτά
+ζ΄
+// english: eight, 08
+οκτώ
+η΄
+// english: nine, 09
+εννέα
+θ΄
+// english: ten, 10
+δέκα
+ι΄
+// english: eleven, 11
+έντεκα
+// english: twelve, 12
+δώδεκα
+// english: thirteen, 13
+δεκατρείς
+δεκατρία
+// english: fourteen, 14
+δεκατέσσερις
+δεκατέσσερα
+// english: fifteen, 15
+δεκαπέντε
+// english: sixteen, 16
+δεκαέξι
+// english: seventeen, 17
+δεκαεπτά
+// english: eighteen, 18
+δεκαοκτώ
+// english: nineteen, 19
+δεκαεννέα
+δεκαεννιά
+// english: twenty, 20
+είκοσι
+κ΄
+// english: twenty-one, 21
+είκοσι ένα
+// english: twenty-two, 22
+είκοσι δύο
+// english: twenty-three, 23
+είκοσι τρείς
+// english: twenty-four, 24
+είκοσι τέσσερα
+// english: twenty-five, 25
+είκοσι πέντε
+// english: twenty-six, 26
+είκοσι έξι
+// english: twenty-seven, 27
+είκοσι εφτά
+είκοσι επτά
+// english: twenty-eight, 28
+είκοσι-οκτώ
+// english: twenty-nine, 29
+είκοσι εννέα
+// english: thirty, 30
+τριάντα
+τριάκοντα
+// english: thirty-one, 31
+τριάντα ένα

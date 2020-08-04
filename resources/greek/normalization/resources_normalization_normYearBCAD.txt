@@ -1,0 +1,12 @@
+// english: BC, BC
+"πΧ","BC"
+// english: BCE, BC
+"πΚΧ","BC"
+"πΚΕ","BC"
+"πΚΠ","BC"
+// english: AD, ""
+"μΧ",""
+// english: CE, ""
+"ΚΧ",""
+"ΚΕ",""
+"ΚΠ",""

@@ -1,0 +1,15 @@
+// english: morning, MO
+"πρωί","MO"
+"πρωινό","MO"
+// english: noon, MI
+"μεσημέρι","MI"
+// english: afternoon, AF
+"απόγευμα","AF"
+// english: evening, EV
+"εσπέρα","EV"
+"βράδυ","EV"
+// english: night, NI
+"νύχτα","NI"
+"σούρουπο","NI"
+// english: midnight, 24:00
+"μεσάνυχτα","24:00"

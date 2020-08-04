@@ -1,0 +1,8 @@
+// english: ago, MINUS
+[Ππ]ριν
+νωρίτερα
+
+// english: later, PLUS
+[Μμ]ετά
+αργότερα
+[Ύύ]στερα

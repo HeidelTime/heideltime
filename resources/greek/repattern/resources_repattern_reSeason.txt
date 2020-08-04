@@ -1,0 +1,11 @@
+// english: spring, SP
+[Άά]νοιξης?
+// english: summer, SU
+[Κκ]αλοκαίρια?
+καλοκαιριού
+// english: autumn, FA
+[Φφ]θινόπωρο
+φθινόπωρου
+// english: winter, WI
+[Χχ]ειμώνας?
+[χχ]ειμών
