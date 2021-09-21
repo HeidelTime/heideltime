@@ -1,0 +1,37 @@
+// This file contains regular expression patterns for time hours of 12-hour system.
+
+1
+01
+2
+02
+3
+03
+4
+04
+5
+05
+6
+06
+7
+07
+8
+08
+9
+09
+10
+11
+12
+
+[Bb][iı]r
+[İıIi]ki
+[UuÜü][çc]
+[Dd][öo]r[td]
+[Dd][öo]rd
+[Bb]e[sş]
+[Aa]lt[ıi]
+[Yy]ed[iı]
+[Ss]ek[iı]z
+[Dd]okuz
+[Oo]n
+[Oo]n [Bb][iı]r
+[Oo]n [İIiı]k[iı]

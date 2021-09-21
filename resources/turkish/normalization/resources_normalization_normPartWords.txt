@@ -1,0 +1,9 @@
+"[Bb]a[sş]","START"
+
+"[Ss]on","END"
+
+"[Oo]rta","MID"
+
+"[Iı]lk","START"
+
+"[İi]lk","START"

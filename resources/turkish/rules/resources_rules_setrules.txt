@@ -1,0 +1,45 @@
+// This file contains rules for the temporal expressions of the type set: setrules
+
+// r1a: her yıl
+// r1b: her pazar
+// r1c: her kasım
+// r1d: her yaz
+// r1e: her sabah
+// r1g : salıları
+RULENAME="set_r1a",EXTRACTION="%reEachEvery(\s)*%reUnit",NORM_VALUE="P1%UPPERCASE%(%SUBSTRING%(%normUnit(group(3)),0,1))",NORM_QUANT="%UPPERCASE%(%normEachEvery(group(1)))"
+RULENAME="set_r1b",EXTRACTION="%reEachEvery %reWeekday",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(2))",NORM_QUANT="%UPPERCASE%(%normEachEvery(group(1)))",NORM_FREQ="1W"
+RULENAME="set_r1c",EXTRACTION="%reEachEvery(\s)*%reMonthName",NORM_VALUE="XXXX-%normMonthName(group(3))",NORM_QUANT="%UPPERCASE%(%normEachEvery(group(1)))",NORM_FREQ="1M"
+RULENAME="set_r1d",EXTRACTION="%reEachEvery(\s)*%reSeason",NORM_VALUE="XXXX-%normSeason(group(3))",NORM_QUANT="%UPPERCASE%(%normEachEvery(group(1)))",NORM_FREQ="1S"
+RULENAME="set_r1e",EXTRACTION="%reEachEvery %rePartOfDay",NORM_VALUE="XXXX-%normPartOfDay(group(2))",NORM_QUANT="%UPPERCASE%(%normEachEvery(group(1)))",NORM_FREQ="1D"
+RULENAME="set_r1f",EXTRACTION="%reEachEvery%rePartOfDay",NORM_VALUE="XXXX-%normPartOfDay(group(2))",NORM_QUANT="%UPPERCASE%(%normEachEvery(group(1)))",NORM_FREQ="1D"
+RULENAME="set_r1g",EXTRACTION="%reWeekday%rePluralSuffix%reSuffix*",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(1))",NORM_FREQ="1W"
+
+// r2a: haftada 2 kez
+// r2b: 3 haftada 2 kez
+// r2c: haftadan haftaya
+RULENAME="set_r2a",EXTRACTION="%reSetUnit(\s)*%reNumber(\s)*([Kk]ez|[Kk]ere|[Gg][üu]n|[Dd]efa|[Ss]efer)",NORM_VALUE="P1%normUnit4Duration(group(1))",NORM_FREQ="%normNumber(group(3))"
+RULENAME="set_r2b",EXTRACTION="%reNumber(\s)*%reSetUnit(\s)*%reNumber(\s)*(%reUnit|[Kk]ez|[Kk]ere|[Dd]efa|[Ss]efer)?",NORM_VALUE="P%normNumber(group(1))%normUnit4Duration(group(3))",NORM_FREQ="%normNumber(group(5))"
+RULENAME="set_r2c",EXTRACTION="%reUnit(dan|den)(\s)*%reUnit(ya|ye|a|e)",NORM_VALUE="P1%normUnit4Duration(group(1))",NORM_QUANT="EVERY"
+
+//r3a: Her yılbaşı
+// r3b: her anneler gününde
+RULENAME="set_r3a",EXTRACTION="%reEachEvery(\s)*%reHolidayFix%reSuffix*",NORM_VALUE="XXXX-%normHolidayFix(group(3))",NORM_QUANT="EVERY",NORM_FREQ="1Y"
+RULENAME="set_r3b",EXTRACTION="%reEachEvery(\s)*%reHolidayVar%reSuffix*",NORM_VALUE="XXXX-%normHolidayVar(group(3))",NORM_QUANT="EVERY",NORM_FREQ="1Y"
+
+// r4a: Her 3 ayda bir
+// r4b: her 3 aya bir
+// r4c: her aya bir
+// r4d: 2 ayda bir
+// r4e: 2 aya bir
+// r4f: ayda bir   
+RULENAME="set_r4a",EXTRACTION="%reEachEvery(\s)*%reNumber(\s)*%reSetUnit(\s)*[Bb][iı]r",NORM_VALUE="P%normNumber(group(3))%normUnit4Duration(group(5))",NORM_QUANT="EVERY"
+RULENAME="set_r4b",EXTRACTION="%reEachEvery(\s)*%reNumber(\s)*%reUnit(e|a|ye|ya)(\s)*[Bb][iı]r",NORM_VALUE="P%normNumber(group(3))%normUnit4Duration(group(5))",NORM_QUANT="EVERY"
+RULENAME="set_r4c",EXTRACTION="%reEachEvery(\s)*%reUnit(a|e|ye|ya)(\s)*[Bb][iı]r",NORM_VALUE="P1%normUnit4Duration(group(3))",NORM_QUANT="EVERY"
+RULENAME="set_r4d",EXTRACTION="%reNumber(\s)*%reSetUnit(\s)*[Bb][iı]r",NORM_VALUE="P%normNumber(group(1))%normUnit4Duration(group(3))",NORM_QUANT="EVERY"
+RULENAME="set_r4e",EXTRACTION="%reNumber(\s)*%reUnit(e|a|ye|ya) [Bb][iı]r",NORM_VALUE="P%normNumber(group(1))%normUnit4Duration(group(3))",NORM_QUANT="EVERY"
+RULENAME="set_r4f",EXTRACTION="%reSetUnit(\s)*[Bb][iı]r",NORM_VALUE="P1%normUnit4Duration(group(1))",NORM_QUANT="EVERY"
+
+
+//r5a: her hafta 2 gün
+RULENAME="set_r5a",EXTRACTION="%reEachEvery(\s)*%reUnit(\s)*%reNumber(\s)*%reUnit%reSuffix*",NORM_VALUE="P1%normUnit4Duration(group(1))",NORM_QUANT="EVERY",NORM_FREQ="group(5)%normUnit4Duration(group(7))"
+RULENAME="set_r5b",EXTRACTION="%reEachEvery(\s)*%reDayToken(\s)*%reNumber(\s)*%reUnitTime4Duration%reSuffix*",NORM_VALUE="P1D",NORM_QUANT="EVERY",NORM_FREQ="group(5)%normUnit4Duration(group(7))"

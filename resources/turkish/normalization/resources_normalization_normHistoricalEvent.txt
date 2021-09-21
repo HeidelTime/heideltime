@@ -1,0 +1,1479 @@
+//This file includes historical events. 
+
+"[ÇCçc]ekoslavakya'nın [Dd]a[gğ]ılı[şs]ı","1993-01-01"
+
+"[Mm]ekke'nin [Ff]ethi","0630-01-01"
+
+"[Rr]odos'un [Ff]ethi","1993-01-02"
+
+"[Ss]oyadı [Kk]anunu","1936-02-01"
+
+"[Mm]ersin'in [Dd][üu][şs]man [İIiı][şs]galinden [Kk]urtulu[şs]u","1922-01-03"
+
+"1952 [Hh]asankale [Dd]epremi","1952-01-03"
+
+"[Bb]urma'nın [Bb]a[gğ]ımsızlı[gğ]ı","1958-01-04"
+
+"[Aa]dana'nın [Dd][üu][şs]man [İIiı][şs]galinden [Kk]urtulu[şs]u","1922-01-05"
+
+"[Aa]tat[üu]rk [Yy]ılı","1981"
+
+"[Mm]orse [Aa]lfabesi","1838-01-06"
+
+"I. [İIiı]n[öo]n[üu] [Ss]ava[şs]ı","1921-01-06"
+
+"[Dd]emokrat [Pp]arti('nin)? [Kk]urulu[şs]u","1946-01-07"
+
+"[Dd]emokrat [Tt][üu]rkiye [Pp]artisi [Kk]urulu[şs]u","1997-01-07"
+
+"[Mm]onako'nun [Bb]a[gğ]ımsızlı[gğ]ı","1297-01-08"
+
+"[Ee]rzin'in [Ff]ransız [İIiı][şs]galinden [Kk]urtulu[şs]u","1922-01-08"
+
+"I. [Bb]e[şs] [Yy]ıllık [Kk]alkınma [Pp]lanı","1933-01-08"
+
+"[Yy]a[şs] [Aa]ntla[şs]ması","1792-01-09"
+
+"[Dd]il [Vv]e [Tt]arih-[Cc]o[gğ]rafya [Oo]kulunun [Aa][çc]ılı[şs]ı","1936-01-09"
+
+"([Ll]ondra [Mm]etrosunun|[Mm]etropolitan'[iı]n|[Mm]etropolitan [Mm]etrosunun) [Aa][çc][iı]l([iı][şs][iı]|mas[iı])?","1863-01-10"
+
+"I. [Dd][üu]nya [Ss]ava[şs]ının( [Ff]iilen)? [Ss]ona [Ee]rmesi","1919-01-10"
+
+"[Mm]illetler [Cc]emiyetinin [Kk]urulu[şs]u","1920-01-10"
+
+"(1|I). [İIiı]n[öo]n[üu] [Zz]aferi","1921-01-10"
+
+"[Gg]azeteciler [Cc]emiyeti('nin)? [Kk]urul","1946-01-10"
+
+"[Tt][üu]rksat 2[Aa] [Ff]ırlat","2001-01-10"
+
+"[Aa]vezzano [Dd]epremi","1995-01-13"
+
+"1915 [Aa]vezzano [Dd]epremi","1995-01-13"
+
+"[Gg][öo]rele'nin [Kk]urtulu[şs]u","1918-01-13"
+
+"[Ee]rzincan'ın [Kk]urtulu[şs]u","1918-01-13"
+
+"[Ss]ultanahmet [Mm]itingleri","1920-01-13"
+
+"[Ff]utbol [Ff]ederasyonunun [Kk]urulu[şs]u","1923-01-13"
+
+"[Hh]asankale [Dd]epremi","1952-01-13"
+
+"[Ee]xplorer1'in [Ff]ırlatılı[şs]ı","1958-01-13"
+
+"[Ss]avunma [Ss]anayii [Mm][üu]ste[şs]arlı[gğ]ı [Kk]urulu[şs]u","1986-01-13"
+
+"[Bb]a[şs]kent [ÜUüu]niversitesi [Kk]urulu[şs]u","1994-01-13"
+
+"2010 [Hh]aiti [Dd]epremi","2010-01-13"
+
+"III. [Ll]ondra [Kk]onferansı","1964-01-15"
+
+"[Ss]osyalist [Bb][iı]rlik [Pp]artisi [Kk]urulu[şs]u","1991-01-15"
+
+"III. [Mm]ehmet'in [Tt]ahta [çc]ıkı[şs]ı","1595-01-16"
+
+"[Mm]illetler [Cc]emiyeti [İIiı]lk [Tt]oplantısı","1920-01-16"
+
+"[Rr]efah [Pp]artisi [Kk]apatılı[şs]ı","1998-01-16"
+
+"[ÇCçc]ıra[gğ]an [Ss]arayı [Yy]angını","1910-01-18"
+
+"[Pp]aris [Bb]arı[şs] [Kk]onferansı","1919-01-18"
+
+"1861 [Mm]endoza [Dd]epremi","1861-01-20"
+
+"[İIiı]lk [Bb]asketbol [Mm]a[çc]ı","1892-01-20"
+
+"[Dd]ar[üu]laceze [Kk]urulu[şs]u","1895-01-20"
+
+"[Tt]e[şs]kilatı [Ee]sasiyenin [Kk]abul[üu]","1921-01-20"
+
+"[Kk]ara [Oo]cak","1990-01-20"
+
+"[Rr]odos'un [Ff]ethi","1522-01-21"
+
+"I. [Aa]bd[üu]lhamit'in [Tt]ahta Çıkı[şs]ı","1774-01-21"
+
+"[Rr]idaniye [Ss]ava[şs]ı","1517-01-22"
+
+"[Bb]aytar [Mm]ektebinin [Aa][çc]ılı[şs]ı","1842-01-22"
+
+"[Rr][öo]ntgenin [İIiı]cadı","1896-01-23"
+
+"I. [Kk][öo]m[üu]r [Kk]ongresi","1978-01-23"
+
+"[Pp]osta [Gg]azatesinin [Yy]ayın [Hh]ayatına [Bb]a[şs]laması","1995-01-23"
+
+"[Yy]eni Şafak [Gg]azatesinin [Yy]ayın [Hh]ayatına [Bb]a[şs]laması","1995-01-23"
+
+"[Aa]tom [Ee]nerjisi [Kk]omisyonunun [Kk]urtulu[şs]u","1946-01-23"
+
+"[Uu][gğ]ur [Mm]umcu [Ss]uikastı","1993-01-24"
+
+"[Ss]ırpsındı[gğ]ı [Ss]ava[şs]ı","1363-01-25"
+
+"[Ss]ırpsındı[gğ]ı [Mm]uharebesi","1363-01-25"
+
+"[Uu]trecht [Aa]ntla[şs]ması","1579-01-25"
+
+"[Pp]olonya'nın [Bb]a[gğ]ımsızlı[gğ]ı","1831-01-25"
+
+"[Mm]illetler [Cc]emiyetinin [Kk]urulu[şs]u","1919-01-25"
+
+"[Kk]umyangjang-ni [Mm]uharebesi","1951-01-25"
+
+"[Kk]umyangjang-ni [Ss]ava[şs]ı","1951-01-25"
+
+"[Gg]affar [Oo]kan [Ss]uikastı","2001-01-24"
+
+"[Mm]illi [Nn]izam [Pp]artisinin [Kk]urulu[şs]u","1970-01-25"
+
+"[Hh]indistan'da [Cc]umhuriyetin [İIiı]lanı","1950-01-26"
+
+"[Tt]homas [Ee]dison'ın [Aa]mpul[üu]n [Pp]atentini [Aa]lması","1880-01-27"
+
+"[Ll]ondra'da [İIiı]lk [Tt]elevizyon [Yy]ayını","1926-01-27"
+
+"[İIiı]lk [Tt]eyp [Ss]atı[şs]ı","1948-01-27"
+
+"[Mm]illet [Pp]artisinin [Kk]apat","1954-01-27"
+
+"[Kk][öo]y [Ee]nstit[üu]lerinin [Kk]apat","1954-01-27"
+
+"[Aa]pollo 1'in [Yy]an","1967-01-27"
+
+"[Oo]smanlı'nın [Kk]ahire'ye [Gg]ir","1517-01-28"
+
+"[Mm][üu]lkiye [Mm]ektebinin [Aa][çc]","1854-01-28"
+
+"[Mm]isakı [Mm]illinin [Kk]abul","1920-01-28"
+
+"[Cc]hallanger'in [Pp]at","1986-01-28"
+
+"[Tt][üu]rkiye [Bb][iı]rle[şs]ik [Kk]om[üu]nist [Pp]artisinin [Kk]apa","1992-01-28"
+
+"[Tt][üu]rk [Ll]irasından ([Aa]lt[ıi]|6) [Ss]ıfır [Aa]t","2004-01-28"
+
+"[Tt][üu]rkiye [İIiı][şs][çc]i [Kk][öo]yl[üu] [Pp]artisinin [Kk]ur","1978-01-29"
+
+"[Aa]dana [Mm][üu]lakatı","1943-01-30"
+
+"[Mm]acaristan'da [Cc]umhuriyetin [İIiı]lan","1946-01-30"
+
+"[Tt][üu]rkiye'de [İIiı]lk [Bb][öo]brek [Nn]akli","1969-01-30"
+
+"[Oo]smanlı-[Pp]rusya [İIiı]ttifakı","1790-01-31"
+
+"[Aa]nkara [Tt]elevizyonu [Dd]eneme [Yy]ayını","1968-01-31"
+
+"[Ss]inemanın [İIiı]cadı","1895-02-01"
+
+"[Aa]nkara [Gg]azi [İIiı]stasyonu [Aa][çc]","1926-02-01"
+
+"[Aa]yasofya'nın [Mm][üu]ze [Oo]larak [Aa][çc]","1935-02-01"
+
+"[İIiı][şs]kenceye [Kk]ar[şs]ı [Aa]vrupa [Ss][öo]zle[şs]mesi","1987-02-01"
+
+"[Tt]anju Çolak'ın [Aa]ltın [Aa]yakkabı [öo]d[üu]l[üu] [Aa]l","1989-02-01"
+
+"Önce [Vv]atan [Gg]azetesi [Yy]ayın [Hh]ayatına [Bb]a[şs]","2001-02-01"
+
+"[Tt]he [Nn]ew [Aa]natolian [Yy]ayın [Hh]aytaına [Bb]a[şs]","2005-02-01"
+
+"[Aa]merika'nın I. [Dd][üu]nya [Ss]ava[şs]ına [Gg]ir","1918-02-02"
+
+"[Aa]nkara Çimento [Ff]abrikası [Aa][çc]","1928-02-02"
+
+"[Kk]ız [Tt]eknik Ö[gğ]retmen [Ll]isesinin [Aa][çc]","1935-02-02"
+
+"[Aa]yasofya [Mm][üu]zesinin [Hh]akın [Hh]izmetine [Aa][çc]","1935-02-02"
+
+"[Bb]ursa [Mm]erinos [Ff]abrikası [Aa][çc]","1938-02-02"
+
+"[Hh]utbenin [Tt][üu]rk[çc]e [Oo]kunmaya [Bb]a[şs]","1928-02-03"
+
+"[Tt][üu]rk-[Ff]ransız [Dd]ostluk [Aa]nla[şs]ması","1930-02-03"
+
+"[Aa]nkara [İIiı]stanbul [İIiı]lk [Dd]eneme [Uu][çc]u[şs]u","1933-02-03"
+
+"[Ll]una 9'un [Aa]y'a [İIiı]n","1966-02-03"
+
+"[Ee]l [Ss]alam 98'in [Bb]at","2006-02-03"
+
+"2002 [Ss]ultanda[gğ]ı [Dd]epremi",""
+
+"1. J[öo]n [Tt][üu]rk [Kk]ongresi","1992-02-04"
+
+"[Tt][üu]rk [Kk]adınlar [Bb][iı]rli[gğ]i","1924-02-05"
+
+"[Tt][üu]rk [Yy]azarlar [Ss]endikası","1974-02-06"
+
+"[Nn]okta [Dd]ergisi","1982-02-05"
+
+"[Bb]asın [Kk]onseyi","1988-02-06"
+
+"[Tt][üu]rk [Tt]icaret [Vv]e [Ss]anayi [Oo]daları [İIiı]le [Tt]icaret [Bb]orsaları [Bb][iı]rli[gğ]i [Kk]urul","1952-02-07"
+
+"1. J[öo]n [Tt][üu]rk [Kk]ongresi","1992-02-04"
+
+"1998 [Aa]fganistan [Dd]epremi","1998-02-06"
+
+"[Ss]ultan [İIiı]brahim [çc]ık","1640-02-07"
+
+"uzayda [İIiı]lk [Kk]ez [Ss]erbest [Yy][üu]r[üu]y[üu][şs]","1984-02-07"
+
+"[Mm]aastricht [Aa]ntla[şs]ması","1992-02-07"
+
+"18. [Kk]ı[şs] [Oo]limpiyatları","1998-02-07"
+
+"[Dd]ar-[üu]l [Mm]uallimat","1870-02-08"
+
+"[Rr]us-Japonya [Ss]ava[şs]ı","1904-02-08"
+
+"[Tt][üu]rkiye [Bb][üu]y[üu]k [Mm]illet [Mm]eclisi 5. [Dd][öo]nem [Ss]e[çc]imleri","1935-02-08"
+
+"[Oo]rman [Kk]anunu [Kk]abul","1937-02-08"
+
+"[Bb]alkan [Pp]aktı","1934-02-09"
+
+"[Cc]umhuriyet[çc]i [Mm]illet [Pp]artisi [Kk]ur","1954-02-09"
+
+"1947 [Pp]aris [Bb]arı[şs] [Aa]ntla[şs]ması","1947-02-10"
+
+"[Zz][üu]rih [Aa]ntla[şs]ması","1959-02-11"
+
+"[Aa]dalet [Pp]artisi [Kk]ur","1961-02-11"
+
+"1903 [Mm]alazgirt [Dd]epremi","1903-04-29"
+
+"1912 [Mm][üu]refte [Dd]epremi","1912-08-09"
+
+"1914 [Bb]urdur [Dd]epremi","1914-10-04"
+
+"1919 [Aa]yvalık [Dd]epremi","1919-11-18"
+
+"1914 [Pp]asinler [Dd]epremi","1924-09-13"
+
+"1926 [Kk]ars [Dd]epremi","1926-10-22"
+
+"1928 Ödemi[şs]-[Tt]orbalı [Dd]epremi","1928-03-31"
+
+"1929 [Ss]u[şs]ehri [Dd]epremi","1929-05-18"
+
+"1930 [Hh]akkari [Dd]epremi","1930-05-07"
+
+"1935 [Ee]dek-[Mm]armara [Dd]epremi","1935-01-04"
+
+"1935 [Dd]igor [Dd]epremi","1935-05-01"
+
+"1938 [Kk]ır[şs]ehir [Dd]epremi","1938-05-19"
+
+"1939 [Dd][İIiı]k[iı]li [Dd]epremi","1939-09-22"
+
+"1939 [Ee]rzincan [Dd]epremi","1939-12-27"
+
+"1941 [Vv]an-[Ee]rci[şs] [Dd]epremi","1941-09-10"
+
+"1941 [Ee]rzincan [Dd]epremi","1941-11-12"
+
+"1941 [Mm]u[gğ]la [Dd]epremi","1941-12-13"
+
+"1942 [Bb]igadi[çc] [Dd]epremi","1942-11-15"
+
+"1942 [Nn]iksar-[Ee]rbaa [Dd]epremi","1942-12-20"
+
+"1943 [Aa]dapazarı-[Hh]endek [Dd]epremi","1943-06-20"
+
+"1943 [Tt]osya-[Ll]adik [Dd]epremi","1943-11-27"
+
+"1944 [Bb]olu-[Gg]erede [Dd]epremi","1944-02-01"
+
+"1944 [Ee]ge [Dd]enizi [Dd]epremi","1944-10-06"
+
+"1945 [Cc]eyhan [Dd]epremi","1945-03-20"
+
+"1946 [Vv]arto [Dd]epremi","1946-05-31"
+
+"1949 [Ee]ge [Dd]enizi [Dd]epremi","1949-07-23"
+
+"1949 [Kk]arlıova [Dd]epremi","1949-08-17"
+
+"1951 [Kk]ur[şs]unlu [Dd]epremi","1951-08-13"
+
+"1953 [Yy]enice-[Gg][öo]nen [Dd]epremi","1953-03-18"
+
+"1955 [Ss][öo]ke [Dd]epremi","1955-07-16"
+
+"1957 [Ff]ethiye [Dd]epremi","24-04-1957"
+
+"1957 [Aa]bant [Dd]epremi","1957-05-26"
+
+"1964 [Mm]anyas [Dd]epremi","1964-10-07"
+
+"1966 [Vv]arto [Dd]epremi","1966-08-19"
+
+"1967 [Mm]udurnu [Dd]epremi","1967-07-22"
+
+"1968 [Aa]masra [Dd]epremi","1968-09-03"
+
+"1969 [Aa]la[şs]ehir [Dd]epremi","1969-03-28"
+
+"1970 [Gg]ediz [Dd]epremi","1970-03-28"
+
+"1971 [Bb]urdur [Dd]epremi","1971-05-12"
+
+"1971 [Bb]ing[öo]l [Dd]epremi","1971-05-22"
+
+"1975 [Ll]ice [Dd]epremi","1975-09-06"
+
+"1976 Çaldıran [Dd]epremi","1976-11-24"
+
+"1983 [Ee]rzurum [Dd]epremi","1983-10-30"
+
+"1992 [Ee]rzincan [Dd]epremi","1992-03-13"
+
+"1995 [Dd]inar [Dd]epremi","1995-10-01"
+
+"1998 [Aa]dana-[Cc]eyhan [Dd]epremi","1998-06-27"
+
+"1999 [Gg][öo]lc[üu]k [Dd]epremi","1999-08-17"
+
+"1999 [Dd][üu]zce [Dd]epremi","1999-11-12"
+
+"[Bb][üu]y[üu]k [İIiı]stanbul [Dd]epremi","1509-09-10"
+
+"[Kk][ÜUüu][çc][üu]k [Kk]ıyamet","1059-09-10"
+
+"2003 [Bb]ing[öo]l [Dd]epremi","2003-05-01"
+
+"2010 [Ee]lazı[gğ] [Dd]epremi","2010-03-08"
+
+"[Ee]k[iı]m 2011 [Vv]an [Dd]epremi","2011-10-23"
+
+"[Kk]as[iı]m 2011 [Vv]an [Dd]epremi","2011-11-09"
+
+"2020 [Ee]lazı[gğ] [Dd]epremi","2020-01-24"
+
+"[Kk]oyunhisar ([Mm]uharebesi|[Ss]ava[şs]ı)","1302"
+
+"[Ss]ırpsındı[gğ]ı [Ss]ava[şs]ı","1364"
+
+"[ÇCçc]irmen [Ss]ava[şs]ı","1371"
+
+"[Pp]lo[şs]nik ([Mm]uharebesi|[Ss]ava[şs]ı)","1388"
+
+"I. [Kk]osova [Ss]ava[şs]ı","1389"
+
+"[Kk][iı]rkdilim ([Mm]uharebesi|[Ss]ava[şs]ı)","1392"
+
+"[Nn]i[gğ]bolu [Ss]ava[şs]ı","1396"
+
+"[Aa]nkara ([Mm]uharebesi|[Ss]ava[şs]ı)","1402"
+
+"Şeyh [Bb]edrettin [İIiı]syanı","1416"
+
+"[Vv]arna [Ss]ava[şs]ı","1444"
+
+"II. [Kk]osova [Ss]ava[şs]ı","1448"
+
+"[İIiı]stanbul'un [Ff]ethi","1453-05-29"
+
+"[Kk]ıreli [Ss]ava[şs]ı","1472"
+
+"[Oo]tlukbeli [Ss]ava[şs]ı","1473"
+
+"[Bb]o[gğ]dan ([Ss]ava[şs]ı|[Ss]eferi)","1476"
+
+"[Oo]tranto ([Ss]ava[şs]ı|[Ss]eferi)","1480"
+
+"[Aa][gğ]a[çc]ayırı ([Mm]uharebesi|[Ss]ava[şs]ı)","1488"
+
+"[Kk]rbava ([Mm]uharebesi|[Ss]ava[şs]ı)","1493"
+
+"[Ss]apienza [Dd]eniz ([Mm]uharebesi|[Ss]ava[şs]ı)","1499"
+
+"[ÇCçc]aul ([Ss]ava[şs]ı|[Ss]eferi)","1508"
+
+"[Dd]iu ([Ss]ava[şs]ı|[Ss]eferi)","1509"
+
+"Şahkulu [Bb]aba [Tt]ekeli [İIiı]syanı","1511"
+
+"[ÇCçc]aldıran ([Mm]uharebesi|[Ss]ava[şs]ı)","1514"
+
+"[Mm]ercidabık ([Mm]uharebesi|[Ss]ava[şs]ı)","1516"
+
+"[Rr]idaniye ([Mm]uharebesi|[Ss]ava[şs]ı)","1517"
+
+"[Cc]elali [İIiı]syanları","1519"
+
+"[Mm]oha[çc] ([Mm]uharebesi|[Ss]ava[şs]ı)","1526"
+
+"[Kk][öo]rsof-[Aa]vlonya ([Ss]ava[şs]ı|[Ss]eferi)","1537"
+
+"[Vv]ertizo ([Ss]ava[şs]ı|[Ss]eferi|[Zz]aferi)","1537"
+
+"[Pp]reveze( [Dd]eniz)? ([Ss]ava[şs]ı|[Ss]eferi|[Zz]aferi)","1538"
+
+"[Zz]igetvar [Ss]ava[şs]ı","1566"
+
+"[Ss]umatra ([Ss]ava[şs]ı|[Ss]eferi)","1569"
+
+"[Aa]starhan ([Ss]ava[şs]ı|[Ss]eferi)","1569"
+
+"[Vv]adi'[üu]s-seyl [Ss]ava[şs]ı","1578"
+
+"[Mm]e[şs]ale [Ss]ava[şs]ı","1583"
+
+"(1|I). [Mm]ombasa [Ss]eferi","1585"
+
+"[Gg]ence ([Ss]ava[şs]ı|[Ss]eferi)","1588"
+
+"(2|II). [Mm]ombasa [Ss]eferi","1589"
+
+"[Kk]ulpa [Bb]ozgunu","1593"
+
+"[Hh]a[çc]ova ([Ss]ava[şs]ı|[Ss]eferi)","1596"
+
+"[Uu]rmiye ([Mm]uharebesi|[Ss]ava[şs]ı)","1605"
+
+"[Pp][üu]l-i Şikeste ([Mm]uharebesi|[Ss]ava[şs]ı|[Yy]enilgisi)","1618"
+
+"[Tt]utora ([Ss]ava[şs]ı|[Ss]eferi|[Zz]aferi)","1620"
+
+"[Hh]otin ([Ss]ava[şs]ı|[Ss]eferi)","1621"
+
+"[Kk]araharman ([Ss]ava[şs]ı|[Ss]eferi|[Zz]aferi)","1624"
+
+"[İIiı]zvan[çc]a ([Mm]uharebesi|[Ss]ava[şs]ı)","1676"
+
+"[Ss]alankamen ([Mm]uharebesi|[Ss]ava[şs]ı)","1691"
+
+"[Uu]la[şs] ([Mm]uharebesi|[Ss]ava[şs]ı|[Zz]aferi)","1696"
+
+"[Zz]enta ([Mm]uharebesi|[Ss]ava[şs]ı)","1697"
+
+"[Pp]etrovaradin ([Mm]uharebesi|[Ss]ava[şs]ı)","1716"
+
+"[Mm]atapan( [Dd]eniz)? ([Mm]uharebesi|[Ss]ava[şs]ı)","1717"
+
+"[Pp]atrona [Hh]alil [İIiı]syanı","1730"
+
+"[Kk][üu]rican ([Mm]uharebesi|[Ss]ava[şs]ı|[Zz]aferi)","1731"
+
+"[Dd]ucum ([Mm]uharebesi|[Ss]ava[şs]ı)","1733"
+
+"[Dd]ucum [Zz]aferi","1733-07-19"
+
+"[Bb]an[jy]a(luka| [Ll]uka) ([Ss]ava[şs]ı|[Ss]eferi|[Zz]aferi)","1737"
+
+"[ÇCçc]e[şs]me [Dd]eniz ([Mm]uharebesi|[Ss]ava[şs]ı)","1770"
+
+"[ÇCçc]e[şs]me ([Ff]aciası|[Bb]ozgunu)","1770"
+
+"[Ss]ine [Zz]aferi","1777-05-05"
+
+"[Rr]einchbach [Kk]onvansiyonu","1790-07-27"
+
+"[İIiı]kinci [Kk]arad[gğ] [Hh]erakatı","1862"
+
+"93 [Hh]arbi","1877"
+
+"[Ss]arıkamı[şs] [Hh]erakatı","1914"
+
+"[Kk]anal [Ss]eferi","1915"
+
+"[Bb]rest [Ll]itovks( [Bb]arı[şs])? [Aa]ntla[şs]ması","1918-03-03"
+
+"[Mm]ondros ([Mm][üu]tarekesi|[Bb]arı[şs] [Aa]ntla[şs]ması)","1918-10-30"
+
+"[Ee]rzurum [Kk]ongresi","1919-07-23"
+
+"[Ss]ivas [Kk]ongresi","1919-09-04"
+
+"[Aa]masya [Pp]rotokol[üu]","1919-10-22"
+
+"[Ss]evr [Aa]ntla[şs]ması","1920-08-10"
+
+"[Gg][üu]mr[üu] [Aa]ntla[şs]ması","1920-12-03"
+
+"([Bb][iı]rinci|1.|I.) [İIiı]n[öo]n[üu] ([Mm]uharebesi|[Ss]ava[şs]ı)","1921-01-06"
+
+"[Ll]ondra [Kk]onferansı","1921"
+
+"([İIiı]kinci|2.|II.) [İIiı]n[öo]n[üu] ([Mm]uharebesi|[Ss]ava[şs]ı)","1921-03-31"
+
+"[Ss]akarya [Mm]eydan ([Mm]uharebesi|[Ss]ava[şs]ı)","1921-09-03"
+
+"[Bb]a[şs]komutanlık [Mm]eydan ([Mm]uharebesi|[Ss]ava[şs]ı)","1922-08-27"
+
+"[İIiı]zmir'in ([Dd][üu][şs]man [İIiı][şs]galinden |[İIiı][şs]galden )?[Kk]urtulu[şs]u","1922-09-09"
+
+"[Mm]udanya ([Mm][üu]tarekesi|[Bb]arı[şs] [Aa]ntla[şs]ması|[Aa]ntla[şs]ması)","1922-10-11"
+
+"[Ss]altanat(ın)? [Kk]aldırıl(ması)?","1922-11-01"
+
+"[Ll]ozan ([Bb]arı[şs] |[Aa]te[şs]kes )?[Aa]ntla[şs]ması","1923-07-24"
+
+"[İIiı]stanbul'un ([Dd][üu][şs]man [İIiı][şs]galinden |[İIiı][şs]galden )? [Kk]urtulu[şs]u","1923-10-06"
+
+"[Cc]umhuriyet'in [İIiı]lanı","1923-10-29"
+
+"[Ee]dirne-[Ss]egedin [Aa]ntla[şs]ması","1444-06-12"
+
+"[Aa]masya [Aa]ntla[şs]ması","1555-06-01"
+
+"[Ff]erhat [Pp]a[şs]a [Aa]ntla[şs]ması","1583-05-11"
+
+"[Zz]itvatorok [Aa]ntla[şs]ması","1606-11-11"
+
+"[Nn]asuh [Pp]a[şs]a [Aa]ntla[şs]ması","1612-11-20"
+
+"[Cc]ecora ([Mm]uharebesi|[Ss]ava[şs]ı)","1620"
+
+"[Tt]ordesillas [Aa]ntla[şs]ması","1474-06-07"
+
+"[Aa]ugsburg [Ss]ava[şs]ı","1555"
+
+"[Tt]urla [Zz]aferi","1617-09-27"
+
+"[Bb]uzsa [Aa]ntla[şs]ması","1617-09-27"
+
+"[Ss]erav [Aa]ntla[şs]ması","1618-09-26"
+
+"[Hh]otin [Aa]ntla[şs]ması","1621-09-06"
+
+"[Ss]onbor [Aa]ntla[şs]ması","1627"
+
+"[Ee]skitabur ([Mm]uharebesi|[Ss]ava[şs]ı)","1633"
+
+"[Kk]asr-ı Şirin [Aa]ntla[şs]ması","1639-05-17"
+
+"(2.|[İIiı]kinci) [Ss]onbor [Aa]ntla[şs]ması","1642"
+
+"[Vv]estfalya( [Bb]arı[şs])? [Aa]ntla[şs]ması","1648-05"
+
+"[Ww]estphalia( [Bb]arı[şs])? [Aa]ntla[şs]ması","1648-05"
+
+"[Ss]aint [Gg]otthard ([Mm]uharebesi|[Ss]ava[şs]ı)","1664-09-01"
+
+"[Vv]asvar [Aa]ntla[şs]ması","1664-09-10"
+
+"[Bb]uca[şs] [Aa]ntla[şs]ması","1671-10-18"
+
+"[İIiı]zvan[çc]a [Aa]ntla[şs]ması","1676"
+
+"[Bb]ah[çc]esaray( [Bb]arı[şs])? [Aa]ntla[şs]ması","1681-02-11"
+
+"[Kk]arlof[çc]a [Aa]ntla[şs]ması","1699-01-26"
+
+"[Pp]rut ([Mm]uharebesi|[Ss]ava[şs]ı)","1711"
+
+"[Pp]rut [Aa]ntla[şs]ması","1711-07-21"
+
+"[Pp]asarof[çc]a [Aa]ntla[şs]ması","1716-04-24"
+
+"[Aa]ndican [Ss]ava[şs]ı","1726"
+
+"[Hh]emedan( [Bb]arı[şs])? [Aa]ntla[şs]ması","1727-10-04"
+
+"[Bb]elgrad [Aa]ntla[şs]ması","1739-09-18"
+
+"[Oo]smanlı-[İIiı]sve[çc] [Ss]avunma [Aa]ntla[şs]ması","1740-01-04"
+
+"[Kk]erden [Aa]ntla[şs]ması","1746-09-14"
+
+"[Aa]ynalıkavak [Aa]ntla[şs]ması","1779-03-21"
+
+"[Zz]i[şs]tovi [Aa]ntla[şs]ması","1791-08-04"
+
+"[Mm]a[çc]in ([Mm]uharebesi|[Ss]ava[şs]ı|[Bb]ozgunu)","1791"
+
+"[Kk]alas ([Mm][üu]tarekesi|[Bb]arı[şs] [Aa]ntla[şs]ması|[Aa]ntla[şs]ması)","1791-08-11"
+
+"[Yy]a[şs] [Aa]ntla[şs]ması","1792-01-10"
+
+"[Rr]us[çc]uk [Bb]arı[şs]ı","1797-09-18"
+
+"[Rr]ahmaniye [Ss]ava[şs]ı","1798-07-13"
+
+"[Ee]hramlar [Ss]ava[şs]ı","1798"
+
+"[Ee]bukır [Ss]ava[şs]ı","1798-08-01"
+
+"[Ee]l-[Aa]ri[şs] [Aa]ntla[şs]ması","1801-06-27"
+
+"[Kk]al'a-i [Ss]ultaniyye [Aa]ntla[şs]ması","1809-01-05"
+
+"[Bb][üu]kre[şs] [Aa]ntla[şs]ması","1812-05-28"
+
+"[Hh]rant [Dd]ink [Ss]uikastı","2007-01-19"
+
+"[Ss]oma [Mm]aden [Ff]aciası","2014-05-13"
+
+"27 [Mm]ayıs [Dd]arbesi","1960-05-27"
+
+"12 [Ee]yl[üu]l [Dd]arbesi","1980-09-12"
+
+"12 [Mm]art [Mm]uhtırası","1971-03-12"
+
+"27 [Aa]ral[iı]k [Mm]uhtırası","1979-12-27"
+
+"28 Şubat [Mm]uhtırası","1997-02-28"
+
+"[Aa]bdi [İIiı]pek[çc]i ([Ss]uikastı|[Cc]inayeti)","1979-02-01"
+
+"[Aa]ndrey [Kk]arlov ([Ss]uikastı|[Cc]inayeti)","2016-12-19"
+
+"[Aa]nkara ([Cc]inayeti|[Ss]uikastı)","1945-10-16"
+
+"[ÇCçc]etin [Ee]me[çc] ([Ss]uikastı|[Cc]inayeti)","1990-03-07"
+
+"[Nn]ihat [Ee]rim ([Ss]uikastı|[Cc]inayeti)","1980-07-19"
+
+"[Uu][gğ]ur [Mm]umcu ([Ss]uikastı|[Cc]inayeti)","1993-01-24"
+
+"[Gg]affar [Oo]kan ([Ss]uikastı|[Cc]inayeti)","2001-01-24"
+
+"[Aa]hmet [Tt]aner [Kk]ı[şs]lalı ([Ss]uikastı|[Cc]inayeti)","1999-10-21"
+
+"[Mm]ara[şs] [Kk]atliamı","1978"
+
+"[Ss]ivas [Kk]atliamı","1993-07-02"
+
+"[Mm]alatya [Kk]atliamı","1978-04-17"
+
+"16 [Mm]art [Kk]atliamı","1978-03-16"
+
+"[Mm]avi [Ç[çc]c]ar[şs]ı [Kk]atliamı","1999-03-13"
+
+"[Bb]algat [Kk]atliamı","1978-08-10"
+
+"[Bb]ah[çc]elievler [Kk]atliamı","1978-10-08"
+
+"[Mm]enemen [Oo]layı","1930-12-23"
+
+"31 [Mm]art [Vv]akası","1909-04-13"
+
+"Şeyh [Ss]aid [İIiı]syanı","1925"
+
+"[Bb]ab-ı [Aa]li [Bb]askını","1913-01-23"
+
+"[İIiı]zmir [Ss]uikastı","1926-06-14"
+
+"[Vv]aka-i [Vv]akvakiye","1656"
+
+"[ÇCçc]ınar [Vv]akası","1656"
+
+"[Ee]dirne [Vv]akası","1703"
+
+"1912 [Aa]rnavut [İIiı]syanı","1912"
+
+"Şahkulu [İIiı]syanı","1511"
+
+"1910 [Aa]rnavut [İIiı]syanı","1910"
+
+"[Kk]arpo[şs] [İIiı]syanı","1689-10"
+
+"[Hh]ersek [İIiı]syanı","1875"
+
+"[Kk]umanova [Aa]yaklanması","1878"
+
+"(2.|[İIiı]kinci) [Tt]arnovo [İIiı]syanı","1686"
+
+"(1.|[Bb][iı]rinci) [Tt]arnovo [İIiı]syanı","1598"
+
+"1. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1959-05-04"
+
+"2. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1959-11-29"
+
+"3. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1961-04-13"
+
+"4. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1962-05-29"
+
+"5. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1963-05-15"
+
+"6. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1964-05-12"
+
+"7. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1965-04-13"
+
+"8. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1966-03-15"
+
+"9. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1967-03-02"
+
+"10. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1968-02-29"
+
+"11. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1969-03-12"
+
+"12. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1970-03-11"
+
+"13. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1971-03-16"
+
+"14. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1972-03-15"
+
+"15. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1973-03-03"
+
+"16. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1974-03-02"
+
+"17. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1975-03-01"
+
+"18. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1976-02-28"
+
+"19. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1977-02-19"
+
+"20. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1978-02-23"
+
+"21. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1979-02-15"
+
+"22. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1980-02-27"
+
+"23. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1981-02-25"
+
+"24. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1982-02-24"
+
+"25. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1983-02-23"
+
+"26. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1984-02-28"
+
+"27. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1985-02-26"
+
+"28. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1986-02-25"
+
+"29. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1987-02-24"
+
+"30. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1988-03-02"
+
+"31. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1989-02-22"
+
+"32. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1990-02-21"
+
+"33. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1991-02-20"
+
+"34. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1992-02-25"
+
+"35. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1993-02-24"
+
+"36. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1994-03-01"
+
+"37. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1995-03-01"
+
+"38. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1996-02-28"
+
+"39. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1997-02-26"
+
+"40. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1998-02-25"
+
+"41. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","1999-02-24"
+
+"42. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2000-02-23"
+
+"43. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2001-02-21"
+
+"44. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2002-02-27"
+
+"45. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2003-02-23"
+
+"46. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2004-02-08"
+
+"47. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2005-02-13"
+
+"48. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2006-02-08"
+
+"49. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2007-02-11"
+
+"50. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2008-02-10"
+
+"51. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2009-02-08"
+
+"52. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2010-01-31"
+
+"53. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2011-02-13"
+
+"54. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2012-02-11"
+
+"55. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2013-02-10"
+
+"56. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2014-01-26"
+
+"57. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2015-02-08"
+
+"58. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2016-02-15"
+
+"59. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2017-02-12"
+
+"60. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2018-01-28"
+
+"61. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2019-02-10"
+
+"62. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2020-01-26"
+
+"63. [Gg]rammy [Öö]d[üu]l [Tt][öo]reni","2021-01-31"
+
+"1. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1929-05-16"
+
+"2. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1930-04-03"
+
+"3. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1930-11-05"
+
+"4. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1931-11-10"
+
+"5. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1932-11-18"
+
+"6. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1934-03-16"
+
+"7. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1935-02-27"
+
+"8. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1936-03-05"
+
+"9. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1937-03-04"
+
+"10. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1938-03-10"
+
+"11. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1939-02-23"
+
+"12. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1940-02-29"
+
+"13. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1941-02-27"
+
+"14. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1942-02-26"
+
+"15. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1943-03-04"
+
+"16. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1944-03-02"
+
+"17. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1945-03-15"
+
+"18. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1946-03-07"
+
+"19. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1947-03-13"
+
+"20. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1948-03-20"
+
+"21. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1949-03-24"
+
+"22. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1950-03-23"
+
+"23. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1951-03-29"
+
+"24. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1952-03-20"
+
+"25. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1953-03-19"
+
+"26. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1954-03-25"
+
+"27. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1955-03-30"
+
+"28. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1956-03-21"
+
+"29. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1957-03-27"
+
+"30. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1958-03-26"
+
+"31. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1959-04-06"
+
+"32. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1960-03-04"
+
+"33. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1961-04-17"
+
+"34. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1962-04-09"
+
+"35. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1963-04-08"
+
+"36. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1964-04-13"
+
+"37. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1965-04-05"
+
+"38. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1966-04-18"
+
+"39. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1967-04-10"
+
+"40. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1968-04-10"
+
+"41. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1969-04-14"
+
+"42. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1970-04-07"
+
+"43. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1971-04-15"
+
+"44. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1972-04-10"
+
+"45. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1973-03-27"
+
+"46. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1974-04-02"
+
+"47. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1975-04-08"
+
+"48. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1976-03-29"
+
+"49. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1977-03-28"
+
+"50. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1978-04-03"
+
+"51. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1979-04-09"
+
+"52. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1980-04-04"
+
+"53. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1981-03-31"
+
+"54. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1982-03-29"
+
+"55. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1983-03-11"
+
+"56. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1984-04-09"
+
+"57. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1985-03-25"
+
+"58. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1986-03-24"
+
+"59. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1987-03-30"
+
+"60. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1988-04-11"
+
+"61. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1989-03-29"
+
+"62. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1990-03-26"
+
+"63. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1991-03-25"
+
+"64. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1992-03-30"
+
+"65. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1993-03-23"
+
+"66. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1994-03-21"
+
+"67. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1995-03-27"
+
+"68. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1996-03-25"
+
+"69. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1997-03-24"
+
+"70. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1998-03-23"
+
+"71. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","1999-03-21"
+
+"72. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2000-03-26"
+
+"73. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2001-03-25"
+
+"74. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2002-03-24"
+
+"75. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2003-03-23"
+
+"76. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2004-02-29"
+
+"77. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2005-02-27"
+
+"78. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2006-03-05"
+
+"79. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2007-02-25"
+
+"80. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2008-02-24"
+
+"81. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2008-02-22"
+
+"82. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2009-03-07"
+
+"83. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2011-02-27"
+
+"84. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2012-02-26"
+
+"85. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2013-02-24"
+
+"86. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2014-03-02"
+
+"87. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2015-02-22"
+
+"88. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2016-02-28"
+
+"89. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2017-02-26"
+
+"90. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2018-03-04"
+
+"91. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2019-02-24"
+
+"92. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2020-02-09"
+
+"93. [Oo]scar [Öö]d[üu]l [Tt][öo]reni","2021-04-25"
+
+"(1.|[Bb][iı]r[iı]nc[iı]|1927) [Gg]az[iı] [Kk]o[şs]usu","1927-06-10"
+
+"(2.|[İiIı]k[iı]nc[iı]|1928)[Gg]az[iı] [Kk]o[şs]usu","1928"
+
+"(3.|[ÜüUu][çc][uü]nc[üu]|1929)[Gg]az[iı] [Kk]o[şs]usu","1929"
+
+"(4.|[Dd][öo]rd[uü]nc[üu]|1930)[Gg]az[iı] [Kk]o[şs]usu","1930"
+
+"(5.|[Bb]e[şs][iı]nc[iı]|1931)[Gg]az[iı] [Kk]o[şs]usu","1931"
+
+"(6.|[Aa]lt[iı]nc[iı]|1932)[Gg]az[iı] [Kk]o[şs]usu","1932"
+
+"(7.|[Yy]ed[iı]nc[iı]|1933)[Gg]az[iı] [Kk]o[şs]usu","1933"
+
+"(8.|[Ss]ek[iı]z[iı]nc[iı]|1934)[Gg]az[iı] [Kk]o[şs]usu","1934"
+
+"(9.|[Dd][oö]k[uü]z[uü]nc[uü]|1935)[Gg]az[iı] [Kk]o[şs]usu","1935"
+
+"(10.|[OoÖö]n[uü]nc[uü]|1936) [Gg]az[iı] [Kk]o[şs]usu","1936"
+
+"(11.|[OoÖö]n [Bb][iı]r[iı]nc[iı]|1937) [Gg]az[iı] [Kk]o[şs]usu","1937"
+
+"(12.|[OoÖö]n [İiIı]k[iı]nc[iı]|1938)[Gg]az[iı] [Kk]o[şs]usu","1938"
+
+"(13.|[OoÖö]n [ÜüUu][çc][uü]nc[üu]|1939)[Gg]az[iı] [Kk]o[şs]usu","1939"
+
+"(14.|[OoÖö]n [Dd][öo]rd[uü]nc[üu]|1940)[Gg]az[iı] [Kk]o[şs]usu","1940"
+
+"(15.|[OoÖö]n [Bb]e[şs][iı]nc[iı]|1941)[Gg]az[iı] [Kk]o[şs]usu","1941"
+
+"(16.|[OoÖö]n [Aa]lt[iı]nc[iı]|1942)[Gg]az[iı] [Kk]o[şs]usu","1942"
+
+"(17.|[OoÖö]n [Yy]ed[iı]nc[iı]|1943)[Gg]az[iı] [Kk]o[şs]usu","1943"
+
+"(18.|[OoÖö]n [Ss]ek[iı]z[iı]nc[iı]|1944)[Gg]az[iı] [Kk]o[şs]usu","1944"
+
+"(19.|[OoÖö]n [Dd][oö]k[uü]z[uü]nc[uü]|1945)[Gg]az[iı] [Kk]o[şs]usu","1945"
+
+"(20.|[Yy][iı]rm[iı]nc[iı]|1946) [Gg]az[iı] [Kk]o[şs]usu","1946"
+
+"(21.|[Yy][iı]rm[iı] [Bb][iı]r[iı]nc[iı]|1947) [Gg]az[iı] [Kk]o[şs]usu","1947"
+
+"(22.|[Yy][iı]rm[iı] [İiIı]k[iı]nc[iı]|1948)[Gg]az[iı] [Kk]o[şs]usu","1948"
+
+"(23.|[Yy][iı]rm[iı] [ÜüUu][çc][uü]nc[üu]|1949)[Gg]az[iı] [Kk]o[şs]usu","1949"
+
+"(24.|[Yy][iı]rm[iı] [Dd][öo]rd[uü]nc[üu]|1950)[Gg]az[iı] [Kk]o[şs]usu","1950"
+
+"(25.|[Yy][iı]rm[iı] [Bb]e[şs][iı]nc[iı]|1951)[Gg]az[iı] [Kk]o[şs]usu","1951"
+
+"(26.|[Yy][iı]rm[iı] [Aa]lt[iı]nc[iı]|1952)[Gg]az[iı] [Kk]o[şs]usu","1952"
+
+"(27.|[Yy][iı]rm[iı] [Yy]ed[iı]nc[iı]|1953)[Gg]az[iı] [Kk]o[şs]usu","1953"
+
+"(28.|[Yy][iı]rm[iı] [Ss]ek[iı]z[iı]nc[iı]|1954)[Gg]az[iı] [Kk]o[şs]usu","1954"
+
+"(29.|[Yy][iı]rm[iı] [Dd][oö]k[uü]z[uü]nc[uü]|1955)[Gg]az[iı] [Kk]o[şs]usu","1955"
+
+"(30.|[OoÖö]t[üu]z[üu]n[uü]|1956) [Gg]az[iı] [Kk]o[şs]usu","1956"
+
+"(31.|[OoÖö]t[üu]z [Bb][iı]r[iı]nc[iı]|1957) [Gg]az[iı] [Kk]o[şs]usu","1957"
+
+"(32.|[OoÖö]t[üu]z [İiIı]k[iı]nc[iı]|1958)[Gg]az[iı] [Kk]o[şs]usu","1958"
+
+"(33.|[OoÖö]t[üu]z [ÜüUu][çc][uü]nc[üu]|1959)[Gg]az[iı] [Kk]o[şs]usu","1959"
+
+"(34.|[OoÖö]t[üu]z [Dd][öo]rd[uü]nc[üu]|1960)[Gg]az[iı] [Kk]o[şs]usu","1960"
+
+"(35.|[OoÖö]t[üu]z [Bb]e[şs][iı]nc[iı]|1961)[Gg]az[iı] [Kk]o[şs]usu","1961"
+
+"(36.|[OoÖö]t[üu]z [Aa]lt[iı]nc[iı]|1962)[Gg]az[iı] [Kk]o[şs]usu","1962"
+
+"(37.|[OoÖö]t[üu]z [Yy]ed[iı]nc[iı]|1963)[Gg]az[iı] [Kk]o[şs]usu","1963"
+
+"(38.|[OoÖö]t[üu]z [Ss]ek[iı]z[iı]nc[iı]|1964)[Gg]az[iı] [Kk]o[şs]usu","1964"
+
+"(39.|[OoÖö]t[üu]z [Dd][oö]k[uü]z[uü]nc[uü]|1965)[Gg]az[iı] [Kk]o[şs]usu","1965"
+
+"(40.|[Kk][iı]|rk[iı]nc[iı]1966) [Gg]az[iı] [Kk]o[şs]usu","1966"
+
+"(41.|[Kk][iı]|rk [Bb][iı]r[iı]nc[iı]|1967) [Gg]az[iı] [Kk]o[şs]usu","1967"
+
+"(42.|[Kk][iı]|rk [İiIı]k[iı]nc[iı]|1968)[Gg]az[iı] [Kk]o[şs]usu","1968"
+
+"(43.|[Kk][iı]|rk [ÜüUu][çc][uü]nc[üu]|1969)[Gg]az[iı] [Kk]o[şs]usu","1969"
+
+"(44.|[Kk][iı]|rk [Dd][öo]rd[uü]nc[üu]|1970)[Gg]az[iı] [Kk]o[şs]usu","1970"
+
+"(45.|[Kk][iı]|rk [Bb]e[şs][iı]nc[iı]|1971)[Gg]az[iı] [Kk]o[şs]usu","1971"
+
+"(46.|[Kk][iı]|rk [Aa]lt[iı]nc[iı]|1972)[Gg]az[iı] [Kk]o[şs]usu","1972"
+
+"(47.|[Kk][iı]|rk [Yy]ed[iı]nc[iı]|1973)[Gg]az[iı] [Kk]o[şs]usu","1973"
+
+"(48.|[Kk][iı]|rk[Ss]ek[iı]z[iı]nc[iı]|1974)[Gg]az[iı] [Kk]o[şs]usu","1974"
+
+"(49.|[Kk][iı]|rk [Dd][oö]k[uü]z[uü]nc[uü]|1975)[Gg]az[iı] [Kk]o[şs]usu","1975"
+
+"(50.|[Ee]ll[iı]nc[iı]|1976) [Gg]az[iı] [Kk]o[şs]usu","1976"
+
+"(51.|[Ee]ll[iı] [Bb][iı]r[iı]nc[iı]|1977) [Gg]az[iı] [Kk]o[şs]usu","1977"
+
+"(52.|[Ee]ll[iı] [İiIı]k[iı]nc[iı]|1978)[Gg]az[iı] [Kk]o[şs]usu","1978"
+
+"(53.|[Ee]ll[iı] [ÜüUu][çc][uü]nc[üu]|1979)[Gg]az[iı] [Kk]o[şs]usu","1979"
+
+"(54.|[Ee]ll[iı] [Dd][öo]rd[uü]nc[üu]|1980)[Gg]az[iı] [Kk]o[şs]usu","1980"
+
+"(55.|[Ee]ll[iı] [Bb]e[şs][iı]nc[iı]|1981)[Gg]az[iı] [Kk]o[şs]usu","1981"
+
+"(56.|[Ee]ll[iı] [Aa]lt[iı]nc[iı]|1982)[Gg]az[iı] [Kk]o[şs]usu","1982"
+
+"(57.|[Ee]ll[iı] [Yy]ed[iı]nc[iı]|1983)[Gg]az[iı] [Kk]o[şs]usu","1983"
+
+"(58.|[Ee]ll[iı] [Ss]ek[iı]z[iı]nc[iı]|1984)[Gg]az[iı] [Kk]o[şs]usu","1984"
+
+"(59.|[Ee]ll[iı] [Dd][oö]k[uü]z[uü]nc[uü]|1985)[Gg]az[iı] [Kk]o[şs]usu","1985"
+
+"(60.|[Aa]ltm[iı][şs][ıi]nc[iı]|1986) [Gg]az[iı] [Kk]o[şs]usu","1986"
+
+"(61.|[Aa]ltm[iı][şs] [Bb][iı]r[iı]nc[iı]|1987) [Gg]az[iı] [Kk]o[şs]usu","1987"
+
+"(62.|[Aa]ltm[iı][şs] [İiIı]k[iı]nc[iı]|1988)[Gg]az[iı] [Kk]o[şs]usu","1988"
+
+"(63.|[Aa]ltm[iı][şs] [ÜüUu][çc][uü]nc[üu]|1989)[Gg]az[iı] [Kk]o[şs]usu","1989"
+
+"(64.|[Aa]ltm[iı][şs] [Dd][öo]rd[uü]nc[üu]|1990)[Gg]az[iı] [Kk]o[şs]usu","1990-06-24"
+
+"(65.|[Aa]ltm[iı][şs] [Bb]e[şs][iı]nc[iı]|1991)[Gg]az[iı] [Kk]o[şs]usu","1991-06-16"
+
+"(66.|[Aa]ltm[iı][şs] [Aa]lt[iı]nc[iı]|1992)[Gg]az[iı] [Kk]o[şs]usu","1992-06-21"
+
+"(67.|[Aa]ltm[iı][şs] [Yy]ed[iı]nc[iı]|1993)[Gg]az[iı] [Kk]o[şs]usu","1993-06-20"
+
+"(68.|[Aa]ltm[iı][şs] [Ss]ek[iı]z[iı]nc[iı]|1994)[Gg]az[iı] [Kk]o[şs]usu","1994-06-26"
+
+"(69.|[Aa]ltm[iı][şs] [Dd][oö]k[uü]z[uü]nc[uü]|1995)[Gg]az[iı] [Kk]o[şs]usu","1995-06-25"
+
+"(70.|[Yy]etm[iı][şs][iı]nc[iı]|1996) [Gg]az[iı] [Kk]o[şs]usu","1996-06-23"
+
+"(71.|[Yy]etm[iı][şs] [Bb][iı]r[iı]nc[iı]|1997) [Gg]az[iı] [Kk]o[şs]usu","1997-06-29"
+
+"(72.|[Yy]etm[iı][şs] [İiIı]k[iı]nc[iı]|1998)[Gg]az[iı] [Kk]o[şs]usu","1998-06-28"
+
+"(73.|[Yy]etm[iı][şs] [ÜüUu][çc][uü]nc[üu]|1999)[Gg]az[iı] [Kk]o[şs]usu","1999-06-27"
+
+"(74.|[Yy]etm[iı][şs] [Dd][öo]rd[uü]nc[üu]|2000)[Gg]az[iı] [Kk]o[şs]usu","2000-06-25"
+
+"(75.|[Yy]etm[iı][şs] [Bb]e[şs][iı]nc[iı]|2001)[Gg]az[iı] [Kk]o[şs]usu","2001-06-24"
+
+"(76.|[Yy]etm[iı][şs] [Aa]lt[iı]nc[iı]|2002)[Gg]az[iı] [Kk]o[şs]usu","2002-06-30"
+
+"(77.|[Yy]etm[iı][şs] [Yy]ed[iı]nc[iı]|2003)[Gg]az[iı] [Kk]o[şs]usu","2003-06-29"
+
+"(78.|[Yy]etm[iı][şs] [Ss]ek[iı]z[iı]nc[iı]|2004)[Gg]az[iı] [Kk]o[şs]usu","2004-06-26"
+
+"(79.|[Yy]etm[iı][şs] [Dd][oö]k[uü]z[uü]nc[uü]|2005)[Gg]az[iı] [Kk]o[şs]usu","2005-06-26"
+
+"(80.|[Ss]eksen[iı]nc[iı]|2006) [Gg]az[iı] [Kk]o[şs]usu","2006-06-25"
+
+"(81.|[Ss]eksen [Bb][iı]r[iı]nc[iı]|2007) [Gg]az[iı] [Kk]o[şs]usu","2007-06-24"
+
+"(82.|[Ss]eksen [İiIı]k[iı]nc[iı]|2008)[Gg]az[iı] [Kk]o[şs]usu","2008-06-29"
+
+"(83.|[Ss]eksen [ÜüUu][çc][uü]nc[üu]|2009)[Gg]az[iı] [Kk]o[şs]usu","2009-06-28"
+
+"(84.|[Ss]eksen[Dd][öo]rd[uü]nc[üu]|2010)[Gg]az[iı] [Kk]o[şs]usu","2010-06-27"
+
+"(85.|[Ss]eksen [Bb]e[şs][iı]nc[iı]|2011)[Gg]az[iı] [Kk]o[şs]usu","2011-06-26"
+
+"(86.|[Ss]eksen [Aa]lt[iı]nc[iı]|2012)[Gg]az[iı] [Kk]o[şs]usu","2012-06-24"
+
+"(87.|[Ss]eksen [Yy]ed[iı]nc[iı]|2013)[Gg]az[iı] [Kk]o[şs]usu","2013-06-30"
+
+"(88.|[Ss]eksen [Ss]ek[iı]z[iı]nc[iı]|2014)[Gg]az[iı] [Kk]o[şs]usu","2014-06-29"
+
+"(89.|[Ss]eksen [Dd][oö]k[uü]z[uü]nc[uü]|2015)[Gg]az[iı] [Kk]o[şs]usu","2015-06-28"
+
+"(90.|[Dd]oksan[iı]nc[iı]|2016) [Gg]az[iı] [Kk]o[şs]usu","2016-06-26"
+
+"(91.|[Dd]oksan [Bb][iı]r[iı]nc[iı]|2017) [Gg]az[iı] [Kk]o[şs]usu","2017-06-25"
+
+"(92.|[Dd]oksan [İiIı]k[iı]nc[iı]|2018)[Gg]az[iı] [Kk]o[şs]usu","2018-07-01"
+
+"(93.|[Dd]oksan [ÜüUu][çc][uü]nc[üu]|2019)[Gg]az[iı] [Kk]o[şs]usu","2019-06-30"
+
+"(94.|[Dd]oksan [Dd][öo]rd[uü]nc[üu]|2020)[Gg]az[iı] [Kk]o[şs]usu","2020-08-30"
+
+"1896 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1896-04-06"
+
+"1900 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1900-05-14"
+
+"1904 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1904-07-01"
+
+"1908 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1908-04-27"
+
+"1912 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1912-05-12"
+
+"1920 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1920-04-20"
+
+"1924 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1924-05-04"
+
+"1928 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1928-05-17"
+
+"1932 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1932-07-30"
+
+"1936 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1936-08-01"
+
+"1948 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1948-07-29"
+
+"1952 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1952-07-19"
+
+"1956 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1956-11-22"
+
+"1960 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1960-08-25"
+
+"1964 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1964-10-10"
+
+"1968 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1968-09-12"
+
+"1972 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1972-08-26"
+
+"1976 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1976-07-17"
+
+"1980 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1980-07-19"
+
+"1984 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1986-07-28"
+
+"1988 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1988-09-17"
+
+"1992 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1992-07-25"
+
+"1996 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","1996-07-19"
+
+"2000 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","2000-09-15"
+
+"2004 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","2004-08-13"
+
+"2008 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","2008-08-08"
+
+"2012 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","2012-07-27"
+
+"2016 [Yy]az [Oo]l[iı]mp[iı]yatlar[iı]","2016-08-05"
+
+"1924 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1924-01-25"
+
+"1928 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1928-02-11"
+
+"1932 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1932-02-04"
+
+"1936 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1936-02-06"
+
+"1948 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1948-01-30"
+
+"1952 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1952-02-14"
+
+"1956 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1956-01-26"
+
+"1960 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1960-02-18"
+
+"1964 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1964-01-29"
+
+"1968 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1968-02-06"
+
+"1972 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1972-02-03"
+
+"1976 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1976-02-04"
+
+"1980 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1980-02-13"
+
+"1984 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1984-02-08"
+
+"1988 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1988-02-13"
+
+"1992 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1992-02-08"
+
+"1994 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1994-02-12"
+
+"1998 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","1998-02-07"
+
+"2002 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","2002-02-08"
+
+"2006 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","2006-02-10"
+
+"2010 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","2010-02-12"
+
+"2014 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","2014-02-07"
+
+"2018 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","2018-02-09"
+
+"2022 [Kk][iı][şs] [Oo]l[iı]mp[iı]yatlar[iı]","2022-02-04"
+
+"1960 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","1960-09-18"
+
+"1964 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","1964-11-03"
+
+"1968 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","1968-11-04"
+
+"1972 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","1972-08-02"
+
+"1976 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","1976-08-04"
+
+"1980 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","1980-06-21"
+
+"1984 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","1984-06-17"
+
+"1988 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","1988-10-15"
+
+"1992 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","1992-09-03"
+
+"1996 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","1996-08-16"
+
+"2000 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","2000-10-18"
+
+"2004 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","2004-09-17"
+
+"2008 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","2008-09-06"
+
+"2012 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","2012-08-29"
+
+"2016 [Pp]aral[iı]mp[iı]k [Yy]az [Oo]yunlar[ıi]","2016-09-07"
+
+"1976 [Pp]aral[iı]mp[iı]k [Kk][iı][şs] [Oo]yunlar[ıi]","1976-02-21"
+
+"1980 [Pp]aral[iı]mp[iı]k [Kk][iı][şs] [Oo]yunlar[ıi]","1980-02-01"
+
+"1984 [Pp]aral[iı]mp[iı]k [Kk][iı][şs] [Oo]yunlar[ıi]","1984-01-15"
+
+"1988 [Pp]aral[iı]mp[iı]k [Kk][iı][şs] [Oo]yunlar[ıi]","1988-01-17"
+
+"1992 [Pp]aral[iı]mp[iı]k [Kk][iı][şs] [Oo]yunlar[ıi]","1992-03-25"
+
+"1994 [Pp]aral[iı]mp[iı]k [Kk][iı][şs] [Oo]yunlar[ıi]","1994-03-10"
+
+"1998 [Pp]aral[iı]mp[iı]k [Kk][iı][şs] [Oo]yunlar[ıi]","1998-03-05"
+
+"2002 [Pp]aral[iı]mp[iı]k [Kk][iı][şs] [Oo]yunlar[ıi]","2002-03-07"
+
+"2006 [Pp]aral[iı]mp[iı]k [Kk][iı][şs] [Oo]yunlar[ıi]","2006-03-10"
+
+"2010 [Pp]aral[iı]mp[iı]k [Kk][iı][şs] [Oo]yunlar[ıi]","2010-03-12"
+
+"2014 [Pp]aral[iı]mp[iı]k [Kk][iı][şs] [Oo]yunlar[ıi]","2014-03-07"
+
+"2018 [Pp]aral[iı]mp[iı]k [Kk][iı][şs] [Oo]yunlar[ıi]","2018-03-09"
+
+"(1961|61) ([Rr]eferandumu|[Hh]alk [Oo]ylamas[iı])","1961-07-07"
+
+"(1982|82) ([Rr]eferandumu|[Hh]alk [Oo]ylamas[iı])","1982-11-07"
+
+"(1987|87) ([Rr]eferandumu|[Hh]alk [Oo]ylamas[iı])","1987-09-06"
+
+"(1988|88) ([Rr]eferandumu|[Hh]alk [Oo]ylamas[iı])","1988-09-25"
+
+"2007 ([Rr]eferandumu|[Hh]alk [Oo]ylamas[iı])","2007-10-21"
+
+"2010 ([Rr]eferandumu|[Hh]alk [Oo]ylamas[iı])","2010-09-12"
+
+"2017 ([Rr]eferandumu|[Hh]alk [Oo]ylamas[iı])","2017-04-16"
+
+"(1930|30) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1930-10-14"
+
+"(1934|34) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1934"
+
+"(1938|38) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1938"
+
+"(1942|42) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1942"
+
+"(1946|46) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1946-05-26"
+
+"(1950|50) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1950-09-13"
+
+"(1955|55) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1955-09-25"
+
+"(1963|63) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1963-11-17"
+
+"(1968|68) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1968-06-02"
+
+"(1973|73) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1973-12-09"
+
+"(1977|77) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1977-12-11"
+
+"(1984|84) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1984-03-25"
+
+"(1989|89) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1989-03-26"
+
+"(1994|94) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1994-03-27"
+
+"(1999|99) [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","1999-04-18"
+
+"2004 [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","2004-03-28"
+
+"2009 [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","2009-03-29"
+
+"2014 [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","2014-03-30"
+
+"2019 [Tt][üu]rk[iı]ye [Yy]erel [Ss]e[çc][iı]mler[iı]","2019-03-31"
+
+"(1946|46) [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","1946-07-21"
+
+"(1950|50) [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","1950-05-14"
+
+"(1954|54) [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","1954-05-02"
+
+"(1957|57) [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","1957-10-27"
+
+"(1961|61) [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","1961-10-15"
+
+"(1965|65) [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","1965-10-10"
+
+"(1969|69) [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","1969-10-12"
+
+"(1973|73) [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","1973-10-14"
+
+"(1977|77) [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","1977-06-05"
+
+"(1983|83) [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","1983-11-06"
+
+"(1987|87) [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","1987-11-29"
+
+"(1991|91) [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","1991-10-20"
+
+"(1995|95) [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","1995-12-24"
+
+"(1999|99) [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","1999-04-18"
+
+"2002 [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","2002-11-03"
+
+"2007 [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","2007-07-22"
+
+"2011 [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","2011-06-12"
+
+"2015 [Kk]as[iı]m [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","2015-11-01"
+
+"2015 [Hh]az[i]ran [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","2015-06-07"
+
+"2018 [Tt][üu]rk[iı]ye [Gg]enel [Ss]e[çc][iı]mler[iı]","2018-06-24"
+
+1923 [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]",""
+
+1927 [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1923-10-29"
+
+"1931 [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1927-11-01"
+
+"1935 [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1935-03-01"
+
+"1938 [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1938-11-11"
+
+"1939 [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1939-04-03"
+
+"1943 [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1943-03-08"
+
+"1946 [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1946-06-04"
+
+"1950 [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1950-05-22"
+
+"(1954|54) [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1954-05-14"
+
+"(1957|57) [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1957-11-01"
+
+"(1961|61) [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1961-10-26"
+
+"(1966|66) [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1966-03-28"
+
+"(1973|73) [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1973-04-06"
+
+"(1982|82) [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1982-11-07"
+
+"(1989|89) [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1989-10-31"
+
+"(1993|93) [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","1993-05-16"
+
+"2000 [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","2000-05-05"
+
+"2007 [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","2007-08-28"
+
+"2014 [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","2014-08-10"
+
+"2018 [Tt][üu]rk[iı]ye [Cc]umhurba[şs]kanl[iı][ğg][iı] [Ss]e[çc][iı]mler[iı]","2018-06-24"

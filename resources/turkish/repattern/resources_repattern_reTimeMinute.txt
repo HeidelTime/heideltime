@@ -1,0 +1,127 @@
+// This file contains regular expression patterns for time minutes.
+
+[0|1|2|3|4|5]?[0-9]
+
+
+
+[Bb][iı]r
+
+[Iıİi]k[iı]
+
+[ÜUuü][çc]
+
+[Dd][öo]r[td]
+
+[Bb]e[şs]
+
+[Aa]lt[ıi]
+
+[Yy]ed[iı]
+
+[Ss]ek[iı]z
+
+[Dd]okuz
+
+[Oo]n
+
+[Oo]n [Bb][iı]r
+
+[Oo]n [İIiı]k[iı]
+
+[Oo]n [ÜUuü][çc]
+
+[Oo]n [Dd][öo]r[td]
+
+[Oo]n [Bb]e[şs]
+
+[Oo]n [Aa]lt[ıi]
+
+[Oo]n [Yy]ed[iı]
+
+[Oo]n [Ss]ek[iı]z
+
+[Oo]n [Dd]okuz
+
+[Yy][iı]rm[iı]
+
+[Yy][iı]rm[iı] [Bb][iı]r
+
+[Yy][iı]rm[iı] [İIiı]k[iı]
+
+[Yy][iı]rm[iı] [UÜuü][cç]
+
+[Yy][iı]rm[iı] [Dd][öo]r[td]
+
+[Yy][iı]rm[iı] [Bb]e[şs]
+
+[Yy][iı]rm[iı] [Aa]lt[ıi]
+
+[Yy][iı]rm[iı] [Yy]ed[iı]
+
+[Yy][iı]rm[iı] [Ss]ek[iı]z
+
+[Yy][iı]rm[iı] [Dd]okuz
+
+[Oo]tuz
+
+[Oo]tuz [Bb][iı]r
+
+[Oo]tuz [İIiı]k[iı]
+
+[OO]tuz [UÜuü][cç]
+
+[OO]tuz [Dd][öo]r[td]
+
+[OO]tuz [Bb]e[şs]
+
+[OO]tuz [Aa]lt[ıi]
+
+[OO]tuz [Yy]ed[iı]
+
+[OO]tuz [Ss]ek[iı]z
+
+[OO]tuz [Dd]okuz
+
+[Kk][iı]rk
+
+[Kk][iı]rk [Bb][iı]r
+
+[Kk][iı]rk [İIiı]k[iı]
+
+[Kk][iı]rk [UÜuü][cç]
+
+[Kk][iı]rk [Dd][öo]r[td]
+
+[Kk][iı]rk [Bb]e[sş]
+
+[Kk][iı]rk [Aa]lt[ıi]
+
+[Kk][iı]rk [Yy]ed[iı]
+
+[Kk][iı]rk [Ss]ek[iı]z
+
+[Kk][iı]rk [Dd]okuz
+
+[Ee]ll[iı]
+
+[Ee]ll[iı] [Bb][iı]r
+
+[Ee]ll[iı] [İIiı]k[iı]
+
+[Ee]ll[iı] [ÜUüu][cç]
+
+[Ee]ll[iı] [Dd][öo]r[td]
+
+[Ee]ll[iı] [Bb]e[şs]
+
+[Ee]ll[iı] [Aa]lt[ıi]
+
+[Ee]ll[iı] [Yy]ed[iı]
+
+[Ee]ll[iı] [Ss]ek[iı]z
+
+[Ee]ll[iı] [Dd]okuz
+
+[CcÇç]eyrek
+[Bb]u[cç]uk
+[Yy]ar[ıi]m

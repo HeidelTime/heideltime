@@ -1,0 +1,6 @@
+"[Bb]abalar [Gg][üu]n[üu]","06-00 funcDateCalc(EasterSunday(YEAR, 39))"
+
+"[Aa]nneler [Gg][üu]n[üu]","05-00 funcDateCalc(WeekdayRelativeTo(YEAR-05-01, 1, 2, true))"
+
+"[Ss]uper [Bb]owl","02-00 funcDateCalc(WeekdayRelativeTo(YEAR-02-01, 1, 1, true))"
+

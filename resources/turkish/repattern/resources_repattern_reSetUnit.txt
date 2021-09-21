@@ -1,0 +1,16 @@
+//This file includes the units of set expressions.
+
+[Hh]aftada
+[Aa]yda
+[Yy][iı]lda
+[Ss]enede
+[Gg][uü]nde
+[Ss]aatte
+[Ss]an[iı]yede
+[Dd]ak[iı]kada
+[Dd]akkada
+[Hh]aftaya
+[Yy][iı]la
+[Gg][üu]ne
+[Aa]ya
+[Dd]akk[iı]ya

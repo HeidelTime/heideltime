@@ -1,0 +1,19 @@
+"[Ss]abah","MO"
+"[Kk]u[şs]luk","MO"
+
+"[ÖöOo][ğg]le","MD"
+"[ÖöOo][ğg]len","MD"
+"[OoÖö][gğ]len[OoÖö][gğ]le [Vv]akt[iı]","MD"
+"[OoÖö][ğg]len [Vv]akt[iı]","MD"
+
+"[ÖöOo][ğg]leden [Ss]onra","AF"
+"[Iİiı]kind[iı]","AF"
+"[Iİiı]k[iı]nd[iı]n","AF"
+
+"[Aa]k[şs]am","EV"
+
+"[Gg]ece","NI"
+"[Yy]ats[ıi]","NI"
+
+"[Gg]eceyar[ıi]s[ıi]","24:00"
+"[Gg]ece [Yy]ar[ıi]s[ıi]","24:00"

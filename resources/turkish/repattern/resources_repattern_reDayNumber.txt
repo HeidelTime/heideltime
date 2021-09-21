@@ -1,0 +1,69 @@
+[12][0-9]
+3[01]
+0?[1-9]
+
+
+[Bb][iı]r
+
+[Iıİi]k[iı]
+
+[UuÜü][çc]
+
+[Dd][öo]rt
+[Dd][öo]rd
+
+[Bb]e[şs]
+
+[Aa]lt[ıi]
+
+[Yy]ed[iı]
+
+[Ss]ek[iı]z
+
+[Dd]okuz
+
+[Oo]n
+
+[Oo]n [Bb][iı]r
+
+[Oo]n [Iıİi]k[iı]
+
+[Oo]n [UuÜü][çc]
+
+[Oo]n [Dd][öo]rt
+[Oo]n [Dd][öo]rd
+
+[Oo]n [Bb]e[şs]
+
+[Oo]n [Aa]lt[ıi]
+
+[Oo]n [Yy]ed[iı]
+
+[Oo]n [Ss]ek[iı]z
+
+[Oo]n [Dd]okuz
+
+[Yy][iı]rm[iı]
+
+[Yy][iı]rm[iı] [Bb][iı]r
+
+[Yy][iı]rm[iı] [Iıİi]k[iı]
+
+[Yy][iı]rm[iı] [UuÜü][çc]
+
+[Yy][iı]rm[iı] [Dd][öo]rt
+[Yy][iı]rm[iı] [Dd][öo]rd
+
+[Yy][iı]rm[iı] [Bb]e[şs]
+
+[Yy][iı]rm[iı] [Aa]lt[ıi]
+
+[Yy][iı]rm[iı] [Yy]ed[iı]
+
+[Yy][iı]rm[iı] [Ss]ek[iı]z
+
+[Yy][iı]rm[iı] [Dd]okuz
+
+[Oo]tuz
+
+[Oo]tuz [Bb][iı]r

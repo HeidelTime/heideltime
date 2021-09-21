@@ -1,0 +1,16 @@
+"[Gg][üu]n","day"
+
+"[Hh]aftasonu","week-WE"
+"[Hh]afta sonu","week-WE"
+
+"[Hh]afta","week"
+
+"[Aa]y","month"
+
+"[Yy][ıi]l","year"
+"[Ss]ene","year"
+
+"[Yy][üu]zy[ıi]l","century"
+"[Aa]s[ıi]r","century"
+"[Dd]akika","minute"
+"[Ss]aat","hour"

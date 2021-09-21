@@ -1,0 +1,485 @@
+//This file contains rules for the temporal expressions of the type date: daterules
+
+RULENAME="x_date_r1a_negative",EXTRACTION="%reNegative",NORM_VALUE="REMOVE"
+
+//r0a: 2020-02-01
+//date_r0 (Timestamp style)
+//EXAMPLE r0a_1: 2010-01-29
+//EXAMPLE r0b_1: 10-29-99
+//EXAMPLE r0c_1: 09/26/1999
+//EXAMPLE r0d_1: 09/26/99
+//EXAMPLE r0e_1: 7-14 (AP) (find 7-14)
+//EXAMPLE r0g_1: 1.3.99
+//EXAMPLE r0h_1: 1.3.1999
+RULENAME="date_r0a",EXTRACTION="%reYear4Digit[- ]%reMonthNumber[- ]%reDayNumber",NORM_VALUE="group(1)-%normMonthNumber(group(2))-%normDayNumber(group(3))"
+RULENAME="date_r0b",EXTRACTION="%reMonthNumber[- ]%reDayNumber[- ]%reYear2Digit",NORM_VALUE="%normYearShort(group(3))-%normMonthNumber(group(1))-%normDayNumber(group(2))"
+RULENAME="date_r0c",EXTRACTION="%reMonthNumber/%reDayNumber[/ ]%reYear4Digit",NORM_VALUE="group(3)-%normMonthNumber(group(1))-%normDayNumber(group(2))"
+RULENAME="date_r0d",EXTRACTION="%reMonthNumber[/ ]%reDayNumber[/ ]%reYear2Digit",NORM_VALUE="%normYearShort(group(3))-%normMonthNumber(group(1))-%normDayNumber(group(2))"
+RULENAME="date_r0e",EXTRACTION="%reMonthNumber[- ]%reDayNumber",NORM_VALUE="UNDEF-year-%normMonthNumber(group(1))-%normDayNumber(group(2))"
+RULENAME="date_r0f",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber",NORM_VALUE="group(1)-%normMonthNumber(group(2))-%normDayNumber(group(3))"
+RULENAME="date_r0g",EXTRACTION="%reDayNumber[\. ]%reMonthNumber[\. ]%reYear2Digit",NORM_VALUE="%normYearShort(group(3))-%normMonthNumber(group(2))-%normDayNumber(group(1))"
+RULENAME="date_r0h",EXTRACTION="%reDayNumber[\.- ]%reMonthNumber[\.- ]%reYear4Digit",NORM_VALUE="group(3)-%normMonthNumber(group(2))-%normDayNumber(group(1))"
+
+
+//r41a : 2020-10-02, cuma
+//r41b : 10-02-99, salı ???
+//r41c : 10/02/2020, cuma
+//r41d : 10/02/20, cuma
+//r41e : 10-02, cuma
+//r41f : 20201002 cuma
+//r41g : 02/10/2020 cuma
+//r41h : 02/10/20 cuma
+RULENAME="date_r41a",EXTRACTION="%reYear4Digit[- ]%reMonthNumber[- ]%reDayNumber,?(\s)*%reWeekday",NORM_VALUE="group(1)-%normMonthNumber(group(2))-%normDayNumber(group(3))"
+RULENAME="date_r41b",EXTRACTION="%reMonthNumber[- ]%reDayNumber[- ]%reYear2Digit,?(\s)*%reWeekday",NORM_VALUE="%normYearShort(group(3))-%normMonthNumber(group(1))-%normDayNumber(group(2))"
+RULENAME="date_r41c",EXTRACTION="%reMonthNumber/%reDayNumber[/ ]%reYear4Digit,?(\s)*%reWeekday",NORM_VALUE="group(3)-%normMonthNumber(group(1))-%normDayNumber(group(2))"
+RULENAME="date_r41d",EXTRACTION="%reMonthNumber[/ ]%reDayNumber[/ ]%reYear2Digit,?(\s)*%reWeekday",NORM_VALUE="%normYearShort(group(3))-%normMonthNumber(group(1))-%normDayNumber(group(2))"
+RULENAME="date_r41e",EXTRACTION="%reMonthNumber[- ]%reDayNumber,?(\s)*%reWeekday",NORM_VALUE="UNDEF-year-%normMonthNumber(group(1))-%normDayNumber(group(2))"
+RULENAME="date_r41f",EXTRACTION="%reYear4Digit%reMonthNumber%reDayNumber,?(\s)*%reWeekday",NORM_VALUE="group(1)-%normMonthNumber(group(2))-%normDayNumber(group(3))"
+RULENAME="date_r41g",EXTRACTION="%reDayNumber[/. ]%reMonthNumber[/. ]%reYear2Digit,?(\s)*%reWeekday",NORM_VALUE="%normYearShort(group(3))-%normMonthNumber(group(2))-%normDayNumber(group(1))"
+RULENAME="date_r41h",EXTRACTION="%reDayNumber[/. ]%reMonthNumber[/. ]%reYear4Digit,?(\s)*%reWeekday",NORM_VALUE="group(3)-%normMonthNumber(group(2))-%normDayNumber(group(1))"
+
+RULENAME="date_r55h",EXTRACTION="%reDayNumber'?(in|sin|ün|sın|un)%reSuffix+",NORM_VALUE="UNDEF-this-month-%normDayNumber(group(1))"
+
+
+//BC and AD rules year
+RULENAME="date_historic_1a-BCADhint",EXTRACTION="%reYearPrefix %reYearBC",NORM_VALUE="%normYearPrefix(group(1))%normYearBC(group(2))"
+RULENAME="date_historic_1b",EXTRACTION="%reYear4Digit'?%reSuffix*",NORM_VALUE="group(1)"
+RULENAME="date_historic_1c",EXTRACTION="%reYear4Digit(\s)*%reYearToken(ı|ı|si|sı)%reSuffix*",NORM_VALUE="group(1)"
+//RULENAME="date_r56h",EXTRACTION="%reYear4Digit(\s)*%reYearToken(ı|i)%reSuffix*",NORM_VALUE="group(1)"
+//BC and AD rules month, year
+RULENAME="date_historic_2a-BCADhint",EXTRACTION="%reMonthName(,)? %reYearPrefix %reYearBC(')?%reSuffix*",NORM_VALUE="%normYearPrefix(group(3))%normYearBC(group(4))-%normMonthName(group(1))"
+//RULENAME="date_historic_2b",EXTRACTION="%reMonthName(,)? ([\d][\d][\d])(')?%reSuffix*",NORM_VALUE="%normYearBC(group(3))-%normMonthName(group(1))"
+//BC and AD rules season, year
+RULENAME="date_historic_3a-BCADhint",EXTRACTION="%reSeason(,)? %reYearPrefix %reYearBC(')?%reSuffix*",NORM_VALUE="%normYearPrefix(group(3))%normYearBC(group(4))-%normSeason(group(1))"
+//RULENAME="date_historic_3b",EXTRACTION="%reSeason(,)? ([\d][\d][\d])(')?%reSuffix*",NORM_VALUE="%normYearBC(group(3))-%normSeason(group(1))"
+
+//r1a: Temmuz'da
+//r1b: Temmuz, 2000
+//r1c: Temmuz, 98
+RULENAME="date_r1a",EXTRACTION="%reMonthName'?%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(1))"
+RULENAME="date_r1e",EXTRACTION="%reMonthName,?(\s)*%reYear4Digit'?%reSuffix*",NORM_VALUE="group(3)-%normMonthName(group(1))"
+RULENAME="date_r1f",EXTRACTION="%reMonthName,?(\s)*%reYear2Digit'?%reSuffix*",NORM_VALUE="%normYearShort(group(3))-%normMonthName(group(1))"
+
+//r2a: 30 Ağustos 2000, Pazartesi
+//r2b: 2 Mayıs, Pazartesi
+//r2c: Pazartesi, 2 Mayıs 2000
+//r2d: Pazartesi, 2 mayıs
+RULENAME="date_r2a",EXTRACTION="%reDayNumber(\s)*%reMonthName,?(\s)*%reYear4Digit('?%reSuffix*)?,?((\s)*%reDayToken%reSuffix*)?( %reWeekday)?",NORM_VALUE="group(5)-%normMonthName(group(3))-%normDayNumber(group(1))"
+RULENAME="date_r2b",EXTRACTION="%reDayNumber(\s)*%reMonthName,?((\s)*%reWeekday)?",NORM_VALUE="UNDEF-this-year-%normMonthName(group(3))-%normDayNumber(group(1))"
+RULENAME="date_r2c",EXTRACTION="%reWeekday,?(\s)*%reDayNumber(\s)*%reMonthName(\s)*%reYear4Digit('?%reSuffix)?",NORM_VALUE="group(7)-%normMonthName(group(5))-%normDayNumber(group(3))"
+RULENAME="date_r2d",EXTRACTION="%reWeekday,?(\s)*%reDayNumber(\s)*%reMonthName'?%reSuffix*",NORM_VALUE="UNDEF-this-year-%normMonthName(group(5))-%normDayNumber(group(3))"
+RULENAME="date_r2e",EXTRACTION="%reYear4Digit('?%reSuffix)?,?((\s)*%reYearToken%reSuffix*)?(\s)*%reDayNumber(\s)*%reMonthName,?((\s)%reDayToken%reSuffix*)?,?((\s)*%reWeekday)?",NORM_VALUE="group(1)-%normMonthName(group(11))-%normDayNumber(group(9))"
+RULENAME="date_r2f",EXTRACTION="%reYear4Digit('?%reSuffix)?,?((\s)*%reYearToken%reSuffix*)?(\s)*%reMonthName(\s)*%reDayNumber,?((\s)*%reWeekday)?",NORM_VALUE="group(1)-%normMonthName(group(9))-%normDayNumber(group(11))"
+
+
+//r3a: gelecek hafta bugün  ??
+//r3b: gelecek hafta yarın gelecek/önümüzdeki hafta aynı gün
+//r3c: haftaya aynı gün
+//r3d: gelecek sene aynı gün
+//r3e: gelecek ay bugün
+//r3f: seneye bugün
+//r3g: Haftaya yarın
+//r3h: Seneye 
+RULENAME="date_r3a",EXTRACTION="%reFutureAdj(\s)*[Hh]afta(\s)*([Aa]yn[ıi](\s)*|[Bb]u)%reDayToken",NORM_VALUE="UNDEF-REF-day-PLUS-7"
+RULENAME="date_r3b",EXTRACTION="%reFutureAdj(\s)*[Hh]afta(\s)*[Yy]ar[ıi]n",NORM_VALUE="UNDEF-REF-day-PLUS-8"
+RULENAME="date_r3c",EXTRACTION="[Hh]aftaya(\s)*([Aa]yn[ıi](\s)*|[Bb]u)%reDayToken",NORM_VALUE="UNDEF-REF-day-PLUS-7"
+RULENAME="date_r3d",EXTRACTION="%reFutureAdj(\s)*%reYearToken(\s)*([Aa]yn[ıi](\s)*|[Bb]u)%reDayToken",NORM_VALUE="UNDEF-REFUNIT-year-PLUS-1"
+RULENAME="date_r3e",EXTRACTION="%reFutureAdj(\s)*%reMonthToken(\s)*([Aa]yn[ıi](\s)*|[Bb]u)%reDayToken",NORM_VALUE="UNDEF-REF-month-PLUS-1"
+RULENAME="date_r3f",EXTRACTION="%reYearToken%reSuffix(\s)*([Aa]yn[ıi](\s)*|[Bb]u)%reDayToken",NORM_VALUE="UNDEF-REFUNIT-year-PLUS-1"
+RULENAME="date_r3g",EXTRACTION="[Hh]aftaya(\s)*[Yy]ar[iı]n%reSuffix*",NORM_VALUE="UNDEF-REFUNIT-day-PLUS-8"
+RULENAME="date_r3h",EXTRACTION="%reUnit(ye|ya|e|a)%reSuffix*",NORM_VALUE="UNDEF-next-%normUnit(group(1))"
+//RULENAME="date_r3i",EXTRACTION="[Bb][iı]r(\s)*[Ss]onra%reSuffix(\s)*[Hh]afta%reSuffix*",NORM_VALUE="UNDEF-next-week"
+//RULENAME="date_r3j",EXTRACTION="[Bb][iı]r(\s)*[Ss]onra%reSuffix(\s)*[Hh]afta(\s)*[Ss]onu%reSuffix*",NORM_VALUE="UNDEF-next-week-WE"
+//RULENAME="date_r3k",EXTRACTION="[Bb][iı]r(\s)*[ÖOöo]nce%reSuffix(\s)*[Hh]afta%reSuffix*",NORM_VALUE="UNDEF-last-week"
+//RULENAME="date_r3l",EXTRACTION="[Bb][iı]r(\s)*[ÖO]nce%reSuffix(\s)*[Hh]afta(\s)*[Ss]onu%reSuffix*",NORM_VALUE="UNDEF-last-week-WE"
+
+
+//r5a: 2000 yılının kış mevsimi
+//r5b: 2000 yılı Anneler Günü
+//r5c: 2000 yılı Cumhuriyet Bayramı
+RULENAME="date_r5a",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken%reSuffix)?(\s)*%reSeason%reSuffix*((\s)*%reMonthToken|(\s)*[Mm]evsim)?%reSuffix*",NORM_VALUE="group(1)-%normSeason(group(8))"
+RULENAME="date_r5b",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*(\s)*%reHolidayVar'?%reSuffix*",NORM_VALUE="group(1)-%normHolidayVar(group(8))"
+RULENAME="date_r5c",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*(\s)*%reHolidayFix'?%reSuffix*",NORM_VALUE="group(1)-%normHolidayFix(group(8))"
+
+//r6a: Haftaya
+//r6b: önümüzdeki hafta salı
+RULENAME="date_r6a",EXTRACTION="[Hh]aftaya%reSuffix*",NORM_VALUE="UNDEF-next-week"
+RULENAME="date_r6b",EXTRACTION="%reThisNextLast(\s)*[Hh]afta%reSuffix*(\s)*%reWeekday%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normWeekday(group(5))"
+
+//r7a: Mart 30, 2000
+//r7b: Mart 30
+//r7c: 30 Mart
+//r7d: martın otuzu ??
+//r7e: ayın dokuzu
+RULENAME="date_r7a",EXTRACTION="%reMonthName(\s)*%reDayNumber,?(\s)*%reYear4Digit'?%reSuffix*",NORM_VALUE="group(5)-%normMonthName(group(1))-%normDayNumber(group(3))"
+RULENAME="date_r7b",EXTRACTION="%reMonthName(\s)*%reDayNumber'?%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(1))-%normDayNumber(group(3))"
+RULENAME="date_r7c",EXTRACTION="%reDayNumber(\s)*%reMonthName'?%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(3))-%normDayNumber(group(1))"
+RULENAME="date_r7d",EXTRACTION="%reMonthName(ın|in)%reSuffix*(\s)*%reDayNumber'?%reSuffix+",NORM_VALUE="UNDEF-this-%normMonthThis(group(1))-%normDayNumber(group(5))"
+RULENAME="date_r7e",EXTRACTION="%reMonthToken(ın|in)%reSuffix*(\s)*%reDayNumber(\s)?'?%reSuffix+",NORM_VALUE="UNDEF-this-month-%normDayNumber(group(5))"
+
+//r8a: 3. ayın 2. günü
+//r8b: Ocak ayının ikinci günü
+//r8c: ayın üçüncü günü
+RULENAME="date_r8a",EXTRACTION="%reMonthNumberTh(\s)*%reMonthToken%reSuffix(\s)*%reDayNumberTh(\s)*%reDayToken%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthNumber(group(1))-%normDayNumberTh(group(6))"
+RULENAME="date_r8b",EXTRACTION="%reMonthName'?%reSuffix*(\s)*(%reMonthToken%reSuffix)?(\s)*%reDayNumberTh(\s)*%reDayToken%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(1))-%normDayNumberTh(group(8))"
+RULENAME="date_r8c",EXTRACTION="%reMonthToken%reSuffix*(\s)*%reDayNumberTh(\s)*%reDayToken%reSuffix*",NORM_VALUE="UNDEF-this-month-%normDayNumberTh(group(4))"
+
+//r9a: 2000 yılının Mart ayının 2'si
+//r9b: 2000 yılının Mart ayı
+//r9c: 2000 yılının ikinci ayının ikisi
+//r9d: 2000 yılının ikinci ayı
+RULENAME="date_r9a",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken%reSuffix)?,?(\s)*%reMonthName'?%reSuffix*(\s)*(%reMonthToken%reSuffix+)?(\s)*%reDayNumber'?%reSuffix*",NORM_VALUE="group(1)-%normMonthName(group(8))-%normDayNumber(group(15))"
+RULENAME="date_r9b",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*,?(\s)*%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix+)?",NORM_VALUE="group(1)-%normMonthName(group(8))"
+RULENAME="date_r9c",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken%reSuffix)?,?(\s)*%reMonthNumberTh'?%reSuffix*(\s)*(%reMonthToken%reSuffix+)?(\s)*%reDayNumber'?%reSuffix*",NORM_VALUE="group(1)-%normMonthNumber(group(8))-%normDayNumber(group(15))"
+RULENAME="date_r9d",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*,?(\s)*%reMonthNumberTh'?%reSuffix*((\s)*%reMonthToken%reSuffix+)?",NORM_VALUE="group(1)-%normMonthNumber(group(8))"
+
+//r10a: 2000 yılının 2 Mart'ı
+RULENAME="date_r10a",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken%reSuffix)?,?(\s)*%reDayNumber(\s)*%reMonthName'?%reSuffix*",NORM_VALUE="group(1)-%normMonthName(group(10))-%normDayNumber(group(8))"
+
+//r11a: bugün
+//r11a: yarın günlerden cuma
+//r11a: yarın cuma
+//r11b: yaz pazarı
+//r11c: kasım pazarı
+RULENAME="date_r11a",EXTRACTION="%reDateWord%reSuffix*((\s)*(%reDayToken%rePluralSuffix%reSuffix*)?(\s)*%reWeekday%reSuffix*(\s)*(%reDayToken%reSuffix*)?)?",NORM_VALUE="%normDateWord(group(1))"
+RULENAME="date_r11b",EXTRACTION="%reSeason%reSuffix*(\s)*%reWeekday%reSuffix*((\s)*%reDayToken%reSuffix*)?",NORM_VALUE="UNDEF-year-%normSeason(group(1))"
+RULENAME="date_r11c",EXTRACTION="%MonthName%reSuffix*(\s)*%reWeekday%reSuffix*((\s)*%reDayToken%reSuffix*)?",NORM_VALUE="UNDEF-year-%normMonthName(group(1))"
+
+
+//r12a: günlerden pazartesi
+//r12b: haftanın ilk günü
+//r12c: Günlerden 3 Mayıs, yıl 2000 ??
+RULENAME="date_r12a",EXTRACTION="(%reDayToken(ler|lar)%reSuffix+(\s)*)?%reWeekday%reSuffix*((\s)*%reDayToken%reSuffix*)?",NORM_VALUE="UNDEF-day-%normWeekday(group(6))"
+RULENAME="date_r12b",EXTRACTION="[Hh]aftan[iı]n%reSuffix*(\s)*%reDayNumberTh(\s)*%reDayToken%reSuffix*",NORM_VALUE="XXXX-WXX-%normDayInWeek(group(3))"
+RULENAME="date_r12c",EXTRACTION="%reDayToken%rePluralSuffix%reSuffix*(\s)*%reDayNumber(\s)*%reMonthName,?(\s)*(%reYearToken%rePluralSuffix*%reSuffix*)?(\s)*%reYear4Digit'?%reSuffix*((\s)*%reYearToken%reSuffix*)?",NORM_VALUE="group(14)-%normMonthName(group(7))-%normDayNumber(group(5))" 
+
+
+//r13a: Anneler gününde
+//r13b: öğretmenler gününde
+RULENAME="date_r13a",EXTRACTION="%reHolidayFix(2?(\s)*%reSuffix+)?",NORM_VALUE="UNDEF-year-%normHolidayFix(group(1))"
+RULENAME="date_r13b",EXTRACTION="%reHolidayVar('?(\s)*%reSuffix+)?",NORM_VALUE="UNDEF-year-%normHolidayVar(group(1))"
+
+//r16a: İstanbul'un Fethi
+//RULENAME="date_r14a",EXTRACTION="%reHistoricalEvent'?%reSuffix*",NORM_VALUE="%normHistoricalEvent(group(1))"
+
+//r15a: Mart ayının başı
+//r15b: Mart ayının ilk günleri
+//r15c: 2000'nin ortası
+//r15d: 2000'nin ilk haftaları
+//r15e: Yılın başı
+//r15f: Yılın ilk saatleri
+//r15g: Ayın başı
+//r15f: Ayın ilk günleri 
+RULENAME="date_r15a",EXTRACTION="%reMonthName'?%reSuffix*(\s)*(%reMonthToken%reSuffix*)?(\s)*(\w+)?(\s)*%rePartWords%reSuffix+",NORM_VALUE="UNDEF-year-%normMonthName(group(1))",NORM_MOD="%normPartWords(group(10))"
+RULENAME="date_r15b",EXTRACTION="%reMonthName'?%reSuffix*(\s)*(%reMonthToken%reSuffix*)?(\s)*(\w+)?(\s)*%rePartWords(%reSuffix)*(\s)*(%reTimeTokenforMod%rePluralSuffix|[Yy]ar[iı])(%reSuffix)*",NORM_VALUE="UNDEF-year-%normMonthName(group(1))",NORM_MOD="%normPartWords(group(10))"
+RULENAME="date_r15c",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken%reSuffix*)?(\s)*(\w+)?(\s)*%rePartWords%reSuffix+",NORM_VALUE="group(1)",NORM_MOD="%normPartWords(group(10))"
+RULENAME="date_r15d",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken%reSuffix*)?(\s)*(\w+)?(\s)*%rePartWords(%reSuffix)*(\s)*%reTimeTokenforMod%rePluralSuffix(%reSuffix)*",NORM_VALUE="group(1)",NORM_MOD="%normPartWords(group(10))"
+RULENAME="date_r15e",EXTRACTION="%reYearToken'?%reSuffix*(\s)*(\w+)?(\s)*%rePartWords%reSuffix+",NORM_VALUE="UNDEF-this-year",NORM_MOD="%normPartWords(group(6))"
+RULENAME="date_r15f",EXTRACTION="%reYearToken'?%reSuffix*(\s)*(\w+)?(\s)*%rePartWords%reSuffix*(\s)*%reTimeTokenforMod%rePluralSuffix(%reSuffix)*",NORM_VALUE="UNDEF-this-year",NORM_MOD="%normPartWords(group(6))"
+RULENAME="date_r15g",EXTRACTION="%reMonthToken'?%reSuffix*(\s)*(\w+)?(\s)*%rePartWords%reSuffix+",NORM_VALUE="UNDEF-this-month",NORM_MOD="%normPartWords(group(6))"
+RULENAME="date_r15h",EXTRACTION="%reMonthToken'?%reSuffix*(\s)*(\w*)?(\s)*%rePartWords%reSuffix*(\s)*(%reTimeTokenforMod%rePluralSuffix|[Yy]ar[iı])(%reSuffix)*",NORM_VALUE="UNDEF-this-month",NORM_MOD="%normPartWords(group(6))"
+
+//r16a: 2020'in üçüncü çeyreği
+//r16b: 2020'in son çeyreği
+//r16c: 2020'in son yarısı
+//r16d: yılın üçüncü çeyreği
+//r16e: yılın son çeyreği
+//r16f: yılın son yarısı
+RULENAME="date_r16a",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(\w*)?(\s)*%rePartNum(\s)*%rePartOfYear(%reSuffix)*",NORM_VALUE="group(1)-%normPartofYear(group(8))%normPartNum(group(6))"
+RULENAME="date_r16b",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*([Ss]on|[Dd][öo]rd[üu]nc[üu])%reSuffix*(\s)*[ÇcCç]eyre[gğk](%reSuffix)*",NORM_VALUE="group(1)-Q4"
+RULENAME="date_r16c",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*([Ss]on|[İIiı]k[iı]nc[iı])%reSuffix*(\s)*[Yy]ar[iı](%reSuffix)*",NORM_VALUE="group(1)-H2"
+RULENAME="date_r16d",EXTRACTION="%reYearToken'?%reSuffix*(\s)*%rePartNum(\s)*%rePartOfYear(%reSuffix)*",NORM_VALUE="UNDEF-this-year-%normPartofYear(group(6))%normPartNum(group(4))"
+RULENAME="date_r16e",EXTRACTION="%reYearToken%reSuffix*(\s)*([Ss]on|[Dd][öo]rd[üu]nc[üu])%reSuffix*(\s)*[ÇcCç]eyre[gğk](%reSuffix)*",NORM_VALUE="UNDEF-this-year-Q4"
+RULENAME="date_r16f",EXTRACTION="%reYearToken%reSuffix*(\s)*([Ss]on|[İIiı]k[iı]nc[iı])%reSuffix*(\s)*[Yy]ar[iı](%reSuffix)*",NORM_VALUE="UNDEF-this-year-H2"
+
+//r17a: kış mevsimi
+RULENAME="date_r17a",EXTRACTION="%reSeason%reSuffix*(\s)*([Mm]evs[iı]m[iı]%reSuffix*|%reMonthToken%rePluralSuffix*%reSuffix*)?",NORM_VALUE="UNDEF-year-%normSeason(group(1))"
+
+//r18a: Mart ayının 2'si ??
+//r18b: Mart ayının 2'si, 2020
+//r18c: Martın ikisi
+//r18c: Martın ikisi, 2000
+RULENAME="date_r18a",EXTRACTION="%reMonthName'?%reSuffix*(\s)*([Aa]y[iı]n%reSuffix)?(\s)*%reDayNumber(\s)?'?%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(1))-%normDayNumber(group(7))"
+RULENAME="date_r18b",EXTRACTION="%reMonthName'?%reSuffix*(\s)*([Aa]y[iı]n%reSuffix)?(\s)*%reDayNumber(\s)?'?%reSuffix*,?(\s)*%reYear4Digit'?%reSuffix*((\s)*%reYearToken%reSuffix)?",NORM_VALUE="group(11)-%normMonthName(group(1))-%normDayNumber(group(7))"
+RULENAME="date_r18c",EXTRACTION="%reMonthName'?%reSuffix*(\s)*([Aa]y[iı]n%reSuffix)?(\s)*%reDayNumberWord%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(1))-%normDayNumberWord(group(7))"
+RULENAME="date_r18d",EXTRACTION="%reMonthName'?%reSuffix*(\s)*([Aa]y[iı]n%reSuffix)?(\s)*%reDayNumberWord%reSuffix*,?(\s)*%reYear4Digit'?%reSuffix*((\s)*%reYearToken%reSuffix)?",NORM_VALUE="group(10)-%normMonthName(group(1))-%normDayNumberWord(group(7))"
+
+
+//r19a:May.99
+//r19b:May.1999
+//r19c:2.May
+//r19d:2.May.99
+//r19e:2.May.1999
+RULENAME="date_r19a",EXTRACTION="%reMonthShort[\. ]%reYearShort",NORM_VALUE="%normYearShort(group(2))-%normMonthShort(group(1))"
+RULENAME="date_r19b",EXTRACTION="%reMonthShort[\. ]%reYear4Digit",NORM_VALUE="group(2)-%normMonthShort(group(1))"
+RULENAME="date_r19c",EXTRACTION="%reDayNumber[\. ]%reMonthShort",NORM_VALUE="UNDEF-this-year-%normMonthShort(group(2))-%normDayNumber(group(1))"
+RULENAME="date_r19d",EXTRACTION="%reDayNumber[\. ]%reMonthShort[\. ]%reYearShort",NORM_VALUE="%normYearShort(group(3))-%normMonthShort(group(2))-%normDayNumber(group(1))"
+RULENAME="date_r19e",EXTRACTION="%reDayNumber[\. ]%reMonthShort[\. ]%reYear4Digit",NORM_VALUE="group(3)-%normMonthShort(group(2))-%normDayNumber(group(1))"
+
+//r20a: En uzun gün
+RULENAME="date_r20a",EXTRACTION="%reGeoDate'?%reSuffix*",NORM_VALUE="UNDEF-year-%normGeoDate(group(1))"
+
+//r21a: geçen hafta bugün
+//r21b: geçen hafta dün
+//r21c: geçen sene bugün
+//r21d: geçen ay bugün ??
+RULENAME="date_r21a",EXTRACTION="%rePastAdj(\s)*[Hh]afta(\s)*([Aa]yn[ıi](\s)*|[Bb]u)%reDayToken",NORM_VALUE="UNDEF-REFUNIT-day-MINUS-7"
+RULENAME="date_r21b",EXTRACTION="%rePastAdj(\s)*[Hh]afta(\s)*[Dd][üu]n",NORM_VALUE="UNDEF-REFUNIT-day-MINUS-8"
+RULENAME="date_r21c",EXTRACTION="%rePastAdj(\s)*%reYearToken(\s)*([Aa]yn[ıi](\s)*[Gg][üu]n|[Bb]u[Gg][üu]n)",NORM_VALUE="UNDEF-REFUNIT-year-MINUS-1"
+RULENAME="date_r21d",EXTRACTION="%rePastAdj(\s)*%reMonthToken(\s)*([Aa]yn[ıi](\s)*[Gg][üu]n|[Bb]u[Gg][üu]n)",NORM_VALUE="UNDEF-REFUNIT-month-MINUS-1"
+
+//r22a: Üçüncüncü yüzyıl ??
+RULENAME="date_r22a",EXTRACTION="%reDayNumberTh(\s)*%reCenturyToken%reSuffix*",NORM_VALUE="%normDayNumberTh(group(1))"
+
+//r23a: Birkaç yıl sonra
+//r23b: Birkaç kış sonra
+//r23c: Bir süre sonra
+//r23d: Yıllar sonra
+RULENAME="date_r23a",EXTRACTION="%reNS(\s)*%reUnit(\s)*[Ss]onra%reSuffix*",NORM_VALUE="FUTURE_REF"
+RULENAME="date_r23b",EXTRACTION="%reNS(\s)*(%reSeason|%reMonthName)(\s)*[Ss]onra%reSuffix*",NORM_VALUE="FUTURE_REF"
+RULENAME="date_r23c",EXTRACTION="%reNS%reSuffix*(\s)*[Ss]onra%reSuffix*",NORM_VALUE="FUTURE_REF"
+RULENAME="date_r23d",EXTRACTION="%reUnit(ler|lar)(\s)*[Ss]onra%reSuffix*",NORM_VALUE="FUTURE_REF"
+
+//r24a: Birkaç hafta önce
+//r24b: Birkaç kasım önce
+//r24c: Bir süre önce
+//r24d: Yıllar önce
+RULENAME="date_r24a",EXTRACTION="%reNS(\s)*%reUnit(\s)*[OoÖö]nce%reSuffix*",NORM_VALUE="PAST_REF"
+RULENAME="date_r24b",EXTRACTION="%reNS(\s)*(%reSeason|%reMonthName)(\s)*[OoÖö]nce%reSuffix*",NORM_VALUE="PAST_REF"
+RULENAME="date_r24c",EXTRACTION="%reNS%reSuffix*(\s)*[OoÖö]nce%reSuffix*",NORM_VALUE="PAST_REF"
+RULENAME="date_r24d",EXTRACTION="%reUnit(ler|lar)(\s)*[OoÖö]nce%reSuffix*",NORM_VALUE="PAST_REF"
+
+//r25a: Aylardan mayıs 1992 yılı ??
+//r25b: Mart Ayı
+//r25c: Bir kasım ayı
+//r25d: Yıllardan 1992
+//r25e: Günlerden 2 mayıs
+RULENAME="date_r25a",EXTRACTION="%reMonthToken%rePluralSuffix?%reSuffix*(\s)*%reMonthName'?%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(5))"
+RULENAME="date_r25b",EXTRACTION="%reMonthName(\s)*%reMonthToken%reSuffix+",NORM_VALUE="UNDEF-year-%normMonthName(group(1))"
+RULENAME="date_r25c",EXTRACTION="[Bb][iı]r(\s)*%reMonthName(\s)*%reMonthToken%reSuffix+",NORM_VALUE="UNDEF-year-%normMonthName(group(2))"
+RULENAME="date_r25d",EXTRACTION="%reYearToken%rePluralSuffix?%reSuffix*(\s)*%reYear4Digit'?%reSuffix*",NORM_VALUE="group(5)"
+//RULENAME="date_r25f",EXTRACTION="%reYear4Digit(\s)*%reYearToken%reSuffix+",NORM_VALUE="group(1)"
+RULENAME="date_r25e",EXTRACTION="%reDayToken(%rePluralSuffix%reSuffix+)?(\s)*%reDayNumber(\s)*%reMonthName'?%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(8))-%normDayNumber(group(6))"
+RULENAME="date_r25f",EXTRACTION="%reMonthToken%rePluralSuffix?%reSuffix*(\s)*%reMonthName'?%reSuffix*((\s)|%reYearToken%rePluralSuffix?%reSuffix*)*%reYear4Digit((\s)*%reYearToken%rePluralSuffix?%reSuffix*)?",NORM_VALUE="group(12)-%normMonthName(group(5))"
+
+//r26a: 2000 yılının kurban bayramı
+//r26b: 2000 yılı şeker bayramı
+RULENAME="date_r26c",EXTRACTION="%reYear4Digit(\s)*(%reYearToken%reSuffix*)?(\s)*[Kk]urban(\s)*[Bb]ayram[iı]%reSuffix*",NORM_VALUE="group(1)-%normKurbanBayrami(group(1))"
+RULENAME="date_r26d",EXTRACTION="%reYear4Digit(\s)*(%reYearToken%reSuffix*)?(\s)*([Rr]amazan|[SsŞş]eker)(\s)*[Bb]ayram[iı]%reSuffix*",NORM_VALUE="group(1)-%normRamazanBayrami(group(1))"
+
+
+//r27a: bu ay
+//r27b: bu mart
+//r27c: geçen pazar
+//r27d: geçen yaz
+//r27e: haftaya salı
+RULENAME="date_r27a",EXTRACTION="%reThisNextLast(\s)*%reUnit%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normUnit(group(3))"
+RULENAME="date_r27b",EXTRACTION="%reThisNextLast(\s)*%reMonthName%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normMonthThis(group(3))"
+RULENAME="date_r27c",EXTRACTION="%reThisNextLast(\s)*%reWeekday%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))"
+RULENAME="date_r27d",EXTRACTION="%reThisNextLast(\s)*%reSeason%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normSeason(group(3))"
+RULENAME="date_r27e",EXTRACTION="[Hh]aftaya(\s)*%reWeekday%reSuffix*",NORM_VALUE="UNDEF-next-%normWeekday(group(2))"
+
+//r28a: bu senenin 2 mayısı ??
+//r28b: bu sene mayısın ikisi
+//r28c: bu sene mayıs ayı 
+//r28d: bu mayısın ikisi
+//r28e: bu yaz ağustosun ikisinde
+//r28f: bu yaz ağustos ayı
+//r28g: bu ayın 2'si
+//r28h: bu ayın ikisi
+//r28i: bu senenin kış mevsimi
+RULENAME="date_r28a",EXTRACTION="%reThisNextLast(\s)*%reYearToken%reSuffix*(\s)*%reDayNumber(\s)*%reMonthName'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonthName(group(8))-%normDayNumber(group(6))"
+RULENAME="date_r28b",EXTRACTION="%reThisNextLast(\s)*%reYearToken%reSuffix*(\s)*%reMonthName'?%reSuffix*(\s)*%reDayNumber'?%reSuffix*.?((\s)*%reDayToken%reSuffix+)?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonthName(group(6))-%normDayNumber(group(9))"
+RULENAME="date_r28c",EXTRACTION="%reThisNextLast(\s)*%reYearToken%reSuffix*(\s)*%reMonthName'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normMonthName(group(6))"
+RULENAME="date_r28d",EXTRACTION="%reThisNextLast(\s)*%reMonthName'?%reSuffix*(\s)*%reDayNumber'?%reSuffix*.?((\s)*%reDayToken%reSuffix+)?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normMonthThis(group(3))-%normDayNumber(group(6))"
+RULENAME="date_r28e",EXTRACTION="%reThisNextLast(\s)*%reSeason'?%reSuffix*(\s)*%reMonthName'?%reSuffix*(\s)*%reDayNumber'?%reSuffix*.?((\s)*%reDayToken%reSuffix+)?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normMonthThis(group(6))-%normDayNumber(group(9))"
+RULENAME="date_r28f",EXTRACTION="%reThisNextLast(\s)*%reSeason'?%reSuffix*(\s)*%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix+)?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-%normMonthThis(group(6))"
+RULENAME="date_r28g",EXTRACTION="%reThisNextLast(\s)*%reMonthToken%reSuffix*(\s)*%reDayNumber'?%reSuffix*((\s)*%reDayToken%reSuffix+)?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-month-%normDayNumber(group(6))"
+RULENAME="date_r28h",EXTRACTION="%reThisNextLast(\s)*%reMonthToken%reSuffix*(\s)*%reDayNumberWord'?%reSuffix*((\s)*%reDayToken%reSuffix+)?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-month-%normDayNumber(group(6))"
+RULENAME="date_r28i",EXTRACTION="%reThisNextLast(\s)*%reYearToken%reSuffix*(\s)*%reSeason%reSuffix*((\s)*[Mm]evs[iı]m%reSuffix*)?",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-year-%normSeason(group(6))"
+
+
+//r29a: 2 yüzyıl sonra
+//r29b: 2 yıl sonra
+//r29c: 2 kış sonra
+//r29d: 2 kasım sonra
+//r29e: iki yıl sonra
+//r29f: iki kış sonra
+//r29g: iki kasım sonra
+//r29h: iki yüzyıl sonra
+//r29i: çeyrek yüzyıl sonra
+RULENAME="date_r29a",EXTRACTION="%reNumber(\s)*%reCenturyToken(\s)*[Ss]onra%reSuffix*",NORM_VALUE="UNDEF-REF-century-PLUS-%normNumber(group(1))-PLUS-1"
+RULENAME="date_r29b",EXTRACTION="([\d]+)(\s)*%reUnit(\s)*[Ss]onra%reSuffix*",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-%normNumber(group(1))"
+RULENAME="date_r29c",EXTRACTION="([\d]+)(\s)*%reSeason(\s)*[Ss]onra%reSuffix*",NORM_VALUE="UNDEF-REF-%normUnit(yıl)-PLUS-group(1)-%normSeason(group(3))"
+RULENAME="date_r29d",EXTRACTION="([\d]+)(\s)*%reMonthName(\s)*[Ss]onra%reSuffix*",NORM_VALUE="UNDEF-REF-%normUnit(yıl)-PLUS-group(1)-%normMonthName(group(3))"
+RULENAME="date_r29e",EXTRACTION="%reNumber(\s)*%reUnit(\s)*[Ss]onra%reSuffix*",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-PLUS-%normNumber(group(1))"
+RULENAME="date_r29f",EXTRACTION="%reNumber(\s)*%reSeason(\s)*[Ss]onra%reSuffix*",NORM_VALUE="UNDEF-REF-%normUnit(yıl)-PLUS-%normNumber(group(1))-%normSeason(group(3))"
+RULENAME="date_r29g",EXTRACTION="%reNumber(\s)*%reMonthName(\s)*[Ss]onra%reSuffix*",NORM_VALUE="UNDEF-REF-%normUnit(yıl)-PLUS-%normNumber(group(1))-%normMonthName(group(3))"
+RULENAME="date_r29h",EXTRACTION="([\d]+)(\s)*%reCenturyToken(\s)*[Ss]onra%reSuffix*",NORM_VALUE="UNDEF-REF-century-PLUS-group(1)"
+RULENAME="date_r29i",EXTRACTION="%rePart(\s)*%reCenturyToken(\s)*[Ss]onra%reSuffix*",NORM_VALUE="UNDEF-REF-year-PLUS-%normCEPart(group(1))"
+
+
+//r30a: 2 yüzyıl önce
+//r30b: 2 yıl önce
+//r30c: 2 kış önce
+//r30d: 2 kasım önce
+//r30e: iki yıl önce
+//r30f: iki kış önce
+//r30g: iki kasım önce
+//r30h: iki yüzyıl önce
+//r30i: çeyrek yüzyıl önce
+RULENAME="date_r30a",EXTRACTION="%reNumber(\s)*%reCenturyToken(\s)*([OoÖö]nce|[Ee]vvel)%reSuffix*",NORM_VALUE="UNDEF-REF-century-MINUS-%normNumber(group(1))-PLUS-1"
+RULENAME="date_r30b",EXTRACTION="([\d]+)(\s)*%reUnit(\s)*([OoÖö]nce|[Ee]vvel)%reSuffix*",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-%normNumber(group(1))"
+RULENAME="date_r30c",EXTRACTION="([\d]+)(\s)*%reSeason(\s)*([OoÖö]nce|[Ee]vvel)%reSuffix*",NORM_VALUE="UNDEF-REF-%normUnit(yıl)-MINUS-group(1)-%normSeason(group(3))"
+RULENAME="date_r30d",EXTRACTION="([\d]+)(\s)*%reMonthName(\s)*([OoÖö]nce|[Ee]vvel)%reSuffix*",NORM_VALUE="UNDEF-REF-%normUnit(yıl)-MINUS-group(1)-%normMonthName(group(3))"
+RULENAME="date_r30e",EXTRACTION="%reNumber(\s)*%reUnit(\s)*([OoÖö]nce|[Ee]vvel)%reSuffix*",NORM_VALUE="UNDEF-REF-%normUnit(group(3))-MINUS-%normNumber(group(1))"
+RULENAME="date_r30f",EXTRACTION="%reNumber(\s)*%reSeason(\s)*([OoÖö]nce|[Ee]vvel)%reSuffix*",NORM_VALUE="UNDEF-REF-%normUnit(yıl)-MINUS-%normNumber(group(1))-%normSeason(group(3))"
+RULENAME="date_r30g",EXTRACTION="%reNumber(\s)*%reMonthName(\s)*([OoÖö]nce|[Ee]vvel)%reSuffix*",NORM_VALUE="UNDEF-REF-%normUnit(yıl)-MINUS-%normNumber(group(1))-%normMonthName(group(3))"
+RULENAME="date_r30h",EXTRACTION="([\d]+)(\s)*%reCenturyToken(\s)*([OoÖö]nce|[Ee]vvel)%reSuffix*",NORM_VALUE="UNDEF-REF-century-MINUS-group(1)"
+RULENAME="date_r30i",EXTRACTION="%rePart(\s)*%reCenturyToken(\s)*([OoÖö]nce|[Ee]vvel)%reSuffix*",NORM_VALUE="UNDEF-REF-year-MINUS-%normCEPart(group(1))"
+
+
+//r31a: Martın ilk günü
+//r31b: Senenin ilk günü
+//r31c: Martın son günü
+//r31d: Yılın son günü
+//r31e: yılın son haftası
+//r31f: yılın son ayı
+//r31g: yılın ilk haftası
+//r31h: Yılın ilk ayı
+//r31i: 3. hafta
+//r31j: üçüncü ay
+//r31k: mart ayının dördüncü günü
+//r31l: ??
+RULENAME="date_r31a",EXTRACTION="%reMonthName'?%reSuffix*(\s)*(%reMonthToken%reSuffix)?(\s)*[Iıİi]lk(\s)*%reDayToken%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(1))-01"
+RULENAME="date_r31b",EXTRACTION="%reYearToken%reSuffix*(\s)*[İIıi]lk(\s)*%reDayToken%reSuffix*",NORM_VALUE="UNDEF-year-01-01"
+RULENAME="date_r31c",EXTRACTION="%reMonthName'?%reSuffix*(\s)*(%reMonthToken%reSuffix)?(\s)*[Ss]on(\s)*%reDayToken%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(1))-%normMonthLong(group(1))"
+RULENAME="date_r31d",EXTRACTION="%reYearToken%reSuffix*(\s)*[Ss]on(\s)*%reDayToken%reSuffix*",NORM_VALUE="UNDEF-year-12-31"
+RULENAME="date_r31e",EXTRACTION="%reYearToken%reSuffix*(\s)*[Ss]on(\s)*[Hh]afta%reSuffix*",NORM_VALUE="UNDEF-this-year-W52"
+RULENAME="date_r31f",EXTRACTION="%reYearToken%reSuffix*(\s)*[Ss]on(\s)*%reMonthToken%reSuffix*",NORM_VALUE="UNDEF-year-12"
+RULENAME="date_r31g",EXTRACTION="%reYearToken%reSuffix*(\s)*[Iıİi]lk(\s)*[Hh]afta%reSuffix*",NORM_VALUE="UNDEF-this-year-W01"
+RULENAME="date_r31h",EXTRACTION="%reYearToken%reSuffix*(\s)*[Iıİi]lk(\s)*%reMonthToken%reSuffix*",NORM_VALUE="UNDEF-this-year-01"
+RULENAME="date_r31i",EXTRACTION="%reDayNumberTh(\s)*[Hh]afta%reSuffix*",NORM_VALUE="UNDEF-this-year-W%normDayNumberTh(group(1))"
+RULENAME="date_r31j",EXTRACTION="%reMonthNumberTh(\s)*%reMonthToken%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthNumber(group(1))"
+RULENAME="date_r31k",EXTRACTION="%reMonthName'?%reSuffix*(\s)*(%reMonthToken%reSuffix*)?(\s)*reDayNumberTh(\s)*%reDayToken%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(1))-%normDayNumberTh(group(7))"
+//RULENAME="date_r31l",EXTRACTION="%reMonthName'?%reSuffix*(\s)*([Aa]y%reSuffix)?(\s)*reDayNumber'?%reSuffix*(\s)*%reDayToken%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(1))-%normDayNumber(group(7))"
+
+//r32a: 2019 Martının ilk günü
+//r32b: 1919 senesinin ilk günü
+//r32c: 2019 Martının son günü
+//r32d: 1919 yılının son günü
+//r32e: 1919 senesinin son haftası
+//r32f: 1919 senesinin ilk haftası
+//r32g: 1919 yılının son ayı
+//r32h: 1919 yılının ilk ayı
+RULENAME="date_r32a",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*(\s)*%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix)?(\s)*[Iİiı]lk(\s)*%reDayToken%reSuffix*",NORM_VALUE="group(1)-%normMonthName(group(8))-01"
+RULENAME="date_r32b",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*(\s)*[Iıİi]lk(\s)*%reDayToken%reSuffix",NORM_VALUE="group(1)-01-01"
+RULENAME="date_r32c",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*(\s)*%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix)?(\s)*[Ss]on(\s)*%reDayToken%reSuffix",NORM_VALUE="group(1)-%normMonthName(group(8))-%normMonthLong(group(8))"
+RULENAME="date_r32d",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*(\s)*[Ss]on(\s)*%reDayToken%reSuffix*",NORM_VALUE="group(1)-12-31"
+RULENAME="date_r32e",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*(\s)*[Ss]on(\s)*[Hh]afta%reSuffix*",NORM_VALUE="group(1)-W52"
+RULENAME="date_r32f",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*(\s)*[Iıİi]lk(\s)*[Hh]afta%reSuffix*",NORM_VALUE="group(1)-W01"
+RULENAME="date_r32g",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*(\s)*[Ss]on(\s)*%reMonthToken%reSuffix*",NORM_VALUE="group(1)-12"
+RULENAME="date_r32h",EXTRACTION="%reYear4Digit'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*(\s)*[Iıİi]lk(\s)*%reMonthToken%reSuffix*",NORM_VALUE="group(1)-01"
+
+
+//r33a: temmuzun ilk pazartesisinde
+//r33b: temmuzun ilk salısı
+//r33c: temmuzun ilk çarşambası
+//r33d: temmuzun ilk perşembesi
+//r33e: temmuzun ilk cuması
+//r33f: temmuzun ilk cumartesisi
+//r33g: temmuzun ilk pazarı
+RULENAME="date_r33a",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*([İIiı]lk|[Bb][iı]r[iı]nc[iı])(\s)*[Pp]azartes[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normIlkPzt(group(1))"
+RULENAME="date_r33b",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*([İIiı]lk|[Bb][iı]r[iı]nc[iı])(\s)*[Ss]al[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normIlkSali(group(1))"
+RULENAME="date_r33c",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*([İIiı]lk|[Bb][iı]r[iı]nc[iı])(\s)*[ÇçCc]ar[şs]amba%reSuffix*",NORM_VALUE="UNDEF-year-%normIlkCar(group(1))"
+RULENAME="date_r33d",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*([İIiı]lk|[Bb][iı]r[iı]nc[iı])(\s)*[Pp]er[şs]embe%reSuffix*",NORM_VALUE="UNDEF-year-%normIlkPer(group(1))"
+RULENAME="date_r33e",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*([İIiı]lk|[Bb][iı]r[iı]nc[iı])(\s)*[Cc]uma%reSuffix*",NORM_VALUE="UNDEF-year-%normIlkCum(group(1))"
+RULENAME="date_r33f",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*([İIiı]lk|[Bb][iı]r[iı]nc[iı])(\s)*[Cc]umartes[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normIlkCmt(group(1))"
+RULENAME="date_r33g",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*([İIiı]lk|[Bb][iı]r[iı]nc[iı])(\s)*[Pp]azar(ı%reSuffix*| %reDayToken%reSuffix*)",NORM_VALUE="UNDEF-year-%normIlkPz(group(1))"
+
+//r34a: haziranın ikinci pazartesisinde
+//r34b: haziranın ikinci salısı
+//r34c: haziranın ikinci çarşambası
+//r34d: haziranın ikinci perşembesi
+//r34e: haziranın ikinci cuması
+//r34f: haziranın ikinci cumartesisi
+//r34g: haziranın ikinci pazarı
+RULENAME="date_r34a",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[İiIı]k[iı]nc[iı](\s)*[Pp]azartes[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normIkiPzt(group(1))"
+RULENAME="date_r34b",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[İiIı]k[iı]nc[iı](\s)*[Ss]al[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normIkiSali(group(1))"
+RULENAME="date_r34c",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[İiIı]k[iı]nc[iı](\s)*[ÇçCc]ar[şs]amba%reSuffix*",NORM_VALUE="UNDEF-year-%normIkiCar(group(1))"
+RULENAME="date_r34d",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[İiIı]k[iı]nc[iı](\s)*[Pp]er[şs]embe%reSuffix*",NORM_VALUE="UNDEF-year-%normIkiPer(group(1))"
+RULENAME="date_r34e",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[İiIı]k[iı]nc[iı](\s)*[Cc]uma%reSuffix*",NORM_VALUE="UNDEF-year-%normIkiCum(group(1))"
+RULENAME="date_r34f",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[İiIı]k[iı]nc[iı](\s)*[Cc]umartes[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normIkiCmt(group(1))"
+RULENAME="date_r34g",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[İiIı]k[iı]nc[iı](\s)*[Pp]azar(ı%reSuffix*| %reDayToken%reSuffix*)",NORM_VALUE="UNDEF-year-%normIkiPz(group(1))"
+
+//r35a: şubatın üçüncü pazartesisi
+//r35a: şubatın üçüncü salısı
+//r35a: şubatın üçüncü çarşambası
+//r35a: şubatın üçüncü perşembesi
+//r35a: şubatın üçüncü cuması
+//r35a: şubatın üçüncü cumartesisi
+//r35a: şubatın üçüncü pazarı
+RULENAME="date_r35a",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[UuÜü][çc][üu]nc[üu](\s)*[Pp]azartes[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normUcPzt(group(1))"
+RULENAME="date_r35b",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[UuÜü][çc][üu]nc[üu](\s)*[Ss]al[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normUcSali(group(1))"
+RULENAME="date_r35c",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[UuÜü][çc][üu]nc[üu](\s)*[ÇçCc]ar[şs]amba%reSuffix*",NORM_VALUE="UNDEF-year-%normUcCar(group(1))"
+RULENAME="date_r35d",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[UuÜü][çc][üu]nc[üu](\s)*[Pp]er[şs]embe%reSuffix*",NORM_VALUE="UNDEF-year-%normUcPer(group(1))"
+RULENAME="date_r35e",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[UuÜü][çc][üu]nc[üu](\s)*[Cc]uma%reSuffix*",NORM_VALUE="UNDEF-year-%normUcCum(group(1))"
+RULENAME="date_r35f",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[UuÜü][çc][üu]nc[üu](\s)*[Cc]umartes[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normUcCmt(group(1))"
+RULENAME="date_r35g",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[UuÜü][çc][üu]nc[üu](\s)*[Pp]azar(ı%reSuffix*| %reDayToken%reSuffix*)",NORM_VALUE="UNDEF-year-%normUcPz(group(1))"
+
+//r36a: eylül ayının dördüncü pazartesisi
+//r36b: eylül ayının dördüncü salısı
+//r36c: eylül ayının dördüncü çarşambası
+//r36d: eylül ayının dördüncü perşembesi
+//r36e: eylül ayının dördüncü cuması
+//r36f: eylül ayının dördüncü cumartesisi
+//r36g: eylül ayının dördüncü pazarı
+RULENAME="date_r36a",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[Dd][oö]rd[uü]nc[uü](\s)*[Pp]azartes[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normDortPzt(group(1))"
+RULENAME="date_r36b",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[Dd][oö]rd[uü]nc[uü](\s)*[Ss]al[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normDortSali(group(1))"
+RULENAME="date_r36c",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[Dd][oö]rd[uü]nc[uü](\s)*[ÇçCc]ar[şs]amba%reSuffix*",NORM_VALUE="UNDEF-year-%normDortCar(group(1))"
+RULENAME="date_r36d",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[Dd][oö]rd[uü]nc[uü](\s)*[Pp]er[şs]embe%reSuffix*",NORM_VALUE="UNDEF-year-%normDortPer(group(1))"
+RULENAME="date_r36e",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[Dd][oö]rd[uü]nc[uü](\s)*[Cc]uma%reSuffix*",NORM_VALUE="UNDEF-year-%normDortCum(group(1))"
+RULENAME="date_r36f",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[Dd][oö]rd[uü]nc[uü](\s)*[Cc]umartes[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normDortCmt(group(1))"
+RULENAME="date_r36g",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[Dd][oö]rd[uü]nc[uü](\s)*[Pp]azar(ı%reSuffix*| %reDayToken%reSuffix*)",NORM_VALUE="UNDEF-year-%normDortPz(group(1))"
+
+//r37a: nisanın son pazartesisi
+//r37b: nisanın son salısı
+//r37c: nisanın son çarşambası
+//r37d: nisanın son perşembesi
+//r37e: nisanın son cuması
+//r37f: nisanın son cumartesisi
+//r37g: nisanın son pazarı
+RULENAME="date_r37a",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[Ss]on(\s)*[Pp]azartes[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normSonPzt(group(1))"
+RULENAME="date_r37b",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[Ss]on(\s)*[Ss]al[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normSonSali(group(1))"
+RULENAME="date_r37c",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[Ss]on(\s)*[ÇçCc]ar[şs]amba%reSuffix*",NORM_VALUE="UNDEF-year-%normSonCar(group(1))"
+RULENAME="date_r37d",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[Ss]on(\s)*[Pp]er[şs]embe%reSuffix*",NORM_VALUE="UNDEF-year-%normSonPer(group(1))"
+RULENAME="date_r37e",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[Ss]on(\s)*[Cc]uma%reSuffix*",NORM_VALUE="UNDEF-year-%normSonCum(group(1))"
+RULENAME="date_r37f",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[Ss]on(\s)*[Cc]umartes[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normSonCmt(group(1))"
+RULENAME="date_r37g",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix*)?(\s)*[Ss]on(\s)*[Pp]azar(ı%reSuffix*| %reDayToken%reSuffix*)",NORM_VALUE="UNDEF-year-%normSonPz(group(1))"
+
+//r38a: eylülün ilk haftası
+//r38a: eylülün 2. haftası
+//r38a: eylülün üçüncü haftası
+//r38a: eylülün dordüncü haftası
+//r38a: eylülün son haftası
+RULENAME="date_r38a",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix+)?(\s)*([Iİiı]lk|[Bb][iı]r[iı]nc[ıi]|1.)(\s)*[Hh]aftas[iı]%reSuffix*",NORM_VALUE="UNDEF-this-year-W%normIlkHafta(group(1))"
+RULENAME="date_r38b",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix+)?(\s)*([İIiı]k[iı]nc[iı]|2.)(\s)*[Hh]aftas[iı]%reSuffix*",NORM_VALUE="UNDEF-this-year-W%normIkiHafta(group(1))"
+RULENAME="date_r38c",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix+)?(\s)*([ÜUüu][çc][üu]nc[üu]|3.)(\s)*[Hh]aftas[iı]%reSuffix*",NORM_VALUE="UNDEF-this-year-W%normUcHafta(group(1))"
+RULENAME="date_r38d",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix+)?(\s)*([Dd][öo]rd[üu]nc[üu]|4.)(\s)*[Hh]aftas[iı]%reSuffix*",NORM_VALUE="UNDEF-this-year-W%normDortHafta(group(1))"
+RULENAME="date_r38e",EXTRACTION="%reMonthName'?%reSuffix*((\s)*%reMonthToken%reSuffix+)?(\s)*([Bb]e[şs][iı]nc[iı]|[Ss]onuncu|[Ss]on|5.)(\s)*[Hh]aftas[iı]%reSuffix*",NORM_VALUE="UNDEF-this-year-W%normSonHafta(group(1))"
+
+
+//r39a: doksan üçüncü yıldönümünde
+//r39b: 93. yıldönümünde 
+RULENAME="date_r39a",EXTRACTION="%reNumber%reThSuffix(\s)*[Yy][iı]ld[öo]n[uü]m[uü]%reSuffix*",NORM_VALUE="UNDEF-REFUNIT-year-PLUS-%normNumber(group(1))"
+RULENAME="date_r39b",EXTRACTION="([\d]+)'?[.|%reSuffix](\s)*[Yy][iı]ld[öo]n[uü]m[uü]%reSuffix*",NORM_VALUE="UNDEF-REFUNIT-year-PLUS-%normNumber(group(1))"
+
+//r40a: 88 kışında
+//r40b: 88 eylülünde
+//r40c: 88 kış mevsiminde
+//r40d: 88 eylül ayında
+RULENAME="date_r40a",EXTRACTION="%reYearShort'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*(\s)*%reSeason%reSuffix+",NORM_VALUE="%normYearShort(group(1))-%normSeason(group(8))"
+RULENAME="date_r40b",EXTRACTION="%reYearShort'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*(\s)*%reMonthName%reSuffix+",NORM_VALUE="%normYearShort(group(1))-%normMonthName(group(8))"
+RULENAME="date_r40c",EXTRACTION="%reYearShort'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*(\s)*%reSeason%reSuffix*(\s)*[Mm]evs[iı]m[iı]%reSuffix*",NORM_VALUE="%normYearShort(group(1))-%normSeason(group(8))"
+RULENAME="date_r40d",EXTRACTION="%reYearShort'?%reSuffix*(\s)*(%reYearToken)?%reSuffix*(\s)*%reMonthName%reSuffix*(\s)*%reMonthToken%reSuffix*",NORM_VALUE="%normYearShort(group(1))-%normMonthName(group(8))"
+

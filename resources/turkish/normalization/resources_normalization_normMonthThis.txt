@@ -1,0 +1,28 @@
+"[Oo]cak","january"
+"[Kk]anuni [Ss]ani","january"
+
+"[SsŞş]ubat","february"
+
+"[Mm]art","march"
+
+"[Nn][iı]san","april"
+"[Tt]eşrinisani","april"
+
+"[Mm]ay[iı]s","may"
+
+"[Hh]az[iı]ran","june"
+
+"[Tt]emmuz","july"
+
+"[Aa][ğg]ustos","august"
+
+"[Ee]yl[üu]l","september"
+
+"[Ee]k[iı]m","october"
+"[Tt]eşrini [Ee]vvel","october"
+
+"[Kk]as[iı]m","november"
+"[Tt]eşrini [Ss]ani","november"
+
+"[Aa]ral[iı]k","december"
+"[Kk]anuni [Ee]vvel","december"
