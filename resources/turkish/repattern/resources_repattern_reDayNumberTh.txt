@@ -1,0 +1,66 @@
+[12][0-9].
+3[01].
+0?[1-9].
+
+[Bb][iı]r[iı]nc[iı]
+[Iıİi]lk
+
+[İIiı]k[iı]nc[iı]
+
+[UÜuü][cç][uü]n[çc][uü]
+
+[Dd][oö]rd[uü]nc[üu]
+
+[Bb]e[sş][ıi]nc[ıi]
+
+[Aa]lt[iı]nc[iı]
+
+[Yy]ed[ıi]nc[ıi]
+
+[Ss]ek[ıi]z[ıi]nc[ıi]
+
+[Dd][öo]k[üu]z[üu]nc[üu]
+
+[Oo]nuncu
+
+[Oo]n [Bb][iı]r[iı]nc[iı]
+
+[Oo]n [İIiı]k[iı]nc[iı]
+
+[Oo]n [UÜuü][cç][uü]n[çc][uü]
+
+[Oo]n [Dd][oö]rd[uü]nc[üu]
+
+[Oo]n [Bb]e[sş][ıi]nc[ıi]
+
+[Oo]n [Aa]lt[iı]nc[iı]
+
+[Oo]n [Yy]ed[ıi]nc[ıi]
+
+[Oo]n [Ss]ek[ıi]z[ıi]nc[ıi]
+
+[Oo]n [Dd][öo]k[üu]z[üu]nc[üu]
+
+[Yy][iı]rm[iı]nc[iı]
+
+[Yy]irmi [Bb][iı]r[iı]nc[iı]
+
+[Yy][iı]rm[iı] [İIiı]k[iı]nc[iı]
+
+[Yy][iı]rm[iı] [UÜuü][cç][uü]n[çc][uü]
+
+[Yy][iı]rm[iı] [Dd][oö]rd[uü]nc[üu]
+
+[Yy][iı]rm[iı] [Bb]e[sş][ıi]nc[ıi]
+
+[Yy][iı]rm[iı] [Aa]lt[iı]nc[iı]
+
+[Yy][iı]rm[iı] [Yy]ed[ıi]nc[ıi]
+
+[Yy][iı]rm[iı] [Ss]ek[ıi]z[ıi]nc[ıi]
+
+[Yy][iı]rm[iı] [Dd][öo]k[üu]z[üu]nc[üu]
+
+[Oo]tuzuncu
+
+[Oo]tuz [Bb][iı]r[iı]nc[iı]

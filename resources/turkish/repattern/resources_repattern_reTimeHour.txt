@@ -1,0 +1,44 @@
+// This file contains regular expression patterns for time hours.
+
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+0?[0-9]
+
+[Bb][iı]r
+[Iıİi]k[iı]
+[ÜUuü][çc]
+[Dd][öo]r[td]
+[Dd][öo]rd
+[Bb]e[şs]
+[Aa]lt[ıi]
+[Yy]ed[iı]
+[Ss]ek[iı]z
+[Dd]okuz
+[Oo]n
+[Oo]n [Bb][iı]r
+[Oo]n [İIiı]k[iı]
+[Oo]n [ÜUuü][çc]
+[Oo]n [Dd][öo]r[td]
+[Oo]n [Bb]e[şs]
+[Oo]n [Aa]lt[ıi]
+[Oo]n [Yy]ed[iı]
+[Oo]n [Ss]ek[iı]z
+[Oo]n [Dd]okuz
+[Yy][iı]rm[iı]
+[Yy][iı]rm[iı] [Bb][iı]r
+[Yy][iı]rm[iı] [İIiı]k[iı]
+[Yy][iı]rm[iı] [UÜuü][cç]
+[Yy][iı]rm[iı] [Dd][öo]r[td]

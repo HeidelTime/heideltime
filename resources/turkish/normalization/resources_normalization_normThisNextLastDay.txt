@@ -1,0 +1,16 @@
+"[Bb]u","next"
+
+"[Gg]elecek","next"
+"[ÖOöo]n[üu]m[üu]zdek[iı]","next"
+"[Yy]ak[ıi]n","next"
+"[Ee]rtes[iı]","next"
+"[Gg]elecek","next"
+"[Ss]onrak[iı]","next"
+
+"[Ss]onuncu","last"
+"[Ss]on","last"
+
+"[Gg]e[çc]mi[şs]","last"
+"[Gg]e[çc]en","last"
+"[Gg]e[çc]ti[ğg]imiz","last"
+"[ÖOöo]nceki","last"

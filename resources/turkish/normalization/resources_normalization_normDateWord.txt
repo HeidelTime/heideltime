@@ -1,0 +1,13 @@
+"[Dd][üu]nden [öOoÖ]nceki [Gg][üu]n","UNDEF-this-day-MINUS-2"
+
+"[Ee]vvelsi [Gg][üu]n","UNDEF-this-day-MINUS-2"
+
+"[Dd][uü]n","UNDEF-last-day"
+
+"[Bb]ug[üu]n","UNDEF-this-day"
+
+"[Yy]ar[iı]n","UNDEF-next-day"
+
+"[OoÖö]b[uü]r [Gg][üu]n","UNDEF-this-day-PLUS-2"
+"[Yy]ar[iı]ndan [Ss]onraki [Gg][uü]n","UNDEF-this-day-PLUS-2"
+"[OoÖö]b[üu]rs[uü] [Gg][üu]n","UNDEF-this-day-PLUS-2"

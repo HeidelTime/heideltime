@@ -1,0 +1,133 @@
+"[Gg]azetec[iı]ler [Gg][üu]n[üu]","01-10"
+
+"[Dd][üu]nya [Gg][üu]mr[üu]k [Gg][üu]n[üu]","01-26"
+
+"[Dd][üu]nya [Ss][iı]garay[iı] [Bb][iı]rakma [Gg][üu]n[üu]","02-09"
+
+"[Ss]evg[iı]l[iı]ler [Gg][üu]n[üu]","02-14"
+
+"[Ss][iı]v[iı]l [Ss]avunma [Gg][üu]n[üu]","02-28"
+
+"[Dd][üu]nya [Kk]ad[iı]nlar [Gg][üu]n[üu]","03-08"	
+
+"[İIiı]st[iı]klâl [Mm]ar[şs][iı]’n[iı]n [Kk]abul[üu] [Vv]e [Mm]ehmet [Aa]k[iı]f [Ee][Rr][Ss][Oo][Yy]’u [Aa]nma [Gg][üu]n[üu]","03-12"
+
+"[Tt][iı]p [Bb]ayram[iı]","03-14"
+
+"[ÖOöo][gğ]retmen [Oo]kullar[iı]n[iı]n [Kk]urulu[şs] [Yy][iı]l [Dd][öo]n[üu]m[üu]","03-16"
+
+"[ÇCçc]anakkale [Zz]afer[iı]","03-18"
+
+"[ŞSşs]eh[iı]tler [Gg][üu]n[üu]","03-18"
+
+"[Nn]evruz [Gg][üu]n[üu]n[üu] [İIiı][çc][iı]ne [Aa]lan [Hh]afta [Tt][üu]rk [Dd][üu]nyas[iı] [Vv]e [Tt]opluluklar[iı] [Hh]aftas[iı]"
+
+"[Uu]luslararas[iı] [İIiı]I[iı]ı]rk [Aa]y[iı]r[iı]m[iı] [İIiı]le [Mm][üu]cadele [Gg][üu]n[üu]","03-21"
+
+"[Dd][üu]nya [Ss]u [Gg][üu]n[üu]","03-22"
+
+"[Dd][üu]nya [Mm]eteoroloj[iı] [Gg][üu]n[üu]","03-23"
+
+"[Dd][üu]nya [Tt][iı]yatrolar [Gg][üu]n[üu]","03-27"
+
+"[Nn][Aa][Tt][Oo] [Gg][üu]n[üu]","04-04"
+
+"[Aa]vukatlar [Gg][üu]n[üu]","04-05"
+
+"[Dd][üu]nya [Ss]a[gğ]l[iı]k [Gg][üu]n[üu]","04-07"
+
+"[Pp]ol[iı]s [Tt]e[şs]k[iı]lat[iı]’n[iı]n [Kk]urulu[şs] [Gg][üu]n[üu]","04-10"	
+
+"[Uu]lusal [Ee]gemenl[iı]k [Vv]e [ÇCçc]ocuk [Bb]ayram[iı]","04-23"
+
+"[Tt][üu]rk[iı]ye [İIiı]stat[iı]st[iı]k [Gg][üu]n[üu]","04-25"	
+
+"[Aa]vrupa [Gg][üu]n[üu]","05-05"
+
+"[Hh][iı]drellez [Kk][üu]lt[üu]r [Vv]e [Bb]ahar [Bb]ayram[iı]","05-06"
+
+"[Hh]ava [ŞSşs]eh[iı]tler[iı]n[iı] [Aa]nma [Gg][üu]n[üu]","05-15"
+
+"[Dd][üu]nya [Ee]czac[iı]l[iı]k [Gg][üu]n[üu]","05-14"
+
+"[Uu]luslararas[iı] [Aa][iı]le [Gg][üu]n[üu]","05-15"
+
+"[Aa]tat[üu]rk’[üu] [Aa]nma [Vv]e [Gg]en[çc]l[iı]k [Vv]e [Ss]por [Bb]ayram[iı]","05-19"
+
+"[İIiı]stanbul’un [Ff]eth[iı]","05-29"
+
+"[Dd][üu]nya [Hh]ostesler [Gg][üu]n[üu]","05-31"
+
+"[Dd][üu]nya [ÇCçc]evre [Gg][üu]n[üu]","06-05"
+
+"[Uu]luslararas[iı] [Uu]yu[şs]turucu [Kk]ullan[iı]m[iı] [Vv]e [Kk]a[çc]ak[çc][iı]l[iı][gğ][iı] [İIiı]le [Mm][üu]cadele [Gg][üu]n[üu]","06-26"
+
+"[Kk]abotaj [Vv]e [Dd]en[iı]z [Bb]ayram[iı]","07-01"
+
+"[Dd][üu]nya [Nn][üu]fus [Gg][üu]n[üu]","07-11"
+
+"[Gg]azetec[iı]ler [Vv]e [Bb]as[iı]n [Bb]ayram[iı]","07-24"
+
+"[Zz]afer [Bb]ayram[iı]","08-30"
+
+"[Dd][üu]nya [Bb]ar[iı][şs] [Gg][üu]n[üu]","09-01"
+
+"[ŞSşs]eh[iı]t [Vv]e [Gg]az[iı]ler [Gg][üu]n[üu]","09-19"
+
+"[Tt][üu]rk [Dd][iı]l [Bb]ayram[iı]","09-26"
+
+"[Dd][üu]nya [Tt]ur[iı]zm [Gg][üu]n[üu]","09-27"
+
+"[Uu]luslararas[iı] [ÖOöo][gğ]retmenler [Gg][üu]n[üu]","10-05"
+
+"[Hh]ayvanlar[iı] [Kk]oruma [Gg][üu]n[üu]","10-04"
+
+"[Dd][üu]nya [Mm][iı]marl[iı]k [Gg][üu]n[üu]","10-04"
+
+"[Aa]nkara’n[iı]n [Bb]a[şs]kent [Oo]lu[şs]u","10-13"
+
+"[Dd][üu]nya [Kk]onut [Gg][üu]n[üu]","10-13"	
+
+"[Dd][üu]nya [Ss]tandartlar [Gg][üu]n[üu]","10-14"
+
+"[Dd][üu]nya [Gg][iı]da [Gg][üu]n[üu]","10-16"
+
+"[Dd][üu]nya [Yy]oksullukla [Mm][üu]cadele [Gg][üu]n[üu]","10-17"
+
+"[Bb][iı]rle[şs]m[iı][şs] [Mm][iı]lletler [Gg][üu]n[üu]","10-24"
+
+"[Cc]umhur[iı]yet [Bb]ayram[iı]","10-29"
+
+"[Dd][üu]nya [Tt]asarruf [Gg][üu]n[üu]","10-31"
+
+"[Dd][üu]nya [ŞSşs]eh[iı]rc[iı]l[iı]k [Gg][üu]n[üu]","11-06"
+
+"[Aa]tat[üu]rk’[üu]n [ÖOöo]l[üu]m [Yy][iı]ld[öo]n[üu]m[üu]","11-10"
+
+"[Aa]fet [Ee][gğ][iı]t[iı]m[iı] [Hh]az[iı]rl[iı]k [Gg][üu]n[üu]","11-12"
+
+"[Uu][Nn][Ee][Ss][Cc][Oo]’nun [Kk]urulu[şs] [Gg][üu]n[üu]","11-16"
+
+"[Dd][üu]nya [Ff]elsefe [Gg][üu]n[üu]","11-20"
+
+"[ÇCçc]ocuk [Hh]aklar[iı] [Gg][üu]n[üu]","11-20"
+
+"[ÖOöo][gğ]retmenler [Gg][üu]n[üu]","11-24"
+
+"[Dd][üu]nya [Aa][İIiı]I[iı]ı][Dd][Ss] [Gg][üu]n[üu]","12-01"
+
+"[Dd][üu]nya [Ee]ngell[iı]ler [Gg][üu]n[üu]","12-03"
+
+"[Kk]ad[iı]n [Hh]aklar[iı] [Gg][üu]n[üu]","12-05"
+
+"[Dd][üu]nya [Mm]adenc[iı]ler [Gg][üu]n[üu]","12-04"
+
+"[Dd][üu]nya [İIiı]nsan [Hh]aklar[iı] [Gg][üu]n[üu]","12-10"
+
+"[Dd][üu]nya [Kk]ooperat[iı]f[çc][iı]l[iı]k [Gg][üu]n[üu]","12-21"
+
+"[Aa]tat[üu]rk’[üu]n [Aa]nkara’ya [Gg]el[iı][şs][iı]","12-27"
+
+"[Yy][iı]lba[şs][iı] [Aa]k[şs]am[iı]","12-31"
+"[Yy][iı]lba[şs][iı] [Gg]eces[iı]","12-31"
+"[Yy][iı]lba[şs][iı]","12-31"

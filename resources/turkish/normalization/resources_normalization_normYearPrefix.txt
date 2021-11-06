@@ -1,0 +1,11 @@
+"[Mm][iı]lattan [OÖoö]nce","BC"
+"MÖ","BC"
+"mö","BC"
+"M.Ö.","BC"
+"m.ö.","BC"
+
+"[Mm][iı]lattan  [Ss]onra",""
+"MS",""
+"ms",""
+"M.S.",""
+"m.s.","" 

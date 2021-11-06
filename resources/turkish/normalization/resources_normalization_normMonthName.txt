@@ -1,0 +1,28 @@
+"[Oo]cak","01"
+"[Kk]anuni [Ss]ani","01"
+
+"[SsŞş]ubat","02"
+
+"[Mm]art","03"
+
+"[Nn][iı]san","04"
+"[Tt]eşrinisani","04"
+
+"[Mm]ay[iı]s","05"
+
+"[Hh]az[iı]ran","06"
+
+"[Tt]emmuz","07"
+
+"[Aa][gğ]ustos","08"
+
+"[Ee]yl[üu]l","09"
+
+"[Ee]k[iı]m","10"
+"[Tt]eşrini [Ee]vvel","10"
+
+"[Kk]as[ıi]m","11"
+"[Tt]eşrini [Ss]ani","11"
+
+"[Aa]ral[iı]k","12"
+"[Kk]anuni [Ee]vvel","12"

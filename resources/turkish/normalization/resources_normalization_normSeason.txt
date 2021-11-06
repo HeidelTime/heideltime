@@ -1,0 +1,11 @@
+"[Iİiı]lkbahar","SP"
+"[Bb]ahar","SP"
+"[Iİiı]lkyaz","SP"
+
+"[Yy]az","SU"
+
+"[Ss]onbahar","FA"
+"[Gg][üu]z","FA"
+"[Hh]azan","FA"
+
+"[Kk]ı[şs]","WI"

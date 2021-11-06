@@ -1,0 +1,445 @@
+// This file contains rules for the temporal expressions of the type time: timerules
+
+RULENAME="x_time_r1a_negative",EXTRACTION="%reNegative'?%reSuffix*",NORM_VALUE="REMOVE"
+RULENAME="x_time_r1b_negative",EXTRACTION="([\d]+)(\s)*%reNegativeUnit%reSuffix*",NORM_VALUE="REMOVE"
+RULENAME="x_time_r1c_negative",EXTRACTION="%reNumber(\s)*%reNegativeUnit%reSuffix*",NORM_VALUE="REMOVE"
+RULENAME="x_time_r1d_negative",EXTRACTION="%reNumber %reNumber",NORM_VALUE="REMOVE"
+
+
+//r1a: 15 dakika sonra
+//r1b: Yarım saat sonra
+RULENAME="time_r1a",EXTRACTION="%reNumber(\s)*%reHourPart(\s)*[Ss]onra%reSuffix*",NORM_VALUE="FUTURE_REF"
+RULENAME="time_r1b",EXTRACTION="%reHourPrefix(\s)*%reHourPart(\s)*[Ss]onra%reSuffix*",NORM_VALUE="FUTURE_REF"
+
+
+//r2a: 10 dakika önce
+//r2b: Yarım saat önce
+RULENAME="time_r2a",EXTRACTION="%reNumber(\s)*%reHourPart(\s)*([OoÖö]nce|[Ee]vvel)%reSuffix*",NORM_VALUE="PAST_REF"
+RULENAME="time_r2b",EXTRACTION="%reHourPrefix(\s)*%reHourPart(\s)*([OoÖö]nce|[Ee]vvel)%reSuffix*",NORM_VALUE="PAST_REF"
+
+
+//r6a: Yarın saat 7
+//r6b: Yarın saat 18.53
+//r6c: Yarın saat 1853
+RULENAME="time_r3a",EXTRACTION="%reDateWord%reSuffix*(\s)*([Ss]aat)?(\s)*%reTimeHour'?%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeMinute(group(6)):00"
+RULENAME="time_r3b",EXTRACTION="%reDateWord%reSuffix*(\s)*([Ss]aat)?(\s)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeMinute(group(6)):%normTimeMinute(group(7))"
+RULENAME="time_r3c",EXTRACTION="%reDateWord%reSuffix*(\s)*([Ss]aat)?(\s)*%reTimeHour2digit%reTimeMinute2digit'?%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeMinute(group(6)):%normTimeMinute(group(7))"
+
+
+//r4a: 24.05.2012 saat 7
+//r4b: 24.05.2012 saat 18.53
+//r4c: 24 mayıs 2016 saat 2
+//r4d: 24 mayıs 2016 saat 2.56
+//r4e: 24 mayıs saat 2
+//r4f: 24 mayıs saat 02.56
+//r4g: 24.05.2012 saat 1853
+//r4h: 24 mayıs 2016 saat 0256
+//r4i: 24 mayıs saat 0256
+RULENAME="time_r4a",EXTRACTION="%reDayNumber.%reMonthNumber.%reYear4Digit'?%reSuffix*(\s)*([Ss]aat)?(\s)*%reTimeHour'?%reSuffix*",NORM_VALUE="group(3)-group(2)-group(1)T%normTimeMinute(group(8)):00"
+RULENAME="time_r4b",EXTRACTION="%reDayNumber.%reMonthNumber.%reYear4Digit'?%reSuffix*(\s)*([Ss]aat)?(\s)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="group(3)-group(2)-group(1)T%normTimeMinute(group(8)):%normTimeMinute(group(9))"
+RULENAME="time_r4c",EXTRACTION="%reDayNumber(\s)*%reMonthName(\s)*%reYear4Digit'?%reSuffix*(\s)*([Ss]aat)?(\s)*%reTimeHour'?%reSuffix*",NORM_VALUE="group(5)-%normMonthName(group(3))-%normDayNumber(group(1))T%normTimeMinute(group(10)):00"
+RULENAME="time_r4d",EXTRACTION="%reDayNumber(\s)*%reMonthName(\s)*%reYear4Digit'?%reSuffix*(\s)*([Ss]aat)?(\s)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="group(5)-%normMonthName(group(3))-%normDayNumber(group(1))T%normTimeMinute(group(10)):%normTimeMinute(group(11))"
+RULENAME="time_r4e",EXTRACTION="%reDayNumber(\s)*%reMonthName'?%reSuffix*(\s)*([Ss]aat)?(\s)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(3))-%normDayNumber(group(1))T%normTimeMinute(group(8)):00"
+RULENAME="time_r4f",EXTRACTION="%reDayNumber(\s)*%reMonthName'?%reSuffix*(\s)*([Ss]aat)?(\s)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(3))-%normDayNumber(group(1))T%normTimeMinute(group(8)):%normTimeMinute(group(9))"
+RULENAME="time_r4g",EXTRACTION="%reDayNumber.%reMonthNumber.%reYear4Digit'?%reSuffix*(\s)*([Ss]aat)?(\s)*%reTimeHour2digit%reTimeMinute2digit'?%reSuffix*",NORM_VALUE="group(3)-group(2)-group(1)Tgroup(8):group(9)"
+RULENAME="time_r4h",EXTRACTION="%reDayNumber(\s)*%reMonthName(\s)*%reYear4Digit'?%reSuffix*(\s)*([Ss]aat)?(\s)*%reTimeHour2digit%reTimeMinute2digit'?%reSuffix*",NORM_VALUE="group(5)-%normMonthName(group(3))-%normDayNumber(group(1))Tgroup(10):group(11)"
+RULENAME="time_r4i",EXTRACTION="%reDayNumber(\s)*%reMonthName'?%reSuffix*(\s)*([Ss]aat)?(\s)*%reTimeHour2digit%reTimeMinute2digit'?%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(3))-%normDayNumber(group(1))Tgroup(8):group(9)"
+
+
+//r5a: akşam 7.53
+//r5b: gece 11.56
+//r5c: gündüz 1.53
+//r5d: yarın akşam 7.53
+//r5e: yarın gece 11.56
+//r5f: yarın gündüz 1.53
+//r5g: salı akşam 7.53
+//r5h: salı gecesi 11.56 ??
+//r5i: salı gündüz 1.53
+//r5j: bu akşam 7.53
+//r5k: bu gece 11.56
+//r5l: bu gündüz 1.53
+//r5m: bu salı akşam 7.53
+//r5n: bu salı gece 11.56
+//r5o: bu salı gündüz 1.53
+RULENAME="time_r5a",EXTRACTION="[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeHourNight(group(5)):%normTimeMinute(group(6))"
+RULENAME="time_r5b",EXTRACTION="[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeforGece(group(5)):%normTimeMinute(group(6))"
+RULENAME="time_r5c",EXTRACTION="%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeHourDay(group(6)):%normTimeMinute(group(7))"
+RULENAME="time_r5d",EXTRACTION="%reDateWord(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeHourNight(group(7)):%normTimeMinute(group(8))"
+RULENAME="time_r5e",EXTRACTION="%reDateWord(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeforGece(group(7)):%normTimeMinute(group(8))"
+RULENAME="time_r5f",EXTRACTION="%reDateWord(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeHourDay(group(8)):%normTimeMinute(group(9))"
+RULENAME="time_r5g",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeHourNight(group(11)):%normTimeMinute(group(12))"
+RULENAME="time_r5h",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeforGece(group(11)):%normTimeMinute(group(12))"
+RULENAME="time_r5i",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeHourDay(group(12)):%normTimeMinute(group(13))"
+RULENAME="time_r5j",EXTRACTION="%reThisNextLast(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeHourNight(group(7)):%normTimeMinute(group(8))"
+RULENAME="time_r5k",EXTRACTION="%reThisNextLast(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeforGece(group(7)):%normTimeMinute(group(8))"
+RULENAME="time_r5l",EXTRACTION="%reThisNextLast(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeHourDay(group(8)):%normTimeMinute(group(9))"
+RULENAME="time_r5m",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeHourNight(group(13)):%normTimeMinute(group(14))"
+RULENAME="time_r5n",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeforGece(group(13)):%normTimeMinute(group(14))"
+RULENAME="time_r5o",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeHourDay(group(14)):%normTimeMinute(group(15))"
+
+
+//r6a: akşam yedi buçuğa 10 kala
+//r6b: gece on iki buçuğa beş kala
+//r6c: gündüz bir buçuğa 3 kala
+//r6d: yarın akşam yedi buçuğa 10 kala
+//r6e: yarın gece on iki buçuğa beş kala ??
+//r6f: yarın gündüz bir buçuğa 3 kala
+//r6g: salı akşam yedi buçuğa 10 kala
+//r6h: salı gece on iki buçuğa beş kala
+//r6i: salı gündüz bir buçuğa 3 kala
+//r6j: bu akşam yedi buçuğa 10 kala
+//r6k: bu gece on iki buçuğa beş kala
+//r6l: bu gündüz bir buçuğa 3 kala
+//r6m: bu salı akşam yedi buçuğa 10 kala
+//r6n: bu salı gece on iki buçuğa beş kala
+//r6o: bu salı gündüz bir buçuğa 3 kala
+RULENAME="time_r6a",EXTRACTION="[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeHourNight(group(5)):%normHalfMinuteMinus(group(8))"
+RULENAME="time_r6b",EXTRACTION="[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeforGece(group(5)):%normHalfMinuteMinus(group(8))"
+RULENAME="time_r6c",EXTRACTION="%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeHourDay(group(6)):%normHalfMinuteMinus(group(9))"
+RULENAME="time_r6d",EXTRACTION="%reDateWord(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeHourNight(group(7)):%normHalfMinuteMinus(group(10))"
+RULENAME="time_r6e",EXTRACTION="%reDateWord(\s)*[Gg]ece%reSuffix*([Ss]aat|%reAdverb|(\s))*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeforGece(group(7)):%normHalfMinuteMinus(group(10))"
+RULENAME="time_r6f",EXTRACTION="%reDateWord(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeHourDay(group(8)):%normHalfMinuteMinus(group(11))"
+RULENAME="time_r6g",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeHourNight(group(11)):%normHalfMinuteMinus(group(14))"
+RULENAME="time_r6h",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)? (var|kal)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeforGece(group(11)):%normHalfMinuteMinus(group(14))"
+RULENAME="time_r6i",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeHourDay(group(12)):%normHalfMinuteMinus(group(15))"
+RULENAME="time_r6j",EXTRACTION="%reThisNextLast(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeHourNight(group(7)):%normHalfMinuteMinus(group(10))"
+RULENAME="time_r6k",EXTRACTION="%reThisNextLast(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeforGece(group(7)):%normHalfMinuteMinus(group(10))"
+RULENAME="time_r6l",EXTRACTION="%reThisNextLast(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeHourDay(group(8)):%normHalfMinuteMinus(group(11))"
+RULENAME="time_r6m",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeHourNight(group(13)):%normHalfMinuteMinus(group(16))"
+RULENAME="time_r6n",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeforGece(group(13)):%normHalfMinuteMinus(group(16))"
+RULENAME="time_r6o",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeHourDay(group(14)):%normHalfMinuteMinus(group(17))"
+
+
+//r7a: akşam yedi buçuğu çeyrek geçe
+//r7b: gece bir buçuğu 3 geçe
+//r7c: öğlen üç buçuğu on dört geçe
+//r7d: yarın akşam yedi buçuğu çeyrek geçe
+//r7e: yarın gece bir buçuğu 3 geçe
+//r7f: yarın öğlen üç buçuğu on dört geçe
+//r7g: salı akşam yedi buçuğu çeyrek geçe
+//r7h: salı gece bir buçuğu 3 geçe
+//r7i: salı öğlen üç buçuğu on dört geçe
+//r7j: bu akşam yedi buçuğu çeyrek geçe
+//r7k: bu gece bir buçuğu 3 geçe
+//r7l: bu öğlen üç buçuğu on dört geçe
+//r7m: bu salı akşam yedi buçuğu çeyrek geçe
+//r7n: bu salı gece bir buçuğu 3 geçe
+//r7o: bu salı öğlen üç buçuğu on dört geçe
+RULENAME="time_r7a",EXTRACTION="[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeHourNight(group(5)):%normHalfMinutePlus(group(8))"
+RULENAME="time_r7b",EXTRACTION="[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeforGece(group(5)):%normHalfMinutePlus(group(8))"
+RULENAME="time_r7c",EXTRACTION="%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeHourDay(group(6)):%normHalfMinutePlus(group(9))"
+RULENAME="time_r7d",EXTRACTION="%reDateWord(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeHourNight(group(7)):%normHalfMinutePlus(group(10))"
+RULENAME="time_r7e",EXTRACTION="%reDateWord(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeforGece(group(7)):%normHalfMinutePlus(group(10))"
+RULENAME="time_r7f",EXTRACTION="%reDateWord(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeHourDay(group(8)):%normHalfMinutePlus(group(11))"
+RULENAME="time_r7g",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeHourNight(group(11)):%normHalfMinutePlus(group(14))"
+RULENAME="time_r7h",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeforGece(group(11)):%normHalfMinutePlus(group(14))"
+RULENAME="time_r7i",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeHourDay(group(12)):%normHalfMinutePlus(group(15))"
+RULENAME="time_r7j",EXTRACTION="%reThisNextLast(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeHourNight(group(7)):%normHalfMinutePlus(group(10))"
+RULENAME="time_r7k",EXTRACTION="%reThisNextLast(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeforGece(group(7)):%normHalfMinutePlus(group(10))"
+RULENAME="time_r7l",EXTRACTION="%reThisNextLast(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeHourDay(group(8)):%normHalfMinutePlus(group(11))"
+RULENAME="time_r7m",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeHourNight(group(13)):%normHalfMinutePlus(group(16))"
+RULENAME="time_r7n",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeforGece(group(13)):%normHalfMinutePlus(group(16))"
+RULENAME="time_r7o",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeHourDay(group(14)):%normHalfMinutePlus(group(17))"
+
+
+//r8a: akşam yediye çeyrek kala
+//r8b: gece on ikiye çeyrek kala
+//r8c: gündüz bire yirmi kala
+//r8d: yarın akşam yediye çeyrek kala
+//r8e: yarın gece on ikiye çeyrek kala ??
+//r8f: yarın gündüz bire yirmi kala
+//r8g: salı akşam yediye çeyrek kala
+//r8h: salı gece on ikiye çeyrek kala
+//r8i: salı gündüz bire yirmi kala
+//r8j: bu akşam yediye çeyrek kala
+//r8k: bu gece on ikiye çeyrek kala
+//r8l: bu gündüz bire yirmi kala
+//r8m: bu salı akşam yediye çeyrek kala
+//r8n: bu salı gece on ikiye çeyrek kala
+//r8o: bu salı gündüz bire yirmi kala
+RULENAME="time_r8a",EXTRACTION="[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeHourNightMinus(group(5)):%normMinuteMinus(group(8))"
+RULENAME="time_r8b",EXTRACTION="[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeforGeceMinus(group(5)):%normMinuteMinus(group(8))"
+RULENAME="time_r8c",EXTRACTION="%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeHourDayMinus(group(6)):%normMinuteMinus(group(9))"
+RULENAME="time_r8d",EXTRACTION="%reDateWord(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeHourNightMinus(group(7)):%normMinuteMinus(group(10))"
+RULENAME="time_r8e",EXTRACTION="%reDateWord(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeforGeceMinus(group(7)):%normMinuteMinus(group(10))"
+RULENAME="time_r8f",EXTRACTION="%reDateWord(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeHourDayMinus(group(8)):%normMinuteMinus(group(11))"
+RULENAME="time_r8g",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeHourNightMinus(group(11)):%normMinuteMinus(group(14))"
+RULENAME="time_r8h",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeforGeceMinus(group(11)):%normMinuteMinus(group(14))"
+RULENAME="time_r8i",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeHourDayMinus(group(12)):%normMinuteMinus(group(15))"
+RULENAME="time_r8j",EXTRACTION="%reThisNextLast(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeHourNightMinus(group(7)):%normMinuteMinus(group(10))"
+RULENAME="time_r8k",EXTRACTION="%reThisNextLast(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeforGeceMinus(group(7)):%normMinuteMinus(group(10))"
+RULENAME="time_r8l",EXTRACTION="%reThisNextLast(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeHourDayMinus(group(8)):%normMinuteMinus(group(11))"
+RULENAME="time_r8m",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeHourNightMinus(group(13)):%normMinuteMinus(group(16))"
+RULENAME="time_r8n",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeforGeceMinus(group(13)):%normMinuteMinus(group(16))"
+RULENAME="time_r8o",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix?(\s)*([Dd]akika)?(\s)*(var|kal)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeHourDayMinus(group(14)):%normMinuteMinus(group(17))"
+
+
+//r9a: akşam yediyi çeyrek geçe
+//r9b: gece biri çeyrek geçe
+//r9c: öğlen üçü on dört geçe
+//r9d: yarın akşam yediyi çeyrek geçe
+//r9e: yarın gece biri çeyrek geçe
+//r9f: yarın öğlen üçü on dört geçe
+//r9g: salı akşam yediyi çeyrek geçe
+//r9h: salı gece biri çeyrek geçe
+//r9i: salı öğlen üçü on dört geçe
+//r9j: bu akşam yediyi çeyrek geçe
+//r9k: bu gece biri çeyrek geçe
+//r9l: bu öğlen üçü on dört geçe
+//r9m: bu salı akşam yediyi çeyrek geçe
+//r9n: bu salı gece biri çeyrek geçe
+//r9o: bu salı öğlen üçü on dört geçe
+RULENAME="time_r9a",EXTRACTION="[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeHourNight(group(5)):%normTimeMinute(group(8))"
+RULENAME="time_r9b",EXTRACTION="[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeforGece(group(5)):%normTimeMinute(group(8))"
+RULENAME="time_r9c",EXTRACTION="%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeHourDay(group(6)):%normTimeMinute(group(9))"
+RULENAME="time_r9d",EXTRACTION="%reDateWord(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeHourNight(group(7)):%normTimeMinute(group(10))"
+RULENAME="time_r9e",EXTRACTION="%reDateWord(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeforGece(group(7)):%normTimeMinute(group(10))"
+RULENAME="time_r9f",EXTRACTION="%reDateWord(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeHourDay(group(8)):%normTimeMinute(group(11))"
+RULENAME="time_r9g",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeHourNight(group(11)):%normTimeMinute(group(14))"
+RULENAME="time_r9h",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeforGece(group(11)):%normTimeMinute(group(14))"
+RULENAME="time_r9i",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeHourDay(group(12)):%normTimeMinute(group(15))"
+RULENAME="time_r9j",EXTRACTION="%reThisNextLast(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeHourNight(group(7)):%normTimeMinute(group(10))"
+RULENAME="time_r9k",EXTRACTION="%reThisNextLast(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeforGece(group(7)):%normTimeMinute(group(10))"
+RULENAME="time_r9l",EXTRACTION="%reThisNextLast(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeHourDay(group(8)):%normTimeMinute(group(11))"
+RULENAME="time_r9m",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeHourNight(group(13)):%normTimeMinute(group(16))"
+RULENAME="time_r9n",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeforGece(group(13)):%normTimeMinute(group(16))"
+RULENAME="time_r9o",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeHourDay(group(14)):%normTimeMinute(group(17))"
+
+
+//r10a: Akşam yedi
+//r10b: Gece bir
+//r10c: öğleden sonra bir
+//r10d: yarın Akşam yedi
+//r10e: yarın Gece bir
+//r10f: yarın öğleden sonra bir
+//r10g: salı Akşam yedi
+//r10h: salı Gece bir
+//r10i: salı öğleden sonra bir
+//r10j: bu Akşam yedi
+//r10k: bu Gece bir
+//r10l: bu öğleden sonra bir
+//r10m: bu salı Akşam yedi
+//r10n: bu salı Gece bir
+//r10o: bu salı öğleden sonra bir
+RULENAME="time_r10a",EXTRACTION="[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeHourNight(group(5)):00"
+RULENAME="time_r10b",EXTRACTION="[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeforGece(group(5)):00"
+RULENAME="time_r10c",EXTRACTION="%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeHourDay(group(6)):00"
+RULENAME="time_r10d",EXTRACTION="%reDateWord(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeHourNight(group(7)):00"
+RULENAME="time_r10e",EXTRACTION="%reDateWord(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeforGece(group(7)):00"
+RULENAME="time_r10f",EXTRACTION="%reDateWord(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeHourDay(group(8)):00"
+RULENAME="time_r10g",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeHourNight(group(11)):00"
+RULENAME="time_r10h",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeforGece(group(11)):00"
+RULENAME="time_r10i",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeHourDay(group(12)):00"
+RULENAME="time_r10j",EXTRACTION="%reThisNextLast(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeHourNight(group(7)):00"
+RULENAME="time_r10k",EXTRACTION="%reThisNextLast(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeforGece(group(7)):00"
+RULENAME="time_r10l",EXTRACTION="%reThisNextLast(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeHourDay(group(8)):00"
+RULENAME="time_r10m",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Aa]k[sş]am([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeHourNight(group(13)):00"
+RULENAME="time_r10n",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*[Gg]ece([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeforGece(group(13)):00"
+RULENAME="time_r10o",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*%reNoonWord([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeHourDay(group(14)):00"
+RULENAME="time_r10p",EXTRACTION="[Ss]aat(\s)*[Aa]k[sş]am(%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeHourNight(group(6)):00"
+RULENAME="time_r10r",EXTRACTION="[Ss]aat(\s)*[Gg]ece(%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeforGece(group(6)):00"
+RULENAME="time_r10s",EXTRACTION="[Ss]aat(\s)*%reNoonWord(%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeHourDay(group(7)):00"
+
+
+//r11a: sabah 7 buçuğa 3 kala
+//r11b: 2 buçuğa 3 kala
+//r11c: bu sabah 7 buçuğa 3 kala
+//r11d: yarın 2 buçuğa 3 kala
+//r11e: salı 2 buçuğa 3 kala
+//r11f: bu salı 2 buçuğa 3 kala
+//r11g: saat sabah 7 buçuğa 3 kala
+//r11h: tam sabah saat 2 buçuğa 3 kala
+RULENAME="time_r11a",EXTRACTION="%rePartOfDayforTime%reSuffix*([Ss]aat|%reAdverb|(\s))*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(6)):%normHalfMinuteMinus(group(9))"
+RULENAME="time_r11b",EXTRACTION="%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(1)):%normHalfMinuteMinus(group(4))"
+RULENAME="time_r11c",EXTRACTION="%reThisNextLast(\s)*%rePartOfDayforTime%reSuffix*([Ss]aat|%reAdverb|(\s))*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeMinute(group(8)):%normHalfMinuteMinus(group(11))"
+RULENAME="time_r11d",EXTRACTION="%reDateWord(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeMinute(group(7)):%normHalfMinuteMinus(group(10))"
+RULENAME="time_r11e",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(\s)*(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeMinute(group(12)):%normHalfMinuteMinus(group(15))"
+RULENAME="time_r11f",EXTRACTION="%reThisNextLast(\s)*%reWeekday(%reDayToken%reSuffix)?(\s)*(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeMinute(group(13)):%normHalfMinuteMinus(group(16))"
+RULENAME="time_r11g",EXTRACTION="[Ss]aat(%rePartOfDayforTime|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(6)):%normHalfMinuteMinus(group(9))"
+RULENAME="time_r11h",EXTRACTION="%reAdverb(%rePartOfDayforTime|[Ss]aat|(\s)|%reSuffix*|%reAdverb)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]a(\s)*%reTimeMinute(\s)*([Dd]akika)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(7)):%normHalfMinuteMinus(group(10))"
+
+
+//r12a: sabah 7 buçuğu 3 geçe
+//r12b: bu sabah 7 buçuğu 3 geçe
+//r12c: yarın 2 buçuğu 3 geçe
+//r12d: salı 2 buçuğu 3 geçe
+//r12e: bu salı 2 buçuğu 3 geçe
+//r12f: 2 buçuğu 3 geçe
+//r12g: saat sabah 7 buçuğu 3 geçe
+//r12h: tam sabah saat 2 buçuğu 3 geçe
+RULENAME="time_r12a",EXTRACTION="%rePartOfDayforTime%reSuffix*([Ss]aat|%reAdverb|(\s))*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(6)):%normHalfMinutePlus(group(9))"
+RULENAME="time_r12b",EXTRACTION="%reThisNextLast(\s)*%rePartOfDayforTime%reSuffix*([Ss]aat|%reAdverb|(\s))*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeMinute(group(8)):%normHalfMinutePlus(group(11))"
+RULENAME="time_r12c",EXTRACTION="%reDateWord(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeMinute(group(7)):%normHalfMinutePlus(group(10))"
+RULENAME="time_r12d",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|&reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeMinute(group(10)):%normHalfMinutePlus(group(13))"
+RULENAME="time_r12e",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeMinute(group(13)):%normHalfMinutePlus(group(16))"
+RULENAME="time_r12f",EXTRACTION="%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(1)):%normHalfMinutePlus(group(4))"
+RULENAME="time_r12g",EXTRACTION="[Ss]aat(%rePartOfDayforTime|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(6)):%normHalfMinutePlus(group(9))"
+RULENAME="time_r12h",EXTRACTION="%reAdverb(%rePartOfDayforTime|[Ss]aat|(\s)|%reSuffix*|%reAdverb)*%reTimeHour(\s)*[Bb]u[çc]u[ğg]u(\s)*%reTimeMinute(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e|ge[çc]mekte)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(7)):%normHalfMinutePlus(group(10))"
+
+
+//r13a: sabah 7.42
+//r13b: bu sabah 7.42
+//r13c: yarın 7.42
+//r13d: 7.42
+//r13e: salı 7.42
+//r13f: bu salı 7.42
+//r13g: saat sabah 7.42
+//r13h: tam sabah saat 7.42
+//r13i: 0700 - 0742 saatleri
+RULENAME="time_r13a",EXTRACTION="%rePartOfDayforTime([Ss]aat|%reAdverb|(\s))*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(5)):%normTimeMinute(group(6))"
+RULENAME="time_r13b",EXTRACTION="%reThisNextLast(\s)*%rePartOfDayforTime([Ss]aat|%reAdverb|(\s))*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeMinute(group(7)):%normTimeMinute(group(8))"
+RULENAME="time_r13c",EXTRACTION="%reDateWord(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s))*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeMinute(group(6)):%normTimeMinute(group(7))"
+RULENAME="time_r13d",EXTRACTION="%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(1)):%normTimeMinute(group(2))"
+RULENAME="time_r13e",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s))*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeMinute(group(10)):%normTimeMinute(group(11))"
+RULENAME="time_r13f",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s))*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeMinute(group(12)):%normTimeMinute(group(13))"
+RULENAME="time_r13g",EXTRACTION="[Ss]aat(%rePartOfDayforTime|%reAdverb|(\s))*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(5)):%normTimeMinute(group(6))"
+RULENAME="time_r13h",EXTRACTION="%reAdverb(%rePartOfDayforTime|[Ss]aat|(\s))*%reTimeHour[.: ]%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(5)):%normTimeMinute(group(6))"
+RULENAME="time_r13i",EXTRACTION="%reTimeHour2digit%reTimeMinute2digit((\s)*|-)+%reTimeHour2digit%reTimeMinute2digit'?(\s)*[Ss]aat(%rePluralSuffix%reSuffix*|%reSuffix+)",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(5)):%normTimeMinute(group(6))"
+
+
+//r14a: sabah 7'ye çeyrek kala
+//r14b: bu sabah 7'ye çeyrek kala
+//r14c: 7'ye çeyrek kala
+//r14d: yarın sabah 7'ye çeyrek kala
+//r14e: salı günü sabah 7'ye çeyrek kala
+//r14f: bu sabah 7'ye çeyrek kala
+//r14g: saat sabah 7'ye çeyrek kala
+//r14h: neredeyse sabah 7'ye çeyrek kala
+RULENAME="time_r14a",EXTRACTION="%rePartOfDayforTime%reSuffix*([Ss]aat|%reAdverb|(\s))*%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*([Dd]akika)?(\s)*(\w+)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normHourMinus(group(6)):%normMinuteMinus(group(12))"
+RULENAME="time_r14b",EXTRACTION="%reThisNextLast(\s)*%rePartOfDayforTime%reSuffix*([Ss]aat|%reAdverb|(\s))*%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*([Dd]akika)?(\s)*(\w+)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normHourMinus(group(8)):%normMinuteMinus(group(14))"
+RULENAME="time_r14c",EXTRACTION="%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*([Dd]akika)?(\s)*(\w+)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normHourMinus(group(1)):%normMinuteMinus(group(7))"
+RULENAME="time_r14d",EXTRACTION="%reDateWord(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*(Dd]akika)?(\s)*(\w+)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normHourMinus(group(7)):%normMinuteMinus(group(13))"
+//RULENAME="time_r14d",EXTRACTION="%reDateWord([Ss]aat|%reAdverb|(\s))*%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*([Dd]akika)?(\s)*(\w+)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normHourMinus(group(5)):%normMinuteMinus(group(11))"
+RULENAME="time_r14e",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix?(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*([Dd]akika)?(\s)*(\w+)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normHourMinus(group(11)):%normMinuteMinus(group(17))"
+RULENAME="time_r14f",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix?(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*([Dd]akika)?(\s)*(\w+)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normHourMinus(group(13)):%normMinuteMinus(group(19))"
+RULENAME="time_r14g",EXTRACTION="[Ss]aat(%rePartOfDayforTime|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*([Dd]akika)?(\s)*(\w+)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normHourMinus(group(6)):%normMinuteMinus(group(12))"
+RULENAME="time_r14h",EXTRACTION="%reAdverb([Ss]aat|%rePartOfDayforTime|(\s)|%reSuffix*|%reAdverb)*%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*([Dd]akika)?(\s)*(\w+)?(\s)*(var|kala)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normHourMinus(group(7)):%normMinuteMinus(group(13))"
+
+
+//r15a: sabah 7'yi çeyrek geçe
+//r15b: bu sabah 7'yi çeyrek geçe
+//r15c: 7'yi çeyrek geçe
+//r15d: yarın 7'yi çeyrek geçe
+//r15e: salı günü sabah 7'yi çeyrek geçe
+//r15f: bu salı sabah 7'yi çeyrek geçe
+//r15g: saat sabah 7'yi çeyrek geçe
+//r15h: neredeyse sabah 7'yi çeyrek geçe
+RULENAME="time_r15a",EXTRACTION="%rePartOfDayforTime%reSuffix*([Ss]aat|%reAdverb|(\s))*%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(6)):%normTimeMinute(group(12))"
+RULENAME="time_r15b",EXTRACTION="%reThisNextLast(\s)*%rePartOfDayforTime%reSuffix*([Ss]aat|%reAdverb|(\s))*%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeMinute(group(8)):%normTimeMinute(group(14))"
+RULENAME="time_r15c",EXTRACTION="%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(1)):%normTimeMinute(group(7))"
+RULENAME="time_r15d",EXTRACTION="%reDateWord(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeMinute(group(7)):%normTimeMinute(group(13))"
+//RULENAME="time_r15d",EXTRACTION="%reDateWord([Ss]aat|%reAdverb|(\s))*%reTimeHour'?reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e)%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeMinute(group(5)):%normTimeMinute(group(11))"
+RULENAME="time_r15e",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?((\w+)?(\s)*(ge[çc][iı]yor|ge[çc]e)%reSuffix*)?",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeMinute(group(11)):%normTimeMinute(group(17))"
+RULENAME="time_r15f",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e)%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeMinute(group(13)):%normTimeMinute(group(19))"
+RULENAME="time_r15g",EXTRACTION="[Ss]aat(%rePartOfDayforTime|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(6)):%normTimeMinute(group(12))"
+RULENAME="time_r15h",EXTRACTION="%reAdverb([Ss]aat|%rePartOfDayforTime|(\s)|%reSuffix*|%reAdverb)*%reTimeHour'?%reSuffix(\s)*(%reAdverb)?(\s)*%reTimeMinute'?%reSuffix*(\s)*(([Dd]akika)?(\s)*(%reTimeMinute(\s)*[Ss]an[iı]ye)?(\s)*(\w+)?(\s)*)?(ge[çc][iı]yor|ge[çc]e)%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(7)):%normTimeMinute(group(13))"
+
+
+
+//r16a: saat tam sabah 7'de
+//r16b: bu sabah 7'de
+//r16c: 7'de
+//r16d: yarın 7'de
+//r16e: salı günü sabah 7'de
+//r16f: bu salı sabah 7'de
+//r16g: sabah 7'de
+//r16h: neredeyse sabah 7'de
+RULENAME="time_r16a",EXTRACTION="[Ss]aat(%rePartOfDayforTime|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(6)):00"
+RULENAME="time_r16b",EXTRACTION="%reThisNextLast(\s)*%rePartOfDayforTime([Ss]aat|%reAdverb|(\s)|%reSuffix*)+%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeMinute(group(8)):00"
+RULENAME="time_r16c",EXTRACTION="%reTimeHour'?(de|da|te|ta)%reTimeSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(1)):00"
+RULENAME="time_r16d",EXTRACTION="%reDateWord(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeMinute(group(7)):00"
+RULENAME="time_r16e",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeMinute(group(11)):00"
+RULENAME="time_r16f",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s))*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeMinute(group(12)):00"
+RULENAME="time_r16g",EXTRACTION="%rePartOfDayforTime%reSuffix*([Ss]aat|%reAdverb|(\s))*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(6)):00"
+RULENAME="time_r16h",EXTRACTION="%reAdverb(%rePartOfDayforTime|[Ss]aat|(\s)|%reSuffix*|%reAdverb)*%reTimeHour'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(7)):00"
+
+
+//r17a: saat tam sabah 7 çeyrekte
+//r17b: bu sabah 7 çeyrekte
+//r17c: 7 çeyrekte
+//r17d: yarın 7 çeyrekte ??
+//r17e: salı günü sabah 7 çeyrekte
+//r17f: bu salı sabah 7 çeyrekte
+//r17g: saat sabah 7 çeyrekte
+//r17h: neredeyse sabah 7 çeyrekte
+RULENAME="time_r17a",EXTRACTION="%rePartOfDayforTime%reSuffix*([Ss]aat|%reAdverb|(\s))*%reTimeHour(\s)+%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(6)):%normTimeMinute(group(8))"
+RULENAME="time_r17b",EXTRACTION="%reThisNextLast(\s)*%rePartOfDayforTime([Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)+%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeMinute(group(8)):%normTimeMinute(group(10))"
+RULENAME="time_r17c",EXTRACTION="%reTimeHour(\s)*%reTimeMinute'?%reSuffix+",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(1)):%normTimeMinute(group(3))"
+RULENAME="time_r17d",EXTRACTION="%reDateWord(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)+%reTimeMinute'?%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeMinute(group(7)):%normTimeMinutegroup(9)"
+RULENAME="time_r17e",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)+%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeMinute(group(11)):%normTimeMinute(group(13))"
+RULENAME="time_r17f",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)+%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeMinute(group(13)):%normTimeMinute(group(15))"
+RULENAME="time_r17g",EXTRACTION="[Ss]aat(%rePartOfDayforTime|%reAdverb|(\s)|%reSuffix*)*%reTimeHour(\s)+%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(6)):%normTimeMinute(group(8))"
+RULENAME="time_r17h",EXTRACTION="%reAdverb([Ss]aat|%rePartOfDayforTime|(\s)|%reSuffix*|%reAdverb)*%reTimeHour(\s)+%reTimeMinute'?%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(7)):%normTimeMinute(group(9))"
+
+
+//r18a: sabah 0732
+//r18b: bu sabah 0732
+//r18c: 0732'de
+//r18d: yarın 0732
+//r18e: salı 0732
+//r18f: bu salı 0732
+//r18g: saat sabah 0732
+//r18h: tam sabah saat 0732
+RULENAME="time_r18a",EXTRACTION="%rePartOfDayforTime%reSuffix*([Ss]aat|%reAdverb|(\s))*%reTimeHour2digit%reTimeMinute2digit%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0Tgroup(6):group(7)"
+RULENAME="time_r18b",EXTRACTION="%reThisNextLast(\s)*%rePartOfDayforTime%reSuffix*([Ss]aat|%reAdverb|(\s))*%reTimeHour2digit%reTimeMinute2digit%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normTimeMinute(group(8)):%normTimeMinute(group(9))"
+RULENAME="time_r18c",EXTRACTION="%reTimeHour2digit%reTimeMinute2digit'?%reSuffix+",NORM_VALUE="UNDEF-REF-day-PLUS-0T%normTimeMinute(group(1)):%normTimeMinute(group(2))"
+RULENAME="time_r18d",EXTRACTION="%reDateWord(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour2digit%reTimeMinute2digit%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normTimeMinute(group(7)):%normTimeMinute(group(8))"
+RULENAME="time_r18e",EXTRACTION="%reWeekday(\s)*(%reDayToken%reSuffix)?(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour2digit%reTimeMinute2digit%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normTimeMinute(group(11)):%normTimeMinute(group(12))"
+RULENAME="time_r18f",EXTRACTION="%reThisNextLast(\s)*%reWeekday(\s)*(%reDayToken%reSuffix)?(%rePartOfDayforTime|[Ss]aat|%reAdverb|(\s)|%reSuffix*)*%reTimeHour2digit%reTimeMinute2digit%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLastDay(group(1))-%normWeekday(group(3))T%normTimeMinute(group(13)):%normTimeMinute(group(14))"
+RULENAME="time_r18g",EXTRACTION="[Ss]aat(%rePartOfDayforTime|%reAdverb|(\s)|%reSuffix*)*%reTimeHour2digit%reTimeMinute2digit%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0Tgroup(6):group(7)"
+RULENAME="time_r18h",EXTRACTION="%reAdverb([Ss]aat|%rePartOfDayforTime|(\s)|%reSuffix*|%reAdverb)*%reTimeHour2digit%reTimeMinute2digit%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-0Tgroup(7):group(8)"
+
+
+//r13a: 2 temmuz geceyarısı
+//r13a: 2 temmuz sabahı
+//r13a: mart ayında sıcak bir sabah
+RULENAME="time_r19a",EXTRACTION="%reDayNumber(\s)*%reMonthName(\s)*[Gg]ece(\s)?yar[iı]s[iı]%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(3))-%normDayNumber(group(1))-T24:00"
+RULENAME="time_r19b",EXTRACTION="%reDayNumber(\s)*%reMonthName(\s)*%rePartOfDay%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(3))-%normDayNumber(group(1))-T%normPartOfDay(group(5))"
+RULENAME="time_r19c",EXTRACTION="%reMonthName'?%reSuffix* (%reMonthToken%reSuffix* )?((\S)* )?([Bb][iı]r )?%rePartOfDay%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(1))-XXT%normPartOfDay(group(9))"
+
+//r20a: 2 sabah önce
+//r20b: iki sabah önce
+//r20c: 2 sabah sonra
+//r20d: iki sabah sonra
+RULENAME="time_r20a",EXTRACTION="([\d]+)(\s)*%rePartOfDay(\s)*([OoÖö]nce|[Ee]vvel)%reSuffix*",NORM_VALUE="UNDEF-REF-day-MINUS-group(1)T%normPartOfDay(group(3))"
+RULENAME="time_r20b",EXTRACTION="%reNumber(\s)*%rePartOfDay ([OoÖö]nce|[Ee]vvel)%reSuffix*",NORM_VALUE="UNDEF-REF-day-MINUS-%normNumber(group(1))T%normPartOfDay(group(3))"
+RULENAME="time_r20c",EXTRACTION="([\d]+)(\s)*%rePartOfDay(\s)*[Ss]onra%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-group(1)T%normPartOfDay(group(3))"
+RULENAME="time_r20d",EXTRACTION="%reNumber(\s)*%rePartOfDay [Ss]onra%reSuffix*",NORM_VALUE="UNDEF-REF-day-PLUS-%normNumber(group(1))T%normPartOfDay(group(3))"
+
+
+//r21a: yılın son sabahı
+//r21b: yılın ilk sabahı
+//r21c: mart ayının son gecesi
+//r21d: ayın ilk akşamı
+//r21e: mart ayının ilk sabahı
+//r21f: ayın son gecesi
+//r21g: 2020 yılının ilk gecesi
+//r21h: 2020 yılının son gecesi
+RULENAME="time_r21a",EXTRACTION="%reYearToken%reSuffix*(\s)*[Ss]on(\s)*%rePartOfDay%reSuffix*",NORM_VALUE="UNDEF-year-12-31T%normPartOfDay(group(5))"
+RULENAME="time_r21b",EXTRACTION="%reYearToken%reSuffix*(\s)*[İIiı]lk(\s)*%rePartOfDay%reSuffix*",NORM_VALUE="UNDEF-year-01-01T%normPartOfDay(group(5))"
+RULENAME="time_r21c",EXTRACTION="%reMonthName'?%reSuffix*(\s)*([Aa]y%reSuffix*)?(\s)*[Iıİi]lk(\s)*%rePartOfDay%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(1))-01T%normPartOfDay(group(8))"
+RULENAME="time_r21d",EXTRACTION="%reMonthToken%reSuffix*(\s)*[Iıİi]lk(\s)*%rePartOfDay%reSuffix*",NORM_VALUE="UNDEF-this-month-01T%normPartOfDay(group(5))"
+RULENAME="time_r21e",EXTRACTION="%reMonthName'?%reSuffix*(\s)*([Aa]y%reSuffix*)?(\s)*[Ss]on(\s)*%rePartOfDay%reSuffix*",NORM_VALUE="UNDEF-year-%normMonthName(group(1))-%normMonthLong(group(1))T%normPartOfDay(group(8))"
+RULENAME="time_r21f",EXTRACTION="%reMonthToken%reSuffix*(\s)*[Ss]on(\s)*%rePartOfDay%reSuffix*",NORM_VALUE="UNDEF-this-month-30T%normPartOfDay(group(5))"
+RULENAME="time_r21g",EXTRACTION="%reYear4Digit(\s)*%reYearToken%reSuffix*(\s)*[Ss]on(\s)*%rePartOfDay%reSuffix*",NORM_VALUE="UNDEF-year-12-31T%normPartOfDay(group(7))"
+RULENAME="time_r21h",EXTRACTION="%reYear4Digit(\s)*%reYearToken%reSuffix*(\s)*[İIiı]lk(\s)*%rePartOfDay%reSuffix*",NORM_VALUE="UNDEF-year-01-01T%normPartOfDay(group(7))"
+
+
+//r22a: gece yarısında
+//r22b: bir sabah
+//r22c: sabah vakti
+//r22d: salı sabahı
+//r22e: yarın sabah
+//r22f: bu sabah
+//r22g: öğlen yemeği vakti
+//r22h: sabah kahvaltısı
+//r22i: birsabah
+RULENAME="time_r22a",EXTRACTION="[Gg]ece(\s)?yar[iı]s[iı]%reSuffix*",NORM_VALUE="UNDEF-this-day-T24:00"
+RULENAME="time_r22b",EXTRACTION="[Bb][iı]r %rePartOfDay%reSuffix*",NORM_VALUE="UNDEF-this-month-XXT%normPartOfDay(group(1))"
+RULENAME="time_r22c",EXTRACTION="%rePartOfDay%reSuffix*((\s)*%reTimeToken|(\s)*%reAdverb)?",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(1))"
+RULENAME="time_r22d",EXTRACTION="%reWeekday%reSuffix* %rePartOfDay%reSuffix*",NORM_VALUE="UNDEF-day-%normWeekday(group(1))T%normPartOfDay(group(3))"
+RULENAME="time_r22e",EXTRACTION="%reDateWord%reSuffix? %rePartOfDay%reSuffix*",NORM_VALUE="%normDateWord(group(1))T%normPartOfDay(group(3))"
+RULENAME="time_r22f",EXTRACTION="%reThisNextLast %rePartOfDay%reSuffix*",NORM_VALUE="UNDEF-%normThisNextLast(group(1))-dayT%normPartOfDay(group(2))"
+RULENAME="time_r22g",EXTRACTION="%rePartOfDay%reSuffix?(\s)*[Yy]eme[kğ]%reSuffix+((\s)*%reTimeToken%reSuffix*)?",NORM_VALUE="UNDEF-this-dayT%normPartOfDay(group(1))"
+RULENAME="time_r22h",EXTRACTION="(%rePartOfDay%reSuffix?(\s)*)?[Kk]ahvalt[iı]%reSuffix*((\s)*%reTimeToken%reSuffix*)?",NORM_VALUE="UNDEF-this-dayTMO"
+RULENAME="time_r22i",EXTRACTION="[Bb][iı]r%rePartOfDay%reSuffix*",NORM_VALUE="UNDEF-this-month-XXT%normPartOfDay(group(1))"

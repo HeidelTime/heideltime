@@ -1,0 +1,23 @@
+"[Oo]ca[kgğ]","01-00 funcDateCalc(WeekdayRelativeTo(YEAR-02-01, 6, -1, false))"
+
+"[ŞşSs]ubat","02-00 funcDateCalc(WeekdayRelativeTo(YEAR-03-01, 6, -1, false))"
+
+"[Mm]art","03-00 funcDateCalc(WeekdayRelativeTo(YEAR-04-01, 6, -1, false))"
+
+"[Nn][iı]san","04-00 funcDateCalc(WeekdayRelativeTo(YEAR-05-01, 6, -1, false))"
+
+"[Mm]ay[ıi]s","05-00 funcDateCalc(WeekdayRelativeTo(YEAR-06-01, 6, -1, false))"
+
+"[Hh]az[iı]ran","06-00 funcDateCalc(WeekdayRelativeTo(YEAR-07-01, 6, -1, false))"
+
+"[Tt]emmuz","07-00 funcDateCalc(WeekdayRelativeTo(YEAR-08-01, 6, -1, false))"
+
+"[Aa][ğg]ustos","08-00 funcDateCalc(WeekdayRelativeTo(YEAR-09-01, 6, -1, false))"
+
+"[Ee]yl[üu]l","09-00 funcDateCalc(WeekdayRelativeTo(YEAR-10-01, 6, -1, false))"
+
+"[Ee]k[iı]m","10-00 funcDateCalc(WeekdayRelativeTo(YEAR-11-01, 6, -1, false))"
+
+"[Kk]as[ıi]m","11-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-01, 6, -1, false))"
+
+"[Aa]ral[ıi][kgğ]","12-00 funcDateCalc(WeekdayRelativeTo(YEAR-12-01, 6, 4, true))"

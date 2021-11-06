@@ -1,6 +1,0 @@
-// author: Annika Boldt
-// email:  aboldt@uni-heidelberg.de
-// date:   2014-12-10
-// This file contains regular expression patterns for POS tags indicating present or future.
-// FORMAT: one line is one disjunction of the pattern
-//V.(main|aux|mod).(cond|partic|quot|indic|imper).(pres).*

@@ -1,0 +1,75 @@
+"1.","UNDEF-this-day"
+"[Bb][iı]r[iı]nc[iı]","UNDEF-this-day"
+"[Iİıi]lk","UNDEF-this-day"
+
+"2.","UNDEF-this-day-PLUS-1"
+"[İIiı]k[iı]nc[iı]","UNDEF-this-day-PLUS-1"
+
+"3.","UNDEF-this-day-PLUS-2"
+"[ÜUüu][çc][üu]nc[üu]","UNDEF-this-day-PLUS-2"
+
+"4.","UNDEF-this-day-PLUS-3"
+"[Dd][öo]rd[üu]nc[üu]","UNDEF-this-day-PLUS-3"
+
+"5.","UNDEF-this-day-PLUS-4"
+"[Bb]e[şs][iı]nc[iı]","UNDEF-this-day-PLUS-4"
+
+"6.","UNDEF-this-day-PLUS-5"
+"[Aa]lt[iı]nc[iı]","UNDEF-this-day-PLUS-5"
+
+"7.","UNDEF-this-day-PLUS-6"
+"[Yy]ed[iı]nc[iı]","UNDEF-this-day-PLUS-6"
+
+"8.","UNDEF-this-day-PLUS-7"
+"[Ss]ek[iı]z[iı]nc[iı]","UNDEF-this-day-PLUS-7"
+
+"9.","UNDEF-this-day-PLUS-8"
+"[Dd]okuzuncu","UNDEF-this-day-PLUS-8"
+
+"10.","UNDEF-this-day-PLUS-9"
+"[Oo]nuncu","UNDEF-this-day-PLUS-9"
+
+"11.","UNDEF-this-day-PLUS-10"
+"[Oo]n [Bb][iı]r[iı]nc[iı]","UNDEF-this-day-PLUS-10"
+
+"12.","UNDEF-this-day-PLUS-11"
+"[Oo]n [İIiı]k[iı]nc[iı]","UNDEF-this-day-PLUS-11"
+
+"13.","UNDEF-this-day-PLUS-12"
+"[Oo]n [ÜUüu][çc][üu]nc[üu]","UNDEF-this-day-PLUS-12"
+
+"14.","UNDEF-this-day-PLUS-13"
+"[Oo]n [Dd][öo]rd[üu]nc[üu]","UNDEF-this-day-PLUS-13"
+
+"15.","UNDEF-this-day-PLUS-14"
+"[Oo]n [Bb]e[şs][iı]nc[iı]","UNDEF-this-day-PLUS-14"
+
+"16.","UNDEF-this-day-PLUS-15"
+"[Oo]n [Aa]lt[iı]nc[iı]","UNDEF-this-day-PLUS-15"
+
+"17.","UNDEF-this-day-PLUS-16"
+"[Oo]n [Yy]ed[iı]nc[iı]","UNDEF-this-day-PLUS-16"
+
+"18.","UNDEF-this-day-PLUS-17"
+"[Oo]n [Ss]ek[iı]z[iı]nc[iı]","UNDEF-this-day-PLUS-17"
+
+"19.","UNDEF-this-day-PLUS-18"
+"[Oo]n [Dd]okuzuncu","UNDEF-this-day-PLUS-18"
+
+"20.","UNDEF-this-day-PLUS-19"
+"[Yy][iı]rm[iı]nc[iı]","UNDEF-this-day-PLUS-19"
+
+"21.","UNDEF-this-day-PLUS-20"
+"[Yy][iı]rm[iı] [Bb][iı]r[iı]nc[iı]","UNDEF-this-day-PLUS-20"
+
+"22.","UNDEF-this-day-PLUS-21"
+"[Yy][iı]rm[iı] [İIiı]k[iı]nc[iı]","UNDEF-this-day-PLUS-21"
+
+"23.","UNDEF-this-day-PLUS-22"
+"[Yy][iı]rm[iı] [ÜUüu][çc][üu]nc[üu]","UNDEF-this-day-PLUS-22"
+
+"24.","UNDEF-this-day-PLUS-23"
+"[Yy][iı]rm[iı] [Dd][öo]rd[üu]nc[üu]","UNDEF-this-day-PLUS-23"
+
+"25.","UNDEF-this-day-PLUS-24"
+"[Yy][iı]rm[iı] [Bb]e[şs][iı]nc[iı]","UNDEF-this-day-PLUS-24"

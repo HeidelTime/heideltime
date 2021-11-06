@@ -1,0 +1,13 @@
+"[Pp]azartes[iı]","monday"
+
+"[Ss]al[ıi]","tuesday"
+
+"[ÇCcç]ar[şs]amba","wednesday"
+
+"[Pp]er[şs]embe","thursday"
+
+"[Cc]uma","friday"
+
+"[Cc]umartesi","saturday"
+
+"[Pp]azar","sunday"
